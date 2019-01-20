@@ -45,7 +45,7 @@
                                     <ul class="nav child_menu" style="">
                                         <li><a href="#">장학금 심사</a></li>
                                         <li><a href="#">장학금 등록</a></li>
-                                        <li><a href="#">3</a></li>
+                                        <li><a href="#">장학금 예산</a></li>
                                         <li><a href="#">4</a></li>
                                         <li><a href="#">5</a></li>
                                         <li><a href="#">6</a></li>
@@ -65,7 +65,7 @@
                                     <ul class="nav child_menu" style="">
                                         <li><a href="#">교직원 급여관리</a></li>
                                         <li><a href="#">시간제 강사 급여관리</a></li>
-                                        <li><a href="#">장학금 수혜현황</a></li>
+                                        <li><a href="#">3</a></li>
                                         <li><a href="#">4</a></li>
                                         <li><a href="#">5</a></li>
                                         <li><a href="#">6</a></li>

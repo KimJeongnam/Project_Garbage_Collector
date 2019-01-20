@@ -24,4 +24,30 @@ public class TestController {
 	public String tables() {
 		return "tables";
 	}
+	
+	//장학 신청 심사
+	@RequestMapping("judge")
+	public String janghak() {
+		System.out.println("장학 심사");
+		
+		return "judge";
+	}
+	
+	//장학 등록
+	@RequestMapping("scholarship/registration")
+	public String registration() {
+		System.out.println("장학 등록");
+		
+		return "scholarship/registration";
+	}
+	
+	//장학 예산
+	@RequestMapping("scholarship/budget")
+	public String budget() {
+		System.out.println("장학 예산");
+		
+		return "scholarship/budget";
+	}
+	
+	
 }

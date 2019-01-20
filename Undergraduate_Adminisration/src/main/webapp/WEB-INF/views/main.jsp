@@ -69,9 +69,9 @@
                                 </li>
                                 <li><a><i class="fa fa-desktop"></i> 장학관리 <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu" style="">
-                                        <li><a href="#">장학금 심사</a></li>
-                                        <li><a href="#">장학금 등록</a></li>
-                                        <li><a href="#">3</a></li>
+                                        <li><a href="../scholarship/janghak">장학금 심사</a></li>
+                                        <li><a href="../scholarship/registration">장학금 등록</a></li>
+                                        <li><a href="../scholarship/registration">장학금 예산</a></li>
                                         <li><a href="#">4</a></li>
                                         <li><a href="#">5</a></li>
                                         <li><a href="#">6</a></li>
