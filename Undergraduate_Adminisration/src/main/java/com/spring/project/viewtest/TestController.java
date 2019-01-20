@@ -12,7 +12,8 @@ public class TestController {
 	
 	@RequestMapping("test/logout")
 	public String logout() {
-		return "redirect:/login";
+
+		return "redirect:/test/login";
 	}
 	
 	@RequestMapping(value={"test/index", "/"})
@@ -20,8 +21,8 @@ public class TestController {
 		return "index";
 	}
 	
-	@RequestMapping("test/chiho")
-	public String chiho() {
-		return "index2";
+	@RequestMapping("test/tables")
+	public String tables() {
+		return "tables";
 	}
 }
