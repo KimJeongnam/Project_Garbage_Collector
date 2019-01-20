@@ -33,48 +33,36 @@
 
                                 <li class=""><a><i class="fa fa-graduation-cap"></i>학사관리<span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu" style="display: none;">
-                                        <li><a href="#">수업업무</a></li>
+                                        <li><a href="menu1">수업업무</a></li>
                                         <li><a href="#">성적업무</a></li>
-                                        <li><a href="#">교직업무</a></li>
-                                        <li><a href="#">4</a></li>
-                                        <li><a href="#">5</a></li>
-                                        <li><a href="#">6</a></li>
+                                        <li><a href="menu2">교직업무</a></li>
                                     </ul>
                                 </li>
                                 <li><a><i class="fa fa-desktop"></i> 장학관리 <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu" style="">
                                         <li><a href="#">장학금 심사</a></li>
                                         <li><a href="#">장학금 등록</a></li>
-                                        <li><a href="#">3</a></li>
-                                        <li><a href="#">4</a></li>
-                                        <li><a href="#">5</a></li>
-                                        <li><a href="#">6</a></li>
                                     </ul>
                                 </li>
                                 <li><a><i class="fa fa-users"></i> 인사관리<span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu" style="">
-                                        <li><a href="#">정보조회</a></li>
-                                        <li><a href="#">교직원 관리</a></li>
-                                        <li><a href="#">학적 관리</a></li>
-                                        <li><a href="#">시간제 강사 관리</a></li>
-                                        <li><a href="#">5</a></li>
-                                        <li><a href="#">6</a></li>
+                                        <li><a href="menu3">정보조회</a></li>
+                                        <li><a href="menu4">교직원 관리</a></li>
+                                        <li><a href="menu7">학적 관리</a></li>
+                                        <li><a href="menu4">시간제 강사 관리</a></li>
                                     </ul>
                                 </li>
                                 <li><a><i class="fa fa-bar-chart-o"></i> 회계관리<span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu" style="">
-                                        <li><a href="#">교직원 급여관리</a></li>
-                                        <li><a href="#">시간제 강사 급여관리</a></li>
+                                        <li><a href="menu5">교직원 급여관리</a></li>
+                                        <li><a href="menu6">시간제 강사 급여관리</a></li>
                                         <li><a href="#">장학금 수혜현황</a></li>
-                                        <li><a href="#">4</a></li>
-                                        <li><a href="#">5</a></li>
-                                        <li><a href="#">6</a></li>
                                     </ul>
                                 </li>
 
                             </ul>
                         </div>
-                        <div class="menu_section">
+                   <!--      <div class="menu_section">
                             <h3>여긴 무슨 메뉴인가?</h3>
                             <ul class="nav side-menu">
                                 <li><a><i class="fa fa-bug"></i> 메뉴2 <span class="fa fa-chevron-down"></span></a>
@@ -100,7 +88,7 @@
 
 
                             </ul>
-                        </div>
+                        </div> -->
 
                     </div>
                     <!-- /sidebar menu -->
