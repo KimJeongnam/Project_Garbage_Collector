@@ -12,11 +12,16 @@ public class TestController {
 	
 	@RequestMapping("test/logout")
 	public String logout() {
-		return "redirect:login";
+		return "redirect:/test/login";
 	}
 	
 	@RequestMapping(value={"test/index", "/"})
 	public String index() {
 		return "index";
+	}
+	
+	@RequestMapping("test/tables")
+	public String tables() {
+		return "tables";
 	}
 }
