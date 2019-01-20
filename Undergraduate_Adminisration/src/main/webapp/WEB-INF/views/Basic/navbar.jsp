@@ -56,8 +56,7 @@
                                         <li><a href="#">정보조회</a></li>
                                         <li><a href="#">교직원 관리</a></li>
                                         <li><a href="#">학적 관리</a></li>
-                                        <li><a href="#">시간제 강사 관리</a></li>
-                                        <li><a href="#">5</a></li>
+                                        <li><a href="#">학생 관리</a></li>
                                         <li><a href="#">6</a></li>
                                     </ul>
                                 </li>
@@ -74,7 +73,7 @@
 
                             </ul>
                         </div>
-                        <div class="menu_section">
+                        <!-- <div class="menu_section">
                             <h3>여긴 무슨 메뉴인가?</h3>
                             <ul class="nav side-menu">
                                 <li><a><i class="fa fa-bug"></i> 메뉴2 <span class="fa fa-chevron-down"></span></a>
@@ -100,7 +99,7 @@
 
 
                             </ul>
-                        </div>
+                        </div> -->
 
                     </div>
                     <!-- /sidebar menu -->
