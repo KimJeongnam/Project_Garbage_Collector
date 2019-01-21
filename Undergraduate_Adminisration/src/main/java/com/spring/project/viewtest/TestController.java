@@ -94,5 +94,15 @@ public class TestController {
 		
 		return "menu11";
 	}
+	@RequestMapping("menu12")
+	public String menu12() {
+		
+		return "menu12";
+	}
+	@RequestMapping("menu13")
+	public String menu13() {
+		
+		return "menu13";
+	}
 	
 }
