@@ -36,12 +36,19 @@
                                         <li><a>수업업무<span class="fa fa-chevron-down"></span></a>
                        					   <ul class="nav child_menu">
                             				<li class="sub_menu">
-                            				<a href="menu1">학과조회</a></li>
-                            				<li><a href="menu9">학과등록</a></li>
+                            				<a href="#">수강 신청 관리</a></li>
                           				   </ul>
                         				</li>
                                         <li><a href="menu10">성적업무</a></li>
-                                        <li><a href="menu2">교직업무</a></li>
+                                        <!-- <li><a href="menu2">교직업무</a></li> -->
+                                        <li><a>교직업무<span class="fa fa-chevron-down"></span></a>
+                       					   <ul class="nav child_menu">
+	                            				<li class="sub_menu">
+	                            					<a href="${contextPath }/majorManage">학과 관리</a>
+	                            				</li>
+	                            				<li><a href="${contextPath }/leactureManage">강의 관리</a></li>
+                          				   </ul>
+                        				</li>
                                     </ul>
                                 </li>
                                 <li><a><i class="fa fa-desktop"></i> 장학관리 <span class="fa fa-chevron-down"></span></a>

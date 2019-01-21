@@ -29,10 +29,15 @@ public class TestController {
 		return "tables";
 	}
 	
-	@RequestMapping("menu1")
-	public String menu1() {
+	@RequestMapping("majorManage")
+	public String majorManage() {
 		
-		return "menu1";
+		return "majorManage";
+	}
+	
+	@RequestMapping("leactureManage")
+	public String leactureManage() {
+		return "leactureManage";
 	}
 	
 	@RequestMapping("menu2")
