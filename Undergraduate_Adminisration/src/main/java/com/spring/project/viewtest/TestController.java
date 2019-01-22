@@ -29,10 +29,39 @@ public class TestController {
 		return "tables";
 	}
 	
-	@RequestMapping("menu1")
-	public String menu1() {
+	//장학 신청 심사
+	@RequestMapping("judge")
+	public String janghak() {
+		System.out.println("장학 심사");
 		
-		return "menu1";
+		return "judge";
+	}
+	
+	//장학 등록
+	@RequestMapping("registration")
+	public String registration() {
+		System.out.println("장학 등록");
+		
+		return "registration";
+	}
+	
+	//장학 예산
+	@RequestMapping("budget")
+	public String budget() {
+		System.out.println("장학 예산");
+		
+		return "budget";
+	}
+	
+	@RequestMapping("majorManage")
+	public String majorManage() {
+		
+		return "majorManage";
+	}
+	
+	@RequestMapping("leactureManage")
+	public String leactureManage() {
+		return "leactureManage";
 	}
 	
 	@RequestMapping("menu2")
@@ -93,6 +122,16 @@ public class TestController {
 	public String menu11() {
 		
 		return "menu11";
+	}
+	@RequestMapping("menu12")
+	public String menu12() {
+		
+		return "menu12";
+	}
+	@RequestMapping("menu13")
+	public String menu13() {
+		
+		return "menu13";
 	}
 	
 }
