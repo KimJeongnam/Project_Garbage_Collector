@@ -39,7 +39,7 @@
                             				<a href="#">수강 신청 관리</a></li>
                           				   </ul>
                         				</li>
-                                        <li><a href="menu10">성적업무</a></li>
+                                        <li><a href="#">성적업무</a></li>
                                         <!-- <li><a href="menu2">교직업무</a></li> -->
                                         <li><a>교직업무<span class="fa fa-chevron-down"></span></a>
                        					   <ul class="nav child_menu">
@@ -68,7 +68,7 @@
                                     <ul class="nav child_menu" style="">
                                         <li><a href="menu5">교직원 급여관리</a></li>
                                         <li><a href="menu6">시간제 강사 급여관리</a></li>
-                                        <li><a href="menu13">장학금 수혜현황</a></li>
+                                        <li><a href="#">장학금 수혜현황</a></li>
                                     </ul>
                                 </li>
 
