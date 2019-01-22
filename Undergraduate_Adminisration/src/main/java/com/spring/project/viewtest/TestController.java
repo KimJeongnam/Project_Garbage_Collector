@@ -82,7 +82,7 @@ public class TestController {
 	}
 	
 	@RequestMapping("proInsert")
-	public String menu5() {
+	public String proInsert() {
 		
 		return "proInsert";
 	}
@@ -93,38 +93,21 @@ public class TestController {
 		return "empStdManagement";
 	}
 	
+	@RequestMapping("menu5")
+	public String menu5() {
+		
+		return "menu5";
+	}
+	
+	@RequestMapping("menu6")
+	public String menu6() {
+		
+		return "menu6";
+	}
+	
 	@RequestMapping("menu7")
 	public String menu7() {
 		
 		return "menu7";
 	}
-
-	@RequestMapping("menu9")
-	public String menu9() {
-		
-		return "menu9";
-	}
-	
-	@RequestMapping("menu10")
-	public String menu10() {
-		
-		return "menu10";
-	}
-	
-	@RequestMapping("menu11")
-	public String menu11() {
-		
-		return "menu11";
-	}
-	@RequestMapping("menu12")
-	public String menu12() {
-		
-		return "menu12";
-	}
-	@RequestMapping("menu13")
-	public String menu13() {
-		
-		return "menu13";
-	}
-	
 }
