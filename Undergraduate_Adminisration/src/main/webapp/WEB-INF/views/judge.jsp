@@ -26,7 +26,7 @@
 					                             <div class="controls">
 					                               <div class="input-prepend input-group">
 					                                 <span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
-					                                 <input type="text" style="width: 200px" name="reservation" id="reservation" class="form-control" value="01/01/2016 - 01/25/2016" />
+					                                 <input type="text" style="width: 200px" name="reservation" id="reservation" class="form-control" value="01/01/2019 - 01/25/2019" />
 					                               </div>
 					                             </div>
 					                           </div>
@@ -96,7 +96,9 @@
             
 	<%@ include file="Basic/footer.jsp" %>
     
-    
+    <script type="text/javascript">
+		<%@ include file="Basic/datePickerJS.jsp"%>
+	</script>
 	
 </body>
 </html>

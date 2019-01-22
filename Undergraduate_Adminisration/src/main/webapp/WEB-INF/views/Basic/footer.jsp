@@ -1,5 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+            
+            <!-- Show the cropped image in modal -->
+			<div class="modal fade docs-cropped" id="getCroppedCanvasModal" aria-hidden="true" aria-labelledby="getCroppedCanvasTitle" role="dialog" tabindex="-1">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 class="modal-title" id="getCroppedCanvasTitle">Cropped</h4>
+						</div>
+						<div class="modal-body"></div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							<a class="btn btn-primary" id="download" href="javascript:void(0);" download="cropped.png">Download</a>
+						</div>
+					</div>
+				</div>
+			</div><!-- /.modal -->
+            
             <!-- footer content -->
             <footer>
                 <div class="pull-right">
@@ -21,6 +39,23 @@
     <script src="/project/resources/vendors/nprogress/nprogress.js"></script>
     <!-- iCheck -->
     <script src="/project/resources/vendors/iCheck/icheck.min.js"></script>
+    
+    <!-- bootstrap-daterangepicker -->
+    <script src="/project/resources/vendors/moment/min/moment.min.js"></script>
+    <script src="/project/resources/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- bootstrap-datetimepicker -->
+    <script src="/project/resources/vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+    <!-- Ion.RangeSlider -->
+    <script src="/project/resources/vendors/ion.rangeSlider/js/ion.rangeSlider.min.js"></script>
+    <!-- Bootstrap Colorpicker -->
+    <script src="/project/resources/vendors/mjolnic-bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
+    <!-- jquery.inputmask -->
+    <script src="/project/resources/vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
+    <!-- jQuery Knob -->
+    <script src="/project/resources/vendors/jquery-knob/dist/jquery.knob.min.js"></script>
+    <!-- Cropper -->
+    <script src="/project/resources/vendors/cropper/dist/cropper.min.js"></script>
+    
     <!-- Datatables -->
     <script src="/project/resources/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="/project/resources/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
