@@ -46,8 +46,8 @@
                                 </li>
                                 <li><a><i class="fa fa-users"></i> 인사관리<span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu" style="">
-                                        <li><a href="menu3">정보조회</a></li>
-                                        <li><a href="menu4">교직원 관리</a></li>
+                                        <li><a href="infoSearch">정보조회</a></li>
+                                        <li><a href="facultyManage">교직원 관리</a></li>
                                         <li><a href="menu7">학적 관리</a></li>
                                         <li><a href="#">학생 관리</a></li>
                                     </ul>

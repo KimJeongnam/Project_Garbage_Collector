@@ -47,22 +47,22 @@ public class TestController {
 		return "menu3";
 	}
 	
-	@RequestMapping("menu4")
-	public String menu4() {
+	@RequestMapping("facultyManage")
+	public String facultyManage() {
 		
-		return "menu4";
+		return "facultyManage";
 	}
 	
-	@RequestMapping("menu5")
+	@RequestMapping("proInsert")
 	public String menu5() {
 		
-		return "menu5";
+		return "proInsert";
 	}
 	
-	@RequestMapping("menu6")
-	public String menu6() {
+	@RequestMapping("infoSearch")
+	public String infoSearch() {
 		
-		return "menu6";
+		return "infoSearch";
 	}
 	
 	@RequestMapping("menu7")
