@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<!-- FastClick -->
-    <script src="../vendors/fastclick/lib/fastclick.js"></script>
+    <script src="/project/resources/vendors/fastclick/lib/fastclick.js"></script>
 	
     <!-- Bootstrap -->
     <link href="/project/resources/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">

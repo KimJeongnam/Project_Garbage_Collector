@@ -33,8 +33,6 @@
     <script src="/project/resources/vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
     <script src="/project/resources/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- FastClick -->
-    <script src="/project/resources/vendors/fastclick/lib/fastclick.js"></script>
     <!-- NProgress -->
     <script src="/project/resources/vendors/nprogress/nprogress.js"></script>
     <!-- iCheck -->

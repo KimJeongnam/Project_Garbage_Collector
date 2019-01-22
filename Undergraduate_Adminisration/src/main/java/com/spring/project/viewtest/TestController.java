@@ -53,15 +53,14 @@ public class TestController {
 		return "budget";
 	}
 	
-	@RequestMapping("majorManage")
-	public String majorManage() {
-		
-		return "majorManage";
+	@RequestMapping("/majorLectureManagement")
+	public String majorLectureManagement() {
+		return "majorLectureManagement";
 	}
 	
-	@RequestMapping("leactureManage")
-	public String leactureManage() {
-		return "leactureManage";
+	@RequestMapping("/openMajorAdd")
+	public String openMajorAdd() {
+		return "openMajorAdd";
 	}
 	
 	@RequestMapping("menu2")
@@ -88,10 +87,10 @@ public class TestController {
 		return "proInsert";
 	}
 	
-	@RequestMapping("infoSearch")
-	public String infoSearch() {
+	@RequestMapping("empStdManagement")
+	public String empStdManagement() {
 		
-		return "infoSearch";
+		return "empStdManagement";
 	}
 	
 	@RequestMapping("menu7")
@@ -99,13 +98,7 @@ public class TestController {
 		
 		return "menu7";
 	}
-	
-	@RequestMapping("menu8")
-	public String menu8() {
-		
-		return "menu8";
-	}
-	
+
 	@RequestMapping("menu9")
 	public String menu9() {
 		
