@@ -29,10 +29,38 @@ public class TestController {
 		return "tables";
 	}
 	
-	@RequestMapping("menu1")
-	public String menu1() {
+	//장학 신청 심사
+	@RequestMapping("judge")
+	public String janghak() {
+		System.out.println("장학 심사");
 		
-		return "menu1";
+		return "judge";
+	}
+	
+	//장학 등록
+	@RequestMapping("registration")
+	public String registration() {
+		System.out.println("장학 등록");
+		
+		return "registration";
+	}
+	
+	//장학 예산
+	@RequestMapping("budget")
+	public String budget() {
+		System.out.println("장학 예산");
+		
+		return "budget";
+	}
+	
+	@RequestMapping("/majorLectureManagement")
+	public String majorLectureManagement() {
+		return "majorLectureManagement";
+	}
+	
+	@RequestMapping("/openMajorAdd")
+	public String openMajorAdd() {
+		return "openMajorAdd";
 	}
 	
 	@RequestMapping("menu2")
@@ -47,22 +75,22 @@ public class TestController {
 		return "menu3";
 	}
 	
-	@RequestMapping("menu4")
-	public String menu4() {
+	@RequestMapping("facultyManage")
+	public String facultyManage() {
 		
-		return "menu4";
+		return "facultyManage";
 	}
 	
-	@RequestMapping("menu5")
+	@RequestMapping("proInsert")
 	public String menu5() {
 		
-		return "menu5";
+		return "proInsert";
 	}
 	
-	@RequestMapping("menu6")
-	public String menu6() {
+	@RequestMapping("empStdManagement")
+	public String empStdManagement() {
 		
-		return "menu6";
+		return "empStdManagement";
 	}
 	
 	@RequestMapping("menu7")
@@ -70,13 +98,7 @@ public class TestController {
 		
 		return "menu7";
 	}
-	
-	@RequestMapping("menu8")
-	public String menu8() {
-		
-		return "menu8";
-	}
-	
+
 	@RequestMapping("menu9")
 	public String menu9() {
 		
@@ -93,6 +115,16 @@ public class TestController {
 	public String menu11() {
 		
 		return "menu11";
+	}
+	@RequestMapping("menu12")
+	public String menu12() {
+		
+		return "menu12";
+	}
+	@RequestMapping("menu13")
+	public String menu13() {
+		
+		return "menu13";
 	}
 	
 }
