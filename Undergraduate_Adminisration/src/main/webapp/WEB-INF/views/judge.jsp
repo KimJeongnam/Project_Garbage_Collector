@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 	<%@ include file="Basic/settings.jsp" %>
 <title>Insert title here</title>
+
 </head>
 <body class="nav-md">
 	<%@ include file="Basic/navbar.jsp" %>
@@ -17,26 +18,22 @@
                         <div class="title_left">
 						<h2>장학금 심사</h2>
 									<div style="width: 1400px;">
-									년<select>
-										<option value=""></option>
-									</select>
-									월<select>
-										<option value=""></option>
-									</select>
-									일<select>
-										<option value=""></option>
-									</select>
-									~
-									
-									년<select>
-										<option value=""></option>
-									</select>
-									월<select>
-										<option value=""></option>
-									</select>
-									일<select>
-										<option value=""></option>
-									</select>
+										<div class="col-md-4">
+					                       Date Range Picker
+					                       <form class="form-horizontal">
+					                         <fieldset>
+					                           <div class="control-group">
+					                             <div class="controls">
+					                               <div class="input-prepend input-group">
+					                                 <span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+					                                 <input type="text" style="width: 200px" name="reservation" id="reservation" class="form-control" value="01/01/2016 - 01/25/2016" />
+					                               </div>
+					                             </div>
+					                           </div>
+					                         </fieldset>
+					                       </form>
+					                     </div>
+					                    
 										<table class="table">
 											<tr id="a" >
 												<td style ="width:10%">
@@ -90,6 +87,7 @@
 											
 										</table>
 									</div>
+								
                         </div>
                     </div>
                 </div>
@@ -97,11 +95,8 @@
             <!-- /page content -->
             
 	<%@ include file="Basic/footer.jsp" %>
+    
+    
 	
-	<script type="text/javascript">
-		$(function (){
-			
-		});
-	</script>
 </body>
 </html>

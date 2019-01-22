@@ -34,19 +34,19 @@ public class TestController {
 	}
 	
 	//장학 등록
-	@RequestMapping("scholarship/registration")
+	@RequestMapping("registration")
 	public String registration() {
 		System.out.println("장학 등록");
 		
-		return "scholarship/registration";
+		return "registration";
 	}
 	
 	//장학 예산
-	@RequestMapping("scholarship/budget")
+	@RequestMapping("budget")
 	public String budget() {
 		System.out.println("장학 예산");
 		
-		return "scholarship/budget";
+		return "budget";
 	}
 	
 	

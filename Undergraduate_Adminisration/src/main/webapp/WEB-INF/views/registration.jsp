@@ -15,81 +15,46 @@
                 <div class="">
                     <div class="page-title">
                         <div class="title_left">
-						<h2>장학금 심사</h2>
-									<div style="width: 1400px;">
-									년<select>
-										<option value=""></option>
-									</select>
-									월<select>
-										<option value=""></option>
-									</select>
-									일<select>
-										<option value=""></option>
-									</select>
-									~
-									
-									년<select>
-										<option value=""></option>
-									</select>
-									월<select>
-										<option value=""></option>
-									</select>
-									일<select>
-										<option value=""></option>
-									</select>
-										<table class="table">
-											<tr id="a" >
-												<td style ="width:10%">
-													학생명
-												</td>
-												<td style ="width:10%">
-													학년
-												</td>
-												<td style ="width:10%">
-													학기
-												</td>
-												<td style ="width:20%">
-													장학금명
-												</td>
-												<td style ="width:20%">
-													장학금 금액
-												</td>
-												<td style ="width:20%">
-													지급 일자
-												</td>
-												
-												<td style ="width:10%">
-													합/불 여부
-												</td> <!-- 불합격시 사유 e-mail 통보   -->
-											</tr>
-											
-											<tr id="a" >
-												<td style ="width:10%">
-													박대근
-												</td>
-												<td style ="width:10%">
-													1
-												</td>
-												<td style ="width:10%">
-													1
-												</td>
-												<td style ="width:20%">
-													한부모 가정
-												</td>
-												<td style ="width:20%">
-													100000000
-												</td>
-												<td style ="width:20%">
-													2006.01.01
-												</td>
-												
-												<td style ="width:10%">
-													합
-												</td> <!-- 불합격시 사유 e-mail 통보   -->
-											</tr>
-											
-										</table>
-									</div>
+						<h2>장학금 등록하기</h2>
+
+							<!-- 장학금명 폼 -->
+							<div class="row"> 
+							<div class="col-md-6"> <!--  container 안에서 grid system 사용 -->
+							<div class="form-group"> 
+							<label for="name">장학금 명</label> 
+							<input type="text" class="form-control" name="name" id="name" placeholder="Enter name"> 
+							</div> 
+							</div> 
+							
+							
+							<!-- 년도 학기 입력 폼  -->
+							<div class="col-md-6"> 
+							<div class="form-group"> 
+							<label for="date">작성 일자</label> 
+							<input type="text" class="form-control" name="date" id="date" placeholder="Enter date"> 
+							</div> 
+							</div> 
+							
+							</div>  <!-- container end -->
+							
+							<!-- 구분 폼 -->
+							<div class="form-group"> 
+							<label for="price">금액</label> 
+							<input type="text" class="form-control" name ="price" id="price" placeholder="Enter price"> 
+							</div> 
+							
+							<!-- 금액 입력 폼 -->
+							<div class="form-group"> 
+							<label for="subject">글제목</label> 
+							<input type="text" class="form-control" name ="subject" id="subject" placeholder="Enter title"> 
+							</div> 
+							
+							<!-- 글내용 입력 폼  -->
+							<div class="form-group"> 
+							<label for="content">Comment:</label> 
+							<textarea class="form-control" rows="10" name="content" id="content"></textarea> 
+							<!-- 글 내용이 많으므로 <textarea>태그를 쓴다 rows는 textarea의 높이 조절  -->
+							</div> 
                         </div>
                     </div>
                 </div>
