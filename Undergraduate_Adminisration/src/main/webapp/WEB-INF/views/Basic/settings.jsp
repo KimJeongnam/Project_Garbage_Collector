@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="contextPath" value="/project"/>
+<c:set var="staticPath" value="/project/resources"/>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -40,3 +41,6 @@
     <link href="/project/resources/vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet" />
     <!-- Custom Theme Style -->
     <link href="/project/resources/build/css/custom.min.css" rel="stylesheet">
+    <!-- Dropzone.js -->
+    <link href="/project/resources/vendors/dropzone/dist/min/dropzone.min.css" rel="stylesheet">
+    <link href="/project/resources/vendors/google-code-prettify/bin/prettify.min.css" rel="stylesheet">
