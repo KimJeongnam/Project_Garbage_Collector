@@ -28,7 +28,10 @@
             <!-- /footer content -->
         </div>
     </div>
-    
+
+	<!-- 스크립트 순서에 따라 안되는 경우있음 잘 찾아보셈 -->
+
+
     <!-- jQuery -->
     <script src="/project/resources/vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
@@ -37,7 +40,8 @@
     <script src="/project/resources/vendors/nprogress/nprogress.js"></script>
     <!-- iCheck -->
     <script src="/project/resources/vendors/iCheck/icheck.min.js"></script>
-    
+    <!-- bootstrap-progressbar -->
+    <script src="/project/resources/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
     <!-- bootstrap-daterangepicker -->
     <script src="/project/resources/vendors/moment/min/moment.min.js"></script>
     <script src="/project/resources/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
@@ -53,7 +57,8 @@
     <script src="/project/resources/vendors/jquery-knob/dist/jquery.knob.min.js"></script>
     <!-- Cropper -->
     <script src="/project/resources/vendors/cropper/dist/cropper.min.js"></script>
-    
+    <!-- Dropzone.js -->
+    <script src="/project/resources/vendors/dropzone/dist/min/dropzone.min.js"></script>
     <!-- Datatables -->
     <script src="/project/resources/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="/project/resources/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
@@ -75,3 +80,8 @@
 
     <!-- Custom Theme Scripts -->
     <script src="/project/resources/build/js/custom.min.js"></script>
+    
+    <!-- bootstrap-wysiwyg -->
+    <script src="/project/resources/vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
+    <script src="/project/resources/vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
+    <script src="/project/resources/vendors/google-code-prettify/src/prettify.js"></script>
