@@ -41,3 +41,6 @@
     <link href="/project/resources/vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet" />
     <!-- Custom Theme Style -->
     <link href="/project/resources/build/css/custom.min.css" rel="stylesheet">
+    <!-- Dropzone.js -->
+    <link href="/project/resources/vendors/dropzone/dist/min/dropzone.min.css" rel="stylesheet">
+    <link href="/project/resources/vendors/google-code-prettify/bin/prettify.min.css" rel="stylesheet">
