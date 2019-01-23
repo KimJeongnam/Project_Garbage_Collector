@@ -5,13 +5,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class TestController {	
-	@RequestMapping("login")
+	@RequestMapping("/login")
 	public String login() {
 		
 		return "login";
 	}
 	
-	@RequestMapping("logout")
+	@RequestMapping("/logout")
 	public String logout() {
 
 		return "redirect:/login";
@@ -23,7 +23,12 @@ public class TestController {
 		return "index";
 	}
 	
-	@RequestMapping("tables")
+	@RequestMapping("userInfo")
+	public String userInfo() {
+		return "userInfo";
+	}
+	
+	@RequestMapping("/tables")
 	public String tables() {
 		
 		return "tables";
