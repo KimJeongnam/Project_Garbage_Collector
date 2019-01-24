@@ -16,7 +16,7 @@
                     <div class="page-title">
                         <div class="title_left">
 						<h2>장학금 등록하기</h2>
-
+						<div class="x_panel">
 							<!-- 장학금명 폼 -->
 							<div class="row"> 
 							<div class="col-md-6"> <!--  container 안에서 grid system 사용 -->
@@ -55,10 +55,11 @@
 							<textarea class="form-control" rows="10" name="content" id="content"></textarea> 
 							<!-- 글 내용이 많으므로 <textarea>태그를 쓴다 rows는 textarea의 높이 조절  -->
 							</div> 
-                        </div>
-                    </div>
-                </div>
-            </div>
+						</div>
+                       </div>
+                   </div>
+               </div>
+           </div>
             <!-- /page content -->
             
 	<%@ include file="Basic/footer.jsp" %>

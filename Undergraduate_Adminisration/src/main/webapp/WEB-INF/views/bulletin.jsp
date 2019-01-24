@@ -1,0 +1,94 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+	<%@ include file="Basic/settings.jsp" %>
+<title>Insert title here</title>
+
+	<style>
+	.toggle-off{
+		margin-bottom:0px;
+		margin-right:0px;
+	}
+	</style>
+</head>
+<body class="nav-md">
+	<%@ include file="Basic/navbar2.jsp" %>
+	
+			<!-- page content -->
+            <div class="right_col" role="main">
+                <div class="">
+                    <div class="page-title">
+                        <div class="title_left">
+							<h2>장학금 신청 글 조회</h2>
+							
+						</div>
+					</div>
+					
+					<div class="clearfix"></div>
+					<div class="x_panel">
+                    <div class="row">
+						<div class="x_content">
+
+		                    <p>Add class <code>bulk_action</code> to table for bulk actions options on row select</p>
+		
+		                    <div class="table-responsive">
+		                      <table class="table table-striped jambo_table bulk_action">
+		                        <thead>
+		                          <tr class="headings">
+		                            <th class="column-title">글 번호 </th>
+		                            <th class="column-title">글 제목</th>
+		                            <th class="column-title">장학금 명</th>
+		                            <th class="column-title">지급 일자</th>
+		                            <th class="column-title no-link last"><span class="nobr">조회</span></th>
+		                          </tr>
+		                        </thead>
+		
+		                        <tbody>
+		                          <tr class="even pointer">
+		                            <td class=" ">박대근</td>
+		                            <td class=" ">1</td>
+		                            <td class=" ">1</td>
+		                            <td class=" ">다자녀 장학금</td>
+		                            <td class=" last">View</td>
+		                          </tr>
+		                          <tr class="odd pointer">
+		                            <td class=" ">김떡순</td>
+		                            <td class=" ">2</td>
+		                            <td class=" ">2</td>
+		                            <td class=" ">한부모 장학금</td>
+		                            <td class=" last">View</td>
+		                          </tr>
+		                         <tr class="even pointer">
+		                            <td class=" ">배고픔</td>
+		                            <td class=" ">3</td>
+		                            <td class=" ">1</td>
+		                            <td class=" ">한부모 장학금</td>
+		                            <td class=" last">View</td>
+		                          </tr>
+		                        </tbody>
+		                      </table>
+		                    </div>
+									
+								
+		                  </div>
+		                  </div>
+		              </div>
+								
+                </div>
+            </div>
+            <!-- /page content -->
+            
+	<%@ include file="Basic/footer.jsp" %>
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+	
+	
+	
+    <script type="text/javascript">
+		<%@ include file="Basic/datePickerJS.jsp"%>
+	</script>
+	
+</body>
+</html>

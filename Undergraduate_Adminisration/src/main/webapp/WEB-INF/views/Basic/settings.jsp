@@ -9,7 +9,8 @@
 
 	<!-- FastClick -->
     <script src="/project/resources/vendors/fastclick/lib/fastclick.js"></script>
-	
+	<!-- checkbox  -->
+	<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
     <!-- Bootstrap -->
     <link href="/project/resources/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
