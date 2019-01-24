@@ -118,7 +118,7 @@ public class TestController {
 	}
 //=================================================  밑으로 학생 화면
 	//장학금 신청목록
-	@RequestMapping("bulletin")
+	@RequestMapping("/student/bulletin")
 	public String bulletin() {
 		
 		return "bulletin";
@@ -126,7 +126,7 @@ public class TestController {
 	
 	
 	//장학금 수혜현황
-	@RequestMapping("management")
+	@RequestMapping("/student/management")
 	public String management() {
 		
 		return "management";
