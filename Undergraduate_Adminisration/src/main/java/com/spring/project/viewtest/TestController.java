@@ -5,13 +5,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class TestController {	
-	@RequestMapping("login")
+	@RequestMapping("/login")
 	public String login() {
 		
 		return "login";
 	}
 	
-	@RequestMapping("logout")
+	@RequestMapping("/logout")
 	public String logout() {
 
 		return "redirect:/login";
@@ -24,7 +24,12 @@ public class TestController {
 		return "index";
 	}
 	
-	@RequestMapping("tables")
+	@RequestMapping("userInfo")
+	public String userInfo() {
+		return "userInfo";
+	}
+	
+	@RequestMapping("/tables")
 	public String tables() {
 		
 		return "tables";
@@ -111,6 +116,7 @@ public class TestController {
 		
 		return "menu7";
 	}
+//=================================================  밑으로 학생 화면
 	//장학금 신청목록
 	@RequestMapping("bulletin")
 	public String bulletin() {
@@ -125,4 +131,47 @@ public class TestController {
 		
 		return "management";
 	}
+	
+//================================================= 
+	
+	
+	
+	
+//=================================================  밑으로 교수 화면
+	@RequestMapping("professor/index")
+	public String index2() {
+		
+		return "professor/index";
+	}
+	
+	@RequestMapping("professor/myPage")
+	public String myPage() {
+		
+		return "professor/myPage";
+	}
+	
+	@RequestMapping("professor/list")
+	public String list() {
+		
+		return "professor/list";
+	}
+	
+	@RequestMapping("professor/plan")
+	public String plan() {
+		
+		return "professor/plan";
+	}
+	
+	@RequestMapping("professor/report")
+	public String report() {
+		
+		return "professor/report";
+	}
+	
+	@RequestMapping("professor/score")
+	public String score() {
+		
+		return "professor/score";
+	}
+//=================================================  교수 화면 끝
 }
