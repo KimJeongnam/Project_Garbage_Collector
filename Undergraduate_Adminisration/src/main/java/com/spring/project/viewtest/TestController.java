@@ -20,6 +20,7 @@ public class TestController {
 	@RequestMapping(value={"index", "/"})
 	public String index() {
 		
+		
 		return "index";
 	}
 	
@@ -115,8 +116,23 @@ public class TestController {
 		
 		return "menu7";
 	}
+//=================================================  밑으로 학생 화면
+	//장학금 신청목록
+	@RequestMapping("/student/bulletin")
+	public String bulletin() {
+		
+		return "bulletin";
+	}
 	
 	
+	//장학금 수혜현황
+	@RequestMapping("/student/management")
+	public String management() {
+		
+		return "management";
+	}
+	
+//================================================= 
 	
 	
 	
