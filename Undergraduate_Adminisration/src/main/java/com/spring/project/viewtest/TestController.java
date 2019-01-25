@@ -122,37 +122,37 @@ public class TestController {
 	
 	
 //=================================================  밑으로 교수 화면
-	@RequestMapping("professor/index")
+	@RequestMapping("/professor/index")
 	public String index2() {
 		
 		return "professor/index";
 	}
 	
-	@RequestMapping("professor/myPage")
+	@RequestMapping("/professor/myPage")
 	public String myPage() {
 		
 		return "professor/myPage";
 	}
 	
-	@RequestMapping("professor/list")
+	@RequestMapping("/professor/list")
 	public String list() {
 		
 		return "professor/list";
 	}
 	
-	@RequestMapping("professor/plan")
+	@RequestMapping("/professor/plan")
 	public String plan() {
 		
 		return "professor/plan";
 	}
 	
-	@RequestMapping("professor/report")
+	@RequestMapping("/professor/report")
 	public String report() {
 		
 		return "professor/report";
 	}
 	
-	@RequestMapping("professor/score")
+	@RequestMapping("/professor/score")
 	public String score() {
 		
 		return "professor/score";
