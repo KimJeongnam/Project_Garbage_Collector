@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<security:http auto-config="true" use-expressions="true">
+		<security:intercept-url pattern="/admin/**"
+			access="hasAuthority('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/professor/**"
+			access="hasAuthority('ROLE_PROFESSOR')" />
+		<security:intercept-url pattern="/student/**"
+			access="hasAuthority('ROLE_STUDENT')" />		<!-- isAuthenticated() -->
+		<security:intercept-url pattern="/**"
+			access="permitAll" />
+		<security:form-login
+			login-processing-url="/security_login" login-page="/loginForm"
+			authentication-success-handler-ref="loginSuccessHandler"
+			authentication-failure-url="/loginFail"
+			username-parameter="id" 
+			password-parameter="pw"/>
+		<!-- login-page="/loginForm" 로그인 페이지 설정 login-processing-url="/security_login" 
+			폼액션 주소 설정 default-target-url="/index" 성공했을때 주소 authentication-failure-url="/loginFail" 
+			실패했을때 주소 -->
+		<security:logout logout-success-url="/logoutDo"
+			logout-url="/logout"
+			invalidate-session="true"/>
+	</security:http>
+
+	<security:authentication-manager>
+		<security:authentication-provider>
+			<!-- 인 메모리 방식 -->
+			<security:user-service>
+				<security:user name="kim" password="1234"
+					authorities="ROLE_STUDENT" />
+				<security:user name="testPro" password="1234"
+					authorities="ROLE_PROFESSOR" />
+				<security:user name="testAdmin" password="1234"
+					authorities="ROLE_ADMIN" />
+			</security:user-service>
+			
+			<!-- DB 연동 방식 -->
+			<!-- <security:jdbc-user-service data-source-ref="dataSource" users-by-username-query="SELECT 
+				user_id AS username, user_pw AS password, TO_NUMBER(accept_status) AS enabled 
+				FROM users WHERE user_id=?" authorities-by-username-query="SELECT user_id 
+				AS username, permission AS authority FROM users WHERE user_id=?"/> -->
+
+		</security:authentication-provider>
+	</security:authentication-manager>
+
+	<bean id="loginSuccessHandler"
+		class="com.spring.project.security.LoginSuccessHandler">
+		<property name="defaultTargetUrl" value="/loginSucces" />
+		<!-- <property name="alwaysUseDefaultTargetUrl" value="true" /> -->
+	</bean>
+	
+</beans>

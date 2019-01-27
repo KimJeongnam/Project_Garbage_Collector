@@ -15,8 +15,8 @@ COMMENT ON COLUMN users.userNumber IS '사용자 번호';
 COMMENT ON COLUMN users.userPassword IS '비밀번호';
 
 /* 권한 */
-
-
+ALTER TABLE authority
+DROP PRIMARY KEY CASCADE;
 
 DROP TABLE authority 
 	CASCADE CONSTRAINTS;
@@ -32,15 +32,6 @@ COMMENT ON TABLE authority IS '권한';
 COMMENT ON COLUMN authority.authName IS '권한명';
 
 COMMENT ON COLUMN authority.userNumber IS '사용자 번호';
-
-ALTER TABLE authority
-DROP PRIMARY KEY CASCADE;
-
-CREATE UNIQUE INDEX PK_authority
-	ON authority (
-		authName ASC,
-		userNumber ASC
-	);
 
 /* 학생 */
 DROP TABLE student 
@@ -268,15 +259,6 @@ COMMENT ON COLUMN incentiveMenu.incentiveIndex IS '표시순서';
 
 COMMENT ON COLUMN incentiveMenu.dividendRate IS '배율';
 
-ALTER TABLE incentiveMenu
-DROP PRIMARY KEY CASCADE;
-
-CREATE UNIQUE INDEX PK_incentiveMenu
-	ON incentiveMenu (
-		incentiveCode ASC
-	);
-
-
 
 /* 급여 코드 */
 DROP TABLE paymentCode 
@@ -296,9 +278,6 @@ COMMENT ON COLUMN paymentCode.userNumber IS '사용자 번호';
 
 COMMENT ON COLUMN paymentCode.incentiveCode IS '수당코드';
 
-ALTER TABLE paymentCode
-DROP PRIMARY KEY CASCADE;
-
 CREATE UNIQUE INDEX UIX_paymentCode
 	ON paymentCode (
 		userNumber ASC,
@@ -310,6 +289,7 @@ CREATE UNIQUE INDEX UIX_paymentCode
 
 
 /* 급여대장  */
+
 DROP TABLE paymentList 
 	CASCADE CONSTRAINTS;
 
@@ -342,14 +322,6 @@ COMMENT ON COLUMN paymentList.paymentYear IS '지급 연월';
 
 COMMENT ON COLUMN paymentList.registerName IS '대장 명칭';
 
-ALTER TABLE paymentList
-DROP PRIMARY KEY CASCADE;
-
-CREATE UNIQUE INDEX paymentList
-	ON paymentList (
-		paylistNum ASC
-	);
-
 /* 급여 대장 상세 내용 */
 DROP TABLE registerDetail 
 	CASCADE CONSTRAINTS;
@@ -370,9 +342,6 @@ COMMENT ON COLUMN registerDetail.paylistNum IS '급여대장 번호';
 COMMENT ON COLUMN registerDetail.paymentCode IS '급여 코드';
 
 COMMENT ON COLUMN registerDetail.totalPayment IS '총 금액';
-
-ALTER TABLE registerDetail
-DROP PRIMARY KEY CASCADE;
 
 CREATE UNIQUE INDEX UIX_registerDetail
 	ON registerDetail (
@@ -501,9 +470,6 @@ COMMENT ON COLUMN lectureTime.lecCode IS '강의번호';
 
 COMMENT ON COLUMN lectureTime.timetblCode IS ' 시간표 코드';
 
-ALTER TABLE lectureTime
-DROP PRIMARY KEY CASCADE;
-
 CREATE UNIQUE INDEX UIX_lectureTime
 	ON lectureTime (
 		lecCode ASC,
@@ -607,15 +573,6 @@ COMMENT ON COLUMN scholarshipInfo.userNumber IS '사용자 번호';
 
 COMMENT ON COLUMN scholarshipInfo.stateCode IS '상태 번호';
 
-ALTER TABLE scholarshipInfo
-DROP PRIMARY KEY CASCADE;
-
-CREATE UNIQUE INDEX PK_scholarshipInfo
-	ON scholarshipInfo (
-		scholarPk ASC,
-		userNumber ASC
-	);
-
 /* 성적 */
 DROP TABLE GPA 
 	CASCADE CONSTRAINTS;
@@ -633,14 +590,6 @@ COMMENT ON COLUMN GPA.credit IS '학점';
 
 COMMENT ON COLUMN GPA.infoCode IS '수강정보 코드';
 
-ALTER TABLE GPA
-DROP PRIMARY KEY CASCADE;
-
-CREATE UNIQUE INDEX PK_GPA
-	ON GPA (
-		credit ASC,
-		infoCode ASC
-	);
 
 /* 학점 */
 DROP TABLE credit 
@@ -658,6 +607,7 @@ COMMENT ON COLUMN credit.credit IS '학점';
 COMMENT ON COLUMN credit.score IS '점수';
 
 /* 수강 신청 기간  */
+
 DROP TABLE lectureSelectPeriod 
 	CASCADE CONSTRAINTS;
 
@@ -682,15 +632,6 @@ COMMENT ON COLUMN lectureSelectPeriod.startSelectLecture IS '시작일';
 
 COMMENT ON COLUMN lectureSelectPeriod.endSelectLecture IS '종료일';
 
-ALTER TABLE lectureSelectPeriod
-DROP PRIMARY KEY CASCADE;
-
-CREATE UNIQUE INDEX PK_lectureSelectPeriod
-	ON lectureSelectPeriod (
-		Year ASC,
-		semester ASC,
-		grade ASC
-	);
 
 --fk start
 ALTER TABLE authority
@@ -984,8 +925,23 @@ ALTER TABLE GPA
 
 
 
+--------------- sequence start  ----------------------------------
+DROP SEQUENCE seq_major_majorNum;
 
+CREATE SEQUENCE seq_major_majorNum
+    START WITH 100
+    INCREMENT BY 1
+    MAXVALUE 999;
 
+-- 시퀀스들 조회
+select sequence_name, min_value, max_value, increment_by, last_number
+from user_sequences;
 
+-- 시퀀스의 캐쉬 확인
+select sequence_name, cache_size
+from user_sequences
+where sequence_name = 'SEQ_MAJOR_MAJORNUM';
 
-
+-- 시퀀스 캐쉬 사용x
+alter sequence SEQ_MAJOR_MAJORNUM nocache;
+--------------- sequence end  ----------------------------------
