@@ -109,7 +109,7 @@
 															</div>
 															<div class="item form-group">
 																<label class="control-label col-md-3 col-sm-3 col-xs-12"
-																	for="birthDate">생년월일 <span class="required">*</span>
+																	for="birthDate">주민등록번호 <span class="required">*</span>
 																</label>
 																<div class="col-md-6 col-sm-6 col-xs-12">
 																	<input id="birthDate" class="form-control col-md-7 col-xs-12"
@@ -187,6 +187,24 @@
 																		placeholder="연락처를 입력하시오" name="studentCellNum" type="text">
 																</div>
 															</div>
+															<div class="item form-group">
+																<label class="control-label col-md-3 col-sm-3 col-xs-12"
+																	for="studentAddress">주소 <span class="required">*</span>
+																</label>
+																<div class="col-md-6 col-sm-6 col-xs-12">
+																	<input id="studentZipCode" class="form-control col-md-7 col-xs-12"
+																		data-validate-length-range="6" data-validate-words="2"
+																		placeholder="" name="studentZipCode" type="text">
+																	<button type="button" name="zipSearch" onclick="openZipSearch();">검색</button><br>
+																	주소 :<input id="studentAddress1" class="form-control col-md-7 col-xs-12"
+																		data-validate-length-range="6" data-validate-words="2"
+																		placeholder="" name="studentAddress1" type="text"><br>
+																	상세 :<input id="studentAddress2" class="form-control col-md-7 col-xs-12"
+																		data-validate-length-range="6" data-validate-words="2"
+																		placeholder="" name="studentAddress2" type="text"><br>
+																</div>
+															</div>
+															
 															<div class="ln_solid"></div>
 															<div class="form-group">
 																<div class="col-md-6 col-md-offset-3">
