@@ -108,7 +108,7 @@
                         </div>
 
                         <ul class="nav navbar-nav navbar-right">
-                            <li class=""><a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> <img src="/project/resources/images/img.jpg" alt="">로그인 아이디 <span class=" fa fa-angle-down"></span>
+                            <li class=""><a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> <img src="${staticPath}/images/img.jpg" alt="">로그인 아이디 <span class=" fa fa-angle-down"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
                                     <li><a href="javascript:;"> 메뉴1 </a></li>
@@ -125,19 +125,19 @@
                                 <!-- #부분 스크립트 처리 -->
 
                                 <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-                                    <li><a> <span class="image"><img src="/project/resources/images/img.jpg" alt="Profile Image"></span>
+                                    <li><a> <span class="image"><img src="${staticPath}/images/img.jpg" alt="Profile Image"></span>
                                             <span> <span>#보낸이름#</span> <span class="time">#몇분전#</span>
                                             </span> <span class="message"> #쪽지# </span>
                                         </a></li>
-                                    <li><a> <span class="image"><img src="/project/resources/images/img.jpg" alt="Profile Image"></span>
+                                    <li><a> <span class="image"><img src="${staticPath}/images/img.jpg" alt="Profile Image"></span>
                                             <span> <span>#보낸이름#</span> <span class="time">#몇분전#</span>
                                             </span> <span class="message"> #쪽지# </span>
                                         </a></li>
-                                    <li><a> <span class="image"><img src="/project/resources/images/img.jpg" alt="Profile Image"></span>
+                                    <li><a> <span class="image"><img src="${staticPath}/images/img.jpg" alt="Profile Image"></span>
                                             <span> <span>#보낸이름#</span> <span class="time">#몇분전#</span>
                                             </span> <span class="message"> #쪽지# </span>
                                         </a></li>
-                                    <li><a> <span class="image"><img src="/project/resources/images/img.jpg" alt="Profile Image"></span>
+                                    <li><a> <span class="image"><img src="${staticPath}/images/img.jpg" alt="Profile Image"></span>
                                             <span> <span>#보낸이름#</span> <span class="time">#몇분전#</span>
                                             </span> <span class="message"> #쪽지# </span>
                                         </a></li>
@@ -240,7 +240,7 @@
                         </div>
 
                         <ul class="nav navbar-nav navbar-right">
-                            <li class=""><a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> <img src="/project/resources/images/img.jpg" alt="">로그인 아이디 <span class=" fa fa-angle-down"></span>
+                            <li class=""><a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> <img src="${staticPath}/images/img.jpg" alt="">로그인 아이디 <span class=" fa fa-angle-down"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
                                     <li><a href="javascript:;"> 메뉴1 </a></li>
@@ -257,19 +257,19 @@
                                 <!-- #부분 스크립트 처리 -->
 
                                 <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-                                    <li><a> <span class="image"><img src="/project/resources/images/img.jpg" alt="Profile Image"></span>
+                                    <li><a> <span class="image"><img src="${staticPath}/images/img.jpg" alt="Profile Image"></span>
                                             <span> <span>#보낸이름#</span> <span class="time">#몇분전#</span>
                                             </span> <span class="message"> #쪽지# </span>
                                         </a></li>
-                                    <li><a> <span class="image"><img src="/project/resources/images/img.jpg" alt="Profile Image"></span>
+                                    <li><a> <span class="image"><img src="${staticPath}/images/img.jpg" alt="Profile Image"></span>
                                             <span> <span>#보낸이름#</span> <span class="time">#몇분전#</span>
                                             </span> <span class="message"> #쪽지# </span>
                                         </a></li>
-                                    <li><a> <span class="image"><img src="/project/resources/images/img.jpg" alt="Profile Image"></span>
+                                    <li><a> <span class="image"><img src="${staticPath}/images/img.jpg" alt="Profile Image"></span>
                                             <span> <span>#보낸이름#</span> <span class="time">#몇분전#</span>
                                             </span> <span class="message"> #쪽지# </span>
                                         </a></li>
-                                    <li><a> <span class="image"><img src="/project/resources/images/img.jpg" alt="Profile Image"></span>
+                                    <li><a> <span class="image"><img src="${staticPath}/images/img.jpg" alt="Profile Image"></span>
                                             <span> <span>#보낸이름#</span> <span class="time">#몇분전#</span>
                                             </span> <span class="message"> #쪽지# </span>
                                         </a></li>
@@ -300,7 +300,7 @@
                     <!-- menu profile quick info -->
                     <div class="profile clearfix">
                         <div class="profile_pic">
-                            <img src="${staticPath }images/img.jpg" alt="..." class="img-circle profile_img">
+                            <img src="${staticPath }/images/img.jpg" alt="..." class="img-circle profile_img">
                         </div>
                         <div class="profile_info">
                             <span>환영합니다,</span>
@@ -376,7 +376,7 @@
                         </div>
                         <ul class="nav navbar-nav navbar-right">
                             <li class=""><a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    <img src="/project/resources/images/img.jpg" alt="">로그인 아이디 <span class=" fa fa-angle-down"></span>
+                                    <img src="${staticPath}/images/img.jpg" alt="">로그인 아이디 <span class=" fa fa-angle-down"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
                                     <li><a href="javascript:;"> 메뉴1 </a></li>
@@ -390,16 +390,16 @@
                                     <i class="fa fa-envelope-o"></i> <span class="badge bg-green">6</span></a>
                                 <!-- #부분 스크립트 처리 -->
                                 <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-                                    <li><a> <span class="image"><img src="/project/resources/images/img.jpg" alt="Profile Image"></span>
+                                    <li><a> <span class="image"><img src="${staticPath}/images/img.jpg" alt="Profile Image"></span>
                                             <span> <span>#보낸이름#</span> <span class="time">#몇분전#</span>
                                             </span> <span class="message"> #쪽지# </span></a></li>
-                                    <li><a> <span class="image"><img src="/project/resources/images/img.jpg" alt="Profile Image"></span>
+                                    <li><a> <span class="image"><img src="${staticPath}/images/img.jpg" alt="Profile Image"></span>
                                             <span> <span>#보낸이름#</span> <span class="time">#몇분전#</span>
                                             </span> <span class="message"> #쪽지# </span></a></li>
-                                    <li><a> <span class="image"><img src="/project/resources/images/img.jpg" alt="Profile Image"></span>
+                                    <li><a> <span class="image"><img src="${staticPath}/images/img.jpg" alt="Profile Image"></span>
                                             <span> <span>#보낸이름#</span> <span class="time">#몇분전#</span>
                                             </span> <span class="message"> #쪽지# </span></a></li>
-                                    <li><a> <span class="image"><img src="/project/resources/images/img.jpg" alt="Profile Image"></span>
+                                    <li><a> <span class="image"><img src="${staticPath}/images/img.jpg" alt="Profile Image"></span>
                                             <span> <span>#보낸이름#</span> <span class="time">#몇분전#</span>
                                             </span> <span class="message"> #쪽지# </span></a>
                                     </li>
