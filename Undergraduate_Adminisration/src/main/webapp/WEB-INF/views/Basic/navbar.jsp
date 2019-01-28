@@ -198,10 +198,10 @@
 
                                 <li><a><i class="fa fa-university"></i> 내 강의 관리 <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu" style="">
-                                        <li><a href="${authPath }/professor/plan">강의계획서</a></li>
-                                        <li><a href="${authPath }/professor/list">학생 조회</a></li>
-                                        <li><a href="${authPath }/professor/score">학점입력</a></li>
-                                        <li><a href="${authPath }/professor/report">과제 관리</a></li>
+                                        <li><a href="${authPath }/plan">강의계획서</a></li>
+                                        <li><a href="${authPath }/list">학생 조회</a></li>
+                                        <li><a href="${authPath }/score">학점입력</a></li>
+                                        <li><a href="${authPath }/report">과제 관리</a></li>
 
                                     </ul>
                                 </li>
