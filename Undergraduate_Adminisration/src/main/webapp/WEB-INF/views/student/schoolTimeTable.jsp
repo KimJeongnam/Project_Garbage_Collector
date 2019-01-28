@@ -11,11 +11,11 @@
 <!-- CSS reset -->
 <link rel="stylesheet" href="/project/resources/css/schedule/style.css">
 <!-- Resource style -->
-<%@ include file="Basic/settings.jsp"%>
+<%@ include file="../Basic/settings.jsp"%>
 <title>Insert title here</title>
 </head>
 <body class="nav-md">
-	<%@ include file="Basic/stdNavbar.jsp"%>
+	<%@ include file="../Basic/navbar.jsp"%>
 	<!-- page content -->
 	<div class="right_col" role="main">
 		<div class="">
@@ -229,7 +229,7 @@
 				<div class="cover-layer"></div>
 			</div>
 		</div>
-	<%@ include file="Basic/footer.jsp"%>
+	<%@ include file="../Basic/footer.jsp"%>
 	</div>
 
 	<!-- .cd-schedule schedule폴더에 js추가됨-->

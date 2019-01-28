@@ -4,11 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<%@ include file="Basic/settings.jsp"%>
+<%@ include file="../Basic/settings.jsp"%>
 <title>Insert title here</title>
 </head>
 <body class="nav-md">
-	<%@ include file="Basic/stdNavbar.jsp"%>
+	<%@ include file="../Basic/navbar.jsp"%>
 	<!-- page content -->
 	<div class="right_col" role="main">
 		<div class="">
@@ -109,7 +109,7 @@
 		</div>
 	</div>
 	<!-- /page content -->
-	<%@ include file="Basic/footer.jsp"%>
+	<%@ include file="../Basic/footer.jsp"%>
 
 	<script type="text/javascript">
 		$(function (){
