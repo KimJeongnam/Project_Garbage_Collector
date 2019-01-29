@@ -45,21 +45,19 @@
                     <table id="datatable" class="table table-striped table-bordered">
                       <thead>
                         <tr>
-                          <th>Name</th>
-                          <th>Position</th>
-                          <th>Office</th>
-                          <th>Age</th>
-                          <th>Start date</th>
-                          <th>Salary</th>
+                          <th>이름</th>
+                          <th>직책</th>
+                          <th>학과(학과코드)</th>
+                          <th>나이</th>
+                          <th>입사일</th>
+                          <th>연봉</th>
                         </tr>
                       </thead>
-
-
                       <tbody>
                         <tr>
-                          <td>Tiger Nixon</td>
-                          <td>System Architect</td>
-                          <td>Edinburgh</td>
+                          <td><a href="myPage">정치호</a></td>
+                          <td>교수</td>
+                          <td>체육교육학과(a1)</td>
                           <td>61</td>
                           <td>2011/04/25</td>
                           <td>$320,800</td>
