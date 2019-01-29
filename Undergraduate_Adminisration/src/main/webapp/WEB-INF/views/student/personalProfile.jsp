@@ -82,11 +82,83 @@
 													</li>
 												</ul>
 												<!-- 학생정보 상세페이지 -->
+												
 												<div id="myTabContent" class="tab-content">
 													<div role="tabpanel" class="tab-pane fade active in"
 														id="tab_content1" aria-labelledby="home-tab">
 														<form class="form-horizontal form-label-left" novalidate>
 															<span class="section">학생정보</span>
+															<div class="row">
+																<div class="col-md-offset-1 col-md-10">
+																	<table class="table">
+																		<tr>
+																			<th class="control-label">
+																				학번
+																			</th>
+																			<td>
+																				<input type="text" class="input" required="required" 
+																					placeholder="학번을 입력하시오">
+																			</td>
+																			<th class="control-label">
+																				성명
+																			</th>
+																			<td>
+																				<input type="text" class="input" required="required" 
+																					placeholder="성명을 입력하시오">
+																			</td>
+																		</tr>
+																		<tr>
+																			<th class="control-label">
+																				주민등록번호
+																			</th>
+																			<td>
+																				<input type="text" class="input" required="required" 
+																					placeholder="주민등록번호를 입력하시오">
+																			</td>
+																			<th class="control-label">
+																				성별
+																			</th>
+																			<td>
+																				<input type="text" class="input" required="required" 
+																					placeholder="성별을 입력하시오">
+																			</td>
+																		</tr>
+																		<tr>
+																			<th class="control-label">
+																				단과대학
+																			</th>
+																			<td>
+																				<input type="text" class="input" required="required" 
+																					placeholder="단과대학을 입력하시오">
+																			</td>
+																			<th class="control-label">
+																				학과(전공)
+																			</th>
+																			<td>
+																				<input type="text" class="input" required="required" 
+																					placeholder="학과(전공)을 입력하시오">
+																			</td>
+																		</tr>
+																		<tr>
+																			<th class="control-label">
+																				학적상태
+																			</th>
+																			<td>
+																				<input type="text" class="input" required="required" 
+																					placeholder="학적상태를 입력하시오">
+																			</td>
+																			<th class="control-label">
+																				학년
+																			</th>
+																			<td>
+																				<input type="text" class="input" required="required" 
+																					placeholder="학년을 입력하시오">
+																			</td>
+																		</tr>
+																	</table>
+																</div>
+															</div>
+															
 															<div class="item form-group">
 																<label class="control-label col-md-3 col-sm-3 col-xs-12"
 																	for="studentNumber">학번 <span class="required">*</span>
