@@ -632,6 +632,25 @@ COMMENT ON COLUMN lectureSelectPeriod.startSelectLecture IS '시작일';
 
 COMMENT ON COLUMN lectureSelectPeriod.endSelectLecture IS '종료일';
 
+/* 메세지 테이블 */
+DROP TABLE messages 
+	CASCADE CONSTRAINTS;
+
+create table messages(
+    userNumber  NVARCHAR2(9) primary key,
+    sendUser	NVARCHAR2(9) NOT NULL,
+    Message		NVARCHAR2(2000),
+    readStatus	NUMBER(1),
+    sendTime		TIMESTAMP,
+    notifyStatus NUMBER(1)
+);
+
+COMMENT ON TABLE messages IS '메세지';
+COMMENT ON COLUMN messages.sendUser IS '보낸사용자';
+COMMENT ON COLUMN messages.Message IS '메세지';
+COMMENT ON COLUMN messages.readStatus IS '읽었는지 여부';
+COMMENT ON COLUMN messages.sendTime IS '보낸 시간';
+COMMENT ON COLUMN messages.notifyStatus IS '공지 여부';
 
 --fk start
 ALTER TABLE authority
@@ -922,12 +941,42 @@ ALTER TABLE GPA
 		ENABLE
 		VALIDATE;
         
+ALTER TABLE messages
+	ADD
+		FOREIGN KEY(
+			userNumber
+		)
+		REFERENCES users(
+			userNumber
+		)
+		NOT DEFERRABLE
+		INITIALLY IMMEDIATE
+		ENABLE
+		VALIDATE;
 
+		ALTER TABLE messages
+	ADD
+		FOREIGN KEY(
+			sendUser
+		)
+		REFERENCES users(
+			userNumber
+		)
+		NOT DEFERRABLE
+		INITIALLY IMMEDIATE
+		ENABLE
+		VALIDATE;
 
+ALTER TABLE scholarship
+    DROP COLUMN kind;
 
+ALTER TABLE scholarship
+    ADD (scholarContent NVARCHAR2(2000));
+    
 --------------- sequence start  ----------------------------------
 DROP SEQUENCE seq_major_majorNum;
 
+------------------ seq_테이블명_컬럼명
 CREATE SEQUENCE seq_major_majorNum
     START WITH 100
     INCREMENT BY 1
