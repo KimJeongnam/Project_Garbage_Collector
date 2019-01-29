@@ -5,6 +5,16 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 
-<mapper namespace="com.spring.project.share.dao.ShareDao">
+<mapper namespace="com.spring.project.share.dao.ShareDAO">
+	<select id="getStudentInfo" resultType="com.spring.project.share.vo.ShareUserInfo">
+		SELECT stdname as userName, stdImage as userImage 
+		FROM student
+		WHERE usernumber = #{userNumber}
+	</select>
 	
+	<select id="getEmployeeInfo" resultType="com.spring.project.share.vo.ShareUserInfo">
+		SELECT empName as userName, empImage as userImage 
+		FROM employees
+		WHERE userNumber = #{userNumber}
+	</select>
 </mapper>
