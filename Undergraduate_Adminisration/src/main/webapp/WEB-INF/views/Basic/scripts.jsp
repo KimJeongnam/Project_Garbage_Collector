@@ -72,3 +72,7 @@
     <script src="/project/resources/vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
     <script src="/project/resources/vendors/google-code-prettify/src/prettify.js"></script>
     
+    
+    <!-- bootstrap-daterangepicker 추가-->
+    <script src="/project/resources/vendors/moment/min/moment.min.js"></script>
+    <script src="/project/resources/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>

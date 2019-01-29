@@ -45,3 +45,8 @@
     <!-- Dropzone.js -->
     <link href="/project/resources/vendors/dropzone/dist/min/dropzone.min.css" rel="stylesheet">
     <link href="/project/resources/vendors/google-code-prettify/bin/prettify.min.css" rel="stylesheet">
+
+    <!-- bootstrap-daterangepicker  추가-->
+    <link href="/project/resources/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    
+    
