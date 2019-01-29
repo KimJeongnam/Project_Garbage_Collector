@@ -44,7 +44,10 @@ public class ShareServiceImpl implements ShareService{
 		
 		
 		logger.info(user.toString());
+		logger.info(""+user.getMajorNum());
 		request.getSession().setAttribute("user", user);
+		if(user.getMajorNum() != 0)
+			request.getSession().setAttribute("majorNum", user.getMajorNum());
 		redirectAttributes.addFlashAttribute("message","환영합니다. '"+user.getUserName()+"' 님");
 		return redirectUrl;
 	}
