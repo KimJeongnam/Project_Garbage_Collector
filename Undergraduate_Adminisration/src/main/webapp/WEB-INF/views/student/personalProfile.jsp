@@ -44,7 +44,7 @@
 										<div id="crop-avatar">
 											<!-- Current avatar -->
 											<img style="width: 180px; height: 218px;" class="img-responsive avatar-view"
-												src="resources/images/user.png" alt="Avatar" title="Change the avatar">
+												src="../resources/images/img.jpg" alt="Avatar" title="Change the avatar">
 										</div>
 									</div>
 									<h3>김설현</h3>
@@ -155,128 +155,42 @@
 																					placeholder="학년을 입력하시오">
 																			</td>
 																		</tr>
+																		<tr>
+																			<th class="control-label">
+																				현재학기
+																			</th>
+																			<td>
+																				<input type="text" class="input" required="required" 
+																					placeholder="현재학기를 입력하시오">
+																			</td>
+																			<th class="control-label">
+																				연락처
+																			</th>
+																			<td>
+																				<input type="text" class="input" required="required" 
+																					placeholder="연락처를 입력하시오">
+																			</td>
+																		</tr>
+																		<tr>
+																			<th class="control-label">
+																				주소
+																			</th>
+																			<td colspan="3">
+																				<input type="text" name="zip" class="input" required="required" 
+																					placeholder="입학일을 입력하시오">
+																					
+																	<button type="button" name="zipSearch" onclick="openZipSearch();">검색</button><br>
+																	주소 :<input id="studentAddress1" name="addr1"class="form-control col-md-7 col-xs-12"
+																		data-validate-length-range="6" data-validate-words="2"
+																		placeholder="" name="studentAddress1" type="text"><br>
+																	상세 :<input id="studentAddress2" name="addr2" class="form-control col-md-7 col-xs-12"
+																		data-validate-length-range="6" data-validate-words="2"
+																		placeholder="" name="studentAddress2" type="text"><br>
+																			</td>
+																		</tr>
 																	</table>
 																</div>
 															</div>
-															
-															<div class="item form-group">
-																<label class="control-label col-md-3 col-sm-3 col-xs-12"
-																	for="studentNumber">학번 <span class="required">*</span>
-																</label>
-																<div class="col-md-6 col-sm-6 col-xs-12">
-																	<input id="studentNumber" class="form-control col-md-7 col-xs-12"
-																		data-validate-length-range="6" data-validate-words="2"
-																		placeholder="학번을 입력하시오" name="studentNumber" type="text">
-																</div>
-															</div>
-															<div class="item form-group">
-																<label class="control-label col-md-3 col-sm-3 col-xs-12"
-																	for="studentName">성명 <span class="required">*</span>
-																</label>
-																<div class="col-md-6 col-sm-6 col-xs-12">
-																	<input id="studentName" class="form-control col-md-7 col-xs-12"
-																		data-validate-length-range="6" data-validate-words="2"
-																		placeholder="성명을 입력하시오" name="studentName" type="text">
-																</div>
-															</div>
-															<div class="item form-group">
-																<label class="control-label col-md-3 col-sm-3 col-xs-12"
-																	for="birthDate">주민등록번호 <span class="required">*</span>
-																</label>
-																<div class="col-md-6 col-sm-6 col-xs-12">
-																	<input id="birthDate" class="form-control col-md-7 col-xs-12"
-																		data-validate-length-range="6" data-validate-words="2"
-																		placeholder="생년월일을 입력하시오" name="birthDate" type="text">
-																</div>
-															</div>
-															<div class="item form-group">
-																<label class="control-label col-md-3 col-sm-3 col-xs-12"
-																	for="sex">성별 <span class="required">*</span>
-																</label>
-																<div class="col-md-6 col-sm-6 col-xs-12">
-																	<input id="sex" class="form-control col-md-7 col-xs-12"
-																		data-validate-length-range="6" data-validate-words="2"
-																		placeholder="성별을 입력하시오" name="sex" type="text">
-																</div>
-															</div>
-															<div class="item form-group">
-																<label class="control-label col-md-3 col-sm-3 col-xs-12"
-																	for="collegeName">단과대학 <span class="required">*</span>
-																</label>
-																<div class="col-md-6 col-sm-6 col-xs-12">
-																	<input id="collegeName" class="form-control col-md-7 col-xs-12"
-																		data-validate-length-range="6" data-validate-words="2"
-																		placeholder="단과대학을 입력하시오" name="collegeName" type="text">
-																</div>
-															</div>
-															<div class="item form-group">
-																<label class="control-label col-md-3 col-sm-3 col-xs-12"
-																	for="majorName">학과(전공) <span class="required">*</span>
-																</label>
-																<div class="col-md-6 col-sm-6 col-xs-12">
-																	<input id="majorName" class="form-control col-md-7 col-xs-12"
-																		data-validate-length-range="6" data-validate-words="2"
-																		placeholder="학과(전공)를 입력하시오" name="majorName" type="text">
-																</div>
-															</div>
-															<div class="item form-group">
-																<label class="control-label col-md-3 col-sm-3 col-xs-12"
-																	for="schoolLifeState">학적상태 <span class="required">*</span>
-																</label>
-																<div class="col-md-6 col-sm-6 col-xs-12">
-																	<input id="schoolLifeState" class="form-control col-md-7 col-xs-12"
-																		data-validate-length-range="6" data-validate-words="2"
-																		placeholder="학적상태를 입력하시오" name="schoolLifeState" type="text">
-																</div>
-															</div>
-															<div class="item form-group">
-																<label class="control-label col-md-3 col-sm-3 col-xs-12"
-																	for="grade">학년 <span class="required">*</span>
-																</label>
-																<div class="col-md-6 col-sm-6 col-xs-12">
-																	<input id="grade" class="form-control col-md-7 col-xs-12"
-																		data-validate-length-range="6" data-validate-words="2"
-																		placeholder="학년을 입력하시오" name="grade" type="text">
-																</div>
-															</div>
-															<div class="item form-group">
-																<label class="control-label col-md-3 col-sm-3 col-xs-12"
-																	for="semester">학기 <span class="required">*</span>
-																</label>
-																<div class="col-md-6 col-sm-6 col-xs-12">
-																	<input id="semester" class="form-control col-md-7 col-xs-12"
-																		data-validate-length-range="6" data-validate-words="2"
-																		placeholder="학기를 입력하시오" name="semester" type="text">
-																</div>
-															</div>
-															<div class="item form-group">
-																<label class="control-label col-md-3 col-sm-3 col-xs-12"
-																	for="studentCellNum">연락처 <span class="required">*</span>
-																</label>
-																<div class="col-md-6 col-sm-6 col-xs-12">
-																	<input id="studentCellNum" class="form-control col-md-7 col-xs-12"
-																		data-validate-length-range="6" data-validate-words="2"
-																		placeholder="연락처를 입력하시오" name="studentCellNum" type="text">
-																</div>
-															</div>
-															<div class="item form-group">
-																<label class="control-label col-md-3 col-sm-3 col-xs-12"
-																	for="studentAddress">주소 <span class="required">*</span>
-																</label>
-																<div class="col-md-6 col-sm-6 col-xs-12">
-																	<input id="studentZipCode" class="form-control col-md-7 col-xs-12"
-																		data-validate-length-range="6" data-validate-words="2"
-																		placeholder="" name="studentZipCode" type="text">
-																	<button type="button" name="zipSearch" onclick="openZipSearch();">검색</button><br>
-																	주소 :<input id="studentAddress1" class="form-control col-md-7 col-xs-12"
-																		data-validate-length-range="6" data-validate-words="2"
-																		placeholder="" name="studentAddress1" type="text"><br>
-																	상세 :<input id="studentAddress2" class="form-control col-md-7 col-xs-12"
-																		data-validate-length-range="6" data-validate-words="2"
-																		placeholder="" name="studentAddress2" type="text"><br>
-																</div>
-															</div>
-															
 															<div class="ln_solid"></div>
 															<div class="form-group">
 																<div class="col-md-6 col-md-offset-3">
@@ -394,7 +308,7 @@
 																						<h4>제출리스트</h4>
 																						<!-- end of user messages -->
 																						<ul class="messages">
-																							<li><img src="resources/images/user.png" class="avatar" alt="Avatar">
+																							<li><img src="../resources/images/img.jpg" class="avatar" alt="Avatar">
 																								<div class="message_date">
 																									<h3 class="date text-info">24</h3>
 																									<p class="month">1월</p>
@@ -410,7 +324,7 @@
 																									</p>
 																								</div>
 																							</li>
-																							<li><img src="resources/images/user.png" class="avatar" alt="Avatar">
+																							<li><img src="../resources/images/img.jpg" class="avatar" alt="Avatar">
 																								<div class="message_date">
 																									<h3 class="date text-info">24</h3>
 																									<p class="month">1월</p>
@@ -517,12 +431,23 @@
 			</div>
 		</div>
 	</div>
+	<!-- 다음 주소 API 추가  -->
+	<script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
 	<!-- /page content -->
 	<%@ include file="../Basic/footer.jsp"%>
 	<script type="text/javascript">
-		$(function (){
-			
-		});
+	//다음 주소 이용한 주소검색
+	function openZipSearch() {
+		daum.postcode.load(function(){
+		new daum.Postcode({
+			oncomplete: function(data) {
+				$('[name=zip]').val(data.zonecode); // 우편번호 (5자리)
+				$('[name=addr1]').val(data.address);
+				$('[name=addr2]').val(data.buildingName);
+			}
+		}).open();
+	});
+	};
 	</script>
 </body>
 </html>
