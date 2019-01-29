@@ -14,8 +14,8 @@ public class ProfesserDAOImpl implements ProfesserDAO{
 	
 	
 	@Override
-	public Vo myPage(String userId) {
-		return sql.selectOne("com.spring.project.professor.dao.ProfesserDAO.myPage",userId);
+	public Vo myPage(String userNumber) {
+		return sql.selectOne("com.spring.project.professor.dao.ProfesserDAO.myPage",userNumber);
 	}
 
 }

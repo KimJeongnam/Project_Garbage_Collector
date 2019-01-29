@@ -23,11 +23,7 @@ public class AdminController {
 		return "admin/userInfo";
 	}
 	
-	@RequestMapping("/tables")
-	public String tables() {
-		
-		return "admin/tables";
-	}
+	
 	
 	//장학 신청 심사
 	@RequestMapping("/admin/judge")

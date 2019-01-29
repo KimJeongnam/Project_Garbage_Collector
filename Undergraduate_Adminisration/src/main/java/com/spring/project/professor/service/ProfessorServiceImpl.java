@@ -20,9 +20,9 @@ public class ProfessorServiceImpl implements ProfessorService{
 	@Override
 	public void myPage(HttpServletRequest req, Model model) {
 		
-		String userId = (String)req.getSession().getAttribute("userId");
+		String userNumber = (String)req.getSession().getAttribute("userNumber");
 			
-	 	Vo vo = dao.myPage(userId);
+	 	Vo vo = dao.myPage(userNumber);
 	 	
 	 	req.setAttribute("vo", vo);
 	}
