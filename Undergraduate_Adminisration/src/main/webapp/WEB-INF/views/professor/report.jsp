@@ -11,7 +11,7 @@
 
 
 
-	<%@ include file="navbar.jsp" %>
+	<%@ include file="../Basic/navbar.jsp" %>
 	
 			   
           

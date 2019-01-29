@@ -6,5 +6,9 @@
 
 
 <mapper namespace="com.spring.project.professor.dao.ProfesserDAO">
-	
+
+	<select id="myPage" parameterType="String" resultType="com.spring.project.professor.vo.Vo">
+ 	SELECT * FROM employees e JOIN accountinfo a ON e.usernumber = a.usernumber WHERE e.usernumber=#{userNumber}
+ 	</select>
+ 	
 </mapper>

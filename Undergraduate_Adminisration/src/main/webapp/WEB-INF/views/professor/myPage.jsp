@@ -10,7 +10,7 @@
 </head>
 
 <body class="nav-md">
-    <%@ include file="navbar.jsp" %>
+   <%@ include file="../Basic/navbar.jsp" %>
 
     <!-- page content -->
     <div class="right_col" role="main">
@@ -28,35 +28,20 @@
                         <div class="x_panel">
                             <div class="x_title">
                                 <h2>프로필</h2>
-                                <ul class="nav navbar-right panel_toolbox">
-                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                    </li>
-                                    <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="#">Settings 1</a>
-                                            </li>
-                                            <li><a href="#">Settings 2</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li><a class="close-link"><i class="fa fa-close"></i></a>
-                                    </li>
-                                </ul>
-                                <div class="clearfix"></div>
+                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
                                 <div class="col-md-3 col-sm-3 col-xs-12 profile_left">
                                     <div class="profile_img">
                                         <div id="crop-avatar">
                                             <!-- Current avatar -->
-                                            <img style="width: 180px; height: 218px;" class="img-responsive avatar-view" src="/project/resources/images/img.jpg" alt="Avatar" title="Change the avatar">
+                                            <img style="width: 180px; height: 218px;" class="img-responsive avatar-view" src="${staticPath }${vo.getEmpImage()}" alt="Avatar" title="Change the avatar">
                                         </div>
                                     </div>
-                                    <h3>김설현</h3>
+                                    <h3>${vo.getEmpName()}</h3>
 
                                     <ul class="list-unstyled user_data">
-                                        <li><i class="fa fa-map-marker user-profile-icon"></i> 경기도 안양시 만안구 병목안로 179 금용아파트 1111호
+                                        <li><i class="fa fa-map-marker user-profile-icon"></i> ${vo.getEmpAddress1()}&nbsp;${vo.getEmpAddress2()}
                                         </li>
 
                                         <li>
@@ -67,7 +52,7 @@
                                             <i class="fa fa-university user-profile-icon"> 경기대학교</i>
                                         </li>
                                         <li>
-                                            <i class="fa fa-phone user-profile-icon"> 010-2458-7354</i>
+                                            <i class="fa fa-phone user-profile-icon"> ${vo.getEmpCellNumber()}</i>
                                         </li>
 
                                     </ul>
@@ -110,6 +95,8 @@
 
 
                                                 <div id="myTabContent" class="tab-content">
+                                                
+                                                <!-- 자기소개  -->
                                                     <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
 
 
@@ -122,21 +109,21 @@
                                                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">이름 <span class="required">*</span>
                                                                 </label>
                                                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                    <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="이름을 입력하시오" required="required" type="text">
+                                                                    <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="이름을 입력하시오" required="required" value="${vo.getEmpName()}" type="text">
                                                                 </div>
                                                             </div>
                                                             <div class="item form-group">
                                                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">Email <span class="required">*</span>
                                                                 </label>
                                                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                    <input placeholder="이메일을 입력하시오" type="email" id="email" name="email" required="required" class="form-control col-md-7 col-xs-12">
+                                                                    <input placeholder="이메일을 입력하시오" type="email" id="email" name="email" required="required" class="form-control col-md-7 col-xs-12" value="${vo.getEmpEmail()}">
                                                                 </div>
                                                             </div>
                                                             <div class="item form-group">
                                                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">Email 확인<span class="required">*</span>
                                                                 </label>
                                                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                    <input placeholder="이메일을 재입력하시오" type="email" id="email2" name="confirm_email" data-validate-linked="email" required="required" class="form-control col-md-7 col-xs-12">
+                                                                    <input placeholder="이메일을 재입력하시오" type="email" id="email2" name="confirm_email" data-validate-linked="email" required="required" class="form-control col-md-7 col-xs-12" value="${vo.getEmpEmail()}">
                                                                 </div>
                                                             </div>
 
@@ -144,9 +131,17 @@
                                                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="occupation">주소 <span class="required">*</span>
                                                                 </label>
                                                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                    <input placeholder="주소를 입력하시오" id="occupation" type="text" name="occupation" data-validate-length-range="5,20" class="optional form-control col-md-7 col-xs-12">
+                                                                    <input placeholder="주소를 입력하시오" id="address1" type="text" name="address1" data-validate-length-range="5,20" class="optional form-control col-md-7 col-xs-12" value="${vo.getEmpAddress1()}">
                                                                 </div>
                                                             </div>
+                                                              <div class="item form-group">
+                                                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="occupation">상세주소 <span class="required">*</span>
+                                                                </label>
+                                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                                    <input placeholder="상세주소를 입력하시오" id="address2" type="text" name="address2" data-validate-length-range="5,20" class="optional form-control col-md-7 col-xs-12" value="${vo.getEmpAddress2()}">
+                                                                </div>
+                                                            </div>
+                                                            
                                                             <div class="item form-group">
                                                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="occupation">비밀번호 <span class="required">*</span></label>
                                                                 <div class="col-md-6 col-sm-6 col-xs-12">
@@ -163,16 +158,23 @@
                                                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="telephone">연락처 <span class="required">*</span>
                                                                 </label>
                                                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                    <input placeholder="연락처를 입력하시오" type="tel" id="telephone" name="phone" required="required" data-validate-length-range="8,20" class="form-control col-md-7 col-xs-12">
+                                                                    <input placeholder="연락처를 입력하시오" type="tel" id="telephone" name="phone" required="required" data-validate-length-range="8,20" class="form-control col-md-7 col-xs-12" value="${vo.getEmpCellNumber()}">
                                                                 </div>
                                                             </div>
                                                             <div class="item form-group">
-                                                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="telephone">계좌번호(국민) <span class="required">*</span>
+                                                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="accountNumber">계좌번호 <span class="required">*</span>
                                                                 </label>
-                                                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                    <input placeholder="국민은행 계좌번호를 입력해주세요." type="tel" id="telephone" name="phone" required="required" data-validate-length-range="8,20" class="form-control col-md-7 col-xs-12">
+                                                                <div class="col-md-2 col-sm-2 col-xs-4">
+                                                                	<input placeholder="은행명을 입력하시오."  id="bankName" name="bankName" required="required" data-validate-length-range="8,20" class="form-control col-md-7 col-xs-12" value="${vo.getBankName()}">
+                                                                </div>
+                                                                <div class="col-md-4 col-sm-4 col-xs-8">
+                                                                	<input placeholder="계좌번호를 입력하시오."  id="accountNumber" name="accountNumber" required="required" data-validate-length-range="8,20" class="form-control col-md-7 col-xs-12" value="${vo.getAccountNumber()}">
                                                                 </div>
                                                             </div>
+                                                            
+                                                            
+                                                            <!-- 
+                                                            
                                                             <div class="item form-group">
                                                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="textarea">한줄 소개 <span class="required">*</span>
                                                                 </label>
@@ -180,34 +182,26 @@
                                                                     <textarea id="textarea" required="required" name="textarea" class="form-control col-md-7 col-xs-12"></textarea>
                                                                 </div>
                                                             </div>
-                                                            <div class="ln_solid"></div>
-                                                            <div class="form-group">
-                                                                <div class="col-md-6 col-md-offset-3">
-                                                                    <button type="submit" class="btn btn-primary">취소</button>
-                                                                    <button id="send" type="submit" class="btn btn-success">수정</button>
-                                                                </div>
-                                                            </div>
+                                                            
+                                                             -->
+                                                            
+                                                            
+                                                            
                                                         </form>
 
                                                     </div>
+													<!-- 기본정보 끝  -->
 
-
-
-
+	
+													<!-- 자기소개  -->
                                                     <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
-                                                        <textarea id="message" required="required" class="form-control" name="message" data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="100" data-parsley-minlength-message="Come on! You need to enter at least a 20 caracters long comment.." data-parsley-validation-threshold="10"></textarea>
-                                                        <div class="ln_solid"></div>
-                                                        <div class="form-group">
-                                                            <div class="col-md-6 col-md-offset-3">
-                                                                <button type="submit" class="btn btn-primary">취소</button>
-                                                                <button id="send" type="submit" class="btn btn-success">수정</button>
-                                                            </div>
-                                                        </div>
+                                                        <textarea id="introduction" required="required" class="form-control" name="introduction" data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="3500" 
+                                                        data-parsley-minlength-message="20자 이상 작성하셔야 합니다!!" data-parsley-validation-threshold="10" style="height: 300px;">${vo.getIntroduction()}</textarea>
                                                     </div>
+													<!-- 자기소개  끝 -->
 
 
-
-
+													<!-- 이력사항 -->
                                                     <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
 
 
@@ -221,93 +215,88 @@
                                                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">중학교 <span class="required">*</span>
                                                                 </label>
                                                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                    <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="출신 중학교를 입력하시오" required="required" type="text">
+                                                                    <input id="middleSchool" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="middleSchool" placeholder="출신 중학교를 입력하시오" required="required" type="text">
                                                                 </div>
                                                             </div>
                                                             <div class="item form-group">
                                                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">고등학교 <span class="required">*</span>
                                                                 </label>
                                                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                    <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="출신 고등학교를 입력하시오" required="required" type="text">
+                                                                    <input id="highSchool" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="highSchool" placeholder="출신 고등학교를 입력하시오" required="required" type="text">
                                                                 </div>
                                                             </div>
                                                             <div class="item form-group">
                                                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">대학교 <span class="required">*</span>
                                                                 </label>
                                                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                    <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="출신 대학교를 입력하시오" required="required" type="text">
+                                                                    <input id="college" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="college" placeholder="출신 대학교를 입력하시오" required="required" type="text">
                                                                 </div>
                                                             </div>
                                                             <div class="item form-group">
                                                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">전공 <span class="required">*</span>
                                                                 </label>
                                                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                    <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="전공를 입력하시오" required="required" type="text">
+                                                                    <input id="major1" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="major1" placeholder="전공를 입력하시오" required="required" type="text">
                                                                 </div>
                                                             </div>
                                                             <div class="item form-group">
                                                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">대학원 <span class="required">*</span>
                                                                 </label>
                                                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                    <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="대학원를 입력하시오" required="required" type="text">
+                                                                    <input id="major2" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="major2" placeholder="대학원를 입력하시오" required="required" type="text">
                                                                 </div>
                                                             </div>
                                                             <div class="item form-group">
                                                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">박사과정 <span class="required">*</span>
                                                                 </label>
                                                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                    <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="박사과정을 입력하시오" required="required" type="text">
+                                                                    <input id="Phd" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="Phd" placeholder="박사과정을 입력하시오" required="required" type="text">
                                                                 </div>
                                                             </div>
                                                             <div class="item form-group">
                                                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">경력사항 1 <span class="required"></span>
                                                                 </label>
                                                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                    <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="경력사항 1 입력하시오" required="required" type="text">
+                                                                    <input id="career1" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="career1" placeholder="경력사항 1 입력하시오" required="required" type="text">
                                                                 </div>
                                                             </div>
                                                             <div class="item form-group">
                                                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">경력사항 2 <span class="required"></span>
                                                                 </label>
                                                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                    <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="경력사항 2 입력하시오" required="required" type="text">
+                                                                    <input id="career2" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="career2" placeholder="경력사항 2 입력하시오" required="required" type="text">
                                                                 </div>
                                                             </div>
                                                             <div class="item form-group">
                                                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">경력사항 3 <span class="required"></span>
                                                                 </label>
                                                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                    <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="경력사항 3 입력하시오" required="required" type="text">
+                                                                    <input id="career3" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="career3" placeholder="경력사항 3 입력하시오" required="required" type="text">
                                                                 </div>
                                                             </div>
                                                             <div class="item form-group">
                                                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">경력사항 4 <span class="required"></span>
                                                                 </label>
                                                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                    <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="경력사항 4 입력하시오" required="required" type="text">
-                                                                </div>
-                                                            </div>
-
-
-                                                            <div class="ln_solid"></div>
-                                                            <div class="form-group">
-                                                                <div class="col-md-6 col-md-offset-3">
-                                                                    <button type="submit" class="btn btn-primary">취소</button>
-                                                                    <button id="send" type="submit" class="btn btn-success">수정</button>
+                                                                    <input id="career4" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="career4" placeholder="경력사항 4 입력하시오" required="required" type="text">
                                                                 </div>
                                                             </div>
                                                         </form>
-
-
                                                     </div>
+                                                    <!-- 이력사항 끝 -->
+                                                    
                                                 </div>
                                             </div>
 
                                         </div>
                                     </div>
 
-
-
+                                                         <div class="form-group">
+                                                            <div class="col-md-6 col-md-offset-3">
+                                                                <button type="submit" class="btn btn-primary">취소</button>
+                                                                <button id="send" type="submit" class="btn btn-success">수정</button>
+                                                            </div>
+                                                        </div>
 
                                 </div>
                             </div>
@@ -332,12 +321,15 @@
                     <h4 class="modal-title" id="myModalLabel2">프로필 사진 바꾸기</h4>
                 </div>
                 <div class="modal-body">
-                    <form action="#" class="dropzone"></form>
+                    <form action="#" class="dropzone">  
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="position:relative; top: 155px;">취소</button>
+                    <button type="submit" class="btn btn-primary" style="position:relative; top: 155px;">변경</button></form>
                 </div>
+                
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
-                    <button type="button" class="btn btn-primary">변경</button>
+                 <br>
                 </div>
+
 
             </div>
         </div>
