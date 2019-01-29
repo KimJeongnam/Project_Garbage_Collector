@@ -8,7 +8,7 @@
 <mapper namespace="com.spring.project.student.dao.StudentDAO">
 	
 	<!-- 학과 번호 가져오기 -->
-	<select id="getMajorNum" parameterType="String" resultType="int">
+	<select id="getMajorNum" parameterType="String" resultType="com.spring.project.vo.LectureVO">
 		select majorNum from student where userNumber = #{userId}
 	</select>
 	

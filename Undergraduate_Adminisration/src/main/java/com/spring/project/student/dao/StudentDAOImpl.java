@@ -17,7 +17,7 @@ public class StudentDAOImpl implements StudentDAO{
 	
 	// 학과 번호 가져오기
 	@Override
-	public int getMajorNum(String userId) {
+	public List<LectureVO> getMajorNum(String userId) {
 		return sqlSession.selectOne("com.spring.project.student.dao.stuentDAO.getMajorNum", userId);
 	}
 	

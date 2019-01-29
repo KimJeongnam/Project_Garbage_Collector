@@ -40,10 +40,9 @@ public class StudentServiceImpl implements StudentService {
 		String userId = (String)req.getSession().getAttribute("userId");
 		
 		// 학과 번호 가져오기
-		int majorNum = dao.getMajorNum(userId);
-		
+		List<LectureVO> vo = dao.getMajorNum(userId);
 		// 수강신청 목록 갯수 구하기
-		cnt = dao.getLectureCnt(majorNum);
+		/*cnt = dao.getLectureCnt(majorNum);*/
 		
 		
 		
@@ -78,7 +77,7 @@ public class StudentServiceImpl implements StudentService {
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("start", start);
 			map.put("end", end);
-			map.put("majorNum", majorNum);
+			/*map.put("majorNum", majorNum);*/
 			
 			List<LectureVO> dtos = dao.lectureList(map);
 			
