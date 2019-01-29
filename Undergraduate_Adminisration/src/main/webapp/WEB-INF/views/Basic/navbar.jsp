@@ -64,7 +64,6 @@
                                 <li><a><i class="fa fa-users"></i> 인사관리<span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu" style="">
                                         <li><a href="${authPath }/empStdManagement">교직원/학생 관리</a></li>
-                                        <li><a href="#">시간제 강사 관리</a></li>
                                         <li><a href="${authPath }/menu7">학적 관리</a></li>
                                     </ul>
                                 </li>

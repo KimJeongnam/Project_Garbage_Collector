@@ -65,10 +65,18 @@ public class AdminController {
 		return "admin/facultyManage";
 	}
 	
+	//admin - 교수 등록
 	@RequestMapping("/admin/proInsert")
 	public String proInsert() {
 		
 		return "admin/proInsert";
+	}
+	
+	//admin - 학생 등록
+	@RequestMapping("/admin/stdInsert")
+	public String stdInsert() {
+		
+		return "admin/stdInsert";
 	}
 	
 	@RequestMapping("/admin/empStdManagement")
@@ -77,10 +85,18 @@ public class AdminController {
 		return "admin/empStdManagement";
 	}
 	
-	@RequestMapping("/admin/menu5")
-	public String menu5() {
+	//교수상세정보 
+	@RequestMapping("/admin/proMyPage")
+	public String proMyPage() {
 		
-		return "admin/menu5";
+		return "admin/proMyPage";
+	}
+	
+	//학생상세정보 
+	@RequestMapping("/admin/stdMyPage")
+	public String stdMyPage() {
+		
+		return "admin/stdMyPage";
 	}
 	
 	@RequestMapping("/admin/menu6")
