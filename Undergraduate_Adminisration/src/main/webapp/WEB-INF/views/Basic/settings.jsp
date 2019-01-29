@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <c:set var="contextPath" value="/project"/>
 <c:set var="staticPath" value="/project/resources"/>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -45,3 +48,8 @@
     <!-- Dropzone.js -->
     <link href="/project/resources/vendors/dropzone/dist/min/dropzone.min.css" rel="stylesheet">
     <link href="/project/resources/vendors/google-code-prettify/bin/prettify.min.css" rel="stylesheet">
+
+    <!-- bootstrap-daterangepicker  추가-->
+    <link href="/project/resources/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    
+    

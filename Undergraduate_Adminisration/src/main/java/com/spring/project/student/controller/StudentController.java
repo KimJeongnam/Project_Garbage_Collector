@@ -1,10 +1,20 @@
 package com.spring.project.student.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired; 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.spring.project.student.service.StudentServiceImpl;
 
 @Controller
 public class StudentController {
+	
+	@Autowired
+	StudentServiceImpl service;
+	
 	@RequestMapping("/student/index")
 	public String index() {
 		return "student/index";
@@ -46,8 +56,9 @@ public class StudentController {
 
 	//수강신청
 	@RequestMapping("/student/lectureList")
-	public String lectureList() {
-
+	public String lectureList(HttpServletRequest req, Model model) {
+		service.lectureList(req, model);
+		
 		return "student/lectureList";
 	}
 
