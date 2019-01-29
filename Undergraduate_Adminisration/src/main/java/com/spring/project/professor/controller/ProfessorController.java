@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 import com.spring.project.professor.service.ProfessorServiceImpl;
 
 
@@ -36,6 +38,15 @@ public class ProfessorController {
 			service.myPage(req, model);
 			return "professor/myPage";
 		}
+		
+		//이미지변경
+		@RequestMapping("/professor/image")
+		public String image(MultipartHttpServletRequest req ,Model model) {
+			logger.info("image");
+			//service.image(req, model);
+			return "professor/myPage";
+		}
+		
 		
 		//학생조회
 		@RequestMapping("/professor/list")
