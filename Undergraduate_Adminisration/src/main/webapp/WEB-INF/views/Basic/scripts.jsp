@@ -17,7 +17,16 @@
 				</div>
 			</div><!-- /.modal -->
 			
-	<!-- 스크립트 순서에 따라 안되는 경우있음 잘 찾아보셈 -->
+		<!-- notification -->
+		<div id="custom_notifications" class="custom-notifications dsp_none">
+			<ul class="list-unstyled notifications clearfix"
+				data-tabbed_notifications="notif-group">
+			</ul>
+			<div class="clearfix"></div>
+			<div id="notif-group" class="tabbed_notifications"></div>
+		</div>
+
+<!-- 스크립트 순서에 따라 안되는 경우있음 잘 찾아보셈 -->
     <!-- jQuery -->
     <script src="/project/resources/vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
@@ -76,3 +85,17 @@
     <!-- bootstrap-daterangepicker 추가-->
     <script src="/project/resources/vendors/moment/min/moment.min.js"></script>
     <script src="/project/resources/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+    
+    <!-- PNotify -->
+    <script src="/project/resources/vendors/pnotify/dist/pnotify.js"></script>
+    <script src="/project/resources/vendors/pnotify/dist/pnotify.buttons.js"></script>
+    <script src="/project/resources/vendors/pnotify/dist/pnotify.nonblock.js"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script src="/project/resources/build/js/custom.min.js"></script>
+    
+    <!-- Message 백그라운드 추가 -->
+    <script src="${staticPath }/js/message/notify.js"></script>
+    
+    <%@ include file="../Basic/ansycTaskGetMessage.jsp"%>
+    

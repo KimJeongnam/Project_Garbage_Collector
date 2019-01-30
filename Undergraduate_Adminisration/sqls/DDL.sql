@@ -972,7 +972,9 @@ ALTER TABLE scholarship
 
 ALTER TABLE scholarship
     ADD (scholarContent NVARCHAR2(2000));
-    
+
+COMMENT ON COLUMN scholarship.scholarContent IS '장학금 내용';
+
 --------------- sequence start  ----------------------------------
 DROP SEQUENCE seq_major_majorNum;
 

@@ -40,8 +40,9 @@ public class ShareController {
 	}
 	
 	@RequestMapping("/logoutDo")
-	public String logoutDo(RedirectAttributes redirectAttributes) {
+	public String logoutDo(HttpServletRequest request, RedirectAttributes redirectAttributes) {
 		logger.info("logoutDo()");
+		request.getSession().invalidate();
 		redirectAttributes.addFlashAttribute("message","로그아웃!");
 		return "redirect:/loginForm";
 	}
