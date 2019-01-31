@@ -26,7 +26,7 @@
 	
 	<script type="text/javascript">
 		$(function (){
-			<%@ include file="../Basic/alertMSG.jsp" %>
+			<%@ include file="../Basic/docReadyScripts.jsp" %>
 			
 		});
 	</script>

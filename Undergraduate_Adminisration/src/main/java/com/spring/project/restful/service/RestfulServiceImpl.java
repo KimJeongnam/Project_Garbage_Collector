@@ -63,7 +63,7 @@ public class RestfulServiceImpl implements RestfulService{
 			request.getSession().setAttribute("Messages", list);
 		}
 		
-		logger.info("response list Size() : "+list.size());
+		//logger.info("response list Size() : "+list.size());
 		result.put("newMessages", list);
 		result.put("notReadMessages", sessionMessages);
 		return result;
