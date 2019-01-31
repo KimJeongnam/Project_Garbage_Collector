@@ -19,7 +19,7 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>학생/교직원/내 강의학생 조회</h3>
+                <h3>내 강의 학생 조회</h3>
               </div>
 
               <div class="title_right">

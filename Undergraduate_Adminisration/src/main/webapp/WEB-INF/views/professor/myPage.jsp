@@ -35,24 +35,24 @@
                                     <div class="profile_img">
                                         <div id="crop-avatar">
                                             <!-- Current avatar -->
-                                            <img style="width: 180px; height: 218px;" class="img-responsive avatar-view" src="${staticPath }${vo.getEmpImage()}" alt="Avatar" title="Change the avatar">
+                                            <img style="width: 180px; height: 218px;" id="pimage" name="pimage" class="img-responsive avatar-view" src="${staticPath }${vo.getUserImage()}" alt="Avatar" title="Change the avatar">
                                         </div>
                                     </div>
-                                    <h3>${vo.getEmpName()}</h3>
+                                    <h3>${vo.getUserName()}</h3>
 
                                     <ul class="list-unstyled user_data">
-                                        <li><i class="fa fa-map-marker user-profile-icon"></i> ${vo.getEmpAddress1()}&nbsp;${vo.getEmpAddress2()}
+                                        <li><i class="fa fa-map-marker user-profile-icon"></i> ${vo.getUserAddr1()}&nbsp;${vo.getUserAddr2()}
                                         </li>
 
                                         <li>
-                                            <i class="fa fa-briefcase user-profile-icon"></i> 중국어학과 전임 교수
+                                            <i class="fa fa-briefcase user-profile-icon"></i> 일본어학과 전임 교수
                                         </li>
 
                                         <li>
-                                            <i class="fa fa-university user-profile-icon"> 경기대학교</i>
+                                            <i class="fa fa-university user-profile-icon">Kwansei Gakuin 대학</i>
                                         </li>
                                         <li>
-                                            <i class="fa fa-phone user-profile-icon"> ${vo.getEmpCellNumber()}</i>
+                                            <i class="fa fa-phone user-profile-icon"> ${vo.getUserCellNum()}</i>
                                         </li>
 
                                     </ul>
@@ -100,7 +100,7 @@
                                                     <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
 
 
-                                                        <form class="form-horizontal form-label-left" novalidate>
+                                                        <form class="form-horizontal form-label-left" novalidate action="update" method="post">
 
 
                                                             <span class="section">개인정보</span>
@@ -109,21 +109,28 @@
                                                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">이름 <span class="required">*</span>
                                                                 </label>
                                                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                    <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="이름을 입력하시오" required="required" value="${vo.getEmpName()}" type="text">
+                                                                    <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="이름을 입력하시오" required="required" value="${vo.getUserName()}" type="text">
+                                                                </div>
+                                                            </div>
+                                                            <div class="item form-group">
+                                                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">영문 이름 <span class="required">*</span>
+                                                                </label>
+                                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                                    <input id="ename" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="ename" placeholder="이름을 입력하시오" required="required" value="${vo.getUserEngName()}" type="text">
                                                                 </div>
                                                             </div>
                                                             <div class="item form-group">
                                                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">Email <span class="required">*</span>
                                                                 </label>
                                                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                    <input placeholder="이메일을 입력하시오" type="email" id="email" name="email" required="required" class="form-control col-md-7 col-xs-12" value="${vo.getEmpEmail()}">
+                                                                    <input placeholder="이메일을 입력하시오" type="email" id="email" name="email" required="required" class="form-control col-md-7 col-xs-12" value="${vo.getUserEmail()}">
                                                                 </div>
                                                             </div>
                                                             <div class="item form-group">
-                                                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">Email 확인<span class="required">*</span>
+                                                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">주민번호<span class="required">*</span>
                                                                 </label>
                                                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                    <input placeholder="이메일을 재입력하시오" type="email" id="email2" name="confirm_email" data-validate-linked="email" required="required" class="form-control col-md-7 col-xs-12" value="${vo.getEmpEmail()}">
+                                                                    <input type="email" id="ssn" name="ssn" required="required" class="form-control col-md-7 col-xs-12" readonly="readonly" value="${vo.getUserSsn()}">
                                                                 </div>
                                                             </div>
 
@@ -131,34 +138,28 @@
                                                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="occupation">주소 <span class="required">*</span>
                                                                 </label>
                                                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                    <input placeholder="주소를 입력하시오" id="address1" type="text" name="address1" data-validate-length-range="5,20" class="optional form-control col-md-7 col-xs-12" value="${vo.getEmpAddress1()}">
+                                                                    <input placeholder="주소를 입력하시오" id="address1" type="text" name="address1" data-validate-length-range="5,20" class="optional form-control col-md-7 col-xs-12" value="${vo.getUserAddr1()}">
                                                                 </div>
                                                             </div>
                                                               <div class="item form-group">
                                                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="occupation">상세주소 <span class="required">*</span>
                                                                 </label>
                                                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                    <input placeholder="상세주소를 입력하시오" id="address2" type="text" name="address2" data-validate-length-range="5,20" class="optional form-control col-md-7 col-xs-12" value="${vo.getEmpAddress2()}">
+                                                                    <input placeholder="상세주소를 입력하시오" id="address2" type="text" name="address2" data-validate-length-range="5,20" class="optional form-control col-md-7 col-xs-12" value="${vo.getUserAddr2()}">
                                                                 </div>
                                                             </div>
                                                             
                                                             <div class="item form-group">
                                                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="occupation">비밀번호 <span class="required">*</span></label>
                                                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                    <input placeholder="비밀번호를 입력하시오" id="password" type="password" name="password" data-validate-length="6,8" class="form-control col-md-7 col-xs-12" required="required">
-                                                                </div>
-                                                            </div>
-                                                            <div class="item form-group">
-                                                                <label for="password2" class="control-label col-md-3 col-sm-3 col-xs-12">비밀번호 확인</label>
-                                                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                    <input placeholder="비밀번호를 재입력하시오" id="password2" type="password" name="password2" data-validate-linked="password" class="form-control col-md-7 col-xs-12" required="required">
+                                                                    <input placeholder="비밀번호를 입력하시오" id="password" type="password" name="password" data-validate-length="6,8" class="form-control col-md-7 col-xs-12" required="required" value="${vo.getUserPassword()}">
                                                                 </div>
                                                             </div>
                                                             <div class="item form-group">
                                                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="telephone">연락처 <span class="required">*</span>
                                                                 </label>
                                                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                    <input placeholder="연락처를 입력하시오" type="tel" id="telephone" name="phone" required="required" data-validate-length-range="8,20" class="form-control col-md-7 col-xs-12" value="${vo.getEmpCellNumber()}">
+                                                                    <input placeholder="연락처를 입력하시오" type="tel" id="telephone" name="telephone" required="required" data-validate-length-range="8,20" class="form-control col-md-7 col-xs-12" value="${vo.getUserCellNum()}">
                                                                 </div>
                                                             </div>
                                                             <div class="item form-group">
@@ -172,20 +173,12 @@
                                                                 </div>
                                                             </div>
                                                             
-                                                            
-                                                            <!-- 
-                                                            
-                                                            <div class="item form-group">
-                                                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="textarea">한줄 소개 <span class="required">*</span>
-                                                                </label>
-                                                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                    <textarea id="textarea" required="required" name="textarea" class="form-control col-md-7 col-xs-12"></textarea>
-                                                                </div>
+                                                        <div class="form-group">
+                                                            <div class="col-md-6 col-md-offset-3">
+                                                                <button type="reset" class="btn btn-primary">재작성</button>
+                                                                <button id="send" type="submit" class="btn btn-success">수정</button>
                                                             </div>
-                                                            
-                                                             -->
-                                                            
-                                                            
+                                                        </div>
                                                             
                                                         </form>
 
@@ -195,9 +188,20 @@
 	
 													<!-- 자기소개  -->
                                                     <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
+                                                     <form class="form-horizontal form-label-left" novalidate action="introUpdate" method="post">
+                                                       <span class="section">교수소개</span>
                                                         <textarea id="introduction" required="required" class="form-control" name="introduction" data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="3500" 
                                                         data-parsley-minlength-message="20자 이상 작성하셔야 합니다!!" data-parsley-validation-threshold="10" style="height: 300px;">${vo.getIntroduction()}</textarea>
+                                                       <br>
+                                                       <div class="form-group">
+                                                            <div class="col-md-6 col-md-offset-3">
+                                                                <button type="reset" class="btn btn-primary">재작성</button>
+                                                                <button id="send" type="submit" class="btn btn-success">수정</button>
+                                                            </div>
+                                                        </div>
+                                                       </form>
                                                     </div>
+                                                    
 													<!-- 자기소개  끝 -->
 
 
@@ -281,6 +285,12 @@
                                                                     <input id="career4" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="career4" placeholder="경력사항 4 입력하시오" required="required" type="text">
                                                                 </div>
                                                             </div>
+                                                            <div class="form-group">
+                                                            <div class="col-md-6 col-md-offset-3">
+                                                                <button type="reset" class="btn btn-primary">재작성</button>
+                                                                <button id="send" type="submit" class="btn btn-success">수정</button>
+                                                            </div>
+                                                        </div>
                                                         </form>
                                                     </div>
                                                     <!-- 이력사항 끝 -->
@@ -291,13 +301,6 @@
                                         </div>
                                     </div>
 
-                                                         <div class="form-group">
-                                                            <div class="col-md-6 col-md-offset-3">
-                                                                <button type="submit" class="btn btn-primary">취소</button>
-                                                                <button id="send" type="submit" class="btn btn-success">수정</button>
-                                                            </div>
-                                                        </div>
-
                                 </div>
                             </div>
                         </div>
@@ -305,7 +308,6 @@
                 </div>
             </div>
         </div>
-    </div>
     </div>
     <!-- /page content -->
 
@@ -321,13 +323,13 @@
                     <h4 class="modal-title" id="myModalLabel2">프로필 사진 바꾸기</h4>
                 </div>
                 <div class="modal-body">
-                    <form action="#" class="dropzone">  
-                    <button type="button" class="btn btn-default" data-dismiss="modal" style="position:relative; top: 155px;">취소</button>
-                    <button type="submit" class="btn btn-primary" style="position:relative; top: 155px;">변경</button></form>
+                    <form action="imageUpload" method="post" enctype="multipart/form-data">  
+                    	<input class="btn btn-warning" type="file" name="image" style="position:relative;right:11px;">
+                    	<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+                   		<button type="submit" class="btn btn-primary">변경</button>
+                    </form>
                 </div>
-                
                 <div class="modal-footer">
-                 <br>
                 </div>
 
 
@@ -342,7 +344,7 @@
 
     <script type="text/javascript">
         $(function() {
-
+        	<%@ include file="../Basic/docReadyScripts.jsp" %>
         });
 
     </script>
