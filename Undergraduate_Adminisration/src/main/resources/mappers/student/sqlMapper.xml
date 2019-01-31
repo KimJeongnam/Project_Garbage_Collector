@@ -7,4 +7,22 @@
 
 <mapper namespace="com.spring.project.student.dao.StudentDAO">
 	
+	<!-- 학과 번호 가져오기 -->
+	<select id="getMajorNum" parameterType="String" resultType="com.spring.project.vo.LectureVO">
+		select majorNum from student where userNumber = #{userId}
+	</select>
+	
+	<!-- 수강신청 목록 갯수 구하기 -->
+	<select id="getLectureCnt" parameterType="int" resultType="int">
+		select count(*) from lecture where majorNum = #{majorNum}
+	</select>
+	
+	<!-- 수강신청 목록 조회 -->
+	<select id="lectureList" parameterType="String" resultType="com.spring.project.vo.LectureVO">
+		<![CDATA[
+		select * from lectureview where majorNum = #{majorNum}
+			and rNum >= #{start} and rNum <= #{end}
+		]]>
+	</select>
+	
 </mapper>

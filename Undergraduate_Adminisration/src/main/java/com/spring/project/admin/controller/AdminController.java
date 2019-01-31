@@ -1,14 +1,22 @@
 package com.spring.project.admin.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.spring.project.share.controller.ShareController;
+import com.spring.project.admin.service.AdminService;
+
 
 @Controller
 public class AdminController {
+	
+	/*@Autowired
+	AdminService service;*/
 	
 	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
 	
@@ -74,8 +82,8 @@ public class AdminController {
 	
 	//admin - 학생 등록
 	@RequestMapping("/admin/stdInsert")
-	public String stdInsert() {
-		
+	public String stdInsert(HttpServletRequest req, Model model) {
+		/*service.stdInputPro(req, model);*/
 		return "admin/stdInsert";
 	}
 	

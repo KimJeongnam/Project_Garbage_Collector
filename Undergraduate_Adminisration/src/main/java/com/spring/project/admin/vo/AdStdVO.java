@@ -5,6 +5,7 @@ import java.sql.Date;
 public class AdStdVO {
 
 	//student
+	private String userNumber;		//학번
 	private String stdName;			//학생이름
 	private String stdImage;		//학생이미지
 	private int stdGrade;			//학년
@@ -15,6 +16,7 @@ public class AdStdVO {
 	private String stdAddr1;		//주소1
 	private String stdAddr2;		//주소2
 	private Date adDate;			//입학일
+	
 	private Date graDate;			//졸업일
 	private int delStatus;			//삭제상태
 	
@@ -26,7 +28,10 @@ public class AdStdVO {
 	//major
 	private int majorNum;			//학과번호
 	private String majorName;		//단과대명
-	private String faculty;			//학과명
+	
+	
+	//faculty
+	private String faculty; 
 	
 	//schoolLeave
 	private int schoolLeaveStateCode;//휴복학 내역코드
@@ -34,7 +39,12 @@ public class AdStdVO {
 	private String kind;			 //구분 - 휴학의 종류
 	
 	
-	
+	public String getUserNumber() {
+		return userNumber;
+	}
+	public void setUserNumber(String userNumber) {
+		this.userNumber = userNumber;
+	}
 	public int getStdGrade() {
 		return stdGrade;
 	}

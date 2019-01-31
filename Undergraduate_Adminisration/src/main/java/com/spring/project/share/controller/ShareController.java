@@ -27,7 +27,7 @@ public class ShareController {
 	@RequestMapping("/loginSucces")
 	public String loginSucces(HttpServletRequest request, RedirectAttributes redirectAttributes) {
 		logger.info("loginSucces()");
-		String redirectUrl = shareService.loginSucces(request, redirectAttributes);
+		String redirectUrl = shareService.loginSucces(request, redirectAttributes, logger);
 		logger.info("redirectUrl:"+redirectUrl);
 		return "redirect:"+redirectUrl;
 	}

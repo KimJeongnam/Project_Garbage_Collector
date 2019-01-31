@@ -67,39 +67,19 @@
 									</tr>
 								</thead>
 								<tbody>
+									<c:forEach var="dto" items="${dtos}">
 									<tr>
-										<td>2학년</td>
-										<td>dd154</td>
-										<td>전공필수</td>
-										<td>실전경호학</td>
-										<td>3</td>
-										<td>정치호</td>
-										<td>화78,목34</td>
-										<td>8</td>
+										<td>${grade}학년</td>
+										<td>${lecCode}</td>
+										<td>${lectureClassfication}</td>
+										<td>${lectureName}</td>
+										<td>${lectureScore}</td>
+										<td>${empName}</td>
+										<td>${timetblCode}</td>
+										<td>${maximumCapacity}</td>
 										<th><a class="btn btn-success"><i class="fa fa-edit m-right-xs"></i>신청</a></th>
 									</tr>
-									<tr>
-										<td>2학년</td>
-										<td>dd154</td>
-										<td>전공필수</td>
-										<td>실전경호학</td>
-										<td>3</td>
-										<td>정치호</td>
-										<td>화78,목34</td>
-										<td>8</td>
-										<th><a class="btn btn-success"><i class="fa fa-edit m-right-xs"></i>신청</a></th>
-									</tr>
-									<tr>
-										<td>2학년</td>
-										<td>dd154</td>
-										<td>전공필수</td>
-										<td>실전경호학</td>
-										<td>3</td>
-										<td>정치호</td>
-										<td>화78,목34</td>
-										<td>8</td>
-										<th><a class="btn btn-success"><i class="fa fa-edit m-right-xs"></i>신청</a></th>
-									</tr>
+									</c:forEach>
 								</tbody>
 							</table>
 						</div>
