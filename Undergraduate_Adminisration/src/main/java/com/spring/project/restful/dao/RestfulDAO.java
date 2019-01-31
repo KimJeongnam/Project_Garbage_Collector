@@ -1,5 +1,9 @@
 package com.spring.project.restful.dao;
 
-public interface RestfulDAO {
+import java.util.List;
 
+import com.spring.project.restful.vo.Message;
+
+public interface RestfulDAO {
+	public List<Message> getMessages(String userNumber);
 }

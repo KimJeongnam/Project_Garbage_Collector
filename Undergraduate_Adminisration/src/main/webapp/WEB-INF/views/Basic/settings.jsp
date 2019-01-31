@@ -43,8 +43,7 @@
     <link href="/project/resources/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
     <!-- jQuery custom content scroller -->
     <link href="/project/resources/vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet" />
-    <!-- Custom Theme Style -->
-    <link href="/project/resources/build/css/custom.min.css" rel="stylesheet">
+   
     <!-- Dropzone.js -->
     <link href="/project/resources/vendors/dropzone/dist/min/dropzone.min.css" rel="stylesheet">
     <link href="/project/resources/vendors/google-code-prettify/bin/prettify.min.css" rel="stylesheet">
@@ -52,4 +51,11 @@
     <!-- bootstrap-daterangepicker  추가-->
     <link href="/project/resources/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
     
+    <!-- PNotify -->
+    <link href="/project/resources/vendors/pnotify/dist/pnotify.css" rel="stylesheet">
+    <link href="/project/resources/vendors/pnotify/dist/pnotify.buttons.css" rel="stylesheet">
+    <!-- <link href="/project/resources/vendors/pnotify/dist/pnotify.nonblock.css" rel="stylesheet"> -->
+    
+     <!-- Custom Theme Style -->
+    <link href="/project/resources/build/css/custom.min.css" rel="stylesheet">
     

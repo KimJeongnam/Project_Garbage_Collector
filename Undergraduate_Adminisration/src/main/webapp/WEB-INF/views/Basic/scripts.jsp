@@ -17,7 +17,16 @@
 				</div>
 			</div><!-- /.modal -->
 			
-	<!-- 스크립트 순서에 따라 안되는 경우있음 잘 찾아보셈 -->
+		<!-- <!-- notification -->
+		<div id="custom_notifications" class="custom-notifications dsp_none">
+			<ul class="list-unstyled notifications clearfix"
+				data-tabbed_notifications="notif-group">
+			</ul>
+			<div class="clearfix"></div>
+			<div id="notif-group" class="tabbed_notifications"></div>
+		</div> -->
+
+<!-- 스크립트 순서에 따라 안되는 경우있음 잘 찾아보셈 -->
     <!-- jQuery -->
     <script src="/project/resources/vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
@@ -64,15 +73,23 @@
     <!-- jQuery custom content scroller -->
     <script src="/project/resources/vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
 
-    <!-- Custom Theme Scripts -->
-    <script src="/project/resources/build/js/custom.min.js"></script>
-    
     <!-- bootstrap-wysiwyg -->
     <script src="/project/resources/vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
     <script src="/project/resources/vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
     <script src="/project/resources/vendors/google-code-prettify/src/prettify.js"></script>
     
-    
     <!-- bootstrap-daterangepicker 추가-->
     <script src="/project/resources/vendors/moment/min/moment.min.js"></script>
     <script src="/project/resources/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+    
+    <!-- PNotify -->
+    <script src="/project/resources/vendors/pnotify/dist/pnotify.js"></script>
+    <script src="/project/resources/vendors/pnotify/dist/pnotify.buttons.js"></script>
+    <script src="/project/resources/vendors/pnotify/dist/pnotify.nonblock.js"></script>
+    
+	<!-- Custom Theme Scripts -->
+    <script src="/project/resources/build/js/custom.min.js"></script>
+    
+    <!-- Message 백그라운드 추가 -->
+    <script src="${staticPath }/js/message/notify.js"></script>
+    

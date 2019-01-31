@@ -4,3 +4,4 @@
 <c:if test="${message != null }">
 	alert("${message}");
 </c:if>
+	ansycTaskMessage('${userNumber}');

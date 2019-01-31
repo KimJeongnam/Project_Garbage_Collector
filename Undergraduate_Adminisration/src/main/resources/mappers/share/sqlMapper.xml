@@ -7,14 +7,16 @@
 
 <mapper namespace="com.spring.project.share.dao.ShareDAO">
 	<select id="getStudentInfo" resultType="com.spring.project.share.vo.ShareUserInfo">
-		SELECT stdname as userName, stdImage as userImage, majorNum 
-		FROM student
-		WHERE usernumber = #{userNumber}
+		SELECT u.usernumber as userName, userImage, std.majorNum 
+		FROM users u JOIN student std
+       ON u.usernumber = std.stdnumber
+		WHERE u.usernumber = #{userNumber}
 	</select>
 	
 	<select id="getEmployeeInfo" resultType="com.spring.project.share.vo.ShareUserInfo">
-		SELECT empName as userName, empImage as userImage, majorNum 
-		FROM employees
+		SELECT userName, userImage, emp.majorNum 
+		FROM users u JOIN employee emp
+       ON u.usernumber = emp.empnumber
 		WHERE userNumber = #{userNumber}
 	</select>
 </mapper>
