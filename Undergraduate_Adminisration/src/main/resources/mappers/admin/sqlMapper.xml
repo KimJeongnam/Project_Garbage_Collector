@@ -7,4 +7,10 @@
 
 <mapper namespace="com.spring.project.admin.dao.AdminDAO">
 
+	<!-- 학생 가입처리  -->
+	<!-- <insert id="insertMember" parameterType="spring.mvc.member_mybatis.vo.MemberVO">
+		insert into student(id,pwd,name,jumin1,jumin2,hp,email,reg_date) 
+						values(#{id},#{pwd},#{name},#{jumin1},#{jumin2},#{hp},#{email},#{reg_date})
+	</insert> -->
+	
 </mapper>
