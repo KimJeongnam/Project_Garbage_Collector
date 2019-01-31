@@ -1097,3 +1097,22 @@ COMMENT ON COLUMN lectureSelectPeriod.startSelectLecture IS '시작일'
 COMMENT ON COLUMN lectureSelectPeriod.endSelectLecture IS '종료일'
 /
 
+ALTER TABLE lecture
+    ADD (week NUMBER);
+    
+ALTER TABLE lecture
+    ADD (intro NVARCHAR2(2000));
+    
+DROP TABLE "lecturePlan" CASCADE CONSTRAINTS;
+    
+CREATE TABLE lecturePlan(
+    lecCode NVARCHAR2(10) ,
+    week NUMBER ,
+    contents  NVARCHAR2(2000) NOT NULL,
+    text    NVARCHAR2(1000) NOT NULL,
+    primary key(lecCode, week)
+);
+
+ALTER TABLE lecturePlan
+    ADD FOREIGN KEY(lecCode) REFERENCES lecture(lecCode);
+    
