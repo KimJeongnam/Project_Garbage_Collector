@@ -17,14 +17,14 @@
 				</div>
 			</div><!-- /.modal -->
 			
-		<!-- <!-- notification -->
+		<!-- notification -->
 		<div id="custom_notifications" class="custom-notifications dsp_none">
 			<ul class="list-unstyled notifications clearfix"
 				data-tabbed_notifications="notif-group">
 			</ul>
 			<div class="clearfix"></div>
 			<div id="notif-group" class="tabbed_notifications"></div>
-		</div> -->
+		</div> 
 
 <!-- 스크립트 순서에 따라 안되는 경우있음 잘 찾아보셈 -->
     <!-- jQuery -->
