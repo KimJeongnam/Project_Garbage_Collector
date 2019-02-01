@@ -9,7 +9,12 @@ public class Message implements Comparable<Message>{
 	private String message;
 	private int readStatus;
 	private Timestamp sendTime;
+	private int day;
+	private int hour;
+	private int min;
+	private int sec;
 	private int notifyStatus;
+	private String senduserimage;
 	
 	public int getMessageCode() {
 		return messageCode;
@@ -47,19 +52,57 @@ public class Message implements Comparable<Message>{
 	public void setSendTime(Timestamp sendTime) {
 		this.sendTime = sendTime;
 	}
+	public int getDay() {
+		return day;
+	}
+	public void setDay(int day) {
+		this.day = day;
+	}
+	public int getHour() {
+		return hour;
+	}
+	public void setHour(int hour) {
+		this.hour = hour;
+	}
+	public int getMin() {
+		return min;
+	}
+	public void setMin(int min) {
+		this.min = min;
+	}
+	public int getSec() {
+		return sec;
+	}
+	public void setSec(int sec) {
+		this.sec = sec;
+	}
 	public int getNotifyStatus() {
 		return notifyStatus;
 	}
 	public void setNotifyStatus(int notifyStatus) {
 		this.notifyStatus = notifyStatus;
 	}
+	public String getSenduserimage() {
+		return senduserimage;
+	}
+	public void setSenduserimage(String senduserimage) {
+		this.senduserimage = senduserimage;
+	}
+	
+	
 	@Override
 	public int compareTo(Message arg0) {
-		if(this.messageCode < arg0.messageCode) 
+		if(this.getNotifyStatus() < arg0.getNotifyStatus())
 			return 1;
-		else if(this.messageCode > arg0.messageCode)
+		else if(this.getNotifyStatus() > arg0.getNotifyStatus())
 			return -1;
-		else
-			return 0;
+		else {
+			if(this.messageCode < arg0.messageCode) 
+				return 1;
+			else if(this.messageCode > arg0.messageCode)
+				return -1;
+			else
+				return 0;
+		}
 	}
 }
