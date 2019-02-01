@@ -1,4 +1,4 @@
-package com.spring.project.vo;
+package com.spring.project.student.vo;
 
 public class LectureVO {
 	
@@ -13,10 +13,52 @@ public class LectureVO {
 	private int lectureScore;
 	private String classRoom;
 	
-	private String empName;
+	private String empNumber;
 	private int timetblCode;
+	private String classTime;
+	private String accountHolder;
+	private String lectureDay;
+	private String beginningLectureTime;
+	private String endLectureTime;
 	
 	
+	
+	public String getLectureDay() {
+		return lectureDay;
+	}
+	public void setLectureDay(String lectureDay) {
+		this.lectureDay = lectureDay;
+	}
+	public String getBeginningLectureTime() {
+		return beginningLectureTime;
+	}
+	public void setBeginningLectureTime(String beginningLectureTime) {
+		this.beginningLectureTime = beginningLectureTime;
+	}
+	public String getEndLectureTime() {
+		return endLectureTime;
+	}
+	public void setEndLectureTime(String endLectureTime) {
+		this.endLectureTime = endLectureTime;
+	}
+	public String getAccountHolder() {
+		return accountHolder;
+	}
+	public void setAccountHolder(String accountHolder) {
+		this.accountHolder = accountHolder;
+	}
+	public String getClassTime() {
+		return classTime;
+	}
+	public void setClassTime(String classTime) {
+		this.classTime = classTime;
+	}
+	public String getEmpNumber() {
+		return empNumber;
+	}
+	public void setEmpNumber(String empNumber) {
+		this.empNumber = empNumber;
+	}
 	public String getLecCode() {
 		return lecCode;
 	}
@@ -76,12 +118,6 @@ public class LectureVO {
 	}
 	public void setClassRoom(String classRoom) {
 		this.classRoom = classRoom;
-	}
-	public String getEmpName() {
-		return empName;
-	}
-	public void setEmpName(String empName) {
-		this.empName = empName;
 	}
 	public int getTimetblCode() {
 		return timetblCode;

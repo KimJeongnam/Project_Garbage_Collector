@@ -20,7 +20,7 @@
 					<div
 						class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
 						<div class="input-group">
-							<input type="text" class="form-control" placeholder="강의 검색">
+							<input type="text" id="keyword" class="form-control" placeholder="강의 검색" readonly>
 							<span class="input-group-btn">
 								<button class="btn btn-default" type="button">검색</button>
 							</span>
@@ -52,7 +52,7 @@
 						</div>
 						<div class="x_content">
 							<p class="text-muted font-13 m-b-30">2019년도 1학기 수강신청</p>
-							<table class="table table-striped jambo_table bulk_action">
+							<table id="lecture-table" class="table table-striped jambo_table bulk_action">
 								<thead>
 									<tr class="headings">
 										<th>학년구분</th>
@@ -68,17 +68,24 @@
 								</thead>
 								<tbody>
 									<c:forEach var="dto" items="${dtos}">
-									<tr>
-										<td>${grade}학년</td>
-										<td>${lecCode}</td>
-										<td>${lectureClassfication}</td>
-										<td>${lectureName}</td>
-										<td>${lectureScore}</td>
-										<td>${empName}</td>
-										<td>${timetblCode}</td>
-										<td>${maximumCapacity}</td>
-										<th><a class="btn btn-success"><i class="fa fa-edit m-right-xs"></i>신청</a></th>
-									</tr>
+										<tr>
+											<td>${dto.grade}학년</td>
+											<td>${dto.lecCode}</td>
+											<td>
+												<c:if test="${dto.lectureClassfication == 1}">
+													전공
+												</c:if>
+												<c:if test="${dto.lectureClassfication == 0}">
+													교양
+												</c:if>
+											</td>
+											<td>${dto.lectureName}</td>
+											<td>${dto.lectureScore}</td>
+											<td>${dto.accountHolder}</td>
+											<td>${dto.classTime}</td>
+											<td>${dto.maximumCapacity}</td>
+											<th><a href="applyLecture?lecCode=${dto.lecCode}" class="btn btn-success"><i class="fa fa-edit m-right-xs"></i>신청</a></th>
+										</tr>
 									</c:forEach>
 								</tbody>
 							</table>
@@ -93,7 +100,22 @@
 
 	<script type="text/javascript">
 		$(function (){
-			
+			$("#keyword").keyup(function() { // keyup : 데이터 입력이 끝났을 때
+				var k = $(this).val();		 // 입력한 키워드
+				$("#lecture-table > tbody").hide();		
+				$.ajax({
+					type: "POST",
+					data: "keyword=" + keyword,
+					url : "${authPath }/lectureSearch",  // {컨트롤러}/이동페이지
+					// search_sub 보내고 서비스 갔다가 dao 갔다가 mapper갔다가 아래 success로 옮
+					success: function(data) {  // 콜백함수
+						$("#lecture-table > tbody").html(data);  // 결과출력
+					},
+					error: function() {
+						alert("오류");
+					}
+				})
+			})
 		});
 	</script>
 </body>

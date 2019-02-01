@@ -70,8 +70,25 @@ public class StudentController {
 
 	//시간표 조회
 	@RequestMapping("/student/schoolTimeTable")
-	public String schoolTimeTable() {
-
+	public String schoolTimeTable(HttpServletRequest req, Model model) {
+		service.schoolTimeTable(req, model);
+		
 		return "student/schoolTimeTable";
 	}
+	
+	//강의 검색
+	@RequestMapping("/student/lectureSearch")
+	public String lectureSearch(HttpServletRequest req, Model model) {
+		service.lectureSearch(req, model);
+		return "student/lectureList";
+	}
+	
+	//강의 신청
+	@RequestMapping("/student/applyLecture")
+	public String applyLecture(HttpServletRequest req, Model model) {
+		service.applyLecture(req, model);
+		
+		return "student/applyLecture";
+	}
+	
 }
