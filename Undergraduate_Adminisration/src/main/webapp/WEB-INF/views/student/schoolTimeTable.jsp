@@ -22,7 +22,7 @@
 			<div class="page-title">
 				<div class="title_left">
 					<h3>
-						SCHOOL SCHEDULER <small>Click to add/edit events</small>
+						시간표 <small>Click to add/edit events</small>
 					</h3>
 				</div>
 
@@ -66,14 +66,24 @@
 				
 				<!-- .timeline -->
 
-				<div class="events">
+				<div class="events" style="min-height: 1000px;">
 					<ul>
 						<li class="events-group">
 							<div class="top-info">
-								<span>Monday</span>
+								<span>월</span>
 							</div>
-
-							<ul>
+								<c:forEach var="dto" items="${dtos}">
+								<c:if test="${dto.lectureDay == '월'}">
+									<ul>
+										<li class="single-event" data-start="${dto.beginningLectureTime}" data-end="${dto.endLectureTime}"
+											data-content="event-abs-circuit" data-event="event-1"><a
+											href="#0"> <em class="event-name">${dto.lectureName}</em>
+										</a></li>
+									</ul>
+								</c:if>
+								</c:forEach>
+								
+							<!-- <ul>
 								<li class="single-event" data-start="09:30" data-end="10:30"
 									data-content="event-abs-circuit" data-event="event-1"><a
 									href="#0"> <em class="event-name">Abs Circuit</em>
@@ -89,15 +99,24 @@
 									data-content="event-yoga-1" data-event="event-3"><a
 									href="#0"> <em class="event-name">Yoga Level 1</em>
 								</a></li>
-							</ul>
+							</ul> -->
 						</li>
 
 						<li class="events-group">
 							<div class="top-info">
-								<span>Tuesday</span>
+								<span>화</span>
 							</div>
-
-							<ul>
+								<c:forEach var="dto" items="${dtos}">
+								<c:if test="${dto.lectureDay == '화'}">
+									<ul>
+										<li class="single-event" data-start="${dto.beginningLectureTime}" data-end="${dto.endLectureTime}"
+											data-content="event-abs-circuit" data-event="event-1"><a
+											href="#0"> <em class="event-name">${dto.lectureName}</em>
+										</a></li>
+									</ul>
+								</c:if>
+								</c:forEach>
+							<!-- <ul>
 								<li class="single-event" data-start="10:00" data-end="11:00"
 									data-content="event-rowing-workout" data-event="event-2">
 									<a href="#0"> <em class="event-name">Rowing Workout</em>
@@ -119,15 +138,24 @@
 									data-content="event-yoga-1" data-event="event-3"><a
 									href="#0"> <em class="event-name">Yoga Level 1</em>
 								</a></li>
-							</ul>
+							</ul> -->
 						</li>
 
 						<li class="events-group">
 							<div class="top-info">
-								<span>Wednesday</span>
+								<span>수</span>
 							</div>
-
-							<ul>
+								<c:forEach var="dto" items="${dtos}">
+								<c:if test="${dto.lectureDay == '수'}">
+									<ul>
+										<li class="single-event" data-start="${dto.beginningLectureTime}" data-end="${dto.endLectureTime}"
+											data-content="event-abs-circuit" data-event="event-1"><a
+											href="#0"> <em class="event-name">${dto.lectureName}</em>
+										</a></li>
+									</ul>
+								</c:if>
+								</c:forEach>
+							<!-- <ul>
 								<li class="single-event" data-start="09:00" data-end="10:15"
 									data-content="event-restorative-yoga" data-event="event-4">
 									<a href="#0"> <em class="event-name">Restorative Yoga</em>
@@ -149,15 +177,24 @@
 									data-content="event-yoga-1" data-event="event-3"><a
 									href="#0"> <em class="event-name">Yoga Level 1</em>
 								</a></li>
-							</ul>
+							</ul> -->
 						</li>
 
 						<li class="events-group">
 							<div class="top-info">
-								<span>Thursday</span>
+								<span>목</span>
 							</div>
-
-							<ul>
+								<c:forEach var="dto" items="${dtos}">
+								<c:if test="${dto.lectureDay == '목'}">
+									<ul>
+										<li class="single-event" data-start="${dto.beginningLectureTime}" data-end="${dto.endLectureTime}"
+											data-content="event-abs-circuit" data-event="event-1"><a
+											href="#0"> <em class="event-name">${dto.lectureName}</em>
+										</a></li>
+									</ul>
+								</c:if>
+								</c:forEach>
+							<!-- <ul>
 								<li class="single-event" data-start="09:30" data-end="10:30"
 									data-content="event-abs-circuit" data-event="event-1"><a
 									href="#0"> <em class="event-name">Abs Circuit</em>
@@ -179,15 +216,25 @@
 									<a href="#0"> <em class="event-name">Rowing Workout</em>
 								</a>
 								</li>
-							</ul>
+							</ul> -->
 						</li>
 
 						<li class="events-group">
 							<div class="top-info">
-								<span>Friday</span>
+								<span>금</span>
 							</div>
+								<c:forEach var="dto" items="${dtos}">
+								<c:if test="${dto.lectureDay == '금'}">
+									<ul>
+										<li class="single-event" data-start="${dto.beginningLectureTime}" data-end="${dto.endLectureTime}"
+											data-content="event-abs-circuit" data-event="event-1"><a
+											href="#0"> <em class="event-name">${dto.lectureName}</em>
+										</a></li>
+									</ul>
+								</c:if>
+								</c:forEach>
 
-							<ul>
+							<!-- <ul>
 								<li class="single-event" data-start="10:00" data-end="11:00"
 									data-content="event-rowing-workout" data-event="event-2">
 									<a href="#0"> <em class="event-name">Rowing Workout</em>
@@ -203,7 +250,7 @@
 									data-content="event-yoga-1" data-event="event-3"><a
 									href="#0"> <em class="event-name">Yoga Level 1</em>
 								</a></li>
-							</ul>
+							</ul> -->
 						</li>
 					</ul>
 				</div>

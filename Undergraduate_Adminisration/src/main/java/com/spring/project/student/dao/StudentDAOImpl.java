@@ -1,13 +1,14 @@
 package com.spring.project.student.dao;
 
 import java.util.List;
+
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.spring.project.vo.LectureVO;
+import com.spring.project.student.vo.LectureVO;
 
 @Repository
 public class StudentDAOImpl implements StudentDAO{
@@ -15,23 +16,51 @@ public class StudentDAOImpl implements StudentDAO{
 	@Autowired
 	private SqlSession sqlSession;
 	
-	// 학과 번호 가져오기
-	@Override
-	public List<LectureVO> getMajorNum(String userId) {
-		return sqlSession.selectOne("com.spring.project.student.dao.stuentDAO.getMajorNum", userId);
-	}
-	
 	// 수강신청 목록 갯수 구하기
 	@Override
-	public int getLectureCnt(int majorNum) {
-		return sqlSession.selectOne("com.spring.project.student.dao.stuentDAO.getLectureCnt", majorNum);
+	public int getLectureCnt() {
+		return sqlSession.selectOne("com.spring.project.student.dao.StudentDAO.getLectureCnt");
 	}
 
 	// 수강신청 목록 조회
 	@Override
 	public List<LectureVO> lectureList(Map<String, Object> map) {
-		return sqlSession.selectList("com.spring.project.student.dao.stuentDAO.lectureList", map);
+		return sqlSession.selectList("com.spring.project.student.dao.StudentDAO.lectureList", map);
 	}
+
+	// 강의 검색 리스트 갯수
+	@Override
+	public int getLectureSearchCnt(String keyword) {
+		return sqlSession.selectOne("com.spring.project.student.dao.StudentDAO.getLectureSearchCnt", keyword);
+	}
+	
+	// 강의 검색
+	@Override
+	public List<LectureVO> lectureSearch(String keyword) {
+		return sqlSession.selectList("com.spring.project.student.dao.StudentDAO.lectureSearch", keyword);
+	}
+	
+	// 시간표 조회
+	@Override
+	public List<LectureVO> schoolTimeTable(String userNumber) {
+		return sqlSession.selectList("com.spring.project.student.dao.StudentDAO.schoolTimeTable", userNumber);
+	}
+	
+	// 강의 체크
+	@Override
+	public int checkLecture(String lecCode) {
+		return sqlSession.selectOne("com.spring.project.student.dao.StudentDAO.checkLecture", lecCode);
+	}
+	
+	// 강의 신청
+	@Override
+	public int applyLecture(String lecCode) {
+		return sqlSession.selectOne("com.spring.project.student.dao.StudentDAO.applyLecture", lecCode);
+	}
+
+	
+
+	
 
 	
 
