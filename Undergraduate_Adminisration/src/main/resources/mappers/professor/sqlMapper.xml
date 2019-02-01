@@ -37,7 +37,33 @@
    
    	<!-- 내 강의 학생 조회 -->
 	<select id="list" parameterType="java.util.Map" resultType="com.spring.project.professor.vo.studentVO">
-	SELECT * FROM lecture l JOIN studentclassinfo s ON l.leccode = s.leccode JOIN users i ON s.usernumber = i.usernumber JOIN student j ON i.usernumber = j.stdnumber JOIN major m ON j.majornum = m.majornum WHERE l.empNumber = #{userNumber}
+	SELECT l.lecCode,
+	l.majorNum,
+	l.empNumber,
+	l.lecturename,
+	j.grade,
+	s.status,
+	i.userName,
+	i.userImage,
+	i.userCellNum,
+	i.userEmail,
+	i.userZipCode,
+	i.userAddr1,
+	i.userAddr2,
+	j.adDate,
+	m.faculty,
+	m.majorname 
+	FROM lecture l 
+	JOIN studentclassinfo s 
+	ON l.leccode = s.leccode 
+	JOIN users i 
+	ON s.usernumber = i.usernumber
+	JOIN student j 
+	ON i.usernumber = j.stdnumber
+	JOIN major m
+	ON j.majornum = m.majornum
+	WHERE l.empNumber = #{userNumber}
+	AND s.status=0
 	</select>
    
    

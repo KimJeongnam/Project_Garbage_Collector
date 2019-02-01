@@ -174,7 +174,7 @@ public class ProfessorServiceImpl implements ProfessorService {
 		
 		System.out.println("학생조회 list : " + list);
 		
-		model.addAttribute(list);
+		model.addAttribute("list",list);
 		
 	}
 

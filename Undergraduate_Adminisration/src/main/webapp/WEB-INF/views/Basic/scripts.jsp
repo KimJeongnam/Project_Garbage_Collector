@@ -24,7 +24,7 @@
 			</ul>
 			<div class="clearfix"></div>
 			<div id="notif-group" class="tabbed_notifications"></div>
-		</div> -->
+		</div>
 
 <!-- 스크립트 순서에 따라 안되는 경우있음 잘 찾아보셈 -->
     <!-- jQuery -->
