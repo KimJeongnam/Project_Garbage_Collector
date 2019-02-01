@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.project.professor.dao.ProfesserDAO;
+import com.spring.project.professor.vo.myClassVO;
 import com.spring.project.professor.vo.myPageVO;
 import com.spring.project.professor.vo.studentVO;
 import com.spring.project.share.vo.ShareUserInfo;
@@ -95,7 +96,7 @@ public class ProfessorServiceImpl implements ProfessorService {
 		}
 
 	}
-
+	//교수 소개 업데이트
 	@Override
 	public void introUpdate(HttpServletRequest req, RedirectAttributes red) {
 
@@ -164,17 +165,26 @@ public class ProfessorServiceImpl implements ProfessorService {
 			red.addFlashAttribute("message", "개인정보를 변경하는 도중에 오류가 발생하였습니다.");
 	}
 
+	
+	
+	
+	
 	//내 강의 학생 목록
 	@Override
 	public void list(HttpServletRequest req, Model model) {
 		
 		String userNumber = (String) req.getSession().getAttribute("userNumber");
 		
+		List<myClassVO> myClass = dao.myClass(userNumber);
+		
+		System.out.println("교수 강의 목록  myClass : " + myClass);
+		
 		List<studentVO> list = dao.list(userNumber);
 		
-		System.out.println("학생조회 list : " + list);
+		System.out.println("내 강의 모든 학생 list : " + list);
 		
 		model.addAttribute("list",list);
+		model.addAttribute("myClass",myClass);
 		
 	}
 

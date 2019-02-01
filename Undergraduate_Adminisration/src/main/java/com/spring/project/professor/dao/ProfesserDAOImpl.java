@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.spring.project.professor.vo.myClassVO;
 import com.spring.project.professor.vo.myPageVO;
 import com.spring.project.professor.vo.studentVO;
 
@@ -91,6 +92,11 @@ public class ProfesserDAOImpl implements ProfesserDAO{
 	@Override
 	public List<studentVO> list(String userNumber) {
 		return sql.selectList("com.spring.project.professor.dao.ProfesserDAO.list",userNumber);
+	}
+
+	@Override
+	public List<myClassVO> myClass(String userNumber) {
+		return sql.selectList("com.spring.project.professor.dao.ProfesserDAO.myClass",userNumber);
 	}
 
 

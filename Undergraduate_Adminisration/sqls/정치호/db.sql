@@ -420,3 +420,33 @@ SELECT majornum FROM student;
 
 
 commit;
+
+
+
+
+CREATE OR REPLACE VIEW myClassAllStudent
+AS
+SELECT distinct i.userName,
+l.empNumber,
+j.grade,
+i.userImage,
+i.userCellNum,
+i.userEmail,
+i.userZipCode,
+i.userAddr1,
+i.userAddr2,
+j.adDate,
+m.faculty,
+m.majorname
+FROM lecture l 
+JOIN studentclassinfo s 
+ON l.leccode = s.leccode 
+JOIN users i 
+ON s.usernumber = i.usernumber
+JOIN student j 
+ON i.usernumber = j.stdnumber
+JOIN major m
+ON j.majornum = m.majornum
+WHERE s.status=1;
+
+
