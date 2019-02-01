@@ -1,6 +1,37 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-       <!-- Show the cropped image in modal -->
+
+			<!-- 메세지 모달창 -->
+			<div class="modal fade" id="msgModal" tabindex="-1" role="dialog" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">
+								<span aria-hidden="true">×</span>
+							</button>
+							
+							<div class="modal-title row">
+								<div id="msgModal-image" class="left col-xs-2">
+									<img src="/project/resources/images/img.jpg" alt="Profile" class="img-circle profile_img">
+								</div><!-- 
+								 --><div class="right col-xs-9" id="msgModal-sendUser">
+									<h4>보낸이</h4>
+								</div>
+							</div>
+						</div>
+						<div class="modal-body">
+							<div id="msgModal-message">
+								None!
+							</div>
+						</div>
+						<div class="modal-footer" id="msgModal-sendTime">
+							
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Show the cropped image in modal -->
 			<div class="modal fade docs-cropped" id="getCroppedCanvasModal" aria-hidden="true" aria-labelledby="getCroppedCanvasTitle" role="dialog" tabindex="-1">
 				<div class="modal-dialog">
 					<div class="modal-content">
@@ -17,7 +48,7 @@
 				</div>
 			</div><!-- /.modal -->
 			
-		<!-- <!-- notification -->
+		<!-- notification -->
 		<div id="custom_notifications" class="custom-notifications dsp_none">
 			<ul class="list-unstyled notifications clearfix"
 				data-tabbed_notifications="notif-group">

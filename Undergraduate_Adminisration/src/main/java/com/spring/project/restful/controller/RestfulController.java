@@ -24,7 +24,6 @@ public class RestfulController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(RestfulController.class);
 	
-	@ResponseBody
 	@RequestMapping(value="/rest/api/v1.0/messages", method=RequestMethod.POST)
 	public Map<String, List<Message>> messages(@RequestBody Map<String, Object> map,
 			HttpServletRequest request) {
@@ -34,5 +33,12 @@ public class RestfulController {
 		responseData = service.getMessages(map, request, logger);
 		
 		return responseData;
+	}
+	
+	@RequestMapping(value="/rest/api/v1.0/showMessage", method=RequestMethod.POST)
+	public Message getMessage(@RequestBody Map<String, Object> map) {
+		Message message = null;
+		message = service.showMessage(map, logger);
+		return message;
 	}
 }

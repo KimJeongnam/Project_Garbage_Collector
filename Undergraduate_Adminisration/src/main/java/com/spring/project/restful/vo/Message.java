@@ -1,14 +1,17 @@
 package com.spring.project.restful.vo;
 
-import java.sql.Timestamp;
-
-public class Message implements Comparable<Message>{
+public class Message implements Comparable<Message>, Cloneable{
 	private int messageCode;
 	private String userNumber;
 	private String sendUser;
 	private String message;
 	private int readStatus;
-	private Timestamp sendTime;
+	private String sendYear;
+	private String sendMonth;
+	private String sendDay;
+	private String sendHour;
+	private String sendMin;
+	private String sendSec;
 	private int day;
 	private int hour;
 	private int min;
@@ -46,11 +49,41 @@ public class Message implements Comparable<Message>{
 	public void setReadStatus(int readStatus) {
 		this.readStatus = readStatus;
 	}
-	public Timestamp getSendTime() {
-		return sendTime;
+	public String getSendYear() {
+		return sendYear;
 	}
-	public void setSendTime(Timestamp sendTime) {
-		this.sendTime = sendTime;
+	public void setSendYear(String sendYear) {
+		this.sendYear = sendYear;
+	}
+	public String getSendMonth() {
+		return sendMonth;
+	}
+	public void setSendMonth(String sendMonth) {
+		this.sendMonth = sendMonth;
+	}
+	public String getSendDay() {
+		return sendDay;
+	}
+	public void setSendDay(String sendDay) {
+		this.sendDay = sendDay;
+	}
+	public String getSendHour() {
+		return sendHour;
+	}
+	public void setSendHour(String sendHour) {
+		this.sendHour = sendHour;
+	}
+	public String getSendMin() {
+		return sendMin;
+	}
+	public void setSendMin(String sendMin) {
+		this.sendMin = sendMin;
+	}
+	public String getSendSec() {
+		return sendSec;
+	}
+	public void setSendSec(String sendSec) {
+		this.sendSec = sendSec;
 	}
 	public int getDay() {
 		return day;
@@ -105,4 +138,10 @@ public class Message implements Comparable<Message>{
 				return 0;
 		}
 	}
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		return super.clone();
+	}
+	
+	
 }
