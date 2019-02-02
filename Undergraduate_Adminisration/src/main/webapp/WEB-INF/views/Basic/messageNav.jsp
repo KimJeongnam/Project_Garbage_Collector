@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<li role="presentation" class="dropdown"><a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false"> <i class="fa fa-envelope-o"></i> <span id="messageCount" class="badge bg-green">0</span>
+
+<li role="presentation" class="dropdown">
+	<a href="javascript:;" class="dropdown-toggle info-number" id="messageCount" data-toggle="dropdown" aria-expanded="false"> 
+		<i class="fa fa-envelope-o"></i> <!-- <span class="badge bg-green">0</span> -->
     </a>
     <!-- #부분 스크립트 처리 -->
     <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">

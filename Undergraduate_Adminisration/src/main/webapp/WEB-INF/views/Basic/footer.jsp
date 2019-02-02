@@ -14,4 +14,9 @@
     </div>
 
 	<%@ include file="scripts.jsp" %>
-	
+	<script type="text/javascript">
+		$(function (){
+			<%@ include file="../Basic/docReadyScripts.jsp" %>
+			
+		});
+	</script>

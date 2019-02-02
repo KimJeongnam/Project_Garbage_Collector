@@ -11,7 +11,6 @@ function notifyMessage(title, text, important){
             title: title,
             text: text,
             type: 'info',
-            hide: false,
             styling: 'bootstrap3'
         });
 	}
@@ -48,14 +47,16 @@ function ansycTaskMessage(userNumber){
 	}
 }
 
+// 새메세지 알림 표시
 function notifyMessages(messages){
-	if(messages.length>0){
+	if(messages!=null){
 		for(var i=0; i<messages.length; i++){
 			notifyMessage(messages[i].sendUser, messages[i].message, messages[i].notifyStatus);
 		}
 	}
 }
 
+// 우측 상단 메세지 표시
 function showMessages(messages){
 	if(messages == null) return;
 /*	if(messageCount == messages.length){
@@ -64,8 +65,10 @@ function showMessages(messages){
 		messageCount = messages.length;
 	}*/
 		
-	
-	$('#messageCount').text(messages.length);
+	if(messages.length==0){
+		$('#messageCount').html('<i class="fa fa-envelope-o"></i> ');
+	}else
+		$('#messageCount').html('<i class="fa fa-envelope-o"></i> <span class="badge bg-green">'+messages.length+'</span>');
 	
 	$('#messages').html('');
 	
@@ -88,9 +91,10 @@ function showMessages(messages){
 			timaAgo = '오류';
 		}
 		
+		// showMessageInModal('+msg.messageCode+')
 		htmlSource += '\
 				<li>\
-					<a>\
+					<a onclick="showMessageInModal('+msg.messageCode+');">\
 						<span class="image"><img src="/project/resources/'+msg.senduserimage+'" alt="Profile Image"></span>\
 						<span>'+msg.sendUser+'</span><span class="time">'+timeAgo+'</span>\
 						<span class="message">'+msg.message+'</span>\
@@ -100,3 +104,42 @@ function showMessages(messages){
 	}
 	$('#messages').html(htmlSource);
 }
+
+function testModal(){
+	$('#msgModal').modal();
+}
+
+function showMessageInModal(messageCode){
+	var obj = new Object();
+	obj.messageCode = messageCode;
+	obj.readStatus = 1;
+	
+	var jsonData = JSON.stringify(obj);
+	
+	$.ajax({
+		url: '/project/rest/api/v1.0/showMessage',
+		type: 'POST',
+		data : jsonData,
+		contentType : 'application/json;charset=UTF-8',
+		success : function(data){
+			if(data != null){
+				msgModalSet(data);
+			}
+		},
+		error:function(){
+		}
+	});
+}
+
+function msgModalSet(msg){
+	$('#msgModal-image').html('<img src="/project/resources'+msg.senduserimage+'" alt="..." class="img-circle profile_img">');
+	$('#msgModal-sendUser').html('<h4>'+msg.sendUser+'</h4>');
+	$('#msgModal-message').html(msg.message);
+	var time = msg.sendYear+"년"+msg.sendMonth+"월"+msg.sendDay+"일" +
+			" "+msg.sendHour+":"+msg.sendMin+":"+msg.sendSec;
+	$('#msgModal-sendTime').html(time);
+	$('#msgModal').modal();
+}
+
+
+

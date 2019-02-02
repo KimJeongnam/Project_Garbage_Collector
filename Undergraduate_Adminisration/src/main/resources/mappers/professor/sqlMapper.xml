@@ -7,8 +7,65 @@
 
 <mapper namespace="com.spring.project.professor.dao.ProfesserDAO">
 
-	<select id="myPage" parameterType="String" resultType="com.spring.project.professor.vo.Vo">
- 	SELECT * FROM employees e JOIN accountinfo a ON e.usernumber = a.usernumber WHERE e.usernumber=#{userNumber}
+
+	<!-- 마이페이지 -->
+	<select id="myPage" parameterType="String" resultType="com.spring.project.professor.vo.myPageVO">
+ 		SELECT * FROM users u JOIN employee e ON u.usernumber = e.empnumber WHERE u.userNumber=#{userNumber}
  	</select>
+ 	 
+ 	 
+ 	<!-- 프로필 이미지 변경 -->
+	<update id="imageUpload" parameterType="com.spring.project.professor.vo.myPageVO">
+ 		UPDATE users SET userImage=#{userImage} WHERE userNumber=#{userNumber}
+ 	</update>
+ 	
+ 	<!-- 프로필 이미지 변경 -->
+	<update id="introUpdate" parameterType="com.spring.project.professor.vo.myPageVO">
+ 		UPDATE employee SET introduction=#{introduction} WHERE EMPNUMBER=#{userNumber}
+ 	</update>
+ 	
+ 	
+ 	<!-- 개인정보 변경1 -->	
+ 	<update id="update" parameterType="com.spring.project.professor.vo.myPageVO">
+		UPDATE users SET USERNAME=#{userName}, USERENGNAME=#{userEngName}, USERPASSWORD=#{userPassword}, USERCELLNUM=#{userCellNum}, USEREMAIL=#{userEmail},USERADDR1=#{userAddr1},USERADDR2=#{userAddr2} WHERE USERNUMBER=#{userNumber}
+ 	</update> 
+ 	
+ 	<!-- 개인정보 변경2 -->	
+ 	<update id="update2" parameterType="com.spring.project.professor.vo.myPageVO">
+ 		UPDATE employee SET accountNumber=#{accountNumber}, bankName=#{bankName} WHERE EMPNUMBER=#{userNumber}
+ 	</update> 
+   
+   	<!-- 내 강의 학생 조회 -->
+	<select id="list" parameterType="java.util.Map" resultType="com.spring.project.professor.vo.studentVO">
+	SELECT l.lecCode,
+	l.majorNum,
+	l.empNumber,
+	l.lecturename,
+	j.grade,
+	s.status,
+	i.userName,
+	i.userImage,
+	i.userCellNum,
+	i.userEmail,
+	i.userZipCode,
+	i.userAddr1,
+	i.userAddr2,
+	j.adDate,
+	m.faculty,
+	m.majorname 
+	FROM lecture l 
+	JOIN studentclassinfo s 
+	ON l.leccode = s.leccode 
+	JOIN users i 
+	ON s.usernumber = i.usernumber
+	JOIN student j 
+	ON i.usernumber = j.stdnumber
+	JOIN major m
+	ON j.majornum = m.majornum
+	WHERE l.empNumber = #{userNumber}
+	AND s.status=0
+	</select>
+   
+   
  	
 </mapper>

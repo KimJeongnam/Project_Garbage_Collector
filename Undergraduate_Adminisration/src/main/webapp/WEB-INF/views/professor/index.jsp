@@ -23,11 +23,5 @@
             <!-- /page content -->
             
 	<%@ include file="../Basic/footer.jsp" %>
-	
-	<script type="text/javascript">
-		$(function (){
-			<%@ include file="../Basic/docReadyScripts.jsp" %>
-		});
-	</script>
 </body>
 </html>

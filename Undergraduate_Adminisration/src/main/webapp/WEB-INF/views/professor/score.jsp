@@ -17,17 +17,6 @@
                         <div class="title_left">
                             <h3> 강의별 학점관리 <small>강의 선택 후 학생별 입력</small></h3>
                         </div>
-                        <div class="btn-group" style="float: right">
-                            <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button"> 진행중인 강의 선택 <span class="caret"></span> </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">운동역학</a>
-                                </li>
-                                <li><a href="#">운동 생리학</a>
-                                </li>
-                                <li><a href="#">운동 역학의 스포츠 적용</a>
-                                </li>
-                            </ul>
-                        </div>
 
 
 
@@ -43,6 +32,17 @@
                             <div class="x_panel">
                                 <div class="x_title">
                                     <h2>선택한 강의명</h2>
+                        <div class="btn-group" style="float: right">
+                            <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button"> 진행중인 강의 선택 <span class="caret"></span> </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">운동역학</a>
+                                </li>
+                                <li><a href="#">운동 생리학</a>
+                                </li>
+                                <li><a href="#">운동 역학의 스포츠 적용</a>
+                                </li>
+                            </ul>
+                        </div>
 
                                     <div class="clearfix"></div>
                                 </div>

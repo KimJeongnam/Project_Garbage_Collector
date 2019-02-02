@@ -26,11 +26,15 @@ public class RestfulServiceImpl implements RestfulService {
 		Map<String, List<Message>> result = new HashMap<String, List<Message>>();
 		String userNumber = (String) map.get("userNumber");
 
+		map.put("readStatus",  0);
+		
 		List<Message> sessionMessages = (List<Message>) request.getSession().getAttribute("Messages");
-		List<Message> temp = new ArrayList<Message>();
+		Map<Integer, Message> nets = new HashMap<Integer, Message>();
+		
+		List<Message> newMessages = new ArrayList<Message>();
 
 		// logger.info("request userNumber : "+userNumber);
-		List<Message> list = dao.getMessages(userNumber);
+		List<Message> list = dao.getMessages(map);
 		// logger.info("response list size : "+list.size());
 
 		if (sessionMessages != null) {
@@ -38,31 +42,38 @@ public class RestfulServiceImpl implements RestfulService {
 			/*
 			 * DB에서 가져온 메세지와 Session에서 가져온 메세지를 비교 후 이미 세션에 있던 메세지라면 DB에서 가져온 메세지 삭제..
 			 */
-			for (Iterator<Message> it = list.iterator(); it.hasNext();) {
-				Message getmsg = it.next();
-				for (Message message : sessionMessages) {
-					if (message.getMessageCode() == getmsg.getMessageCode()) {
-						temp.add(getmsg);
-						it.remove();
-					}
+			for(Message msg : sessionMessages)
+				nets.put(msg.getMessageCode(), msg);
+			
+			for(Message msg : list) {
+				if(!nets.containsKey(msg.getMessageCode())) {
+					newMessages.add(msg);
 				}
 			}
-
+			
 			/*
 			 * 위과정을 거치고 남아있는 새로운 메세지가 있을시 처리
 			 */
-			Collections.sort(temp);
-			request.getSession().setAttribute("Messages", temp);
-
-			result.put("notReadMessages", temp);
+			Collections.sort(newMessages);
+			result.put("notReadMessages", list);
+			request.getSession().setAttribute("Messages", list);
+			
 		} else {
 			request.getSession().setAttribute("Messages", list);
 			result.put("notReadMessages", list);
 		}
 
-		logger.info("response list Size() : " + list.size());
-		result.put("newMessages", list);
+		logger.info("response list Size() : " + newMessages.size());
+		result.put("newMessages", newMessages);
 
 		return result;
 	}
+
+	// 메세지 보여주는 메서드
+	@Override
+	public Message showMessage(Map<String, Object> map, Logger logger) {
+		return dao.showMessage(map);
+	}
+	
+	
 }
