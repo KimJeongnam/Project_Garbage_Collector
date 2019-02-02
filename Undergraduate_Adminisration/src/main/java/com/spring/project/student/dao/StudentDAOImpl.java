@@ -48,15 +48,29 @@ public class StudentDAOImpl implements StudentDAO{
 	
 	// 강의 체크
 	@Override
-	public int checkLecture(String lecCode) {
-		return sqlSession.selectOne("com.spring.project.student.dao.StudentDAO.checkLecture", lecCode);
+	public int checkLecture(Map<String, Object> map) {
+		return sqlSession.selectOne("com.spring.project.student.dao.StudentDAO.checkLecture", map);
 	}
 	
+	// 강의 인원수 체크
+	@Override
+	public int checkStudentInLecture(String lecCode) {
+		return sqlSession.selectOne("com.spring.project.student.dao.StudentDAO.checkStudentInLecture", lecCode);
+	}
+	
+	// 강의 인원수 체크
+	@Override
+	public int checkStudentInLecture2(Map<String, Object> map2) {
+		return sqlSession.selectOne("com.spring.project.student.dao.StudentDAO.checkStudentInLecture2", map2);
+	}
+		
 	// 강의 신청
 	@Override
-	public int applyLecture(String lecCode) {
-		return sqlSession.selectOne("com.spring.project.student.dao.StudentDAO.applyLecture", lecCode);
+	public int applyLecture(Map<String, Object> map) {
+		return sqlSession.insert("com.spring.project.student.dao.StudentDAO.applyLecture", map);
 	}
+
+	
 
 	
 

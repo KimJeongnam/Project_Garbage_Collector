@@ -2,6 +2,7 @@ package com.spring.project.student.service;
 
 import java.util.HashMap;
 
+
 import java.util.List;
 import java.util.Map;
 
@@ -184,12 +185,26 @@ public class StudentServiceImpl implements StudentService {
 	// 강의 신청
 	@Override
 	public void applyLecture(HttpServletRequest req, Model model) {
+		String userNumber = (String)req.getSession().getAttribute("userNumber");
 		String lecCode = req.getParameter("lecCode");
 		
-		cnt = dao.checkLecture(lecCode);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userNumber", userNumber);
+		map.put("lecCode", lecCode);
+		cnt = dao.checkLecture(map);
 		
+		if (cnt == 0) {
+			int selectCnt = dao.checkStudentInLecture(lecCode);
+			Map<String, Object> map2 = new HashMap<String, Object>();
+			map.put("lecCode", lecCode);
+			map.put("selectCnt", selectCnt);
+			
+			cnt = dao.checkStudentInLecture2(map2);
+			if(cnt == 0) {
+				cnt = dao.applyLecture(map);
+			}
+		}
 		
-		cnt = dao.applyLecture(lecCode);
 	}
 	
 	
