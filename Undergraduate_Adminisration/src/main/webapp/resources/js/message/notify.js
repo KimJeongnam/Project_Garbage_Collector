@@ -65,8 +65,10 @@ function showMessages(messages){
 		messageCount = messages.length;
 	}*/
 		
-	
-	$('#messageCount').text(messages.length);
+	if(messages.length==0){
+		$('#messageCount').html('<i class="fa fa-envelope-o"></i> ');
+	}else
+		$('#messageCount').html('<i class="fa fa-envelope-o"></i> <span class="badge bg-green">'+messages.length+'</span>');
 	
 	$('#messages').html('');
 	

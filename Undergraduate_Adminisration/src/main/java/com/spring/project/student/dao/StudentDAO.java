@@ -23,8 +23,14 @@ public interface StudentDAO {
 	public List<LectureVO> schoolTimeTable(String userNumber);
 	
 	// 강의 체크
-	public int checkLecture(String lecCode);
+	public int checkLecture(Map<String, Object> map);
+	
+	// 강의 체크
+	public int checkStudentInLecture(String lecCode);
+	
+	// 강의 체크
+	public int checkStudentInLecture2(Map<String, Object> map2);
 	
 	// 강의 신청
-	public int applyLecture(String lecCode);
+	public int applyLecture(Map<String, Object> map);
 }
