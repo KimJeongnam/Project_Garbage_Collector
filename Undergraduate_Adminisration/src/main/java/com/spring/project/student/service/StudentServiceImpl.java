@@ -28,7 +28,7 @@ public class StudentServiceImpl implements StudentService {
 	int start = 0;			// 현재 페이지 시작 글번호
 	int end = 0;			// 현재 페이지 마지막 글번호
 	int number = 0;			// 출력용 글번호
-	String pageNum = "";	// 페이지 번호
+	String pageNum = null;	// 페이지 번호
 	int currentPage = 0;	// 현재페이지
 	
 	int pageCount = 0;		// 페이지 갯수

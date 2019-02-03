@@ -10,4 +10,5 @@ public interface RestfulDAO {
 	public int messageReadSet(Map<String, Object> map);
 	public Message getMessage(Map<String, Object> map);
 	public Message showMessage(Map<String, Object> map);
+	public List<Message> getAllmessages(Map<String, Object> map);
 }

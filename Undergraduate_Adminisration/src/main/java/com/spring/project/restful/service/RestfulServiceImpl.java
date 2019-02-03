@@ -28,7 +28,10 @@ public class RestfulServiceImpl implements RestfulService {
 
 		map.put("readStatus",  0);
 		
-		List<Message> sessionMessages = (List<Message>) request.getSession().getAttribute("Messages");
+		List<Message> sessionMessages = null;
+		if(request.getSession().getAttribute("Messages") != null)
+			sessionMessages = (List<Message>) request.getSession().getAttribute("Messages");
+		
 		Map<Integer, Message> nets = new HashMap<Integer, Message>();
 		
 		List<Message> newMessages = new ArrayList<Message>();
@@ -63,7 +66,7 @@ public class RestfulServiceImpl implements RestfulService {
 			result.put("notReadMessages", list);
 		}
 
-		logger.info("response list Size() : " + newMessages.size());
+		//logger.info("response list Size() : " + newMessages.size());
 		result.put("newMessages", newMessages);
 
 		return result;
