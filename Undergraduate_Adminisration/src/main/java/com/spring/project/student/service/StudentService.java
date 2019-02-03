@@ -3,6 +3,7 @@ package com.spring.project.student.service;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.ui.Model;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 public interface StudentService {
 	
@@ -16,5 +17,5 @@ public interface StudentService {
 	public void schoolTimeTable(HttpServletRequest req, Model model);
 	
 	//강의 신청
-	public void applyLecture(HttpServletRequest req, Model model);
+	public void applyLecture(HttpServletRequest req, RedirectAttributes red);
 }

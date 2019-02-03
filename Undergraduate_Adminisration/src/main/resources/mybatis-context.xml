@@ -3,14 +3,14 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 	<!-- Mybatis 설정시작 -->
-	<bean name="dataSourceSpied"
+	<bean name="dataSource"
 		class="org.springframework.jndi.JndiObjectFactoryBean">
 		<property name="jndiName"
 			value="java:comp/env/jdbc/Oracle11g_AWS_oracle" /> <!-- context.xml의 컨넥션풀 lookup -->
 		<property name="resourceRef" value="true" />
 	</bean>
 
-	<bean id="dataSource"
+	<!-- <bean id="dataSource"
 		class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
 		<constructor-arg ref="dataSourceSpied" />
 		<property name="logFormatter">
@@ -21,7 +21,7 @@
 					value="SQL         :  " />
 			</bean>
 		</property>
-	</bean>
+	</bean> -->
 
 	<bean id="splSessionFactory"
 		class="org.mybatis.spring.SqlSessionFactoryBean">

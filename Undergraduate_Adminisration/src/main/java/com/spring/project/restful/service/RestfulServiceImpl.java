@@ -63,7 +63,7 @@ public class RestfulServiceImpl implements RestfulService {
 			result.put("notReadMessages", list);
 		}
 
-		logger.info("response list Size() : " + newMessages.size());
+		// logger.info("response list Size() : " + newMessages.size());
 		result.put("newMessages", newMessages);
 
 		return result;

@@ -4,6 +4,29 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script type="text/javascript">
+		$(function() {
+	    	<%@ include file="../Basic/docReadyScripts.jsp" %>
+	    });
+		/* $(function (){
+			$("#keyword").keyup(function() { // keyup : 데이터 입력이 끝났을 때
+				var k = $(this).val();		 // 입력한 키워드
+				$("#lecture-table > tbody").hide();		
+				$.ajax({
+					type: "POST",
+					data: "keyword=" + keyword,
+					url : "${authPath }/lectureSearch",  // {컨트롤러}/이동페이지
+					// search_sub 보내고 서비스 갔다가 dao 갔다가 mapper갔다가 아래 success로 옮
+					success: function(data) {  // 콜백함수
+						$("#lecture-table > tbody").html(data);  // 결과출력
+					},
+					error: function() {
+						alert("오류");
+					}
+				})
+			})
+		}); */
+	</script>
 <%@ include file="../Basic/settings.jsp"%>
 <title>Insert title here</title>
 </head>
@@ -19,16 +42,10 @@
 			</div>
 			<div class="clearfix"></div>
 			<div class="row">
-				<div class="col-md-12 col-sm-12 col-xs-12">
+				<div class="col-md-6 col-sm-6 col-xs-12">
 					<div class="x_panel">
 						<div class="x_title">
 							<h2>수강신청</h2>
-							<ul class="nav navbar-right panel_toolbox">
-								<li><a class="collapse-link">
-									<i class="fa fa-chevron-up"></i></a>
-								</li>
-								<li><a class="close-link"><i class="fa fa-close"></i></a></li>
-							</ul>
 							<div class="clearfix"></div>
 						</div>
 						<div class="x_content">
@@ -70,39 +87,18 @@
 								</tbody>
 							</table>
 							<div>
-								<input class="btn btn-primary" type="button" value="등록"
-									onclick="window.location='proInsert'">
 								<!-- <input class="btn btn-info" type="button" value="수정" onclick="window.location='proUpdate'">
 								<input class="btn btn-danger" type="button" value="삭제" onclick="window.location='proDelete'"> -->
 							</div>
 						</div>
 					</div>
 				</div>
+				
 			</div>
 		</div>
 	</div>
 	<!-- /page content -->
 	<%@ include file="../Basic/footer.jsp"%>
 
-	<script type="text/javascript">
-		/* $(function (){
-			$("#keyword").keyup(function() { // keyup : 데이터 입력이 끝났을 때
-				var k = $(this).val();		 // 입력한 키워드
-				$("#lecture-table > tbody").hide();		
-				$.ajax({
-					type: "POST",
-					data: "keyword=" + keyword,
-					url : "${authPath }/lectureSearch",  // {컨트롤러}/이동페이지
-					// search_sub 보내고 서비스 갔다가 dao 갔다가 mapper갔다가 아래 success로 옮
-					success: function(data) {  // 콜백함수
-						$("#lecture-table > tbody").html(data);  // 결과출력
-					},
-					error: function() {
-						alert("오류");
-					}
-				})
-			})
-		}); */
-	</script>
 </body>
 </html>
