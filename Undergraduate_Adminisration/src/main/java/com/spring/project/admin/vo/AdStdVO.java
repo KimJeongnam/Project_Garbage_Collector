@@ -4,52 +4,94 @@ import java.sql.Date;
 
 public class AdStdVO {
 
-	//student
-	private String userNumber;		//학번
-	private String stdName;			//학생이름
-	private String stdImage;		//학생이미지
-	private int stdGrade;			//학년
-	private String stdSsn;			//주민등록번호
-	private String stdCellNumber;	//모바일넘버
-	private String stdEmail;		//이메일
-	private String stdZipCode;		//우편번호
-	private String stdAddr1;		//주소1
-	private String stdAddr2;		//주소2
-	private Date adDate;			//입학일
-	
-	private Date graDate;			//졸업일
+	//user
+	private String userNumber;		//학번 - pk
+	private String userPassword;	
+	private String userEngName; 	//영엉이름
+	private String userName;			//학생이름
+	private String userImage;		//학생이미지
+	private String userSsn;			//주민등록번호
+	private String userCellNum;	//모바일넘버
+	private String userEmail;		//이메일
+	private String userZipCode;		//우편번호
+	private String userAddr1;		//주소1
+	private String userAddr2;		//주소2
+	private String gender;			//성별
 	private int delStatus;			//삭제상태
+	private String authority; 
+	
+	//student
+	private String stdNumber;		//학번
+	private int grade;				//학년
+	private Date adDate;			//입학일
+	private Date graDate;			//졸업일
 	
 	//studentState
-	private int grade;				//학생상태 테이블 - 학년
 	private int semester;			//학기
 	private int graduation_state;	//졸업 여부
 	
 	//major
-	private int majorNum;			//학과번호
-	private String majorName;		//단과대명
-	
+	private int majorNum;			//학과번호 - pk
+	private String majorName;		//학과명
 	
 	//faculty
 	private String faculty; 
 	
 	//schoolLeave
-	private int schoolLeaveStateCode;//휴복학 내역코드
+	private int schoolLeaveStateCode;//휴복학 내역코드 -pk
 	private int leaveStatus;		 //상태
 	private String kind;			 //구분 - 휴학의 종류
 	
 	
+	
+	
+	public String getUserCellNum() {
+		return userCellNum;
+	}
+	public void setUserCellNum(String userCellNum) {
+		this.userCellNum = userCellNum;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public String getStdNumber() {
+		return stdNumber;
+	}
+	public void setStdNumber(String stdNumber) {
+		this.stdNumber = stdNumber;
+	}
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+	public String getUserPassword() {
+		return userPassword;
+	}
+	public void setUserPassword(String userPassword) {
+		this.userPassword = userPassword;
+	}
+	public String getAuthority() {
+		return authority;
+	}
+	public void setAuthority(String authority) {
+		this.authority = authority;
+	}
+	public String getUserEngName() {
+		return userEngName;
+	}
+	public void setUserEngName(String userEngName) {
+		this.userEngName = userEngName;
+	}
 	public String getUserNumber() {
 		return userNumber;
 	}
 	public void setUserNumber(String userNumber) {
 		this.userNumber = userNumber;
-	}
-	public int getStdGrade() {
-		return stdGrade;
-	}
-	public void setStdGrade(int stdGrade) {
-		this.stdGrade = stdGrade;
 	}
 	public int getGrade() {
 		return grade;
@@ -105,54 +147,43 @@ public class AdStdVO {
 	public void setKind(String kind) {
 		this.kind = kind;
 	}
-	public String getStdName() {
-		return stdName;
+	public String getUserImage() {
+		return userImage;
 	}
-	public void setStdName(String stdName) {
-		this.stdName = stdName;
+	public void setUserImage(String userImage) {
+		this.userImage = userImage;
 	}
-	public String getStdImage() {
-		return stdImage;
+	public String getUserSsn() {
+		return userSsn;
 	}
-	public void setStdImage(String stdImage) {
-		this.stdImage = stdImage;
+	public void setUserSsn(String userSsn) {
+		this.userSsn = userSsn;
 	}
 	
-	public String getStdSsn() {
-		return stdSsn;
+	
+	public String getUserEmail() {
+		return userEmail;
 	}
-	public void setStdSsn(String stdSsn) {
-		this.stdSsn = stdSsn;
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
 	}
-	public String getStdCellNumber() {
-		return stdCellNumber;
+	public String getUserZipCode() {
+		return userZipCode;
 	}
-	public void setStdCellNumber(String stdCellNumber) {
-		this.stdCellNumber = stdCellNumber;
+	public void setUserZipCode(String userZipCode) {
+		this.userZipCode = userZipCode;
 	}
-	public String getStdEmail() {
-		return stdEmail;
+	public String getUserAddr1() {
+		return userAddr1;
 	}
-	public void setStdEmail(String stdEmail) {
-		this.stdEmail = stdEmail;
+	public void setUserAddr1(String userAddr1) {
+		this.userAddr1 = userAddr1;
 	}
-	public String getStdZipCode() {
-		return stdZipCode;
+	public String getUserAddr2() {
+		return userAddr2;
 	}
-	public void setStdZipCode(String stdZipCode) {
-		this.stdZipCode = stdZipCode;
-	}
-	public String getStdAddr1() {
-		return stdAddr1;
-	}
-	public void setStdAddr1(String stdAddr1) {
-		this.stdAddr1 = stdAddr1;
-	}
-	public String getStdAddr2() {
-		return stdAddr2;
-	}
-	public void setStdAddr2(String stdAddr2) {
-		this.stdAddr2 = stdAddr2;
+	public void setUserAddr2(String userAddr2) {
+		this.userAddr2 = userAddr2;
 	}
 	public Date getAdDate() {
 		return adDate;
