@@ -38,12 +38,29 @@
 	</select>
 	
 	<!-- 강의 체크 -->
-	<select id="checkLecture" resultType="int">
-		select count(*) from timetableview where 
+	<select id="checkLecture" parameterType="java.util.Map" resultType="int">
+		select count(*) from timetableview 
+			where timetblCode in (SELECT timetblCode
+          							from timetableview 
+         							 where lecCode=#{lecCode} and userNumber=#{userNumber})
+	</select>
+	<!-- 강의 인원수 체크 -->
+	<select id="checkStudentInLecture" parameterType="String" resultType="int">
+		select count(*) from studentClassInfo where lecCode=#{lecCode}
 	</select>
 	
-	<!-- 강의 신청 -->
-	<select id="applyLecture" resultType="int">
-		select count(*) from lecture
+	
+	<!-- 강의 인원수 체크 -->
+	<select id="checkStudentInLecture2" parameterType="java.util.Map" resultType="int">
+		<![CDATA[
+		select count(*) from lecture where maximumCapacity>=#{selectCnt} and lecCode=#{lecCode}
+		]]>
 	</select>
+	
+	
+	<!-- 강의 신청 -->
+	<insert id="applyLecture" parameterType="java.util.Map">
+		insert into studentClassInfo(infoCode, lecCode, userNumber, status) 
+		values(STUDENTCLASSINFO_SEQ.nextval,#{lecCode},#{userNumber},1)
+	</insert>
 </mapper>

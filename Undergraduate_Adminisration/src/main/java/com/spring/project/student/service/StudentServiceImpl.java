@@ -2,6 +2,7 @@ package com.spring.project.student.service;
 
 import java.util.HashMap;
 
+
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.project.student.dao.StudentDAO;
 import com.spring.project.student.vo.LectureVO;
@@ -183,13 +185,34 @@ public class StudentServiceImpl implements StudentService {
 	
 	// 강의 신청
 	@Override
-	public void applyLecture(HttpServletRequest req, Model model) {
+	public void applyLecture(HttpServletRequest req, RedirectAttributes red) {
+		String userNumber = (String)req.getSession().getAttribute("userNumber");
 		String lecCode = req.getParameter("lecCode");
 		
-		cnt = dao.checkLecture(lecCode);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userNumber", userNumber);
+		map.put("lecCode", lecCode);
+		cnt = dao.checkLecture(map);  // 수강신청할 강의 체크 
+		System.out.println("cnt1 : " + cnt);
+		if (cnt != 0) {	
+			int selectCnt = dao.checkStudentInLecture(lecCode);  // selectCnt 현재 강의 신청한 인원수
+			System.out.println("selectCnt : " + cnt);
+			System.out.println("lecCode : " + lecCode);
+			Map<String, Object> map2 = new HashMap<String, Object>();
+			map2.put("lecCode", lecCode);
+			map2.put("selectCnt", selectCnt);
+			
+			int cnt2 = dao.checkStudentInLecture2(map2);	// 강의 최대인원수 = 현재인원수 이면 1 강의 신청실패
+			System.out.println("cnt2 : " + cnt);
+			red.addFlashAttribute("message", "");
+			if(cnt2 == 0) {
+				dao.applyLecture(map);
+				red.addFlashAttribute("message", "수강신청완료");
+			} if(cnt2 != 0) {
+				red.addFlashAttribute("message", "수강신청실패-강의 신청인원이 마감되었습니다.");
+			}
+		}
 		
-		
-		cnt = dao.applyLecture(lecCode);
 	}
 	
 	
