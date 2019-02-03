@@ -33,12 +33,15 @@ public class ShareServiceImpl implements ShareService{
 		
 		if(authorities.stream().filter(o->o.getAuthority().equals("ROLE_ADMIN")).findAny().isPresent()) {
 			user = dao.getEmployeeInfo(userNumber);
+			request.getSession().setAttribute("authority", "admin");
 			redirectUrl = "/admin/index";
 		}else if(authorities.stream().filter(o->o.getAuthority().equals("ROLE_PROFESSOR")).findAny().isPresent()) {
 			user = dao.getEmployeeInfo(userNumber);
+			request.getSession().setAttribute("authority", "professor");
 			redirectUrl = "/professor/index";
 		}else if(authorities.stream().filter(o->o.getAuthority().equals("ROLE_STUDENT")).findAny().isPresent()) {
 			redirectUrl = "/student/index";
+			request.getSession().setAttribute("authority", "student");
 			user = dao.getStudentInfo(userNumber);
 		}
 		

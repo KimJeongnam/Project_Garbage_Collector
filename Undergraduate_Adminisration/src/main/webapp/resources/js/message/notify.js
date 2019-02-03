@@ -16,8 +16,7 @@ function notifyMessage(title, text, important){
 	}
 }
 
-var messageCount = 0;
-
+// 1초에 한번씩 새로운 메세지가있는지 요청하는 Ajax 
 function ansycTaskMessage(userNumber){
 	if(userNumber.length!=0){
 		setInterval(function(){
@@ -32,11 +31,11 @@ function ansycTaskMessage(userNumber){
 				data : jsonData,
 				contentType : 'application/json;charset=UTF-8',
 				success : function(data){
-					// 만약 기존 메세지가 없다면 초기화
+					// 읽지 않은 메세지들 오른쪽 위화면에 띄워주기
 					showMessages(data.notReadMessages);
 					
 					
-					// 새 메세지가 있을시.
+					// 새 메세지가 있다면
 					notifyMessages(data.newMessages);
 					
 				},
@@ -115,7 +114,8 @@ function showMessageInModal(messageCode){
 	obj.readStatus = 1;
 	
 	var jsonData = JSON.stringify(obj);
-	
+	// 메세지 읽으면 readStatus 를 1로 업데이트를 시켜주기 위한 Ajax
+	// 업데이트 후 해당 메세지의 정보를 가져와 msgModalSet() 함수에 던진다.
 	$.ajax({
 		url: '/project/rest/api/v1.0/showMessage',
 		type: 'POST',
@@ -139,6 +139,29 @@ function msgModalSet(msg){
 			" "+msg.sendHour+":"+msg.sendMin+":"+msg.sendSec;
 	$('#msgModal-sendTime').html(time);
 	$('#msgModal').modal();
+}
+
+function getMessages(userNumber){
+	var obj = new Object();
+	obj.userNumber = userNumber;
+	
+	var jsonData = JSON.stringify(obj);
+	
+	$.ajax({
+		url: '/project/ajax/api/v1.1/messages/list',
+		type: 'POST',
+		data : jsonData,
+		contentType : 'application/json;charset=UTF-8',
+		success : function(data){
+			if(data != null){
+				if($('#messageBoard')!= null)
+					$('#messageBoard').html(data);
+			}
+		},
+		error:function(){
+			alert("Error! getMessages();");
+		}
+	});
 }
 
 

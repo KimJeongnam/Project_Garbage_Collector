@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.spring.project.restful.vo.Message;
+import com.spring.project.share.dao.ShareDAO;
 
 @Repository
 public class RestfulDAOImpl implements RestfulDAO{
@@ -28,6 +29,7 @@ public class RestfulDAOImpl implements RestfulDAO{
 
 	@Override
 	public Message getMessage(Map<String, Object> map) {
+		System.out.println(ShareDAO.getQuery(sqlSession, "getMessage", map));
 		return sqlSession.selectOne("com.spring.project.restful.dao"
 				+ ".RestfulDAO.getMessage", map);
 	}
@@ -36,5 +38,10 @@ public class RestfulDAOImpl implements RestfulDAO{
 	public Message showMessage(Map<String, Object> map) {
 		if(messageReadSet(map)==0) return null; 
 		return getMessage(map);
+	}
+	
+	@Override
+	public List<Message> getAllmessages(Map<String, Object> map){
+		return null;
 	}
 }
