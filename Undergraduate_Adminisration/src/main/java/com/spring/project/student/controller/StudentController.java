@@ -1,5 +1,7 @@
 package com.spring.project.student.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -7,7 +9,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired; 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.project.professor.controller.ProfessorController;
@@ -62,10 +66,12 @@ public class StudentController {
 	}
 
 	//수강신청
-	@RequestMapping("/student/lectureList")
-	public String lectureList(HttpServletRequest req, Model model) {
-		logger.info("lectureList");
-		service.lectureList(req, model);
+	@RequestMapping(value="/student/lectureList", method=RequestMethod.POST)
+	public String lectureList(@RequestBody Map<String, Object> map, Model model) {
+		/*logger.info("lectureList");*/
+		service.lectureList(map, model);
+		
+		service.schoolTimeTable(map, model);
 		return "student/lectureList2";
 	}
 
@@ -80,16 +86,16 @@ public class StudentController {
 	@RequestMapping("/student/schoolTimeTable")
 	public String schoolTimeTable(HttpServletRequest req, Model model) {
 		logger.info("schoolTimeTable");
-		service.schoolTimeTable(req, model);
+		//service.schoolTimeTable(req, model);
 		
-		return "student/schoolTimeTable";
+		return "student/lectureList2";
 	}
 	
 	//강의 검색
 	@RequestMapping("/student/lectureSearch")
 	public String lectureSearch(HttpServletRequest req, Model model) {
 		logger.info("lectureSearch");
-		service.lectureSearch(req, model);
+		//service.lectureSearch(req, model);
 		return "student/lectureList";
 	}
 	
@@ -97,7 +103,7 @@ public class StudentController {
 	@RequestMapping("/student/applyLecture")
 	public String applyLecture(HttpServletRequest req, RedirectAttributes red) {
 		logger.info("applyLecture");
-		service.applyLecture(req, red);
+		//service.applyLecture(req, red);
 		
 		return "redirect:/student/lectureList";
 	}

@@ -132,7 +132,9 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <input type="button" class="btn btn-primary" value="신규">
+                                    <div>
+                                    	<input type="button" class="btn btn-primary" value="신규">
+                                	</div>
                                 </div>
                             </div>
                         </div>

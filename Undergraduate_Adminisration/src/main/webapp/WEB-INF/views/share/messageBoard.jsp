@@ -1,59 +1,93 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	
-<div class="col-md-6">
-	<div class="x_panel">
-		<div class="x_title">
-			<h2>
-				Daily active users <small>Sessions</small>
-			</h2>
-			<ul class="nav navbar-right panel_toolbox">
-				<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-				<li class="dropdown"><a href="#" class="dropdown-toggle"
-					data-toggle="dropdown" role="button" aria-expanded="false"><i
-						class="fa fa-wrench"></i></a>
-					<ul class="dropdown-menu" role="menu">
-						<li><a href="#">Settings 1</a></li>
-						<li><a href="#">Settings 2</a></li>
-					</ul></li>
-				<li><a class="close-link"><i class="fa fa-close"></i></a></li>
-			</ul>
-			<div class="clearfix"></div>
-		</div>
-		<div class="x_content">
-			<ul class="list-unstyled msg_list">
-				<li><a> <span class="image"> <img
-							src="/project/resources/images/img.jpg" alt="img" />
-					</span> <span> <span>John Smith</span> <span class="time">3
-								mins ago</span>
-					</span> <span class="message"> Film festivals used to be do-or-die
-							moments for movie makers. They were where you met the producers
-							that </span>
-				</a></li>
-				<li><a> <span class="image"> <img
-							src="/project/resources/images/img.jpg" alt="img" />
-					</span> <span> <span>John Smith</span> <span class="time">3
-								mins ago</span>
-					</span> <span class="message"> Film festivals used to be do-or-die
-							moments for movie makers. They were where you met the producers
-							that </span>
-				</a></li>
-				<li><a> <span class="image"> <img
-							src="/project/resources/images/img.jpg" alt="img" />
-					</span> <span> <span>John Smith</span> <span class="time">3
-								mins ago</span>
-					</span> <span class="message"> Film festivals used to be do-or-die
-							moments for movie makers. They were where you met the producers
-							that </span>
-				</a></li>
-				<li><a> <span class="image"> <img
-							src="/project/resources/images/img.jpg" alt="img" />
-					</span> <span> <span>John Smith</span> <span class="time">3
-								mins ago</span>
-					</span> <span class="message"> Film festivals used to be do-or-die
-							moments for movie makers. They were where you met the producers
-							that </span>
-				</a></li>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<div class="row">
+	<ul class="list-unstyled msg_list">
+		<c:forEach var="msg" items="${dtos }">
+			<c:choose>
+				<c:when test="${msg.notifyStatus==1}">
+					<li style="cursor: pointer;" class="alert alert-info"
+					onclick="showMessageInPage(${msg.messageCode}, '${userNumber }', ${pageNum });">
+				</c:when>
+				<c:otherwise>
+					<li style="cursor: pointer;"
+						onclick="showMessageInPage(${msg.messageCode}, '${userNumber }', ${pageNum });">
+				</c:otherwise>
+			</c:choose>
+			
+				<a> 
+					<span class="image"> 
+						<img src="/project/resources${msg.senduserimage }" alt="img"/>
+					</span> 
+					<span> 
+					<span>
+						<c:if test="${msg.notifyStatus == 1 }">
+							<span class="fa fa-bullhorn"></span>
+						</c:if>
+						${msg.sendUser }
+					</span> <span class="time" style="margin-right: 10px;">
+						<c:if test="${msg.readStatus > 0 }">
+							<span class="fa fa-check"></span>
+						</c:if>
+						${msg.sendYear }-${msg.sendMonth }-${msg.sendDay }&nbsp;&nbsp;
+						${msg.sendHour }:${msg.sendMin }:${msg.sendSec }
+						</span>
+					</span> 
+					<span class="message"> ${msg.message }
+					</span>
+				</a>
+			</li>
+		</c:forEach>
+	</ul>
+</div>
+
+<div class="row">
+	<div class="col-sm-5">
+		<div class="dataTables_info" id="datatable_info" role="status"
+			aria-live="polite">Showing ${number} to ${number+pageCount} of ${cnt} entries</div>
+	</div>
+
+	<div class="col-sm-7">
+		<div class="text-right">
+			<ul class="pagination">
+				<c:if test="${cnt > 0 }">
+					<c:if test="${startPage > pageBlock }">
+						<a href="bookList">[◀◀]</a>
+						<a href="bookList?pageNum=${startPage - pageBlock }">[◀&nbsp;prev]</a>
+						
+						<li class="paginate_button previous disabled"  style="cursor:pointer;"
+							id="datatable_previous"><a onclick="getMessages('${userNumber}', 1);" 
+							onclick="getMessages('${userNumber}', 1);" aria-controls="datatable"
+							data-dt-idx="0" tabindex="0">Frist</a></li>
+						<li class="paginate_button previous disabled"  style="cursor:pointer;"
+							onclick="getMessages('${userNumber}', ${startPage - pageBlock});"
+							id="datatable_previous"><a aria-controls="datatable"
+							data-dt-idx="0" tabindex="0">Previous</a></li>
+					</c:if>
+					<c:forEach var="page" begin="${startPage }" end="${endPage }">
+						<c:choose>
+							<c:when test="${pageNum == page }">
+								<li class="paginate_button active"><a href="#"
+									aria-controls="datatable" tabindex="0">${page }</a></li>
+							</c:when>
+							<c:otherwise>
+								<li class="paginate_button" style="cursor:pointer;"
+									onclick="getMessages('${userNumber}', ${page });">
+									<a aria-controls="datatable" tabindex="0">${page }</a></li>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+					
+					<c:if test="${pageCount > endPage }">
+						<li class="paginate_button next" id="datatable_next" style="cursor:pointer;"
+							onclick="getMessages('${userNumber}', ${startPage + pageBlock });">
+							<a aria-controls="datatable" tabindex="0">Next</a></li>
+						<li class="paginate_button next" id="datatable_next" style="cursor:pointer;"
+							onclick="getMessages('${userNumber}', ${pageCount });">
+							<a aria-controls="datatable" tabindex="0">Last</a></li>
+					</c:if>
+				</c:if>
 			</ul>
 		</div>
 	</div>

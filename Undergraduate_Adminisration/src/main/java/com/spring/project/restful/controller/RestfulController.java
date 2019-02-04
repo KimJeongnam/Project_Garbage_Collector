@@ -43,9 +43,4 @@ public class RestfulController {
 		message = service.showMessage(map, logger);
 		return message;
 	}
-	
-	@RequestMapping(value="/ajax/api/v1.1/messages/list", method=RequestMethod.POST)
-	public String messageBoard(@RequestBody Map<String, Object> map) {
-		return "share/messageBoard";
-	}
 }

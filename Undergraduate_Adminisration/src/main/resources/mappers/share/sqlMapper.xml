@@ -6,17 +6,57 @@
 
 
 <mapper namespace="com.spring.project.share.dao.ShareDAO">
-	<select id="getStudentInfo" resultType="com.spring.project.share.vo.ShareUserInfo">
-		SELECT u.usernumber as userName, userImage, std.majorNum 
+
+	<select id="getStudentInfo"
+		resultType="com.spring.project.share.vo.ShareUserInfo">
+		SELECT u.usernumber as userName, userImage, std.majorNum
 		FROM users u JOIN student std
-       ON u.usernumber = std.stdnumber
+		ON u.usernumber = std.stdnumber
 		WHERE u.usernumber = #{userNumber}
 	</select>
-	
-	<select id="getEmployeeInfo" resultType="com.spring.project.share.vo.ShareUserInfo">
-		SELECT userName, userImage, emp.majorNum 
+
+	<select id="getEmployeeInfo"
+		resultType="com.spring.project.share.vo.ShareUserInfo">
+		SELECT userName, userImage, emp.majorNum
 		FROM users u JOIN employee emp
-       ON u.usernumber = emp.empnumber
+		ON u.usernumber = emp.empnumber
 		WHERE userNumber = #{userNumber}
 	</select>
+
+	<select id="messageTotalCnt" parameterType="java.util.Map"
+		resultType="int">
+		SELECT COUNT(*) FROM getmessage_view
+		<where>
+			userNumber = #{userNumber}
+			<if test="keyword != null">
+				AND sendyear||'-'||sendmonth||'-'||sendday like
+				'%'||#{keyword}||'%' OR
+				userNumber = #{userNumber} AND senduser like '%'||#{keyword}||'%' OR
+				userNumber = #{userNumber} AND message like '%'||#{keyword}||'%'
+			</if>
+		</where>
+	</select>
+
+	<select id="getMessages" parameterType="java.util.Map"
+		resultType="com.spring.project.restful.vo.Message">
+		SELECT *
+		FROM
+		(SELECT ROWNUM rnum, messagecode, usernumber, senduser, message, readstatus
+		, sendyear, sendmonth, sendday, sendhour, sendmin, sendsec
+		, day, hour, min, sec, notifystatus, senduserimage FROM getmessage_view
+		<where>
+			userNumber = #{userNumber}
+			<if test="keyword != null">
+				AND sendyear||'-'||sendmonth||'-'||sendday like
+				'%'||#{keyword}||'%' OR
+				userNumber = #{userNumber} AND senduser like '%'||#{keyword}||'%' OR
+				userNumber = #{userNumber} AND message like '%'||#{keyword}||'%'
+			</if>
+		</where>
+		)
+	    <![CDATA[
+	    WHERE rnum >= #{start} AND rnum <= #{end}
+		]]>
+	</select>
+
 </mapper>
