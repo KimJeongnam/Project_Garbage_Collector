@@ -6,8 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -39,13 +37,13 @@ public class StudentServiceImpl implements StudentService {
 	
 	// 수강 신청 목록
 	@Override
-	public void lectureList(HttpServletRequest req, Model model) {
-		//String majorNum = (String)req.getSession().getAttribute("majorNum");
+	public void lectureList(Map<String, Object> map, Model model) {
+		String majorNum = (String)map.get("majorNum");
 		
 		// 수강신청 목록 갯수 구하기
 		cnt = dao.getLectureCnt();
 		
-		pageNum = req.getParameter("pageNum");
+		pageNum = (String)map.get("pageNum");
 		
 		if(pageNum == null) {
 			pageNum = "1";	// 첫페이지를 1페이지로 지정
@@ -73,7 +71,7 @@ public class StudentServiceImpl implements StudentService {
 		
 		if(cnt > 0) {
 			// 수강신청 목록 조회
-			Map<String, Object> map = new HashMap<String, Object>();
+			/*Map<String, Object> map = new HashMap<String, Object>();*/
 			map.put("start", start);
 			map.put("end", end);
 			
@@ -108,13 +106,13 @@ public class StudentServiceImpl implements StudentService {
 	
 	// 강의 검색
 	@Override
-	public void lectureSearch(HttpServletRequest req, Model model) {
-		String keyword = req.getParameter("keyword");
+	public void lectureSearch(Map<String, Object> map, Model model) {
+		String keyword = (String)map.get("keyword");
 		
 		// 강의 검색 갯수
 		cnt = dao.getLectureSearchCnt(keyword);
 		
-		pageNum = req.getParameter("pageNum");
+		pageNum = (String)map.get("pageNum");
 		
 		if(pageNum == null) {
 			pageNum = "1";	// 첫페이지를 1페이지로 지정
@@ -142,7 +140,7 @@ public class StudentServiceImpl implements StudentService {
 		
 		if(cnt > 0) {
 			// 수강신청 목록 조회
-			Map<String, Object> map = new HashMap<String, Object>();
+			/*Map<String, Object> map = new HashMap<String, Object>();*/
 			map.put("start", start);
 			map.put("end", end);
 			
@@ -176,8 +174,8 @@ public class StudentServiceImpl implements StudentService {
 	
 	// 시간표 조회
 	@Override
-	public void schoolTimeTable(HttpServletRequest req, Model model) {
-		String userNumber = (String)req.getSession().getAttribute("userNumber");
+	public void schoolTimeTable(Map<String, Object> map, Model model) {
+		String userNumber = (String)map.get("userNumber");
 		
 		List<LectureVO> dtos = dao.schoolTimeTable(userNumber);
 		model.addAttribute("dtos", dtos); 
@@ -185,11 +183,10 @@ public class StudentServiceImpl implements StudentService {
 	
 	// 강의 신청
 	@Override
-	public void applyLecture(HttpServletRequest req, RedirectAttributes red) {
-		String userNumber = (String)req.getSession().getAttribute("userNumber");
-		String lecCode = req.getParameter("lecCode");
+	public void applyLecture(Map<String, Object> map, RedirectAttributes red) {
+		String userNumber = (String)map.get("userNumber");
+		String lecCode = (String)map.get("lecCode");
 		
-		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("userNumber", userNumber);
 		map.put("lecCode", lecCode);
 		cnt = dao.checkLecture(map);  // 수강신청할 강의 체크 
