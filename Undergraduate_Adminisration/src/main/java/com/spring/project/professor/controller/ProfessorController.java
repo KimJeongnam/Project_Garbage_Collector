@@ -77,6 +77,9 @@ public class ProfessorController {
 			service.list(req,model);
 			return "professor/list";
 		}
+		
+		
+		
 		/////학생조회끝
 		
 		

@@ -176,7 +176,7 @@
                                                         <div class="form-group">
                                                             <div class="col-md-6 col-md-offset-3">
                                                                 <button type="reset" class="btn btn-primary">재작성</button>
-                                                                <button id="send" type="submit" class="btn btn-success">수정</button>
+                                                                <button type="submit" class="btn btn-success">수정</button>
                                                             </div>
                                                         </div>
                                                             
@@ -196,7 +196,7 @@
                                                        <div class="form-group">
                                                             <div class="col-md-6 col-md-offset-3">
                                                                 <button type="reset" class="btn btn-primary">재작성</button>
-                                                                <button id="send" type="submit" class="btn btn-success">수정</button>
+                                                                <button type="submit" class="btn btn-success">수정</button>
                                                             </div>
                                                         </div>
                                                        </form>
@@ -288,7 +288,7 @@
                                                             <div class="form-group">
                                                             <div class="col-md-6 col-md-offset-3">
                                                                 <button type="reset" class="btn btn-primary">재작성</button>
-                                                                <button id="send" type="submit" class="btn btn-success">수정</button>
+                                                                <button type="submit" class="btn btn-success">수정</button>
                                                             </div>
                                                         </div>
                                                         </form>
@@ -341,13 +341,6 @@
 
 
     <%@ include file="../Basic/footer.jsp" %>
-
-    <script type="text/javascript">
-        $(function() {
-        	<%@ include file="../Basic/docReadyScripts.jsp" %>
-        });
-
-    </script>
 </body>
 
 </html>

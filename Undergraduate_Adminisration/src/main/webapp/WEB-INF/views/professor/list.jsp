@@ -15,9 +15,7 @@
     <!-- page content -->
 
 
-
-
-    <div class="right_col" role="main">
+	<div class="right_col" role="main">
         <div class="">
             <div class="page-title">
                 <div class="title_left">
@@ -52,8 +50,8 @@
                                                     
                                                     
                                                     <c:forEach var="vo1" items="${myClass}" varStatus="status">
-                                                    <li role="presentation" class="">
-                                                    	<a href="#lec${status.index}" role="tab" data-toggle="tab" aria-expanded="false">${vo1.lectureName}</a>
+                                                    <li role="presentation">
+                                                    	<a href="#lec${status.index}" onclick="class_click('lec${status.index}', '${vo1.lectureName}')" role="tab" data-toggle="tab" aria-expanded="false">${vo1.lectureName}</a>
                                                     </li>
                                                     </c:forEach> 
                                                 </ul>
@@ -73,13 +71,16 @@
                                 <div class="col-md-3 col-sm-3 col-xs-12 profile_details">
                                     <div class="well profile_view">
                                         <div class="col-sm-12" style="height:200px;">
-                                      <p><strong>듣는 과목명????</strong></p>
+                                      	<h2><strong>No. ${vo2.userNumber}</strong></h2>
                                             <div class="left col-xs-7">
-                                                <h2>${vo2.userName}</h2> 
+                                                <h2>${vo2.userName}</h2>
+                                                	${vo2.userEngName}<br>
                                                 <ul class="list-unstyled">
                                                     <li><i class="fa fa-phone"> &nbsp; &nbsp;</i>${vo2.userCellNum}</li>
                                                     <li><i class="fa fa-send"> &nbsp; &nbsp;</i>${vo2.userEmail}</li>
+                                                    <li><i class="fa fa-share"> &nbsp; &nbsp;</i>생일?</li>
                                                 </ul>
+                                                
                                             </div>
                                             <div class="right col-xs-5 text-center">
                                                 <img src="${staticPath}${vo2.userImage}" alt="" class="img-circle img-responsive">
@@ -94,10 +95,10 @@
                                             <div class="col-xs-12 col-sm-6 emphasis">
 
                                                 <!-- id만 compose 입력하면 메세지창 뜨으으음 갸꿀!!!!-->
-                                                <button id="compose" type="button" class="btn btn-success btn-xs"><i class="fa fa-comments-o">&nbsp;&nbsp;메세지&nbsp;&nbsp;
+                                                <button id="compose" type="button" class="btn btn-success btn-xs"><i class="fa fa-comments-o">&nbsp;메세지&nbsp;
                                                     </i> </button>
                                                 <button type="button" onclick="window.location.href='${authPath }/score'" class="btn btn-primary btn-xs">
-                                                    <i class="fa fa-user"> </i> &nbsp;학점입력&nbsp;&nbsp;
+                                                    <i class="fa fa-user"> </i>학점입력
                                                 </button>
                                                 
                                                 
@@ -140,89 +141,20 @@
     <!-- 메세지보내기 -->
     <div class="compose col-md-6 col-xs-12">
         <div class="compose-header">
-            New Message
+            	새로운 메세지
             <button type="button" class="close compose-close">
                 <span>×</span>
             </button>
         </div>
 
         <div class="compose-body">
-            <div id="alerts"></div>
-
-            <div class="btn-toolbar editor" data-role="editor-toolbar" data-target="#editor">
-                <div class="btn-group">
-                    <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font"><i class="fa fa-font"></i><b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                    </ul>
-                </div>
-
-                <div class="btn-group">
-                    <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font Size"><i class="fa fa-text-height"></i>&nbsp;<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a data-edit="fontSize 5">
-                                <p style="font-size:17px">Huge</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a data-edit="fontSize 3">
-                                <p style="font-size:14px">Normal</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a data-edit="fontSize 1">
-                                <p style="font-size:11px">Small</p>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="btn-group">
-                    <a class="btn" data-edit="bold" title="Bold (Ctrl/Cmd+B)"><i class="fa fa-bold"></i></a>
-                    <a class="btn" data-edit="italic" title="Italic (Ctrl/Cmd+I)"><i class="fa fa-italic"></i></a>
-                    <a class="btn" data-edit="strikethrough" title="Strikethrough"><i class="fa fa-strikethrough"></i></a>
-                    <a class="btn" data-edit="underline" title="Underline (Ctrl/Cmd+U)"><i class="fa fa-underline"></i></a>
-                </div>
-
-                <div class="btn-group">
-                    <a class="btn" data-edit="insertunorderedlist" title="Bullet list"><i class="fa fa-list-ul"></i></a>
-                    <a class="btn" data-edit="insertorderedlist" title="Number list"><i class="fa fa-list-ol"></i></a>
-                    <a class="btn" data-edit="outdent" title="Reduce indent (Shift+Tab)"><i class="fa fa-dedent"></i></a>
-                    <a class="btn" data-edit="indent" title="Indent (Tab)"><i class="fa fa-indent"></i></a>
-                </div>
-
-                <div class="btn-group">
-                    <a class="btn" data-edit="justifyleft" title="Align Left (Ctrl/Cmd+L)"><i class="fa fa-align-left"></i></a>
-                    <a class="btn" data-edit="justifycenter" title="Center (Ctrl/Cmd+E)"><i class="fa fa-align-center"></i></a>
-                    <a class="btn" data-edit="justifyright" title="Align Right (Ctrl/Cmd+R)"><i class="fa fa-align-right"></i></a>
-                    <a class="btn" data-edit="justifyfull" title="Justify (Ctrl/Cmd+J)"><i class="fa fa-align-justify"></i></a>
-                </div>
-
-                <div class="btn-group">
-                    <a class="btn dropdown-toggle" data-toggle="dropdown" title="Hyperlink"><i class="fa fa-link"></i></a>
-                    <div class="dropdown-menu input-append">
-                        <input class="span2" placeholder="URL" type="text" data-edit="createLink" />
-                        <button class="btn" type="button">Add</button>
-                    </div>
-                    <a class="btn" data-edit="unlink" title="Remove Hyperlink"><i class="fa fa-cut"></i></a>
-                </div>
-
-                <div class="btn-group">
-                    <a class="btn" title="Insert picture (or just drag & drop)" id="pictureBtn"><i class="fa fa-picture-o"></i></a>
-                    <input type="file" data-role="magic-overlay" data-target="#pictureBtn" data-edit="insertImage" />
-                </div>
-
-                <div class="btn-group">
-                    <a class="btn" data-edit="undo" title="Undo (Ctrl/Cmd+Z)"><i class="fa fa-undo"></i></a>
-                    <a class="btn" data-edit="redo" title="Redo (Ctrl/Cmd+Y)"><i class="fa fa-repeat"></i></a>
-                </div>
-            </div>
+            <div id="alerts">메세지를 입력하신 후 '메세지 보내기' 버튼을 누르세요.</div>
 
             <div id="editor" class="editor-wrapper"></div>
         </div>
 
         <div class="compose-footer">
-            <button id="send" class="btn btn-sm btn-success" type="button">Send</button>
+            <button id="send" class="btn btn-sm btn-success" type="button">메세지 보내기</button>
         </div>
     </div>
     <!-- /메세지보내기 -->
@@ -234,13 +166,37 @@
     <!-- /page content -->
 
     <%@ include file="../Basic/footer.jsp" %>
-
+    
     <script type="text/javascript">
-        $(function() {
+		function class_click(divid, leccode) {
+			
+			
+		/* 	var obj = new Object();
+			obj.userNumber = userNumber;
+			
+			var jsonData = JSON.stringify(obj);
+			
+			$.ajax({
+				url: '/project/rest/api/v1.0/messages',
+				type: 'POST',
+				data : jsonData,
+				contentType : 'application/json;charset=UTF-8',
+				success : function(data){
+					// 읽지 않은 메세지들 오른쪽 위화면에 띄워주기
+					showMessages(data.notReadMessages);
+					
+					
+					// 새 메세지가 있다면
+					notifyMessages(data.newMessages);
+					
+				},
+				error:function(){
+				}
+			}); */
+			
+		}
+	</script>
 
-        });
-
-    </script>
 </body>
 
 </html>
