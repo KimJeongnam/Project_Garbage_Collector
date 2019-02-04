@@ -57,7 +57,7 @@
                                 <li><a><i class="fa fa-desktop"></i> 장학관리 <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu" style="">
                                         <li><a href="${authPath }/judge">장학금 심사</a></li>
-                                        <li><a href="${authPath }/registration">장학금 등록</a></li>
+                                        <li><a href="${authPath }/registrationList">장학금 등록</a></li>
                                         <li><a href="${authPath }/budget">장학금 예산</a></li>
                                     </ul>
                                 </li>
