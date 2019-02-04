@@ -5,13 +5,31 @@
 <div class="row">
 	<ul class="list-unstyled msg_list">
 		<c:forEach var="msg" items="${dtos }">
-			<li style="cursor: pointer;" onclick="showMessageInPage(${msg.messageCode});">
+			<c:choose>
+				<c:when test="${msg.notifyStatus==1}">
+					<li style="cursor: pointer;" class="alert alert-info"
+					onclick="showMessageInPage(${msg.messageCode}, '${userNumber }', ${pageNum });">
+				</c:when>
+				<c:otherwise>
+					<li style="cursor: pointer;"
+						onclick="showMessageInPage(${msg.messageCode}, '${userNumber }', ${pageNum });">
+				</c:otherwise>
+			</c:choose>
+			
 				<a> 
 					<span class="image"> 
 						<img src="/project/resources${msg.senduserimage }" alt="img"/>
 					</span> 
 					<span> 
-					<span>${msg.sendUser }</span> <span class="time" style="margin-right: 10px;">
+					<span>
+						<c:if test="${msg.notifyStatus == 1 }">
+							<span class="fa fa-bullhorn"></span>
+						</c:if>
+						${msg.sendUser }
+					</span> <span class="time" style="margin-right: 10px;">
+						<c:if test="${msg.readStatus > 0 }">
+							<span class="fa fa-check"></span>
+						</c:if>
 						${msg.sendYear }-${msg.sendMonth }-${msg.sendDay }&nbsp;&nbsp;
 						${msg.sendHour }:${msg.sendMin }:${msg.sendSec }
 						</span>

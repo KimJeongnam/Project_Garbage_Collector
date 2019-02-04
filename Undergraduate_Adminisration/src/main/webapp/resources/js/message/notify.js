@@ -171,7 +171,7 @@ function getMessages(userNumber, page){
 	});
 }
 
-function showMessageInPage(messageCode){
+function showMessageInPage(messageCode, userNumber, pageNum){
 	var obj = new Object();
 	obj.messageCode = messageCode;
 	obj.readStatus = 1;
@@ -187,6 +187,7 @@ function showMessageInPage(messageCode){
 		success : function(data){
 			if(data != null){
 				$('#show-msg-panel').html(data);
+				getMessages(userNumber, pageNum);
 			}
 		},
 		error:function(){
