@@ -19,14 +19,6 @@
 	<!-- page content -->
 	<div class="right_col" role="main">
 		<div class="col-md-6 col-sm-6 col-xs-12">
-			<div class="page-title">
-				<div class="title_left">
-					<h3>
-						시간표 <small>Click to add/edit events</small>
-					</h3>
-				</div>
-
-			</div>
 			<div class="cd-schedule loading">
 				<div class="timeline">
 					<ul>
@@ -72,23 +64,6 @@
 								</c:if>
 								</c:forEach>
 								</ul>
-							<!-- <ul>
-								<li class="single-event" data-start="09:30" data-end="10:30"
-									data-content="event-abs-circuit" data-event="event-1"><a
-									href="#0"> <em class="event-name">Abs Circuit</em>
-								</a></li>
-
-								<li class="single-event" data-start="11:00" data-end="12:30"
-									data-content="event-rowing-workout" data-event="event-2">
-									<a href="#0"> <em class="event-name">Rowing Workout</em>
-								</a>
-								</li>
-
-								<li class="single-event" data-start="14:00" data-end="15:15"
-									data-content="event-yoga-1" data-event="event-3"><a
-									href="#0"> <em class="event-name">Yoga Level 1</em>
-								</a></li>
-							</ul> -->
 						</li>
 
 						<li class="events-group">
@@ -106,29 +81,6 @@
 								</c:if>
 								</c:forEach>
 								</ul>
-							<!-- <ul>
-								<li class="single-event" data-start="10:00" data-end="11:00"
-									data-content="event-rowing-workout" data-event="event-2">
-									<a href="#0"> <em class="event-name">Rowing Workout</em>
-								</a>
-								</li>
-
-								<li class="single-event" data-start="11:30" data-end="13:00"
-									data-content="event-restorative-yoga" data-event="event-4">
-									<a href="#0"> <em class="event-name">Restorative Yoga</em>
-								</a>
-								</li>
-
-								<li class="single-event" data-start="13:30" data-end="15:00"
-									data-content="event-abs-circuit" data-event="event-1"><a
-									href="#0"> <em class="event-name">Abs Circuit</em>
-								</a></li>
-
-								<li class="single-event" data-start="15:45" data-end="16:45"
-									data-content="event-yoga-1" data-event="event-3"><a
-									href="#0"> <em class="event-name">Yoga Level 1</em>
-								</a></li>
-							</ul> -->
 						</li>
 
 						<li class="events-group">
@@ -145,29 +97,6 @@
 								</c:if>
 								</c:forEach>
 								</ul>
-							<!-- <ul>
-								<li class="single-event" data-start="09:00" data-end="10:15"
-									data-content="event-restorative-yoga" data-event="event-4">
-									<a href="#0"> <em class="event-name">Restorative Yoga</em>
-								</a>
-								</li>
-
-								<li class="single-event" data-start="10:45" data-end="11:45"
-									data-content="event-yoga-1" data-event="event-3"><a
-									href="#0"> <em class="event-name">Yoga Level 1</em>
-								</a></li>
-
-								<li class="single-event" data-start="12:00" data-end="13:45"
-									data-content="event-rowing-workout" data-event="event-2">
-									<a href="#0"> <em class="event-name">Rowing Workout</em>
-								</a>
-								</li>
-
-								<li class="single-event" data-start="13:45" data-end="15:00"
-									data-content="event-yoga-1" data-event="event-3"><a
-									href="#0"> <em class="event-name">Yoga Level 1</em>
-								</a></li>
-							</ul> -->
 						</li>
 
 						<li class="events-group">
@@ -184,29 +113,6 @@
 								</c:if>
 								</c:forEach>
 								</ul>
-							<!-- <ul>
-								<li class="single-event" data-start="09:30" data-end="10:30"
-									data-content="event-abs-circuit" data-event="event-1"><a
-									href="#0"> <em class="event-name">Abs Circuit</em>
-								</a></li>
-
-								<li class="single-event" data-start="12:00" data-end="13:45"
-									data-content="event-restorative-yoga" data-event="event-4">
-									<a href="#0"> <em class="event-name">Restorative Yoga</em>
-								</a>
-								</li>
-
-								<li class="single-event" data-start="15:30" data-end="16:30"
-									data-content="event-abs-circuit" data-event="event-1"><a
-									href="#0"> <em class="event-name">Abs Circuit</em>
-								</a></li>
-
-								<li class="single-event" data-start="17:00" data-end="18:30"
-									data-content="event-rowing-workout" data-event="event-2">
-									<a href="#0"> <em class="event-name">Rowing Workout</em>
-								</a>
-								</li>
-							</ul> -->
 						</li>
 
 						<li class="events-group">
@@ -224,23 +130,6 @@
 								</c:forEach>
 								</ul>
 
-							<!-- <ul>
-								<li class="single-event" data-start="10:00" data-end="11:00"
-									data-content="event-rowing-workout" data-event="event-2">
-									<a href="#0"> <em class="event-name">Rowing Workout</em>
-								</a>
-								</li>
-
-								<li class="single-event" data-start="12:30" data-end="14:00"
-									data-content="event-abs-circuit" data-event="event-1"><a
-									href="#0"> <em class="event-name">Abs Circuit</em>
-								</a></li>
-
-								<li class="single-event" data-start="15:45" data-end="16:45"
-									data-content="event-yoga-1" data-event="event-3"><a
-									href="#0"> <em class="event-name">Yoga Level 1</em>
-								</a></li>
-							</ul> -->
 						</li>
 					</ul>
 				</div>
@@ -277,12 +166,5 @@
 	if( !window.jQuery ) document.write('<script src="/project/resources/js/schedule/jquery-3.0.0.min.js"><\/script>');
 	</script> -->
 	<script src="/project/resources/js/schedule/main.js"></script>
-	<!-- Resource jQuery -->
-
-	<script type="text/javascript">
-		$(function() {
-
-		});
-	</script>
 </body>
 </html>

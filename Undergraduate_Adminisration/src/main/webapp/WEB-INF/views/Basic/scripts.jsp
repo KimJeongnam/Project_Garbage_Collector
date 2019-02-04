@@ -124,3 +124,6 @@
     <!-- Message 백그라운드 추가 -->
     <script src="${staticPath }/js/message/notify.js"></script>
     
+    <!-- 수강신청 -->
+    <script src="${staticPath }/js/lecture/applyLecture.js"></script>
+    

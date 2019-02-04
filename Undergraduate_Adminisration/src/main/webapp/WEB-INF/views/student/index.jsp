@@ -23,5 +23,10 @@
             <!-- /page content -->
             
 	<%@ include file="../Basic/footer.jsp" %>
+	<script>
+	$(function(){
+		
+	});
+	</script>
 </body>
 </html>
