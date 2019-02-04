@@ -141,9 +141,16 @@ function msgModalSet(msg){
 	$('#msgModal').modal();
 }
 
-function getMessages(userNumber){
+function getMessages(userNumber, page){
 	var obj = new Object();
 	obj.userNumber = userNumber;
+	obj.pageNum = page;
+	
+	if($('#msg-pagesize')!=null)
+		obj.pageSize = $('#msg-pagesize')[0].value;
+	if($('#msg-search-keyword')[0].value.length > 0){
+		obj.keyword = $('#msg-search-keyword')[0].value;
+	}
 	
 	var jsonData = JSON.stringify(obj);
 	
@@ -164,5 +171,26 @@ function getMessages(userNumber){
 	});
 }
 
-
+function showMessageInPage(messageCode){
+	var obj = new Object();
+	obj.messageCode = messageCode;
+	obj.readStatus = 1;
+	
+	var jsonData = JSON.stringify(obj);
+	// 메세지 읽으면 readStatus 를 1로 업데이트를 시켜주기 위한 Ajax
+	// 업데이트 후 해당 메세지의 정보를 가져와 msgModalSet() 함수에 던진다.
+	$.ajax({
+		url: '/project/ajax/api/v1.1/messages/show',
+		type: 'POST',
+		data : jsonData,
+		contentType : 'application/json;charset=UTF-8',
+		success : function(data){
+			if(data != null){
+				$('#show-msg-panel').html(data);
+			}
+		},
+		error:function(){
+		}
+	});
+}
 
