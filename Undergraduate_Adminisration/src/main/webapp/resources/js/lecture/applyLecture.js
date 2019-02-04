@@ -1,9 +1,13 @@
 function studentLecture(userNumber){
 	var obj = new Object();
 	obj.userNumber = userNumber;
-	//obj.pageNum = page;
+	obj.pageNum = page;
 	
-	
+	if($('#lectureList-pagesize')!=null)
+		obj.pageSize = $('#lectureList-pagesize')[0].value;
+	if($('#lectureList-search-keyword')[0].value.length > 0){
+		obj.keyword = $('#lectureList-search-keyword')[0].value;
+	}
 	
 	var jsonData = JSON.stringify(obj);
 	

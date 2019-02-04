@@ -14,21 +14,49 @@
 	<div class="right_col" role="main">
 		<div class="">
 			<div class="page-title">
-				<div class="title_left">
-					<h3>수업업무</h3>
-				</div>
+				<div class="title_left"></div>
 			</div>
 			<div class="clearfix"></div>
 			<div class="row">
-			<div class="col-md-12 col-sm-12 col-xs-12">
-				<div class="x_panel">
-				<div id="lectureList" class="">
-				
-				</div>
-				<div id="schoolTimeTable" class="">
-				
-				</div>
-				</div>
+				<div class="col-md-12 col-sm-12 col-xs-12">
+					<div class="x_panel">
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<div class="x_panel">
+								<div class="x_title">
+									<h2>수강신청</h2>
+									<div class="clearfix"></div>
+								</div>
+								<div class="x_content">
+									<div class="row form-inline">
+										<div class="col-sm-6">
+											<label> Show <select class="form-control input-sm"
+												id="lectureList-pagesize"
+												onchange="studentLecture('${userNumber }', 1);">
+													<option value="5">5</option>
+													<option value="10" selected="selected">10</option>
+													<option value="25">25</option>
+													<option value="50">50</option>
+													<option value="100">100</option>
+											</select>
+											</label>
+										</div>
+
+										<div class="col-sm-6">
+											<div style="text-align: right;">
+											<input type="search" id="lectureList-search-keyword"
+												class="form-control input-sm"
+												onkeyup="studentLecture'${userNumber }', 1);" placeholder="검색">
+											</div>
+										</div>
+									</div>
+								</div>
+								<div id="lectureList" class=""></div>
+							</div>
+						</div>
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<div id="schoolTimeTable" class=""></div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -37,10 +65,10 @@
 	<%@ include file="../Basic/footer.jsp"%>
 	<script type="text/javascript">
 		$(function() {
-	    	<%@ include file="../Basic/docReadyScripts.jsp" %>
-	    	studentLecture('${userNumber}');
-	    	studentTimetable('${userNumber}');
-	    });
+	<%@ include file="../Basic/docReadyScripts.jsp" %>
+			studentLecture('${userNumber}', 1);
+			studentTimetable('${userNumber}');
+		});
 	</script>
 
 </body>

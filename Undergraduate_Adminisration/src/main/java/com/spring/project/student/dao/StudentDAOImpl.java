@@ -18,8 +18,8 @@ public class StudentDAOImpl implements StudentDAO{
 	
 	// 수강신청 목록 갯수 구하기
 	@Override
-	public int getLectureCnt() {
-		return sqlSession.selectOne("com.spring.project.student.dao.StudentDAO.getLectureCnt");
+	public int getLectureCnt(Map<String, Object> map) {
+		return sqlSession.selectOne("com.spring.project.student.dao.StudentDAO.getLectureCnt", map);
 	}
 
 	// 수강신청 목록 조회

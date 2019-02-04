@@ -16,9 +16,6 @@ public interface StudentService {
 	// 시간표 조회
 	public void schoolTimeTable(Map<String, Object> map, Logger logger, Model model);
 	
-	// 강의 검색
-	public void lectureSearch(Map<String, Object> map, Model model);
-	
 	//강의 신청
 	public void applyLecture(Map<String, Object> map, RedirectAttributes red);
 }

@@ -8,7 +8,7 @@ import com.spring.project.student.vo.LectureVO;
 
 public interface StudentDAO {
 	// 수강신청 목록 갯수 구하기
-	public int getLectureCnt();
+	public int getLectureCnt(Map<String, Object> map);
 	
 	// 수강신청 목록 조회
 	public List<LectureVO> lectureList(Map<String, Object> map);
