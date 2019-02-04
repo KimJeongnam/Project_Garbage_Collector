@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -37,13 +38,13 @@ public class StudentServiceImpl implements StudentService {
 	
 	// 수강 신청 목록
 	@Override
-	public void lectureList(Map<String, Object> map, Model model) {
+	public void lectureList(Map<String, Object> map, Logger logger, Model model) {
 		String majorNum = (String)map.get("majorNum");
 		
+		pageNum = (String)map.get("pageNum");
 		// 수강신청 목록 갯수 구하기
 		cnt = dao.getLectureCnt();
 		
-		pageNum = (String)map.get("pageNum");
 		
 		if(pageNum == null) {
 			pageNum = "1";	// 첫페이지를 1페이지로 지정
@@ -77,7 +78,7 @@ public class StudentServiceImpl implements StudentService {
 			
 			List<LectureVO> dtos = dao.lectureList(map);
 			
-			model.addAttribute("dtos", dtos); 
+			model.addAttribute("dtosL", dtos); 
 		}
 		
 		// 시작페이지
@@ -102,6 +103,15 @@ public class StudentServiceImpl implements StudentService {
 			model.addAttribute("currentPage", currentPage);   // 현재페이지
 		}
 		
+	}
+	
+	// 시간표 조회
+	@Override
+	public void schoolTimeTable(Map<String, Object> map, Logger logger, Model model) {
+		String userNumber = (String)map.get("userNumber");
+		
+		List<LectureVO> dtos = dao.schoolTimeTable(userNumber);
+		model.addAttribute("dtosT", dtos); 
 	}
 	
 	// 강의 검색
@@ -172,14 +182,6 @@ public class StudentServiceImpl implements StudentService {
 		}
 	}
 	
-	// 시간표 조회
-	@Override
-	public void schoolTimeTable(Map<String, Object> map, Model model) {
-		String userNumber = (String)map.get("userNumber");
-		
-		List<LectureVO> dtos = dao.schoolTimeTable(userNumber);
-		model.addAttribute("dtos", dtos); 
-	}
 	
 	// 강의 신청
 	@Override

@@ -8,11 +8,11 @@
 <mapper namespace="com.spring.project.student.dao.StudentDAO">
 	<!-- 수강신청 목록 갯수 구하기 -->
 	<select id="getLectureCnt" resultType="int">
-		select count(*) from lecture
+		select count(*) from lectureview
 	</select>
 	
 	<!-- 수강신청 목록 조회 -->
-	<select id="lectureList" parameterType="int" resultType="com.spring.project.student.vo.LectureVO">
+	<select id="lectureList" parameterType="java.util.Map" resultType="com.spring.project.student.vo.LectureVO">
 		<![CDATA[
 		select * from lectureview where rNum >= #{start} and rNum <= #{end}
 		]]>
@@ -23,17 +23,17 @@
 		select count(*) from lectureview where lectureName like '%'||#{keyword}||'%'
 	</select>
 	
-	<!-- 강의 검색 -->
-	<select id="lectureSearch" parameterType="Object" resultType="com.spring.project.student.vo.LectureVO">
+	<!-- 시간표 조회 -->
+	<select id="schoolTimeTable" parameterType="String" resultType="com.spring.project.student.vo.LectureVO">
 		<![CDATA[
-		select * from lectureview where lectureName like '%'||#{keyword}||'%' and rNum >= #{start} and rNum <= #{end}
+		select * from timetableview where userNumber = #{userNumber}
 		]]>
 	</select>
 	
 	<!-- 강의 검색 -->
-	<select id="schoolTimeTable" parameterType="String" resultType="com.spring.project.student.vo.LectureVO">
+	<select id="lectureSearch" parameterType="Object" resultType="com.spring.project.student.vo.LectureVO">
 		<![CDATA[
-		select * from timetableview where userNumber = #{userNumber}
+		select * from lectureview where lectureName like '%'||#{keyword}||'%' and rNum >= #{start} and rNum <= #{end}
 		]]>
 	</select>
 	

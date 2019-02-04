@@ -13,14 +13,14 @@ public interface StudentDAO {
 	// 수강신청 목록 조회
 	public List<LectureVO> lectureList(Map<String, Object> map);
 	
+	// 시간표 조회
+	public List<LectureVO> schoolTimeTable(String userNumber);
+	
 	// 강의 검색 목록 갯수 구하기
 	public int getLectureSearchCnt(String keyword);
 	
 	// 강의 검색
 	public List<LectureVO> lectureSearch(String keyword);
-	
-	// 시간표 조회
-	public List<LectureVO> schoolTimeTable(String userNumber);
 	
 	// 강의 체크
 	public int checkLecture(Map<String, Object> map);

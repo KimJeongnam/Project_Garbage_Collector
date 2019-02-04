@@ -15,9 +15,7 @@
 <title>Insert title here</title>
 </head>
 <body class="nav-md">
-	<%@ include file="../Basic/navbar.jsp"%>
 	<!-- page content -->
-	<div class="right_col" role="main">
 		<div class="col-md-6 col-sm-6 col-xs-12">
 			<div class="cd-schedule loading">
 				<div class="timeline">
@@ -53,7 +51,7 @@
 								<span>월</span>
 							</div>
 								<ul>
-								<c:forEach var="dto" items="${dtos}">
+								<c:forEach var="dto" items="${dtosT}">
 								<c:if test="${dto.lectureDay == '월'}">
 									
 										<li class="single-event" data-start="${dto.beginningLectureTime}" data-end="${dto.endLectureTime}"
@@ -71,7 +69,7 @@
 								<span>화</span>
 							</div>
 								<ul>
-								<c:forEach var="dto" items="${dtos}">
+								<c:forEach var="dto" items="${dtosT}">
 								<c:if test="${dto.lectureDay == '화'}">
 									
 										<li class="single-event" data-start="${dto.beginningLectureTime}" data-end="${dto.endLectureTime}"
@@ -88,7 +86,7 @@
 								<span>수</span>
 							</div>
 								<ul>
-								<c:forEach var="dto" items="${dtos}">
+								<c:forEach var="dto" items="${dtosT}">
 								<c:if test="${dto.lectureDay == '수'}">
 										<li class="single-event" data-start="${dto.beginningLectureTime}" data-end="${dto.endLectureTime}"
 											data-content="event-abs-circuit" data-event="event-1"><a
@@ -104,7 +102,7 @@
 								<span>목</span>
 							</div>
 								<ul>
-								<c:forEach var="dto" items="${dtos}">
+								<c:forEach var="dto" items="${dtosT}">
 								<c:if test="${dto.lectureDay == '목'}">
 										<li class="single-event" data-start="${dto.beginningLectureTime}" data-end="${dto.endLectureTime}"
 											data-content="event-abs-circuit" data-event="event-1"><a
@@ -120,7 +118,7 @@
 								<span>금</span>
 							</div>
 								<ul>
-								<c:forEach var="dto" items="${dtos}">
+								<c:forEach var="dto" items="${dtosT}">
 								<c:if test="${dto.lectureDay == '금'}">
 										<li class="single-event" data-start="${dto.beginningLectureTime}" data-end="${dto.endLectureTime}"
 											data-content="event-abs-circuit" data-event="event-1"><a
@@ -155,8 +153,6 @@
 				<div class="cover-layer"></div>
 			</div>
 		</div>
-	<%@ include file="../Basic/footer.jsp"%>
-	</div>
 
 	<!-- .cd-schedule schedule폴더에 js추가됨-->
 	<script src="/project/resources/js/schedule/modernizr.js"></script>

@@ -64,15 +64,21 @@ public class StudentController {
 		logger.info("backToSchool");
 		return "student/backToSchool";
 	}
-
+	
+	// 수강신청 페이지
+	@RequestMapping(value="/student/lectureList", method=RequestMethod.GET)
+	public String lectureList() {
+		return "student/lectureListPage";
+	}
+	
 	//수강신청
 	@RequestMapping(value="/student/lectureList", method=RequestMethod.POST)
 	public String lectureList(@RequestBody Map<String, Object> map, Model model) {
-		/*logger.info("lectureList");*/
-		service.lectureList(map, model);
+		logger.info("lectureList");
+		service.lectureList(map, logger, model);
 		
-		service.schoolTimeTable(map, model);
-		return "student/lectureList2";
+		//service.schoolTimeTable(map, logger, model);
+		return "student/lectureList";
 	}
 
 	//내 학점 조회
@@ -81,14 +87,14 @@ public class StudentController {
 		logger.info("GPA");
 		return "student/GPA";
 	}
-
-	//시간표 조회
-	@RequestMapping("/student/schoolTimeTable")
-	public String schoolTimeTable(HttpServletRequest req, Model model) {
+	
+	// 시간표
+	@RequestMapping(value="/student/schoolTimeTable", method=RequestMethod.POST)
+	public String schoolTimeTable(@RequestBody Map<String, Object> map, Model model) {
 		logger.info("schoolTimeTable");
-		//service.schoolTimeTable(req, model);
 		
-		return "student/lectureList2";
+		service.schoolTimeTable(map, logger, model);
+		return "student/schoolTimeTable";
 	}
 	
 	//강의 검색
