@@ -21,7 +21,7 @@
         <div class="">
             <div class="page-title">
                 <div class="title_left">
-                    <h3>내 강의 학생 조회</h3>
+                    <h3>내 강의 수강학생 목록</h3>
                 </div>
                 <div class="title_right">
                     <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
@@ -41,29 +41,44 @@
                 <div class="col-md-12">
                     <div class="x_panel">
                         <div class="x_content">
-                            <div class="row">
+                                        <div class="x_content">
+
+
+                                            <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                                                <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                                                    <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">All</a>
+                                                    </li>
+                                                    
+                                                    
+                                                    
+                                                    <c:forEach var="vo1" items="${myClass}" varStatus="status">
+                                                    <li role="presentation" class="">
+                                                    	<a href="#lec${status.index}" role="tab" data-toggle="tab" aria-expanded="false">${vo1.lectureName}</a>
+                                                    </li>
+                                                    </c:forEach> 
+                                                </ul>
+
+
+
+                                                <div id="myTabContent" class="tab-content">
+                                                
+                                            
+                                                    <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
                                 <div class="col-md-12 col-sm-12 col-xs-12 text-center">
-                             	 <c:forEach var="vo1" items="${list }">
-                                    <ul class="pagination pagination-split">
-                                        <li><a href="#">${vo1.lectureName}</a></li>
-                                    </ul>
-                                  </c:forEach>
                                 </div>
 
                                 <div class="clearfix"></div>
-  								<c:forEach var="vo" items="${list}">
-                                <div class="col-md-4 col-sm-4 col-xs-12 profile_details">
+  							
+  							<c:forEach var="vo2" items="${list}">
+                                <div class="col-md-3 col-sm-3 col-xs-12 profile_details">
                                     <div class="well profile_view">
-                                        <div class="col-sm-12">
-                                        	<!-- 밑은 나중에 직원/학생 조회 할 때 사용할것  -->
-                                            <!-- <h4 class="brief"><i>명예교수</i></h4> -->
-                                            
+                                        <div class="col-sm-12" style="height:200px;">
+                                      <p><strong>듣는 과목명????</strong></p>
                                             <div class="left col-xs-7">
-                                                <h2>${vo2.userName}</h2>
-                                                <p><strong>직책: </strong> 경영학과 지도교수/ 단과대학장 / 이쁨 / 결혼하고픔</p>
+                                                <h2>${vo2.userName}</h2> 
                                                 <ul class="list-unstyled">
-                                                    <li><i class="fa fa-building"></i> 주소: </li>
-                                                    <li><i class="fa fa-phone"></i> 연락처 #: </li>
+                                                    <li><i class="fa fa-phone"> &nbsp; &nbsp;</i>${vo2.userCellNum}</li>
+                                                    <li><i class="fa fa-send"> &nbsp; &nbsp;</i>${vo2.userEmail}</li>
                                                 </ul>
                                             </div>
                                             <div class="right col-xs-5 text-center">
@@ -71,28 +86,51 @@
                                             </div>
                                         </div>
                                         <div class="col-xs-12 bottom text-center">
-                                            <div class="col-xs-12 col-sm-6 emphasis">버튼을 넣던 글을 삽입하던 해야함
+                                            <div class="col-xs-12 col-sm-6 emphasis">
+                                            		<p><strong>${vo2.grade} 학년&nbsp;</strong>&nbsp;${vo2.faculty }&nbsp;${vo2.majorName}</p>
                                             </div>
+                                            
+                                            
                                             <div class="col-xs-12 col-sm-6 emphasis">
 
                                                 <!-- id만 compose 입력하면 메세지창 뜨으으음 갸꿀!!!!-->
                                                 <button id="compose" type="button" class="btn btn-success btn-xs"><i class="fa fa-comments-o">&nbsp;&nbsp;메세지&nbsp;&nbsp;
                                                     </i> </button>
-                                                <button type="button" class="btn btn-primary btn-xs">
-                                                    <i class="fa fa-user"> </i> &nbsp;프로필&nbsp;&nbsp;
+                                                <button type="button" onclick="window.location.href='${authPath }/score'" class="btn btn-primary btn-xs">
+                                                    <i class="fa fa-user"> </i> &nbsp;학점입력&nbsp;&nbsp;
                                                 </button>
+                                                
+                                                
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                </c:forEach>
+                            </c:forEach>
+
+                                                    </div>
+													
+
+	
+												 <c:forEach var="vo1" items="${myClass}" varStatus="status">
+                                                    <div role="tabpanel" class="tab-pane fade" id="lec${status.index}" aria-labelledby="profile-tab">
+                                                    	
+                                                    </div>
+                                                  </c:forEach>    
+									
+                                                    
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
-                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    <!-- /page content -->
 
 	
 	

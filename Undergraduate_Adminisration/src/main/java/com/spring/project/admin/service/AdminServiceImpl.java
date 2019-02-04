@@ -1,15 +1,25 @@
 package com.spring.project.admin.service;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.sql.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.spring.project.admin.dao.AdminDAO;
+import com.spring.project.admin.vo.AdProVO;
 import com.spring.project.admin.vo.AdStdVO;
+
 
 @Service
 public class AdminServiceImpl implements AdminService{
@@ -19,26 +29,185 @@ public class AdminServiceImpl implements AdminService{
 	
 	//학생등록 처리
 	@Override
-	public void stdInputPro(HttpServletRequest req, Model model) {
-		AdStdVO vo = new AdStdVO();
-		vo.setStdName(req.getParameter("StdName"));
-		//영어이름?
-		vo.setStdImage(req.getParameter("stdImage"));
-		vo.setStdSsn(req.getParameter("stdSsn"));
-		vo.setStdCellNumber(req.getParameter("stdCellNumber"));
-		vo.setStdEmail(req.getParameter("stdEmail"));
-		vo.setStdGrade(Integer.parseInt(req.getParameter("stdGrade")));
-		vo.setUserNumber(req.getParameter("userNumber"));			//학번
-		vo.setStdZipCode(req.getParameter("stdZipCode"));
-		vo.setStdAddr1(req.getParameter("stdAddr1"));
-		vo.setStdAddr2(req.getParameter("stdAddr2"));
-		vo.setAdDate(Date.valueOf(req.getParameter("adDate")));
-		vo.setGraDate(Date.valueOf(req.getParameter("graDate")));
-		vo.setLeaveStatus(Integer.parseInt(req.getParameter("leaveStatus"))); //학적상태 ex)재학중, 휴학중 
-		
-		int insert = dao.insertUsers(vo);
-		
-		req.setAttribute("insert", insert);
-	}
+	public void stdInputPro(MultipartHttpServletRequest req, Model model) {
+		//MultipartRequest 타입의 변수 선언
+		MultipartFile file = req.getFile("userImage");
 
+		//업로드할 파일의 최대 사이즈 (10*1024*1024 = 10mb)
+		/*int maxSize = 10 * 1024 * 1024;*/
+
+		//임시 파일이 저장되는 논리적인 경로
+		String saveDir = req.getSession().getServletContext().getRealPath("/resources/images/");
+
+		//업로드할 파일이 위치하게 될 물리적인 경로
+		String realDir="C:\\Users\\guaba\\git\\Project_Garbage_Collector\\Undergraduate_Adminisration\\src\\main\\webapp\\resources\\images\\";
+
+		//인코딩 타입 : 한글 파일명이 열화되는것을 방지
+		/*String encType= "UTF-8";*/
+
+		try {
+			/* *DefaultFileRenamePolicy()객체는 중복된 파일명이 있을 경우, 자동으로 파일명을 변경함 
+			 *(예 : filename.png가 이미 존재할 경우, filename1.png와 같이)*/
+			file.transferTo(new File(saveDir+file.getOriginalFilename()));
+
+			FileInputStream fis = new FileInputStream(saveDir + file.getOriginalFilename());
+			FileOutputStream fos = new FileOutputStream(realDir + file.getOriginalFilename());
+			int data =0;
+
+			//논리적인 경로에 저장된 임시 파일을 물리적인 경로로 복사함
+			while((data = fis.read())!= -1) {
+				fos.write(data);
+			}
+			fis.close();
+			fos.close();
+
+
+			/* *위에서 MultipartRequest()객체를 선언해서 받는 모든 request 객체들은
+			 *MultipartRequest 타입으로 참조되어야 함
+			 *(예 : request.getParameter 에서 mr.getParameter) */
+		
+			AdStdVO vo = new AdStdVO();
+			//faculty
+			vo.setFaculty(req.getParameter("faculty"));
+
+			//major
+			vo.setMajorNum(Integer.parseInt(req.getParameter("majorNum")));
+			/*vo.setMajorName(req.getParameter("majorName"));*/
+			
+			//studentState
+			vo.setSemester(Integer.parseInt(req.getParameter("semester")));
+			
+			//student
+			/*vo.setStdNumber(req.getParameter("stdNumber"));*/
+			vo.setGrade(Integer.parseInt(req.getParameter("grade")));
+
+			//users
+			vo.setUserNumber(req.getParameter("userNumber"));
+			vo.setUserImage(file.getOriginalFilename());
+			vo.setUserName(req.getParameter("userName"));
+			vo.setUserEngName(req.getParameter("userEngName"));
+			vo.setUserSsn(req.getParameter("userSsn"));
+			vo.setGender(req.getParameter("gender"));
+			vo.setUserCellNum(req.getParameter("userCellNum"));
+			vo.setUserEmail(req.getParameter("userEmail"));
+			vo.setUserZipCode(req.getParameter("userZipCode"));
+			vo.setUserAddr1(req.getParameter("userAddr1"));
+			vo.setUserAddr2(req.getParameter("userAddr2"));
+			/*vo.setDelStatus(Integer.parseInt(req.getParameter("delStatus")));*/
+
+			//student
+			vo.setAdDate(Date.valueOf(req.getParameter("adDate")));
+			vo.setGraDate(Date.valueOf(req.getParameter("graDate")));
+			
+			
+			//schoolLeave
+			/*vo.setSchoolLeaveStateCode(Integer.parseInt(req.getParameter("setSchoolLeaveStateCode")));*/
+			/*vo.setLeaveStatus(Integer.parseInt(req.getParameter("leaveStatus"))); */	//학적상태 ex)재학중, 휴학중 
+			
+			int userInsert = dao.insertUsers(vo); 
+			int majorInsert =dao.insertMajor(vo);
+			int stdInsert = dao.insertStudent(vo); 
+			int schoolLeaveInsert =dao.insertSchoolLeave(vo);
+			
+			int stdInsertResult = userInsert+ stdInsert+ majorInsert+ schoolLeaveInsert;
+
+			req.setAttribute("stdInsertResult", stdInsertResult);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	//학생*교수 리스트
+	@Override
+	public void stdList(HttpServletRequest req, Model model) {
+		//3단계. 화면으로부터 입력받은 값을 받아온다.
+		//페이징 처리
+		int start =0; 			// 현재 페이지 시작 글번호
+		int end = 0; 			//현재 페이지 마지막 글번호
+		/*int pageSize = 10; 		// 한 페이지당 출력할 글 갯수
+		int pageBlock = 3; 		//한 블럭당 페이지 갯수
+		
+		int cnt =0;				//글 갯수
+		int number = 0; 		//출력용 글번호
+		String pageNum = ""; 	//페이지 번호
+		int currentPage =0;		//현재페이지
+		
+		int pageCount =0; 		//시작페이지 갯수
+		int startPage =0;		//시작페이지
+		int endPage=0;			//마지막 페이지
+		
+		pageNum = req.getParameter("pageNum");
+		if(pageNum ==null) {
+			pageNum = "1"; // 첫 페이지를 1페이지로 지정
+		}
+		//글 30건 기준
+		currentPage = Integer.parseInt(pageNum); //현재페이지 : 1
+		System.out.println("currentpage " +currentPage);
+		
+		
+		//페이지 갯수 6 =(30/5) + (0)
+		pageCount = (cnt/pageSize) +(cnt%pageSize >0 ? 1 : 0);
+		
+		//현재 페이지 시작 글번호 =1 (페이지별)
+		//1 = (1-1)*5+1
+		start = (currentPage-1)*pageSize+1;
+		
+		//현재 페이지 마지막 글번호(페이지별)
+		//5 = 1+5-1;
+		
+		end = start + pageSize -1;
+		
+		System.out.println(start);
+		System.out.println(end);
+		
+		if(end>cnt) end= cnt;
+		
+		//출력용 글번호
+		// 30 = 30 -(1-1)*5
+		number = cnt - (currentPage -1)*pageSize; //출력용 글번호
+		
+		System.out.println(number);
+		System.out.println("pageSize :" +pageSize);
+		
+		if(cnt> 0) {*/
+			//5-2. 게시글 목록 조회 - 큰바구니 생성
+			Map<String, Integer> map = new HashMap<String, Integer>();
+			map.put("start", start);
+			map.put("end", end);
+			List<AdStdVO> dtos = dao.getStdList(map);
+		
+			req.setAttribute("dtos", dtos); //큰바구니 : 게시글 목록 cf)작은 바구니(vo)는 게시글 1건
+			
+			List<AdProVO> vo = dao.getProList(map);
+			
+			req.setAttribute("vo", vo);
+			
+			
+ 		/*}
+		//6단계. request나 session에 처리결과 저장(jsp에 전달하기 위함)
+		
+		//시작페이지
+		//1=(1/3)*3+1
+		startPage = (currentPage/pageBlock) * pageBlock+1;
+		if(currentPage % pageBlock ==0 ) startPage -=pageBlock;
+		System.out.println("startPage : "+startPage);
+		
+		//마지막페이지
+		endPage = startPage + pageBlock -1;
+		if(endPage > pageCount )endPage = pageCount;
+		System.out.println("endPage :" + endPage);
+
+		//JSP로 값을 넘기는 부분
+		req.setAttribute("cnt", cnt);  //글 갯수
+		req.setAttribute("number", number); //출력용 글번호
+		req.setAttribute("pageNum", pageNum); //페이지번호
+		
+		if(cnt>0) {
+			req.setAttribute("startPage", startPage);	 	//시작페이지
+			req.setAttribute("endPage", endPage); 			//마지막 페이지
+			req.setAttribute("pageBlock",pageBlock ); 		//출력할 페이지 갯수
+			req.setAttribute("pageCount", pageCount); 		//페이지 갯수
+			req.setAttribute("currentPage", currentPage);	//현재 페이지
+		}*/
+	}
 }

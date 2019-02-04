@@ -22,7 +22,7 @@
                         <div class="profile_info">
                             <span>환영합니다,</span>
                             <!-- 로그인 정보 뿌려줘야함 -->
-                            <h2>${user.userName} 님!</h2>
+                            <h2>${user.userName} 관리자님!</h2>
                         </div>
                     </div>
                     <!-- /menu profile quick info -->
@@ -145,7 +145,7 @@
                         <div class="profile_info">
                             <span>환영합니다,</span>
                             <!-- 로그인 정보 뿌려줘야함 -->
-                            <h2>${user.userName} 님!</h2>
+                            <h2>${user.userName} 교수님!</h2>
                         </div>
                     </div>
                     <!-- /menu profile quick info -->
