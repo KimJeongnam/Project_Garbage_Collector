@@ -44,36 +44,27 @@
 										<th>이름</th>
 										<th>직책</th>
 										<th>학과(학과코드)</th>
-										<th>나이</th>
+										<th>연차</th>
 										<th>입사일</th>
 										<th>연봉</th>
 									</tr>
 								</thead>
 								<tbody>
+								<c:forEach var="vo" items="${vo}">
 									<tr>
-										<td><a href="proMyPage">김설현</a></td>
-										<td>교수</td>
-										<td>체육교육학과(a1)</td>
-										<td>61</td>
-										<td>2011/04/25</td>
-										<td>$320,800</td>
+										<td><a href="proMyPage">${vo.userName}</a></td>
+										<td>
+											 <c:if test = "${vo.authority eq 'ROLE_PROFESSOR'}">
+													교수
+											</c:if> 
+											<%-- ${vo.authority} --%>
+										</td>
+										<td>${vo.majorName}(${vo.majorNum})</td>
+										<td>${vo.annualLevel}</td>
+										<td>${vo.empHiredDate}</td>
+										<td>${vo.totalPayment}만원</td>
 									</tr>
-									<tr>
-										<td>Garrett Winters</td>
-										<td>Accountant</td>
-										<td>Tokyo</td>
-										<td>63</td>
-										<td>2011/07/25</td>
-										<td>$170,750</td>
-									</tr>
-									<tr>
-										<td>Ashton Cox</td>
-										<td>Junior Technical Author</td>
-										<td>San Francisco</td>
-										<td>66</td>
-										<td>2009/01/12</td>
-										<td>$86,000</td>
-									</tr>
+								</c:forEach>
 								</tbody>
 							</table>
 							<div>
@@ -114,30 +105,22 @@
 												</tr>
 											</thead>
 											<tbody>
+											<c:forEach var="dto" items="${dtos}">
 												<tr>
-													<td><a href="stdMyPage">김설현</a></td>
-													<td>20091064</td>
-													<td>체육교육학과(a1)</td>
-													<td>1</td>
-													<td>010-2556-4877</td>
-													<td>재학중</td>
+													<td><a href="stdMyPage">${dto.userName}</a></td>
+													<td>${dto.userNumber}</td>
+													<td>${dto.majorName}(${dto.majorNum})</td>
+													<td>${dto.grade}</td>
+													<td>${dto.userCellNum}</td>
+													<td><c:if test = "${dto.graduation_state ==0}">
+															재학중
+														</c:if>
+														<c:if test = "${dto.graduation_state ==1}">
+															졸업
+														</c:if>
+													</td>
 												</tr>
-												<tr>
-													<td>Garrett Winters</td>
-													<td>Accountant</td>
-													<td>Tokyo</td>
-													<td>63</td>
-													<td>2011/07/25</td>
-													<td>$170,750</td>
-												</tr>
-												<tr>
-													<td>Ashton Cox</td>
-													<td>Junior Technical Author</td>
-													<td>San Francisco</td>
-													<td>66</td>
-													<td>2009/01/12</td>
-													<td>$86,000</td>
-												</tr>
+											</c:forEach>
 											</tbody>
 										</table>
 										<div>

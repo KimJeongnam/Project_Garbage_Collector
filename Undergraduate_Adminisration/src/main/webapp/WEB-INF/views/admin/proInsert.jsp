@@ -158,7 +158,7 @@
 								for="last-name">계좌번호 <span class="required">*</span>
 							</label>
 							<div class="col-md-6 col-sm-6 col-xs-12">
-								<input type="text" id="last-name" name="last-name"
+								<input type="text" id="11" name="11"
 									required="required" class="form-control col-md-7 col-xs-12">
 							</div>
 						</div>
@@ -167,15 +167,30 @@
 								for="last-name">예금주 <span class="required">*</span>
 							</label>
 							<div class="col-md-6 col-sm-6 col-xs-12">
-								<input type="text" id="last-name" name="last-name"
+								<input type="text" id="22" name="22"
 									required="required" class="form-control col-md-7 col-xs-12">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="middle-name"
+								class="control-label col-md-3 col-sm-3 col-xs-12">주소</label>
+							<div class="col-md-6 col-sm-6 col-xs-12">
+								<input type="text" name="zip" class="input" required="required" 
+												placeholder="입학일을 입력하시오">
+								<button type="button" name="zipSearch" onclick="openZipSearch();">검색</button><br>
+								주소 :<input id="studentAddress1" name="addr1"class="form-control col-md-7 col-xs-12"
+									data-validate-length-range="6" data-validate-words="2"
+									placeholder="" name="studentAddress1" type="text"><br>
+								상세 :<input id="studentAddress2" name="addr2" class="form-control col-md-7 col-xs-12"
+									data-validate-length-range="6" data-validate-words="2"
+									placeholder="" name="studentAddress2" type="text"><br>
 							</div>
 						</div>
 					</form>
 				</div>
 				<!-- 교직원 등록 스텝4 - 회원가입 정보확인-->
 				<div id="step-4">
-					<form class="form-horizontal form-label-left">
+					<form action ="stdInsertPro" method ="post" class="form-horizontal form-label-left">
 						<div class="form-group">
 							<label class="control-label col-md-3 col-sm-3 col-xs-12"
 								for="first-name">이름 <span class="required">*</span>
@@ -270,7 +285,7 @@
 								for="last-name">계좌번호 <span class="required">*</span>
 							</label>
 							<div class="col-md-6 col-sm-6 col-xs-12">
-								<input type="text" id="last-name" name="last-name"
+								<input type="text" id="11" name="11"
 									required="required" class="form-control col-md-7 col-xs-12">
 							</div>
 						</div>
@@ -279,8 +294,22 @@
 								for="last-name">예금주 <span class="required">*</span>
 							</label>
 							<div class="col-md-6 col-sm-6 col-xs-12">
-								<input type="text" id="last-name" name="last-name"
+								<input type="text" id="22" name="22"
 									required="required" class="form-control col-md-7 col-xs-12">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="middle-name"
+								class="control-label col-md-3 col-sm-3 col-xs-12">주소</label>
+							<div class="col-md-6 col-sm-6 col-xs-12">
+								<input type="text" name="zip" class="input" required="required" 
+												placeholder="입학일을 입력하시오"><br>
+								주소 :<input id="studentAddress1" name="addr1"class="form-control col-md-7 col-xs-12"
+									data-validate-length-range="6" data-validate-words="2"
+									placeholder="" name="studentAddress1" type="text"><br>
+								상세 :<input id="studentAddress2" name="addr2" class="form-control col-md-7 col-xs-12"
+									data-validate-length-range="6" data-validate-words="2"
+									placeholder="" name="studentAddress2" type="text"><br>
 							</div>
 						</div>
 					</form>
@@ -289,16 +318,25 @@
 		</div>
 	</div>
 	<!-- /page content -->
-
+	<!-- 다음 주소 API 추가  -->
+	<script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
 
 	<%@ include file="../Basic/footer.jsp"%>
 	<!-- jQuery Smart Wizard -->
 	<script
 		src="/project/resources/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js"></script>
 	<script type="text/javascript">
-		$(function (){
-			
-		});
+	function openZipSearch() {
+		daum.postcode.load(function(){
+		new daum.Postcode({
+			oncomplete: function(data) {
+				$('[name=zip]').val(data.zonecode); // 우편번호 (5자리)
+				$('[name=addr1]').val(data.address);
+				$('[name=addr2]').val(data.buildingName);
+			}
+		}).open();
+	});
+	};
 	</script>
 
 </body>

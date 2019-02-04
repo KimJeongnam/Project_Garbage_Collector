@@ -34,8 +34,48 @@
 
 				<div class="clearfix"></div>
 
-				<div id="messageBoard" class="">
+				<div class="">
+					<div class="col-md-6 col-sm-6 col-xs-12">
+						<div class="x_panel">
+							<div class="x_title">
+								<h2>
+									Daily active users <small>Sessions</small>
+								</h2>
+								<div class="clearfix"></div>
+							</div>
+							<div class="x_content">
+								<div class="row form-inline">
+									<div class="col-sm-6">
+										<label>
+											Show
+											<select class="form-control input-sm" id="msg-pagesize" onchange="getMessages('${userNumber }', 1);">
+												<option value="5">5</option>
+												<option value="10" selected="selected">10</option>
+												<option value="25">25</option>
+												<option value="50">50</option>
+												<option value="100">100</option>
+											</select>
+										</label>
+									</div>
+									
+									<div class="col-sm-6">
+										<div style="text-align: right;">
+											<label>
+												Search:
+												<input type="search" id="msg-search-keyword" class="form-control input-sm"
+													onkeyup="getMessages('${userNumber }', 1);">
+											</label>
+										</div>
+									</div>
+								</div>
+								<div id="messageBoard"></div>
+							</div>
+						</div>
+					</div>
 					
+					<div class="col-md-6 col-sm-6 col-xs-12" id="show-msg-panel">
+						
+					</div>
 				</div>
 
 			</div>
@@ -46,7 +86,7 @@
 	<%@ include file="../Basic/footer.jsp"%>
 	<script>
 	$(function(){
-		getMessages('${userNumber}');
+		getMessages('${userNumber}', 1);
 	});
 	</script>
 </body>

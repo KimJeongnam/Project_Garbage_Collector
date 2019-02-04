@@ -3,7 +3,6 @@ package com.spring.project.restful.service;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -77,6 +76,4 @@ public class RestfulServiceImpl implements RestfulService {
 	public Message showMessage(Map<String, Object> map, Logger logger) {
 		return dao.showMessage(map);
 	}
-	
-	
 }

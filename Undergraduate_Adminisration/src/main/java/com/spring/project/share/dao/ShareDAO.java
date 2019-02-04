@@ -1,16 +1,20 @@
 package com.spring.project.share.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.ParameterMapping;
 import org.apache.ibatis.session.SqlSession;
 
+import com.spring.project.restful.vo.Message;
 import com.spring.project.share.vo.ShareUserInfo;
 
 public interface ShareDAO {
 	public ShareUserInfo getStudentInfo(String userNumber);
 	public ShareUserInfo getEmployeeInfo(String userNumber);
+	public int messageTotalCnt(Map<String, Object> map);
+	public List<Message> getMessages(Map<String, Object>map);
 	
 	public static String getQuery(SqlSession sqlSession, String queryId, Object sqlParam) {
 		BoundSql boundSql = sqlSession.getConfiguration().getMappedStatement(queryId).getSqlSource()

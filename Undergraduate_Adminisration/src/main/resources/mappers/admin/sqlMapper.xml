@@ -7,10 +7,50 @@
 
 <mapper namespace="com.spring.project.admin.dao.AdminDAO">
 
-	<!-- 학생 가입처리  -->
-	<!-- <insert id="insertMember" parameterType="spring.mvc.member_mybatis.vo.MemberVO">
-		insert into student(id,pwd,name,jumin1,jumin2,hp,email,reg_date) 
-						values(#{id},#{pwd},#{name},#{jumin1},#{jumin2},#{hp},#{email},#{reg_date})
-	</insert> -->
+	<!-- 학생 가입처리  delStatus, authority 는 하드코딩-->
+	<insert id="insertUsers" parameterType="com.spring.project.admin.vo.AdStdVO">
+		insert into users(userNumber, userPassword, userEngName, userName, userImage, userSsn,userCellNum,
+							userEmail, delStatus, authority, gender, userZipCode, userAddr1, userAddr2 ) 
+					values(#{userNumber},1234,#{userEngName},#{userName},#{userImage},
+						#{userSsn},#{userCellNum},#{userEmail},0,'ROLE_STUDENT', '남', '2', '3', '4')
+	</insert> 
 	
+	<!-- 학생 가입처리  -->
+	<insert id="insertMajor" parameterType="com.spring.project.admin.vo.AdStdVO">
+		insert into major(majorNum, majorName) values(11,#{majorName})
+	</insert>
+	
+	<!-- 학생 가입처리  stdNumber는 userNumber = 학번  //학년은 한자리숫자-->
+	<insert id="insertStudent" parameterType="com.spring.project.admin.vo.AdStdVO">
+		insert into student(stdNumber,grade, adDate, graDate, majorNum) 
+					values(#{userNumber},#{grade},#{adDate},#{graDate}, 11)
+	</insert>
+	
+	<!-- 학생 가입처리 //schoolLeaveStateCode 휴복학 내역코드-pk /leaveStatus 넘버1자리-->
+	<insert id="insertSchoolLeave" parameterType="com.spring.project.admin.vo.AdStdVO">
+		insert into schoolLeave(schoolLeaveStateCode, leaveStatus, stdNumber) values(1,#{leaveStatus},#{userNumber})
+	</insert>
+	
+	<!-- 학생리스트 -->
+	<select id="getStdList" parameterType="java.util.Map" resultType="com.spring.project.admin.vo.AdStdVO">
+		select u.userNumber,  u.userName, m.majorName, m.majorNum, 
+      		 u.userCellNum ,  s.grade , st.graduation_state 
+		from student s, studentState st , users u, major m
+		where  u.userNumber= s.stdNumber
+    			and s.stdNumber = st.stdNumber
+    			and s.majorNum = m.majorNum
+    			and u.authority = 'ROLE_STUDENT'
+	</select>
+	
+	<!-- 교수리스트 -->
+	<select id="getProList" parameterType="java.util.Map" resultType="com.spring.project.admin.vo.AdProVO">
+		select u.userNumber,  u.userName, m.majorName ,m.majorNum , 
+      			 u.authority,  e.annualLevel, e.empHiredDate ,rd.totalPayment
+		from employee e , users u, major m, payment p, registerDetail rd
+		where  u.userNumber= e.empnumber
+   		 and  e.empnumber =  p.empnumber
+   		 and e.majorNum = m.majorNum
+   		 and p.paymentcode = rd.paymentcode
+   		 and u.authority = 'ROLE_PROFESSOR'  
+	</select>
 </mapper>
