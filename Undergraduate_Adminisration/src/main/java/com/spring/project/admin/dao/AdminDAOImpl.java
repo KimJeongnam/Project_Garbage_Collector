@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.spring.project.admin.vo.AdProVO;
 import com.spring.project.admin.vo.AdStdVO;
+import com.spring.project.admin.vo.ScholarpkVO;
 
 @Repository
 public class AdminDAOImpl implements AdminDAO{
@@ -61,6 +62,41 @@ public class AdminDAOImpl implements AdminDAO{
 		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.getProList", map);
 	}
 	
+	//장학 글 갯수
+	@Override
+	public int getArticleCnt() {
+		int selectCnt = sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.getArticleCnt");
+		return selectCnt;
+	}
+	
+	//장학 글 목록
+	@Override
+	public List<ScholarpkVO> getArticleList(Map<String, Object> map) {
+		List<ScholarpkVO> dtos = sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.getArticleList",map);
+		
+		return dtos;
+	}
+	@Override
+	//장학금 글 추가
+	public int insertjangjag(ScholarpkVO vo) {
+		// TODO Auto-generated method stub
+		int insertCnt = sqlSession.insert("com.spring.project.admin.dao.AdminDAO.insertjangjag",vo);
+		return insertCnt;
+	}
+	@Override
+	//장학금 글 상세
+	public ScholarpkVO getArticle(int scholarpk) {
+		ScholarpkVO dtos = sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.getArticle",scholarpk);
+		return dtos;
+	}
+	//장학금 글 삭제
+	@Override
+	public int delete(String[] checkbox) {
+			
+		int deleteCnt = sqlSession.delete("com.spring.project.admin.dao.AdminDAO.delete",checkbox);
+		return deleteCnt;
+		
+	}
 
 
 }
