@@ -113,7 +113,7 @@ public class AdminController {
 	}
 	//임시 학생인서트
 	@RequestMapping("/admin/stdInsert2")
-	public String stdInsert2() {
+	public String stdInsert2(HttpServletRequest req, Model model) {
 		
 		return "admin/stdInsert2";
 	}

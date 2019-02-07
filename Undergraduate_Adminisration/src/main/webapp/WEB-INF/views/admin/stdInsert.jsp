@@ -6,19 +6,6 @@
 <meta charset="UTF-8">
 <%@ include file="../Basic/settings.jsp"%>
 <title>Insert title here</title>
-
-<!-- Bootstrap -->
-<link href="../vendors/bootstrap/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-<!-- Font Awesome -->
-<link href="../vendors/font-awesome/css/font-awesome.min.css"
-	rel="stylesheet">
-<!-- NProgress -->
-<link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
-
-<!-- Custom Theme Style -->
-<link href="../build/css/custom.min.css" rel="stylesheet">
-
 </head>
 <body class="nav-md">
 	<%@ include file="../Basic/navbar.jsp"%>
