@@ -17,7 +17,7 @@
 		 *  window.open("파일명", "윈도우 명", "창 속성");
 		 *  url="주소?속성="+속성값; -- get방식
 		 */
-		var url = "${contextPath}/openMajorAdd";
+		var url = "${contextPath}/admin/openMajorAdd";
 		window.open(url, "openMajorAdd", "menubar=no,"+
 				"toolbar=no,"+
 				"location=no,"+
@@ -143,7 +143,36 @@
             </div>
     <!-- /page content -->
 
-            
+	<div class="modal fade" id="majorAdd-Modal" tabindex="-1" role="dialog"
+		aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">×</span>
+					</button>
+
+					<div class="modal-title row">
+						<div id="msgModal-image" class="left col-xs-2">
+							<img src="${staticPath}/images/img.jpg" alt="Profile"
+								class="img-circle profile_img">
+						</div>
+						<!-- 
+								 -->
+						<div class="right col-xs-9" id="msgModal-sendUser">
+							<h4>보낸이</h4>
+						</div>
+					</div>
+				</div>
+				<div class="modal-body">
+					<div id="msgModal-message">None!</div>
+				</div>
+				<div class="modal-footer" id="msgModal-sendTime"></div>
+			</div>
+		</div>
+	</div>
+
+
 	<%@ include file="../Basic/footer.jsp" %>
 	
 	<script type="text/javascript">
