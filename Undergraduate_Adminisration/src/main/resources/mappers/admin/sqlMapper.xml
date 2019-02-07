@@ -53,4 +53,58 @@
    		 and p.paymentcode = rd.paymentcode
    		 and u.authority = 'ROLE_PROFESSOR'  
 	</select>
+	
+	<!-- 장학 단 -->
+	<!-- 장학단  -->
+	<!-- 장학글 갯수 -->
+	
+	<select id="getArticleCnt" resultType="int">
+ 	
+ 	SELECT COUNT(*) as cnt FROM SCHOLARSHIP
+ 	
+ 	</select>
+ 	
+ 	<!-- 장학글 목록  -->
+ 	
+ 	<select id="getArticleList" parameterType="java.util.Map" resultType="com.spring.project.admin.vo.ScholarpkVO">
+ 	
+ 	<![CDATA[SELECT *  
+				FROM (select SCHOLARPK,SCHOLARNAME,to_char(YEAR,'YYYY') as YEAR,SEMESTER,AMOUNT,ROWNUM rNum  
+				            from ( 
+				                    select * FROM SCHOLARSHIP   
+				                    order by SCHOLARPK desc
+				                    ) 
+				                ) 
+				                where rNum >= #{start} and rNum <= #{end}]]>
+ 	
+ 	</select>
+ 	
+ 	<!-- 장학글 추가 -->
+ 	
+ 	<insert id="insertjangjag" parameterType = "com.spring.project.admin.vo.ScholarpkVO">
+ 	
+ 	INSERT INTO SCHOLARSHIP(SCHOLARPK,SCHOLARNAME,YEAR,SEMESTER,AMOUNT,SCHOLARCONTENT)
+	values(SCHOLARSHIP_SEQ.nextval,#{scholarname},#{year},#{semester},#{amount},#{scholarcontent})
+ 	
+ 	</insert>
+ 	
+ 	<!-- 장학글 상세 -->
+ 	<select id="getArticle" resultType="com.spring.project.admin.vo.ScholarpkVO">
+ 	
+ 	SELECT * FROM SCHOLARSHIP where scholarpk = #{scholarpk}
+ 	
+ 	</select>
+ 	
+ 	<!-- 장학글 삭제 -->
+ 	<delete id="" parameterType="com.spring.project.admin.vo.ScholarpkVO">
+ 	
+ 	DELETE FROM SCHOLARSHIP 
+ 	
+ 	WHERE scholarpk =
+ 	<foreach item="scholarpk" collection="SCHOLARPK" open="("
+				separator="," close=")">
+				#{scholarpk}
+	</foreach>
+ 	
+ 	</delete>
 </mapper>

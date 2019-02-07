@@ -12,6 +12,5 @@ import com.spring.project.restful.vo.Message;
 public interface RestfulService {
 	public Map<String, List<Message>> getMessages(Map<String, Object> map,
 			HttpServletRequest request, Logger logger);
-	
 	public Message showMessage(Map<String, Object> map, Logger logger);
 }

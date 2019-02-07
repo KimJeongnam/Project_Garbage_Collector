@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.project.admin.service.AdminService;
 
@@ -33,12 +34,22 @@ public class AdminController {
 		return "admin/userInfo";
 	}
 	
+	/*장학단---------------------------------*/
+	
 	//장학 신청 심사
 	@RequestMapping("/admin/judge")
 	public String janghak() {
 		System.out.println("장학 심사");
 		
 		return "admin/judge";
+	}
+	//장학 목록
+	@RequestMapping("/admin/registrationList")
+	public String registrationList(HttpServletRequest req, Model model) {
+		System.out.println("장학 목록");
+		service.registrationList(req,model);
+		
+		return "admin/registrationList";
 	}
 	
 	//장학 등록
@@ -49,6 +60,33 @@ public class AdminController {
 		return "admin/registration";
 	}
 	
+	//장학 등록 완료
+	@RequestMapping("/admin/rigisterPro")
+	public String rigisterPro(HttpServletRequest req, Model model) {
+		System.out.println("장학 등록");
+		service.rigisterPro(req,model);
+		
+		return "admin/rigisterPro";
+	}
+	
+	//장학 상세 페이지
+	@RequestMapping("/admin/contentForm")
+	public String contentform(HttpServletRequest req, Model model) {
+		System.out.println("장학 상세");
+		service.contentform(req,model);
+		
+		return "admin/contentForm";
+	}
+	
+	//장학 삭제 페이지
+	@RequestMapping("/admin/deletePro")
+	public String deletePro(HttpServletRequest req, RedirectAttributes red) {
+		System.out.println("장학 삭제");
+		service.deletePro(req,red);
+		
+		return "admin/registrationList";
+	}
+	
 	//장학 예산
 	@RequestMapping("/admin/budget")
 	public String budget() {
@@ -56,6 +94,8 @@ public class AdminController {
 		
 		return "admin/budget";
 	}
+	
+	/*장학단---------------------------------끝*/
 	
 	@RequestMapping("/admin/majorLectureManagement")
 	public String majorLectureManagement() {

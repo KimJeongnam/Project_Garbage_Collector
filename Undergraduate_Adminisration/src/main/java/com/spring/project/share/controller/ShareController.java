@@ -1,18 +1,15 @@
 package com.spring.project.share.controller;
 
-import java.util.Collection;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -62,4 +59,17 @@ public class ShareController {
 		return "share/messagePage";
 	}
 	
+	@RequestMapping(value="/ajax/api/v1.1/messages/list", method=RequestMethod.POST)
+	public String messageBoard(@RequestBody Map<String, Object> map, Model model) {
+		logger.info("messageBoard()");
+		shareService.messageBoard(map, logger, model);
+		return "share/messageBoard";
+	}
+	
+	@RequestMapping(value="/ajax/api/v1.1/messages/show", method=RequestMethod.POST)
+	public String messageShow(@RequestBody Map<String, Object> map, Model model) {
+		logger.info("messageShow()");
+		shareService.messageShow(map, logger, model);
+		return "share/messageShow";
+	}
 }
