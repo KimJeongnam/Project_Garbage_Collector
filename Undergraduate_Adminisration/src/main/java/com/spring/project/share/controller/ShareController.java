@@ -26,7 +26,23 @@ public class ShareController {
 	@RequestMapping(value = { "/loginForm", "/" })
 	public String login(HttpServletRequest request) {
 		logger.info("login()");
-		return "share/login";
+		String url = "share/login";
+		
+		if(request.getSession().getAttribute("userNumber")!=null) {
+			switch((String)request.getSession().getAttribute("authority")) {
+			case "admin":
+				url = "redirect:"+"/admin/index";
+				break;
+			case "professor":
+				url = "redirect:"+"/professor/index";
+				break;
+			case "student":
+				url = "redirect:"+"/student/index";
+				break;
+			}
+		}
+		
+		return url;
 	}
 
 	@RequestMapping("/loginSucces")
