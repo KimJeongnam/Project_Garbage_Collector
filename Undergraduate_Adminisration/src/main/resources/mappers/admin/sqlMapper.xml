@@ -12,18 +12,25 @@
 		insert into users(userNumber, userPassword, userEngName, userName, userImage, userSsn,userCellNum,
 							userEmail, delStatus, authority, gender, userZipCode, userAddr1, userAddr2 ) 
 					values(#{userNumber},1234,#{userEngName},#{userName},#{userImage},
-						#{userSsn},#{userCellNum},#{userEmail},0,'ROLE_STUDENT', '남', '2', '3', '4')
+						#{userSsn},#{userCellNum},#{userEmail},0,'ROLE_STUDENT', #{gender}
+						, #{userZipCode}, #{userAddr1}, #{userAddr2})
 	</insert> 
 	
 	<!-- 학생 가입처리  -->
 	<insert id="insertMajor" parameterType="com.spring.project.admin.vo.AdStdVO">
-		insert into major(majorNum, majorName) values(11,#{majorName})
+		insert into major(majorNum, majorName) values(#{majorNum},#{majorName})
 	</insert>
 	
 	<!-- 학생 가입처리  stdNumber는 userNumber = 학번  //학년은 한자리숫자-->
 	<insert id="insertStudent" parameterType="com.spring.project.admin.vo.AdStdVO">
 		insert into student(stdNumber,grade, adDate, graDate, majorNum) 
-					values(#{userNumber},#{grade},#{adDate},#{graDate}, 11)
+					values(#{userNumber},#{grade},#{adDate},#{graDate}, #{majorNum})
+	</insert>
+	
+	<!-- 학생 가입처리  -->
+	<insert id="insertStudentState" parameterType="com.spring.project.admin.vo.AdStdVO">
+		insert into studentState(stdNumber, semester, graduation_state) 
+					values(#{userNumber},#{grade},0)
 	</insert>
 	
 	<!-- 학생 가입처리 //schoolLeaveStateCode 휴복학 내역코드-pk /leaveStatus 넘버1자리-->
@@ -34,24 +41,31 @@
 	<!-- 학생리스트 -->
 	<select id="getStdList" parameterType="java.util.Map" resultType="com.spring.project.admin.vo.AdStdVO">
 		select u.userNumber,  u.userName, m.majorName, m.majorNum, 
-      		 u.userCellNum ,  s.grade , st.graduation_state 
-		from student s, studentState st , users u, major m
+      		 u.userCellNum ,  s.grade , st.graduation_state, f.faculty 
+		from student s, studentState st , users u, major m, faculty f
 		where  u.userNumber= s.stdNumber
     			and s.stdNumber = st.stdNumber
     			and s.majorNum = m.majorNum
+    			and f.faculty = m.faculty
     			and u.authority = 'ROLE_STUDENT'
 	</select>
 	
 	<!-- 교수리스트 -->
 	<select id="getProList" parameterType="java.util.Map" resultType="com.spring.project.admin.vo.AdProVO">
 		select u.userNumber,  u.userName, m.majorName ,m.majorNum , 
-      			 u.authority,  e.annualLevel, e.empHiredDate ,rd.totalPayment
-		from employee e , users u, major m, payment p, registerDetail rd
+      			 u.authority,  e.annualLevel, e.empHiredDate ,rd.totalPayment , f.faculty
+		from employee e , users u, major m, payment p, registerDetail rd, faculty f
 		where  u.userNumber= e.empnumber
    		 and  e.empnumber =  p.empnumber
    		 and e.majorNum = m.majorNum
+   		 and f.faculty = m.faculty
    		 and p.paymentcode = rd.paymentcode
    		 and u.authority = 'ROLE_PROFESSOR'  
+	</select>
+	
+	<!-- 단과대 + 학과 리스트 -->
+	<select id="FandMList" parameterType="java.util.Map" resultType="com.spring.project.admin.vo.AdProVO">
+		select * from major m, faculty f where f.faculty = m.faculty
 	</select>
 	
 	<!-- 장학 단 -->

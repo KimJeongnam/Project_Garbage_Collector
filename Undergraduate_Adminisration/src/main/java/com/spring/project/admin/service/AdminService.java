@@ -16,6 +16,9 @@ public interface AdminService {
 	//학생 +교수 목록 
 	public void stdList(HttpServletRequest req, Model model);
 	
+	//단과대 + 학부 리스트
+	public void fandMList(HttpServletRequest req, Model model);
+	
 	//장학 목록 
 	public void registrationList(HttpServletRequest req,  Model model);
 	
@@ -27,4 +30,5 @@ public interface AdminService {
 	
 	//장학 글 삭제
 	public void deletePro(HttpServletRequest req,  RedirectAttributes red);
+	
 }

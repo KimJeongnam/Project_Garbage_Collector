@@ -26,6 +26,9 @@ public interface AdminDAO {
 	//교수 리스트
 	public List<AdProVO> getProList(Map<String, Integer> map);
 	
+	//학부 + 학과 리스트
+	public List<AdProVO> FandMList(Map<String, Integer> map);
+	
 	public int getArticleCnt();
 	
 	//장학 글 목록

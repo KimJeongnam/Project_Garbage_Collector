@@ -1,6 +1,9 @@
 package com.spring.project.admin.controller;
 
+import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -154,9 +157,16 @@ public class AdminController {
 	//임시 학생인서트
 	@RequestMapping("/admin/stdInsert2")
 	public String stdInsert2(HttpServletRequest req, Model model) {
-		
+		service.fandMList(req, model);
 		return "admin/stdInsert2";
 	}
+	
+	/*@RequestMapping(value="/admin/selectFaculty", method=RequestMethod.POST)
+	public void selectFaculty(HttpServletRequest req, HttpServletResponse response, Model model) {
+		 
+		service.fandMList(req, model);
+	     
+	}*/
 	
 	@RequestMapping("/admin/menu7")
 	public String menu7() {

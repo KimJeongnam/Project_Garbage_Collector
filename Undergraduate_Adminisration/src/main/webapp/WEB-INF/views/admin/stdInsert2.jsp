@@ -6,19 +6,6 @@
 <meta charset="UTF-8">
 <%@ include file="../Basic/settings.jsp"%>
 <title>Insert title here</title>
-
-<!-- Bootstrap -->
-<link href="../vendors/bootstrap/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-<!-- Font Awesome -->
-<link href="../vendors/font-awesome/css/font-awesome.min.css"
-	rel="stylesheet">
-<!-- NProgress -->
-<link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
-
-<!-- Custom Theme Style -->
-<link href="../build/css/custom.min.css" rel="stylesheet">
-
 </head>
 <body class="nav-md">
 	<%@ include file="../Basic/navbar.jsp"%>
@@ -47,30 +34,20 @@
 							<tr>
 								<th class="control-label">단과대</th>
 								<td>
-									<select name="faculty">
+									<select name="faculty" id ="faculty" onchange="selectFandM" >
 							       		<option value="분류없음" >분류없음</option>
-							       		<option value="사범대">사범대</option>
-							       		<option value="체육대">체육대</option>
-							       		<option value="예술대">예술대</option>
-							       		<option value="경영대">경영대</option>
-							       		<option value="자연대">자연대</option>
-							       		<option value="인문대">인문대</option>
-							       		<option value="공과대">공과대</option>
-							       		<option value="의대">의대</option>
+							       		<c:forEach var="fa" items="${outFandM}">
+											<option value="${fa.faculty}">${fa.faculty}</option>
+										</c:forEach>	
 						      		</select>
 								</td>
 								<th class="control-label">학과번호</th>
 								<td>
-									<select name="majorNum">
+									<select name="majorNum" id ="majorNum">
 							       		<option value="분류없음" >분류없음</option>
-							       		<option value="100" >100</option>
-							       		<option value="101">101</option>
-							       		<option value="102">102</option>
-							       		<option value="103">103</option>
-							       		<option value="104">104</option>
-							       		<option value="105">105</option>
-							       		<option value="106">106</option>
-							       		<option value="107">107</option>
+							       		<c:forEach var="major" items="${outFandM}">
+											<option value="${major.majorNum}">${major.majorNum} : ${major.majorName}</option>
+										</c:forEach>	
 							  		</select>
 								</td>
 							</tr>
@@ -190,6 +167,22 @@
 		}).open();
 	});
 	};
+	function selectFandM(){
+		$.ajax({
+			url:"/admin/selectFaculty",
+			type:"post",
+			dataType:"json",
+			data:{faculty: $("select[name='faculty'] > option:selected").val()}, //faculty slect의 값이 선택되면
+			success: function(data) {
+				$("select[name='majorNum'] option").remove();  // 옵션 제거
+				$("select[name='majorNum']").append('<option value=""> - 선택 - </option>');
+				
+				$(data).each(function(index, item) {
+					$("select[name='majorNum']").append('<option value="' + major.majorNum + '">' + major.majorNum +":"+ major.majorName + '</option>');
+				});
+		    }
+	   });
+ 	};
 	</script>
 
 </body>

@@ -61,7 +61,11 @@ public class AdminDAOImpl implements AdminDAO{
 	public List<AdProVO> getProList(Map<String, Integer> map) {
 		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.getProList", map);
 	}
-	
+	//단과대 + 학과 리스트
+	@Override
+	public List<AdProVO> FandMList(Map<String, Integer> map) {
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.FandMList", map);
+	}
 	//장학 글 갯수
 	@Override
 	public int getArticleCnt() {

@@ -251,12 +251,12 @@ public class AdminServiceImpl implements AdminService{
 			vo.setUserZipCode(req.getParameter("userZipCode"));
 			vo.setUserAddr1(req.getParameter("userAddr1"));
 			vo.setUserAddr2(req.getParameter("userAddr2"));
+			vo.setGender(req.getParameter("gender"));
 			/*vo.setDelStatus(Integer.parseInt(req.getParameter("delStatus")));*/
 
 			//student
 			vo.setAdDate(Date.valueOf(req.getParameter("adDate")));
 			vo.setGraDate(Date.valueOf(req.getParameter("graDate")));
-			
 			
 			//schoolLeave
 			/*vo.setSchoolLeaveStateCode(Integer.parseInt(req.getParameter("setSchoolLeaveStateCode")));*/
@@ -367,5 +367,13 @@ public class AdminServiceImpl implements AdminService{
 			req.setAttribute("pageCount", pageCount); 		//페이지 갯수
 			req.setAttribute("currentPage", currentPage);	//현재 페이지
 		}*/
+	}
+	//학부 + 학과 리스트
+	@Override
+	public void fandMList(HttpServletRequest req, Model model) {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		List<AdProVO> vo = dao.FandMList(map);
+		req.setAttribute("outFandM", vo);
+		
 	}
 }
