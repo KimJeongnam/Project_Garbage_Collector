@@ -33,15 +33,27 @@ public class StudentController {
 
 	//장학금 신청목록
 	@RequestMapping("/student/bulletin")
-	public String bulletin() {
+	public String bulletin(HttpServletRequest req, Model model) {
 		logger.info("bulletin");
+		service.bulletin(req, model);
+		
 		return "student/bulletin";
+	}
+	//장학금 글 상세 페이지
+	@RequestMapping("/student/contentForm")
+	public String contentForm(HttpServletRequest req, Model model) {
+		System.out.println("장학 상세");
+		service.contentForm(req,model);
+		
+		return "admin/contentForm";
 	}
 
 	//장학금 수혜현황
 	@RequestMapping("/student/management")
 	public String management() {
 		logger.info("management");
+		//service.management(req, model);
+		
 		return "student/management";
 	}
 	//학생개인정보

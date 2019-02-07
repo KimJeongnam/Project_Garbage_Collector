@@ -26,6 +26,7 @@ public interface AdminDAO {
 	//교수 리스트
 	public List<AdProVO> getProList(Map<String, Integer> map);
 	
+	//장학글 갯수
 	public int getArticleCnt();
 	
 	//장학 글 목록
@@ -34,7 +35,7 @@ public interface AdminDAO {
 	//장학 글 추가 
 	public int insertjangjag(ScholarpkVO vo);
 	
-	//장학 글 추가 
+	//장학 글 상세 
 	public ScholarpkVO getArticle(int scholarpk); 
 	
 	//장학글 삭제
