@@ -16,7 +16,6 @@
 </head>
 <body class="nav-md">
 	<!-- page content -->
-	
 		<div class="cd-schedule loading">
 			<div class="timeline">
 				<ul>
@@ -39,6 +38,8 @@
 					<li><span>17:00</span></li>
 					<li><span>17:30</span></li>
 					<li><span>18:00</span></li>
+					<li><span>18:30</span></li>
+					<li><span>19:00</span></li>
 				</ul>
 			</div>
 
@@ -53,14 +54,22 @@
 						<ul>
 							<c:forEach var="dto" items="${dtosT}">
 								<c:if test="${dto.lectureDay == '월'}">
-
 									<li class="single-event"
 										data-start="${dto.beginningLectureTime}"
 										data-end="${dto.endLectureTime}"
 										data-content="event-abs-circuit" data-event="event-1"><a
 										href="#0"> <em class="event-name">${dto.lectureName}</em>
 									</a></li>
-
+								</c:if>
+							</c:forEach>
+							<c:forEach var="dto" items="${dtosH}">
+								<c:if test="${dto.lectureDay == '월'}">
+									<li class="single-event"
+										data-start="${dto.beginningLectureTime}"
+										data-end="${dto.endLectureTime}"
+										data-content="event-abs-circuit" data-event="event-2"><a
+										href="#0"> <em class="event-name">${dto.lectureName}</em>
+									</a></li>
 								</c:if>
 							</c:forEach>
 						</ul>

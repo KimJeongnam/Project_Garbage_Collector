@@ -16,6 +16,9 @@ public interface StudentDAO {
 	// 시간표 조회
 	public List<LectureVO> schoolTimeTable(String userNumber);
 	
+	// 시간표 Hover
+	public List<LectureVO> lectureHover(Map<String, Object> map);
+	
 	// 강의 검색 목록 갯수 구하기
 	public int getLectureSearchCnt(String keyword);
 	
@@ -33,4 +36,10 @@ public interface StudentDAO {
 	
 	// 강의 신청
 	public int applyLecture(Map<String, Object> map);
+	
+	// 나의  강의
+	public List<LectureVO> studentMyLecture(String userNumber);
+	
+	// 강의 신청 취소
+	public int cancelLecture(Map<String, Object> map);
 }

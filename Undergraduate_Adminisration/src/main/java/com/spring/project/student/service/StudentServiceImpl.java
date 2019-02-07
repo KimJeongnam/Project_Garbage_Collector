@@ -2,6 +2,7 @@ package com.spring.project.student.service;
 
 import java.util.HashMap;
 
+
 import java.util.List;
 import java.util.Map;
 
@@ -124,26 +125,65 @@ public class StudentServiceImpl implements StudentService {
 
 	// 강의 신청
 	@Override
-	public void applyLecture(Map<String, Object> map, RedirectAttributes red) {
+	public void applyLecture(Map<String, Object> map, Logger logger, RedirectAttributes red) {
 		String userNumber = (String) map.get("userNumber");
 		String lecCode = (String) map.get("lecCode");
 
 		map.put("userNumber", userNumber);
 		map.put("lecCode", lecCode);
-		/*
-		 * cnt = dao.checkLecture(map); // 수강신청할 강의 체크 System.out.println("cnt1 : " +
-		 * cnt); if (cnt != 0) { int selectCnt = dao.checkStudentInLecture(lecCode); //
-		 * selectCnt 현재 강의 신청한 인원수 System.out.println("selectCnt : " + cnt);
-		 * System.out.println("lecCode : " + lecCode); Map<String, Object> map2 = new
-		 * HashMap<String, Object>(); map2.put("lecCode", lecCode);
-		 * map2.put("selectCnt", selectCnt);
-		 * 
-		 * int cnt2 = dao.checkStudentInLecture2(map2); // 강의 최대인원수 = 현재인원수 이면 1 강의 신청실패
-		 * System.out.println("cnt2 : " + cnt); red.addFlashAttribute("message", "");
-		 * if(cnt2 == 0) { dao.applyLecture(map); red.addFlashAttribute("message",
-		 * "수강신청완료"); } if(cnt2 != 0) { red.addFlashAttribute("message",
-		 * "수강신청실패-강의 신청인원이 마감되었습니다."); } }
-		 */
+		
+		int cnt = dao.checkLecture(map); // 수강신청할 강의 체크 
+		System.out.println("cnt1 : " +cnt); 
+		if (cnt != 0) { 
+			int selectCnt = dao.checkStudentInLecture(lecCode); // selectCnt 현재 강의 신청한 인원수 System.out.println("selectCnt : " + cnt);
+			System.out.println("lecCode : " + lecCode); Map<String, Object> map2 = new
+			HashMap<String, Object>(); map2.put("lecCode", lecCode);
+			map2.put("selectCnt", selectCnt);
+			  
+			int cnt2 = dao.checkStudentInLecture2(map2); // 강의 최대인원수 = 현재인원수 이면 1 강의 신청실패
+			System.out.println("cnt2 : " + cnt); 
+			red.addFlashAttribute("message", "");
+			if(cnt2 == 0){
+				dao.applyLecture(map); 
+				red.addFlashAttribute("message","수강신청완료"); } 
+			if(cnt2 != 0){
+				red.addFlashAttribute("message","수강신청실패-강의 신청인원이 마감되었습니다."); }
+		}
+		 
+	}
+
+	@Override
+	public void lectureHover(Map<String, Object> map, Logger logger, Model model) {
+		String userNumber = (String) map.get("userNumber");
+		
+		map.put("userNumber", userNumber);
+		List<LectureVO> dtos = dao.lectureHover(map);
+		model.addAttribute("dtosH", dtos);
+	}
+	
+	// 내 강의 신청 내역
+	@Override
+	public void studentMyLecture(Map<String, Object> map, Logger logger, Model model) {
+		String userNumber = (String) map.get("userNumber");
+		System.out.println("userNumber : " + userNumber);
+		List<LectureVO> dtos = dao.studentMyLecture(userNumber);
+		model.addAttribute("dtosM", dtos);
+	}
+	
+	// 강의 취소
+	@Override
+	public void cancelLecture(Map<String, Object> map, Logger logger, RedirectAttributes red) {
+		String userNumber = (String) map.get("userNumber");
+		String lecCode = (String) map.get("lecCode");
+		map.put("userNumber", userNumber);
+		map.put("lecCode", lecCode);
+		
+		int deleteCnt = dao.cancelLecture(map);
+		if(deleteCnt > 0) {
+			red.addFlashAttribute("message","수강신청 취소 완료"); 
+		} else {
+			red.addFlashAttribute("message","수강신청 취소 에러메시지!!"); 
+		}
 	}
 
 }

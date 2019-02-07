@@ -34,6 +34,12 @@ public class StudentDAOImpl implements StudentDAO{
 		return sqlSession.selectList("com.spring.project.student.dao.StudentDAO.schoolTimeTable", userNumber);
 	}
 		
+	// 시간표 Hover
+	@Override
+	public List<LectureVO> lectureHover(Map<String, Object> map) {
+		return sqlSession.selectList("com.spring.project.student.dao.StudentDAO.lectureHover", map);
+	}
+	
 	// 강의 검색 리스트 갯수
 	@Override
 	public int getLectureSearchCnt(String keyword) {
@@ -45,7 +51,6 @@ public class StudentDAOImpl implements StudentDAO{
 	public List<LectureVO> lectureSearch(String keyword) {
 		return sqlSession.selectList("com.spring.project.student.dao.StudentDAO.lectureSearch", keyword);
 	}
-	
 	
 	// 강의 체크
 	@Override
@@ -70,6 +75,18 @@ public class StudentDAOImpl implements StudentDAO{
 	public int applyLecture(Map<String, Object> map) {
 		return sqlSession.insert("com.spring.project.student.dao.StudentDAO.applyLecture", map);
 	}
+
+	@Override
+	public List<LectureVO> studentMyLecture(String userNumber) {
+		return sqlSession.selectList("com.spring.project.student.dao.StudentDAO.studentMyLecture", userNumber);
+	}
+
+	@Override
+	public int cancelLecture(Map<String, Object> map) {
+		return sqlSession.delete("com.spring.project.student.dao.StudentDAO.cancelLecture", map);
+	}
+
+	
 
 	
 

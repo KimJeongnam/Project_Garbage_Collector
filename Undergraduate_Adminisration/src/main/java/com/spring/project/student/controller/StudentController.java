@@ -2,8 +2,6 @@ package com.spring.project.student.controller;
 
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired; 
@@ -97,21 +95,39 @@ public class StudentController {
 		return "student/schoolTimeTable";
 	}
 	
-	//강의 검색
-	@RequestMapping("/student/lectureSearch")
-	public String lectureSearch(HttpServletRequest req, Model model) {
-		logger.info("lectureSearch");
-		//service.lectureSearch(req, model);
+	// 시간표 Hover
+	@RequestMapping(value="/student/lectureHover", method=RequestMethod.POST)
+	public String lectureHover(@RequestBody Map<String, Object> map, Model model) {
+		logger.info("schoolTimeTable");
+		
+		service.lectureHover(map, logger, model);
+		return "student/schoolTimeTable";
+	}
+		
+	//강의 신청
+	@RequestMapping(value="/student/applyLecture", method=RequestMethod.POST)
+	public String applyLecture(@RequestBody Map<String, Object> map, RedirectAttributes red) {
+		logger.info("applyLecture");
+		
+		service.applyLecture(map, logger, red);
 		return "student/lectureList";
 	}
 	
-	//강의 신청
-	@RequestMapping("/student/applyLecture")
-	public String applyLecture(HttpServletRequest req, RedirectAttributes red) {
-		logger.info("applyLecture");
-		//service.applyLecture(req, red);
+	// 내 강의 신청 내역
+	@RequestMapping(value="/student/studentMyLecture", method=RequestMethod.POST)
+	public String studentMyLecture(@RequestBody Map<String, Object> map, Model model) {
+		logger.info("studentMyLecture");
 		
-		return "redirect:/student/lectureList";
+		service.studentMyLecture(map, logger, model);
+		return "student/studentMyLecture";
 	}
 	
+	// 내 강의 신청 취소
+	@RequestMapping(value="/student/cancelLecture", method=RequestMethod.POST)
+	public String cancelLecture(@RequestBody Map<String, Object> map, RedirectAttributes red) {
+		logger.info("cancelLecture");
+		
+		service.cancelLecture(map, logger, red);
+		return "student/studentMyLecture";
+	}
 }
