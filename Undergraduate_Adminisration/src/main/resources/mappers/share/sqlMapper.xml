@@ -59,4 +59,21 @@
 		]]>
 	</select>
 
+	<select id="getFacultys" resultType="String">
+		SELECT * FROM faculty 
+	</select>
+	
+	<select id="getMajorCurrval" resultType="int">
+		SELECT last_number FROM USER_SEQUENCES
+    		WHERE sequence_name = 'SEQ_MAJOR_MAJORNUM'
+	</select> 
+	
+	<select id="getMajors" parameterType="java.util.Map" resultType="com.spring.project.share.vo.Major">
+		SELECT * FROM major
+		<if test="college != null">
+			<where>
+				faculty = #{college}
+			</where>
+		</if>
+	</select>
 </mapper>

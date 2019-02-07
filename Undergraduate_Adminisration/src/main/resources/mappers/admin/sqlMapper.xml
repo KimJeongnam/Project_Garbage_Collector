@@ -107,4 +107,8 @@
 	</foreach>
  	
  	</delete>
+ 	
+ 	<select id="getMajors" parameterType="java.util.Map" resultType="com.spring.project.share.vo.Major">
+ 		SELECT * FROM major where  faculty = #{faculty}
+ 	</select>
 </mapper>
