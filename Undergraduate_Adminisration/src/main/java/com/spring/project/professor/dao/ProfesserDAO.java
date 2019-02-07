@@ -3,7 +3,9 @@ package com.spring.project.professor.dao;
 
 
 import java.util.List;
+import java.util.Map;
 
+import com.spring.project.professor.vo.classStudentVO;
 import com.spring.project.professor.vo.myClassVO;
 import com.spring.project.professor.vo.myPageVO;
 import com.spring.project.professor.vo.studentVO;
@@ -28,12 +30,12 @@ public interface ProfesserDAO {
 	
 	
 	
-	
-	
 	//내 강의 학생 
 	List<studentVO>list(String userNumber);
 	//내 강의 목록
 	List<myClassVO> myClass(String userNumber);
+	//강의별 수강학생목록
+	List<classStudentVO> getStudent(Map<String, Object> map);
 	
 
 

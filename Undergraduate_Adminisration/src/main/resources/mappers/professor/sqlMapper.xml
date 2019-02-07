@@ -43,6 +43,10 @@
 	<select id="myClass" parameterType="java.util.Map" resultType="com.spring.project.professor.vo.myClassVO">
  		SELECT lecturename FROM lecture WHERE empNumber = #{userNumber}
  	</select>
+   	<!-- 내 강의별 수강학생목록 -->
+	<select id="getStudent" parameterType="java.util.Map" resultType="com.spring.project.professor.vo.classStudentVO">
+ 		SELECT * FROM myClassStudent WHERE lecturename =#{lecName} AND empnumber = #{userNumber}
+ 	</select>
    
  	
 </mapper>
