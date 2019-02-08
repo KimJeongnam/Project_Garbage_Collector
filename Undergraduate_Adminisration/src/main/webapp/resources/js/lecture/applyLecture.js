@@ -20,7 +20,6 @@ function studentLecture(userNumber, page){
 			if(data != null){
 				if($('#lectureList')!= null)
 					$('#lectureList').html(data);
-				studentMyLecture(userNumber);
 				studentTimetable(userNumber);
 			}
 			
@@ -45,7 +44,6 @@ function studentTimetable(userNumber){
 		success : function(data){
 			if(data != null){
 				if($('#schoolTimeTable')!= null)
-					$('#schoolTimeTable').empty();
 					$('#schoolTimeTable').html(data);
 			}
 		},

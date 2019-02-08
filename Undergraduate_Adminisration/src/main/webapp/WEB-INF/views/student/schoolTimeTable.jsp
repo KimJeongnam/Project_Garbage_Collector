@@ -62,16 +62,6 @@
 									</a></li>
 								</c:if>
 							</c:forEach>
-							<c:forEach var="dto" items="${dtosH}">
-								<c:if test="${dto.lectureDay == '월'}">
-									<li class="single-event"
-										data-start="${dto.beginningLectureTime}"
-										data-end="${dto.endLectureTime}"
-										data-content="event-abs-circuit" data-event="event-2"><a
-										href="#0"> <em class="event-name">${dto.lectureName}</em>
-									</a></li>
-								</c:if>
-							</c:forEach>
 						</ul>
 					</li>
 

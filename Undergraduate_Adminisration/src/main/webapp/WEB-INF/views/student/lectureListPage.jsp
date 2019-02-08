@@ -11,7 +11,7 @@
 <body class="nav-md">
 	<%@ include file="../Basic/navbar.jsp"%>
 	<!-- page content -->
-	<div class="right_col" role="main">
+	<div class="right_col" role="main" style="min-height:1000px">
 		<div class="">
 			<div class="page-title">
 				<div class="title_left"></div>
@@ -54,8 +54,10 @@
 								<div id="lectureList" class=""></div>
 							</div>
 							<div class="col-md-12 col-sm-12 col-xs-12" style="">
-								<h2>신청내역</h2>
+								<div class="x_title">
+								<h2>수강신청리스트</h2>
 								<div class="clearfix"></div>
+								</div>
 								<div id="MyLectureList" class=""></div>
 							</div>
 							</div>
@@ -76,6 +78,7 @@
 	$(function() {
 	<%@ include file="../Basic/docReadyScripts.jsp" %>
 			studentMyLecture('${userNumber}');
+			studentTimetable('${userNumber}');
 			//applyLecture('${userNumber}','${dto.lecCode}');
 			/* $("#lectureHover").hover(function(){
 				$(this).css("background-color", "yellow");

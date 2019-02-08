@@ -95,14 +95,14 @@ public class StudentController {
 		return "student/schoolTimeTable";
 	}
 	
-	// 시간표 Hover
+	/*// 시간표 Hover
 	@RequestMapping(value="/student/lectureHover", method=RequestMethod.POST)
 	public String lectureHover(@RequestBody Map<String, Object> map, Model model) {
 		logger.info("schoolTimeTable");
 		
 		service.lectureHover(map, logger, model);
 		return "student/schoolTimeTable";
-	}
+	}*/
 		
 	//강의 신청
 	@RequestMapping(value="/student/applyLecture", method=RequestMethod.POST)
