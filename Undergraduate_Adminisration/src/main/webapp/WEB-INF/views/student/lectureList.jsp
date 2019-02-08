@@ -46,7 +46,7 @@
 					<td>${dto.accountHolder}</td>
 					<td>${dto.classTime}</td>
 					<td>${dto.maximumCapacity}</td>
-					<th><a href="applyLecture('${userNumber}','${dto.lecCode}')"
+					<th><a onclick="applyLecture('${userNumber}','${dto.lecCode}')"
 						class="btn btn-success"><i class="fa fa-edit m-right-xs"></i>신청</a></th>
 				</tr>
 			</c:forEach>

@@ -110,7 +110,7 @@ public class StudentController {
 		logger.info("applyLecture");
 		
 		service.applyLecture(map, logger, red);
-		return "student/lectureList";
+		return "redirect:/student/lectureList";
 	}
 	
 	// 내 강의 신청 내역
