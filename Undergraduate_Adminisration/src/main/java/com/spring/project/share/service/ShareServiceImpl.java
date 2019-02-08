@@ -144,4 +144,16 @@ public class ShareServiceImpl implements ShareService{
 		Message msg = restDao.showMessage(map);
 		model.addAttribute("msg", msg);
 	}
+
+	// 단과대명 불러오는 메서드
+	@Override
+	public List<String> getFacultys() {
+		return dao.getFacultys();
+	}
+
+	@Override
+	public int getMajorCurrval() {
+		return dao.getMajorCurrval();
+	}
+	
 }

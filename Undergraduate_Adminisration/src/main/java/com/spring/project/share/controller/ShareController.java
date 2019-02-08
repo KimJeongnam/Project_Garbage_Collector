@@ -1,5 +1,6 @@
 package com.spring.project.share.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.project.share.service.ShareService;
@@ -26,7 +28,23 @@ public class ShareController {
 	@RequestMapping(value = { "/loginForm", "/" })
 	public String login(HttpServletRequest request) {
 		logger.info("login()");
-		return "share/login";
+		String url = "share/login";
+		
+		if(request.getSession().getAttribute("userNumber")!=null) {
+			switch((String)request.getSession().getAttribute("authority")) {
+			case "admin":
+				url = "redirect:"+"/admin/index";
+				break;
+			case "professor":
+				url = "redirect:"+"/professor/index";
+				break;
+			case "student":
+				url = "redirect:"+"/student/index";
+				break;
+			}
+		}
+		
+		return url;
 	}
 
 	@RequestMapping("/loginSucces")
@@ -71,5 +89,17 @@ public class ShareController {
 		logger.info("messageShow()");
 		shareService.messageShow(map, logger, model);
 		return "share/messageShow";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/ajax/api/v1.1/getFacultys")
+	public List<String> getFacultys(){
+		return shareService.getFacultys();
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/ajax/api/v1.1/getMajorCurrval")
+	public int getMajorCurrval() {
+		return shareService.getMajorCurrval();
 	}
 }

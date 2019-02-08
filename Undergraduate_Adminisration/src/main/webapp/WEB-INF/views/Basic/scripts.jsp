@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 			<!-- 메세지 모달창 -->
 			<div class="modal fade" id="msgModal" tabindex="-1" role="dialog" aria-hidden="true">
 				<div class="modal-dialog">
@@ -11,10 +10,10 @@
 							</button>
 							
 							<div class="modal-title row">
-								<div id="msgModal-image" class="left col-xs-2">
+								<div id="msgModal-image" class="col-xs-2 vcenter">
 									<img src="${staticPath}/images/img.jpg" alt="Profile" class="img-circle profile_img">
-								</div><!-- 
-								 --><div class="right col-xs-9" id="msgModal-sendUser">
+								</div>
+								<div class="col-xs-9 vcenter" id="msgModal-sendUser">
 									<h4>보낸이</h4>
 								</div>
 							</div>
@@ -125,5 +124,8 @@
     <script src="${staticPath }/js/message/notify.js"></script>
     
     <!-- 수강신청 -->
-    <script src="${staticPath }/js/lecture/applyLecture.js"></script>
+	<script src="${staticPath }/js/lecture/applyLecture.js"></script>
+	
+	<!-- 단과대, 학과, 강의 등등 AJAX -->
+	<script src="${staticPath }/js/share/getDivisions.js"></script>
     

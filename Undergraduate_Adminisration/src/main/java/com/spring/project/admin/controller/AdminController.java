@@ -1,6 +1,8 @@
 package com.spring.project.admin.controller;
 
 import java.io.PrintWriter;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,12 +12,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.project.admin.service.AdminService;
+import com.spring.project.share.vo.Major;
 
 
 @Controller
@@ -100,14 +105,11 @@ public class AdminController {
 	
 	/*장학단---------------------------------끝*/
 	
+	//------------------------- 
 	@RequestMapping("/admin/majorLectureManagement")
-	public String majorLectureManagement() {
-		return "admin/majorLectureManagement";
-	}
-	
-	@RequestMapping("/admin/openMajorAdd")
-	public String openMajorAdd() {
-		return "admin/openMajorAdd";
+	public String majorLectureManagement(Model model) {
+		
+		return "admin/majorLecMangePage/majorLectureManagement";
 	}
 
 	@RequestMapping("/admin/facultyManage")
@@ -172,5 +174,30 @@ public class AdminController {
 	public String menu7() {
 		
 		return "admin/menu7";
+	}
+	
+	
+	/*@RequestMapping(value="/project/admin/selectFaculty")
+	public List<Major> getMajors(@RequestBody Map<String, Object> map){
+		logger.info("getMajors");
+		List<Major> list = null;
+		list = service.getMajors(map);
+		return "admin/menu755";
+	}*/
+	
+	@ResponseBody
+	@RequestMapping(value="/project/admin/selectFaculty",method=RequestMethod.POST)
+	public List<Major> getMajors(@RequestBody Map<String, Object> map){
+		logger.info("getMajors");
+		List<Major> list = null;
+		list = service.getMajors(map);
+		return list;
+	}
+	
+	// 학과 조회(게시판 형식)
+	@RequestMapping(value="/admin/getMajors", method=RequestMethod.POST)
+	public String getMajors(@RequestBody Map<String, Object> map, Model model) {
+		service.getMajors(map, model);
+		return "admin/majorLecMangePage/majorList";
 	}
 }

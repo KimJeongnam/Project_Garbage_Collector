@@ -15,14 +15,14 @@
 		<div class="">
 			<div class="page-title">
 				<div class="title_left">
-					<h3>학생 등록</h3>
+					<h3>교수 등록</h3>
 				</div>
 			</div>
 		</div>
 		<div class="clearfix"></div>
 		<div class="row">
 			<!-- Smart Wizard -->
-			<p>신규 학생 등록 메뉴입니다. 절차에 따라서 필요한 정보를 입력 해주세요.</p>
+			<p>신규 교수 등록 메뉴입니다. 절차에 따라서 필요한 정보를 입력 해주세요.</p>
 			<div id="wizard" class="form_wizard wizard_horizontal">
 				<div class="x_panel">
 				<div class="row">
