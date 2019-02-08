@@ -23,8 +23,11 @@
                     <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
                         <div class="input-group">
                             <input type="search" class="form-control" placeholder="검색할 이름을 적어주세요" onkeyup="searchStudent('${userNumber}')" id="searchStudent">
-            	
-            
+                            	<div id="divSuggest">
+									<div id="suggestlist">
+										<!-- 결과 출력 위치 -->
+									</div>
+								</div>
                             <span class="input-group-btn">
                                 <button class="btn btn-default" type="button">검색</button>
                             </span>
