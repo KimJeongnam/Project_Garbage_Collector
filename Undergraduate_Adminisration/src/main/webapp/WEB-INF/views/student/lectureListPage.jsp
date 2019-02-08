@@ -71,11 +71,11 @@
 	<!-- /page content -->
 	<%@ include file="../Basic/footer.jsp"%>
 	<script type="text/javascript">
-	studentTimetable('${userNumber}');
-	studentLecture('${userNumber}', 1);
-	$(function() {
+		$(function() {
 	<%@ include file="../Basic/docReadyScripts.jsp" %>
-			studentMyLecture('${userNumber}');
+		studentMyLecture('${userNumber}');
+		studentTimetable('${userNumber}');
+		studentLecture('${userNumber}', 1);
 			//applyLecture('${userNumber}','${dto.lecCode}');
 			/* $("#lectureHover").hover(function(){
 				$(this).css("background-color", "yellow");
@@ -101,7 +101,7 @@
 					}
 				})
 			}); */
-		}); 
+		});
 	</script>
 
 </body>
