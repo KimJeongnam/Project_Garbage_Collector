@@ -13,7 +13,6 @@
 					<ul class="list-unstyled">
 						<li><i class="fa fa-phone"> &nbsp; &nbsp;</i>${vo3.userCellNum}</li>
 						<li><i class="fa fa-send"> &nbsp; &nbsp;</i>${vo3.userEmail}</li>
-						<li><i class="fa fa-share"> &nbsp; &nbsp;</i>생일?</li>
 					</ul>
 				</div>
 				<div class="right col-xs-5 text-center">

@@ -3,30 +3,6 @@
 <!DOCTYPE html>
 <html>
 
-<script type="text/javascript">
-        function class_click(divid, lecName) {
-
-            var obj = new Object();
-            obj.lecName = lecName;
-            if($('#'+divid)!= null){
-	            var jsonData = JSON.stringify(obj);
-	            $.ajax({
-	                url: '/project/professor/list/class_click',
-	                type: 'POST',
-	                data: jsonData,
-	                contentType: 'application/json;charset=UTF-8',
-	                success: function(data) {
-	                   $('#'+divid).html(data);
-	                },
-	                error: function() {
-	                    alert("좆댐");
-	                }
-	            });
-            }
-        }
-
-    </script>
-
 <head>
     <meta charset="UTF-8">
     <%@ include file="../Basic/settings.jsp" %>
@@ -46,7 +22,9 @@
                 <div class="title_right">
                     <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="이름을 적어주세요">
+                            <input type="search" class="form-control" placeholder="검색할 이름을 적어주세요" onkeyup="searchStudent('${userNumber}')" id="searchStudent">
+            	
+            
                             <span class="input-group-btn">
                                 <button class="btn btn-default" type="button">검색</button>
                             </span>
@@ -81,8 +59,7 @@
 
                                     <div id="myTabContent" class="tab-content">
 
-
-
+							
 
 
                                         <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
@@ -105,7 +82,6 @@
                                                                 <ul class="list-unstyled">
                                                                     <li><i class="fa fa-phone"> &nbsp; &nbsp;</i>${vo2.userCellNum}</li>
                                                                     <li><i class="fa fa-send"> &nbsp; &nbsp;</i>${vo2.userEmail}</li>
-                                                                    <li><i class="fa fa-share"> &nbsp; &nbsp;</i>생일?</li>
                                                                 </ul>
 
                                                             </div>
@@ -161,7 +137,59 @@
 
     <%@ include file="../Basic/footer.jsp" %>
 
+    <script type="text/javascript">
+        function class_click(divid, lecName) {
 
+            var obj = new Object();
+            obj.lecName = lecName;
+            
+            
+            if($('#'+divid)!= null){
+            	
+	            var jsonData = JSON.stringify(obj);
+	            $.ajax({
+	                url: '/project/professor/list/class_click',
+	                type: 'POST',
+	                data: jsonData,
+	                contentType: 'application/json;charset=UTF-8',
+	                success: function(data) {
+	                   $('#'+divid).html(data);
+	                },
+	                error: function() {
+	                	alert("Error! class_click();");
+	                }
+	            });
+            }
+        }
+
+        
+        function searchStudent(userNumber){
+        	var obj = new Object();
+        	obj.userNumber = userNumber;
+        	
+        	if($('searchStudent')[0].value.length > 0){
+        		obj.keyword = $('searchStudent')[0].value;
+        	}
+        	
+        	var jsonData = JSON.stringify(obj);
+        	
+        	$.ajax({
+        		url: '/project/professor/list/searchStudent',
+        		type: 'POST',
+        		data : jsonData,
+        		contentType : 'application/json;charset=UTF-8',
+        		success : function(data){
+        			if(data != null){
+        				if($('#searchStudent')!= null)
+        					$('#searchStudent').html(data);
+        			}
+        		},
+        		error:function(){
+        			alert("Error! searchStudent();");
+        		}
+        	});
+        }
+    </script>
 
 </body>
 
