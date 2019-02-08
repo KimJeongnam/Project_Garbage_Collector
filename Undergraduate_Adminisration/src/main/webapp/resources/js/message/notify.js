@@ -34,7 +34,6 @@ function ansycTaskMessage(userNumber){
 					// 읽지 않은 메세지들 오른쪽 위화면에 띄워주기
 					showMessages(data.notReadMessages);
 					
-					
 					// 새 메세지가 있다면
 					notifyMessages(data.newMessages);
 					

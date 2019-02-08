@@ -88,8 +88,6 @@ public class ShareServiceImpl implements ShareService{
 		else
 			pageNum = (Integer)map.get("pageNum");
 		
-		
-		
 		cnt = dao.messageTotalCnt(map);
 		logger.info("Message total : "+cnt);
 		
