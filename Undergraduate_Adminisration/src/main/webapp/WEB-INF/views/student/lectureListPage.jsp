@@ -71,10 +71,10 @@
 	<!-- /page content -->
 	<%@ include file="../Basic/footer.jsp"%>
 	<script type="text/javascript">
-	studentTimetable('${userNumber}');
-	studentLecture('${userNumber}', 1);
-	$(function() {
+		$(function() {
 	<%@ include file="../Basic/docReadyScripts.jsp" %>
+			studentTimetable('${userNumber}');
+			studentLecture('${userNumber}', 1);
 			studentMyLecture('${userNumber}');
 			//applyLecture('${userNumber}','${dto.lecCode}');
 			/* $("#lectureHover").hover(function(){
@@ -101,7 +101,7 @@
 					}
 				})
 			}); */
-		}); 
+		});
 	</script>
 
 </body>
