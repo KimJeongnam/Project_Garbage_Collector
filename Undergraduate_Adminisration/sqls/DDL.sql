@@ -424,11 +424,12 @@ COMMENT ON COLUMN scholarState.scholarStatus IS '상태명'
 CREATE TABLE scholarship
 (
     scholarPk         NUMBER             NOT NULL, 
-    scholarName       NVARCHAR2(20)      NULL, 
-    Year              DATE               NULL, 
-    semester          NUMBER(1)          NULL, 
-    scholarContent    NVARCHAR2(2000)    NULL, 
-    amount            NUMBER             NULL, 
+    scholarName       NVARCHAR2(20)      NOT NULL, 
+    Year              DATE               NOT NULL, 
+    semester          NUMBER(1)          NOT NULL, 
+    scholarContent    NVARCHAR2(2000)    NOT NULL, 
+    amount            NUMBER             NOT NULL, 
+    delStatus			NUMBER(1)				NOT NULL,
     CONSTRAINT SCHOLARSHIP_PK PRIMARY KEY (scholarPk)
 )
 /
@@ -975,7 +976,7 @@ CREATE UNIQUE INDEX registerDetail_Index_1 ON registerDetail (
 
 ALTER TABLE registerDetail
     ADD CONSTRAINT FK_registerDetail_paylistNum_p FOREIGN KEY (paylistNum)
-        REFERENCES paymentList (paylistNum)
+        REFERENCES paymentList (paylistNum) on delete cascade
 /
 
 ALTER TABLE registerDetail

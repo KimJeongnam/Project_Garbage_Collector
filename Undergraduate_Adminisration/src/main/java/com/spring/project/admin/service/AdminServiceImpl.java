@@ -399,5 +399,9 @@ public class AdminServiceImpl implements AdminService{
 		List<Major> majors = shareDao.getMajors(map);
 		model.addAttribute("majors", majors);
 	}
+	@Override
+	public void deleteMajor(Map<String, Object> map) {
+		
+	}
 	
 }

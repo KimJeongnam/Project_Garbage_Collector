@@ -69,11 +69,17 @@
 	</select> 
 	
 	<select id="getMajors" parameterType="java.util.Map" resultType="com.spring.project.share.vo.Major">
+		
 		SELECT * FROM major
-		<if test="college != null">
-			<where>
-				faculty = #{college}
-			</where>
-		</if>
+		<where>
+			<![CDATA[
+			delStatus <> 1
+			]]>
+			<if test="college != null">
+				AND 	faculty = #{college}
+			</if>
+		</where>
+		ORDER BY majorNum ASC
 	</select>
+	
 </mapper>

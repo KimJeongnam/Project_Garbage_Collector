@@ -183,4 +183,12 @@ public class AdminController {
 		service.getMajors(map, model);
 		return "admin/majorLecMangePage/majorList";
 	}
+	
+	// 학과 삭제
+	@RequestMapping(value="/admin/deleteMajor", method=RequestMethod.POST)
+	public String deleteMajor(@RequestBody Map<String, Object>map) {
+		
+		
+		return "admin/majorLecMangePage/majorList";
+	}
 }
