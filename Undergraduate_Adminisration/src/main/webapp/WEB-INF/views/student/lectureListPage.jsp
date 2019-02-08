@@ -73,9 +73,9 @@
 	<script type="text/javascript">
 		$(function() {
 	<%@ include file="../Basic/docReadyScripts.jsp" %>
-			studentTimetable('${userNumber}');
-			studentLecture('${userNumber}', 1);
-			studentMyLecture('${userNumber}');
+		studentMyLecture('${userNumber}');
+		studentTimetable('${userNumber}');
+		studentLecture('${userNumber}', 1);
 			//applyLecture('${userNumber}','${dto.lecCode}');
 			/* $("#lectureHover").hover(function(){
 				$(this).css("background-color", "yellow");
