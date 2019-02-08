@@ -7,34 +7,51 @@
 
 <mapper namespace="com.spring.project.student.dao.StudentDAO">
 	<!-- 수강신청 목록 갯수 구하기 -->
-	<select id="getLectureCnt" resultType="int">
-		select count(*) from lecture
+	<select id="getLectureCnt" parameterType="java.util.Map" resultType="int">
+		select count(*) from lectureview
+		<if test="keyword != null">
+			<where>
+			grade||'학년' like '%'||#{keyword}||'%' OR
+			lecCode like '%'||#{keyword}||'%' OR
+			lectureName like '%'||#{keyword}||'%' OR
+			lectureScore like '%'||#{keyword}||'%' OR
+			accountHolder like '%'||#{keyword}||'%' OR
+			classTime like '%'||#{keyword}||'%' OR
+			maximumCapacity like '%'||#{keyword}||'%'
+			</where>
+		</if>
 	</select>
 	
 	<!-- 수강신청 목록 조회 -->
-	<select id="lectureList" parameterType="int" resultType="com.spring.project.student.vo.LectureVO">
+	<select id="lectureList" parameterType="java.util.Map" resultType="com.spring.project.student.vo.LectureVO">
+		
+		select * from 
+		(select * from lectureview 
+		<where>
+			<if test="keyword != null">
+				grade||'학년' like '%'||#{keyword}||'%' OR
+				lecCode like '%'||#{keyword}||'%' OR
+				lectureName like '%'||#{keyword}||'%' OR
+				lectureScore like '%'||#{keyword}||'%' OR
+				accountHolder like '%'||#{keyword}||'%' OR
+				classTime like '%'||#{keyword}||'%' OR
+				maximumCapacity like '%'||#{keyword}||'%'
+			</if>
+		</where>
+		)
 		<![CDATA[
-		select * from lectureview where rNum >= #{start} and rNum <= #{end}
+		 WHERE rNum >= #{start} and rNum <= #{end}
 		]]>
 	</select>
 	
-	<!-- 강의 검색 리스트 갯수 -->
-	<select id="getLectureSearchCnt" parameterType="String" resultType="int">
-		select count(*) from lectureview where lectureName like '%'||#{keyword}||'%'
-	</select>
-	
-	<!-- 강의 검색 -->
-	<select id="lectureSearch" parameterType="Object" resultType="com.spring.project.student.vo.LectureVO">
-		<![CDATA[
-		select * from lectureview where lectureName like '%'||#{keyword}||'%' and rNum >= #{start} and rNum <= #{end}
-		]]>
-	</select>
-	
-	<!-- 강의 검색 -->
+	<!-- 시간표 조회 -->
 	<select id="schoolTimeTable" parameterType="String" resultType="com.spring.project.student.vo.LectureVO">
-		<![CDATA[
 		select * from timetableview where userNumber = #{userNumber}
-		]]>
+	</select>
+	
+	<!-- 시간표 Hover -->
+	<select id="lectureHover" parameterType="java.util.Map" resultType="com.spring.project.student.vo.LectureVO">
+		select * from lectureHover where userNumber = #{userNumber} and lecCode = #{lecCode}
 	</select>
 	
 	<!-- 강의 체크 -->
@@ -63,4 +80,13 @@
 		insert into studentClassInfo(infoCode, lecCode, userNumber, status) 
 		values(STUDENTCLASSINFO_SEQ.nextval,#{lecCode},#{userNumber},1)
 	</insert>
+	
+	<!-- 내 수강신청 목록 조회 -->
+	<select id="studentMyLecture" parameterType="String" resultType="com.spring.project.student.vo.LectureVO">
+		select * from mylectureview where userNumber = #{userNumber} 
+	</select>
+	
+	<delete id="cancelLecture" parameterType="java.util.Map">
+		delete from studentClassInfo where lecCode = #{lecCode} and userNumber=#{userNumber}
+	</delete>
 </mapper>

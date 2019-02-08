@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.spring.project.admin.vo.AdProVO;
 import com.spring.project.admin.vo.AdStdVO;
 import com.spring.project.admin.vo.ScholarpkVO;
+import com.spring.project.share.vo.Major;
 
 
 @Repository
@@ -39,4 +40,6 @@ public interface AdminDAO {
 	
 	//장학글 삭제
 	public int delete(String[] checkbox);
+	
+	public List<Major> getMajors(Map<String, Object> map);
 }

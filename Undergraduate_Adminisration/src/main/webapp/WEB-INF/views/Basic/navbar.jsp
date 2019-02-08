@@ -264,12 +264,7 @@
                                 </li>
                                 <li class=""><a><i class="fa fa-graduation-cap"></i>학사관리<span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu" style="display: none;">
-                                        <li><a>수업업무<span class="fa fa-chevron-down"></span></a>
-                                            <ul class="nav child_menu">
-                                                <li class="sub_menu">
-                                                    <a href="${authPath }/lectureList">수강신청</a></li>
-                                                <li><a href="${authPath }/schoolTimeTable">시간표 조회/수정</a></li>
-                                            </ul>
+                                        <li><a href="${authPath }/lectureList">수강신청 / 시간표</a>
                                         </li>
                                         <li><a href="GPA">성적조회</a></li>
                                     </ul>

@@ -107,4 +107,12 @@
 	</foreach>
  	
  	</delete>
+ 	
+ 	<select id="getMajors" parameterType="java.util.Map" resultType="com.spring.project.share.vo.Major">
+ 		<![CDATA[
+ 		SELECT * FROM major where  faculty = #{faculty}
+ 		WHERE delStatus <> 1
+ 		ORDER BY majorNum ASC
+ 		]]>
+ 	</select>
 </mapper>
