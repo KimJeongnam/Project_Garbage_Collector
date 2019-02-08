@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.spring.project.admin.vo.AdProVO;
 import com.spring.project.admin.vo.AdStdVO;
 import com.spring.project.admin.vo.ScholarpkVO;
+import com.spring.project.admin.vo.auditVO;
 import com.spring.project.share.vo.Major;
 
 @Repository
@@ -63,6 +64,7 @@ public class AdminDAOImpl implements AdminDAO{
 		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.getProList", map);
 	}
 	
+	//=============================장학금 대그니꺼=======================================
 	//장학 글 갯수
 	@Override
 	public int getArticleCnt() {
@@ -94,10 +96,22 @@ public class AdminDAOImpl implements AdminDAO{
 	@Override
 	public int delete(String[] checkbox) {
 			
-		int deleteCnt = sqlSession.delete("com.spring.project.admin.dao.AdminDAO.delete",checkbox);
-		return deleteCnt;
+		int updateCnt = sqlSession.update("com.spring.project.admin.dao.AdminDAO.delete",checkbox);
+		System.out.println("==================deleteCnt" + updateCnt);
+		return updateCnt;
 		
 	}
+	
+	//장학금 심사
+	@Override
+	public List<auditVO> auditCnt() {
+		System.out.println("111111111111");
+		List<auditVO> dtos = sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.auditCnt");
+		
+		return dtos;
+	}
+
+
 	@Override
 	public List<Major> getMajors(Map<String, Object> map) {
 		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.getMajors", map);

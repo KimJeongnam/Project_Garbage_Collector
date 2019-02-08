@@ -4,6 +4,7 @@ import java.util.List;
 
 import java.util.Map;
 
+import com.spring.project.admin.vo.ScholarpkVO;
 import com.spring.project.student.vo.LectureVO;
 
 public interface StudentDAO {
@@ -36,6 +37,26 @@ public interface StudentDAO {
 	
 	// 강의 신청
 	public int applyLecture(Map<String, Object> map);
+	
+	//장학금 갯수 
+	public int getArticleCnt();
+	
+	//장학금 글 목록
+	public List<ScholarpkVO> getArticleList(Map<String,Object> map);
+	
+	//장학 글 상세  
+	public ScholarpkVO getArticle(int scholarpk);
+	
+	//장학금 중복 신청 확인 
+	public int scholarpk(Map<String,Object> map);
+	
+	//장학금 신청  
+	public int scholarshipinsert(Map<String, Object> map);
+	
+	
+	
+	
+	
 	
 	// 나의  강의
 	public List<LectureVO> studentMyLecture(String userNumber);

@@ -43,17 +43,14 @@
 		                    <div class="table-responsive">
 		                      <table class="table table-striped jambo_table bulk_action">
 		                        <thead>
-		                          <a href="#"><tr class="headings">
-		                            <th class="column-title">장학금번호 </th>
-		                            <th class="column-title">학년</th>
+		                          <a href="#">
+		                          <tr class="headings">
+		                            <th class="column-title">학년 </th>
 		                            <th class="column-title">학기</th>
-		                            <th class="column-title">장학금 구분</th>
+		                            <th class="column-title">학과</th>
 		                            <th class="column-title">장학금 명</th>
-		                            <th class="column-title">장학금 확정금액</th>
+		                            <th class="column-title">장학금 확정 금액</th>
 		                            <th class="column-title">지급 일자</th>
-		                            <th class="bulk-actions" colspan="7">
-		                              <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
-		                            </th>
 		                          </tr></a>
 		                        </thead>
 		
@@ -65,25 +62,6 @@
 		                            <td class=" ">다자녀 장학금</td>
 		                            <td class=" ">5,000,000</td>
 		                            <td class=" ">2018-04-20</td>
-		                            <td><input type="checkbox" data-toggle="toggle" data-off="불" data-on="합"></td>
-		                          </tr>
-		                          <tr class="odd pointer">
-		                            <td class=" ">김떡순</td>
-		                            <td class=" ">2</td>
-		                            <td class=" ">2</td>
-		                            <td class=" ">한부모 장학금</td>
-		                            <td class=" ">2,500,000</td>
-		                            <td class=" ">2018-08-20</td>
-		                            <td><input type="checkbox" data-toggle="toggle" data-off="불" data-on="합"></td>
-		                          </tr>
-		                          <tr class="even pointer">
-		                            <td class=" ">배고픔</td>
-		                            <td class=" ">3</td>
-		                            <td class=" ">1</td>
-		                            <td class=" ">한부모 장학금</td>
-		                            <td class=" "></td>
-		                            <td class=" "></td>
-		                            <td><input type="checkbox" data-toggle="toggle" data-off="불" data-on="합"></td>
 		                          </tr>
 		                        </tbody>
 		                      </table>

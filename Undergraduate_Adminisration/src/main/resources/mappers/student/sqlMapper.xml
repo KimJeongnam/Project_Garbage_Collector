@@ -81,6 +81,49 @@
 		values(STUDENTCLASSINFO_SEQ.nextval,#{lecCode},#{userNumber},1)
 	</insert>
 	
+	<!-- 장학글 갯수 -->
+	
+	<select id="getArticleCnt" resultType="int">
+ 	
+ 	SELECT COUNT(*) as cnt FROM SCHOLARSHIP
+ 	
+ 	</select>
+ 	
+ 	<!-- 장학글 목록  -->
+ 	
+ 	<select id="getArticleList" parameterType="java.util.Map" resultType="com.spring.project.admin.vo.ScholarpkVO">
+ 	
+ 	<![CDATA[SELECT *  
+				FROM (select SCHOLARPK,SCHOLARNAME,to_char(YEAR,'YYYY') as YEAR,SEMESTER,AMOUNT,ROWNUM rNum  
+				            from ( 
+				                    select * FROM SCHOLARSHIP   
+				                    order by SCHOLARPK desc
+				                    ) 
+				                ) 
+				                where rNum >= #{start} and rNum <= #{end}]]>
+ 	
+ 	</select>
+ 	
+ 	<!-- 장학글 상세 -->
+ 	<select id="getArticle" resultType="com.spring.project.admin.vo.ScholarpkVO">
+ 	
+ 	SELECT * FROM SCHOLARSHIP where scholarpk = #{scholarpk}
+ 	
+ 	</select>
+ 	
+ 	<!-- 장학금 중복 신청 검사 -->
+ 	<select id="scholarpk" resultType="int">
+ 	
+ 	SELECT count(*) FROM SCHOLARSHIPINFO where stdNumber = #{userNumber} and scholarpk = #{scholarpk}
+ 	
+ 	</select>
+ 	
+ 	<!-- 장학금 신청 -->
+ 	<insert id="scholarshipinsert" parameterType="java.util.Map">
+		insert into SCHOLARSHIPINFO(SCHINFOPK,SCHOLARPK,STDNUMBER,STATCODE)
+		values(SCHOLARSHIPINFO_SEQ.nextval,#{scholarpk},#{userNumber},1)
+	</insert>
+	
 	<!-- 내 수강신청 목록 조회 -->
 	<select id="studentMyLecture" parameterType="String" resultType="com.spring.project.student.vo.LectureVO">
 		select * from mylectureview where userNumber = #{userNumber} 

@@ -52,7 +52,7 @@
 		                        <thead>
 		                          <tr class="headings">
 		                          	<th class=""  style="width: 5%; text-align: center;">
-                                        <input type="checkbox" id="check-all" class="flat" name="table_records">
+                                        <input type="checkbox" id="check-all" class="flat">
                                     </th>
 		                            <th class=""  style="width: 15%; text-align: center;">글 번호</th>
 		                            <th class=""  style="width: 15%; text-align: center;">년도</th>
@@ -68,7 +68,7 @@
 			                         
 			                         <tr class="even pointer">
 			                        <td>
-                                        <input type="checkbox" class="flat" name="table_records" value=${dto.scholarpk}>
+                                        <input type="checkbox" class="flat table_records" name="table_records" value="${dto.scholarpk}">
                                     </td>
 			                            <td class=" ">${dto.scholarpk}</td>
 			                            <td class=" ">${dto.year}</td>
@@ -81,8 +81,49 @@
 		                          
 		                        </tbody>
 		                      </table>
+		                      
+		                      <!-- 페이지 컨트롤 -->
+		<table style="width:1000px" align="center">
+			<tr>
+				<th align = "center">
+					<!-- 게시글이 있으면  -->
+					<c:if test="${cnt > 0 }">
+						<!-- 처음[◀◀]/이전블록[◀]-->
+						<c:if test ="${startPage > pageBlock}">
+							<a href="boardList.bo">[◀◀]</a>
+							<a href="boardList.bo?pageNum=${startPage-pageBlock}">[◀]</a>
+							
+						</c:if>
+						
+						<c:forEach var ="i" begin="${startPage}" end="${endPage}">
+							<c:if test="${i == currentPage }">
+								<span><b>[${i}]</b></span>
+							
+							</c:if>
+							<c:if test="${i != currentPage }">
+								<a href="boardList.bo?pageNum=${i}">[${i}]</a>
+							
+							</c:if>
+						
+						</c:forEach>
+						
+						
+					
+					
+					
+						<!-- 다음[▶]/마지막[▶▶]-->
+						<c:if test ="${pageCount > endPage}">
+						
+							<a href="boardList.bo?pageNum=${startPage+pageBlock}">[▶]</a>
+							<a href="boardList.bo?pageNum=${pageCount}">[▶▶]</a>
+						</c:if>
+					</c:if>
+				</th>
+			</tr>
+	</table>
 		                      <input type = "button" value="글쓰기" onclick="window.location='registration'" style="float: right">
-		                      <input type = "button" value="글 삭제" onclick="window.location='deletePro?scholarpk=${dto.scholarpk}'" style="float: right">
+		                      <input type = "button" value="글 삭제" name="aaaa" onclick="delete_scholar();" style="float: right">
+		                      <!-- window.location='deletePro?scholarpk=${dto.scholarpk}' -->
 		                    </div>
 		                    
 		                  </div>
@@ -95,12 +136,43 @@
             
 	<%@ include file="../Basic/footer.jsp" %>
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-	
-	
+    
 	
     <script type="text/javascript">
 		<%@ include file="../Basic/datePickerJS.jsp"%>
+		
 	</script>
+	
+	<script type="text/javascript">
+	function delete_scholar(){
+		var list = [];
+		var list_size = 0;
+		
+		var form = document.createElement("form");
+		form.setAttribute("charset", "UTF-8");
+		form.setAttribute("method", "POST");
+		form.setAttribute("action", "../admin/deletePro");
+		
+		var cnt = 0;
+		
+		for(var i=0; i<$('.table_records').size(); i++){
+			if($('.table_records')[i].checked){
+				//list[list_size++] = $('.table_records')[i].value;
+				var field = document.createElement("input");
+				field.setAttribute("type", "hidden");
+				field.setAttribute("name", "scholarpks");
+				field.setAttribute("value", $('.table_records')[i].value);
+				form.appendChild(field);
+			}
+		}
+		
+		document.body.appendChild(form);
+		
+		form.submit();
+	}
+	</script>
+	
+	
 	
 </body>
 </html>
