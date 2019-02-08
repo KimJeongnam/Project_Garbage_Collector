@@ -93,4 +93,18 @@
  	SELECT * FROM SCHOLARSHIP where scholarpk = #{scholarpk}
  	
  	</select>
+ 	
+ 	<!-- 장학금 중복 신청 검사 -->
+ 	<select id="scholarpk" resultType="int">
+ 	
+ 	SELECT count(*) FROM SCHOLARSHIPINFO where stdNumber = #{userNumber} and scholarpk = #{scholarpk}
+ 	
+ 	</select>
+ 	
+ 	<!-- 장학금 신청 -->
+ 	<insert id="scholarshipinsert" parameterType="java.util.Map">
+		insert into SCHOLARSHIPINFO(SCHINFOPK,SCHOLARPK,STDNUMBER,STATCODE)
+		values(SCHOLARSHIPINFO_SEQ.nextval,#{scholarpk},#{userNumber},1)
+	</insert>
+	
 </mapper>

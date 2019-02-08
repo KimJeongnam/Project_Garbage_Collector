@@ -325,6 +325,32 @@ public class StudentServiceImpl implements StudentService {
 		model.addAttribute("dto", dto);
 		
 	}
+
+	@Override
+	public void apply(HttpServletRequest req, RedirectAttributes red) {
+		String userNumber = (String)req.getSession().getAttribute("userNumber");
+		String scholarpk = req.getParameter("scholarpk");
+		
+		
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("userNumber", userNumber);
+		map.put("scholarpk", scholarpk);
+		
+		//중복확인
+		int scholarpkCnt = dao.scholarpk(map);
+		System.out.println("scholarpkCnt" +scholarpkCnt);
+		
+		//추가
+		
+		
+		if(scholarpkCnt != 1) {
+			int cnt = dao.scholarshipinsert(map);
+			red.addFlashAttribute("message","신청이 완료 되었습니다");
+			System.out.println("3333333333333");
+		}else {
+			red.addFlashAttribute("message","이미 신청 완료 되었습니다");
+		}
+	}
 		
 	
 

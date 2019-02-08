@@ -45,8 +45,16 @@ public class StudentController {
 		System.out.println("장학 상세");
 		service.contentForm(req,model);
 		
-		return "admin/contentForm";
+		return "student/contentForm";
 	}
+	
+	@RequestMapping("/student/apply")
+	public String apply(HttpServletRequest req, RedirectAttributes red) {
+		System.out.println("장학 신청 완료");
+		service.apply(req,red);
+		
+		return "redirect:/student/bulletin";
+	} 
 
 	//장학금 수혜현황
 	@RequestMapping("/student/management")

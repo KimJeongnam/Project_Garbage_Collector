@@ -19,6 +19,7 @@
 				             <div class="x_panel"  style="width: 1600px;">
 				               <div class="x_title">
 				                 <h2>글 제목 : ${dto.scholarname}</h2>
+				                 
 				                 <div class="clearfix"></div>
 				               </div>
 				               <div class="x_content">
@@ -26,12 +27,13 @@
 				                 <div class="bs-example" data-example-id="simple-jumbotron">
 				                   <div class="jumbotron">
 				                     <p>${dto.scholarcontent}</p>
+				                     
 				                   </div>
 				                 </div>
-				                 
-				                 <input type = "button" value="글쓰기" onclick="window.location='registration'" style="float: right">
-				                 <input type = "button" value="글 삭제" onclick="window.location='deletePro?scholarpk=${dto.scholarpk}'" style="float: right">
-				
+				                 <div style="text-align: center;">
+				                 <input type = "button" value="신청하기" onclick="window.location='apply?scholarpk=${dto.scholarpk}'" >
+				                 <input type = "button" value="취소" onclick="history.back()">
+				                 </div>
 				               </div>
 				             </div>
 				           </div>

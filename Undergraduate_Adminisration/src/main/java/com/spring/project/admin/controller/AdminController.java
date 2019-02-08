@@ -38,8 +38,9 @@ public class AdminController {
 	
 	//장학 신청 심사
 	@RequestMapping("/admin/judge")
-	public String janghak() {
+	public String judge(HttpServletRequest req, Model model) {
 		System.out.println("장학 심사");
+		service.judge(req,model);
 		
 		return "admin/judge";
 	}
@@ -84,7 +85,7 @@ public class AdminController {
 		System.out.println("장학 삭제");
 		service.deletePro(req,red);
 		
-		return "admin/registrationList";
+		return "redirect:/admin/registrationList";
 	}
 	
 	//장학 예산
