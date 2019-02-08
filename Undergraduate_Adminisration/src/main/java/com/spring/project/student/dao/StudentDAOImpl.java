@@ -19,8 +19,8 @@ public class StudentDAOImpl implements StudentDAO{
 	
 	// 수강신청 목록 갯수 구하기
 	@Override
-	public int getLectureCnt() {
-		return sqlSession.selectOne("com.spring.project.student.dao.StudentDAO.getLectureCnt");
+	public int getLectureCnt(Map<String, Object> map) {
+		return sqlSession.selectOne("com.spring.project.student.dao.StudentDAO.getLectureCnt", map);
 	}
 
 	// 수강신청 목록 조회
@@ -29,6 +29,18 @@ public class StudentDAOImpl implements StudentDAO{
 		return sqlSession.selectList("com.spring.project.student.dao.StudentDAO.lectureList", map);
 	}
 
+	// 시간표 조회
+	@Override
+	public List<LectureVO> schoolTimeTable(String userNumber) {
+		return sqlSession.selectList("com.spring.project.student.dao.StudentDAO.schoolTimeTable", userNumber);
+	}
+		
+	// 시간표 Hover
+	@Override
+	public List<LectureVO> lectureHover(Map<String, Object> map) {
+		return sqlSession.selectList("com.spring.project.student.dao.StudentDAO.lectureHover", map);
+	}
+	
 	// 강의 검색 리스트 갯수
 	@Override
 	public int getLectureSearchCnt(String keyword) {
@@ -39,12 +51,6 @@ public class StudentDAOImpl implements StudentDAO{
 	@Override
 	public List<LectureVO> lectureSearch(String keyword) {
 		return sqlSession.selectList("com.spring.project.student.dao.StudentDAO.lectureSearch", keyword);
-	}
-	
-	// 시간표 조회
-	@Override
-	public List<LectureVO> schoolTimeTable(String userNumber) {
-		return sqlSession.selectList("com.spring.project.student.dao.StudentDAO.schoolTimeTable", userNumber);
 	}
 	
 	// 강의 체크
@@ -99,6 +105,18 @@ public class StudentDAOImpl implements StudentDAO{
 	public int scholarshipinsert(Map<String, Object> map) {
 		int Cnt = sqlSession.insert("com.spring.project.student.dao.StudentDAO.scholarshipinsert",map);
 		return Cnt;
+	}
+
+	
+
+	@Override
+	public List<LectureVO> studentMyLecture(String userNumber) {
+		return sqlSession.selectList("com.spring.project.student.dao.StudentDAO.studentMyLecture", userNumber);
+	}
+
+	@Override
+	public int cancelLecture(Map<String, Object> map) {
+		return sqlSession.delete("com.spring.project.student.dao.StudentDAO.cancelLecture", map);
 	}
 
 	

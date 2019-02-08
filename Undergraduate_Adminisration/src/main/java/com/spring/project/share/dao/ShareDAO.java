@@ -8,6 +8,7 @@ import org.apache.ibatis.mapping.ParameterMapping;
 import org.apache.ibatis.session.SqlSession;
 
 import com.spring.project.restful.vo.Message;
+import com.spring.project.share.vo.Major;
 import com.spring.project.share.vo.ShareUserInfo;
 
 public interface ShareDAO {
@@ -15,6 +16,9 @@ public interface ShareDAO {
 	public ShareUserInfo getEmployeeInfo(String userNumber);
 	public int messageTotalCnt(Map<String, Object> map);
 	public List<Message> getMessages(Map<String, Object>map);
+	public List<String> getFacultys();
+	public int getMajorCurrval();
+	public List<Major> getMajors(Map<String, Object> map);
 	
 	public static String getQuery(SqlSession sqlSession, String queryId, Object sqlParam) {
 		BoundSql boundSql = sqlSession.getConfiguration().getMappedStatement(queryId).getSqlSource()

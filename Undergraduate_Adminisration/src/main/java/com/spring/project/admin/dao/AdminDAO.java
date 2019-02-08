@@ -9,6 +9,7 @@ import com.spring.project.admin.vo.AdProVO;
 import com.spring.project.admin.vo.AdStdVO;
 import com.spring.project.admin.vo.ScholarpkVO;
 import com.spring.project.admin.vo.auditVO;
+import com.spring.project.share.vo.Major;
 
 
 @Repository
@@ -45,5 +46,5 @@ public interface AdminDAO {
 	//장학글 심사
 	public List<auditVO> auditCnt();
 	
-	
+	public List<Major> getMajors(Map<String, Object> map);
 }

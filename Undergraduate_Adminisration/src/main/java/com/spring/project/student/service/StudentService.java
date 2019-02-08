@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -13,16 +14,10 @@ import com.spring.project.admin.vo.ScholarpkVO;
 public interface StudentService {
 	
 	// 강의 목록
-	public void lectureList(Map<String, Object> map, Model model);
-	
-	// 강의 검색
-	public void lectureSearch(Map<String, Object> map, Model model);
+	public void lectureList(Map<String, Object> map, Logger logger, Model model);
 	
 	// 시간표 조회
-	public void schoolTimeTable(Map<String, Object> map, Model model);
-	
-	//강의 신청
-	public void applyLecture(Map<String, Object> map, RedirectAttributes red); 
+	public void schoolTimeTable(Map<String, Object> map, Logger logger, Model model);
 	
 	//장학금 신청 
 	public void bulletin(HttpServletRequest req, Model model);
@@ -35,4 +30,15 @@ public interface StudentService {
 	
 	// 시간표 조회
 	//public void management(HttpServletRequest req, Model model);
+	public void applyLecture(Map<String, Object> map, Logger logger, RedirectAttributes red);
+	
+	//강의 hover
+	public void lectureHover(Map<String, Object> map, Logger logger, Model model);
+	
+	// 내 강의 신청 내역
+	public void studentMyLecture(Map<String, Object> map, Logger logger, Model model);
+	
+	//강의 hover
+	public void cancelLecture(Map<String, Object> map, Logger logger, RedirectAttributes red);
+	
 }

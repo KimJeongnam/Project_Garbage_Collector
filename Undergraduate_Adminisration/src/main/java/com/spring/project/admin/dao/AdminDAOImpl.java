@@ -11,6 +11,7 @@ import com.spring.project.admin.vo.AdProVO;
 import com.spring.project.admin.vo.AdStdVO;
 import com.spring.project.admin.vo.ScholarpkVO;
 import com.spring.project.admin.vo.auditVO;
+import com.spring.project.share.vo.Major;
 
 @Repository
 public class AdminDAOImpl implements AdminDAO{
@@ -111,4 +112,8 @@ public class AdminDAOImpl implements AdminDAO{
 	}
 
 
+	@Override
+	public List<Major> getMajors(Map<String, Object> map) {
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.getMajors", map);
+	}
 }
