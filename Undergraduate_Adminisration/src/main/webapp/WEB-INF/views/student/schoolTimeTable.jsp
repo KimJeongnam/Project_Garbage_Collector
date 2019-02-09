@@ -39,91 +39,94 @@
 
 <!-- .timeline -->
 
-<div class="events" style="min-height: 1000px;">
-	<ul>
-		<li class="events-group">
-			<div class="top-info">
-				<span>월</span>
-			</div>
-			<ul>
-				<c:forEach var="dto" items="${dtosT}">
-					<c:if test="${dto.lectureDay == '월'}">
-						<li class="single-event" data-start="${dto.beginningLectureTime}"
-							data-end="${dto.endLectureTime}" data-event="event-1"><a
-							href="#0"><span></span> <em class="event-name">${dto.lectureName}</em>
-						</a></li>
-					</c:if>
-				</c:forEach>
-			</ul>
-		</li>
+	<div class="events" style="min-height: 1000px;">
+		<ul>
+			<li class="events-group">
+				<div class="top-info">
+					<span>월</span>
+				</div>
+				<ul>
+					<c:forEach var="dto" items="${dtosT}">
+						<c:if test="${dto.lectureDay == '월'}">
+							<li class="single-event" data-start="${dto.beginningLectureTime}"
+								data-end="${dto.endLectureTime}"
+								 data-event="event-${dto.rank}"><a
+								href="#0"><span></span> <em class="event-name">${dto.lectureName}</em>
+							</a></li>
+						</c:if>
+					</c:forEach>
+				</ul>
+			</li>
 
-		<li class="events-group">
-			<div class="top-info">
-				<span>화</span>
-			</div>
-			<ul>
-				<c:forEach var="dto" items="${dtosT}">
-					<c:if test="${dto.lectureDay == '화'}">
+			<li class="events-group">
+				<div class="top-info">
+					<span>화</span>
+				</div>
+				<ul>
+					<c:forEach var="dto" items="${dtosT}">
+						<c:if test="${dto.lectureDay == '화'}">
+							<li class="single-event" data-start="${dto.beginningLectureTime}"
+								data-end="${dto.endLectureTime}"
+								data-event="event-${dto.rank}"><a
+								href="#0"><span></span> <em class="event-name">${dto.lectureName}</em>
+							</a></li>
+						</c:if>
+					</c:forEach>
+				</ul>
+			</li>
 
-						<li class="single-event" data-start="${dto.beginningLectureTime}"
-							data-end="${dto.endLectureTime}" data-event="event-1"><a
-							href="#0"><span></span> <em class="event-name">${dto.lectureName}</em>
-						</a></li>
-					</c:if>
-				</c:forEach>
-			</ul>
-		</li>
+			<li class="events-group">
+				<div class="top-info">
+					<span>수</span>
+				</div>
+				<ul>
+					<c:forEach var="dto" items="${dtosT}">
+						<c:if test="${dto.lectureDay == '수'}">
+							<li class="single-event" data-start="${dto.beginningLectureTime}"
+								data-end="${dto.endLectureTime}"
+								 data-event="event-${dto.rank}"><a
+								href="#0"><span></span> <em class="event-name">${dto.lectureName}</em>
+							</a></li>
+						</c:if>
+					</c:forEach>
+				</ul>
+			</li>
 
-		<li class="events-group">
-			<div class="top-info">
-				<span>수</span>
-			</div>
-			<ul>
-				<c:forEach var="dto" items="${dtosT}">
-					<c:if test="${dto.lectureDay == '수'}">
-						<li class="single-event" data-start="${dto.beginningLectureTime}"
-							data-end="${dto.endLectureTime}" data-event="event-1"><a
-							href="#0"><span></span> <em class="event-name">${dto.lectureName}</em>
-						</a></li>
-					</c:if>
-				</c:forEach>
-			</ul>
-		</li>
+			<li class="events-group">
+				<div class="top-info">
+					<span>목</span>
+				</div>
+				<ul>
+					<c:forEach var="dto" items="${dtosT}">
+						<c:if test="${dto.lectureDay == '목'}">
+							<li class="single-event" data-start="${dto.beginningLectureTime}"
+								data-end="${dto.endLectureTime}"
+								data-event="event-${dto.rank}"><a
+								href="#0"><span></span> <em class="event-name">${dto.lectureName}</em>
+							</a></li>
+						</c:if>
+					</c:forEach>
+				</ul>
+			</li>
 
-		<li class="events-group">
-			<div class="top-info">
-				<span>목</span>
-			</div>
-			<ul>
-				<c:forEach var="dto" items="${dtosT}">
-					<c:if test="${dto.lectureDay == '목'}">
-						<li class="single-event" data-start="${dto.beginningLectureTime}"
-							data-end="${dto.endLectureTime}" data-content="event-abs-circuit"
-							data-event="event-1"><a href="#0"><span></span> <em
-								class="event-name">${dto.lectureName}</em> </a></li>
-					</c:if>
-				</c:forEach>
-			</ul>
-		</li>
-
-		<li class="events-group">
-			<div class="top-info">
-				<span>금</span>
-			</div>
-			<ul>
-				<c:forEach var="dto" items="${dtosT}">
-					<c:if test="${dto.lectureDay == '금'}">
-						<li class="single-event" data-start="${dto.beginningLectureTime}"
-							data-end="${dto.endLectureTime}" data-event="event-1"><a
-							href="#0"><span></span> <em class="event-name">${dto.lectureName}</em>
-						</a></li>
-					</c:if>
-				</c:forEach>
-			</ul>
-
-		</li>
-	</ul>
-</div>
+			<li class="events-group">
+				<div class="top-info">
+					<span>금</span>
+				</div>
+				<ul>
+					<c:forEach var="dto" items="${dtosT}">
+						<c:if test="${dto.lectureDay == '금'}">
+							<li class="single-event" data-start="${dto.beginningLectureTime}"
+								data-end="${dto.endLectureTime}"
+								data-event="event-${dto.rank}"><a
+								href="#0"><span></span> <em class="event-name">${dto.lectureName}</em>
+							</a></li>
+						</c:if>
+					</c:forEach>
+				</ul>
+			</li>
+		</ul>
+	</div>
 
 <div class="event-modal">
 	<header class="header">

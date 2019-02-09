@@ -46,9 +46,5 @@
 								<input class="btn btn-danger" type="button" value="삭제" onclick="window.location='proDelete'"> -->
 	</div>
 	<!-- /page content -->
-	<script>
-	$(function(){
-	});
-	</script>
 </body>
 </html>

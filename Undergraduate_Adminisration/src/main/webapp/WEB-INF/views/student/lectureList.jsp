@@ -123,10 +123,10 @@
 	if( !window.jQuery ) document.write('<script src="/project/resources/js/schedule/jquery-3.0.0.min.js"><\/script>');
 	</script> -->
 	<script src="/project/resources/js/schedule/main.js"></script>
-	<!-- <script type="text/javascript">
-		$("#lectureHover").hover(function(){
+	<script type="text/javascript">
+		/* $("#lectureHover").hover(function(){
 			$(this).css("background-color", "yellow");
-		});
-	</script> -->
+		}); */
+	</script>
 </body>
 </html>

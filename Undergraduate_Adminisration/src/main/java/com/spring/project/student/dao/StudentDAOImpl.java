@@ -118,6 +118,13 @@ public class StudentDAOImpl implements StudentDAO{
 	public int cancelLecture(Map<String, Object> map) {
 		return sqlSession.delete("com.spring.project.student.dao.StudentDAO.cancelLecture", map);
 	}
+	
+	// 강의 목록 조회(전공)
+	@Override
+	public List<LectureVO> getMajor() {
+		return sqlSession.selectList("com.spring.project.student.dao.StudentDAO.getMajor");
+	}
+
 
 	
 

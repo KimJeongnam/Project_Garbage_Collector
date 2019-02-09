@@ -8,6 +8,9 @@ function studentLecture(userNumber, page){
 	if($('#lectureList-search-keyword')[0].value.length > 0){
 		obj.keyword = $('#lectureList-search-keyword')[0].value;
 	}
+	if($('#lectureList-major')!=null)
+		if(!($('#lectureList-major')[0].value == 0))
+			obj.major = $('#lectureList-major')[0].value;
 	
 	var jsonData = JSON.stringify(obj);
 	
@@ -20,8 +23,6 @@ function studentLecture(userNumber, page){
 			if(data != null){
 				if($('#lectureList')!= null)
 					$('#lectureList').html(data);
-				/*studentMyLecture(userNumber);
-				studentTimetable(userNumber);*/
 			}
 			
 		},
