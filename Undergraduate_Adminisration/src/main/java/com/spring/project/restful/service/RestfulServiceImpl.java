@@ -49,7 +49,12 @@ public class RestfulServiceImpl implements RestfulService {
 			
 			for(Message msg : list) {
 				if(!nets.containsKey(msg.getMessageCode())) {
-					newMessages.add(msg);
+					try {
+						newMessages.add((Message) msg.clone());
+					} catch (CloneNotSupportedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			}
 			
@@ -58,14 +63,12 @@ public class RestfulServiceImpl implements RestfulService {
 			 */
 			Collections.sort(newMessages);
 			result.put("notReadMessages", list);
-			request.getSession().setAttribute("Messages", list);
-			
 		} else {
-			request.getSession().setAttribute("Messages", list);
 			result.put("notReadMessages", list);
 		}
 
 		//logger.info("response list Size() : " + newMessages.size());
+		request.getSession().setAttribute("Messages", list);
 		result.put("newMessages", newMessages);
 
 		return result;

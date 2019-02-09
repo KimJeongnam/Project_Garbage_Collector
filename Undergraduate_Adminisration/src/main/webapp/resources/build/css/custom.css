@@ -1111,9 +1111,9 @@ legend {
 .demo-placeholder {
     height: 280px
 }
-.profile_details:nth-child(3n) {
+/* .profile_details:nth-child(4n) {
     clear: both
-}
+} */
 .profile_details .profile_view {
     display: inline-block;
     padding: 10px 0 0;

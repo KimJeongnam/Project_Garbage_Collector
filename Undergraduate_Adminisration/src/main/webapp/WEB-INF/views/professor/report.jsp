@@ -298,13 +298,5 @@
 
             
 	<%@ include file="../Basic/footer.jsp" %>
-	
-	
-	
-	<script type="text/javascript">
-		$(function (){
-			
-		});
-	</script>
 </body>
 </html>

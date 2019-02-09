@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -22,6 +21,7 @@ import com.spring.project.admin.dao.AdminDAO;
 import com.spring.project.admin.vo.AdProVO;
 import com.spring.project.admin.vo.AdStdVO;
 import com.spring.project.admin.vo.ScholarpkVO;
+import com.spring.project.admin.vo.auditVO;
 import com.spring.project.share.dao.ShareDAO;
 import com.spring.project.share.vo.Major;
 
@@ -176,16 +176,21 @@ public class AdminServiceImpl implements AdminService{
 	}
 	@Override
 	public void deletePro(HttpServletRequest req, RedirectAttributes red) {
-		String[] checkbox = req.getParameterValues("table_records");
+		String[] checkbox = req.getParameterValues("scholarpks");
 		
-	    int deleteCnt =dao.delete(checkbox);
-	    
-	    if (deleteCnt == 1) {
-	    	red.addFlashAttribute("messages","삭제에 성공 했습니다!");
+		
+		System.out.println("checkbox" + checkbox);
+		
+		int updateCnt =dao.delete(checkbox);
+		System.out.println("22222");
+		
+	    if (updateCnt != 0) {
+	    	System.out.println("가갸거겨교가고ㅛ거겨기곡기고기");
+	    	red.addFlashAttribute("message","삭제에 성공 했습니다!");
 	    }else {
-	    	red.addFlashAttribute("messages","삭제에 실패 했습니다!");
-	    }
-	    
+	    	red.addFlashAttribute("message","삭제에 실패 했습니다!");
+		    
+		}
 	    
 	}
 	
@@ -373,15 +378,36 @@ public class AdminServiceImpl implements AdminService{
 			req.setAttribute("currentPage", currentPage);	//현재 페이지
 		}*/
 	}
+	@Override
+	public void judge(HttpServletRequest req, Model model) {
+		
+		//심사 리스트에 담기
+		List<auditVO> audit = dao.auditCnt();
+		
+		//심사리스트 반환
+		model.addAttribute("audit", audit);
+		
+	}
 	
 	public List<Major> getMajors(Map<String, Object> map){
 		return dao.getMajors(map);
 	}
 	
+	//---------------교직 업무 관리 START-------------------
 	@Override
 	public void getMajors(Map<String, Object> map, Model model) {
 		List<Major> majors = shareDao.getMajors(map);
 		model.addAttribute("majors", majors);
 	}
+	@Override
+	public Map<String, Object> deleteMajor(Map<String, Object> map) {
+		Map<String, Object> resopnseData = new HashMap<String, Object>();
+		if(dao.deleteMajor(map)>0)
+			resopnseData.put("status", "success");
+		else 
+			resopnseData.put("status", "fail");
+		return resopnseData;
+	}
+	//---------------교직 업무 관리 END-------------------
 	
 }

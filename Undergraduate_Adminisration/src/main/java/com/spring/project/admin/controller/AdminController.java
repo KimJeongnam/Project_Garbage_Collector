@@ -44,8 +44,9 @@ public class AdminController {
 	
 	//장학 신청 심사
 	@RequestMapping("/admin/judge")
-	public String janghak() {
+	public String judge(HttpServletRequest req, Model model) {
 		System.out.println("장학 심사");
+		service.judge(req,model);
 		
 		return "admin/judge";
 	}
@@ -90,7 +91,7 @@ public class AdminController {
 		System.out.println("장학 삭제");
 		service.deletePro(req,red);
 		
-		return "admin/registrationList";
+		return "redirect:/admin/registrationList";
 	}
 	
 	//장학 예산
@@ -170,16 +171,43 @@ public class AdminController {
 	@ResponseBody
 	@RequestMapping(value="/rest/json/getMajors")
 	public List<Major> getMajors(@RequestBody Map<String, Object> map){
-		logger.info("getMajors");
+		logger.info("List<Major> getMajors()");
 		List<Major> list = null;
 		list = service.getMajors(map);
 		return list;
 	}
 	
+	//---------------------------------학과, 강의 관리 START----------------------------------------
 	// 학과 조회(게시판 형식)
-	@RequestMapping(value="/admin/getMajors", method=RequestMethod.POST)
+	@RequestMapping(value="/admin/major_lecture_Manager/getMajors", method=RequestMethod.POST)
 	public String getMajors(@RequestBody Map<String, Object> map, Model model) {
+		logger.info("String getMajors()");
 		service.getMajors(map, model);
 		return "admin/majorLecMangePage/majorList";
 	}
+	
+	// 학과 삭제
+	@ResponseBody
+	@RequestMapping(value="/admin/major_lecture_Manager/ajax/deleteMajor", method=RequestMethod.POST)
+	public Map<String, Object> deleteMajor(@RequestBody Map<String, Object>map) {
+		logger.info("deleteMajor()");
+		return service.deleteMajor(map);
+	}
+	
+	// 학과 추가
+	@ResponseBody
+	@RequestMapping(value="/admin/major_lecture_Manager/addMajor", method=RequestMethod.POST)
+	public Map<String, Object> addMajor(@RequestBody Map<String, Object> map){
+		logger.info("addMajor()");
+		return null;
+	}
+	
+	// 강의 조회
+	@RequestMapping(value="/admin/major_lecture_Manager/getLectureList", method=RequestMethod.POST)
+	public String getLectureList(@RequestBody Map<String, Object> map) {
+		
+		return "";
+	}
+	
+	//---------------------------------학과, 강의 관리 END----------------------------------------
 }

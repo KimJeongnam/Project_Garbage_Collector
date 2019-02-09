@@ -1,5 +1,7 @@
 package com.spring.project.professor.service;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.ui.Model;
@@ -15,4 +17,5 @@ public interface ProfessorService {
 	public void introUpdate(HttpServletRequest req, RedirectAttributes red);
 	public void update(HttpServletRequest req, RedirectAttributes red);
 	public void list(HttpServletRequest req, Model model);
+	public void getStudent(Map<String, Object> map, HttpServletRequest req, Model model);
 }

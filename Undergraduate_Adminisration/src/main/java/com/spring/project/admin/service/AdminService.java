@@ -22,6 +22,9 @@ public interface AdminService {
 	//학생 +교수 목록 
 	public void stdList(HttpServletRequest req, Model model);
 	
+	//장학심사 
+	public void judge(HttpServletRequest req,  Model model);
+	
 	//장학 목록 
 	public void registrationList(HttpServletRequest req,  Model model);
 	
@@ -38,6 +41,8 @@ public interface AdminService {
 	
 	//---------------교직 업무 관리 START-------------------
 	public void getMajors(Map<String, Object> map, Model model);
+	
+	public Map<String, Object> deleteMajor(Map<String, Object>map);
 	
 	//---------------교직 업무 관리 END-------------------
 }

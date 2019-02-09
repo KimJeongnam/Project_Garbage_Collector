@@ -2,6 +2,8 @@ package com.spring.project.student.controller;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired; 
@@ -31,15 +33,35 @@ public class StudentController {
 
 	//장학금 신청목록
 	@RequestMapping("/student/bulletin")
-	public String bulletin() {
+	public String bulletin(HttpServletRequest req, Model model) {
 		logger.info("bulletin");
+		service.bulletin(req, model);
+		
 		return "student/bulletin";
 	}
+	//장학금 글 상세 페이지
+	@RequestMapping("/student/contentForm")
+	public String contentForm(HttpServletRequest req, Model model) {
+		System.out.println("장학 상세");
+		service.contentForm(req,model);
+		
+		return "student/contentForm";
+	}
+	
+	@RequestMapping("/student/apply")
+	public String apply(HttpServletRequest req, RedirectAttributes red) {
+		System.out.println("장학 신청 완료");
+		service.apply(req,red);
+		
+		return "redirect:/student/bulletin";
+	} 
 
 	//장학금 수혜현황
 	@RequestMapping("/student/management")
 	public String management() {
 		logger.info("management");
+		//service.management(req, model);
+		
 		return "student/management";
 	}
 	//학생개인정보

@@ -44,7 +44,7 @@
 											<div class="col-sm-2">
 												<select class="form-control input-sm" id="lectureList-major"
 													onchange="studentLecture('${userNumber}', 1);">
-													<option value="학과선택조회" selected="selected">학과선택조회</option>
+													<option value="0" selected="selected">학과선택조회</option>
 													<c:if test="${!empty dtosM}">
 														<c:forEach var="dto" items="${dtosM}" varStatus="i">
 															<option value="${dto.majorName}">${dto.majorName}</option>
@@ -103,12 +103,14 @@
 	</div>
 	<!-- /page content -->
 	<%@ include file="../Basic/footer.jsp"%>
+	<!-- .cd-schedule schedule폴더에 js추가됨-->
+	<script src="/project/resources/js/schedule/modernizr.js"></script>
+	<script src="/project/resources/js/schedule/main.js"></script>
 	<script type="text/javascript">
 		$(function() {
-	<%@ include file="../Basic/docReadyScripts.jsp" %>
 		studentMyLecture('${userNumber}');
-			studentTimetable('${userNumber}');
-			studentLecture('${userNumber}', 1);
+		studentLecture('${userNumber}', 1);
+		studentTimetable('${userNumber}');
 			//applyLecture('${userNumber}','${dto.lecCode}');
 			/* $("#lectureHover").hover(function(){
 				$(this).css("background-color", "yellow");
