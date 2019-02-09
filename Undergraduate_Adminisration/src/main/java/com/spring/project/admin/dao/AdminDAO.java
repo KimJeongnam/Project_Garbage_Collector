@@ -46,5 +46,13 @@ public interface AdminDAO {
 	//장학글 심사
 	public List<auditVO> auditCnt();
 	
+	
+	//---------------교직 업무 관리 START-------------------
+	
 	public List<Major> getMajors(Map<String, Object> map);
+	
+	public int  deleteMajor(Map<String, Object> map);
+	
+	
+	//---------------교직 업무 관리 END-------------------
 }

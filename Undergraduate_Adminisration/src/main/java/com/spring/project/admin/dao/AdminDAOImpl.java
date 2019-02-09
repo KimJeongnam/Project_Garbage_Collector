@@ -111,9 +111,15 @@ public class AdminDAOImpl implements AdminDAO{
 		return dtos;
 	}
 
-
+	//---------------교직 업무 관리 START-------------------
 	@Override
 	public List<Major> getMajors(Map<String, Object> map) {
 		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.getMajors", map);
 	}
+	
+	@Override
+	public int deleteMajor(Map<String, Object> map) {
+		return sqlSession.update("com.spring.project.admin.dao.AdminDAO.deleteMajor", map);
+	}
+	//---------------교직 업무 관리 END-------------------
 }

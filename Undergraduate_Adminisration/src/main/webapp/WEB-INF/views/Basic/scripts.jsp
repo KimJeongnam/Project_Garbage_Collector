@@ -153,4 +153,8 @@
 	
 	<!-- 단과대, 학과, 강의 등등 AJAX -->
 	<script src="${staticPath }/js/share/getDivisions.js"></script>
+	
+	
+	
+	
     

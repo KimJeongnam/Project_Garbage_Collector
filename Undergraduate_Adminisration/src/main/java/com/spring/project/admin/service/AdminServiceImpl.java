@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -394,14 +393,21 @@ public class AdminServiceImpl implements AdminService{
 		return dao.getMajors(map);
 	}
 	
+	//---------------교직 업무 관리 START-------------------
 	@Override
 	public void getMajors(Map<String, Object> map, Model model) {
 		List<Major> majors = shareDao.getMajors(map);
 		model.addAttribute("majors", majors);
 	}
 	@Override
-	public void deleteMajor(Map<String, Object> map) {
-		
+	public Map<String, Object> deleteMajor(Map<String, Object> map) {
+		Map<String, Object> resopnseData = new HashMap<String, Object>();
+		if(dao.deleteMajor(map)>0)
+			resopnseData.put("status", "success");
+		else 
+			resopnseData.put("status", "fail");
+		return resopnseData;
 	}
+	//---------------교직 업무 관리 END-------------------
 	
 }

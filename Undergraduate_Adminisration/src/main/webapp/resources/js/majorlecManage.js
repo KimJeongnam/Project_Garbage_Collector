@@ -44,14 +44,7 @@ function openMajorModal(mode) {
 					", maxNum) ");
 			return;
 		}
-		$('#majorModal-title').html("<h4>학과 수정</h4>");
-		$('#majorModalBtn').attr({
-			onclick : '',
-			value : '수정'
-		});
-		$('#majorModalDelBtn').attr({
-			hidden : false
-		})
+		
 		var majorNum = arguments[1];
 		var faculty  = arguments[2];
 		var majorName = arguments[3];
@@ -61,6 +54,16 @@ function openMajorModal(mode) {
 		$('#college').val(faculty);
 		$('#majorName').val(majorName);
 		$('#count').val(maxNum);
+		
+		$('#majorModal-title').html("<h4>학과 수정</h4>");
+		$('#majorModalBtn').attr({
+			onclick : '',
+			value : '수정'
+		});
+		$('#majorModalDelBtn').attr({
+			onclick : "deleteMajor('"+majorNum+"');",
+			hidden : false
+		})
 	}
 	
 	
@@ -80,7 +83,7 @@ function getMajors() {
 	var JsonData = JSON.stringify(obj);
 
 	$.ajax({
-		url : '/project/admin/getMajors',
+		url : '/project/admin/major_lecture_Manager/getMajors',
 		type : 'POST',
 		data : JsonData,
 		contentType : 'application/json;charset=utf-8',
@@ -91,5 +94,48 @@ function getMajors() {
 		error : function() {
 
 		}
+	});
+}
+
+function deleteMajor(majorNum){
+	var obj = new Object();
+	
+	obj.majorNum = majorNum;
+	
+	var JsonData = JSON.stringify(obj);
+	
+	$.ajax({
+		url : '/project/admin//major_lecture_Manager/ajax/deleteMajor',
+		type : 'POST',
+		data : JsonData,
+		contentType : 'application/json;charset=utf-8',
+		success : function(data){
+			if(data.status == 'fail'){
+				alert("ERROR! 삭제 실패");
+			}else{
+				$('#majorAdd-Modal').modal('hide');
+				getMajors();
+			}
+		},
+		error : function(){	}
+	});
+}
+
+function getLectureList(){
+	
+	$.ajax({
+		url : '/project/ajax/v1.0/deleteMajor',
+		type : 'POST',
+		data : JsonData,
+		contentType : 'application/json;charset=utf-8',
+		success : function(data){
+			if(data.status == 'fail'){
+				alert("ERROR! 삭제 실패");
+			}else{
+				$('#majorAdd-Modal').modal('hide');
+				getMajors();
+			}
+		},
+		error : function(){	}
 	});
 }

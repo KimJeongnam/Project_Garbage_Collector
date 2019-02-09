@@ -20,8 +20,8 @@ function studentLecture(userNumber, page){
 			if(data != null){
 				if($('#lectureList')!= null)
 					$('#lectureList').html(data);
-				studentMyLecture(userNumber);
-				studentTimetable(userNumber);
+				/*studentMyLecture(userNumber);
+				studentTimetable(userNumber);*/
 			}
 			
 		},

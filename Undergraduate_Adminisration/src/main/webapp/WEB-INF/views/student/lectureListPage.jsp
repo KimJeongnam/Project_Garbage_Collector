@@ -70,9 +70,11 @@
 	</div>
 	<!-- /page content -->
 	<%@ include file="../Basic/footer.jsp"%>
+	<!-- .cd-schedule schedule폴더에 js추가됨-->
+	<script src="/project/resources/js/schedule/modernizr.js"></script>
+	<script src="/project/resources/js/schedule/main.js"></script>
 	<script type="text/javascript">
 		$(function() {
-	<%@ include file="../Basic/docReadyScripts.jsp" %>
 		studentMyLecture('${userNumber}');
 		studentTimetable('${userNumber}');
 		studentLecture('${userNumber}', 1);

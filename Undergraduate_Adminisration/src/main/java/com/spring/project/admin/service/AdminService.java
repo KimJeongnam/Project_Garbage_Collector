@@ -42,7 +42,7 @@ public interface AdminService {
 	//---------------교직 업무 관리 START-------------------
 	public void getMajors(Map<String, Object> map, Model model);
 	
-	public void deleteMajor(Map<String, Object>map);
+	public Map<String, Object> deleteMajor(Map<String, Object>map);
 	
 	//---------------교직 업무 관리 END-------------------
 }

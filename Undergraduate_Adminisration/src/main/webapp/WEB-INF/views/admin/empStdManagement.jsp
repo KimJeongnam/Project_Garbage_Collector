@@ -125,7 +125,7 @@
 										</table>
 										<div>
 											<input class="btn btn-primary" type="button" value="등록"
-												onclick="window.location='stdInsert'">
+												onclick="window.location='stdInsert2'">
 											<!-- <input class="btn btn-info" type="button" value="수정" onclick="window.location='proUpdate'">
 											<input class="btn btn-danger" type="button" value="삭제" onclick="window.location='proDelete'"> -->
 										</div>
