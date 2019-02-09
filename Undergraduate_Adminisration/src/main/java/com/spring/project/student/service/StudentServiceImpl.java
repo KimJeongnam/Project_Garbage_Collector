@@ -192,5 +192,12 @@ public class StudentServiceImpl implements StudentService {
 			red.addFlashAttribute("message","수강신청 취소 에러메시지!!"); 
 		}
 	}
+	// 강의 목록 조회(전공)
+	@Override
+	public void lectureListMajor(Model model) {
+		List<LectureVO> dtos = dao.getMajor();
+		model.addAttribute("dtosM", dtos);
+		
+	}
 
 }

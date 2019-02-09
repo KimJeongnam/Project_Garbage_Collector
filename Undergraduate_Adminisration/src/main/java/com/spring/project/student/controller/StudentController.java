@@ -65,7 +65,8 @@ public class StudentController {
 	
 	// 수강신청 페이지
 	@RequestMapping(value="/student/lectureList", method=RequestMethod.GET)
-	public String lectureList() {
+	public String lectureList(Model model) {
+		service.lectureListMajor(model);
 		return "student/lectureListPage";
 	}
 	

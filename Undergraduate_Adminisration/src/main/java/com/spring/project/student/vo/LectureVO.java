@@ -20,9 +20,15 @@ public class LectureVO {
 	private String lectureDay;
 	private String beginningLectureTime;
 	private String endLectureTime;
+	private String majorName;
 	
 	
-	
+	public String getMajorName() {
+		return majorName;
+	}
+	public void setMajorName(String majorName) {
+		this.majorName = majorName;
+	}
 	public String getLectureDay() {
 		return lectureDay;
 	}

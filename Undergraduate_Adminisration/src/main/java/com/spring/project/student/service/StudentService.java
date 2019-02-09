@@ -26,4 +26,6 @@ public interface StudentService {
 	//강의 hover
 	public void cancelLecture(Map<String, Object> map, Logger logger, RedirectAttributes red);
 	
+	// 강의 목록 조회(전공)
+	public void lectureListMajor(Model model);
 }

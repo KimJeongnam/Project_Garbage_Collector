@@ -8,6 +8,8 @@ function studentLecture(userNumber, page){
 	if($('#lectureList-search-keyword')[0].value.length > 0){
 		obj.keyword = $('#lectureList-search-keyword')[0].value;
 	}
+	if($('#lectureList-major')!=null)
+		obj.major = $('#lectureList-major')[0].value;
 	
 	var jsonData = JSON.stringify(obj);
 	
