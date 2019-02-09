@@ -44,9 +44,10 @@ function studentTimetable(userNumber){
 		contentType : 'application/json;charset=UTF-8',
 		success : function(data){
 			if(data != null){
-				if($('#schoolTimeTable')!= null)
+				if($('#schoolTimeTable')!= null){
 					$('#schoolTimeTable').empty();
 					$('#schoolTimeTable').html(data);
+				}
 			}
 		},
 		error:function(){

@@ -1,4 +1,4 @@
-jQuery(document).ready(function($){
+$(function(){	
 	var transitionEnd = 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend';
 	var transitionsSupported = ( $('.csstransitions').length > 0 );
 	//if browser does not support transitions - use a different event to trigger them
@@ -330,17 +330,21 @@ jQuery(document).ready(function($){
 		}
 	};
 
-	var schedules = $('.cd-schedule');
-	var objSchedulesPlan = [],
-		windowResize = false;
 	
-	if( schedules.length > 0 ) {
-		schedules.each(function(){
-			//create SchedulePlan objects
-			objSchedulesPlan.push(new SchedulePlan($(this)));
-		});
-	}
-
+	setTimeout(function(){
+		var schedules = $('.cd-schedule');
+		var objSchedulesPlan = [],
+			windowResize = false;
+		
+		if( schedules.length > 0 ) {
+			schedules.each(function(){
+				//create SchedulePlan objects
+				objSchedulesPlan.push(new SchedulePlan($(this)));
+			});
+		}
+	}, 100)
+	
+	
 	$(window).on('resize', function(){
 		if( !windowResize ) {
 			windowResize = true;
