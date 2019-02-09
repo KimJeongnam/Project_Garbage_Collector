@@ -48,6 +48,12 @@ function studentTimetable(userNumber){
 				if($('#schoolTimeTable')!= null){
 					$('#schoolTimeTable').empty();
 					$('#schoolTimeTable').html(data);
+					setTimeout(function(){
+						schedules.each(function(){
+							// create SchedulePlan objects
+							objSchedulesPlan.push(new SchedulePlan($(this)));
+						});
+				}, 100);
 				}
 			}
 		},
