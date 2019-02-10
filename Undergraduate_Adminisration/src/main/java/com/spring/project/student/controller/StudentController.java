@@ -97,15 +97,14 @@ public class StudentController {
 	public String lectureList(@RequestBody Map<String, Object> map, Model model) {
 		logger.info("lectureList");
 		service.lectureList(map, logger, model);
-		
-		//service.schoolTimeTable(map, logger, model);
 		return "student/lectureList";
 	}
 
-	//내 학점 조회
+	// 내 학점 조회
 	@RequestMapping("/student/GPA")
-	public String GPA() {
+	public String GPA(HttpServletRequest req, Model model) {
 		logger.info("GPA");
+		service.GPA(req, model);
 		return "student/GPA";
 	}
 	
@@ -133,7 +132,7 @@ public class StudentController {
 		logger.info("applyLecture");
 		
 		service.applyLecture(map, logger, red);
-		return "redirect:/student/lectureList";
+		return "student/lectureList";
 	}
 	
 	// 내 강의 신청 내역

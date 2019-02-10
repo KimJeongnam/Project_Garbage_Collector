@@ -23,7 +23,6 @@ public class LectureVO {
 	private String majorName;
 	private int rank;
 	
-	
 	public int getRank() {
 		return rank;
 	}

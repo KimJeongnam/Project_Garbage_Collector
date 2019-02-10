@@ -17,7 +17,7 @@
 				<th>강의명</th>
 				<th>학점</th>
 				<th>담당교수</th>
-				<th>잔여석</th>
+				<th>강의실</th>
 				<th>취소</th>
 			</tr>
 		</thead>
@@ -34,7 +34,7 @@
 					<td>${dto.lectureName}</td>
 					<td>${dto.lectureScore}</td>
 					<td>${dto.accountHolder}</td>
-					<td>${dto.maximumCapacity}</td>
+					<td>${dto.classRoom}</td>
 					<th><a onclick="cancelLecture('${userNumber}','${dto.lecCode}');" class="btn btn-danger">
 						<i class="glyphicon glyphicon-trash"></i>취소</a></th>
 				</tr>

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.spring.project.admin.vo.ScholarpkVO;
+import com.spring.project.student.vo.GpaVO;
 import com.spring.project.student.vo.LectureVO;
 
 @Repository
@@ -123,6 +124,18 @@ public class StudentDAOImpl implements StudentDAO{
 	@Override
 	public List<LectureVO> getMajor() {
 		return sqlSession.selectList("com.spring.project.student.dao.StudentDAO.getMajor");
+	}
+
+	// 내 학점 조회
+	@Override
+	public List<GpaVO> GPA(String userNumber) {
+		return sqlSession.selectList("com.spring.project.student.dao.StudentDAO.GPA", userNumber);
+	}
+	
+	// 신청 학점
+	@Override
+	public int ApplyCredit(String userNumber) {
+		return sqlSession.selectOne("com.spring.project.student.dao.StudentDAO.ApplyCredit", userNumber);
 	}
 
 
