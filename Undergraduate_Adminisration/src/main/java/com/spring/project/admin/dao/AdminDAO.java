@@ -48,11 +48,12 @@ public interface AdminDAO {
 	
 	
 	//---------------교직 업무 관리 START-------------------
-	
+	// 학과 조회
 	public List<Major> getMajors(Map<String, Object> map);
-	
+	// 학과 삭제
 	public int  deleteMajor(Map<String, Object> map);
-	
+	// 학과 등록
+	public int addMajor(Major major);
 	
 	//---------------교직 업무 관리 END-------------------
 }

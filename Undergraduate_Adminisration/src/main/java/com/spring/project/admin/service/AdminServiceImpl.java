@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -389,9 +390,6 @@ public class AdminServiceImpl implements AdminService{
 		
 	}
 	
-	public List<Major> getMajors(Map<String, Object> map){
-		return dao.getMajors(map);
-	}
 	
 	//---------------교직 업무 관리 START-------------------
 	@Override
@@ -399,6 +397,8 @@ public class AdminServiceImpl implements AdminService{
 		List<Major> majors = shareDao.getMajors(map);
 		model.addAttribute("majors", majors);
 	}
+	
+	// 학과 삭제
 	@Override
 	public Map<String, Object> deleteMajor(Map<String, Object> map) {
 		Map<String, Object> resopnseData = new HashMap<String, Object>();
@@ -408,6 +408,25 @@ public class AdminServiceImpl implements AdminService{
 			resopnseData.put("status", "fail");
 		return resopnseData;
 	}
+	
+	// 학과 등록
+	@Override
+	public Map<String, Object> addMajor(Major major) {
+		Map<String, Object> resultmap = new HashMap<String, Object>();
+		
+		resultmap.put("status", dao.addMajor(major));
+		
+		return resultmap;
+	}
+	
+	//학과 수정
+	@Override
+	public Map<String, Object> modifyMajor(Major major) {
+		return null;
+	}
+	
+	
+	
 	//---------------교직 업무 관리 END-------------------
 	
 }

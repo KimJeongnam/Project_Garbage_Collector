@@ -121,5 +121,9 @@ public class AdminDAOImpl implements AdminDAO{
 	public int deleteMajor(Map<String, Object> map) {
 		return sqlSession.update("com.spring.project.admin.dao.AdminDAO.deleteMajor", map);
 	}
+	@Override
+	public int addMajor(Major major) {
+		return sqlSession.insert("com.spring.project.admin.dao.AdminDAO.addMajor", major);
+	}
 	//---------------교직 업무 관리 END-------------------
 }

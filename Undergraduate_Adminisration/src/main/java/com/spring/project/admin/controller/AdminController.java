@@ -1,6 +1,5 @@
 package com.spring.project.admin.controller;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -168,14 +167,6 @@ public class AdminController {
 		return "admin/menu7";
 	}
 	
-	@ResponseBody
-	@RequestMapping(value="/rest/json/getMajors")
-	public List<Major> getMajors(@RequestBody Map<String, Object> map){
-		logger.info("List<Major> getMajors()");
-		List<Major> list = null;
-		list = service.getMajors(map);
-		return list;
-	}
 	
 	//---------------------------------학과, 강의 관리 START----------------------------------------
 	// 학과 조회(게시판 형식)
@@ -197,9 +188,9 @@ public class AdminController {
 	// 학과 추가
 	@ResponseBody
 	@RequestMapping(value="/admin/major_lecture_Manager/addMajor", method=RequestMethod.POST)
-	public Map<String, Object> addMajor(@RequestBody Map<String, Object> map){
+	public Map<String, Object> addMajor(@RequestBody Major major){
 		logger.info("addMajor()");
-		return null;
+		return service.addMajor(major);
 	}
 	
 	// 강의 조회
