@@ -163,3 +163,34 @@ function addMajor(){
 		error : function(){	}
 	});
 }
+
+function modifyMajor(){
+	var majorCode = $('#majorCode').val(code);
+	var faculty = $('#college').val();
+	var majorName = $('#majorName').val().trim();
+	var maxNum = $('#count').val();
+	
+	var obj = new Object();
+	obj.majorCode = $('#majorCode').val(code);
+	obj.faculty = faculty;
+	obj.majorName = majorName;
+	obj.maxNum = maxNum;
+	
+	var JsonData = JSON.stringify(obj);
+	
+	$.ajax({
+		url : '/project/admin/major_lecture_Manager/modifyMajor',
+		type : 'POST',
+		data : JsonData,
+		contentType : 'application/json;charset=utf-8',
+		success : function(data){
+			if(data.status == 0){
+				alert("ERROR! 학과 추가 오류.");
+			}else{
+				$('#majorAdd-Modal').modal('hide');
+				getMajors();
+			}
+		},
+		error : function(){	}
+	});
+}

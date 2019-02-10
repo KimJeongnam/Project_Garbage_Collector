@@ -1,5 +1,6 @@
 package com.spring.project.admin.controller;
 
+//github.com/KimJeongnam/Project_Garbage_Collector.git
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -142,6 +143,13 @@ public class AdminController {
 		/*service.professorList(req, model);*/
 		return "admin/empStdManagement";
 	}
+	
+	//휴복학 리스트
+	@RequestMapping("/admin/schoolLeaveList")
+	public String schoolLeaveList(HttpServletRequest req, Model model) {
+		service.schoolLeaveList(req, model);
+		return "admin/schoolLeaveList";
+	}
 	//교수상세정보 
 	@RequestMapping("/admin/proMyPage")
 	public String proMyPage() {
@@ -156,10 +164,22 @@ public class AdminController {
 	}
 	//임시 학생인서트
 	@RequestMapping("/admin/stdInsert2")
-	public String stdInsert2() {
-		
+	public String stdInsert2(HttpServletRequest req, Model model) {
+		service.fandMList(req, model);
 		return "admin/stdInsert2";
 	}
+	//임시 교수인서트
+	@RequestMapping("/admin/proInsert2")
+	public String proInsert2(HttpServletRequest req, Model model) {
+		service.fandMList(req, model);
+		return "admin/proInsert2";
+	}
+	/*@RequestMapping(value="/admin/selectFaculty", method=RequestMethod.POST)
+	public void selectFaculty(HttpServletRequest req, HttpServletResponse response, Model model) {
+		 
+		service.fandMList(req, model);
+	     
+	}*/
 	
 	@RequestMapping("/admin/menu7")
 	public String menu7() {

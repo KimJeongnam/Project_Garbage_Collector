@@ -20,6 +20,12 @@ public interface AdminService {
 	//학생 +교수 목록 
 	public void stdList(HttpServletRequest req, Model model);
 	
+	//단과대 + 학부 리스트
+	public void fandMList(HttpServletRequest req, Model model);
+	
+	//휴복학리스트
+	public void schoolLeaveList(HttpServletRequest req, Model model);
+	
 	//장학심사 
 	public void judge(HttpServletRequest req,  Model model);
 	

@@ -63,7 +63,16 @@ public class AdminDAOImpl implements AdminDAO{
 	public List<AdProVO> getProList(Map<String, Integer> map) {
 		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.getProList", map);
 	}
-	
+	//단과대 + 학과 리스트
+	@Override
+	public List<AdProVO> FandMList(Map<String, Integer> map) {
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.FandMList", map);
+	}
+	//휴복학 리스트
+	@Override
+	public List<AdStdVO> getSchoolLeave(Map<String, Integer> map) {
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.getSchoolLeave", map);
+	}
 	//=============================장학금 대그니꺼=======================================
 	//장학 글 갯수
 	@Override
@@ -99,7 +108,6 @@ public class AdminDAOImpl implements AdminDAO{
 		int updateCnt = sqlSession.update("com.spring.project.admin.dao.AdminDAO.delete",checkbox);
 		System.out.println("==================deleteCnt" + updateCnt);
 		return updateCnt;
-		
 	}
 	
 	//장학금 심사
@@ -112,11 +120,6 @@ public class AdminDAOImpl implements AdminDAO{
 	}
 
 	//---------------교직 업무 관리 START-------------------
-	@Override
-	public List<Major> getMajors(Map<String, Object> map) {
-		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.getMajors", map);
-	}
-	
 	@Override
 	public int deleteMajor(Map<String, Object> map) {
 		return sqlSession.update("com.spring.project.admin.dao.AdminDAO.deleteMajor", map);

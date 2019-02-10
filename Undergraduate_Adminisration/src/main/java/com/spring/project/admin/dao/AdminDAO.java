@@ -28,6 +28,12 @@ public interface AdminDAO {
 	//교수 리스트
 	public List<AdProVO> getProList(Map<String, Integer> map);
 	
+	//학부 + 학과 리스트
+	public List<AdProVO> FandMList(Map<String, Integer> map);
+	
+	//휴복학 리스트
+	public List<AdStdVO> getSchoolLeave(Map<String, Integer> map);
+	
 	//장학글 갯수
 	public int getArticleCnt();
 	
@@ -48,8 +54,6 @@ public interface AdminDAO {
 	
 	
 	//---------------교직 업무 관리 START-------------------
-	// 학과 조회
-	public List<Major> getMajors(Map<String, Object> map);
 	// 학과 삭제
 	public int  deleteMajor(Map<String, Object> map);
 	// 학과 등록
