@@ -119,9 +119,21 @@ public class AdminDAOImpl implements AdminDAO{
 		return dtos;
 	}
 
+<<<<<<< HEAD
+=======
+	//---------------교직 업무 관리 START-------------------
+>>>>>>> branch 'master' of https://github.com/KimJeongnam/Project_Garbage_Collector.git
 	@Override
 	public List<Major> getMajors(Map<String, Object> map) {
 		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.getMajors", map);
 	}
 	
+<<<<<<< HEAD
+=======
+	@Override
+	public int deleteMajor(Map<String, Object> map) {
+		return sqlSession.update("com.spring.project.admin.dao.AdminDAO.deleteMajor", map);
+	}
+	//---------------교직 업무 관리 END-------------------
+>>>>>>> branch 'master' of https://github.com/KimJeongnam/Project_Garbage_Collector.git
 }

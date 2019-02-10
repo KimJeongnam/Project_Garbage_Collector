@@ -63,4 +63,7 @@ public interface StudentDAO {
 	
 	// 강의 신청 취소
 	public int cancelLecture(Map<String, Object> map);
+	
+	// 강의 목록 조회(전공)
+	public List<LectureVO> getMajor();
 }

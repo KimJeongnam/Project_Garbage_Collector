@@ -123,6 +123,8 @@ public class StudentServiceImpl implements StudentService {
 		String userNumber = (String) map.get("userNumber");
 
 		List<LectureVO> dtos = dao.schoolTimeTable(userNumber);
+		System.out.println("dtos : " + dtos);
+		
 		model.addAttribute("dtosT", dtos);
 	}
 
@@ -339,6 +341,13 @@ public class StudentServiceImpl implements StudentService {
 		} else {
 			red.addFlashAttribute("message","수강신청 취소 에러메시지!!"); 
 		}
+	}
+	// 강의 목록 조회(전공)
+	@Override
+	public void lectureListMajor(Model model) {
+		List<LectureVO> dtos = dao.getMajor();
+		model.addAttribute("dtosM", dtos);
+		
 	}
 
 }

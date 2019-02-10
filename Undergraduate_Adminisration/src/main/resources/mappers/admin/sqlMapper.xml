@@ -144,4 +144,10 @@
  		ORDER BY majorNum ASC
  		]]>
  	</select>
+ 	
+ 	<update id="deleteMajor" parameterType="java.util.Map">
+ 		UPDATE major SET
+	    delStatus = 1
+	    WHERE majorNum = #{majorNum}
+ 	</update>
 </mapper>

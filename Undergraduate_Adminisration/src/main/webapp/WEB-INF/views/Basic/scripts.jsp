@@ -84,6 +84,7 @@
 <!-- 스크립트 순서에 따라 안되는 경우있음 잘 찾아보셈 -->
     <!-- jQuery -->
     <script src="${staticPath}/vendors/jquery/dist/jquery.min.js"></script>
+
     <!-- Bootstrap -->
     <script src="${staticPath}/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- NProgress -->
@@ -148,9 +149,10 @@
     <!-- Message 백그라운드 추가 -->
     <script src="${staticPath }/js/message/notify.js"></script>
     
-    <!-- 수강신청 -->
-	<script src="${staticPath }/js/lecture/applyLecture.js"></script>
-	
 	<!-- 단과대, 학과, 강의 등등 AJAX -->
 	<script src="${staticPath }/js/share/getDivisions.js"></script>
+	
+	
+	
+	
     
