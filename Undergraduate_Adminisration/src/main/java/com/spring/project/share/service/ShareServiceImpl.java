@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.spring.project.restful.dao.RestfulDAO;
 import com.spring.project.restful.vo.Message;
 import com.spring.project.share.dao.ShareDAO;
+import com.spring.project.share.vo.Major;
 import com.spring.project.share.vo.ShareUserInfo;
 
 @Service
@@ -153,5 +154,4 @@ public class ShareServiceImpl implements ShareService{
 	public int getMajorCurrval() {
 		return dao.getMajorCurrval();
 	}
-	
 }

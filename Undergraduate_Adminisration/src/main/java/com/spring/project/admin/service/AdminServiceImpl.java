@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -261,12 +262,12 @@ public class AdminServiceImpl implements AdminService{
 			vo.setUserZipCode(req.getParameter("userZipCode"));
 			vo.setUserAddr1(req.getParameter("userAddr1"));
 			vo.setUserAddr2(req.getParameter("userAddr2"));
+			vo.setGender(req.getParameter("gender"));
 			/*vo.setDelStatus(Integer.parseInt(req.getParameter("delStatus")));*/
 
 			//student
 			vo.setAdDate(Date.valueOf(req.getParameter("adDate")));
 			vo.setGraDate(Date.valueOf(req.getParameter("graDate")));
-			
 			
 			//schoolLeave
 			/*vo.setSchoolLeaveStateCode(Integer.parseInt(req.getParameter("setSchoolLeaveStateCode")));*/
@@ -378,6 +379,20 @@ public class AdminServiceImpl implements AdminService{
 			req.setAttribute("currentPage", currentPage);	//현재 페이지
 		}*/
 	}
+	//학부 + 학과 리스트
+	@Override
+	public void fandMList(HttpServletRequest req, Model model) {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		List<AdProVO> vo = dao.FandMList(map);
+		req.setAttribute("outFandM", vo);
+	}
+	//휴복학 리스트
+	@Override
+	public void schoolLeaveList(HttpServletRequest req, Model model) {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		List<AdStdVO> vo = dao.getSchoolLeave(map);
+		req.setAttribute("getSL", vo);
+	}
 	@Override
 	public void judge(HttpServletRequest req, Model model) {
 		
@@ -389,16 +404,14 @@ public class AdminServiceImpl implements AdminService{
 		
 	}
 	
-	public List<Major> getMajors(Map<String, Object> map){
-		return dao.getMajors(map);
-	}
-	
 	//---------------교직 업무 관리 START-------------------
 	@Override
 	public void getMajors(Map<String, Object> map, Model model) {
 		List<Major> majors = shareDao.getMajors(map);
 		model.addAttribute("majors", majors);
 	}
+	
+	// 학과 삭제
 	@Override
 	public Map<String, Object> deleteMajor(Map<String, Object> map) {
 		Map<String, Object> resopnseData = new HashMap<String, Object>();
@@ -408,6 +421,25 @@ public class AdminServiceImpl implements AdminService{
 			resopnseData.put("status", "fail");
 		return resopnseData;
 	}
+	
+	// 학과 등록
+	@Override
+	public Map<String, Object> addMajor(Major major) {
+		Map<String, Object> resultmap = new HashMap<String, Object>();
+		
+		resultmap.put("status", dao.addMajor(major));
+		
+		return resultmap;
+	}
+	
+	//학과 수정
+	@Override
+	public Map<String, Object> modifyMajor(Major major) {
+		return null;
+	}
+	
+	
+	
 	//---------------교직 업무 관리 END-------------------
 	
 }

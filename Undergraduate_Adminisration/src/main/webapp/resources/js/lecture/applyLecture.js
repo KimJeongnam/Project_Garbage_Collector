@@ -52,8 +52,16 @@ function studentTimetable(userNumber){
 		contentType : 'application/json;charset=UTF-8',
 		success : function(data){
 			if(data != null){
-				if($('#schoolTimeTable')!= null)
+				if($('#schoolTimeTable')!= null){
+					$('#schoolTimeTable').empty();
 					$('#schoolTimeTable').html(data);
+					setTimeout(function(){
+						schedules.each(function(){
+							// create SchedulePlan objects
+							objSchedulesPlan.push(new SchedulePlan($(this)));
+						});
+				}, 100);
+				}
 			}
 		},
 		error:function(){

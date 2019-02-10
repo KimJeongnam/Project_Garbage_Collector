@@ -97,7 +97,7 @@
 							</div>
 						</div>
 						<div class="col-md-6 col-sm-6 col-xs-12">
-							<div id="schoolTimeTable" class=""></div>
+							<div id="schoolTimeTable"></div>
 						</div>
 					</div>
 				</div>
@@ -105,10 +105,13 @@
 		</div>
 	</div>
 	<!-- /page content -->
+	
 	<%@ include file="../Basic/footer.jsp"%>
 	<!-- .cd-schedule schedule폴더에 js추가됨-->
-	<script src="/project/resources/js/schedule/modernizr.js"></script>
-	<script src="/project/resources/js/schedule/main.js"></script>
+	  <!-- 수강신청 -->
+	  
+	<script src="${staticPath }/js/lecture/applyLecture.js"></script>
+	
 	<script type="text/javascript">
 		$(function() {
 			studentMyLecture('${userNumber}');
@@ -116,6 +119,7 @@
 			studentTimetable('${userNumber}');
 		});
 	</script>
+
 
 </body>
 </html>

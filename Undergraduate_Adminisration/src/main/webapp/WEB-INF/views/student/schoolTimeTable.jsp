@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <link
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600"
 	rel="stylesheet">
@@ -9,9 +9,8 @@
 <link rel="stylesheet" href="/project/resources/css/schedule/style.css">
 <!-- Resource style -->
 
-
-<!-- page content -->
 <div class="cd-schedule loading">
+	<!-- page content -->
 	<div class="timeline">
 		<ul>
 			<li><span>09:00</span></li>
@@ -50,8 +49,7 @@
 					<c:forEach var="dto" items="${dtosT}">
 						<c:if test="${dto.lectureDay == '월'}">
 							<li class="single-event" data-start="${dto.beginningLectureTime}"
-								data-end="${dto.endLectureTime}"
-								 data-event="event-${dto.rank}"><a
+								data-end="${dto.endLectureTime}" data-event="event-${dto.rank}"><a
 								href="#0"><span></span> <em class="event-name">${dto.lectureName}</em>
 							</a></li>
 						</c:if>
@@ -67,8 +65,7 @@
 					<c:forEach var="dto" items="${dtosT}">
 						<c:if test="${dto.lectureDay == '화'}">
 							<li class="single-event" data-start="${dto.beginningLectureTime}"
-								data-end="${dto.endLectureTime}"
-								data-event="event-${dto.rank}"><a
+								data-end="${dto.endLectureTime}" data-event="event-${dto.rank}"><a
 								href="#0"><span></span> <em class="event-name">${dto.lectureName}</em>
 							</a></li>
 						</c:if>
@@ -84,8 +81,7 @@
 					<c:forEach var="dto" items="${dtosT}">
 						<c:if test="${dto.lectureDay == '수'}">
 							<li class="single-event" data-start="${dto.beginningLectureTime}"
-								data-end="${dto.endLectureTime}"
-								 data-event="event-${dto.rank}"><a
+								data-end="${dto.endLectureTime}" data-event="event-${dto.rank}"><a
 								href="#0"><span></span> <em class="event-name">${dto.lectureName}</em>
 							</a></li>
 						</c:if>
@@ -101,8 +97,7 @@
 					<c:forEach var="dto" items="${dtosT}">
 						<c:if test="${dto.lectureDay == '목'}">
 							<li class="single-event" data-start="${dto.beginningLectureTime}"
-								data-end="${dto.endLectureTime}"
-								data-event="event-${dto.rank}"><a
+								data-end="${dto.endLectureTime}" data-event="event-${dto.rank}"><a
 								href="#0"><span></span> <em class="event-name">${dto.lectureName}</em>
 							</a></li>
 						</c:if>
@@ -118,14 +113,12 @@
 					<c:forEach var="dto" items="${dtosT}">
 						<c:if test="${dto.lectureDay == '금'}">
 							<li class="single-event" data-start="${dto.beginningLectureTime}"
-								data-end="${dto.endLectureTime}"
-								data-event="event-${dto.rank}"><a
+								data-end="${dto.endLectureTime}" data-event="event-${dto.rank}"><a
 								href="#0"><span></span> <em class="event-name">${dto.lectureName}</em>
 							</a></li>
 						</c:if>
 					</c:forEach>
 				</ul>
-
 			</li>
 		</ul>
 	</div>
@@ -151,3 +144,5 @@
 	<div class="cover-layer"></div>
 </div>
 
+<script src="/project/resources/js/schedule/modernizr.js"></script>
+<script src="/project/resources/js/schedule/main.js"></script>
