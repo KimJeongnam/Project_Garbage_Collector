@@ -1,11 +1,13 @@
 package com.spring.project.professor.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.spring.project.professor.vo.classStudentVO;
 import com.spring.project.professor.vo.myClassVO;
 import com.spring.project.professor.vo.myPageVO;
 import com.spring.project.professor.vo.studentVO;
@@ -88,15 +90,22 @@ public class ProfesserDAOImpl implements ProfesserDAO{
 		return update2;
 	}
 
+	
+	
 	//내 강의 학생 목록
 	@Override
 	public List<studentVO> list(String userNumber) {
 		return sql.selectList("com.spring.project.professor.dao.ProfesserDAO.list",userNumber);
 	}
-
+	//내 강의 목록
 	@Override
 	public List<myClassVO> myClass(String userNumber) {
 		return sql.selectList("com.spring.project.professor.dao.ProfesserDAO.myClass",userNumber);
+	}
+	//강의별 수강 학생 목록
+	@Override
+	public List<classStudentVO> getStudent(Map<String, Object> map) {
+		return sql.selectList("com.spring.project.professor.dao.ProfesserDAO.getStudent",map);
 	}
 
 

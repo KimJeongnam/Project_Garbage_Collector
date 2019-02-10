@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -16,6 +17,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.project.professor.dao.ProfesserDAO;
+import com.spring.project.professor.vo.classStudentVO;
 import com.spring.project.professor.vo.myClassVO;
 import com.spring.project.professor.vo.myPageVO;
 import com.spring.project.professor.vo.studentVO;
@@ -185,6 +187,24 @@ public class ProfessorServiceImpl implements ProfessorService {
 		
 		model.addAttribute("list",list);
 		model.addAttribute("myClass",myClass);
+		
+	}
+	
+	//강의별 수강학생 목록
+	@Override
+	public void getStudent(Map<String, Object> map, HttpServletRequest req, Model model) {
+		
+		String userNumber = (String) req.getSession().getAttribute("userNumber");
+		String lecName = (String) map.get("lecName");
+		
+		map.put("userNumber", userNumber);
+		map.put("lecName", lecName);
+		
+		List<classStudentVO> vo = dao.getStudent(map);
+		
+		System.out.println("내 강의 모든 학생 vo : " + vo);
+		
+		model.addAttribute("vo",vo);
 		
 	}
 

@@ -65,33 +65,21 @@
 		                        </thead>
 		
 		                        <tbody>
-		                          <tr class="even pointer">
-		                            <td class=" ">박대근</td>
-		                            <td class=" ">1</td>
-		                            <td class=" ">1</td>
-		                            <td class=" ">다자녀 장학금</td>
-		                            <td class=" ">5,000,000</td>
-		                            <td class=" ">2018-04-20</td>
-		                            <td><input type="checkbox" data-toggle="toggle" data-off="불" data-on="합"></td>
-		                          </tr>
-		                          <tr class="odd pointer">
-		                            <td class=" ">김떡순</td>
-		                            <td class=" ">2</td>
-		                            <td class=" ">2</td>
-		                            <td class=" ">한부모 장학금</td>
-		                            <td class=" ">2,500,000</td>
-		                            <td class=" ">2018-08-20</td>
-		                            <td><input type="checkbox" data-toggle="toggle" data-off="불" data-on="합"></td>
-		                          </tr>
-		                          <tr class="even pointer">
-		                            <td class=" ">배고픔</td>
-		                            <td class=" ">3</td>
-		                            <td class=" ">1</td>
-		                            <td class=" ">한부모 장학금</td>
-		                            <td class=" "></td>
-		                            <td class=" "></td>
-		                            <td><input type="checkbox" data-toggle="toggle" data-off="불" data-on="합"></td>
-		                          </tr>
+		                            <c:forEach var="dto" items="${audit}">
+		                            <tr class="even pointer">
+		                             
+			                            <td class=" ">${dto.userName}</td>
+			                            <td class=" ">${dto.grade}</td>
+			                            <td class=" ">${dto.semester}</td>
+			                            <td class=" ">${dto.scholarName}</td>
+			                            <td class=" ">${dto.year}</td>
+			                            <td class=" ">${dto.statCode}</td>
+			                            <td><input type="checkbox" data-toggle="toggle" data-off="불" data-on="합"></td>
+		                            
+		                            
+		                            </tr>
+		                            </c:forEach>
+		                          
 		                        </tbody>
 		                      </table>
 		                    </div>

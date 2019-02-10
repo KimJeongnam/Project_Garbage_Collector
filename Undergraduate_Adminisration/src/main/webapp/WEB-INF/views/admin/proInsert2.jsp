@@ -48,7 +48,7 @@
 							  		</select>
 								</td>
 							</tr>
-							<tr>
+							<!-- <tr>
 								<th class="control-label">학기</th>
 								<td>
 									 <p>
@@ -65,11 +65,11 @@
 				                      &nbsp;  4학년 <input type="radio" class="flat" name="grade" id="grade4" value="4" />
 				                     </p>
 								</td>
-							</tr>
+							</tr> -->
 							<tr>
-								<th class="control-label">학번</th>
+								<th class="control-label">교번</th>
 								<td><input type="text" class="input" required="required" id="userNumber" name="userNumber"
-									placeholder="학번을 입력하시오">
+									placeholder="교번을 입력하시오">
 									
 								</td>
 								<th class="control-label">사진</th>
@@ -125,12 +125,23 @@
 								</td>
 							</tr>
 							<tr>
-								<th class="control-label">입학일</th>
-								<td><input type="date" class="input" required="required"
-									id="adDate" name="adDate" placeholder="현재학기를 입력하시오"></td>
-								<th class="control-label">졸업예정일</th>
-								<td><input type="date" class="input" required="required"
-									id="graDate" name="graDate" placeholder="연락처를 입력하시오"></td>
+								<th class="control-label">은행명</th>
+								<td><input type="text" class="input" required="required"
+									id="userCellNum" name="userCellNum" placeholder="은행명을 입력하시오"></td>
+								<th class="control-label">예금주</th>
+								<td><input type="text" class="input" required="required"
+									id="userEmail" name="userEmail" placeholder="예금주를 입력하시오"></td>
+							</tr>
+							<tr>
+								<th class="control-label">계좌번호</th>
+								<td><input type="text" class="input" required="required"
+									id="accountNumber" name="accountNumber" placeholder="계좌번호를 입력하시오">
+								</td>
+								<th class="control-label">입사일</th>
+								<td> 
+								<input type="date" class="input" required="required"
+									id="empHiredDate" name="empHiredDate">
+								</td>
 							</tr>
 						</table>
 						<div class="ln_solid"></div>
@@ -166,8 +177,8 @@
 	};
 	
 	/* ajax를 통해 값을넘기는 부분 */
-	 function selectFandM(key, majorNum){
-		
+	/*  function selectFandM(key, majorNum){
+	/* 	
 		//자바스크립트 객체
 		var obj = new Object();
 			obj.key = key;
@@ -180,7 +191,7 @@
 			data:jsonData,
 			success: function(data) {
 				/* $('#majorNum').html(data); */
-				alert("w진행")
+		/* 		alert("w진행")
 				majorDisplay(data)
 		    },
 		    error:function(){
@@ -190,7 +201,7 @@
  	}; 
  	
  	/*자바스크립트 - 셀렉트 박스안의 옵션태그에 키와 값을 부여하는 방법   */
- 	  var setFacultys = function(facultys){
+ 	 /*  var setFacultys = function(facultys){
 		$('#faculty').empty();
 		
 		$('#faculty').append($('<option>', {
@@ -205,16 +216,16 @@
 		        text : facultys[i].get("majorNum")
 		    }));
 		}
-	}  
+	}   */
  	
  	//셀렉트박스 디스플레이
- 	 function majorDisplay(major){
+ 	/*  function majorDisplay(major){
  	 	if(major!=null){
  	 		for(var i=0; i<major.length; i++){
  	 			majorDisplay(major[i].majorNum, major[i].majorName);
  	 		}
  	 	}
- 	 }
+ 	 }   */
 	</script>
 
 </body>

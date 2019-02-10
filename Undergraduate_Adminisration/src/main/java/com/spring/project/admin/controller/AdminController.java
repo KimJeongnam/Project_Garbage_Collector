@@ -46,8 +46,9 @@ public class AdminController {
 	
 	//장학 신청 심사
 	@RequestMapping("/admin/judge")
-	public String janghak() {
+	public String judge(HttpServletRequest req, Model model) {
 		System.out.println("장학 심사");
+		service.judge(req,model);
 		
 		return "admin/judge";
 	}
@@ -92,7 +93,7 @@ public class AdminController {
 		System.out.println("장학 삭제");
 		service.deletePro(req,red);
 		
-		return "admin/registrationList";
+		return "redirect:/admin/registrationList";
 	}
 	
 	//장학 예산
@@ -144,6 +145,13 @@ public class AdminController {
 		/*service.professorList(req, model);*/
 		return "admin/empStdManagement";
 	}
+	
+	//휴복학 리스트
+	@RequestMapping("/admin/schoolLeaveList")
+	public String schoolLeaveList(HttpServletRequest req, Model model) {
+		service.schoolLeaveList(req, model);
+		return "admin/schoolLeaveList";
+	}
 	//교수상세정보 
 	@RequestMapping("/admin/proMyPage")
 	public String proMyPage() {
@@ -162,7 +170,12 @@ public class AdminController {
 		service.fandMList(req, model);
 		return "admin/stdInsert2";
 	}
-	
+	//임시 교수인서트
+	@RequestMapping("/admin/proInsert2")
+	public String proInsert2(HttpServletRequest req, Model model) {
+		service.fandMList(req, model);
+		return "admin/proInsert2";
+	}
 	/*@RequestMapping(value="/admin/selectFaculty", method=RequestMethod.POST)
 	public void selectFaculty(HttpServletRequest req, HttpServletResponse response, Model model) {
 		 
@@ -186,11 +199,11 @@ public class AdminController {
 	}*/
 	
 	@ResponseBody
-	@RequestMapping(value="/project/admin/selectFaculty",method=RequestMethod.POST)
+	@RequestMapping(value="/admin/selectFaculty",method=RequestMethod.POST)
 	public List<Major> getMajors(@RequestBody Map<String, Object> map){
 		logger.info("getMajors");
 		List<Major> list = null;
-		list = service.getMajors(map);
+		list = service.S_getMajors(map);
 		return list;
 	}
 	
@@ -198,6 +211,14 @@ public class AdminController {
 	@RequestMapping(value="/admin/getMajors", method=RequestMethod.POST)
 	public String getMajors(@RequestBody Map<String, Object> map, Model model) {
 		service.getMajors(map, model);
+		return "admin/majorLecMangePage/majorList";
+	}
+	
+	// 학과 삭제
+	@RequestMapping(value="/admin/deleteMajor", method=RequestMethod.POST)
+	public String deleteMajor(@RequestBody Map<String, Object>map) {
+		
+		
 		return "admin/majorLecMangePage/majorList";
 	}
 }

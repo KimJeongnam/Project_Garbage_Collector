@@ -25,6 +25,12 @@ public interface AdminService {
 	//단과대 + 학부 리스트
 	public void fandMList(HttpServletRequest req, Model model);
 	
+	//휴복학리스트
+	public void schoolLeaveList(HttpServletRequest req, Model model);
+	
+	//장학심사 
+	public void judge(HttpServletRequest req,  Model model);
+	
 	//장학 목록 
 	public void registrationList(HttpServletRequest req,  Model model);
 	
@@ -37,10 +43,12 @@ public interface AdminService {
 	//장학 글 삭제
 	public void deletePro(HttpServletRequest req,  RedirectAttributes red);
 
-	public List<Major> getMajors(Map<String, Object> map);
+	public List<Major> S_getMajors(Map<String, Object> map);
 	
 	//---------------교직 업무 관리 START-------------------
 	public void getMajors(Map<String, Object> map, Model model);
+	
+	public void deleteMajor(Map<String, Object>map);
 	
 	//---------------교직 업무 관리 END-------------------
 }

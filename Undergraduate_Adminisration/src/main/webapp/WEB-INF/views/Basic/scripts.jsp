@@ -1,5 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+<!-- button id : compose -->
+<!-- 메세지보내기 -->
+<div class="compose col-md-3 col-xs-12">
+	<div class="compose-header">
+		새로운 메세지
+		<button type="button" class="close compose-close">
+			<span>×</span>
+		</button>
+	</div>
+
+	<div class="compose-body">
+		<div id="alerts">메세지를 입력하신 후 '메세지 보내기' 버튼을 누르세요.</div>
+
+		<div id="editor" class="editor-wrapper" style="height: 125px;"></div>
+	</div>
+
+	<div class="compose-footer">
+		<button id="send" class="btn btn-sm btn-success" type="button">메세지
+			보내기</button>
+	</div>
+</div>
+<!-- /메세지보내기 -->
+
+
 			<!-- 메세지 모달창 -->
 			<div class="modal fade" id="msgModal" tabindex="-1" role="dialog" aria-hidden="true">
 				<div class="modal-dialog">

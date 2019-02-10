@@ -69,96 +69,41 @@
                                     <th>기간</th>
                                     <th>신청인</th>
                                     <th>승인여부</th>
-                                    <th>조회</th>
-
+                                    <th>구분</th>
                                 </tr>
                             </thead>
-
-
                             <tbody>
+                               <c:forEach var="getSL" items="${getSL}">
                                 <tr>
                                     <td>
                                         <input type="checkbox" class="flat" name="table_records">
                                     </td>
-                                    <td>0120</td>
-                                    <td>휴학</td>
-                                    <td>2019/01/21 ~ 2019/09/01</td>
-                                    <td>박순남</td>
-                                    <td>승인</td>
-                                    <td><button>조회</button>
-
-                                    </td>
-                                </tr>
-                                <tr>
                                     <td>
-                                        <input type="checkbox" class="flat" name="table_records">
+	                                    <c:if test = "${getSL.schoolLeaveStateCode == 0}">
+														
+										</c:if> 
+										<c:if test = "${getSL.schoolLeaveStateCode == 1}">
+														심사중
+										</c:if> 
+										<c:if test = "${getSL.schoolLeaveStateCode == 2}">
+														승인완료
+										</c:if> 
                                     </td>
-                                    <td>0120</td>
-                                    <td>휴학</td>
-                                    <td>2019/01/21 ~ 2019/09/01</td>
-                                    <td>박순남</td>
-                                    <td>승인</td>
+                                    <td>${getSL.kind}</td>
+                                    <td>${getSL.leaveStart} - ${getSL.leaveEnd}</td>
+                                    <td>${getSL.userName}</td>
+                                    <td>${getSL.leaveStatus}</td>
                                     <td><button>조회</button>
-
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>
-                                        <input type="checkbox" class="flat" name="table_records">
-                                    </td>
-                                    <td>0120</td>
-                                    <td>휴학</td>
-                                    <td>2019/01/21 ~ 2019/09/01</td>
-                                    <td>박순남</td>
-                                    <td>승인</td>
-                                    <td><button>조회</button>
-
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="checkbox" class="flat" name="table_records">
-                                    </td>
-                                    <td>0120</td>
-                                    <td>휴학</td>
-                                    <td>2019/01/21 ~ 2019/09/01</td>
-                                    <td>박순남</td>
-                                    <td>승인</td>
-                                    <td><button>조회</button>
-
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="checkbox" class="flat" name="table_records">
-                                    </td>
-                                    <td>0120</td>
-                                    <td>휴학</td>
-                                    <td>2019/01/21 ~ 2019/09/01</td>
-                                    <td>박순남</td>
-                                    <td>승인</td>
-                                    <td><button>조회</button>
-
-                                    </td>
-                                </tr>
-
-
+                                </c:forEach>
                             </tbody>
-
                         </table>
-
                     </div>
                 </div>
             </div>
-
-
-
-
         </div>
     </div>
-</div>
-</div>
-</div>
 </div>
 <!-- /page content -->
             

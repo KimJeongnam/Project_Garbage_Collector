@@ -33,15 +33,35 @@ public class StudentController {
 
 	//장학금 신청목록
 	@RequestMapping("/student/bulletin")
-	public String bulletin() {
+	public String bulletin(HttpServletRequest req, Model model) {
 		logger.info("bulletin");
+		service.bulletin(req, model);
+		
 		return "student/bulletin";
 	}
+	//장학금 글 상세 페이지
+	@RequestMapping("/student/contentForm")
+	public String contentForm(HttpServletRequest req, Model model) {
+		System.out.println("장학 상세");
+		service.contentForm(req,model);
+		
+		return "student/contentForm";
+	}
+	
+	@RequestMapping("/student/apply")
+	public String apply(HttpServletRequest req, RedirectAttributes red) {
+		System.out.println("장학 신청 완료");
+		service.apply(req,red);
+		
+		return "redirect:/student/bulletin";
+	} 
 
 	//장학금 수혜현황
 	@RequestMapping("/student/management")
 	public String management() {
 		logger.info("management");
+		//service.management(req, model);
+		
 		return "student/management";
 	}
 	//학생개인정보
@@ -64,15 +84,21 @@ public class StudentController {
 		logger.info("backToSchool");
 		return "student/backToSchool";
 	}
-
+	
+	// 수강신청 페이지
+	@RequestMapping(value="/student/lectureList", method=RequestMethod.GET)
+	public String lectureList() {
+		return "student/lectureListPage";
+	}
+	
 	//수강신청
 	@RequestMapping(value="/student/lectureList", method=RequestMethod.POST)
 	public String lectureList(@RequestBody Map<String, Object> map, Model model) {
-		/*logger.info("lectureList");*/
-		service.lectureList(map, model);
+		logger.info("lectureList");
+		service.lectureList(map, logger, model);
 		
-		service.schoolTimeTable(map, model);
-		return "student/lectureList2";
+		//service.schoolTimeTable(map, logger, model);
+		return "student/lectureList";
 	}
 
 	//내 학점 조회
@@ -81,31 +107,49 @@ public class StudentController {
 		logger.info("GPA");
 		return "student/GPA";
 	}
-
-	//시간표 조회
-	@RequestMapping("/student/schoolTimeTable")
-	public String schoolTimeTable(HttpServletRequest req, Model model) {
+	
+	// 시간표
+	@RequestMapping(value="/student/schoolTimeTable", method=RequestMethod.POST)
+	public String schoolTimeTable(@RequestBody Map<String, Object> map, Model model) {
 		logger.info("schoolTimeTable");
-		//service.schoolTimeTable(req, model);
 		
-		return "student/lectureList2";
+		service.schoolTimeTable(map, logger, model);
+		return "student/schoolTimeTable";
 	}
 	
-	//강의 검색
-	@RequestMapping("/student/lectureSearch")
-	public String lectureSearch(HttpServletRequest req, Model model) {
-		logger.info("lectureSearch");
-		//service.lectureSearch(req, model);
-		return "student/lectureList";
+	// 시간표 Hover
+	@RequestMapping(value="/student/lectureHover", method=RequestMethod.POST)
+	public String lectureHover(@RequestBody Map<String, Object> map, Model model) {
+		logger.info("schoolTimeTable");
+		
+		service.lectureHover(map, logger, model);
+		return "student/schoolTimeTable";
 	}
-	
+		
 	//강의 신청
-	@RequestMapping("/student/applyLecture")
-	public String applyLecture(HttpServletRequest req, RedirectAttributes red) {
+	@RequestMapping(value="/student/applyLecture", method=RequestMethod.POST)
+	public String applyLecture(@RequestBody Map<String, Object> map, RedirectAttributes red) {
 		logger.info("applyLecture");
-		//service.applyLecture(req, red);
 		
+		service.applyLecture(map, logger, red);
 		return "redirect:/student/lectureList";
 	}
 	
+	// 내 강의 신청 내역
+	@RequestMapping(value="/student/studentMyLecture", method=RequestMethod.POST)
+	public String studentMyLecture(@RequestBody Map<String, Object> map, Model model) {
+		logger.info("studentMyLecture");
+		
+		service.studentMyLecture(map, logger, model);
+		return "student/studentMyLecture";
+	}
+	
+	// 내 강의 신청 취소
+	@RequestMapping(value="/student/cancelLecture", method=RequestMethod.POST)
+	public String cancelLecture(@RequestBody Map<String, Object> map, RedirectAttributes red) {
+		logger.info("cancelLecture");
+		
+		service.cancelLecture(map, logger, red);
+		return "student/studentMyLecture";
+	}
 }

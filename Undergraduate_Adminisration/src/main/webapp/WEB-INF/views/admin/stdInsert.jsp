@@ -379,6 +379,11 @@
 	<script
 		src="/project/resources/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js"></script>
 	<script type="text/javascript">
+	$(document).ready(function(){
+		  $('#smartwizard').smartWizard();
+		  console.log( $('#smartwizard').smartWizard());
+		});
+	
 	function openZipSearch() {
 		daum.postcode.load(function(){
 		new daum.Postcode({
@@ -390,6 +395,7 @@
 		}).open();
 	});
 	};
+	
 	</script>
 
 </body>

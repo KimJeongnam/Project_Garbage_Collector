@@ -68,13 +68,19 @@
 		select * from major m, faculty f where f.faculty = m.faculty
 	</select>
 	
+	<!-- 휴복학 리스트 -->
+	<select id="getSchoolLeave" parameterType="java.util.Map" resultType="com.spring.project.admin.vo.AdStdVO">
+		select sl.schoolLeaveStateCode, sl.kind, sl.leaveStart, sl.leaveEnd, u.userName, sl.leaveStatus
+		from users u, schoolLeave sl
+		where u.userNumber = sl.stdNumber
+	</select>
 	<!-- 장학 단 -->
 	<!-- 장학단  -->
 	<!-- 장학글 갯수 -->
 	
 	<select id="getArticleCnt" resultType="int">
  	
- 	SELECT COUNT(*) as cnt FROM SCHOLARSHIP
+ 	SELECT COUNT(*) as cnt FROM SCHOLARSHIP where delstatus = 0
  	
  	</select>
  	
@@ -110,19 +116,32 @@
  	</select>
  	
  	<!-- 장학글 삭제 -->
- 	<delete id="" parameterType="com.spring.project.admin.vo.ScholarpkVO">
+ 	<update id="delete">
  	
- 	DELETE FROM SCHOLARSHIP 
- 	
- 	WHERE scholarpk =
- 	<foreach item="scholarpk" collection="SCHOLARPK" open="("
+ 	UPDATE SCHOLARSHIP 
+ 	SET delstatus = 1
+ 	WHERE scholarpk in
+ 	<foreach item="scholarpk" collection="array" open="("
 				separator="," close=")">
 				#{scholarpk}
 	</foreach>
  	
- 	</delete>
+ 	</update>
+ 	
+ 	<!-- 장학금 글 심사 -->
+ 	<select id="auditCnt" resultType="com.spring.project.admin.vo.auditVO">
+ 	
+ 	 select * from Evaluation where statCode=1
+ 	
+ 	</select>
+ 	
  	
  	<select id="getMajors" parameterType="java.util.Map" resultType="com.spring.project.share.vo.Major">
- 		SELECT * FROM major where faculty = #{faculty}
+ 		<!-- SELECT * FROM major where faculty = #{faculty} -->
+ 		<![CDATA[
+ 		SELECT * FROM major where  faculty = #{faculty}
+ 		and delStatus <> 1
+ 		ORDER BY majorNum ASC
+ 		]]>
  	</select>
 </mapper>

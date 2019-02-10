@@ -34,17 +34,17 @@
 							<tr>
 								<th class="control-label">단과대</th>
 								<td>
-									<select name="faculty" id ="faculty" onclick="selectFandM('selectedIndex.value',id)">
+									<select name="faculty" id ="faculty" >
 							       		<option value="" >분류없음</option>
-							       		<c:forEach var="fa" items="${outFandM}" varStatus="q">
-											<option id="faculty${q.index}" value="${fa.faculty}">${fa.faculty}</option>
+							       		<c:forEach var="fa" items="${outFandM}" >
+											<option value="${fa.faculty}">${fa.faculty}</option>
 										</c:forEach>	
 						      		</select>
 								</td>
 								<th class="control-label">학과번호</th>
 								<td>
 									<select name="majorNum" id ="majorNum">
-							       		<option value="분류없음" >분류없음</option>
+							       		<option value="" >분류없음</option>
 							  		</select>
 								</td>
 							</tr>
@@ -157,64 +157,88 @@
 		daum.postcode.load(function(){
 		new daum.Postcode({
 			oncomplete: function(data) {
-				$('[name=zip]').val(data.zonecode); // 우편번호 (5자리)
-				$('[name=addr1]').val(data.address);
-				$('[name=addr2]').val(data.buildingName);
+				$('[name=userZipCode]').val(data.zonecode); // 우편번호 (5자리)
+				$('[name=userAddr1]').val(data.address);
+				$('[name=useraddr2]').val(data.buildingName);
 			}
 		}).open();
 	});
 	};
 	
-	/* ajax를 통해 값을넘기는 부분 */
-	 function selectFandM(key, majorNum){
+	
+ 	$('#faculty').change(function(){
+ 		var obj = new Object();
+ 		// 임의의 obj변수명 faculty에 faculty라는 클라스가 변할때 값을 담는다.
+ 		obj.faculty = $(this).val(); 
+ 		
+ 		//위의 obj에 담긴 값을 json문자열데이터 변환해서 jsonData에 담는다.
+ 		var jsonData = JSON.stringify(obj);
+ 		
+ 		if($(this).val()==""){
+ 			
+ 			$('#majorNum').empty(); // 메이저 셀렉터 초기화
+ 			// 초기화 이후 들어갈 value와 text 설정
+ 			$('#majorNum').append($('<option>', {
+				text : '선택하세요',
+				disabled : 'disabled',
+				selected : 'selected'
+			}));
+ 			console.log(obj);
+ 		}else{
+ 			$.ajax({
+ 				url : "/project/admin/selectFaculty",
+ 				type : 'POST',
+ 				data : jsonData,
+ 				contentType : 'application/json;charset=UTF-8',
+ 				success : function(data){
+ 					setMajors(data);
+ 					
+ 					/* $('#majorNum').empty(); 
+ 					
+ 					//여기서의 data는 위의 매개변수 데이터, 즉, 위에서 매핑하여 내려온 jsonData
+ 					for(var i=0; i<data.length; i ++){
+ 						$('#majorNum').append($('<option>',{
+ 							
+ 							//데이터의 변수명은 vo의 정의된 변수명과 동일해야 함.
+ 			 				text : data[i].majorNum +" : "+ data[i].majorName,
+ 			 				value : data[i].majorNum
+ 			 			}));
+ 					} */
+ 				},
+ 				error : function(){
+ 					alert("잘못된 접근입니다.")
+ 				}
+ 			});
+ 		}
+ 	});
+ 	/*자바스크립트 - 메이저넘 셀렉터에 옵션값을 성정해줌.   */
+ 	  var setMajors = function(data){
+		$('#majorNum').empty();
 		
-		//자바스크립트 객체
-		var obj = new Object();
-			obj.key = key;
-		 
-		var jsonData = JSON.stringify(obj);
-		$.ajax({
-			url:"/project/admin/selectFaculty",
-			type:"post",
-			contentType:'application/json;charset=UTF-8',
-			data:jsonData,
-			success: function(data) {
-				/* $('#majorNum').html(data); */
-				alert("w진행")
-				majorDisplay(data)
-		    },
-		    error:function(){
-		    	alert("에러")
-			}
-	   });
- 	}; 
- 	
- 	/*자바스크립트 - 셀렉트 박스안의 옵션태그에 키와 값을 부여하는 방법   */
- 	  var setFacultys = function(facultys){
-		$('#faculty').empty();
-		
-		$('#faculty').append($('<option>', {
+		$('#majorNum').append($('<option>', {
 			text : '선택하세요',
 			disabled : 'disabled',
 			selected : 'selected'
 		}));
 		
-		for(var i=0; i<facultys.length; i++){
-			$('#majorNum').append($('<option>', { 
-		        value: facultys[i].get("majorNum"),
-		        text : facultys[i].get("majorNum")
-		    }));
+		for(var i=0; i<data.length; i++){
+			$('#majorNum').append($('<option>',{
+			
+				//데이터의 변수명은 vo의 정의된 변수명과 동일해야 함.
+				text : data[i].majorNum +" : "+ data[i].majorName,
+				value : data[i].majorNum
+			}));
 		}
 	}  
  	
  	//셀렉트박스 디스플레이
- 	 function majorDisplay(major){
+ /* 	 function majorDisplay(major){
  	 	if(major!=null){
  	 		for(var i=0; i<major.length; i++){
  	 			majorDisplay(major[i].majorNum, major[i].majorName);
  	 		}
  	 	}
- 	 }
+ 	 }  */
 	</script>
 
 </body>
