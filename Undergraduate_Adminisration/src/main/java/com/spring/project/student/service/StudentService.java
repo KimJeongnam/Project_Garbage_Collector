@@ -20,7 +20,7 @@ public interface StudentService {
 	public void schoolTimeTable(Map<String, Object> map, Logger logger, Model model);
 	
 	//장학금 신청 
-	public void bulletin(HttpServletRequest req, Model model);
+	public void bulletin(Map<String, Object> map, Logger logger, Model model);
 	
 	//장학금 글 신청 상세
 	public void contentForm(HttpServletRequest req,  Model model); 

@@ -3,6 +3,7 @@ function studentLecture(userNumber, page){
 	obj.userNumber = userNumber;
 	obj.pageNum = page;
 	
+	
 	if($('#lectureList-pagesize')!=null)
 		obj.pageSize = $('#lectureList-pagesize')[0].value;
 	if($('#lectureList-search-keyword')[0].value.length > 0){

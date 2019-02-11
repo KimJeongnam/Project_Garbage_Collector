@@ -30,15 +30,30 @@ public class StudentController {
 		logger.info("index");
 		return "student/index";
 	}
+	
+	// 수강신청 페이지
+	@RequestMapping(value="/student/bulletin", method=RequestMethod.GET)
+	public String bulletinPage() {
+		return "student/bulletinPage";
+	}
 
 	//장학금 신청목록
-	@RequestMapping("/student/bulletin")
-	public String bulletin(HttpServletRequest req, Model model) {
+	/*@RequestMapping("/student/bulletin")*/
+	@RequestMapping(value="/student/studentBulletinlist", method=RequestMethod.POST)
+	public String bulletin(@RequestBody Map<String, Object> map, Model model) {
 		logger.info("bulletin");
-		service.bulletin(req, model);
+		service.bulletin(map, logger, model);
 		
 		return "student/bulletin";
 	}
+	
+	/*//장학금 신청목록
+		@RequestMapping("/student/bulletin , method=RequestMethod.GET")
+		public String bulletin(HttpServletRequest req, Model model) {
+			logger.info("bulletin");
+			
+			return "student/bulletinPage";
+		}*/
 	//장학금 글 상세 페이지
 	@RequestMapping("/student/contentForm")
 	public String contentForm(HttpServletRequest req, Model model) {
