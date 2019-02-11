@@ -14,11 +14,15 @@ import org.springframework.stereotype.Service;
 
 import com.spring.project.restful.dao.RestfulDAO;
 import com.spring.project.restful.vo.Message;
+import com.spring.project.share.dao.ShareDAO;
+import com.spring.project.share.vo.Major;
 
 @Service
 public class RestfulServiceImpl implements RestfulService {
 	@Autowired
 	RestfulDAO dao;
+	@Autowired
+	ShareDAO shareDao;
 
 	@Override
 	public Map<String, List<Message>> getMessages(Map<String, Object> map, HttpServletRequest request, Logger logger) {
@@ -49,7 +53,12 @@ public class RestfulServiceImpl implements RestfulService {
 			
 			for(Message msg : list) {
 				if(!nets.containsKey(msg.getMessageCode())) {
-					newMessages.add(msg);
+					try {
+						newMessages.add((Message) msg.clone());
+					} catch (CloneNotSupportedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			}
 			
@@ -58,14 +67,12 @@ public class RestfulServiceImpl implements RestfulService {
 			 */
 			Collections.sort(newMessages);
 			result.put("notReadMessages", list);
-			request.getSession().setAttribute("Messages", list);
-			
 		} else {
-			request.getSession().setAttribute("Messages", list);
 			result.put("notReadMessages", list);
 		}
 
 		//logger.info("response list Size() : " + newMessages.size());
+		request.getSession().setAttribute("Messages", list);
 		result.put("newMessages", newMessages);
 
 		return result;
@@ -76,4 +83,12 @@ public class RestfulServiceImpl implements RestfulService {
 	public Message showMessage(Map<String, Object> map, Logger logger) {
 		return dao.showMessage(map);
 	}
+
+	// 학과 조회
+	@Override
+	public List<Major> getMajors(Map<String, Object> map) {
+		return shareDao.getMajors(map);
+	}
+	
+	
 }

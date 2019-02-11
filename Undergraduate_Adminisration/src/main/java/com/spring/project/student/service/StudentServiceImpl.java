@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.spring.project.admin.vo.ScholarpkVO;
 import com.spring.project.restful.vo.Message;
 import com.spring.project.student.dao.StudentDAO;
+import com.spring.project.student.vo.GpaVO;
 import com.spring.project.student.vo.LectureVO;
 
 @Service
@@ -58,7 +59,7 @@ public class StudentServiceImpl implements StudentService {
 		// 수강신청 목록 갯수 구하기
 		cnt = dao.getLectureCnt(map);
 
-		logger.info("Message total : " + cnt);
+		logger.info("Lecture total : " + cnt);
 
 		pageCount = cnt / pageSize + (cnt % pageSize > 0 ? 1 : 0);
 
@@ -123,6 +124,8 @@ public class StudentServiceImpl implements StudentService {
 		String userNumber = (String) map.get("userNumber");
 
 		List<LectureVO> dtos = dao.schoolTimeTable(userNumber);
+		System.out.println("dtos : " + dtos);
+		
 		model.addAttribute("dtosT", dtos);
 	}
 
@@ -334,6 +337,27 @@ public class StudentServiceImpl implements StudentService {
 		} else {
 			red.addFlashAttribute("message","수강신청 취소 에러메시지!!"); 
 		}
+	}
+	// 강의 목록 조회(전공)
+	@Override
+	public void lectureListMajor(Model model) {
+		List<LectureVO> dtos = dao.getMajor();
+		model.addAttribute("dtosM", dtos);
+		
+	}
+	
+	// 내 학점 조회
+	@Override
+	public void GPA(HttpServletRequest req, Model model) {
+		String userNumber = (String)req.getSession().getAttribute("userNumber");
+		
+		// 전체학기 성적 목록
+		List<GpaVO> dtos = dao.GPA(userNumber);
+		model.addAttribute("dtos", dtos);
+		
+		// 신청 학점
+		int applyCredit = dao.ApplyCredit(userNumber);
+		model.addAttribute("applyCredit", applyCredit);
 	}
 
 }

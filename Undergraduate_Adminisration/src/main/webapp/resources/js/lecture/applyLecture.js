@@ -10,6 +10,16 @@ function studentLecture(userNumber, page){
 		obj.keyword = $('#lectureList-search-keyword')[0].value;
 	}
 	
+	if($('#lectureList-major')!=null)
+		if(!($('#lectureList-major')[0].value == 0))
+			obj.major = $('#lectureList-major')[0].value;
+	if($('#lectureList-classification')!=null)
+		if(!($('#lectureList-classification')[0].value == 0))
+			obj.classification = $('#lectureList-classification')[0].value;
+	if($('#lectureList-grade')!=null)
+		if(!($('#lectureList-grade')[0].value == 0))
+			obj.grade = $('#lectureList-grade')[0].value;
+	
 	var jsonData = JSON.stringify(obj);
 	
 	$.ajax({
@@ -21,8 +31,6 @@ function studentLecture(userNumber, page){
 			if(data != null){
 				if($('#lectureList')!= null)
 					$('#lectureList').html(data);
-				studentMyLecture(userNumber);
-				studentTimetable(userNumber);
 			}
 			
 		},
@@ -45,9 +53,16 @@ function studentTimetable(userNumber){
 		contentType : 'application/json;charset=UTF-8',
 		success : function(data){
 			if(data != null){
-				if($('#schoolTimeTable')!= null)
+				if($('#schoolTimeTable')!= null){
 					$('#schoolTimeTable').empty();
 					$('#schoolTimeTable').html(data);
+					setTimeout(function(){
+						schedules.each(function(){
+							// create SchedulePlan objects
+							objSchedulesPlan.push(new SchedulePlan($(this)));
+						});
+				}, 100);
+				}
 			}
 		},
 		error:function(){
@@ -92,6 +107,7 @@ function applyLecture(userNumber, lecCode){
 		data : jsonData,
 		contentType : 'application/json;charset=UTF-8',
 		success : function(data){
+			studentLecture(userNumber,1);
 			studentMyLecture(userNumber);
 			studentTimetable(userNumber);
 		},
@@ -114,11 +130,7 @@ function cancelLecture(userNumber, lecCode){
 		data : jsonData,
 		contentType : 'application/json;charset=UTF-8',
 		success : function(data){
-			/*if(data != null){
-				if($('#schoolTimeTable')!= null && $('#MyLectureList')!= null)
-					$('#schoolTimeTable').html(data);
-					$('#MyLectureList').html(data);
-			}*/
+			studentLecture(userNumber,1);
 			studentMyLecture(userNumber);
 			studentTimetable(userNumber);
 		},

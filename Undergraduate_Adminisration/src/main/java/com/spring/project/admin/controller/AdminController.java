@@ -1,6 +1,6 @@
 package com.spring.project.admin.controller;
 
-import java.util.List;
+//github.com/KimJeongnam/Project_Garbage_Collector.git
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -143,6 +143,13 @@ public class AdminController {
 		/*service.professorList(req, model);*/
 		return "admin/empStdManagement";
 	}
+	
+	//휴복학 리스트
+	@RequestMapping("/admin/schoolLeaveList")
+	public String schoolLeaveList(HttpServletRequest req, Model model) {
+		service.schoolLeaveList(req, model);
+		return "admin/schoolLeaveList";
+	}
 	//교수상세정보 
 	@RequestMapping("/admin/proMyPage")
 	public String proMyPage() {
@@ -157,10 +164,22 @@ public class AdminController {
 	}
 	//임시 학생인서트
 	@RequestMapping("/admin/stdInsert2")
-	public String stdInsert2() {
-		
+	public String stdInsert2(HttpServletRequest req, Model model) {
+		service.fandMList(req, model);
 		return "admin/stdInsert2";
 	}
+	//임시 교수인서트
+	@RequestMapping("/admin/proInsert2")
+	public String proInsert2(HttpServletRequest req, Model model) {
+		service.fandMList(req, model);
+		return "admin/proInsert2";
+	}
+	/*@RequestMapping(value="/admin/selectFaculty", method=RequestMethod.POST)
+	public void selectFaculty(HttpServletRequest req, HttpServletResponse response, Model model) {
+		 
+		service.fandMList(req, model);
+	     
+	}*/
 	
 	@RequestMapping("/admin/menu7")
 	public String menu7() {
@@ -168,27 +187,38 @@ public class AdminController {
 		return "admin/menu7";
 	}
 	
-	@ResponseBody
-	@RequestMapping(value="/rest/json/getMajors")
-	public List<Major> getMajors(@RequestBody Map<String, Object> map){
-		logger.info("getMajors");
-		List<Major> list = null;
-		list = service.getMajors(map);
-		return list;
-	}
 	
+	//---------------------------------학과, 강의 관리 START----------------------------------------
 	// 학과 조회(게시판 형식)
-	@RequestMapping(value="/admin/getMajors", method=RequestMethod.POST)
+	@RequestMapping(value="/admin/major_lecture_Manager/getMajors", method=RequestMethod.POST)
 	public String getMajors(@RequestBody Map<String, Object> map, Model model) {
+		logger.info("String getMajors()");
 		service.getMajors(map, model);
 		return "admin/majorLecMangePage/majorList";
 	}
 	
 	// 학과 삭제
-	@RequestMapping(value="/admin/deleteMajor", method=RequestMethod.POST)
-	public String deleteMajor(@RequestBody Map<String, Object>map) {
-		
-		
-		return "admin/majorLecMangePage/majorList";
+	@ResponseBody
+	@RequestMapping(value="/admin/major_lecture_Manager/ajax/deleteMajor", method=RequestMethod.POST)
+	public Map<String, Object> deleteMajor(@RequestBody Map<String, Object>map) {
+		logger.info("deleteMajor()");
+		return service.deleteMajor(map);
 	}
+	
+	// 학과 추가
+	@ResponseBody
+	@RequestMapping(value="/admin/major_lecture_Manager/addMajor", method=RequestMethod.POST)
+	public Map<String, Object> addMajor(@RequestBody Major major){
+		logger.info("addMajor()");
+		return service.addMajor(major);
+	}
+	
+	// 강의 조회
+	@RequestMapping(value="/admin/major_lecture_Manager/getLectureList", method=RequestMethod.POST)
+	public String getLectureList(@RequestBody Map<String, Object> map) {
+		
+		return "";
+	}
+	
+	//---------------------------------학과, 강의 관리 END----------------------------------------
 }

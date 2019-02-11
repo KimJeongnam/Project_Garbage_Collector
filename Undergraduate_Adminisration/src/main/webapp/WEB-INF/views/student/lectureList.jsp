@@ -33,7 +33,7 @@
 		</thead>
 		<tbody>
 			<c:forEach var="dto" items="${dtosL}">
-				<tr id="lectureHover">
+				<tr>
 					<td>${dto.grade}학년</td>
 					<td id="getLecCode">${dto.lecCode}</td>
 					<td><c:if test="${dto.lectureClassfication == 1}">
@@ -46,7 +46,7 @@
 					<td>${dto.accountHolder}</td>
 					<td>${dto.classTime}</td>
 					<td>${dto.maximumCapacity}</td>
-					<th><a onclick="applyLecture('${userNumber}','${dto.lecCode}')"
+					<th><a onclick="applyLecture('${userNumber}','${dto.lecCode}');"
 						class="btn btn-success"><i class="fa fa-edit m-right-xs"></i>신청</a></th>
 				</tr>
 			</c:forEach>
@@ -117,16 +117,8 @@
 
 	<!-- .cd-schedule schedule폴더에 js추가됨-->
 	<script src="/project/resources/js/schedule/modernizr.js"></script>
-	<!-- 	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script> -->
-	<!-- <script>
-	if( !window.jQuery ) document.write('<script src="/project/resources/js/schedule/jquery-3.0.0.min.js"><\/script>');
-	</script> -->
 	<script src="/project/resources/js/schedule/main.js"></script>
-	<!-- <script type="text/javascript">
-		$("#lectureHover").hover(function(){
-			$(this).css("background-color", "yellow");
-		});
-	</script> -->
+	<script type="text/javascript">
+	</script>
 </body>
 </html>
