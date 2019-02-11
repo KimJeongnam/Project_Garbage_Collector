@@ -131,7 +131,7 @@ public class StudentServiceImpl implements StudentService {
 
 	// 강의 신청
 	@Override
-	public void applyLecture(Map<String, Object> map, Logger logger, RedirectAttributes red) {
+	public Map<String, Object> applyLecture(Map<String, Object> map, Logger logger) {
 		String userNumber = (String) map.get("userNumber");
 		String lecCode = (String) map.get("lecCode");
 
@@ -143,6 +143,8 @@ public class StudentServiceImpl implements StudentService {
 		
 		int cnt = dao.checkLecture(map); // 수강신청할 강의 체크 - 학생 시간표에서 있는지 체크 
 		System.out.println("cnt1 : " +cnt); 
+		
+		Map<String, Object> responseData = new HashMap<String,Object>();
 		if (cnt == 0) { 	// 0 이면 시간표에 없음
 			int selectCnt = dao.checkStudentInLecture(lecCode); // selectCnt 현재 강의 신청한 인원수 
 			System.out.println("selectCnt2 : " + selectCnt);
@@ -153,14 +155,15 @@ public class StudentServiceImpl implements StudentService {
 			  
 			int cnt2 = dao.checkStudentInLecture2(map2); // 강의 최대인원수 = 현재인원수 이면 1 강의 신청실패
 			System.out.println("cnt3 : " + cnt2); 
-			red.addFlashAttribute("message", "");
+			
 			if(cnt2 == 1){
-				dao.applyLecture(map); 
-				red.addFlashAttribute("message","수강신청완료"); } 
+				dao.applyLecture(map);
+				} 
 			if(cnt2 != 1){
-				red.addFlashAttribute("message","수강신청실패-강의 신청인원이 마감되었습니다."); }
+				responseData.put("message","수강신청실패-강의 신청인원이 마감되었습니다."); }
 		} else {
-			red.addFlashAttribute("message","수강신청실패-신청하신 강의 시간이 중복되었습니다."); }
+			responseData.put("message","수강신청실패-신청하신 강의 시간이 중복되었습니다."); }
+		return responseData;
 	}
 		 
 	
@@ -330,18 +333,19 @@ public class StudentServiceImpl implements StudentService {
 	
 	// 강의 취소
 	@Override
-	public void cancelLecture(Map<String, Object> map, Logger logger, RedirectAttributes red) {
-		String userNumber = (String) map.get("userNumber");
+	public Map<String, Object> cancelLecture(Map<String, Object> map, Logger logger) {
+		Map<String, Object> responseData = new HashMap<String,Object>();
+		/*String userNumber = (String) map.get("userNumber");
 		String lecCode = (String) map.get("lecCode");
 		map.put("userNumber", userNumber);
-		map.put("lecCode", lecCode);
+		map.put("lecCode", lecCode);*/
 		
 		int deleteCnt = dao.cancelLecture(map);
 		if(deleteCnt > 0) {
-			red.addFlashAttribute("message","수강신청 취소 완료"); 
 		} else {
-			red.addFlashAttribute("message","수강신청 취소 에러메시지!!"); 
+			responseData.put("message","수강신청 취소 에러메시지!!"); 
 		}
+		return responseData;
 	}
 	// 강의 목록 조회(전공)
 	@Override

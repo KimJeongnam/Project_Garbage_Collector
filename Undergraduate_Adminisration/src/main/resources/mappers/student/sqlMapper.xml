@@ -9,26 +9,33 @@
 	<!-- 수강신청 목록 갯수 구하기 -->
 	<select id="getLectureCnt" parameterType="java.util.Map"
 		resultType="int">
-		select count(*) from lectureview
+		select count(*) from
+		(SELECT rownum rNum, accountHolder, lecCode, majorName, lectureName, lectureClassfication, maximumcapacity, grade
+		, grantedSemester, lectureScore, classRoom, classTime
+		from
+		(SELECT e.accountHolder, l.lecCode,m.majorName,l.lectureName, l.lectureClassfication, (l.maximumcapacity-(select count(*) from studentClassInfo where lecCode=l.lecCode)) 
+		as maximumcapacity, l.grade,
+		l.grantedSemester, l.lectureScore, l.classRoom, LISTAGG(to_char(t.lectureDay)||t.lectureTimeCode, ',')within group(order by t.lectureTimeCode) as classTime
+		FROM employee e , lecture l, lectureTime lt, timetable t, major m 
 		<where>
+			e.empNumber = l.empNumber and l.lecCode = lt.lecCode and lt.timetblCode = t.timetblCode and m.majorNum=l.majorNum
 			<if test="keyword != null">
-				lecCode like '%'||#{keyword}||'%' OR
-				lectureName like '%'||#{keyword}||'%' OR
-				lectureScore like '%'||#{keyword}||'%' OR
-				accountHolder like '%'||#{keyword}||'%' OR
-				classTime like '%'||#{keyword}||'%' OR
-				maximumCapacity like '%'||#{keyword}||'%'
+				AND LOWER(l.lectureName) like '%'||LOWER(#{keyword})||'%'
 			</if>
 			<if test="major != null">
-				AND majorName like '%'||#{major}||'%'
+				AND m.majorName like '%'||#{major}||'%'
 			</if>
 			<if test="classification != null">
-				AND lectureClassfication like '%'||#{classification}||'%'
+				AND l.lectureClassfication like '%'||#{classification}||'%'
 			</if>
 			<if test="grade != null">
-				AND grade like '%'||#{grade}||'%'
+				AND l.grade like '%'||#{grade}||'%'
 			</if>
 		</where>
+			GROUP BY e.accountHolder, l.lecCode,m.majorName,l.lectureName, l.lectureClassfication, maximumcapacity,l.grade,
+			l.grantedSemester, l.lectureScore, l.classRoom
+		)
+		)
 	</select>
 
 	<!-- 수강신청 목록 조회 -->
@@ -36,26 +43,30 @@
 		resultType="com.spring.project.student.vo.LectureVO">
 
 		select * from
-		(select * from lectureview
+		(SELECT rownum rNum, accountHolder, lecCode, majorName, lectureName, lectureClassfication, maximumcapacity, grade
+		, grantedSemester, lectureScore, classRoom, classTime
+		from
+		(SELECT e.accountHolder, l.lecCode,m.majorName,l.lectureName, l.lectureClassfication, (l.maximumcapacity-(select count(*) from studentClassInfo where lecCode=l.lecCode)) as maximumcapacity,l.grade,
+		l.grantedSemester, l.lectureScore, l.classRoom, LISTAGG(to_char(t.lectureDay)||t.lectureTimeCode, ',')within group(order by t.lectureTimeCode) as classTime
+		FROM employee e , lecture l, lectureTime lt, timetable t, major m 
 		<where>
+			e.empNumber = l.empNumber and l.lecCode = lt.lecCode and lt.timetblCode = t.timetblCode and m.majorNum=l.majorNum
 			<if test="keyword != null">
-				lecCode like '%'||#{keyword}||'%' OR
-				lectureName like '%'||#{keyword}||'%' OR
-				lectureScore like '%'||#{keyword}||'%' OR
-				accountHolder like '%'||#{keyword}||'%' OR
-				classTime like '%'||#{keyword}||'%' OR
-				maximumCapacity like '%'||#{keyword}||'%'
+				AND LOWER(l.lectureName) like '%'||LOWER(#{keyword})||'%'
 			</if>
 			<if test="major != null">
-				AND majorName like '%'||#{major}||'%'
+				AND m.majorName like '%'||#{major}||'%'
 			</if>
 			<if test="classification != null">
-				AND lectureClassfication like '%'||#{classification}||'%'
+				AND l.lectureClassfication like '%'||#{classification}||'%'
 			</if>
 			<if test="grade != null">
-				AND grade like '%'||#{grade}||'%'
+				AND l.grade like '%'||#{grade}||'%'
 			</if>
 		</where>
+			GROUP BY e.accountHolder, l.lecCode,m.majorName,l.lectureName, l.lectureClassfication, maximumcapacity,l.grade,
+			l.grantedSemester, l.lectureScore, l.classRoom
+		)
 		)
 		<where>
 			<![CDATA[

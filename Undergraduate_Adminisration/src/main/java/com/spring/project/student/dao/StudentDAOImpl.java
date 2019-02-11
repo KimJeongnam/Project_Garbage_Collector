@@ -108,8 +108,6 @@ public class StudentDAOImpl implements StudentDAO{
 		return Cnt;
 	}
 
-	
-
 	@Override
 	public List<LectureVO> studentMyLecture(String userNumber) {
 		return sqlSession.selectList("com.spring.project.student.dao.StudentDAO.studentMyLecture", userNumber);

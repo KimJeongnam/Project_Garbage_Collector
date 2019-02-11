@@ -31,7 +31,6 @@ function studentLecture(userNumber, page){
 				if($('#lectureList')!= null)
 					$('#lectureList').html(data);
 			}
-			
 		},
 		error:function(){
 			alert("Error! studentLecture();");
@@ -106,6 +105,10 @@ function applyLecture(userNumber, lecCode){
 		data : jsonData,
 		contentType : 'application/json;charset=UTF-8',
 		success : function(data){
+			if(data.message != null){
+				alert(data.message);
+				return;
+			}
 			studentLecture(userNumber,1);
 			studentMyLecture(userNumber);
 			studentTimetable(userNumber);
@@ -129,6 +132,10 @@ function cancelLecture(userNumber, lecCode){
 		data : jsonData,
 		contentType : 'application/json;charset=UTF-8',
 		success : function(data){
+			if(data.message != null){
+				alert(data.message);
+				return;
+			}
 			studentLecture(userNumber,1);
 			studentMyLecture(userNumber);
 			studentTimetable(userNumber);
