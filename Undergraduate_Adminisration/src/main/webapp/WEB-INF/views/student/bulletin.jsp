@@ -15,14 +15,12 @@
 	</style>
 </head>
 <body class="nav-md">
-	<%@ include file="../Basic/navbar.jsp" %>
-	
 			<!-- page content -->
-            <div class="right_col" role="main">
+            <div class="" role="main" style="width: 1600px;">
                 <div class="">
                     <div class="page-title">
                         <div class="title_left">
-							<h2>장학금 심사</h2>
+							<h2>장학금 신청 글</h2>
 							
 						</div>
 					</div>
@@ -31,22 +29,6 @@
 					<div class="x_panel">
                     <div class="row">
 						<div class="x_content">
-							Date Range Picker
-		                       <form class="form-horizontal">
-		                         <fieldset>
-		                           <div class="control-group">
-		                             <div class="controls">
-		                               <div class="input-prepend input-group">
-		                                 <span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
-		                                 <input type="text" style="width: 200px" name="reservation" id="reservation" class="form-control" value="01/01/2019 - 01/25/2019" />
-		                               </div>
-		                             </div>
-		                           </div>
-		                         </fieldset>
-		                       </form>
-
-		                    <p>Add class <code>bulk_action</code> to table for bulk actions options on row select</p>
-		
 		                    <div class="table-responsive" style="text-align: center;">
 		                      <table class="table table-striped jambo_table bulk_action">
 		                        <thead>
@@ -75,6 +57,63 @@
 		                          
 		                        </tbody>
 		                      </table>
+		                      
+		                      <div class="row">
+								<div class="col-sm-5">
+									<div class="dataTables_info" id="datatable_info" role="status"
+										aria-live="polite">Showing ${number} to ${number+pageCount} of
+										${cnt} entries</div>
+								</div>
+							
+								<div class="col-sm-7">
+									<div class="text-right">
+										<ul class="pagination">
+											<c:if test="${cnt > 0 }">
+												<c:if test="${startPage > pageBlock }">
+													<a href="/student/bulletin">[◀◀]</a>
+													<a href="/student/bulletin?pageNum=${startPage - pageBlock }">[◀&nbsp;prev]</a>
+							
+													<li class="paginate_button previous disabled"
+														style="cursor: pointer;" id="datatable_previous"><a
+														onclick="studentBulletinlist('${userNumber}', 1);"
+														aria-controls="datatable" data-dt-idx="0" tabindex="0">Frist</a></li>
+													<li class="paginate_button previous disabled"
+														style="cursor: pointer;"
+														onclick="studentBulletinlist('${userNumber}', ${startPage - pageBlock});"
+														id="datatable_previous"><a aria-controls="datatable"
+														data-dt-idx="0" tabindex="0">Previous</a></li>
+												</c:if>
+												<c:forEach var="page" begin="${startPage }" end="${endPage }">
+													<c:choose>
+														<c:when test="${pageNum == page }">
+															<li class="paginate_button active"><a href="#"
+																aria-controls="datatable" tabindex="0">${page }</a></li>
+														</c:when>
+														<c:otherwise>
+															<li class="paginate_button" style="cursor: pointer;"
+																onclick="studentBulletinlist('${userNumber}', ${page });"><a
+																aria-controls="datatable" tabindex="0">${page }</a></li>
+														</c:otherwise>
+													</c:choose>
+												</c:forEach>
+							
+												<c:if test="${pageCount > endPage }">
+													<li class="paginate_button next" id="datatable_next"
+														style="cursor: pointer;"
+														onclick="studentBulletinlist('${userNumber}', ${startPage + pageBlock });">
+														<a aria-controls="datatable" tabindex="0">Next</a>
+													</li>
+													<li class="paginate_button next" id="datatable_next"
+														style="cursor: pointer;"
+														onclick="studentBulletinlist('${userNumber}', ${pageCount });">
+														<a aria-controls="datatable" tabindex="0">Last</a>
+													</li>
+												</c:if>
+											</c:if>
+										</ul>
+									</div>
+								</div>
+							</div>
 		                    </div>
 		                    
 		                  </div>
