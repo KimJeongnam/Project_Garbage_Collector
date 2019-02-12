@@ -55,10 +55,19 @@ public interface AdminDAO {
 	
 	
 	//---------------교직 업무 관리 START-------------------
+	// 학과 갯수 조회
+	public int majorListCount(Map<String, Object> map);
+	// 학과 조회
+	public List<Major> majorList(Map<String, Object> map);
 	// 학과 삭제
 	public int  deleteMajor(Map<String, Object> map);
 	// 학과 등록
 	public int addMajor(Major major);
+	// 학과 수정
+	public int modifyMajor(Major major);
+	
+	// 해당 교수 빈 강의 조회
+	public List<Object> emptyLecTime(String empNumber);
 	
 	//---------------교직 업무 관리 END-------------------
 	

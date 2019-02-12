@@ -10,9 +10,7 @@
 <body class="nav-md">
 	<%@ include file="../../Basic/navbar.jsp"%>
 
-	<script type="text/javascript">
-	
-	</script>
+
 	<!-- page content -->
 	<div class="right_col" role="main">
 		<div class="">
@@ -47,12 +45,31 @@
 						</div>
 						<div class="x_content">
 							<div class="row form-inline">
-								<label>단과대: 
-									<select class="form-control input-sm"
-										id="collegeSelector" onchange="getMajors();">
-											<option selected="selected" value="0">전체</option>
-									</select>
-								</label>
+								<div class="col-md-3 col-sm-4 col-xs-6" style="padding-right: 0px;">
+										<label>
+											Show
+											<select class="form-control input-sm" id="major-pagesize" onchange="getMajors();">
+												<option value="5">5</option>
+												<option value="10" selected="selected">10</option>
+												<option value="25">25</option>
+												<option value="50">50</option>
+												<option value="100">100</option>
+											</select>
+										</label>
+									</div>
+									<div class="col-md-5 col-sm-4 col-xs-6" style="padding-right: 0px;">	
+										<label>단과대: </label>
+										<select class="form-control input-sm"
+											id="collegeSelector" onchange="getMajors();">
+												<option selected="selected" value="0">전체</option>
+										</select>
+									</div>
+									<div class="col-md-4 col-sm-8 col-xs-6" style="padding-right: 0px;">
+										<div style="text-align: right;">
+											<input type="search" id="major-search-keyword" class="form-control input-sm col-md-2"
+												onkeyup="getMajors();" placeholder="Search">
+										</div>
+								</div>
 							</div>
 							<div id="majorList"></div>
 							<input type="button" class="btn btn-primary"
@@ -70,7 +87,41 @@
 							<div class="clearfix"></div>
 						</div>
 						<div class="x_content">
-							
+							<div class="row form-inline">
+								<div class="col-sm-2">
+										<label>
+											Show
+											<select class="form-control input-sm" id="major-pagesize" onchange="getMajors();">
+												<option value="5">5</option>
+												<option value="10" selected="selected">10</option>
+												<option value="25">25</option>
+												<option value="50">50</option>
+												<option value="100">100</option>
+											</select>
+										</label>
+									</div>
+									
+								<div class="col-sm-2">	
+									<label>단과대: 
+										<select class="form-control input-sm"
+											id="collegeSelector" onchange="getMajors();">
+												<option selected="selected" value="0">전체</option>
+										</select>
+									</label>
+								</div>
+								<div class="col-sm-8">
+										<div style="text-align: right;">
+											<label>
+												Search:
+												<input type="search" id="lecture-search-keyword" class="form-control input-sm"
+													onkeyup="getMajors();" placeholder="학과명">
+											</label>
+										</div>
+								</div>
+							</div>
+							<div id="lectureList"></div>
+							<input type="button" class="btn btn-primary"
+								onclick="" value="신규">
 						</div>
 					</div>
 				</div>

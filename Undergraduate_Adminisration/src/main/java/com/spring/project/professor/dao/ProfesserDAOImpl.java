@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.spring.project.professor.vo.classStudentVO;
 import com.spring.project.professor.vo.myClassVO;
 import com.spring.project.professor.vo.myPageVO;
+import com.spring.project.professor.vo.searchVO;
 import com.spring.project.professor.vo.studentVO;
 
 @Repository
@@ -106,6 +107,11 @@ public class ProfesserDAOImpl implements ProfesserDAO{
 	@Override
 	public List<classStudentVO> getStudent(Map<String, Object> map) {
 		return sql.selectList("com.spring.project.professor.dao.ProfesserDAO.getStudent",map);
+	}
+
+	@Override
+	public List<searchVO> search_student(Map<String, Object> map) {
+		return sql.selectList("com.spring.project.professor.dao.ProfesserDAO.search_student",map);
 	}
 
 

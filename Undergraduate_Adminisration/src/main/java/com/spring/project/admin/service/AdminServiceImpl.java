@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -408,8 +408,74 @@ public class AdminServiceImpl implements AdminService{
 	//---------------교직 업무 관리 START-------------------
 	@Override
 	public void getMajors(Map<String, Object> map, Model model) {
-		List<Major> majors = shareDao.getMajors(map);
-		model.addAttribute("majors", majors);
+		List<Major> majors = null;
+		
+		int pageSize = 0; // 한 페이지당 출력할 글 갯수
+		int pageBlock = 5; // 한블럭당 페이지 갯수
+
+		int cnt = 0; // 총 글 갯수
+		int start = 0; // 현재 페이지 시작 글번호
+		int end = 0; // 현재 페이지 마지막 글 번호
+		int number = 0; // 출력용 글번호
+		int pageNum = 0; // 페이지 번호
+		int pageCount = 0; // 페이지 갯수
+		int startPage = 0; // 시작 페이지
+		int endPage = 0; // 마지막 페이지
+		
+		if(!map.containsKey("pageSize")) {
+			pageSize = 10;
+		}else
+			pageSize = Integer.parseInt((String)map.get("pageSize"));
+		
+		if(!map.containsKey("pageNum"))
+			pageNum = 1;
+		else {
+			if(map.get("pageNum") instanceof Integer)
+				pageNum = (Integer)map.get("pageNum");
+			else if(map.get("pageNum") instanceof String)
+				pageNum = Integer.parseInt((String)map.get("pageNum"));
+		}
+			
+		cnt = dao.majorListCount(map);
+		
+		pageCount = cnt / pageSize + (cnt % pageSize> 0 ? 1:0);
+		
+		start = (pageNum -1) * pageSize+1;
+		end = start + pageSize -1;
+		
+		map.put("start", start);
+		map.put("end", end);
+		
+		if(end > cnt)
+			end = cnt;
+		
+		number = cnt - (pageNum - 1) * pageSize;
+		
+		if(cnt > 0) {
+			majors = dao.majorList(map);
+			model.addAttribute("majors", majors);
+		}
+		
+		startPage = (pageNum / pageBlock) * pageBlock + 1;
+		
+		if (pageNum % pageBlock == 0)
+			startPage -= pageBlock;
+		
+		endPage = startPage + pageBlock - 1;
+		if (endPage > pageCount)
+			endPage = pageCount;
+		
+		model.addAttribute("cnt", cnt);
+		model.addAttribute("number", number);
+		model.addAttribute("pageNum", pageNum);
+		
+		if (cnt > 0) {
+			model.addAttribute("startPage", startPage); // 시작 페이지
+			model.addAttribute("endPage", endPage); // 마지막 페이지
+			model.addAttribute("pageBlock", pageBlock); // 출력할 페이지 갯수
+			model.addAttribute("pageCount", pageCount); // 페이지 갯수
+			model.addAttribute("pageSize", pageSize);
+		}
 	}
 	
 	// 학과 삭제
@@ -436,7 +502,25 @@ public class AdminServiceImpl implements AdminService{
 	//학과 수정
 	@Override
 	public Map<String, Object> modifyMajor(Major major) {
-		return null;
+		Map<String, Object> resultmap = new HashMap<String, Object>();
+		
+		resultmap.put("status", dao.modifyMajor(major));
+		
+		return resultmap;
+	}
+	
+	// 교수의 빈강의시간 조회
+	@Override
+	public void getEmptyLecTime(String empNumber, Model model) {
+		List<Object> days = new ArrayList<Object>();
+		List<Object> list = dao.emptyLecTime(empNumber);
+		days.add("월");
+		days.add("화");
+		days.add("수");
+		days.add("목");
+		days.add("금");
+		model.addAttribute("days", days);
+		model.addAttribute("dtos", list);
 	}
 	
 	//---------------교직 업무 관리 END-------------------

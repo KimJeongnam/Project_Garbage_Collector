@@ -121,13 +121,36 @@ public class AdminDAOImpl implements AdminDAO{
 	}
 
 	//---------------교직 업무 관리 START-------------------
+	// 학과 리스트 갯수 구하기
+	@Override
+	public int majorListCount(Map<String, Object> map) {
+		return sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.majorListCount", map);
+	}
+	
+	// 학과 조회
+	@Override
+	public List<Major> majorList(Map<String, Object> map) {
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.majorList", map);
+	}
+	
+	// 학과 폐지
 	@Override
 	public int deleteMajor(Map<String, Object> map) {
 		return sqlSession.update("com.spring.project.admin.dao.AdminDAO.deleteMajor", map);
 	}
+	// 학과 개설
 	@Override
 	public int addMajor(Major major) {
 		return sqlSession.insert("com.spring.project.admin.dao.AdminDAO.addMajor", major);
+	}
+	// 학과 수정
+	@Override
+	public int modifyMajor(Major major) {
+		return sqlSession.update("com.spring.project.admin.dao.AdminDAO.modifyMajor", major);
+	}
+	@Override
+	public List<Object> emptyLecTime(String empNumber) {
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.emptyLecTime", empNumber);
 	}
 	//---------------교직 업무 관리 END-------------------
 	

@@ -81,6 +81,7 @@ var schedules = $('.cd-schedule');
 
 			// detect click on the event and open the modal
 			$(this).on('click', 'a', function(event){
+				if(typeof modal == 'undefined')return;
 				event.preventDefault();
 				if( !self.animating ) self.openModal($(this));
 			});
@@ -371,6 +372,12 @@ var schedules = $('.cd-schedule');
 			element.scheduleReset();
 		});
 		windowResize = false;
+	}
+	
+	function Schedulereflash(){
+		objSchedulesPlan.forEach(function(element){
+			element.initSchedule();
+		});
 	}
 
 	function getScheduleTimestamp(time) {
