@@ -8,6 +8,7 @@ import java.util.Map;
 import com.spring.project.professor.vo.classStudentVO;
 import com.spring.project.professor.vo.myClassVO;
 import com.spring.project.professor.vo.myPageVO;
+import com.spring.project.professor.vo.searchVO;
 import com.spring.project.professor.vo.studentVO;
 
 public interface ProfesserDAO {
@@ -36,6 +37,8 @@ public interface ProfesserDAO {
 	List<myClassVO> myClass(String userNumber);
 	//강의별 수강학생목록
 	List<classStudentVO> getStudent(Map<String, Object> map);
+	//학생검색
+	List<searchVO> search_student(Map<String, Object> map);
 	
 
 

@@ -153,4 +153,6 @@
 	
 	<!-- 단과대, 학과, 강의 등등 AJAX -->
 	<script src="${staticPath }/js/share/getDivisions.js"></script>
+	<!-- jQuery autocomplete -->
+    <script src="${staticPath }/vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
     

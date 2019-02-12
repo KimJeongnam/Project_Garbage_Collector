@@ -20,6 +20,7 @@ import com.spring.project.professor.dao.ProfesserDAO;
 import com.spring.project.professor.vo.classStudentVO;
 import com.spring.project.professor.vo.myClassVO;
 import com.spring.project.professor.vo.myPageVO;
+import com.spring.project.professor.vo.searchVO;
 import com.spring.project.professor.vo.studentVO;
 import com.spring.project.share.vo.ShareUserInfo;
 
@@ -206,6 +207,22 @@ public class ProfessorServiceImpl implements ProfessorService {
 		
 		model.addAttribute("vo",vo);
 		
+	}
+	//학생검색
+	@Override
+	public void search_student(Map<String, Object> map, HttpServletRequest req, Model model) {
+		
+		String userNumber = (String) req.getSession().getAttribute("userNumber");
+		String userName = (String) map.get("search");
+		
+		map.put("userNumber", userNumber);
+		map.put("userName", userName);
+		
+		List<searchVO> search_student = dao.search_student(map);
+		
+		System.out.println("내 강의 학생검색 search_student : " + search_student);
+		
+		model.addAttribute("search_student",search_student);
 	}
 
 }
