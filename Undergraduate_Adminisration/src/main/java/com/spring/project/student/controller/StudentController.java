@@ -205,7 +205,7 @@ public class StudentController {
 	// 수강신청 페이지
 	@RequestMapping(value="/student/bulletin", method=RequestMethod.GET)
 	public String bulletinPage() {
-		return "student/bulletinPage";
+		return "student/bulletin/bulletinPage";
 	}
 
 	//장학금 신청목록
@@ -215,7 +215,7 @@ public class StudentController {
 		logger.info("bulletin");
 		service.bulletin(map, logger, model);
 		
-		return "student/bulletin";
+		return "student/bulletin/bulletin";
 	}
 	//장학금 글 상세 페이지
 	@RequestMapping("/student/contentForm")

@@ -40,7 +40,7 @@ public interface StudentDAO {
 	public int applyLecture(Map<String, Object> map);
 	
 	//장학금 갯수 
-	public int getArticleCnt();
+	public int getArticleCnt(Map<String,Object> map);
 	
 	//장학금 글 목록
 	public List<ScholarpkVO> getArticleList(Map<String,Object> map);

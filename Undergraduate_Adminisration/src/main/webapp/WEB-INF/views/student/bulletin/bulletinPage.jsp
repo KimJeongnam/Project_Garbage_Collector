@@ -5,11 +5,11 @@
 <head>
 <meta charset="UTF-8">
 
-<%@ include file="../Basic/settings.jsp"%>
+<%@ include file="../../Basic/settings.jsp"%>
 <title>Insert title here</title>
 </head>
 <body class="nav-md">
-	<%@ include file="../Basic/navbar.jsp"%>
+	<%@ include file="../../Basic/navbar.jsp"%>
 	<!-- page content -->
 	<div class="right_col" role="main">
 		<div class="">
@@ -30,8 +30,9 @@
 									<div class="row form-inline">
 										<div class="col-sm-6">
 											<label> 년도 <select class="form-control input-sm"
-												id="lectureList-pagesize" name="year"
-												onchange="studentBulletinlist('${userNumber}', 1);">
+												id="bulletinList-year"
+												onchange="studentBulletinlist('${userNumber}');">
+													<option value="0" selected="selected">선택</option>
 													<option value="1998">1998</option>
 													<option value="1999">1999</option>
 													<option value="2000">2000</option>
@@ -58,8 +59,9 @@
 											</label>
 											
 											<label> 학기 <select class="form-control input-sm"
-												id="lectureList-pagesize"
-												onchange="studentLecture('${userNumber}', 1);">
+												id="bulletinList-semester"
+												onchange="studentBulletinlist('${userNumber}');">
+													<option value="0" selected="selected">선택</option>
 													<option value="1">1 학기</option>
 													<option value="2">2 학기</option>
 											</select>
@@ -77,11 +79,11 @@
 	</div>
 	
 	<!-- /page content -->
-	<%@ include file="../Basic/footer.jsp"%>
+	<%@ include file="../../Basic/footer.jsp"%>
 	<script type="text/javascript">
 		$(function() {
-	<%@ include file="../Basic/docReadyScripts.jsp" %>
-		studentBulletinlist('${userNumber}');
+	<%@ include file="../../Basic/docReadyScripts.jsp" %>
+		 studentBulletinlist('${userNumber}'); 
 		});
 	</script>
 

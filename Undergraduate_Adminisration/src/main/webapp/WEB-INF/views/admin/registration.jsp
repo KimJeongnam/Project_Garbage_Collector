@@ -18,7 +18,7 @@
                     <div class="page-title">
                         <div class="title_left">
 						<h2>장학금 등록하기</h2>
-						<form action="rigisterPro" onsubmit="checkEditer();">	<!--  -->
+						<form action="rigisterPro" name="inputform" onsubmit="return checkEditer();">	<!--  -->
 							
 						<div class="x_panel">
 							<!-- 장학금명 폼 -->
@@ -26,7 +26,7 @@
 							<div class="col-md-6"> <!--  container 안에서 grid system 사용 -->
 							<div class="form-group"> 
 							<label for="name">년 도</label> 
-							<input type="text" class="form-control" name="year" id="year" placeholder="Enter name"> 
+							<input type="text" class="form-control" name="year" id="year" onchange="dateFormat();" placeholder="Enter name"> 
 							</div> 
 							</div> 
 							
@@ -35,7 +35,7 @@
 							<div class="col-md-6"> 
 							<div class="form-group"> 
 							<label for="date">학기</label> 
-							<input type="text" class="form-control" name="semester" id="semester" placeholder="Enter date"> 
+							<input type="text" class="form-control" name="semester" id="semester" onchange="dateFormat2();" placeholder="Enter date"> 
 							</div> 
 							</div> 
 							
@@ -44,7 +44,7 @@
 							<!-- 구분 폼 -->
 							<div class="form-group"> 
 							<label for="price">지급 금액</label> 
-							<input type="text" class="form-control" name ="amount" id="amount" placeholder="Enter price"> 
+							<input type="text" class="form-control" name ="amount" id="amount" onchange="dateFormat3();" placeholder="Enter price"> 
 							</div> 
 							
 							<!-- 금액 입력 폼 -->
@@ -55,34 +55,34 @@
 							
 							<!-- 글내용 입력 폼  -->
 							<div class="x_content">
-                  <div id="alerts"></div>
-                  <div class="btn-toolbar editor" data-role="editor-toolbar" data-target="#editor-one">
-                    <div class="btn-group">
-                      <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font"><i class="fa fa-font"></i><b class="caret"></b></a>
-                      <ul class="dropdown-menu">
-                      </ul>
-                    </div>
-
-                    <div class="btn-group">
-                      <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font Size"><i class="fa fa-text-height"></i>&nbsp;<b class="caret"></b></a>
-                      <ul class="dropdown-menu">
-                        <li>
-                          <a data-edit="fontSize 5">
-                            <p style="font-size:17px">Huge</p>
-                          </a>
-                        </li>
-                        <li>
-                          <a data-edit="fontSize 3">
-                            <p style="font-size:14px">Normal</p>
-                          </a>
-                        </li>
-                        <li>
-                          <a data-edit="fontSize 1">
-                            <p style="font-size:11px">Small</p>
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
+			                  <div id="alerts"></div>
+			                  <div class="btn-toolbar editor" data-role="editor-toolbar" data-target="#editor-one">
+			                    <div class="btn-group">
+			                      <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font"><i class="fa fa-font"></i><b class="caret"></b></a>
+			                      <ul class="dropdown-menu">
+			                      </ul>
+			                    </div>
+			
+			                    <div class="btn-group">
+			                      <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font Size"><i class="fa fa-text-height"></i>&nbsp;<b class="caret"></b></a>
+			                      <ul class="dropdown-menu">
+			                        <li>
+			                          <a data-edit="fontSize 5">
+			                            <p style="font-size:17px">Huge</p>
+			                          </a>
+			                        </li>
+			                        <li>
+			                          <a data-edit="fontSize 3">
+			                            <p style="font-size:14px">Normal</p>
+			                          </a>
+			                        </li>
+			                        <li>
+			                          <a data-edit="fontSize 1">
+			                            <p style="font-size:11px">Small</p>
+			                          </a>
+			                        </li>
+			                      </ul>
+			                    </div>
 
                     <div class="btn-group">
                       <a class="btn" data-edit="bold" title="Bold (Ctrl/Cmd+B)"><i class="fa fa-bold"></i></a>
@@ -166,6 +166,49 @@
 		$(function (){
 			
 		});
+		//날짜형식
+		function dateFormat() {
+		 var date_pattern = /^(19|20)\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])$/; 
+		 var obj = document.inputform.year.value;
+		 if(!date_pattern .test(obj)){
+			alert("날짜 형식이 잘못되었습니다");
+		 return;
+		 }
+		 //숫자 형식  
+		}
+		
+		function dateFormat2() {
+		 var obj = document.inputform.semester.value;
+		 
+		 if(!(obj == 1 || obj == 2)){
+			alert("학기 데이터 형식 잘못되었습니다");
+		 return;
+		 }
+		}
+		
+		function dateFormat3() {
+		var obj = document.inputform.amount.value;
+		
+		 if(!(obj >= 100000 && obj < 10000000)){
+			alert("장학금 금액을 잘못 입력 하셨습니다");
+		 return;
+		 }
+		} 
+		
+	  function checkEditer() {
+		var scholarname = document.inputform.scholarname.value;
+		var content = $('#editor-one')[0].innerHTML
+		alert(content+"33");
+		 if(!scholarname){
+			alert("장학금 명을 입력해주세요");
+			return false;
+		 }
+		if(content==0){
+			alert("장학금 내용을 입력해주세요");
+			return false;
+		 }
+		} 
+		
 	</script>
 </body>
 </html>

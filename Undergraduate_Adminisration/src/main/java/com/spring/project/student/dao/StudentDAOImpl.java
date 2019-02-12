@@ -79,21 +79,21 @@ public class StudentDAOImpl implements StudentDAO{
 	}
 	//장학금 글 갯수
 	@Override
-	public int getArticleCnt() {
-		int selectCnt = sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.getArticleCnt");
+	public int getArticleCnt(Map<String, Object> map) {
+		int selectCnt = sqlSession.selectOne("com.spring.project.student.dao.StudentDAO.getArticleCnt",map);
 		return selectCnt;
 	}
 	//장학금 글 목록
 	@Override
 	public List<ScholarpkVO> getArticleList(Map<String, Object> map) {
-		List<ScholarpkVO> dtos = sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.getArticleList",map);
+		List<ScholarpkVO> dtos = sqlSession.selectList("com.spring.project.student.dao.StudentDAO.getArticleList",map);
 		
 		return dtos;
 	}
 	//장학금 상세 
 	@Override
 	public ScholarpkVO getArticle(int scholarpk) {
-		ScholarpkVO dtos = sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.getArticle",scholarpk);
+		ScholarpkVO dtos = sqlSession.selectOne("com.spring.project.student.dao.StudentDAO.getArticle",scholarpk);
 		return dtos;
 	}
 	//장학금 중복확인 검사

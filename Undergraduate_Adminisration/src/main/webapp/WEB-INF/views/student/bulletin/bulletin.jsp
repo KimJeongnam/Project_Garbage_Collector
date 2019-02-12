@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-	<%@ include file="../Basic/settings.jsp" %>
+	<%@ include file="../../Basic/settings.jsp" %>
 <title>Insert title here</title>
 
 	<style>
@@ -16,7 +16,7 @@
 </head>
 <body class="nav-md">
 			<!-- page content -->
-            <div class="" role="main" style="width: 1600px;">
+            <div class="" role="main" style="width: 1800px;">
                 <div class="">
                     <div class="page-title">
                         <div class="title_left">
@@ -124,13 +124,12 @@
             </div>
             <!-- /page content -->
             
-	<%@ include file="../Basic/footer.jsp" %>
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 	
 	
 	
     <script type="text/javascript">
-		<%@ include file="../Basic/datePickerJS.jsp"%>
+		<%@ include file="../../Basic/datePickerJS.jsp"%>
 	</script>
 	
 </body>

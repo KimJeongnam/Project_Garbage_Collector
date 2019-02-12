@@ -203,7 +203,7 @@ public class StudentServiceImpl implements StudentService {
 		else
 			pageNum = (Integer) map.get("pageNum");
 		// 수강신청 목록 갯수 구하기
-		cnt = dao.getArticleCnt();
+		cnt = dao.getArticleCnt(map);
 
 		logger.info("Message total : " + cnt);
 
@@ -216,7 +216,12 @@ public class StudentServiceImpl implements StudentService {
 		logger.info("end : " + end);
 		map.put("start", start);
 		map.put("end", end);
-
+		
+		if(map.get("year") != "0") {
+		map.put("year", map.get("year"));
+		map.put("smester", map.get("smester"));
+		}
+		
 		if (end > cnt)
 			end = cnt;
 
@@ -225,12 +230,12 @@ public class StudentServiceImpl implements StudentService {
 		logger.info("userNumber : " + map.get("userNumber"));
 		logger.info("start : " + map.get("start"));
 		logger.info("end : " + map.get("end"));
+		logger.info("year : " + map.get("year"));
+		logger.info("smester : " + map.get("smester"));
+		logger.info("cnt : " + cnt);
 		
 		if (cnt > 0) {
 			// 수강신청 목록 조회
-			map.put("start", start);
-			map.put("end", end);
-
 			List<ScholarpkVO> dtos = dao.getArticleList(map);
 
 			model.addAttribute("dtos", dtos);
