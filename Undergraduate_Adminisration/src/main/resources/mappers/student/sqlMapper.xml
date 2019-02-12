@@ -13,7 +13,7 @@
 			<where>
 			grade||'학년' like '%'||#{keyword}||'%' OR
 			lecCode like '%'||#{keyword}||'%' OR
-			lectureName like '%'||#{keyword}||'%' OR
+			LOWER(lectureName) like '%'||LOWER(#{keyword})||'%' OR
 			lectureScore like '%'||#{keyword}||'%' OR
 			accountHolder like '%'||#{keyword}||'%' OR
 			classTime like '%'||#{keyword}||'%' OR
@@ -31,7 +31,7 @@
 			<if test="keyword != null">
 				grade like '%'||#{keyword}||'%' OR
 				lecCode like '%'||#{keyword}||'%' OR
-				lectureName like '%'||#{keyword}||'%' OR
+				LOWER(lectureName) like '%'||LOWER(#{keyword})||'%' OR
 				lectureScore like '%'||#{keyword}||'%' OR
 				accountHolder like '%'||#{keyword}||'%' OR
 				classTime like '%'||#{keyword}||'%' OR

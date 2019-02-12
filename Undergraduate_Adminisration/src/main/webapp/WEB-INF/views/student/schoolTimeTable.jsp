@@ -4,7 +4,7 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600"
 	rel="stylesheet">
-<link rel="stylesheet" href="/project/resources/css/schedule/reset.css">
+<!-- <link rel="stylesheet" href="/project/resources/css/schedule/reset.css"> -->
 <!-- CSS reset -->
 <link rel="stylesheet" href="/project/resources/css/schedule/style.css">
 <!-- Resource style -->
@@ -50,7 +50,7 @@
 						<c:if test="${dto.lectureDay == '월'}">
 							<li class="single-event" data-start="${dto.beginningLectureTime}"
 								data-end="${dto.endLectureTime}" data-event="event-${dto.rank}"><a
-								href="#0"><span></span> <em class="event-name">${dto.lectureName}</em>
+								href="#0"><span></span> <em class="event-name" style="font-size: 15px;">${dto.lectureName}</em>
 							</a></li>
 						</c:if>
 					</c:forEach>
@@ -66,7 +66,7 @@
 						<c:if test="${dto.lectureDay == '화'}">
 							<li class="single-event" data-start="${dto.beginningLectureTime}"
 								data-end="${dto.endLectureTime}" data-event="event-${dto.rank}"><a
-								href="#0"><span></span> <em class="event-name">${dto.lectureName}</em>
+								href="#0"><span></span> <em class="event-name" style="font-size: 15px;">${dto.lectureName}</em>
 							</a></li>
 						</c:if>
 					</c:forEach>
@@ -82,7 +82,7 @@
 						<c:if test="${dto.lectureDay == '수'}">
 							<li class="single-event" data-start="${dto.beginningLectureTime}"
 								data-end="${dto.endLectureTime}" data-event="event-${dto.rank}"><a
-								href="#0"><span></span> <em class="event-name">${dto.lectureName}</em>
+								href="#0"><span></span> <em class="event-name" style="font-size: 15px;">${dto.lectureName}</em>
 							</a></li>
 						</c:if>
 					</c:forEach>
@@ -98,7 +98,7 @@
 						<c:if test="${dto.lectureDay == '목'}">
 							<li class="single-event" data-start="${dto.beginningLectureTime}"
 								data-end="${dto.endLectureTime}" data-event="event-${dto.rank}"><a
-								href="#0"><span></span> <em class="event-name">${dto.lectureName}</em>
+								href="#0"><span></span> <em class="event-name" style="font-size: 15px;">${dto.lectureName}</em>
 							</a></li>
 						</c:if>
 					</c:forEach>
@@ -114,7 +114,7 @@
 						<c:if test="${dto.lectureDay == '금'}">
 							<li class="single-event" data-start="${dto.beginningLectureTime}"
 								data-end="${dto.endLectureTime}" data-event="event-${dto.rank}"><a
-								href="#0"><span></span> <em class="event-name">${dto.lectureName}</em>
+								href="#0"><span></span> <em class="event-name" style="font-size: 15px;">${dto.lectureName}</em>
 							</a></li>
 						</c:if>
 					</c:forEach>

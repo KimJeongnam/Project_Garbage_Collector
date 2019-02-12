@@ -135,6 +135,57 @@
  	
  	</select>
  	
+ 	<!-- ==========================================교직 업무 관리 START========================================= -->
+ 	<!-- 교직 업무 관리 -->
+ 	<select id="majorListCount" parameterType="java.util.Map" resultType="int">
+ 		SELECT COUNT(*) 
+	    FROM (
+	        SELECT ROWNUM rnum, majorNum, faculty, majorName, maxnum
+	        FROM major 
+			<where>
+				<![CDATA[ delStatus <> 1 ]]>
+				<choose>
+					<when test="keyword != null">
+						AND majorName like '%'|| #{keyword} ||'%'
+					</when>
+					<when test="keyword != null and college!=null">
+						AND majorName like '%'|| #{keyword} ||'%' AND faculty = #{college}
+					</when>
+					<when test="keyword==null and college!=null">
+						AND faculty = #{college}
+					</when>
+				</choose>
+			</where>
+	    	)
+ 	</select>
+ 	
+ 	<select id="majorList" parameterType="java.util.Map" resultType="com.spring.project.share.vo.Major">
+ 		SELECT * 
+	    FROM (
+	        SELECT ROWNUM rnum, majorNum, faculty, majorName, maxnum
+	        FROM major 
+			<where>
+				<![CDATA[ delStatus <> 1 ]]>
+				<choose>
+					<when test="keyword != null">
+						AND majorName like '%'|| #{keyword} ||'%'
+					</when>
+					<when test="keyword != null and college!=null">
+						AND majorName like '%'|| #{keyword} ||'%' AND faculty = #{college}
+					</when>
+					<when test="keyword==null and college!=null">
+						AND faculty = #{college}
+					</when>
+				</choose>
+				
+			</where>
+			ORDER BY majorNum
+		    )
+		    <![CDATA[
+		    WHERE rnum >= #{start} AND rnum <= #{end}
+		    ]]>
+ 	</select>
+ 	
  	<update id="deleteMajor" parameterType="java.util.Map">
  		UPDATE major SET
 	    delStatus = 1
@@ -145,4 +196,28 @@
  		INSERT INTO major 
     	values(SEQ_MAJOR_MAJORNUM.nextval, #{faculty}, #{majorName}, #{maxNum}, 0)
  	</insert>
+ 	
+ 	<update id="modifyMajor" parameterType="com.spring.project.share.vo.Major">
+ 		UPDATE major
+ 		<set>
+ 			<if test="faculty != null"> faculty = #{faculty}</if>
+ 			<if test="majorName != null">, majorName = #{majorName}</if>
+ 			<if test="maxNum != null">, maxNum = #{maxNum}</if>
+ 			<if test="delStatus != null">, delStatus = #{delStatus}</if>
+ 		</set>
+ 		WHERE majorNum = #{majorNum}
+ 	</update>
+ 	
+ 	<!-- =====강의 관리==== -->
+ 	<select id="emptyLecTime" resultType="com.spring.project.admin.vo.LectureTime">
+ 	select * 
+    FROM timetable
+    WHERE timetblCode NOT IN(
+        SELECT lt.timetblCode
+            FROM lectureTime lt JOIN lecture l
+            ON lt.leccode = l.leccode
+            WHERE l.empNumber = #{empNumber})
+            ORDER BY timetblCode
+ 	</select>
+ 	<!-- ==========================================교직 업무 관리 END========================================= -->
 </mapper>
