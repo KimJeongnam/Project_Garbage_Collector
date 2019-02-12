@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.spring.project.admin.vo.ScholarpkVO;
+import com.spring.project.student.vo.GpaVO;
 import com.spring.project.student.vo.LectureVO;
 
 public interface StudentDAO {
@@ -39,7 +40,7 @@ public interface StudentDAO {
 	public int applyLecture(Map<String, Object> map);
 	
 	//장학금 갯수 
-	public int getArticleCnt();
+	public int getArticleCnt(Map<String,Object> map);
 	
 	//장학금 글 목록
 	public List<ScholarpkVO> getArticleList(Map<String,Object> map);
@@ -66,4 +67,10 @@ public interface StudentDAO {
 	
 	// 강의 목록 조회(전공)
 	public List<LectureVO> getMajor();
+	
+	// 내 학점 조회
+	public List<GpaVO> GPA(String userNumber);
+	
+	// 신청 학점
+	public int ApplyCredit(String userNumber);
 }

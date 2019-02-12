@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-	<%@ include file="../Basic/settings.jsp" %>
+	<%@ include file="../../Basic/settings.jsp" %>
 <title>Insert title here</title>
 
 	<style>
@@ -15,7 +15,7 @@
 	</style>
 </head>
 <body class="nav-md">
-	<%@ include file="../Basic/navbar.jsp" %>
+	<%@ include file="../../Basic/navbar.jsp" %>
 	
 			<!-- page content -->
             <div class="right_col" role="main">
@@ -83,63 +83,62 @@
 		                      </table>
 		                      
 		                      <!-- 페이지 컨트롤 -->
-		<table style="width:1000px" align="center">
-			<tr>
-				<th align = "center">
-					<!-- 게시글이 있으면  -->
-					<c:if test="${cnt > 0 }">
-						<!-- 처음[◀◀]/이전블록[◀]-->
-						<c:if test ="${startPage > pageBlock}">
-							<a href="boardList.bo">[◀◀]</a>
-							<a href="boardList.bo?pageNum=${startPage-pageBlock}">[◀]</a>
+							<div class="col-sm-7">
+									<div class="text-right">
+										<ul class="pagination">
+											<c:if test="${cnt > 0 }">
+												<c:if test="${startPage > pageBlock }">
+													<a href="/admin/registrationList">[◀◀]</a>
+													<a href="/admin/registrationList?pageNum=${startPage - pageBlock }">[◀&nbsp;prev]</a>
 							
-						</c:if>
-						
-						<c:forEach var ="i" begin="${startPage}" end="${endPage}">
-							<c:if test="${i == currentPage }">
-								<span><b>[${i}]</b></span>
+													<li class="paginate_button previous disabled"
+														style="cursor: pointer;" id="datatable_previous"><a
+														onclick="adminregistrationListlist('${userNumber}', 1);"
+														aria-controls="datatable" data-dt-idx="0" tabindex="0">Frist</a></li>
+													<li class="paginate_button previous disabled"
+														style="cursor: pointer;"
+														onclick="adminregistrationListlist('${userNumber}', ${startPage - pageBlock});"
+														id="datatable_previous"><a aria-controls="datatable"
+														data-dt-idx="0" tabindex="0">Previous</a></li>
+												</c:if>
+												<c:forEach var="page" begin="${startPage }" end="${endPage }">
+													<c:choose>
+														<c:when test="${pageNum == page }">
+															<li class="paginate_button active"><a href="#"
+																aria-controls="datatable" tabindex="0">${page }</a></li>
+														</c:when>
+														<c:otherwise>
+															<li class="paginate_button" style="cursor: pointer;"
+																onclick="adminregistrationListlist('${userNumber}', ${page });"><a
+																aria-controls="datatable" tabindex="0">${page }</a></li>
+														</c:otherwise>
+													</c:choose>
+												</c:forEach>
 							
-							</c:if>
-							<c:if test="${i != currentPage }">
-								<a href="boardList.bo?pageNum=${i}">[${i}]</a>
-							
-							</c:if>
-						
-						</c:forEach>
-						
-						
-					
-					
-					
-						<!-- 다음[▶]/마지막[▶▶]-->
-						<c:if test ="${pageCount > endPage}">
-						
-							<a href="boardList.bo?pageNum=${startPage+pageBlock}">[▶]</a>
-							<a href="boardList.bo?pageNum=${pageCount}">[▶▶]</a>
-						</c:if>
-					</c:if>
-				</th>
-			</tr>
-	</table>
-		                      <input type = "button" value="글쓰기" onclick="window.location='registration'" style="float: right">
-		                      <input type = "button" value="글 삭제" name="aaaa" onclick="delete_scholar();" style="float: right">
-		                      <!-- window.location='deletePro?scholarpk=${dto.scholarpk}' -->
-		                    </div>
-		                    
-		                  </div>
-		                  </div>
-		              </div>
-								
-                </div>
-            </div>
+												<c:if test="${pageCount > endPage }">
+													<li class="paginate_button next" id="datatable_next"
+														style="cursor: pointer;"
+														onclick="adminregistrationListlist('${userNumber}', ${startPage + pageBlock });">
+														<a aria-controls="datatable" tabindex="0">Next</a>
+													</li>
+													<li class="paginate_button next" id="datatable_next"
+														style="cursor: pointer;"
+														onclick="adminregistrationList('${userNumber}', ${pageCount });">
+														<a aria-controls="datatable" tabindex="0">Last</a>
+													</li>
+												</c:if>
+											</c:if>
+										</ul>
+									</div>
+								</div>
             <!-- /page content -->
             
-	<%@ include file="../Basic/footer.jsp" %>
+	<%@ include file="../../Basic/footer.jsp" %>
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     
 	
     <script type="text/javascript">
-		<%@ include file="../Basic/datePickerJS.jsp"%>
+		<%@ include file="../../Basic/datePickerJS.jsp"%>
 		
 	</script>
 	
@@ -151,7 +150,7 @@
 		var form = document.createElement("form");
 		form.setAttribute("charset", "UTF-8");
 		form.setAttribute("method", "POST");
-		form.setAttribute("action", "../admin/deletePro");
+		form.setAttribute("action", "../../admin/deletePro");
 		
 		var cnt = 0;
 		

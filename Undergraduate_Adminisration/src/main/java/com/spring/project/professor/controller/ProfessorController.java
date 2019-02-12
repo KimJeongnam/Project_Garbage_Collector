@@ -89,6 +89,12 @@ public class ProfessorController {
 			return "professor/myClassStudent";
 		}
 		
+		@RequestMapping(value="/professor/list/search_student", method=RequestMethod.POST)
+		public String search_student(@RequestBody Map<String, Object> map, HttpServletRequest req, Model model) {
+			logger.info("search_student()");
+			service.search_student(map, req, model);
+			return "professor/search_student";
+		}
 		/////학생조회끝
 		
 		

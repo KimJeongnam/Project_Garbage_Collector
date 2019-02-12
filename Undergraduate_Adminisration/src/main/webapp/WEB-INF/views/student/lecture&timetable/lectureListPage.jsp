@@ -5,11 +5,11 @@
 <head>
 <meta charset="UTF-8">
 
-<%@ include file="../Basic/settings.jsp"%>
+<%@ include file="../../Basic/settings.jsp"%>
 <title>Insert title here</title>
 </head>
 <body class="nav-md">
-	<%@ include file="../Basic/navbar.jsp"%>
+	<%@ include file="../../Basic/navbar.jsp"%>
 	<!-- page content -->
 	<div class="right_col" role="main" style="min-height: 1000px">
 		<div class="">
@@ -54,37 +54,40 @@
 											</div>
 
 											<div class="col-sm-2">
-												<select class="form-control input-sm" id="lectureList-"
-													onchange="">
-													<option value="이수구분" selected="selected">이수구분</option>
-													<option value="전공">전공</option>
-													<option value="교양">교양</option>
+												<select class="form-control input-sm"
+													id="lectureList-classification"
+													onchange="studentLecture('${userNumber}', 1); ">
+													<option value="0" selected="selected">이수구분</option>
+													<option value="1">전공</option>
+													<option value="2">교양</option>
 												</select>
 											</div>
 
 											<div class="col-sm-2">
-												<select class="form-control input-sm" id="lectureList-"
-													onchange="">
-													<option value="학년" selected="selected">학년</option>
-													<option value="1학년">1학년</option>
-													<option value="2학년">2학년</option>
-													<option value="3학년">3학년</option>
+												<select class="form-control input-sm" id="lectureList-grade"
+													onchange="studentLecture('${userNumber}', 1);">
+													<option value="0" selected="selected">학년</option>
+													<option value="1">1학년</option>
+													<option value="2">2학년</option>
+													<option value="3">3학년</option>
 												</select>
 											</div>
 
-											<div class="col-sm-2" style="text-align: right;">
-												<div>
+											<div class="col-sm-4">
+												<div style="text-align: right;">
 													<input type="search" id="lectureList-search-keyword"
 														class="form-control input-sm"
 														onkeyup="studentLecture('${userNumber}', 1);"
-														placeholder="검색">
+														placeholder="강의명 검색">
 												</div>
 											</div>
 										</div>
 									</div>
 									<div id="lectureList" class=""></div>
 								</div>
-								<div class="col-md-12 col-sm-12 col-xs-12" style="">
+							</div>
+							<div class="col-md-12 col-sm-12 col-xs-12">
+								<div class="x_panel">
 									<div class="x_title">
 										<h2>수강신청리스트</h2>
 										<div class="clearfix"></div>
@@ -103,7 +106,7 @@
 	</div>
 	<!-- /page content -->
 	
-	<%@ include file="../Basic/footer.jsp"%>
+	<%@ include file="../../Basic/footer.jsp"%>
 	<!-- .cd-schedule schedule폴더에 js추가됨-->
 	  <!-- 수강신청 -->
 	  
@@ -111,34 +114,9 @@
 	
 	<script type="text/javascript">
 		$(function() {
-		studentMyLecture('${userNumber}');
-		studentLecture('${userNumber}', 1);
-		studentTimetable('${userNumber}');
-			//applyLecture('${userNumber}','${dto.lecCode}');
-			/* $("#lectureHover").hover(function(){
-				$(this).css("background-color", "yellow");
-			}); */
-			/* $("#lectureHover").hover(function(){
-				var obj = new Object();
-				obj.lecCode = $("#getLecCode").value;
-				
-				var jsonData = JSON.stringify(obj);
-				
-				$.ajax({
-					url: '/project/student/lectureList',
-					type: 'POST',
-					data : jsonData,
-					contentType : 'application/json;charset=UTF-8',
-					success : function(data){
-						if(data != null){
-							$('#lectureList').html(data);
-						}
-					},
-					error:function(){
-						alert("Error! studentLecture();");
-					}
-				})
-			}); */
+			studentMyLecture('${userNumber}');
+			studentLecture('${userNumber}', 1);
+			studentTimetable('${userNumber}');
 		});
 	</script>
 

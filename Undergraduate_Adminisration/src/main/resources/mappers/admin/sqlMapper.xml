@@ -103,8 +103,8 @@
  	
  	<insert id="insertjangjag" parameterType = "com.spring.project.admin.vo.ScholarpkVO">
  	
- 	INSERT INTO SCHOLARSHIP(SCHOLARPK,SCHOLARNAME,YEAR,SEMESTER,AMOUNT,SCHOLARCONTENT)
-	values(SCHOLARSHIP_SEQ.nextval,#{scholarname},#{year},#{semester},#{amount},#{scholarcontent})
+ 	INSERT INTO SCHOLARSHIP(SCHOLARPK,SCHOLARNAME,YEAR,SEMESTER,AMOUNT,SCHOLARCONTENT,DELSTATUS)
+	values(SCHOLARSHIP_SEQ.nextval,#{scholarname},#{year},#{semester},#{amount},#{scholarcontent},0)
  	
  	</insert>
  	

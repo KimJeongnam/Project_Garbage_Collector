@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="/project/resources/css/schedule/style.css">
 <!-- Resource style -->
 
-<%@ include file="../Basic/settings.jsp"%>
+<%@ include file="../../Basic/settings.jsp"%>
 <title>Insert title here</title>
 </head>
 <body class="nav-md">
@@ -33,7 +33,7 @@
 		</thead>
 		<tbody>
 			<c:forEach var="dto" items="${dtosL}">
-				<tr id="lectureHover">
+				<tr>
 					<td>${dto.grade}학년</td>
 					<td id="getLecCode">${dto.lecCode}</td>
 					<td><c:if test="${dto.lectureClassfication == 1}">
@@ -46,16 +46,12 @@
 					<td>${dto.accountHolder}</td>
 					<td>${dto.classTime}</td>
 					<td>${dto.maximumCapacity}</td>
-					<th><a onclick="applyLecture('${userNumber}','${dto.lecCode}')"
+					<th><a onclick="applyLecture('${userNumber}','${dto.lecCode}');"
 						class="btn btn-success"><i class="fa fa-edit m-right-xs"></i>신청</a></th>
 				</tr>
 			</c:forEach>
 		</tbody>
 	</table>
-	<div>
-		<!-- <input class="btn btn-info" type="button" value="수정" onclick="window.location='proUpdate'">
-								<input class="btn btn-danger" type="button" value="삭제" onclick="window.location='proDelete'"> -->
-	</div>
 	<div class="row">
 		<div class="col-sm-5">
 			<div class="dataTables_info" id="datatable_info" role="status"
@@ -73,7 +69,6 @@
 
 							<li class="paginate_button previous disabled"
 								style="cursor: pointer;" id="datatable_previous"><a
-								onclick="studentLecture('${userNumber}', 1);"
 								onclick="studentLecture('${userNumber}', 1);"
 								aria-controls="datatable" data-dt-idx="0" tabindex="0">Frist</a></li>
 							<li class="paginate_button previous disabled"
@@ -117,16 +112,8 @@
 
 	<!-- .cd-schedule schedule폴더에 js추가됨-->
 	<script src="/project/resources/js/schedule/modernizr.js"></script>
-	<!-- 	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script> -->
-	<!-- <script>
-	if( !window.jQuery ) document.write('<script src="/project/resources/js/schedule/jquery-3.0.0.min.js"><\/script>');
-	</script> -->
 	<script src="/project/resources/js/schedule/main.js"></script>
 	<script type="text/javascript">
-		/* $("#lectureHover").hover(function(){
-			$(this).css("background-color", "yellow");
-		}); */
 	</script>
 </body>
 </html>
