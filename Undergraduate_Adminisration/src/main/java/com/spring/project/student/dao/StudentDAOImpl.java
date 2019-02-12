@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.spring.project.admin.vo.ScholarpkVO;
+import com.spring.project.student.vo.GpaVO;
 import com.spring.project.student.vo.LectureVO;
 
 @Repository
@@ -78,21 +79,21 @@ public class StudentDAOImpl implements StudentDAO{
 	}
 	//장학금 글 갯수
 	@Override
-	public int getArticleCnt() {
-		int selectCnt = sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.getArticleCnt");
+	public int getArticleCnt(Map<String, Object> map) {
+		int selectCnt = sqlSession.selectOne("com.spring.project.student.dao.StudentDAO.getArticleCnt",map);
 		return selectCnt;
 	}
 	//장학금 글 목록
 	@Override
 	public List<ScholarpkVO> getArticleList(Map<String, Object> map) {
-		List<ScholarpkVO> dtos = sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.getArticleList",map);
+		List<ScholarpkVO> dtos = sqlSession.selectList("com.spring.project.student.dao.StudentDAO.getArticleList",map);
 		
 		return dtos;
 	}
 	//장학금 상세 
 	@Override
 	public ScholarpkVO getArticle(int scholarpk) {
-		ScholarpkVO dtos = sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.getArticle",scholarpk);
+		ScholarpkVO dtos = sqlSession.selectOne("com.spring.project.student.dao.StudentDAO.getArticle",scholarpk);
 		return dtos;
 	}
 	//장학금 중복확인 검사
@@ -107,8 +108,6 @@ public class StudentDAOImpl implements StudentDAO{
 		return Cnt;
 	}
 
-	
-
 	@Override
 	public List<LectureVO> studentMyLecture(String userNumber) {
 		return sqlSession.selectList("com.spring.project.student.dao.StudentDAO.studentMyLecture", userNumber);
@@ -118,6 +117,25 @@ public class StudentDAOImpl implements StudentDAO{
 	public int cancelLecture(Map<String, Object> map) {
 		return sqlSession.delete("com.spring.project.student.dao.StudentDAO.cancelLecture", map);
 	}
+	
+	// 강의 목록 조회(전공)
+	@Override
+	public List<LectureVO> getMajor() {
+		return sqlSession.selectList("com.spring.project.student.dao.StudentDAO.getMajor");
+	}
+
+	// 내 학점 조회
+	@Override
+	public List<GpaVO> GPA(String userNumber) {
+		return sqlSession.selectList("com.spring.project.student.dao.StudentDAO.GPA", userNumber);
+	}
+	
+	// 신청 학점
+	@Override
+	public int ApplyCredit(String userNumber) {
+		return sqlSession.selectOne("com.spring.project.student.dao.StudentDAO.ApplyCredit", userNumber);
+	}
+
 
 	
 

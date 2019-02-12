@@ -9,6 +9,8 @@ import org.slf4j.Logger;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.spring.project.share.vo.Major;
+
 public interface ShareService {
 	public String loginSucces(HttpServletRequest request, RedirectAttributes redirectAttributes, Logger logger);
 	public void messageBoard(Map<String, Object> map, Logger logger, Model model);

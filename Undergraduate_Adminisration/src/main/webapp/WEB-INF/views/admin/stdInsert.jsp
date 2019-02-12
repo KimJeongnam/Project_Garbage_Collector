@@ -6,19 +6,6 @@
 <meta charset="UTF-8">
 <%@ include file="../Basic/settings.jsp"%>
 <title>Insert title here</title>
-
-<!-- Bootstrap -->
-<link href="../vendors/bootstrap/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-<!-- Font Awesome -->
-<link href="../vendors/font-awesome/css/font-awesome.min.css"
-	rel="stylesheet">
-<!-- NProgress -->
-<link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
-
-<!-- Custom Theme Style -->
-<link href="../build/css/custom.min.css" rel="stylesheet">
-
 </head>
 <body class="nav-md">
 	<%@ include file="../Basic/navbar.jsp"%>
@@ -392,6 +379,11 @@
 	<script
 		src="/project/resources/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js"></script>
 	<script type="text/javascript">
+	$(document).ready(function(){
+		  $('#smartwizard').smartWizard();
+		  console.log( $('#smartwizard').smartWizard());
+		});
+	
 	function openZipSearch() {
 		daum.postcode.load(function(){
 		new daum.Postcode({
@@ -403,6 +395,7 @@
 		}).open();
 	});
 	};
+	
 	</script>
 
 </body>

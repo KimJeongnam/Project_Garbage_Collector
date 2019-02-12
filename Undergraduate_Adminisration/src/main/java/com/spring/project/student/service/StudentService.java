@@ -20,7 +20,7 @@ public interface StudentService {
 	public void schoolTimeTable(Map<String, Object> map, Logger logger, Model model);
 	
 	//장학금 신청 
-	public void bulletin(HttpServletRequest req, Model model);
+	public void bulletin(Map<String, Object> map, Logger logger, Model model);
 	
 	//장학금 글 신청 상세
 	public void contentForm(HttpServletRequest req,  Model model); 
@@ -28,9 +28,8 @@ public interface StudentService {
 	//장학금 글 신청 상세
 	public void apply(HttpServletRequest req,  RedirectAttributes red);
 	
-	// 시간표 조회
-	//public void management(HttpServletRequest req, Model model);
-	public void applyLecture(Map<String, Object> map, Logger logger, RedirectAttributes red);
+	// 강의 신청
+	public Map<String, Object> applyLecture(Map<String, Object> map, Logger logger);
 	
 	//강의 hover
 	public void lectureHover(Map<String, Object> map, Logger logger, Model model);
@@ -38,7 +37,12 @@ public interface StudentService {
 	// 내 강의 신청 내역
 	public void studentMyLecture(Map<String, Object> map, Logger logger, Model model);
 	
-	//강의 hover
-	public void cancelLecture(Map<String, Object> map, Logger logger, RedirectAttributes red);
+	//강의 신청 취소
+	public Map<String, Object> cancelLecture(Map<String, Object> map, Logger logger);
 	
+	// 강의 목록 조회(전공)
+	public void lectureListMajor(Model model);
+	
+	// 내 학점 조회
+	public void GPA(HttpServletRequest req, Model model);
 }

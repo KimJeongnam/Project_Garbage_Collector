@@ -41,10 +41,25 @@ public class AdStdVO {
 	private int schoolLeaveStateCode;//휴복학 내역코드 -pk
 	private int leaveStatus;		 //상태
 	private String kind;			 //구분 - 휴학의 종류
+	private Date leaveStart;
+	private Date leaveEnd;
 	
 	
 	
 	
+	
+	public Date getLeaveStart() {
+		return leaveStart;
+	}
+	public void setLeaveStart(Date leaveStart) {
+		this.leaveStart = leaveStart;
+	}
+	public Date getLeaveEnd() {
+		return leaveEnd;
+	}
+	public void setLeaveEnd(Date leaveEnd) {
+		this.leaveEnd = leaveEnd;
+	}
 	public String getUserCellNum() {
 		return userCellNum;
 	}

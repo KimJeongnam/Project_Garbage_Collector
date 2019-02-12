@@ -15,7 +15,7 @@
 		<div class="">
 			<div class="page-title">
 				<div class="title_left">
-					<h3>성적 조회</h3>
+					<h3>전체 성적정보</h3>
 				</div>
 			</div>
 		</div>
@@ -23,76 +23,67 @@
 
 		<div class="row">
 			<!-- Smart Wizard -->
-			<p>성적 조회 메뉴입니다.</p>
 			<div class="x_content">
-				<p class="text-muted font-13 m-b-30">2019년 1학기의 성적을 조회합니다.</p>
-				<div class="title_right">
-					<div
-						class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-						<div class="input-group">
-							<input type="text" class="form-control"
-								placeholder="학기검색 ex)1901"> <span
-								class="input-group-btn">
-								<button class="btn btn-default" type="button">검색</button>
-							</span>
-						</div>
-					</div>
-				</div>
-
-
+				<p>■ 전체학기 성적 목록</p>
 				<table class="table table-striped jambo_table bulk_action">
 					<thead>
 						<tr class="headings">
-							<th>강의 구분</th>
+							<th>학년도</th>
+							<th>학기</th>
 							<th>강의번호</th>
-							<th>강의명</th>
-							<th>수강학기</th>
-							<th>교수명</th>
+							<th>과목명</th>
+							<th>학년</th>
+							<th>이수구분</th>
 							<th>학점</th>
-							<th>취득점수</th>
-							<th>성적</th>
+							<th>등급</th>
+							<th>평점</th>
+							<th>평점계</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="dto" items="${dtos}">
+							<tr>
+								<td>${dto.year}</td>
+								<td>${dto.semester}</td>
+								<td>${dto.lecCode}</td>
+								<td>${dto.lectureName}</td>
+								<td>${dto.grade}</td>
+								<td><c:if test="${dto.lectureClassfication == 1}">
+													전공
+												</c:if> <c:if test="${dto.lectureClassfication == 0}">
+													교양
+												</c:if></td>
+								<td>${dto.lectureScore}</td>
+								<td>${dto.credit}</td>
+								<td>${dto.score}</td>
+								<td>${dto.multiply}</td>
+
+								<c:set var="totalgetlectureScore"
+									value="${totalgetlectureScore + dto.lectureScore}" />
+								<c:set var="totalgetmultiply"
+									value="${totalgetmultiply + dto.multiply}" />
+								<fmt:formatNumber var="averageScore"
+									value="${totalgetmultiply/totalgetlectureScore}" pattern="#.##" />
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+				<table class="table table-striped jambo_table bulk_action"
+					style="text-align: right; width: 300px; float: right">
+					<thead>
+						<tr class="headings">
+							<td>신청학점</td>
+							<td>취득학점</td>
+							<td>총평점</td>
+							<td>평균학점</td>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
-							<td>교양필수</td>
-							<td>c304</td>
-							<td>정치학개론</td>
-							<td>2019년 1학기</td>
-							<td>정치호</td>
-							<td>3</td>
-							<td>100</td>
-							<td>A+</td>
-						</tr>
-							<tr>
-							<td>교양필수</td>
-							<td>c304</td>
-							<td>정치학개론</td>
-							<td>2019년 1학기</td>
-							<td>정치호</td>
-							<td>3</td>
-							<td>100</td>
-							<td>A+</td>
-						</tr>
-							<tr>
-							<td>교양필수</td>
-							<td>c304</td>
-							<td>정치학개론</td>
-							<td>2019년 1학기</td>
-							<td>정치호</td>
-							<td>3</td>
-							<td>100</td>
-							<td>A+</td>
-						</tr>
-							<tr>
-							<td>교양필수</td>
-							<td>c304</td>
-							<td>정치학개론</td>
-							<td>2019년 1학기</td>
-							<td>정치호</td>
-							<td>3</td>
-							<td>100</td>
-							<td>A+</td>
+							<td>${applyCredit}</td>
+							<td><c:out value="${totalgetlectureScore}" /></td>
+							<td><c:out value="${totalgetmultiply}" /></td>
+							<td><c:out value="${averageScore}" /></td>
 						</tr>
 					</tbody>
 				</table>
@@ -104,8 +95,8 @@
 	<%@ include file="../Basic/footer.jsp"%>
 
 	<script type="text/javascript">
-		$(function (){
-			
+		$(function() {
+
 		});
 	</script>
 </body>

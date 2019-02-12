@@ -1,7 +1,9 @@
+
 var setFacultys = function(facultys) {
 	$('#college').empty();
 
 	$('#college').append($('<option>', {
+		value : '0',
 		text : '선택하세요',
 		disabled : 'disabled',
 		selected : 'selected'
@@ -13,6 +15,8 @@ var setFacultys = function(facultys) {
 			text : facultys[i]
 		}));
 	}
+	
+	setMode(arguments[1]);
 }
 
 var setMajorCode = function(code) {
@@ -23,12 +27,18 @@ var setMajorCode = function(code) {
 function openMajorModal(mode) {
 	$('#majorName').val('');
 	$('#count').val('');
-	getFacultys(setFacultys);
 	
+	getFacultys(setFacultys, arguments);
+		
+	$('#majorAdd-Modal').modal();
+}
+
+function setMode(args){
+	var mode = args[0];
 	if (mode == '신규') {
 		$('#majorModal-title').html("<h4>학과 등록</h4>");
 		$('#majorModalBtn').attr({
-			onclick : '',
+			onclick : 'addMajor();',
 			value : '등록'
 		});
 		$('#majorModalDelBtn').attr({
@@ -36,7 +46,7 @@ function openMajorModal(mode) {
 		})
 		getMajorCurrval(setMajorCode);
 	} else if (mode == '수정') {
-		if(arguments.length<5){
+		if(args.length<5){
 			alert("Error! Usage: openMajorModal(mode" +
 					", majorNum" +
 					", faculty" +
@@ -44,28 +54,27 @@ function openMajorModal(mode) {
 					", maxNum) ");
 			return;
 		}
+		
+		var majorNum = args[1];
+		var faculty  = args[2];
+		var majorName = args[3];
+		var maxNum = args[4];
+		
+		setMajorCode(majorNum);
+		$('#college').val(faculty).prop("selected", true);
+		$('#majorName').val(majorName);
+		$('#count').val(maxNum);
+		
 		$('#majorModal-title').html("<h4>학과 수정</h4>");
 		$('#majorModalBtn').attr({
 			onclick : '',
 			value : '수정'
 		});
 		$('#majorModalDelBtn').attr({
+			onclick : "deleteMajor('"+majorNum+"');",
 			hidden : false
 		})
-		var majorNum = arguments[1];
-		var faculty  = arguments[2];
-		var majorName = arguments[3];
-		var maxNum = arguments[4];
-		
-		setMajorCode(majorNum);
-		$('#college').val(faculty);
-		$('#majorName').val(majorName);
-		$('#count').val(maxNum);
 	}
-	
-	
-	
-	$('#majorAdd-Modal').modal();
 }
 
 function getMajors() {
@@ -80,7 +89,7 @@ function getMajors() {
 	var JsonData = JSON.stringify(obj);
 
 	$.ajax({
-		url : '/project/admin/getMajors',
+		url : '/project/admin/major_lecture_Manager/getMajors',
 		type : 'POST',
 		data : JsonData,
 		contentType : 'application/json;charset=utf-8',
@@ -91,5 +100,97 @@ function getMajors() {
 		error : function() {
 
 		}
+	});
+}
+
+function deleteMajor(majorNum){
+	var obj = new Object();
+	
+	obj.majorNum = majorNum;
+	
+	var JsonData = JSON.stringify(obj);
+	
+	$.ajax({
+		url : '/project/admin//major_lecture_Manager/ajax/deleteMajor',
+		type : 'POST',
+		data : JsonData,
+		contentType : 'application/json;charset=utf-8',
+		success : function(data){
+			if(data.status == 'fail'){
+				alert("ERROR! 삭제 실패");
+			}else{
+				$('#majorAdd-Modal').modal('hide');
+				getMajors();
+			}
+		},
+		error : function(){	}
+	});
+}
+
+function addMajor(){
+	var faculty = $('#college').val();
+	var majorName = $('#majorName').val().trim();
+	var maxNum = $('#count').val();
+	
+	if(faculty == null){
+		alert("단과대를 선택해 주세요."); return;
+	}else if(majorName.length<1){
+		alert("학과명을 입력해 주세요."); return;
+	}else if(maxNum.length<1){
+		alert("최대 학생수를 입력하세요."); return;
+	}	
+	
+	var obj = new Object();
+	obj.faculty = faculty;
+	obj.majorName = majorName;
+	obj.maxNum = maxNum;
+	
+	var JsonData = JSON.stringify(obj);
+	
+	$.ajax({
+		url : '/project/admin/major_lecture_Manager/addMajor',
+		type : 'POST',
+		data : JsonData,
+		contentType : 'application/json;charset=utf-8',
+		success : function(data){
+			if(data.status == 0){
+				alert("ERROR! 학과 추가 오류.");
+			}else{
+				$('#majorAdd-Modal').modal('hide');
+				getMajors();
+			}
+		},
+		error : function(){	}
+	});
+}
+
+function modifyMajor(){
+	var majorCode = $('#majorCode').val(code);
+	var faculty = $('#college').val();
+	var majorName = $('#majorName').val().trim();
+	var maxNum = $('#count').val();
+	
+	var obj = new Object();
+	obj.majorCode = $('#majorCode').val(code);
+	obj.faculty = faculty;
+	obj.majorName = majorName;
+	obj.maxNum = maxNum;
+	
+	var JsonData = JSON.stringify(obj);
+	
+	$.ajax({
+		url : '/project/admin/major_lecture_Manager/modifyMajor',
+		type : 'POST',
+		data : JsonData,
+		contentType : 'application/json;charset=utf-8',
+		success : function(data){
+			if(data.status == 0){
+				alert("ERROR! 학과 추가 오류.");
+			}else{
+				$('#majorAdd-Modal').modal('hide');
+				getMajors();
+			}
+		},
+		error : function(){	}
 	});
 }

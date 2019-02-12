@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.project.restful.service.RestfulService;
 import com.spring.project.restful.vo.Message;
+import com.spring.project.share.vo.Major;
 
 @Controller
 public class RestfulController {
@@ -42,5 +43,14 @@ public class RestfulController {
 		Message message = null;
 		message = service.showMessage(map, logger);
 		return message;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/rest/json/getMajors")
+	public List<Major> getMajors(@RequestBody Map<String, Object> map){
+		logger.info("List<Major> getMajors()");
+		List<Major> list = null;
+		list = service.getMajors(map);
+		return list;
 	}
 }
