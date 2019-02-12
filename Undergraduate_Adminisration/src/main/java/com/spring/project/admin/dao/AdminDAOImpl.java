@@ -11,6 +11,7 @@ import com.spring.project.admin.vo.AdProVO;
 import com.spring.project.admin.vo.AdStdVO;
 import com.spring.project.admin.vo.ScholarpkVO;
 import com.spring.project.admin.vo.auditVO;
+import com.spring.project.admin.vo.payrollVO;
 import com.spring.project.share.vo.Major;
 
 @Repository
@@ -129,4 +130,9 @@ public class AdminDAOImpl implements AdminDAO{
 		return sqlSession.insert("com.spring.project.admin.dao.AdminDAO.addMajor", major);
 	}
 	//---------------교직 업무 관리 END-------------------
+	
+	@Override
+	public List<payrollVO> payrollList() {
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.payrollList");
+	}
 }

@@ -221,4 +221,17 @@ public class AdminController {
 	}
 	
 	//---------------------------------학과, 강의 관리 END----------------------------------------
+	
+	
+	//---------------------------------회계 관리 START----------------------------------------
+	
+	// 교직원 급여관리
+	@RequestMapping(value="/admin/facultyAccountManage", method=RequestMethod.GET)
+	public String facultyAccountManage(Model model) {
+		service.facultyAccountManage(model);
+		return "admin/accountingManagement/AccountManagePage";
+	}
+	
+	//---------------------------------회계 관리 END------------------------------------------
+	
 }

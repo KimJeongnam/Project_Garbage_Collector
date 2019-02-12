@@ -23,6 +23,7 @@ import com.spring.project.admin.vo.AdProVO;
 import com.spring.project.admin.vo.AdStdVO;
 import com.spring.project.admin.vo.ScholarpkVO;
 import com.spring.project.admin.vo.auditVO;
+import com.spring.project.admin.vo.payrollVO;
 import com.spring.project.share.dao.ShareDAO;
 import com.spring.project.share.vo.Major;
 
@@ -438,8 +439,12 @@ public class AdminServiceImpl implements AdminService{
 		return null;
 	}
 	
-	
-	
 	//---------------교직 업무 관리 END-------------------
+	
+	@Override
+	public void facultyAccountManage(Model model) {
+		List<payrollVO> dtos = dao.payrollList();
+		model.addAttribute("dtos", dtos);
+	}
 	
 }

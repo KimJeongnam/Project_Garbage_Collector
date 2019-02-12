@@ -145,4 +145,11 @@
  		INSERT INTO major 
     	values(SEQ_MAJOR_MAJORNUM.nextval, #{faculty}, #{majorName}, #{maxNum}, 0)
  	</insert>
+ 	
+ 	
+ 	<!-- 급여계산/대장 -->
+	<select id="payrollList" resultType="com.spring.project.admin.vo.payrollVO">
+		select * from payrollview
+	</select>
+ 	
 </mapper>

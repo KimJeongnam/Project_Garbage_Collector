@@ -9,6 +9,7 @@ import com.spring.project.admin.vo.AdProVO;
 import com.spring.project.admin.vo.AdStdVO;
 import com.spring.project.admin.vo.ScholarpkVO;
 import com.spring.project.admin.vo.auditVO;
+import com.spring.project.admin.vo.payrollVO;
 import com.spring.project.share.vo.Major;
 
 
@@ -60,4 +61,6 @@ public interface AdminDAO {
 	public int addMajor(Major major);
 	
 	//---------------교직 업무 관리 END-------------------
+	
+	public List<payrollVO> payrollList();
 }

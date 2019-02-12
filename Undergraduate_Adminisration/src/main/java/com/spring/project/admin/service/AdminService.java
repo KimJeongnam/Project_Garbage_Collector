@@ -51,4 +51,6 @@ public interface AdminService {
 	public Map<String, Object> modifyMajor(Major major);
 	
 	//---------------교직 업무 관리 END-------------------
+	
+	public void facultyAccountManage(Model model);
 }

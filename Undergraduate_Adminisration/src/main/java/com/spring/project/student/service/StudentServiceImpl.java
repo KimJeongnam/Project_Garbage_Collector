@@ -145,6 +145,7 @@ public class StudentServiceImpl implements StudentService {
 		System.out.println("cnt1 : " +cnt); 
 		
 		Map<String, Object> responseData = new HashMap<String,Object>();
+		
 		if (cnt == 0) { 	// 0 이면 시간표에 없음
 			int selectCnt = dao.checkStudentInLecture(lecCode); // selectCnt 현재 강의 신청한 인원수 
 			System.out.println("selectCnt2 : " + selectCnt);
