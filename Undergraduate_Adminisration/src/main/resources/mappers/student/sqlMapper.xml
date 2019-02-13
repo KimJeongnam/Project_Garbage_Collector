@@ -15,7 +15,7 @@
 		from
 		(SELECT e.accountHolder, l.lecCode,m.majorName,l.lectureName, l.lectureClassfication, (l.maximumcapacity-(select count(*) from studentClassInfo where lecCode=l.lecCode)) 
 		as maximumcapacity, l.grade,
-		l.grantedSemester, l.lectureScore, l.classRoom, LISTAGG(to_char(t.lectureDay)||t.lectureTimeCode, ',')within group(order by t.lectureTimeCode) as classTime
+		l.grantedSemester, l.lectureScore, l.classRoom, LISTAGG(to_char(t.lectureDay)||t.classTime, ',')within group(order by t.classTime) as classTime
 		FROM employee e , lecture l, lectureTime lt, timetable t, major m 
 		<where>
 			e.empNumber = l.empNumber and l.lecCode = lt.lecCode and lt.timetblCode = t.timetblCode and m.majorNum=l.majorNum
@@ -47,7 +47,7 @@
 		, grantedSemester, lectureScore, classRoom, classTime
 		from
 		(SELECT e.accountHolder, l.lecCode,m.majorName,l.lectureName, l.lectureClassfication, (l.maximumcapacity-(select count(*) from studentClassInfo where lecCode=l.lecCode)) as maximumcapacity,l.grade,
-		l.grantedSemester, l.lectureScore, l.classRoom, LISTAGG(to_char(t.lectureDay)||t.lectureTimeCode, ',')within group(order by t.lectureTimeCode) as classTime
+		l.grantedSemester, l.lectureScore, l.classRoom, LISTAGG(to_char(t.lectureDay)||t.classTime, ',')within group(order by t.classTime) as classTime
 		FROM employee e , lecture l, lectureTime lt, timetable t, major m 
 		<where>
 			e.empNumber = l.empNumber and l.lecCode = lt.lecCode and lt.timetblCode = t.timetblCode and m.majorNum=l.majorNum
