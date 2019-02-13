@@ -10,6 +10,30 @@ public class payrollVO {
 	private String paymentYear;
 	private int totalPayment;
 	
+	private String empNumber;
+	private String accountHolder;
+	private String majorName;
+	
+	
+	
+	public String getEmpNumber() {
+		return empNumber;
+	}
+	public void setEmpNumber(String empNumber) {
+		this.empNumber = empNumber;
+	}
+	public String getAccountHolder() {
+		return accountHolder;
+	}
+	public void setAccountHolder(String accountHolder) {
+		this.accountHolder = accountHolder;
+	}
+	public String getMajorName() {
+		return majorName;
+	}
+	public void setMajorName(String majorName) {
+		this.majorName = majorName;
+	}
 	public String getImputedYear() {
 		return imputedYear;
 	}

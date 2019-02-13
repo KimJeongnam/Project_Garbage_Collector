@@ -72,4 +72,6 @@ public interface AdminDAO {
 	//---------------교직 업무 관리 END-------------------
 	
 	public List<payrollVO> payrollList();
+	
+	public List<payrollVO> getFacultyList();
 }

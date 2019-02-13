@@ -197,11 +197,6 @@
     	values(SEQ_MAJOR_MAJORNUM.nextval, #{faculty}, #{majorName}, #{maxNum}, 0)
  	</insert>
  	
- 	<!-- 급여계산/대장 -->
-	<select id="payrollList" resultType="com.spring.project.admin.vo.payrollVO">
-		select * from payrollview
-	</select>
- 	
  	<update id="modifyMajor" parameterType="com.spring.project.share.vo.Major">
  		UPDATE major
  		<set>
@@ -225,4 +220,28 @@
             ORDER BY timetblCode
  	</select>
  	<!-- ==========================================교직 업무 관리 END========================================= -->
+ 	
+ 	<!-- ==========================================회계관리 START========================================= -->
+ 	<!-- 급여계산/대장 -->
+	<select id="payrollList" resultType="com.spring.project.admin.vo.payrollVO">
+		select * from payrollview
+	</select>
+	
+	<select id="getFacultyList" resultType="com.spring.project.admin.vo.payrollVO">
+		select e.empNumber, e.accountHolder, m.majorName from employee e, major m where e.majorNum = m.majorNum;
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- ==========================================회계관리 END========================================= -->
 </mapper>

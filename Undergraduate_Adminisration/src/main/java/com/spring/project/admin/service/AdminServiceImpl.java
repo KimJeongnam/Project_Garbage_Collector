@@ -529,6 +529,9 @@ public class AdminServiceImpl implements AdminService{
 	public void facultyAccountManage(Model model) {
 		List<payrollVO> dtos = dao.payrollList();
 		model.addAttribute("dtos", dtos);
+		
+		List<payrollVO> dtosF = dao.getFacultyList();
+		model.addAttribute("dtosF", dtosF);
 	}
 	
 }

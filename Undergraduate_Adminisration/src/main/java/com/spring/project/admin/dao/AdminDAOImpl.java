@@ -158,4 +158,8 @@ public class AdminDAOImpl implements AdminDAO{
 	public List<payrollVO> payrollList() {
 		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.payrollList");
 	}
+	@Override
+	public List<payrollVO> getFacultyList() {
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.getFacultyList");
+	}
 }

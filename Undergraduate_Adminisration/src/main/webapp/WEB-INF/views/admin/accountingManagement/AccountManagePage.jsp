@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <%@ include file="../../Basic/settings.jsp"%>
 <title>Insert title here</title>
 </head>
@@ -70,13 +71,18 @@
 											<td style="vertical-align: middle">${dto.paymentDate}</td>
 											<td style="vertical-align: middle">${dto.paymentYear}</td>
 											<th style="vertical-align: middle"><a
-												onclick="openAccountModal('근무기록확정', '${dto.imputedYear}','${dto.paymentClassfication}','${dto.registerName}','${dto.paymentDate}','${dto.paymentYear}');"
-												class="btn btn-success"><i class="fa fa-edit m-right-xs"></i>근무기록확정</a></th>
+												class="btn btn-success"
+												data-target="#Confirmation-workRecord" data-toggle="modal"><i
+													class="fa fa-edit m-right-xs"></i>근무기록확정</a></th>
 											<td style="vertical-align: middle"><a onclick=""
-												class="btn btn-success"><i
+												class="btn btn-success"
+												data-target="#Lookup-workRecord" data-toggle="modal"><i
 													class="glyphicon glyphicon-search"></i>조회</a> <a onclick=""
-												class="btn btn-success"><i
-													class="glyphicon glyphicon-list-alt"></i>명세서</a> <br> <a
+												class="btn btn-success" 
+												data-target="#Specification-workRecord" data-toggle="modal">
+												<i
+													class="glyphicon glyphicon-list-alt"
+													></i>명세서</a> <br> <a
 												onclick="" class="btn btn-success"><i
 													class="glyphicon glyphicon-ok"></i>확정</a> <a onclick=""
 												class="btn btn-danger"><i
@@ -102,12 +108,165 @@
 	</div>
 	<!-- /page content -->
 
+	<div class="modal fade" id="Confirmation-workRecord">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<!-- header -->
+				<div class="modal-header">
+					<!-- 닫기(x) 버튼 -->
+					<button type="button" class="close" data-dismiss="modal">×</button>
+					<!-- header title -->
+					<h4 class="modal-title">근무기록확정</h4>
+				</div>
+				<!-- body -->
+				<div class="modal-body">
+
+					<table class="table table-striped jambo_table bulk_action">
+						<thead>
+							<tr class="headings">
+								<th><input type="checkbox"></th>
+								<th>교직원번호</th>
+								<th>교직원명</th>
+								<th>부서/전공</th>
+								<th>야근수당시간</th>
+								<th>주말근무수당시간</th>
+								<th>연차수당일수</th>
+
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="dto" items="${dtosF}">
+							<tr>
+								<td><input type="checkbox"></td>
+								<td>${dto.empNumber}</td>
+								<td>${dto.accountHolder}</td>
+								<td>${dto.majorName}</td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+				
+	
+	
+				<!-- Footer -->
+				<div class="modal-footer">
+					Footer
+					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="Lookup-workRecord">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<!-- header -->
+				<div class="modal-header">
+					<!-- 닫기(x) 버튼 -->
+					<button type="button" class="close" data-dismiss="modal">×</button>
+					<!-- header title -->
+					<h4 class="modal-title">날짜</h4>
+				</div>
+				<!-- body -->
+				<div class="modal-body">
+
+					<table class="table table-striped jambo_table bulk_action">
+						<thead>
+							<tr class="headings">
+								<th><input type="checkbox">성명</th>
+								<th>교번</th>
+								<th>입사일</th>
+								<th>연차</th>
+								<th>기본급</th>
+								<th>야근수당</th>
+								<th>주말근무수당</th>
+								<th>연차수당</th>
+								<th>지급총액</th>
+
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="dto" items="">
+							<tr>
+								<td><input type="checkbox"></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+				<!-- Footer -->
+				<div class="modal-footer">
+					Footer
+					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="Specification-workRecord">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<!-- header -->
+				<div class="modal-header">
+					<!-- 닫기(x) 버튼 -->
+					<button type="button" class="close" data-dismiss="modal">×</button>
+					<!-- header title -->
+					<h4 class="modal-title">명세서인쇄</h4>
+				</div>
+				<!-- body -->
+				<div class="modal-body">
+					<table class="table table-striped jambo_table bulk_action">
+						<thead>
+							<tr class="headings">
+								<th><input type="checkbox"></th>
+								<th>신고귀속</th>
+								<th>구분</th>
+								<th>교직원번호</th>
+								<th>교직원명</th>
+								<th>전공명</th>
+								<th>지급총액</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="dto" items="">
+							<tr>
+								<td><input type="checkbox"></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+				<!-- Footer -->
+				<div class="modal-footer">
+					Footer
+					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	<%@ include file="../../Basic/footer.jsp"%>
 	<script src="${staticPath }/js/account/accountManagejs"
 		type="text/javascript"></script>
-	<script type="text/javascript">
-		$(function (){
-			
+	<script>
+		$(function() {
 		});
 	</script>
 </body>
