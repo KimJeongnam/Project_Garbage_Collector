@@ -30,7 +30,7 @@ public interface AdminService {
 	public void judge(HttpServletRequest req,  Model model);
 	
 	//장학 목록 
-	public void registrationList(HttpServletRequest req,  Model model);
+	public void registrationList(Map<String, Object> map, Model model);
 	
 	//장학 글 추가
 	public void rigisterPro(HttpServletRequest req,  Model model);

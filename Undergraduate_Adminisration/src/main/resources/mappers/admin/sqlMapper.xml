@@ -81,6 +81,12 @@
 	<select id="getArticleCnt" resultType="int">
  	
  	SELECT COUNT(*) as cnt FROM SCHOLARSHIP where delstatus = 0
+ 	 <if test="year != 0">
+	 			and to_char(year,'yyyy') like #{year}
+	 			<if test="smester != 0">
+	 			and semester like #{smester}
+	 			</if>
+			</if>
  	
  	</select>
  	
@@ -88,14 +94,24 @@
  	
  	<select id="getArticleList" parameterType="java.util.Map" resultType="com.spring.project.admin.vo.ScholarpkVO">
  	
- 	<![CDATA[SELECT *  
+ 	SELECT *  
 				FROM (select SCHOLARPK,SCHOLARNAME,to_char(YEAR,'YYYY') as YEAR,SEMESTER,AMOUNT,ROWNUM rNum  
 				            from ( 
-				                    select * FROM SCHOLARSHIP   
+				                    select * FROM SCHOLARSHIP
+				                    where delstatus = 0   
 				                    order by SCHOLARPK desc
-				                    ) 
+				                    )
+				                <where>
+				                <if test="year != 0">
+									 and to_char(year,'yyyy') = #{year}
+									 <if test="smester != 0">
+						 			 and semester like #{smester}
+						 			 </if>
+								</if>
+				                
+				                </where> 
 				                ) 
-				                where rNum >= #{start} and rNum <= #{end}]]>
+				               <![CDATA[where rNum >= #{start} and rNum <= #{end}]]>
  	
  	</select>
  	

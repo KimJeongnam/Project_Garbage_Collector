@@ -131,10 +131,10 @@
                 </div>
 							<input type="hidden" id="scholarContent" name="scholarContent" value="">
 							
-							<div style="float: right">
-							<input class="inputButton" type="submit" value="작성">
-							<input class="inputButton" type="reset" value="취소">
-							<input class="inputButton" type="button" value="목록"
+							<div style="text-align: center">
+							<input class="btn btn-primary" type="submit" value="작성">
+							<input class="btn btn-primary" type="reset" value="취소">
+							<input class="btn btn-primary" type="button" value="목록"
 							onclick="window.location='boardList?pageNum=${pageNum}'">
 							</div>
 							

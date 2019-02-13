@@ -74,14 +74,16 @@
 			                            <td class=" ">${dto.scholarName}</td>
 			                            <td class=" ">${dto.year}</td>
 			                            <td class=" ">${dto.statCode}</td>
-			                            <td><input type="checkbox" data-toggle="toggle" data-off="불" data-on="합"></td>
-		                            
+			                            <td>
+			                            <input id="toggle-event" type="checkbox" data-toggle="toggle" data-off="불" data-on="합"></td>
 		                            
 		                            </tr>
+		                            
 		                            </c:forEach>
 		                          
 		                        </tbody>
 		                      </table>
+		                      <div id="console-event"></div>
 		                    </div>
 									
 								
@@ -100,6 +102,15 @@
 	
     <script type="text/javascript">
 		<%@ include file="../Basic/datePickerJS.jsp"%>
+	</script>
+	
+	<script type="text/javascript">
+	$(function() {
+	    $('#toggle-event').change(function() {
+	      $('#console-event').html('Toggle: ' + $(this).prop('checked'))
+	    })
+	  })
+	
 	</script>
 	
 </body>

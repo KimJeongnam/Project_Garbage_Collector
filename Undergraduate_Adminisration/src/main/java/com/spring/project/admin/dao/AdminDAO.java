@@ -35,7 +35,7 @@ public interface AdminDAO {
 	public List<AdStdVO> getSchoolLeave(Map<String, Integer> map);
 	
 	//장학글 갯수
-	public int getArticleCnt();
+	public int getArticleCnt(Map<String,Object> map);
 	
 	//장학 글 목록
 	public List<ScholarpkVO> getArticleList(Map<String,Object> map);

@@ -76,8 +76,8 @@ public class AdminDAOImpl implements AdminDAO{
 	//=============================장학금 대그니꺼=======================================
 	//장학 글 갯수
 	@Override
-	public int getArticleCnt() {
-		int selectCnt = sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.getArticleCnt");
+	public int getArticleCnt(Map<String,Object> map) {
+		int selectCnt = sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.getArticleCnt",map);
 		return selectCnt;
 	}
 	

@@ -50,14 +50,35 @@ public class AdminController {
 		
 		return "admin/judge";
 	}
-	//장학 목록
-	@RequestMapping("/admin/registrationList")
-	public String registrationList(HttpServletRequest req, Model model) {
-		System.out.println("장학 목록");
-		service.registrationList(req,model);
-		
-		return "admin/registrationList";
+	 //장학 목록 페이지
+	@RequestMapping(value="/admin/registrationList", method=RequestMethod.GET)
+	public String bulletinPage() {
+		return "admin/resister/resisterPage";
 	}
+	//장학 목록
+	@RequestMapping(value = "/admin/resister/adminregistrationList2",method=RequestMethod.POST)
+	public String registrationList(@RequestBody Map<String, Object> map, Model model) {
+		System.out.println("장학 목록");
+		service.registrationList(map, model);
+		
+		return "admin/resister/registrationList";
+	}
+	
+	/*// 수강신청 페이지
+		@RequestMapping(value="/student/bulletin", method=RequestMethod.GET)
+		public String bulletinPage() {
+			return "student/bulletin/bulletinPage";
+		}
+
+		//장학금 신청목록
+		@RequestMapping("/student/bulletin")
+		@RequestMapping(value="/student/studentBulletinlist", method=RequestMethod.POST)
+		public String bulletin(@RequestBody Map<String, Object> map, Model model) {
+			logger.info("bulletin");
+			service.bulletin(map, logger, model);
+			
+			return "student/bulletin/bulletin";
+		}*/
 	
 	//장학 등록
 	@RequestMapping("/admin/registration")
