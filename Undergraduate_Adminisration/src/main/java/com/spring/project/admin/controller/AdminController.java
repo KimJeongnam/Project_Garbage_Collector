@@ -239,6 +239,20 @@ public class AdminController {
 		return "";
 	}
 	
+	//---------------------------------학과, 강의 관리 END----------------------------------------
+	
+	
+	//---------------------------------회계 관리 START----------------------------------------
+	
+	// 교직원 급여관리
+	@RequestMapping(value="/admin/facultyAccountManage", method=RequestMethod.GET)
+	public String facultyAccountManage(Model model) {
+		service.facultyAccountManage(model);
+		return "admin/accountingManagement/AccountManagePage";
+	}
+	
+	//---------------------------------회계 관리 END------------------------------------------
+	
 	// 해당 교수의 빈강의 조회
 	@RequestMapping(value="/admin/major_lecture_Manager/getEmptyLecTime/{empNumber}", method=RequestMethod.GET)
 	public String getEmptyLecTime(@PathVariable String empNumber, Model model) {

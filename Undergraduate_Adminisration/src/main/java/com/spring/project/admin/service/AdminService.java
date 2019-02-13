@@ -56,4 +56,6 @@ public interface AdminService {
 	public void getEmptyLecTime(String empNumber, Model model);
 	
 	//---------------교직 업무 관리 END-------------------
+	
+	public void facultyAccountManage(Model model);
 }
