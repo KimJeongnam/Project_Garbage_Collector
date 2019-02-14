@@ -15,6 +15,7 @@ import com.spring.project.share.vo.Major;
 
 @Repository
 public interface AdminDAO {
+	
 	//학생등록 처리페이지
 	public int insertUsers(AdStdVO vo);
 	public int insertStudent(AdStdVO vo);
@@ -29,6 +30,11 @@ public interface AdminDAO {
 	public int updateStudent(AdStdVO vo);
 	public int updateStudentState(AdStdVO vo);
 	
+	
+	//교수등록 처리
+	public int updatePUsers(AdProVO vo);
+	public int updateEmployees(AdProVO vo);
+		
 	//학생 상세페이지
 	public AdStdVO stdDetail(int userNum);
 	

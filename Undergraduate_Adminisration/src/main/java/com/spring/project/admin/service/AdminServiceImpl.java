@@ -196,7 +196,6 @@ public class AdminServiceImpl implements AdminService{
 	    
 	}
 	
-	
 	//학생등록 처리
 	@Override
 	public void stdInputPro(MultipartHttpServletRequest req, RedirectAttributes red) {
@@ -287,6 +286,7 @@ public class AdminServiceImpl implements AdminService{
 			e.printStackTrace();
 		}
 	}
+	
 	//교수 인서트
 	@Override
 	public void ProInputPro(MultipartHttpServletRequest req,  RedirectAttributes red) {
@@ -371,6 +371,7 @@ public class AdminServiceImpl implements AdminService{
 			e.printStackTrace();
 		}
 	}
+	
 	//학생*교수 리스트
 	@Override
 	public void stdList(HttpServletRequest req, Model model) {
@@ -389,9 +390,9 @@ public class AdminServiceImpl implements AdminService{
 		
 		List<AdProVO> vo = dao.getProList(map);
 		
-		
 		req.setAttribute("vo", vo);
 	}
+	
 	//학부 + 학과 리스트
 	@Override
 	public void fandMList(HttpServletRequest req, Model model) {
@@ -399,6 +400,7 @@ public class AdminServiceImpl implements AdminService{
 		List<AdProVO> vo = dao.FandMList(map);
 		req.setAttribute("outFandM", vo);
 	}
+	
 	//학생 상세페이지
 	@Override
 	public void showStdDetail(HttpServletRequest req, Model model) {
@@ -411,6 +413,7 @@ public class AdminServiceImpl implements AdminService{
 		AdStdVO vo = dao.stdDetail(userNum);
 		req.setAttribute("vo", vo);
 	}
+	
 	//교수 상세
 	@Override
 	public void showProDetail(HttpServletRequest req, Model model) {
@@ -423,6 +426,7 @@ public class AdminServiceImpl implements AdminService{
 		AdProVO vo = dao.proDetail(userNum);
 		req.setAttribute("vo", vo);
 	 }
+	
 	//학생정보수정
 	@Override
 	public void stdDetailUpdate(HttpServletRequest req, RedirectAttributes red) {
@@ -460,11 +464,55 @@ public class AdminServiceImpl implements AdminService{
 		
 		int stdUpdatetResult = userUp + stdUp + stdStateUp;
 
-		 if (stdUpdatetResult == 3) 
-			red.addFlashAttribute("message", "학생정보수정완료.");
-		 else if(stdUpdatetResult != 3) 
-			red.addFlashAttribute("message", "학생정보수정에러.");
+		  if (stdUpdatetResult == 3) 
+			  red.addFlashAttribute("message", "학생정보수정완료.");
+		  else
+			  red.addFlashAttribute("message", "학생정보수정에러.");
+		 
 	}
+	
+	//교수정보수정
+	@Override
+	public void proDetailUpdate(HttpServletRequest req, RedirectAttributes red) {
+		AdProVO vo = new AdProVO();
+
+		//users
+		vo.setUserNumber(req.getParameter("userNumber"));
+		vo.setUserName(req.getParameter("userName"));
+		vo.setUserEngName(req.getParameter("userEngName"));
+		vo.setUserSsn(req.getParameter("userSsn"));
+		vo.setGender(req.getParameter("gender"));
+		vo.setUserCellNum(req.getParameter("userCellNum"));
+		vo.setUserEmail(req.getParameter("userEmail"));
+		vo.setUserZipCode(req.getParameter("userZipCode"));
+		vo.setUserAddr1(req.getParameter("userAddr1"));
+		vo.setUserAddr2(req.getParameter("userAddr2"));
+		vo.setGender(req.getParameter("gender"));
+		/*vo.setDelStatus(Integer.parseInt(req.getParameter("delStatus")));*/
+		
+		//major
+		vo.setMajorNum(Integer.parseInt(req.getParameter("majorNum")));
+		
+		//employees
+		vo.setEmpHiredDate(Date.valueOf(req.getParameter("empHiredDate")));
+		vo.setAnnualLevel(Integer.parseInt(req.getParameter("annualLevel")));
+		vo.setBankName(req.getParameter("bankName"));
+		vo.setAccountHolder(req.getParameter("accountHolder"));
+		vo.setAccountNumber(req.getParameter("accountNumber"));
+		vo.setEmpHiredDate(Date.valueOf("empHiredDate"));
+		
+		
+		int userUp = dao.updatePUsers(vo); 
+		int empUp = dao.updateEmployees(vo); 
+		
+		int proUpResult = userUp+ empUp ;
+
+		 if (proUpResult == 2) 
+			red.addFlashAttribute("message", "교수정보수정완료.");
+		 else
+			red.addFlashAttribute("message", "교수정보수정실패.");
+	}
+	
 	//학생 + 교수삭제
 	@Override
 	public void stdDeletePro(HttpServletRequest req, RedirectAttributes red) {
@@ -623,5 +671,6 @@ public class AdminServiceImpl implements AdminService{
 		List<payrollVO> dtos = dao.payrollList();
 		model.addAttribute("dtos", dtos);
 	}
+	
 	
 }

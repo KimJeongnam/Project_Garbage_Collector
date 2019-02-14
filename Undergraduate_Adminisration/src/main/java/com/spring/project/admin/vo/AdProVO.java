@@ -38,12 +38,21 @@ public class AdProVO {
 	//payment
 	private int paymentCode;		//급여코드
 	
+	//paymentList
+	private Date paymentDate;		//급여지급날자
+	
 	//registerDetail
 	private int regDeCode;			//급여대장 상세코드
 	private int totalPayment;		//총금액
 	
 	
 	
+	public Date getPaymentDate() {
+		return paymentDate;
+	}
+	public void setPaymentDate(Date paymentDate) {
+		this.paymentDate = paymentDate;
+	}
 	public String getBankName() {
 		return bankName;
 	}

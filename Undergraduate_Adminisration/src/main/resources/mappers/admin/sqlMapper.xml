@@ -48,10 +48,10 @@
 		select u.userNumber,  u.userName, m.majorName, m.majorNum, 
       		 u.userCellNum ,  s.grade , st.graduation_state, f.faculty 
 		from student s, studentState st , users u, major m, faculty f
-		where  u.userNumber= s.stdNumber
-    			and s.stdNumber = st.stdNumber
-    			and s.majorNum = m.majorNum
-    			and f.faculty = m.faculty
+		where  u.userNumber(+)= s.stdNumber
+    			and s.stdNumber = st.stdNumber(+)
+    			and s.majorNum(+) = m.majorNum
+    			and f.faculty = m.faculty(+)
     			and u.authority = 'ROLE_STUDENT'
     			and u.delstatus != 1
 	</select>
@@ -61,13 +61,13 @@
 		select u.userNumber,  u.userName, m.majorName ,m.majorNum , 
       			 u.authority,  e.annualLevel, e.empHiredDate ,rd.totalPayment , f.faculty
 		from employee e , users u, major m, payment p, registerDetail rd, faculty f
-		where  u.userNumber= e.empnumber
-		   		 and  e.empnumber =  p.empnumber
+		where  u.userNumber(+)= e.empnumber
+		   		 and e.empnumber =  p.empnumber(+)
 		   		 and e.majorNum = m.majorNum
-		   		 and f.faculty = m.faculty
-		   		 and p.paymentcode = rd.paymentcode
+		   		 and f.faculty = m.faculty(+)
+		   		 and p.paymentcode = rd.paymentcode(+)
 		   		 and u.authority = 'ROLE_PROFESSOR'
-		   		 and u.delstatus != 1  
+		   		 and u.delstatus != 1 
 	</select>
 	
 	<!-- 학생상세 -->
@@ -81,29 +81,29 @@
     			and s.majorNum = m.majorNum
     			and f.faculty = m.faculty
     			and u.authority = 'ROLE_STUDENT'
-    			and u.userNumber = #{userNumber}
+    			and u.userNumber = #{userNum}
     			and u.delstatus != 1
 	</select>
 	
 	<!-- 교수상세 -->
-	 <select id="proDetail"  resultType="com.spring.project.admin.vo.AdProVO">
-		select u.userNumber, u.userZipCode, u.userAddr1, u.userAddr2, u.userName,  u.userImage,
+	 <select id="proDetail" resultType="com.spring.project.admin.vo.AdProVO">
+		select u.userNumber, u.userZipCode, u.userAddr1, u.userAddr2, u.userName, u.userImage,
 				u.userEngName, u.userSsn, u.gender, m.majorName, m.majorNum, 
-      		 	u.userEmail, u.userCellNum , e.annualLevel, e.empHiredDate, f.faculty,
-      		 	e.bankName, e.accountNumber, e.accountHolder, rd.totalPayment , pl.paymentDate
+      		 	u.userEmail, u.userCellNum, e.annualLevel, to_date(e.empHiredDate,'yy/mm/dd') empHiredDate, f.faculty,
+      		 	e.bankName, e.accountNumber, e.accountHolder, rd.totalPayment, to_date(pl.paymentDate,'yy/mm/dd') paymentDate
 		from employee e, users u, major m, faculty f, registerDetail rd, paymentList pl
 		where  u.userNumber= e.empNumber
     			and e.majorNum = m.majorNum
     			and f.faculty = m.faculty
                 and rd.paylistNum = pl.paylistNum
     			and u.authority = 'ROLE_PROFESSOR'
-    			and u.userNumber =  #{userNumber}
+    			and u.userNumber = #{userNum}
     			and u.delstatus != 1
 	</select> 
 	
-	<!--학생정보수정 -->	
+	<!--학생 정보수정 -->	
 	<update id="updateUsers" parameterType="com.spring.project.admin.vo.AdStdVO">
-		update users set userNumber = #{userNumber},userPassword=1234, userEngName=#{userEngName},
+		update users set userNumber = #{userNumber}, userEngName=#{userEngName},
 						 userName=#{userName}, userSsn=#{userSsn},
 						 userCellNum=#{userCellNum},userEmail=#{userEmail}, gender=#{gender}, 
 						 userZipCode=#{userZipCode}, userAddr1=#{userAddr1}, userAddr2=#{userAddr2}
@@ -121,6 +121,23 @@
 		update studentState set stdNumber=#{userNumber}, semester=#{semester}, graduation_state =#{graduation_state}
 		 WHERE stdNumber = #{userNumber}
 	</update>
+	
+	<!--교수정보수정 -->	
+	<update id="updatePUsers" parameterType="com.spring.project.admin.vo.AdProVO">
+		update users set userNumber = #{userNumber} userEngName=#{userEngName},
+						 userName=#{userName}, userSsn=#{userSsn},
+						 userCellNum=#{userCellNum},userEmail=#{userEmail}, gender=#{gender}, 
+						 userZipCode=#{userZipCode}, userAddr1=#{userAddr1}, userAddr2=#{userAddr2}
+		 WHERE userNumber = #{userNumber}
+	</update>
+	
+	<!--교수정보수정 -->	
+	<update id="updateEmployees" parameterType="com.spring.project.admin.vo.AdProVO">
+		update EMPLOYEE set empNumber=#{userNumber}, majorNum=#{majorNum}, empHiredDate =#{empHiredDate}, accountHolder =#{accountHolder},
+							annualLevel=#{annualLevel}, bankName=#{bankName}, accountNumber =#{accountNumber},
+		 WHERE empNumber = #{userNumber}
+	</update>
+	
 	
 	<!--학생 삭제 -->	
 	<update id="stdDelete" parameterType="String">

@@ -31,8 +31,11 @@ public interface AdminService {
 	//public void stdUpdate(MultipartHttpServletRequest req, RedirectAttributes red);
 	
 	//학생정보수정
-	public void stdDetailUpdate(HttpServletRequest req, RedirectAttributes red);
+	public void stdDetailUpdate(HttpServletRequest req,  RedirectAttributes red);
 	
+	//교수정보수정
+	public void proDetailUpdate(HttpServletRequest req,  RedirectAttributes red);
+		
 	//학생+교수 삭제
 	public void stdDeletePro(HttpServletRequest req, RedirectAttributes red);
 	

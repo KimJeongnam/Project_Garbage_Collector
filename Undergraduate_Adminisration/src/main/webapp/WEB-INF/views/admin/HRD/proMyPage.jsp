@@ -102,7 +102,7 @@
 												<div id="myTabContent" class="tab-content">
 													<div role="tabpanel" class="tab-pane fade active in"
 														id="tab_content1" aria-labelledby="home-tab">
-														<form class="form-horizontal form-label-left" novalidate>
+														<form action="proDetailUpdate" method="POST" class="form-horizontal form-label-left" novalidate>
 															<span class="section">개인정보</span>
 															<div class="row">
 																<div class="col-md-offset-1 col-md-10">
@@ -112,102 +112,110 @@
 																				교직원번호
 																			</th>
 																			<td>
-																				<input type="text" class="input" required="required" 
-																					value="&nbsp;${vo.userNumber}" placeholder="교번을 입력하시오">
+																				<input type="text" class="input" required="required" name="userNumber"
+																					value="${vo.userNumber}" placeholder="교번을 입력하시오">
 																			</td>
 																			<th class="control-label">
-																				성명 
+																				한글성명
 																			</th>
 																			<td>
-																				<input type="text" class="input" required="required" 
-																					value="&nbsp;${vo.userName }(${vo.userEngName })" placeholder="성명을 입력하시오">
+																				<input type="text" class="input" required="required" name="userName"
+																					value="${vo.userName }" placeholder="성명을 입력하시오">
 																			</td>
 																		</tr>
 																		<tr>
 																			<th class="control-label">주민등록번호</th>
-																			<td><input type="text" class="input" value="&nbsp;${vo.userSsn }"
-																				required="required" placeholder="주민등록번호를 입력하시오">
+																			<td><input type="text" class="input" value="${vo.userSsn }"
+																				required="required" name="userSsn" placeholder="주민등록번호를 입력하시오">
 																			</td>
-																			<th class="control-label">성별</th>
-																			<td><input type="text" class="input" value="&nbsp;${vo.gender }"
-																				required="required" placeholder="성별을 입력하시오">
+																			<th class="control-label">
+																				영어성명
+																			</th>
+																			<td>
+																				<input type="text" class="input" required="required" name="userEngName"
+																					value="${vo.userEngName }" placeholder="성명을 입력하시오">
 																			</td>
 																		</tr>
 																		<tr>
+																			<th class="control-label">성별</th>
+																			<td><input type="text" class="input" value="${vo.gender }"
+																				name="gender" required="required" placeholder="성별을 입력하시오">
+																			</td>
 																			<th class="control-label">
 																				단과대학
 																			</th>
 																			<td>
-																				<input type="text" class="input" required="required" 
-																					value="&nbsp;${vo.faculty }" placeholder="단과대학을 입력하시오">
+																				<select name="faculty" id ="faculty" style="height : 22px; width : 165px;" >
+																		       			<option value="${vo.faculty}" selected>${vo.faculty}</option> 
+																		       		<c:forEach var="fa" items="${outFandM}" >
+																						<option value="${fa.faculty}" >${fa.faculty}</option> 
+																					</c:forEach>	
+																	      		</select>
 																			</td>
-																			<th class="control-label">
-																				담당학과(전공)
-																			</th>
-																			<td>
-																				<input type="text" class="input" required="required" 
-																					value="&nbsp;${vo.majorNum }(${vo.majorName})" placeholder="학과(전공)을 입력하시오">
-																			</td>
+																			
 																		</tr>
 																		<tr>
 																			<th class="control-label">이메일</th>
-																			<td><input type="text" class="input" value="&nbsp;${vo.userEmail}"
-																				required="required" placeholder="이메일을 입력하시오">
+																			<td><input type="text" class="input" value="${vo.userEmail}"
+																				name="userEmail" required="required" placeholder="이메일을 입력하시오">
 																			</td>
-																			<th class="control-label">연락처</th>
-																			<td><input type="text" class="input" value="&nbsp;${vo.userCellNum}"
-																				required="required" placeholder="연락처를 입력하시오">
+																			<th class="control-label">
+																				학과(전공)
+																			</th>
+																			<td>
+																				<select name="majorNum" id ="majorNum" selected ="${vo.majorNum}"
+																						style="width : 165px; height : 22px;" >
+																					<option value="${vo.majorNum}">${vo.majorNum} : ${vo.majorName}</option>	
+																		  		</select>
 																			</td>
 																		</tr>
 																		<tr>
-																			<th class="control-label">연차</th>
-																			<td><input type="text" class="input" value="&nbsp;${vo.annualLevel}"
-																				required="required" placeholder="연차를 입력하시오">
+																			<th class="control-label">연락처</th>
+																			<td><input type="text" class="input" value="${vo.userCellNum}"
+																				name="userCellNum" required="required" placeholder="연락처를 입력하시오">
 																			</td>
+																			
 																			<th class="control-label">입사일</th>
-																			<td><input type="date" class="input" value="${vo.empHiredDate}"
+																			<td><input type="date" class="input" value="${vo.empHiredDate}" name="empHiredDate"
 																				style="width: 166px;" required="required" placeholder="입사일을 입력하시오">
 																			</td>
 																		</tr>
 																		<tr>
-																			<th class="control-label">연봉</th>
-																			<td><input type="text" class="input" value="&nbsp;${vo.totalPayment}"
-																				required="required" placeholder="연봉을 입력하시오">
+																			
+																			<th class="control-label">은행명</th>
+																			<td><input type="text" class="input" value="${vo.bankName}"
+																				name="bankName" required="required" placeholder="은행명을 입력하시오">
 																			</td>
-																			<th class="control-label">급여지급날짜</th>
-																			<td><input type="date" class="input" value="${vo.paymentDate}"
-																				style="width: 166px;" required="required" placeholder="급여지급일을 입력하시오">
+																			<th class="control-label">연차</th>
+																			<td><input type="text" class="input" value="${vo.annualLevel}"
+																				name="annualLevel" required="required" placeholder="연차를 입력하시오">
 																			</td>
 																		</tr>
 																		<tr>
-																			<th class="control-label">은행명</th>
-																			<td><input type="text" class="input" value="&nbsp;${vo.bankName}"
-																				required="required" placeholder="은행명을 입력하시오">
-																			</td>
 																			<th class="control-label">계좌번호</th>
-																			<td><input type="text" class="input" value="&nbsp;${vo.accountNumber}"
-																				required="required" placeholder="계좌번호를 입력하시오">
+																			<td><input type="text" class="input" value="${vo.accountNumber}"
+																				name="accountNumber" required="required" placeholder="계좌번호를 입력하시오">
 																			</td>
 																			<th class="control-label">예금주</th>
-															 				<td><input type="text" class="input" value="&nbsp;${vo.accountHolder}"
-																				required="required" placeholder="예금주를 입력하시오">
+															 				<td><input type="text" class="input" value="${vo.accountHolder}"
+																				name="accountHolder" required="required" placeholder="예금주를 입력하시오">
 																			</td>
 																		</tr>
 																		<tr>
 																			<th class="control-label">주소</th>
 																			<td colspan="3"><input type="text" name="userZipCode"
 																				class="input" required="required"
-																				value="&nbsp;${vo.userZipCode }" placeholder="입학일을 입력하시오">
+																				value="${vo.userZipCode }" placeholder="입학일을 입력하시오">
 
 																				<button type="button" name="zipSearch"
 																					onclick="openZipSearch();">검색</button>
 																				<br> 주소 :<input id="studentAddress1"
 																				name="userAddr1" class="form-control col-md-7 col-xs-12"
-																				value="&nbsp;${vo.userAddr1 }" data-validate-length-range="6"
+																				value="${vo.userAddr1 }" data-validate-length-range="6"
 																				data-validate-words="2" placeholder="" type="text"><br>
 																				상세 :<input id="studentAddress2" name="userAddr2"
 																				class="form-control col-md-7 col-xs-12"
-																				value="&nbsp;${vo.userAddr2 }" data-validate-length-range="6"
+																				value="${vo.userAddr2 }" data-validate-length-range="6"
 																				data-validate-words="2" placeholder="" type="text"><br>
 																			</td>
 																		</tr>
