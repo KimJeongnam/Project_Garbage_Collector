@@ -18,11 +18,26 @@ public interface AdminDAO {
 	//학생등록 처리페이지
 	public int insertUsers(AdStdVO vo);
 	public int insertStudent(AdStdVO vo);
-	public int insertMajor(AdStdVO vo);
-	public int insertSchoolLeave(AdStdVO vo);
 	public int insertStudentState(AdStdVO vo);
-	public int insertFaculty(AdStdVO vo);
 	
+	//교수등록 처리
+	public int insertPUsers(AdProVO vo);
+	public int insertEmployees(AdProVO vo);
+
+	//학생정보 업데이트
+	public int updateUsers(AdStdVO vo);
+	public int updateStudent(AdStdVO vo);
+	public int updateStudentState(AdStdVO vo);
+	
+	//학생 상세페이지
+	public AdStdVO stdDetail(int userNum);
+	
+	//학생 상세페이지
+	public AdProVO proDetail(int userNum);
+	
+	//학생+ 교수 삭제
+	public int stdDelete(String userNum);
+		
 	//학생 리스트
 	public List<AdStdVO> getStdList(Map<String, Integer> map);
 	

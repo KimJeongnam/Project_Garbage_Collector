@@ -46,7 +46,7 @@ public class RestfulController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/rest/json/getMajors")
+	@RequestMapping(value="/rest/json/getMajors",  method=RequestMethod.POST)
 	public List<Major> getMajors(@RequestBody Map<String, Object> map){
 		logger.info("List<Major> getMajors()");
 		List<Major> list = null;

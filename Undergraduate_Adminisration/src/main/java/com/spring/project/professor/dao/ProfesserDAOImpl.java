@@ -90,9 +90,6 @@ public class ProfesserDAOImpl implements ProfesserDAO{
 		
 		return update2;
 	}
-
-	
-	
 	//내 강의 학생 목록
 	@Override
 	public List<studentVO> list(String userNumber) {

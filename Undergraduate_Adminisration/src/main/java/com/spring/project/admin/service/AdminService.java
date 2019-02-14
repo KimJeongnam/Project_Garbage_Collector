@@ -16,7 +16,25 @@ import com.spring.project.share.vo.Major;
 public interface AdminService {
 
 	//학생등록
-	public void stdInputPro(MultipartHttpServletRequest req,  Model model);
+	public void stdInputPro(MultipartHttpServletRequest req,  RedirectAttributes red);
+	
+	//교수등록
+	public void ProInputPro(MultipartHttpServletRequest req,  RedirectAttributes red);
+	
+	//학생 상세페이지
+	public void showStdDetail(HttpServletRequest req,  Model model);
+	
+	//교수 상세페이지
+	public void showProDetail(HttpServletRequest req,  Model model);
+	
+	//학생 이미지수정
+	//public void stdUpdate(MultipartHttpServletRequest req, RedirectAttributes red);
+	
+	//학생정보수정
+	public void stdDetailUpdate(HttpServletRequest req, RedirectAttributes red);
+	
+	//학생+교수 삭제
+	public void stdDeletePro(HttpServletRequest req, RedirectAttributes red);
 	
 	//학생 +교수 목록 
 	public void stdList(HttpServletRequest req, Model model);

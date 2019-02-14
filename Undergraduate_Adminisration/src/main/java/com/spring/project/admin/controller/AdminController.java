@@ -118,41 +118,81 @@ public class AdminController {
 
 		return "admin/facultyManage";
 	}
-
-	// admin - 교수 등록
-	@RequestMapping("/admin/proInsert")
-	public String proInsert() {
-
-		return "admin/proInsert";
+	//학생인서트페이지
+	@RequestMapping("/admin/stdInsert2")
+	public String stdInsert2(HttpServletRequest req, Model model) { 
+		service.fandMList(req, model);
+		return "admin/HRD/stdInsert2"; 
+	} 
+	//교수인서트페이지
+	@RequestMapping("/admin/proInsert2") 
+	public String proInsert2(HttpServletRequest req, Model model) {
+		service.fandMList(req, model); 
+		return "admin/HRD/proInsert2";
 	}
-
-	// admin - 학생 등록
-	@RequestMapping("/admin/stdInsert")
-	public String stdInsert() {
-
-		return "admin/stdInsert";
+	//admin - 학생 등록처리
+	@RequestMapping(value="/admin/stdInsertPro",method=RequestMethod.POST )
+	public String stdInsertPro(MultipartHttpServletRequest req, RedirectAttributes red) {
+		service.stdInputPro(req, red);
+		return "redirect:/admin/HRD/empStdManagement";
 	}
-
-	// admin - 학생 등록처리
-	@RequestMapping(value = "/admin/stdInsertPro", method = RequestMethod.POST)
-	public String stdInsertPro(MultipartHttpServletRequest req, Model model) {
-		service.stdInputPro(req, model);
-		return "admin/stdInsertPro";
+	//admin - 교수 등록처리
+	@RequestMapping(value="/admin/proInsertPro",method=RequestMethod.POST )
+	public String proInsertPro(MultipartHttpServletRequest req, RedirectAttributes red) {
+		service.ProInputPro(req, red);
+		return "admin/HRD/proInsertPro";
 	}
+	//교수 - 학생 리스트
 
 	// 교수 - 학생 리스트
 	@RequestMapping("/admin/empStdManagement")
 	public String empStdManagement(HttpServletRequest req, Model model) {
 		service.stdList(req, model);
-		/* service.professorList(req, model); */
-		return "admin/empStdManagement";
+		/*service.professorList(req, model);*/
+		return "admin/HRD/empStdManagement";
 	}
+	//학생상세정보 
+	@RequestMapping("/admin/stdMyPage")
+	public String stdMyPage(HttpServletRequest req, Model model) {
+		service.showStdDetail(req, model);
+		return "admin/HRD/stdMyPage";
+	}
+	//교수상세정보 
+	 @RequestMapping("/admin/proMyPage") 
+	 public String proMyPage(HttpServletRequest req, Model model) {
+		 service.showProDetail(req, model);
+		 return "admin/HRD/proMyPage";
+	 }
+	//이미지 수정
+	 /*
+	 @RequestMapping(value="/admin/stdUpdate" , method=RequestMethod.POST) 
+	 public String stdUpdate(MultipartHttpServletRequest req, RedirectAttributes red) {
+		 service.stdUpdate(req, red);
+		 return "redirect:/admin/stdMyPage";
+	 }
+	 */
+	//학생정보수정
+	 @RequestMapping("/admin/stdDetailUpdate" ) 
+	 public String stdDetailUpdate(HttpServletRequest req, RedirectAttributes red) {
+		 service.stdDetailUpdate(req, red);
+		 
+		 return "redirect:/admin/HRD/empStdManagement";
+	 }
+	
+	  //학생+교수정보삭제
+	  
+	  @RequestMapping("/admin/stdDeletePro") 
+	  public String stdDeletePro(HttpServletRequest req, RedirectAttributes red) {
+		  service.stdDeletePro(req, red); 
+		  return "redirect:/admin/HRD/empStdManagement"; 
+	  }
+ 
 
 	// 휴복학 리스트
 	@RequestMapping("/admin/schoolLeaveList")
 	public String schoolLeaveList(HttpServletRequest req, Model model) {
 		service.schoolLeaveList(req, model);
-		return "admin/schoolLeaveList";
+		return "admin/HRD/schoolLeaveList";
 	}
 
 	// 교수상세정보
@@ -169,19 +209,6 @@ public class AdminController {
 		return "admin/stdMyPage";
 	}
 
-	// 임시 학생인서트
-	@RequestMapping("/admin/stdInsert2")
-	public String stdInsert2(HttpServletRequest req, Model model) {
-		service.fandMList(req, model);
-		return "admin/stdInsert2";
-	}
-
-	// 임시 교수인서트
-	@RequestMapping("/admin/proInsert2")
-	public String proInsert2(HttpServletRequest req, Model model) {
-		service.fandMList(req, model);
-		return "admin/proInsert2";
-	}
 	/*
 	 * @RequestMapping(value="/admin/selectFaculty", method=RequestMethod.POST)
 	 * public void selectFaculty(HttpServletRequest req, HttpServletResponse

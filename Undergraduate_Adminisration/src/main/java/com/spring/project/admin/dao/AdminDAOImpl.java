@@ -1,6 +1,6 @@
 package com.spring.project.admin.dao;
 
-import java.util.List;
+import java.util.List; 
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -20,35 +20,30 @@ public class AdminDAOImpl implements AdminDAO{
 	@Autowired
 	private SqlSession sqlSession;
 	
-	//사용자 등록
+	//사용자 등록(학생)
 	@Override
 	public int insertUsers(AdStdVO vo) {
 		return sqlSession.insert("com.spring.project.admin.dao.AdminDAO.insertUsers", vo);
 	}
-	//단과대 등록
-	@Override
-	public int insertFaculty(AdStdVO vo) {
-		return sqlSession.insert("com.spring.project.admin.dao.AdminDAO.insertFaculty", vo);
-	}
-	//학과 등록
-	@Override
-	public int insertMajor(AdStdVO vo) {
-		return sqlSession.insert("com.spring.project.admin.dao.AdminDAO.insertMajor", vo);
-	}
-	//학생등록
+	//학생등록(학생)
 	@Override
 	public int insertStudent(AdStdVO vo) {
 		return sqlSession.insert("com.spring.project.admin.dao.AdminDAO.insertStudent", vo);
 	}
-	//휴복학 등록
-	@Override
-	public int insertSchoolLeave(AdStdVO vo) {
-		return sqlSession.insert("com.spring.project.admin.dao.AdminDAO.insertSchoolLeave", vo);
-	}
-	//학기 등록
+	//학기 등록(학생)
 	@Override
 	public int insertStudentState(AdStdVO vo) {
 		return sqlSession.insert("com.spring.project.admin.dao.AdminDAO.insertStudentState", vo);
+	}
+	// 교수등록
+	@Override
+	public int insertPUsers(AdProVO vo) {
+		return sqlSession.insert("com.spring.project.admin.dao.AdminDAO.insertPUsers", vo);
+	}
+	//교수등록
+	@Override
+	public int insertEmployees(AdProVO vo) {
+		return sqlSession.insert("com.spring.project.admin.dao.AdminDAO.insertEmployees", vo);
 	}
 	//학생리스트 by admin
 	@Override
@@ -63,6 +58,36 @@ public class AdminDAOImpl implements AdminDAO{
 	@Override
 	public List<AdProVO> getProList(Map<String, Integer> map) {
 		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.getProList", map);
+	}
+	//학생상세
+	@Override
+	public AdStdVO stdDetail(int userNum) {
+		return sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.stdDetail", userNum);
+	}
+	//교수상세
+	@Override
+	public AdProVO proDetail(int userNum) {
+		return sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.proDetail", userNum);
+	}
+	//학생정보 업데이트
+	@Override
+	public int updateUsers(AdStdVO vo) {
+		return sqlSession.update("com.spring.project.admin.dao.AdminDAO.updateUsers", vo);
+	}
+	//학생정보 업데이트
+	@Override
+	public int updateStudent(AdStdVO vo) {
+		return sqlSession.update("com.spring.project.admin.dao.AdminDAO.updateStudent", vo);
+	}
+	//학생정보 업데이트
+	@Override
+	public int updateStudentState(AdStdVO vo) {
+		return sqlSession.update("com.spring.project.admin.dao.AdminDAO.updateStudentState", vo);
+	}
+	//학생+교수 삭제
+	@Override
+	public int stdDelete(String userNum) {
+		return sqlSession.update("com.spring.project.admin.dao.AdminDAO.stdDelete", userNum);
 	}
 	//단과대 + 학과 리스트
 	@Override
