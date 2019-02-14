@@ -4,11 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<%@ include file="../Basic/settings.jsp"%>
+<%@ include file="../../Basic/settings.jsp"%>
 <title>Insert title here</title>
 </head>
 <body class="nav-md">
-	<%@ include file="../Basic/navbar.jsp"%>
+	<%@ include file="../../Basic/navbar.jsp"%>
 
 	<!-- page content -->
 	<div class="right_col" role="main">
@@ -374,7 +374,7 @@
 	<!-- 다음 주소 API 추가  -->
 	<script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
 
-	<%@ include file="../Basic/footer.jsp"%>
+	<%@ include file="../../Basic/footer.jsp"%>
 	<!-- jQuery Smart Wizard -->
 	<script
 		src="/project/resources/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js"></script>

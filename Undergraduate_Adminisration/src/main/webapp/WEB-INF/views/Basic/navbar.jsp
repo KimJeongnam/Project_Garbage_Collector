@@ -107,7 +107,7 @@
                         </div>
 
                         <ul class="nav navbar-nav navbar-right">
-                            <li class=""><a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> <img src="${staticPath}${user.userImage }" alt="">로그인 아이디 <span class=" fa fa-angle-down"></span>
+                            <li class=""><a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> <img src="${staticPath}${user.userImage }" alt="">${user.userName } <span class=" fa fa-angle-down"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
                                     <li><a href="javascript:;"> 메뉴1 </a></li>
@@ -210,7 +210,7 @@
                         </div>
 
                         <ul class="nav navbar-nav navbar-right">
-                            <li class=""><a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> <img src="${staticPath}${user.userImage }" alt="">로그인 아이디 <span class=" fa fa-angle-down"></span>
+                            <li class=""><a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> <img src="${staticPath}${user.userImage }" alt="">${user.userName} <span class=" fa fa-angle-down"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
                                     <li><a href="javascript:;"> 메뉴1 </a></li>
@@ -312,7 +312,7 @@
                         </div>
                         <ul class="nav navbar-nav navbar-right">
                             <li class=""><a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    <img src="${staticPath}${user.userImage }" alt="">로그인 아이디 <span class=" fa fa-angle-down"></span>
+                                    <img src="${staticPath}${user.userImage }" alt="">${user.userName} <span class=" fa fa-angle-down"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
                                     <li><a href="javascript:;"> 메뉴1 </a></li>
@@ -323,7 +323,6 @@
                                 </ul>
                             </li>
                             <%@ include file="messageNav.jsp" %>
-                
                         </ul>
                     </nav>
                 </div>

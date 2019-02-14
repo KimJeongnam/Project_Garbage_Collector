@@ -4,24 +4,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<%@ include file="../Basic/settings.jsp"%>
+<%@ include file="../../Basic/settings.jsp"%>
 <title>Insert title here</title>
-
-<!-- Bootstrap -->
-<link href="../vendors/bootstrap/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-<!-- Font Awesome -->
-<link href="../vendors/font-awesome/css/font-awesome.min.css"
-	rel="stylesheet">
-<!-- NProgress -->
-<link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
-
-<!-- Custom Theme Style -->
-<link href="../build/css/custom.min.css" rel="stylesheet">
 
 </head>
 <body class="nav-md">
-	<%@ include file="../Basic/navbar.jsp"%>
+	<%@ include file="../../Basic/navbar.jsp"%>
 
 	<!-- page content -->
 	<div class="right_col" role="main">
@@ -321,7 +309,7 @@
 	<!-- 다음 주소 API 추가  -->
 	<script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
 
-	<%@ include file="../Basic/footer.jsp"%>
+	<%@ include file="../../Basic/footer.jsp"%>
 	<!-- jQuery Smart Wizard -->
 	<script
 		src="/project/resources/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js"></script>

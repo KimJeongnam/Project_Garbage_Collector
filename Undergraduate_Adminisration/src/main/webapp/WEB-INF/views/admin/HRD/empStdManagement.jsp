@@ -4,11 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<%@ include file="../Basic/settings.jsp"%>
+<%@ include file="../../Basic/settings.jsp"%>
 <title>Insert title here</title>
 </head>
 <body class="nav-md">
-	<%@ include file="../Basic/navbar.jsp"%>
+	<%@ include file="../../Basic/navbar.jsp"%>
 
 	<script type="text/javascript">
 	function employeeInfo(name){
@@ -52,7 +52,7 @@
 								<tbody>
 								<c:forEach var="vo" items="${vo}">
 									<tr>
-										<td><a href="proMyPage">${vo.userName}</a></td>
+										<td><a href="proMyPage?userNumber=${dto.userNumber}">${vo.userName}</a></td>
 										<td>
 											 <c:if test = "${vo.authority eq 'ROLE_PROFESSOR'}">
 													교수
@@ -107,7 +107,7 @@
 											<tbody>
 											<c:forEach var="dto" items="${dtos}">
 												<tr>
-													<td><a href="stdMyPage">${dto.userName}</a></td>
+													<td><a href="stdMyPage?userNumber=${dto.userNumber}">${dto.userName}</a></td>
 													<td>${dto.userNumber}</td>
 													<td>${dto.majorName}(${dto.majorNum})</td>
 													<td>${dto.grade}</td>
@@ -140,7 +140,7 @@
 	</div>
 	<!-- /page content -->
 
-	<%@ include file="../Basic/footer.jsp"%>
+	<%@ include file="../../Basic/footer.jsp"%>
 
 	<script type="text/javascript">
 		$(function (){

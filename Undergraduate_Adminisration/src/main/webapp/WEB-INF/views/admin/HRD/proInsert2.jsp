@@ -4,37 +4,37 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<%@ include file="../Basic/settings.jsp"%>
+<%@ include file="../../Basic/settings.jsp"%>
 <title>Insert title here</title>
 </head>
 <body class="nav-md">
-	<%@ include file="../Basic/navbar.jsp"%>
+	<%@ include file="../../Basic/navbar.jsp"%>
 
 	<!-- page content -->
 	<div class="right_col" role="main">
 		<div class="">
 			<div class="page-title">
 				<div class="title_left">
-					<h3>학생 등록</h3>
+					<h3>교수 등록</h3>
 				</div>
 			</div>
 		</div>
 		<div class="clearfix"></div>
 		<div class="row">
 			<!-- Smart Wizard -->
-			<p>신규 학생 등록 메뉴입니다. 절차에 따라서 필요한 정보를 입력 해주세요.</p>
+			<p>신규 교수 등록 메뉴입니다. 절차에 따라서 필요한 정보를 입력 해주세요.</p>
 			<div id="wizard" class="form_wizard wizard_horizontal">
 				<div class="x_panel">
 				<div class="row">
 					<div class="col-md-offset-1 col-md-10">
-					<form action="stdInsertPro" method="post"
+					<form action="proInsertPro" method="post"
 						enctype="multipart/form-data"
 						class="form-horizontal form-label-left">
 						<table class="table">
 							<tr>
 								<th class="control-label">단과대</th>
 								<td>
-									<select name="faculty" id ="faculty" >
+									<select name="faculty" id ="faculty" style="height : 22px;">
 							       		<option value="" >분류없음</option>
 							       		<c:forEach var="fa" items="${outFandM}" >
 											<option value="${fa.faculty}">${fa.faculty}</option>
@@ -43,12 +43,12 @@
 								</td>
 								<th class="control-label">학과번호</th>
 								<td>
-									<select name="majorNum" id ="majorNum">
-							       		<option value="" >분류없음</option>
+									<select name="majorNum" id ="majorNum" style="width : 130px; height : 22px;">
+							       		<option value="분류없음" >분류없음</option>
 							  		</select>
 								</td>
 							</tr>
-							<tr>
+							<!-- <tr>
 								<th class="control-label">학기</th>
 								<td>
 									 <p>
@@ -65,11 +65,11 @@
 				                      &nbsp;  4학년 <input type="radio" class="flat" name="grade" id="grade4" value="4" />
 				                     </p>
 								</td>
-							</tr>
+							</tr> -->
 							<tr>
-								<th class="control-label">학번</th>
+								<th class="control-label">교번</th>
 								<td><input type="text" class="input" required="required" id="userNumber" name="userNumber"
-									placeholder="학번을 입력하시오">
+									placeholder="교번을 입력하시오">
 									
 								</td>
 								<th class="control-label">사진</th>
@@ -80,7 +80,7 @@
 							<tr>
 								<th class="control-label">한글이름</th>
 								<td><input type="text" class="input" required="required"
-									id="userNumber" name="userNumber" placeholder="이름을 입력하시오">
+									id="userName" name="userName" placeholder="이름을 입력하시오">
 								</td>
 								<th class="control-label">영문이름</th>
 								<td><input type="text" class="input" required="required"
@@ -94,8 +94,8 @@
 								<th class="control-label">성별</th>
 								<td> 
 									 <p>
-				                        M <input type="radio" class="flat" name="gender" id="genderM" value="M"  required/> 
-				                       	&nbsp;F <input type="radio" class="flat" name="gender" id="genderF" value="F" />
+				                        M <input type="radio" class="flat" name="gender" id="genderM" value="남자"  required/> 
+				                       	&nbsp;F <input type="radio" class="flat" name="gender" id="genderF" value="여자" />
 				                     </p>
 								</td>
 							</tr>
@@ -125,19 +125,30 @@
 								</td>
 							</tr>
 							<tr>
-								<th class="control-label">입학일</th>
-								<td><input type="date" class="input" required="required"
-									id="adDate" name="adDate" placeholder="현재학기를 입력하시오"></td>
-								<th class="control-label">졸업예정일</th>
-								<td><input type="date" class="input" required="required"
-									id="graDate" name="graDate" placeholder="연락처를 입력하시오"></td>
+								<th class="control-label">은행명</th>
+								<td><input type="text" class="input" required="required"
+									id="bankName" name="bankName" placeholder="은행명을 입력하시오"></td>
+								<th class="control-label">예금주</th>
+								<td><input type="text" class="input" required="required"
+									id="accountHolder" name="accountHolder" placeholder="예금주를 입력하시오"></td>
+							</tr>
+							<tr>
+								<th class="control-label">계좌번호</th>
+								<td><input type="text" class="input" required="required"
+									id="accountNumber" name="accountNumber" placeholder="계좌번호를 입력하시오">
+								</td>
+								<th class="control-label">입사일</th>
+								<td> 
+								<input type="date" class="input" required="required"
+									id="empHiredDate" name="empHiredDate">
+								</td>
 							</tr>
 						</table>
 						<div class="ln_solid"></div>
 							<div class="form-group">
 								<div class="col-md-6 col-md-offset-5">
 									<button type="button" class="btn btn-primary">취소</button>
-									<button id="send" type="submit" class="btn btn-success">학생등록</button>
+									<button id="send" type="submit" class="btn btn-success">교수등록</button>
 								</div>
 							</div>
 						</form>
@@ -151,7 +162,7 @@
 	<!-- 다음 주소 API 추가  -->
 	<script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
 
-	<%@ include file="../Basic/footer.jsp"%>
+	<%@ include file="../../Basic/footer.jsp"%>
 	<script type="text/javascript">
 	function openZipSearch() {
 		daum.postcode.load(function(){
@@ -159,17 +170,16 @@
 			oncomplete: function(data) {
 				$('[name=userZipCode]').val(data.zonecode); // 우편번호 (5자리)
 				$('[name=userAddr1]').val(data.address);
-				$('[name=useraddr2]').val(data.buildingName);
+				$('[name=userAddr2]').val(data.buildingName);
 			}
 		}).open();
 	});
 	};
 	
-	
- 	$('#faculty').change(function(){
+	$('#faculty').change(function(){
  		var obj = new Object();
  		// 임의의 obj변수명 faculty에 faculty라는 클라스가 변할때 값을 담는다.
- 		obj.faculty = $(this).val(); 
+ 		obj.college = $(this).val(); 
  		
  		//위의 obj에 담긴 값을 json문자열데이터 변환해서 jsonData에 담는다.
  		var jsonData = JSON.stringify(obj);
@@ -186,7 +196,7 @@
  			console.log(obj);
  		}else{
  			$.ajax({
- 				url : "/project/admin/selectFaculty",
+ 				url : "/project/rest/json/getMajors",
  				type : 'POST',
  				data : jsonData,
  				contentType : 'application/json;charset=UTF-8',
@@ -226,20 +236,10 @@
 			
 				//데이터의 변수명은 vo의 정의된 변수명과 동일해야 함.
 				text : data[i].majorNum +" : "+ data[i].majorName,
-				value : data[i].majorNum
+				value : data[i].majorNum 
 			}));
 		}
 	}  
- 	
- 	//셀렉트박스 디스플레이
- /* 	 function majorDisplay(major){
- 	 	if(major!=null){
- 	 		for(var i=0; i<major.length; i++){
- 	 			majorDisplay(major[i].majorNum, major[i].majorName);
- 	 		}
- 	 	}
- 	 }  */
 	</script>
-
 </body>
 </html>
