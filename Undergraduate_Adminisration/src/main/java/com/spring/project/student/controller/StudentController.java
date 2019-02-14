@@ -6,12 +6,13 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired; 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.project.professor.controller.ProfessorController;
@@ -31,13 +32,20 @@ public class StudentController {
 		return "student/index";
 	}
 
+	// 수강신청 페이지
+	@RequestMapping(value="/student/bulletin", method=RequestMethod.GET)
+	public String bulletinPage() {
+		return "student/bulletin/bulletinPage";
+	}
+
 	//장학금 신청목록
-	@RequestMapping("/student/bulletin")
-	public String bulletin(HttpServletRequest req, Model model) {
+	/*@RequestMapping("/student/bulletin")*/
+	@RequestMapping(value="/student/studentBulletinlist", method=RequestMethod.POST)
+	public String bulletin(@RequestBody Map<String, Object> map, Model model) {
 		logger.info("bulletin");
-		service.bulletin(req, model);
+		service.bulletin(map, logger, model);
 		
-		return "student/bulletin";
+		return "student/bulletin/bulletin";
 	}
 	//장학금 글 상세 페이지
 	@RequestMapping("/student/contentForm")
@@ -89,7 +97,7 @@ public class StudentController {
 	@RequestMapping(value="/student/lectureList", method=RequestMethod.GET)
 	public String lectureList(Model model) {
 		service.lectureListMajor(model);
-		return "student/lectureListPage";
+		return "student/lecture&timetable/lectureListPage";
 	}
 	
 	//수강신청
@@ -97,7 +105,7 @@ public class StudentController {
 	public String lectureList(@RequestBody Map<String, Object> map, Model model) {
 		logger.info("lectureList");
 		service.lectureList(map, logger, model);
-		return "student/lectureList";
+		return "student/lecture&timetable/lectureList";
 	}
 
 	// 내 학점 조회
@@ -114,7 +122,7 @@ public class StudentController {
 		logger.info("schoolTimeTable");
 		
 		service.schoolTimeTable(map, logger, model);
-		return "student/schoolTimeTable";
+		return "student/lecture&timetable/schoolTimeTable";
 	}
 	
 	/*// 시간표 Hover
@@ -127,12 +135,12 @@ public class StudentController {
 	}*/
 		
 	//강의 신청
+	@ResponseBody
 	@RequestMapping(value="/student/applyLecture", method=RequestMethod.POST)
-	public String applyLecture(@RequestBody Map<String, Object> map, RedirectAttributes red) {
+	public Map<String, Object> applyLecture(@RequestBody Map<String, Object> map) {
 		logger.info("applyLecture");
 		
-		service.applyLecture(map, logger, red);
-		return "student/lectureList";
+		return service.applyLecture(map, logger);
 	}
 	
 	// 내 강의 신청 내역
@@ -141,15 +149,14 @@ public class StudentController {
 		logger.info("studentMyLecture");
 		
 		service.studentMyLecture(map, logger, model);
-		return "student/studentMyLecture";
+		return "student/lecture&timetable/studentMyLecture";
 	}
 	
 	// 내 강의 신청 취소
+	@ResponseBody
 	@RequestMapping(value="/student/cancelLecture", method=RequestMethod.POST)
-	public String cancelLecture(@RequestBody Map<String, Object> map, RedirectAttributes red) {
+	public Map<String, Object> cancelLecture(@RequestBody Map<String, Object> map) {
 		logger.info("cancelLecture");
-		
-		service.cancelLecture(map, logger, red);
-		return "student/studentMyLecture";
+		return service.cancelLecture(map, logger);
 	}
 }

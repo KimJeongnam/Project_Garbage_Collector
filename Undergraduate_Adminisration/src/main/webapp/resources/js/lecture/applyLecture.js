@@ -3,6 +3,7 @@ function studentLecture(userNumber, page){
 	obj.userNumber = userNumber;
 	obj.pageNum = page;
 	
+	
 	if($('#lectureList-pagesize')!=null)
 		obj.pageSize = $('#lectureList-pagesize')[0].value;
 	if($('#lectureList-search-keyword')[0].value.length > 0){
@@ -31,7 +32,6 @@ function studentLecture(userNumber, page){
 				if($('#lectureList')!= null)
 					$('#lectureList').html(data);
 			}
-			
 		},
 		error:function(){
 			alert("Error! studentLecture();");
@@ -106,6 +106,10 @@ function applyLecture(userNumber, lecCode){
 		data : jsonData,
 		contentType : 'application/json;charset=UTF-8',
 		success : function(data){
+			if(data.message != null){
+				alert(data.message);
+				return;
+			}
 			studentLecture(userNumber,1);
 			studentMyLecture(userNumber);
 			studentTimetable(userNumber);
@@ -129,6 +133,10 @@ function cancelLecture(userNumber, lecCode){
 		data : jsonData,
 		contentType : 'application/json;charset=UTF-8',
 		success : function(data){
+			if(data.message != null){
+				alert(data.message);
+				return;
+			}
 			studentLecture(userNumber,1);
 			studentMyLecture(userNumber);
 			studentTimetable(userNumber);

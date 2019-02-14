@@ -5,11 +5,11 @@
 <head>
 <meta charset="UTF-8">
 
-<%@ include file="../Basic/settings.jsp"%>
+<%@ include file="../../Basic/settings.jsp"%>
 <title>Insert title here</title>
 </head>
 <body class="nav-md">
-	<%@ include file="../Basic/navbar.jsp"%>
+	<%@ include file="../../Basic/navbar.jsp"%>
 	<!-- page content -->
 	<div class="right_col" role="main" style="min-height: 1000px">
 		<div class="">
@@ -78,7 +78,7 @@
 													<input type="search" id="lectureList-search-keyword"
 														class="form-control input-sm"
 														onkeyup="studentLecture('${userNumber}', 1);"
-														placeholder="검색">
+														placeholder="강의명 검색">
 												</div>
 											</div>
 										</div>
@@ -106,7 +106,7 @@
 	</div>
 	<!-- /page content -->
 	
-	<%@ include file="../Basic/footer.jsp"%>
+	<%@ include file="../../Basic/footer.jsp"%>
 	<!-- .cd-schedule schedule폴더에 js추가됨-->
 	  <!-- 수강신청 -->
 	  

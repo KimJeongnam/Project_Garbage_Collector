@@ -10,6 +10,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 
+
 public interface ProfessorService {
 	
 	public void myPage(HttpServletRequest req, Model model);
@@ -18,4 +19,5 @@ public interface ProfessorService {
 	public void update(HttpServletRequest req, RedirectAttributes red);
 	public void list(HttpServletRequest req, Model model);
 	public void getStudent(Map<String, Object> map, HttpServletRequest req, Model model);
+	public void search_student(Map<String, Object> map, HttpServletRequest req, Model model);
 }

@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="/project/resources/css/schedule/style.css">
 <!-- Resource style -->
 
-<%@ include file="../Basic/settings.jsp"%>
+<%@ include file="../../Basic/settings.jsp"%>
 <title>Insert title here</title>
 </head>
 <body class="nav-md">
@@ -52,10 +52,6 @@
 			</c:forEach>
 		</tbody>
 	</table>
-	<div>
-		<!-- <input class="btn btn-info" type="button" value="수정" onclick="window.location='proUpdate'">
-								<input class="btn btn-danger" type="button" value="삭제" onclick="window.location='proDelete'"> -->
-	</div>
 	<div class="row">
 		<div class="col-sm-5">
 			<div class="dataTables_info" id="datatable_info" role="status"
@@ -73,7 +69,6 @@
 
 							<li class="paginate_button previous disabled"
 								style="cursor: pointer;" id="datatable_previous"><a
-								onclick="studentLecture('${userNumber}', 1);"
 								onclick="studentLecture('${userNumber}', 1);"
 								aria-controls="datatable" data-dt-idx="0" tabindex="0">Frist</a></li>
 							<li class="paginate_button previous disabled"
