@@ -310,7 +310,6 @@
     </div>
     <!-- /page content -->
 
-
     <!-- 이미지 업로드 모달  -->
     <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-sm">
@@ -330,12 +329,9 @@
                 </div>
                 <div class="modal-footer">
                 </div>
-
-
             </div>
         </div>
     </div>
-
     <!-- 이미지 업로드 모달 끝 -->
 
 

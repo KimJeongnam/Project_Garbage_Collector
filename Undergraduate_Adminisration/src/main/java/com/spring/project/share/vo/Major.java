@@ -5,6 +5,7 @@ public class Major {
 	private String faculty;
 	private String majorName;
 	private int maxNum;
+	private int delStatus;
 	
 	public int getMajorNum() {
 		return majorNum;
@@ -30,10 +31,15 @@ public class Major {
 	public void setMaxNum(int maxNum) {
 		this.maxNum = maxNum;
 	}
-	
+	public int getDelStatus() {
+		return delStatus;
+	}
+	public void setDelStatus(int delStatus) {
+		this.delStatus = delStatus;
+	}
 	@Override
 	public String toString() {
 		return "Major [majorNum=" + majorNum + ", faculty=" + faculty + ", majorName=" + majorName + ", maxNum="
-				+ maxNum + "]";
+				+ maxNum + ", delStatus=" + delStatus + "]";
 	}
 }

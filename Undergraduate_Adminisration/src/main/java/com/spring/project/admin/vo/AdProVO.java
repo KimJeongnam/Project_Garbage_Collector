@@ -31,6 +31,9 @@ public class AdProVO {
 	private String empNumber;		//users의 userNumber - 교번
 	private Date empHiredDate;		//입사일
 	private int annualLevel;		//연차
+	private String bankName;		//은행명
+	private String accountNumber;	//계좌번호
+	private String accountHolder;	//예금주
 	
 	//payment
 	private int paymentCode;		//급여코드
@@ -41,7 +44,24 @@ public class AdProVO {
 	
 	
 	
-	
+	public String getBankName() {
+		return bankName;
+	}
+	public void setBankName(String bankName) {
+		this.bankName = bankName;
+	}
+	public String getAccountNumber() {
+		return accountNumber;
+	}
+	public void setAccountNumber(String accountNumber) {
+		this.accountNumber = accountNumber;
+	}
+	public String getAccountHolder() {
+		return accountHolder;
+	}
+	public void setAccountHolder(String accountHolder) {
+		this.accountHolder = accountHolder;
+	}
 	public String getUserNumber() {
 		return userNumber;
 	}

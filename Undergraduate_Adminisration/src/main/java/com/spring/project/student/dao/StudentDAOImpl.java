@@ -1,7 +1,6 @@
 package com.spring.project.student.dao;
 
 import java.util.List;
-
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -9,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.spring.project.admin.vo.ScholarpkVO;
+import com.spring.project.share.dao.ShareDAO;
 import com.spring.project.student.vo.GpaVO;
+//github.com/KimJeongnam/Project_Garbage_Collector.git
 import com.spring.project.student.vo.LectureVO;
 
 @Repository
@@ -27,6 +28,7 @@ public class StudentDAOImpl implements StudentDAO{
 	// 수강신청 목록 조회
 	@Override
 	public List<LectureVO> lectureList(Map<String, Object> map) {
+		System.out.println(ShareDAO.getQuery(sqlSession, "lectureList", map));
 		return sqlSession.selectList("com.spring.project.student.dao.StudentDAO.lectureList", map);
 	}
 
@@ -135,16 +137,5 @@ public class StudentDAOImpl implements StudentDAO{
 	public int ApplyCredit(String userNumber) {
 		return sqlSession.selectOne("com.spring.project.student.dao.StudentDAO.ApplyCredit", userNumber);
 	}
-
-
-	
-
-	
-
-	
-
-	
-
-	
 
 }

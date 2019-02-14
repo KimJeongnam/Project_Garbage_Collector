@@ -79,6 +79,7 @@ public class StudentServiceImpl implements StudentService {
 		logger.info("userNumber : " + map.get("userNumber"));
 		logger.info("start : " + map.get("start"));
 		logger.info("end : " + map.get("end"));
+		logger.info("keyword : "+map.get("keyword"));
 		
 		if (cnt > 0) {
 			// 수강신청 목록 조회
@@ -87,7 +88,7 @@ public class StudentServiceImpl implements StudentService {
 
 			dtos = dao.lectureList(map);
 
-			model.addAttribute("dtosL", dtos);
+			model.addAttribute("dtosL", dtos); 
 		}
 
 		// 시작페이지
@@ -145,6 +146,7 @@ public class StudentServiceImpl implements StudentService {
 		System.out.println("cnt1 : " +cnt); 
 		
 		Map<String, Object> responseData = new HashMap<String,Object>();
+		
 		if (cnt == 0) { 	// 0 이면 시간표에 없음
 			int selectCnt = dao.checkStudentInLecture(lecCode); // selectCnt 현재 강의 신청한 인원수 
 			System.out.println("selectCnt2 : " + selectCnt);
