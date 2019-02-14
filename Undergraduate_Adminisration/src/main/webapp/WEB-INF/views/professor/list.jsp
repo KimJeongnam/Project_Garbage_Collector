@@ -7,7 +7,13 @@
     <%@ include file="../Basic/settings.jsp" %>
     <title>Insert title here</title>
 </head>
-  
+<c:if test="${empty list}">
+<script type="text/javascript">
+	alert("개강한 수업이 없습니다. 이전 페이지로 돌아갑니다.");
+	history.back();
+</script>
+</c:if>
+<c:if test="${!empty list}">
 <body class="nav-md">
     <%@ include file="../Basic/navbar.jsp" %>
 
@@ -144,18 +150,19 @@
 			
 			var jsonData = JSON.stringify(obj);
 			
-			var availableTags = $.ajax({
-				url : '/project/professor/list/search_student',
-				type : 'POST',
-				data : jsonData,
-				contentType : 'application/json;charset=UTF-8',
-				success : function(data) {
-					$('#search').html(data);//성공할시 이곳으로 데이터를 뿌려라
-				},
-				error : function() {
-					alert("Error! searchAjax()");
-				}
-			});
+			var availableTags = 
+				$.ajax({
+					url : '/project/professor/list/search_student',
+					type : 'POST',
+					data : jsonData,
+					contentType : 'application/json;charset=UTF-8',
+					success : function(data) {
+						$('#search').html(data);//성공할시 이곳으로 데이터를 뿌려라
+					},
+					error : function() {
+						alert("Error! searchAjax()");
+					}
+				});
 		}
         function class_click(divid, lecName) {
             var obj = new Object();
@@ -183,5 +190,5 @@
     </script>
 
 </body>
-
+</c:if>
 </html>

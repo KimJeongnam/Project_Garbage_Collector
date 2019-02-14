@@ -1,6 +1,6 @@
 package com.spring.project.professor.vo;
 
-public class classStudentVO {
+public class ClassStudentVO {
 
 	private String stdNumber;
 	private String grade;

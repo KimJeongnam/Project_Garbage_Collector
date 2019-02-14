@@ -8,8 +8,52 @@ public class payrollVO {
 	private String registerName;
 	private Date paymentDate;
 	private String paymentYear;
-	private int totalPayment;
+	private int totalAmount;
 	
+	private String empNumber;
+	private String accountHolder;
+	private String majorName;
+	private int totalPayment;
+	private Date beginningPeriod;
+	private Date endPeriod;
+	
+	
+	public int getTotalAmount() {
+		return totalAmount;
+	}
+	public void setTotalAmount(int totalAmount) {
+		this.totalAmount = totalAmount;
+	}
+	public Date getBeginningPeriod() {
+		return beginningPeriod;
+	}
+	public void setBeginningPeriod(Date beginningPeriod) {
+		this.beginningPeriod = beginningPeriod;
+	}
+	public Date getEndPeriod() {
+		return endPeriod;
+	}
+	public void setEndPeriod(Date endPeriod) {
+		this.endPeriod = endPeriod;
+	}
+	public String getEmpNumber() {
+		return empNumber;
+	}
+	public void setEmpNumber(String empNumber) {
+		this.empNumber = empNumber;
+	}
+	public String getAccountHolder() {
+		return accountHolder;
+	}
+	public void setAccountHolder(String accountHolder) {
+		this.accountHolder = accountHolder;
+	}
+	public String getMajorName() {
+		return majorName;
+	}
+	public void setMajorName(String majorName) {
+		this.majorName = majorName;
+	}
 	public String getImputedYear() {
 		return imputedYear;
 	}

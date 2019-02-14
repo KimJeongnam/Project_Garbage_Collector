@@ -7,9 +7,10 @@
     <script type="text/javascript">
 	    $(function(){
 	    	$('.onclick_search').click(function(){
-	    		$('.onclick_search').siblings().css( 'display', 'none' );
-	    		$('.onclick_search').css( 'display', 'none' );
-	    		$('#search').css( 'border', 'none' );
+	    		$('.onclick_search').siblings().css( 'display', 'none' );//형제객체를 찾아서 디스플레이 논
+	    		$('.onclick_search').css( 'display', 'none' );//클래스  css 디스플레이 논 설정
+	    		$('#search').css( 'border', 'none' ); // 튀어 나오는 보더값 논
+	    		$('#tags').val('');//인풋창 초기화
 	    	})
 	    });
     </script>

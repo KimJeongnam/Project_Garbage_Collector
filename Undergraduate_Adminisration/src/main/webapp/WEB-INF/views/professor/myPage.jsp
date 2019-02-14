@@ -56,8 +56,7 @@
                                         </li>
 
                                     </ul>
-
-
+                                   
 
                                     <!-- 이미지 변경 모달  -->
                                     <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-sm">프로필 사진 바꾸기</button>
@@ -311,7 +310,6 @@
     </div>
     <!-- /page content -->
 
-
     <!-- 이미지 업로드 모달  -->
     <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-sm">
@@ -324,19 +322,16 @@
                 </div>
                 <div class="modal-body">
                     <form action="imageUpload" method="post" enctype="multipart/form-data">  
-                    	<input class="btn btn-info" type="file" name="image" style="position:relative;right:11px;">
+                    	<input class="btn btn-info" type="file" name="image" style="position:relative;right:11px;" required="required">
                     	<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
                    		<button type="submit" class="btn btn-primary">변경</button>
                     </form>
                 </div>
                 <div class="modal-footer">
                 </div>
-
-
             </div>
         </div>
     </div>
-
     <!-- 이미지 업로드 모달 끝 -->
 
 

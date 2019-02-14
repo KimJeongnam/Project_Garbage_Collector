@@ -171,7 +171,6 @@
 					<div class="modal-body">
 						<form id="demo-form2" data-parsley-validate
 							class="form-horizontal form-label-left">
-
 							<div class="form-group">
 								<label class="control-label col-md-3 col-sm-3 col-xs-12"
 									for="majorCode">학과 코드 <span class="required">*</span>

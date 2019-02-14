@@ -157,6 +157,7 @@
 	
 	<!-- 장학 글   -->
     <script src="${staticPath }/js/bulletin/applybulletin.js"></script>
+    <script src="${staticPath }/js/adminjanghak/applyresister.js"></script>
 	
 	
     

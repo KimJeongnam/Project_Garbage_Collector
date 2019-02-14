@@ -4,17 +4,17 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<%@ include file="../Basic/settings.jsp"%>
+<%@ include file="../../Basic/settings.jsp"%>
 <title>Insert title here</title>
 </head>
 <body class="nav-md">
-	<%@ include file="../Basic/navbar.jsp"%>
+	<%@ include file="../../Basic/navbar.jsp"%>
 	<!-- page content -->
 	<div class="right_col" role="main">
 		<div class="">
 			<div class="page-title">
 				<div class="title_left">
-					<h3>마이페이지</h3>
+					<h3>학생 상세정보</h3>
 				</div>
 				<div class="clearfix"></div>
 				<div class="row">
@@ -43,20 +43,23 @@
 									<div class="profile_img">
 										<div id="crop-avatar">
 											<!-- Current avatar -->
-											<img style="width: 180px; height: 218px;" class="img-responsive avatar-view"
-												src="../resources/images/img.jpg" alt="Avatar" title="Change the avatar">
+											<img style="width: 180px; height: 218px;" name="userImage" class="img-responsive avatar-view"
+												src="${staticPath }${vo.userImage}" alt="Avatar" title="Change the avatar">
 										</div>
 									</div>
-									<h3>김설현</h3>
+									<h3>${vo.userName}</h3>
 									<ul class="list-unstyled user_data">
 										<li><i class="fa fa-map-marker user-profile-icon"></i>
-											경기도 안양시 만안구 병목안로 179 금용아파트 1111호
+											&nbsp; ${vo.userAddr1} &nbsp;${vo.userAddr2}
 										</li>
-										<li><i class="fa fa-briefcase user-profile-icon"></i>중국어학과</li>
-										<li><i class="fa fa-university user-profile-icon">경기대학교</i></li>
-										<li><i class="fa fa-phone user-profile-icon">010-2458-7354</i></li>
+										<li><i class="fa fa-briefcase user-profile-icon"></i>&nbsp;&nbsp;${vo.majorName}</li>
+										<li><i class="fa fa-university user-profile-icon">&nbsp;&nbsp;경기대학교</i></li>
+										<li><i class="fa fa-phone user-profile-icon">&nbsp;&nbsp;${vo.userCellNum}</i></li>
 									</ul>
-									<a class="btn btn-success"><i class="fa fa-edit m-right-xs"></i>프로필 사진 변경</a> <br />
+									  <!-- 이미지 변경 모달  -->
+                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-sm">프로필 사진 바꾸기</button>
+                                    <!-- 이미지 변경 모달끝  -->
+									<!-- <a class="btn btn-success"><i class="fa fa-edit m-right-xs"></i>프로필 사진 변경</a> <br /> -->
 								</div>
 								<div class="col-md-9 col-sm-9 col-xs-12">
 									<div class="x_panel">
@@ -86,7 +89,7 @@
 												<div id="myTabContent" class="tab-content">
 													<div role="tabpanel" class="tab-pane fade active in"
 														id="tab_content1" aria-labelledby="home-tab">
-														<form class="form-horizontal form-label-left" novalidate>
+														<form action="stdDetailUpdate" method="POST" class="form-horizontal form-label-left" novalidate>
 															<span class="section">학생정보</span>
 															<div class="row">
 																<div class="col-md-offset-1 col-md-10">
@@ -96,15 +99,15 @@
 																				학번
 																			</th>
 																			<td>
-																				<input type="text" class="input" required="required" 
-																					placeholder="학번을 입력하시오">
+																				<input type="text" class="input" required="required" name="userNumber"
+																					value="${vo.userNumber}" placeholder="학번을 입력하시오">
 																			</td>
 																			<th class="control-label">
-																				성명
+																				한글성명
 																			</th>
 																			<td>
-																				<input type="text" class="input" required="required" 
-																					placeholder="성명을 입력하시오">
+																				<input type="text" class="input" required="required" name="userName"
+																					value="${vo.userName }" placeholder="성명을 입력하시오">
 																			</td>
 																		</tr>
 																		<tr>
@@ -112,31 +115,35 @@
 																				주민등록번호
 																			</th>
 																			<td>
-																				<input type="text" class="input" required="required" 
-																					placeholder="주민등록번호를 입력하시오">
+																				<input type="text" class="input" required="required" name="userSsn"
+																					value="${vo.userSsn }" placeholder="주민등록번호를 입력하시오">
 																			</td>
 																			<th class="control-label">
-																				성별
+																				영어성명
 																			</th>
 																			<td>
-																				<input type="text" class="input" required="required" 
-																					placeholder="성별을 입력하시오">
+																				<input type="text" class="input" required="required" name="userEngName"
+																					value="${vo.userEngName }" placeholder="성명을 입력하시오">
 																			</td>
 																		</tr>
 																		<tr>
 																			<th class="control-label">
+																				성별
+																			</th>
+																			<td>
+																				<input type="text" class="input" required="required" name="gender"
+																					value="${vo.gender }" placeholder="성별을 입력하시오. 남 또는 여">
+																			</td>
+																			<th class="control-label">
 																				단과대학
 																			</th>
 																			<td>
-																				<input type="text" class="input" required="required" 
-																					placeholder="단과대학을 입력하시오">
-																			</td>
-																			<th class="control-label">
-																				학과(전공)
-																			</th>
-																			<td>
-																				<input type="text" class="input" required="required" 
-																					placeholder="학과(전공)을 입력하시오">
+																				<select name="faculty" id ="faculty" style="height : 22px; width : 165px;" >
+																		       			<option value="${vo.faculty}" selected>${vo.faculty}</option> 
+																		       		<c:forEach var="fa" items="${outFandM}" >
+																						<option value="${fa.faculty}" >${fa.faculty}</option> 
+																					</c:forEach>	
+																	      		</select>
 																			</td>
 																		</tr>
 																		<tr>
@@ -144,15 +151,30 @@
 																				학적상태
 																			</th>
 																			<td>
-																				<input type="text" class="input" required="required" 
-																					placeholder="학적상태를 입력하시오">
+																				<select name="graduation_state" style="height : 22px; width : 165px;"
+																						selected="${vo.graduation_state}">
+																					<option value="${vo.graduation_state}" selected>${vo.graduation_state}</option>	
+																					<option value="0">재학중</option>
+																					<option value="1">휴학중</option>
+																					<option value="2">졸업</option>
+																				</select>
+																				<%-- <c:if test = "${vo.graduation_state ==0}">
+																					<input type="text" class="input" required="required" 
+																					name="graduation_state" value="재학중" placeholder="학적상태를 입력하시오 0 또는 1">
+																				</c:if>
+																				<c:if test = "${vo.graduation_state ==1}">
+																					<input type="text" class="input" required="required" 
+																					name="graduation_state" value="졸업" placeholder="학적상태를 입력하시오 0 또는 1">
+																				</c:if> --%>
 																			</td>
 																			<th class="control-label">
-																				학년
+																				학과(전공)
 																			</th>
 																			<td>
-																				<input type="text" class="input" required="required" 
-																					placeholder="학년을 입력하시오">
+																				<select name="majorNum" id ="majorNum" selected ="${vo.majorNum}"
+																						style="width : 165px; height : 22px;" >
+																					<option value="${vo.majorNum}">${vo.majorNum} : ${vo.majorName}</option>	
+																		  		</select>
 																			</td>
 																		</tr>
 																		<tr>
@@ -160,42 +182,68 @@
 																				현재학기
 																			</th>
 																			<td>
-																				<input type="text" class="input" required="required" 
-																					placeholder="현재학기를 입력하시오">
+																				<input type="text" class="input" required="required" name="semester"
+																					value="${vo.semester }" placeholder="현재학기를 입력하시오. 1 또는 2">
 																			</td>
 																			<th class="control-label">
-																				연락처
+																				학년
 																			</th>
 																			<td>
-																				<input type="text" class="input" required="required" 
-																					placeholder="연락처를 입력하시오">
+																				<input type="text" class="input" required="required" name="grade"
+																					value="${vo.grade }" placeholder="학년을 입력하시오. 1,2,3,4">
+																			</td>
+																		</tr>
+																		<tr>
+																			<th class="control-label">
+																				이메일
+																			</th>
+																			<td>
+																				<input type="text" class="input" required="required" name="userEmail"
+																					value="${vo.userEmail }" placeholder="이메일을 입력하시오">
+																			</td>
+																			<th class="control-label">
+																				졸업 예정일
+																			</th>
+																			<td>
+																				<input type="date" class="input" required="required" style="width: 166px;"
+																					name="graDate" value="${vo.graDate}" placeholder="졸업예정일을 입력하시오">
 																			</td>
 																		</tr>
 																		<tr>
 																			<th class="control-label">
 																				주소
 																			</th>
-																			<td colspan="3">
-																				<input type="text" name="zip" class="input" required="required" 
-																					placeholder="입학일을 입력하시오">
+																			<td >
+																				<input type="text" name="userZipCode" class="input" required="required" 
+																					value="${vo.userZipCode }" placeholder="입학일을 입력하시오">
 																					
-																	<button type="button" name="zipSearch" onclick="openZipSearch();">검색</button><br>
-																	주소 :<input id="studentAddress1" name="addr1"class="form-control col-md-7 col-xs-12"
-																		data-validate-length-range="6" data-validate-words="2"
-																		placeholder="" name="studentAddress1" type="text"><br>
-																	상세 :<input id="studentAddress2" name="addr2" class="form-control col-md-7 col-xs-12"
-																		data-validate-length-range="6" data-validate-words="2"
-																		placeholder="" name="studentAddress2" type="text"><br>
+																				<button type="button" name="ZipCode" onclick="openZipSearch();">검색</button><br>
+																				주소 :<input id="userAddr1" name="userAddr1"class="form-control col-md-7 col-xs-12"
+																					data-validate-length-range="6" data-validate-words="2"
+																					value="${vo.userAddr1 }" placeholder="" type="text"><br>
+																				상세 :<input id="userAddr2" name="userAddr2" class="form-control col-md-7 col-xs-12"
+																					data-validate-length-range="6" data-validate-words="2"
+																					value="${vo.userAddr2 }" placeholder="" type="text"><br>
+																			</td>
+																			<th class="control-label">
+																				연락처
+																			</th>
+																			<td>
+																				<input type="text" class="input" required="required" name="userCellNum"
+																					value="${vo.userCellNum}" placeholder="연락처를 입력하시오">
 																			</td>
 																		</tr>
+																		
 																	</table>
 																</div>
 															</div>
 															<div class="ln_solid"></div>
 															<div class="form-group">
-																<div class="col-md-6 col-md-offset-3">
-																	<button type="submit" class="btn btn-primary">취소</button>
+																<div class="col-md-6 col-md-offset-5">
+																	<button type="reset" class="btn btn-primary">취소</button>
 																	<button id="send" type="submit" class="btn btn-success">수정</button>
+																	<button type="button" class="btn btn-danger" 
+																	onclick="window.location='stdDeletePro?userNumber=${vo.userNumber}'">삭제</button>
 																</div>
 															</div>
 														</form>
@@ -308,7 +356,7 @@
 																						<h4>제출리스트</h4>
 																						<!-- end of user messages -->
 																						<ul class="messages">
-																							<li><img src="../resources/images/img.jpg" class="avatar" alt="Avatar">
+																							<li><img src="${staticPath }${vo.userImage}" name="userImage" class="avatar" alt="Avatar">
 																								<div class="message_date">
 																									<h3 class="date text-info">24</h3>
 																									<p class="month">1월</p>
@@ -324,7 +372,7 @@
 																									</p>
 																								</div>
 																							</li>
-																							<li><img src="../resources/images/img.jpg" class="avatar" alt="Avatar">
+																							<li><img src="${staticPath }${vo.userImage}" name="userImage" class="avatar" alt="Avatar">
 																								<div class="message_date">
 																									<h3 class="date text-info">24</h3>
 																									<p class="month">1월</p>
@@ -431,23 +479,99 @@
 			</div>
 		</div>
 	</div>
+	 <!-- 이미지 업로드 모달  -->
+    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel2">프로필 사진 바꾸기</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="stdUpdate" method="post" enctype="multipart/form-data">  
+                    	<input class="btn btn-info" type="file" name="image" style="position:relative;right:11px;">
+                    	<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+                   		<button type="submit" class="btn btn-primary">변경</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 이미지 업로드 모달 끝 -->
+	
 	<!-- 다음 주소 API 추가  -->
 	<script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
 	<!-- /page content -->
-	<%@ include file="../Basic/footer.jsp"%>
+	<%@ include file="../../Basic/footer.jsp"%>
 	<script type="text/javascript">
 	//다음 주소 이용한 주소검색
 	function openZipSearch() {
 		daum.postcode.load(function(){
 		new daum.Postcode({
 			oncomplete: function(data) {
-				$('[name=zip]').val(data.zonecode); // 우편번호 (5자리)
-				$('[name=addr1]').val(data.address);
-				$('[name=addr2]').val(data.buildingName);
+				$('[name=userZipCode]').val(data.zonecode); // 우편번호 (5자리)
+				$('[name=userAddr1]').val(data.address);
+				$('[name=userAddr2]').val(data.buildingName);
 			}
 		}).open();
 	});
 	};
+	
+	$('#faculty').change(function(){
+ 		var obj = new Object();
+ 		// 임의의 obj변수명 faculty에 faculty라는 클라스가 변할때 값을 담는다.
+ 		obj.college = $(this).val(); 
+ 		
+ 		//위의 obj에 담긴 값을 json문자열데이터 변환해서 jsonData에 담는다.
+ 		var jsonData = JSON.stringify(obj);
+ 		
+ 		if($(this).val()==""){
+ 			
+ 			  $('#faculty').empty(); // 메이저 셀렉터 초기화
+ 			// 초기화 이후 들어갈 value와 text 설정
+ 			$('#faculty').append($('<option>', {
+				text : '선택하세요',
+				disabled : 'disabled',
+				selected : 'selected'
+			}));  
+ 		}else{
+ 			$.ajax({
+ 				url : "/project/rest/json/getMajors",
+ 				type : 'POST',
+ 				data : jsonData,
+ 				contentType : 'application/json;charset=UTF-8',
+ 				success : function(data){
+ 					//JSONDATA(키 : 맵)의 리스트가 담겨있음
+ 					setMajors(data);
+ 				},
+ 				error : function(){
+ 					alert("잘못된 접근입니다.")
+ 				}
+ 			});
+ 		}
+ 	});
+ 	/*자바스크립트 - 메이저넘 셀렉터에 옵션값을 성정해줌.   */
+ 	  var setMajors = function(data){
+		$('#majorNum').empty();
+		
+		$('#majorNum').append($('<option>', {
+			text : '선택하세요',
+			disabled : 'disabled',
+			selected : 'selected'
+		}));
+		
+		for(var i=0; i<data.length; i++){
+			$('#majorNum').append($('<option>',{
+			
+				//데이터의 변수명은 vo의 정의된 변수명과 동일해야 함.
+				text : data[i].majorNum +" : "+ data[i].majorName,
+	 			value : data[i].majorNum 
+			}));
+		}
+	}  
 	</script>
 </body>
 </html>
