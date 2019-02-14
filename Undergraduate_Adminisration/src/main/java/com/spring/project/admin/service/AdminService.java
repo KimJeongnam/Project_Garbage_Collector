@@ -55,6 +55,11 @@ public interface AdminService {
 	// 해당 교수 빈강의시간 조회
 	public void getEmptyLecTime(String empNumber, Model model);
 	
+	// 생성될 강의코드 조회 
+	public Map<String, Object> getLectureSeqNextval();
+	
+	public void getLectureList(Map<String, Object> map,Model model);
+	
 	//---------------교직 업무 관리 END-------------------
 	
 	public void facultyAccountManage(Model model);

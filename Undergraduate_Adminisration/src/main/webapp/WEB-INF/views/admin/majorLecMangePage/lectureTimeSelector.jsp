@@ -52,10 +52,10 @@
 						<c:forEach var="lecture" items="${lectures}">
 							<c:if test="${lecture.lectureDay == day}">
 								<li class="single-event" data-start="${lecture.beginningLectureTime}"
-									data-end="${lecture.endLectureTime}" data-event="event-5"
+									data-end="${lecture.endLectureTime}" data-event="event-3"
 									onclick=""
 									id="li-${dStatus.index }${iStatus.index}">
-									<a><span></span> <em class="event-name" id="chk-${dStatus.index }${iStatus.index}"></em>
+									<a><span></span> <em class="event-name" id="chk-${dStatus.index }${iStatus.index}">${lecture.lectureName }</em>
 								</a></li>
 							</c:if>
 						</c:forEach>
@@ -63,10 +63,10 @@
 						<c:forEach var="dto" items="${dtos}" varStatus="iStatus">
 							<c:if test="${dto.lectureDay == day}">
 								<li class="single-event" data-start="${dto.beginningLectureTime}"
-									data-end="${dto.endLectureTime}" data-event="event-5"
+									data-end="${dto.endLectureTime}" data-event="event-6"
 									onclick="selectTime(${dto.timetblCode },'${dStatus.index }${iStatus.index}');"
 									id="li-${dStatus.index }${iStatus.index}">
-									<a href="#"><span></span> <em class="event-name" id="chk-${dStatus.index }${iStatus.index}"></em>
+									<a style="cursor: pointer;"><span></span> <em class="event-name" id="chk-${dStatus.index }${iStatus.index}"></em>
 								</a></li>
 							</c:if>
 						</c:forEach>

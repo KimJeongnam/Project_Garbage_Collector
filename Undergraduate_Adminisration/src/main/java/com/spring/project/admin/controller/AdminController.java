@@ -198,8 +198,7 @@ public class AdminController {
 		return "admin/menu7";
 	}
 
-	// ---------------------------------학과, 강의 관리
-	// START----------------------------------------
+	// ---------------------------------학과, 강의 관리START----------------------------------------
 	// 학과 조회(게시판 형식)
 	@RequestMapping(value = "/admin/major_lecture_Manager/getMajors", method = RequestMethod.POST)
 	public String getMajors(@RequestBody Map<String, Object> map, Model model) {
@@ -234,33 +233,51 @@ public class AdminController {
 
 	// 강의 조회
 	@RequestMapping(value = "/admin/major_lecture_Manager/getLectureList", method = RequestMethod.POST)
-	public String getLectureList(@RequestBody Map<String, Object> map) {
+	public String getLectureList(@RequestBody Map<String, Object> map, Model model) {
+		logger.info("getLectureList()");
+		service.getLectureList(map, model);
+		return "admin/majorLecMangePage/lectureList";
+	}
 
-		return "";
-	}
-	
-	//---------------------------------학과, 강의 관리 END----------------------------------------
-	
-	
-	//---------------------------------회계 관리 START----------------------------------------
-	
-	// 교직원 급여관리
-	@RequestMapping(value="/admin/facultyAccountManage", method=RequestMethod.GET)
-	public String facultyAccountManage(Model model) {
-		service.facultyAccountManage(model);
-		return "admin/accountingManagement/AccountManagePage";
-	}
-	
-	//---------------------------------회계 관리 END------------------------------------------
-	
 	// 해당 교수의 빈강의 조회
-	@RequestMapping(value="/admin/major_lecture_Manager/getEmptyLecTime/{empNumber}", method=RequestMethod.GET)
+	@RequestMapping(value = "/admin/major_lecture_Manager/getEmptyLecTime/{empNumber}", method = RequestMethod.GET)
 	public String getEmptyLecTime(@PathVariable String empNumber, Model model) {
 		logger.info("getEmptyLecTime()");
 		service.getEmptyLecTime(empNumber, model);
 		return "admin/majorLecMangePage/lectureTimeSelector";
 	}
+	
+	// 다음에 생성될 강의코드 조회
+	@ResponseBody
+	@RequestMapping(value="/admin/major_lecture_Manager/getLectureSeqNextVal",  method = RequestMethod.GET)
+	public Map<String, Object> getLectureSeqNextVal() {
+		return service.getLectureSeqNextval();
+	}
+	
+	// 교수 선택 페이지
+	@RequestMapping(value="/admin/major_lecture_Manager/professorSelector/")
+	public String professorSelector(Model model) {
+		logger.info("professorSelector()");
+		return "admin/majorLecMangePage/professorSelector";
+	}
+	
+	// 해당 강의의 시간 조회
+	@RequestMapping(value="/admin/major_lecture_Manager/LecTime/{lecCode}")
+	public String getLecTime(@PathVariable String lecCode, Model model) {
+		return "admin/majorLecMangePage/lectureTimeSelector";
+	}
 
-	// ---------------------------------학과, 강의 관리
-	// END----------------------------------------
+	// ---------------------------------학과, 강의 관리 END----------------------------------------
+
+	
+	// ---------------------------------회계 관리 START----------------------------------------
+
+	// 교직원 급여관리
+	@RequestMapping(value = "/admin/facultyAccountManage", method = RequestMethod.GET)
+	public String facultyAccountManage(Model model) {
+		service.facultyAccountManage(model);
+		return "admin/accountingManagement/AccountManagePage";
+	}
+
+	// ---------------------------------회계 관리 END------------------------------------------
 }
