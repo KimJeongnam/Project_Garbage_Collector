@@ -195,19 +195,6 @@ public class AdminController {
 		return "admin/HRD/schoolLeaveList";
 	}
 
-	// 교수상세정보
-	@RequestMapping("/admin/proMyPage")
-	public String proMyPage() {
-
-		return "admin/proMyPage";
-	}
-
-	// 학생상세정보
-	@RequestMapping("/admin/stdMyPage")
-	public String stdMyPage() {
-
-		return "admin/stdMyPage";
-	}
 
 	/*
 	 * @RequestMapping(value="/admin/selectFaculty", method=RequestMethod.POST)

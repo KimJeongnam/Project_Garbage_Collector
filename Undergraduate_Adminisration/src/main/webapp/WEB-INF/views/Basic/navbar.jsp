@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%-- <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
@@ -329,8 +328,7 @@
                 </div>
             </div>
             <!-- /top navigation -->
-</sec:authorize>
-=======
+</sec:authorize> --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -439,7 +437,7 @@
                         </div>
 
                         <ul class="nav navbar-nav navbar-right">
-                            <li class=""><a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> <img src="${staticPath}${user.userImage }" alt="">로그인 아이디 <span class=" fa fa-angle-down"></span>
+                            <li class=""><a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> <img src="${staticPath}${user.userImage }" alt="">${user.userName } <span class=" fa fa-angle-down"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
                                     <li><a href="javascript:;"> 메뉴1 </a></li>
@@ -542,7 +540,7 @@
                         </div>
 
                         <ul class="nav navbar-nav navbar-right">
-                            <li class=""><a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> <img src="${staticPath}${user.userImage }" alt="">로그인 아이디 <span class=" fa fa-angle-down"></span>
+                            <li class=""><a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> <img src="${staticPath}${user.userImage }" alt="">${user.userName } <span class=" fa fa-angle-down"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
                                     <li><a href="javascript:;"> 메뉴1 </a></li>
@@ -644,7 +642,7 @@
                         </div>
                         <ul class="nav navbar-nav navbar-right">
                             <li class=""><a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    <img src="${staticPath}${user.userImage }" alt="">로그인 아이디 <span class=" fa fa-angle-down"></span>
+                                    <img src="${staticPath}${user.userImage }" alt="">${user.userName } <span class=" fa fa-angle-down"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
                                     <li><a href="javascript:;"> 메뉴1 </a></li>
@@ -662,4 +660,3 @@
             </div>
             <!-- /top navigation -->
 </sec:authorize>
->>>>>>> branch 'master' of https://github.com/KimJeongnam/Project_Garbage_Collector.git
