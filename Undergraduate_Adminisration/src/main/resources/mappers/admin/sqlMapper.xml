@@ -224,20 +224,35 @@
  	<!-- ==========================================회계관리 START========================================= -->
  	<!-- 급여계산/대장 -->
 	<select id="payrollList" resultType="com.spring.project.admin.vo.payrollVO">
-		select * from payrollview
+		select to_char(imputedYear,'yyyy/mm') imputedYear, paymentClassfication, registerName, paymentDate, 
+		to_char(paymentYear,'yyyy/mm') paymentYear, totalAmount from paymentlist
 	</select>
 	
 	<select id="getFacultyList" resultType="com.spring.project.admin.vo.payrollVO">
-		select e.empNumber, e.accountHolder, m.majorName from employee e, major m where e.majorNum = m.majorNum;
+		select empNumber, accountHolder, majorName from employee e, major m where e.majorNum = m.majorNum
 	</select>
 	
+	<select id="getPaymentClassfication" resultType="com.spring.project.admin.vo.payrollVO">
+		select to_char(imputedYear,'yyyy/mm'), paymentClassfication from paymentlist
+	</select>
 	
+	<select id="lookupWorkRecord" parameterType="java.util.Map" resultType="com.spring.project.admin.vo.payrollVO">
+		select * from where imputedYear=#{imputedYear}
+	</select>
 	
+	<select id="getFacultyMajor" resultType="com.spring.project.admin.vo.payrollVO">
+		select m.majorName from employee e, major m where e.majorNum=m.majorNum
+	</select>
 	
+	<select id="accountFacultyList" parameterType="java.util.Map" resultType="com.spring.project.admin.vo.payrollVO">
+		select * from employee 
+	</select>
 	
-	
-	
-	
+	<insert id="insertPayroll" parameterType="com.spring.project.admin.vo.payrollVO">
+		insert into paymentlist
+		values(PAYMENTLIST_SEQ.nextval, to_date(#{imputedYear},'yyyy/mm'),#{paymentClassfication},
+		#{beginningPeriod},#{endPeriod},#{paymentDate}, to_date(#{paymentYear},'yyyy/mm'),#{registerName},0)
+	</insert>
 	
 	
 	

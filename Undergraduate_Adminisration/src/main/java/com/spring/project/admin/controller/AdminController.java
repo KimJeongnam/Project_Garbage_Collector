@@ -251,6 +251,27 @@ public class AdminController {
 		return "admin/accountingManagement/AccountManagePage";
 	}
 	
+	// 교직원 급여관리
+	@RequestMapping(value="/admin/facultyMajorConfirmation", method=RequestMethod.GET)
+	public String facultyMajorConfirmation(@RequestBody Map<String, Object> map, Model model) {
+		service.facultyMajorConfirmation(map, model);
+		return "admin/accountingManagement/facultyMajorConfirmation";
+	}
+	// 급여대장 조회
+	@RequestMapping(value="/admin/lookupWorkRecord", method=RequestMethod.POST)
+	public String lookupWorkRecord(@RequestBody Map<String, Object> map, Model model) {
+		service.lookupWorkRecord(map, model);
+		return "admin/accountingManagement/lookupWorkRecord";
+	}
+	
+	// 
+	@RequestMapping("/admin/insertPayroll")
+	public String insertPayroll(HttpServletRequest req, RedirectAttributes red) {
+		service.insertPayroll(req, red);
+
+		return "redirect:/admin/facultyAccountManage";
+	}
+	
 	//---------------------------------회계 관리 END------------------------------------------
 	
 	// 해당 교수의 빈강의 조회

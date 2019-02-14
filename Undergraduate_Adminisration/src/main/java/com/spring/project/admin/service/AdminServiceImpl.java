@@ -525,6 +525,7 @@ public class AdminServiceImpl implements AdminService{
 	
 	//---------------교직 업무 관리 END-------------------
 	
+	// 교직원 급여관리
 	@Override
 	public void facultyAccountManage(Model model) {
 		List<payrollVO> dtos = dao.payrollList();
@@ -532,6 +533,51 @@ public class AdminServiceImpl implements AdminService{
 		
 		List<payrollVO> dtosF = dao.getFacultyList();
 		model.addAttribute("dtosF", dtosF);
+		
+		List<payrollVO> dtosM = dao.getFacultyMajor();
+		model.addAttribute("dtosM", dtosM);
+		
+		List<payrollVO> dtosC = dao.getPaymentClassfication();
+		model.addAttribute("dtosC", dtosC);
 	}
+	
+	// 급여대장 조회
+	@Override
+	public void lookupWorkRecord(Map<String, Object> map, Model model) {
+		List<payrollVO> dtos = dao.lookupWorkRecord(map);
+		model.addAttribute("dtos", dtos);
+	}
+	
+	@Override
+	public void facultyMajorConfirmation(Map<String, Object> map, Model model) {
+		List<payrollVO> dtos = dao.accountFacultyList(map);
+		model.addAttribute("dtos", dtos);
+	}
+	
+	@Override
+	public void insertPayroll(HttpServletRequest req, RedirectAttributes red) {
+		payrollVO vo = new payrollVO();
+		vo.setImputedYear(req.getParameter("imputedYear")+req.getParameter("imputedMonth"));
+		vo.setPaymentClassfication(req.getParameter("paymentClassfication"));
+		vo.setBeginningPeriod(Date.valueOf(req.getParameter("beginningPeriod")));
+		vo.setEndPeriod(Date.valueOf(req.getParameter("endPeriod")));
+		vo.setPaymentDate(Date.valueOf(req.getParameter("paymentDate")));
+		vo.setPaymentYear(req.getParameter("paymentYear")+req.getParameter("paymentMonth"));
+		vo.setRegisterName(req.getParameter("registerName"));
+		
+		System.out.println("imputedYear : " + req.getParameter("imputedYear")+req.getParameter("imputedMonth"));
+		System.out.println("paymentClassfication :" + req.getParameter("paymentClassfication"));
+		System.out.println("beginningPeriod :" + Date.valueOf(req.getParameter("beginningPeriod")));
+		System.out.println("endPeriod :" + Date.valueOf(req.getParameter("paymentDate")));
+		System.out.println("paymentYear :" + req.getParameter("paymentYear")+req.getParameter("paymentMonth"));
+		System.out.println("registerName :" + req.getParameter("registerName"));
+		
+		int cnt =dao.insertPayroll(vo);
+		
+		if (cnt == 1) {
+		red.addFlashAttribute("message","등록이 완료되었습니다.");
+		}
+	}
+	
 	
 }

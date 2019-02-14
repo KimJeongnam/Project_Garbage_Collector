@@ -74,4 +74,15 @@ public interface AdminDAO {
 	public List<payrollVO> payrollList();
 	
 	public List<payrollVO> getFacultyList();
+	
+	public List<payrollVO> getFacultyMajor();
+	
+	public List<payrollVO> getPaymentClassfication();
+	
+	public List<payrollVO> lookupWorkRecord(Map<String, Object> map);
+	
+	public List<payrollVO> accountFacultyList(Map<String, Object> map);
+	
+	
+	public int insertPayroll(payrollVO vo);
 }

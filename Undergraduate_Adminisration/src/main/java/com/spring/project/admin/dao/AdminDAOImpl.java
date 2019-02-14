@@ -162,4 +162,24 @@ public class AdminDAOImpl implements AdminDAO{
 	public List<payrollVO> getFacultyList() {
 		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.getFacultyList");
 	}
+	@Override
+	public List<payrollVO> getPaymentClassfication() {
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.getPaymentClassfication");
+	}
+	@Override
+	public List<payrollVO> lookupWorkRecord(Map<String, Object> map) {
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.lookupWorkRecord", map);
+	}
+	@Override
+	public List<payrollVO> getFacultyMajor() {
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.getFacultyMajor");
+	}
+	@Override
+	public List<payrollVO> accountFacultyList(Map<String, Object> map) {
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.accountFacultyList", map);
+	}
+	@Override
+	public int insertPayroll(payrollVO vo) {
+		return sqlSession.insert("com.spring.project.admin.dao.AdminDAO.insertPayroll", vo);
+	}
 }

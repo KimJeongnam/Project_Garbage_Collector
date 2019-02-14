@@ -57,5 +57,18 @@ public interface AdminService {
 	
 	//---------------교직 업무 관리 END-------------------
 	
+	
+	//---------------회계 START-------------------
+	// 교직원 급여관리
 	public void facultyAccountManage(Model model);
+	
+	// 급여대장 조회
+	public void lookupWorkRecord(Map<String, Object> map, Model model);
+	
+	public void facultyMajorConfirmation(Map<String, Object> map, Model model);
+	
+	public void insertPayroll(HttpServletRequest req,  RedirectAttributes red);
+	
+	
+	//---------------회계 START-------------------
 }
