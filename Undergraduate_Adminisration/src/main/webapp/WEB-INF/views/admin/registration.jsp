@@ -198,7 +198,6 @@
 	  function checkEditer() {
 		var scholarname = document.inputform.scholarname.value;
 		var content = $('#editor-one')[0].innerHTML
-		alert(content+"33");
 		 if(!scholarname){
 			alert("장학금 명을 입력해주세요");
 			return false;

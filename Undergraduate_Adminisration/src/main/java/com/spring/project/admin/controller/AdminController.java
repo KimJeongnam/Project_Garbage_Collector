@@ -41,14 +41,23 @@ public class AdminController {
 	}
 	
 	/*장학단---------------------------------*/
-	
-	//장학 신청 심사
-	@RequestMapping("/admin/judge")
-	public String judge(HttpServletRequest req, Model model) {
-		System.out.println("장학 심사");
-		service.judge(req,model);
+	//장학 목록
+	@RequestMapping(value = "/admin/resister/adminjudgeList",method=RequestMethod.POST)
+	public String judgeList(@RequestBody Map<String, Object> map, Model model) {
+		System.out.println("장학 목록");
+		service.judge2(map,logger, model);
 		
-		return "admin/judge";
+		return "admin/resister/judge";
+	}
+	
+	
+	//장학 신청 심사 완료
+	@RequestMapping("/admin/auditPro")
+	public String auditPro(HttpServletRequest req, Model model) {
+		System.out.println("장학 심사 완료");
+		service.auditPro(req,model);
+		
+		return "redirect:/admin/registrationList";
 	}
 	 //장학 목록 페이지
 	@RequestMapping(value="/admin/registrationList", method=RequestMethod.GET)
@@ -64,21 +73,6 @@ public class AdminController {
 		return "admin/resister/registrationList";
 	}
 	
-	/*// 수강신청 페이지
-		@RequestMapping(value="/student/bulletin", method=RequestMethod.GET)
-		public String bulletinPage() {
-			return "student/bulletin/bulletinPage";
-		}
-
-		//장학금 신청목록
-		@RequestMapping("/student/bulletin")
-		@RequestMapping(value="/student/studentBulletinlist", method=RequestMethod.POST)
-		public String bulletin(@RequestBody Map<String, Object> map, Model model) {
-			logger.info("bulletin");
-			service.bulletin(map, logger, model);
-			
-			return "student/bulletin/bulletin";
-		}*/
 	
 	//장학 등록
 	@RequestMapping("/admin/registration")

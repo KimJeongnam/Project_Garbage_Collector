@@ -6,7 +6,7 @@ public class ScholarpkVO {
 	private String  year;				//년도
 	private String  semester;			//학기
 	private String  scholarcontent;	 	//내용
-	private int  amount;				//지급금액
+	private String  amount;				//지급금액
 	
 	
 	public int getScholarpk() {
@@ -39,10 +39,10 @@ public class ScholarpkVO {
 	public void setScholarcontent(String scholarcontent) {
 		this.scholarcontent = scholarcontent;
 	}
-	public int getAmount() {
+	public String getAmount() {
 		return amount;
 	}
-	public void setAmount(int amount) {
+	public void setAmount(String amount) {
 		this.amount = amount;
 	}
 	

@@ -95,7 +95,7 @@
  	<select id="getArticleList" parameterType="java.util.Map" resultType="com.spring.project.admin.vo.ScholarpkVO">
  	
  	SELECT *  
-				FROM (select SCHOLARPK,SCHOLARNAME,to_char(YEAR,'YYYY') as YEAR,SEMESTER,AMOUNT,ROWNUM rNum  
+				FROM (select SCHOLARPK,SCHOLARNAME,to_char(YEAR,'YYYY') as YEAR,SEMESTER,TO_CHAR(AMOUNT,'$999,999,999,999,999') as AMOUNT,ROWNUM rNum  
 				            from ( 
 				                    select * FROM SCHOLARSHIP
 				                    where delstatus = 0   
@@ -147,9 +147,45 @@
  	<!-- 장학금 글 심사 -->
  	<select id="auditCnt" resultType="com.spring.project.admin.vo.auditVO">
  	
- 	 select * from Evaluation where statCode=1
+ 	 select * from Evaluation
  	
  	</select>
+ 	
+ 	<!-- 장학금 글 심사 -->
+ 	<select id="auditCnt2" resultType="com.spring.project.admin.vo.auditVO">
+ 	
+ 	 select * from Evaluation where statCode = #{auditct}
+ 	
+ 	</select>
+ 	
+ 	
+ 	
+ 	
+ 	<!-- 장학금 심사 완료 -->
+ 	<update id="auditupdate">
+ 	
+ 	UPDATE scholarshipInfo 
+ 	SET statCode = 1
+ 	WHERE schInfoPk in
+ 	<foreach item="schInfoPk" collection="array" open="("
+				separator="," close=")">
+				#{schInfoPk}
+	</foreach>
+ 	
+ 	</update>
+ 	
+ 	<!-- 장학금 심사 불완료 -->
+ 	<update id="auditupdate2">
+ 	
+ 	UPDATE scholarshipInfo 
+ 	SET statCode = 0
+ 	WHERE schInfoPk in
+ 	<foreach item="schInfoPk" collection="array" open="("
+				separator="," close=")">
+				#{schInfoPk}
+	</foreach>
+ 	
+ 	</update>
  	
  	<update id="deleteMajor" parameterType="java.util.Map">
  		UPDATE major SET

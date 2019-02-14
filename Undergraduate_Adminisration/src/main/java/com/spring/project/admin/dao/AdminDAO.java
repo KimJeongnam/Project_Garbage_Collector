@@ -52,6 +52,15 @@ public interface AdminDAO {
 	//장학글 심사
 	public List<auditVO> auditCnt();
 	
+	//장학글 심사
+	public List<auditVO> auditCnt2(int auditct);
+	
+	//장학금 심사 완료
+	public int auditupdate(String[] checkbox);
+	
+	//장학금 심사 탈락
+	public int auditupdate2(String[] checkbox);
+	
 	
 	//---------------교직 업무 관리 START-------------------
 	// 학과 삭제

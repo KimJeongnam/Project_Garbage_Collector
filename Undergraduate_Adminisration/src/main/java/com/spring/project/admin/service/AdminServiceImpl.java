@@ -4,12 +4,14 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -218,7 +220,7 @@ public class AdminServiceImpl implements AdminService{
 	public void rigisterPro(HttpServletRequest req, Model model) {
 		String semester = req.getParameter("semester");
 		String year = req.getParameter("year");
-		int amount = Integer.parseInt(req.getParameter("amount"));
+		String amount = req.getParameter("amount");
 		String scholarname = req.getParameter("scholarname");
 		String scholarContent = req.getParameter("scholarContent");
 		
@@ -471,6 +473,8 @@ public class AdminServiceImpl implements AdminService{
 		List<AdStdVO> vo = dao.getSchoolLeave(map);
 		req.setAttribute("getSL", vo);
 	}
+	
+	//장학 심사
 	@Override
 	public void judge(HttpServletRequest req, Model model) {
 		
@@ -481,6 +485,26 @@ public class AdminServiceImpl implements AdminService{
 		model.addAttribute("audit", audit);
 		
 	}
+	//장학 심사 완료
+	@Override
+	public void auditPro(HttpServletRequest req, Model model) {
+		String[] checkbox = req.getParameterValues("chk");
+		String[] checkbox2 = req.getParameterValues("chk2");
+		
+		
+		if(checkbox != null) {
+		int updateCnt =dao.auditupdate(checkbox);
+		}
+		if(checkbox2 != null) {
+		int updateCnt =dao.auditupdate2(checkbox2);
+		System.out.println("5555555");
+		}
+		System.out.println("22222");
+		
+		
+	}
+	
+	
 	
 	//---------------교직 업무 관리 START-------------------
 	@Override
@@ -515,8 +539,24 @@ public class AdminServiceImpl implements AdminService{
 	public Map<String, Object> modifyMajor(Major major) {
 		return null;
 	}
-	
-	
+	@Override
+	public void judge2(Map<String, Object> map, Logger logger, Model model) {
+		int auditct = Integer.parseInt((String)map.get("audit"));
+		
+		List<auditVO> audit;
+		
+		
+		//심사 리스트
+		if(auditct == 2) {
+		audit = dao.auditCnt();
+		}else{
+		audit = dao.auditCnt2(auditct);
+		}
+		
+		//심사리스트 반환
+		model.addAttribute("audit", audit);
+		
+	}
 	
 	//---------------교직 업무 관리 END-------------------
 	

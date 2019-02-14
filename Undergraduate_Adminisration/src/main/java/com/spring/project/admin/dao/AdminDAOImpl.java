@@ -118,6 +118,27 @@ public class AdminDAOImpl implements AdminDAO{
 		
 		return dtos;
 	}
+	
+	@Override
+	public List<auditVO> auditCnt2(int auditct) {
+		System.out.println("111111111111");
+		List<auditVO> dtos = sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.auditCnt2",auditct);
+		
+		return dtos;
+	}
+	//장학금 심사 완료
+	@Override
+	public int auditupdate(String[] checkbox) {
+		int auditupdateCnt = sqlSession.update("com.spring.project.admin.dao.AdminDAO.auditupdate",checkbox);
+		return 0;
+	}
+	
+	//장학금 심사 불합격 완료
+	@Override
+	public int auditupdate2(String[] checkbox) {
+		int auditupdateCnt = sqlSession.update("com.spring.project.admin.dao.AdminDAO.auditupdate2",checkbox);
+		return 0;
+	}
 
 	//---------------교직 업무 관리 START-------------------
 	@Override

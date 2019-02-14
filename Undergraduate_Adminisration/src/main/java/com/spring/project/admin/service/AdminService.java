@@ -4,6 +4,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -27,7 +28,13 @@ public interface AdminService {
 	public void schoolLeaveList(HttpServletRequest req, Model model);
 	
 	//장학심사 
-	public void judge(HttpServletRequest req,  Model model);
+	public void judge(HttpServletRequest req,  Model model); 
+	
+	//장학심사 
+	public void auditPro(HttpServletRequest req,  Model model);
+	
+	//장학심사 
+	public void judge2(Map<String, Object> map, Logger logger, Model model);
 	
 	//장학 목록 
 	public void registrationList(Map<String, Object> map, Model model);

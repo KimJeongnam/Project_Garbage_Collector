@@ -185,7 +185,7 @@
 	<insert id="scholarshipinsert" parameterType="java.util.Map">
 		insert into
 		SCHOLARSHIPINFO(SCHINFOPK,SCHOLARPK,STDNUMBER,STATCODE)
-		values(SCHOLARSHIPINFO_SEQ.nextval,#{scholarpk},#{userNumber},1)
+		values(SCHOLARSHIPINFO_SEQ.nextval,#{scholarpk},#{userNumber},0)
 	</insert>
 
 	<!-- 내 수강신청 목록 조회 -->
