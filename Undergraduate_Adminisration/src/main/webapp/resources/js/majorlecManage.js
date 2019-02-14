@@ -1,4 +1,4 @@
-
+// 단과대 세팅
 var setFacultys = function(facultys) {
 	$('#college').empty();
 
@@ -19,11 +19,13 @@ var setFacultys = function(facultys) {
 	setMode(arguments[1]);
 }
 
+// 강의 코드 세팅
 var setMajorCode = function(code) {
 	$('#majorCode').val(code);
 	$('#majorCode_view').val(code);
 }
 
+// 학과 신규, 수정 모달 열었을대
 function openMajorModal(mode) {
 	$('#majorName').val('');
 	$('#count').val('');
@@ -67,7 +69,7 @@ function setMode(args){
 		
 		$('#majorModal-title').html("<h4>학과 수정</h4>");
 		$('#majorModalBtn').attr({
-			onclick : '',
+			onclick : 'modifyMajor();',
 			value : '수정'
 		});
 		$('#majorModalDelBtn').attr({
@@ -76,11 +78,22 @@ function setMode(args){
 		})
 	}
 }
-
+// 학과 조회
 function getMajors() {
 	var college = $('#collegeSelector').val();
-
+	var pageSize = $('#major-pagesize').val();
+	var keyword = $('#major-search-keyword').val().trim();
+	
 	var obj = new Object();
+	obj.pageSize = pageSize;
+	
+	if(keyword.length>0)
+		obj.keyword = keyword;
+	
+	if(arguments.length==1)
+		obj.pageNum = arguments[0];
+	else
+		obj.pageNum = 1;
 
 	if (college != 0) {
 		obj.college = college;
@@ -110,6 +123,9 @@ function deleteMajor(majorNum){
 	
 	var JsonData = JSON.stringify(obj);
 	
+	var pageNum = $('#majorPageNum').val();
+	
+	if(!confirm("학과 '폐지' 하시겠습니까?")) return;
 	$.ajax({
 		url : '/project/admin//major_lecture_Manager/ajax/deleteMajor',
 		type : 'POST',
@@ -120,7 +136,7 @@ function deleteMajor(majorNum){
 				alert("ERROR! 삭제 실패");
 			}else{
 				$('#majorAdd-Modal').modal('hide');
-				getMajors();
+				getMajors(pageNum);
 			}
 		},
 		error : function(){	}
@@ -131,6 +147,8 @@ function addMajor(){
 	var faculty = $('#college').val();
 	var majorName = $('#majorName').val().trim();
 	var maxNum = $('#count').val();
+	
+	var pageNum = $('#majorPageNum').val();
 	
 	if(faculty == null){
 		alert("단과대를 선택해 주세요."); return;
@@ -157,7 +175,7 @@ function addMajor(){
 				alert("ERROR! 학과 추가 오류.");
 			}else{
 				$('#majorAdd-Modal').modal('hide');
-				getMajors();
+				getMajors(pageNum);
 			}
 		},
 		error : function(){	}
@@ -165,13 +183,28 @@ function addMajor(){
 }
 
 function modifyMajor(){
-	var majorCode = $('#majorCode').val(code);
+	var majorNum = $('#majorCode').val();
 	var faculty = $('#college').val();
 	var majorName = $('#majorName').val().trim();
 	var maxNum = $('#count').val();
 	
+	var pageNum = null;
+	
+	if($('#majorPageNum').val().length>0)
+		pageNum = $('#majorPageNum').val();
+	
+	if(!confirm("학과 '수정' 하시겠습니까?")) return;
+	
+	if(faculty == null){
+		alert("Error 단과대를 선택해 주세요."); return;
+	}else if(majorName.length<1){
+		alert("Error 학과명을 입력해 주세요."); return;
+	}else if(maxNum.length<1){
+		alert("Error 최대 학생수를 입력하세요."); return;
+	}
+	
 	var obj = new Object();
-	obj.majorCode = $('#majorCode').val(code);
+	obj.majorNum = majorNum;
 	obj.faculty = faculty;
 	obj.majorName = majorName;
 	obj.maxNum = maxNum;
@@ -185,12 +218,55 @@ function modifyMajor(){
 		contentType : 'application/json;charset=utf-8',
 		success : function(data){
 			if(data.status == 0){
-				alert("ERROR! 학과 추가 오류.");
+				alert("ERROR! 학과 수정 오류.");
 			}else{
 				$('#majorAdd-Modal').modal('hide');
-				getMajors();
+				getMajors(pageNum);
 			}
 		},
 		error : function(){	}
 	});
+}
+
+//=============== 강의 관리 =============================
+
+var lectureTimeMap = new Map();  //선택된 강의 시간
+
+
+function openTimeSelector(empNumber){
+	var popupX = (window.screen.width / 2) - (200 / 2);
+	// 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
+
+	var popupY= (window.screen.height /2) - (300 / 2);
+	// 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
+
+	window.open('/project/admin/major_lecture_Manager/getEmptyLecTime/'+empNumber
+			, '시간 선택'
+			, 'status=no, height=300, width=200, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
+}
+
+function initTime(){
+	for(var key of lectureTimeMap.keys()){
+		lectureTimeMap.delete(key);
+	}
+}
+
+function selectTime(timecode, id){
+	if(lectureTimeMap.has(timecode)){
+		$('#chk-'+id).empty();
+		$('#li-'+id).css("background", "#d46a6a");
+		lectureTimeMap.delete(timecode);
+		Schedulereflash();
+	}else{
+		lectureTimeMap.set(timecode, id);
+		$('#chk-'+id).html('선택됨');
+		$('#li-'+id).css("background", "#2E9AFE");
+		Schedulereflash();
+	}
+}
+
+function setId(id){
+	opener.lectureTimeMap = lectureTimeMap;
+	// 현재창 닫기
+	self.close();
 }

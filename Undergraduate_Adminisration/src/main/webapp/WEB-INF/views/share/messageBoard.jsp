@@ -62,9 +62,6 @@
 			<ul class="pagination">
 				<c:if test="${cnt > 0 }">
 					<c:if test="${startPage > pageBlock }">
-						<a href="bookList">[◀◀]</a>
-						<a href="bookList?pageNum=${startPage - pageBlock }">[◀&nbsp;prev]</a>
-						
 						<li class="paginate_button previous disabled"  style="cursor:pointer;"
 							id="datatable_previous"><a onclick="getMessages('${userNumber}', 1);" 
 							onclick="getMessages('${userNumber}', 1);" aria-controls="datatable"

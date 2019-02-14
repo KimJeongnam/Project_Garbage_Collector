@@ -40,7 +40,6 @@ public class ProfessorServiceImpl implements ProfessorService {
 
 		model.addAttribute("vo", vo);
 	}
-
 	// 프로필 이미지 변경
 	@Override
 	public void imageUpload(MultipartHttpServletRequest req, RedirectAttributes red) {

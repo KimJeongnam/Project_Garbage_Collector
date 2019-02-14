@@ -56,7 +56,9 @@
                                 </li>
                                 <li><a><i class="fa fa-desktop"></i> 장학관리 <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu" style="">
-                                        <li><a href="${authPath }/registrationList">장학금 등록 & 심사</a></li>
+                                        <li><a href="${authPath }/judge">장학금 심사</a></li>
+                                        <li><a href="${authPath }/registrationList">장학금 등록</a></li>
+                                        <li><a href="${authPath }/budget">장학금 예산</a></li>
                                     </ul>
                                 </li>
                                 <li><a><i class="fa fa-users"></i> 인사관리<span class="fa fa-chevron-down"></span></a>
@@ -67,12 +69,11 @@
                                 </li>
                                 <li><a><i class="fa fa-bar-chart-o"></i> 회계관리<span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu" style="">
-                                        <li><a href="${authPath }/menu5">교직원 급여관리</a></li>
+                                        <li><a href="${authPath }/facultyAccountManage">급여계산/대장</a></li>
                                         <li><a href="${authPath }/menu6">시간제 강사 급여관리</a></li>
                                         <li><a href="#">장학금 수혜현황</a></li>
                                     </ul>
                                 </li>
-
                             </ul>
                         </div>
                     </div>
@@ -105,7 +106,7 @@
                         </div>
 
                         <ul class="nav navbar-nav navbar-right">
-                            <li class=""><a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> <img src="${staticPath}${user.userImage }" alt="">로그인 아이디 <span class=" fa fa-angle-down"></span>
+                            <li class=""><a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> <img src="${staticPath}${user.userImage }" alt="">${user.userName } <span class=" fa fa-angle-down"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
                                     <li><a href="javascript:;"> 메뉴1 </a></li>
@@ -208,7 +209,7 @@
                         </div>
 
                         <ul class="nav navbar-nav navbar-right">
-                            <li class=""><a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> <img src="${staticPath}${user.userImage }" alt="">로그인 아이디 <span class=" fa fa-angle-down"></span>
+                            <li class=""><a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> <img src="${staticPath}${user.userImage }" alt="">${user.userName } <span class=" fa fa-angle-down"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
                                     <li><a href="javascript:;"> 메뉴1 </a></li>
@@ -310,7 +311,7 @@
                         </div>
                         <ul class="nav navbar-nav navbar-right">
                             <li class=""><a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    <img src="${staticPath}${user.userImage }" alt="">로그인 아이디 <span class=" fa fa-angle-down"></span>
+                                    <img src="${staticPath}${user.userImage }" alt="">${user.userName } <span class=" fa fa-angle-down"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
                                     <li><a href="javascript:;"> 메뉴1 </a></li>
