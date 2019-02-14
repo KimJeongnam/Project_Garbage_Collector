@@ -232,17 +232,47 @@ function modifyMajor(){
 
 var lectureTimeMap = new Map();  //선택된 강의 시간
 
+function openNewLectureModal(){
+	$.ajax({
+		url : '/project/admin/major_lecture_Manager/getLectureSeqNextVal',
+		type : 'GET',
+		success : function(data){
+			setLecCode(data.lectureNextVal);
+		},
+		error : function(){
+			alert("강의시간 코드 받아오기 Error!");
+		}
+	})
+	
+	$('#lecture-Modal').modal({backdrop:'static', keyboard:false});
+}
 
-function openTimeSelector(empNumber){
-	var popupX = (window.screen.width / 2) - (200 / 2);
+function setLecCode(leccode){
+	$('#lecCode_view').val(leccode);
+	$('#lecCode').val(leccode);
+}
+
+function openProfessorSelector(){
+	var popupX = (window.screen.width / 2) - (800 / 2);
 	// 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
 
-	var popupY= (window.screen.height /2) - (300 / 2);
+	var popupY= (window.screen.height /2) - (500 / 2);
+	// 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
+	window.open('/project/admin/major_lecture_Manager/professorSelector/'
+			, '교수 선택'
+			, 'status=no, height=500, width=800, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
+}
+
+function openTimeSelector(empNumber){
+	var popupX = (window.screen.width / 2) - (1200 / 2);
+	// 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
+
+	var popupY= (window.screen.height /2) - (800 / 2);
 	// 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
 
 	window.open('/project/admin/major_lecture_Manager/getEmptyLecTime/'+empNumber
 			, '시간 선택'
-			, 'status=no, height=300, width=200, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
+			, 'status=no, height=800, width=1200, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
 }
 
 function initTime(){
@@ -254,14 +284,12 @@ function initTime(){
 function selectTime(timecode, id){
 	if(lectureTimeMap.has(timecode)){
 		$('#chk-'+id).empty();
-		$('#li-'+id).css("background", "#d46a6a");
+		$('#li-'+id).css("background", "#6fb758");
 		lectureTimeMap.delete(timecode);
-		Schedulereflash();
 	}else{
 		lectureTimeMap.set(timecode, id);
 		$('#chk-'+id).html('선택됨');
 		$('#li-'+id).css("background", "#2E9AFE");
-		Schedulereflash();
 	}
 }
 
@@ -269,4 +297,103 @@ function setId(id){
 	opener.lectureTimeMap = lectureTimeMap;
 	// 현재창 닫기
 	self.close();
+}
+
+function selectLecFaculty(){
+	var faculty = $('#lec-facultySelector').val();
+	if(faculty == 0){
+		$('#lec-majorSelector').empty();
+		$('#lec-majorSelector').append($('<option>',{
+			value:"0",
+			text: "단과대 선택",
+			selected: "selected"
+		}));
+	}
+	setLecmajorSelector(faculty);
+	getLectureList();
+}
+
+function setLecmajorSelector(faculty){
+	var obj = new Object();
+	
+	if(faculty!=0)
+		obj.college = faculty;
+	
+	var jsonData = JSON.stringify(obj);
+	
+	$.ajax({
+		url : '/project/rest/json/getMajors',
+		type : 'POST',
+		contentType : 'application/json;charset=utf-8',
+		data : jsonData,
+		success : function(data){
+			if(data != null){
+				$('#lec-majorSelector').empty();
+				$('#lec-majorSelector').append($('<option>',{
+					value:"0",
+					text: "전체",
+					selected: "selected"
+				}));
+				for(var i=0; i<data.length; i++){
+					$('#lec-majorSelector').append($('<option>',{
+						value:data[i].majorNum+"",
+						text:data[i].majorName+""
+					}));
+				}
+			}
+		},
+		error : function(){
+			alert("Error! setLecmajorSelector()");
+		}
+	})
+}
+
+// 강의 리스트 조회
+function  getLectureList(){
+	
+	var obj = new Object();
+	
+	if(arguments.length==1){
+		obj.pageNum = arguments[0];
+	}
+	
+	if(typeof $('#lecture-pagesize') != 'undefined')
+		obj.pageSize = $('#lecture-pagesize').val();
+	
+	if(typeof $('#divisionSelector') != 'undefined'){
+		if($('#divisionSelector').val() != 'all')
+			obj.division = $('#divisionSelector').val();
+	}
+	
+	if(typeof $('#lec-facultySelector') != 'undefined'){
+		if($('#lec-facultySelector').val() != 0)
+			obj.faculty = $('#lec-facultySelector').val();
+	}
+	
+	if(typeof $('#majorSelector') != 'undefined'){
+		if($('#lec-majorSelector').val() != 0)
+			obj.major = $('#lec-majorSelector').val();
+	}
+	
+	if(typeof $('#lecture-search-keyword') != 'undefined'){
+		if($('#lecture-search-keyword').val().length>0)
+			obj.keyword = $('#lecture-search-keyword').val();
+	}
+		
+	var jsonData = JSON.stringify(obj);
+	
+	$.ajax({
+		url : '/project/admin/major_lecture_Manager/getLectureList',
+		type : 'POST',
+		contentType : 'application/json;charset=utf-8',
+		data : jsonData,
+		success : function(data){
+			if(data != null)
+				$('#lectureList').html(data);
+		},
+		error : function(){
+			alert("Error! getLectureList()");
+		}
+	});
+	
 }

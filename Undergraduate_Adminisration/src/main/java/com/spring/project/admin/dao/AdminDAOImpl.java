@@ -12,6 +12,7 @@ import com.spring.project.admin.vo.AdStdVO;
 import com.spring.project.admin.vo.ScholarpkVO;
 import com.spring.project.admin.vo.auditVO;
 import com.spring.project.admin.vo.payrollVO;
+import com.spring.project.share.dao.ShareDAO;
 import com.spring.project.share.vo.Major;
 
 @Repository
@@ -102,8 +103,8 @@ public class AdminDAOImpl implements AdminDAO{
 	//=============================장학금 대그니꺼=======================================
 	//장학 글 갯수
 	@Override
-	public int getArticleCnt() {
-		int selectCnt = sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.getArticleCnt");
+	public int getArticleCnt(Map<String,Object> map) {
+		int selectCnt = sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.getArticleCnt",map);
 		return selectCnt;
 	}
 	
@@ -144,8 +145,29 @@ public class AdminDAOImpl implements AdminDAO{
 		
 		return dtos;
 	}
+	
+	@Override
+	public List<auditVO> auditCnt2(int auditct) {
+		System.out.println("111111111111");
+		List<auditVO> dtos = sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.auditCnt2",auditct);
+		
+		return dtos;
+	}
+	//장학금 심사 완료
+	@Override
+	public int auditupdate(String[] checkbox) {
+		int auditupdateCnt = sqlSession.update("com.spring.project.admin.dao.AdminDAO.auditupdate",checkbox);
+		return 0;
+	}
+	
+	//장학금 심사 불합격 완료
+	@Override
+	public int auditupdate2(String[] checkbox) {
+		int auditupdateCnt = sqlSession.update("com.spring.project.admin.dao.AdminDAO.auditupdate2",checkbox);
+		return 0;
+	}
 
-	//---------------교직 업무 관리 START-------------------
+	//-------------------------------------------------------------교직 업무 관리 START----------------------------------------------
 	// 학과 리스트 갯수 구하기
 	@Override
 	public int majorListCount(Map<String, Object> map) {
@@ -177,7 +199,28 @@ public class AdminDAOImpl implements AdminDAO{
 	public List<Object> emptyLecTime(String empNumber) {
 		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.emptyLecTime", empNumber);
 	}
-	//---------------교직 업무 관리 END-------------------
+	
+	@Override
+	public List<Object> getEmpLectures(String empNumber) {
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.getEmpLectures", empNumber);
+	}
+	
+	@Override
+	public int getLectureSeqNextval() {
+		return sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.getLectureSeqNextval");
+	}
+	
+	@Override
+	public int getLectureCount(Map<String, Object> map) {
+		return sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.getLectureCount");
+	}
+	@Override
+	public List<Object> getLectureList(Map<String, Object> map) {
+		//System.out.println(ShareDAO.getQuery(sqlSession, "getLectureList", map));
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.getLectureList", map);
+	}
+	
+	//------------------------------------------------------교직 업무 관리 END----------------------------------------------------------
 	
 	@Override
 	public List<payrollVO> payrollList() {

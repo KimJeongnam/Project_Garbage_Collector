@@ -98,6 +98,28 @@ public class ProfessorController {
 		/////학생조회끝
 		
 		
+		//학점관리
+		@RequestMapping("/professor/score")
+		public String score(HttpServletRequest req ,Model model) {
+			logger.info("score()");
+			service.score(req,model);
+			return "professor/score";
+		}
+		@RequestMapping(value="/professor/score/firstLec", method=RequestMethod.POST)
+		public String firstLec(@RequestBody Map<String, Object> map, HttpServletRequest req, Model model) {
+			logger.info("firstLec()");
+			service.firstLec(map, req, model);
+			return "professor/firstLec";
+		}
+		@RequestMapping(value="/professor/score/class_click", method=RequestMethod.POST)
+		public String getLecScore(@RequestBody Map<String, Object> map, HttpServletRequest req, Model model) {
+			logger.info("getLecScore()");
+			service.getLecScore(map, req, model);
+			return "professor/getLecScore";
+		}
+		//학점관리끝
+		
+		
 		
 		//강의계획서
 		@RequestMapping("/professor/plan")
@@ -113,10 +135,4 @@ public class ProfessorController {
 			return "professor/report";
 		}
 		
-		//학점관리
-		@RequestMapping("/professor/score")
-		public String score() {
-			logger.info("score()");
-			return "professor/score";
-		}
 }

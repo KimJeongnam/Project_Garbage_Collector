@@ -5,6 +5,8 @@ public class LectureVO {
 	private String lecCode;
 	private int majorNum;
 	private String userNumber;
+	private String userName;
+	private String userImage;
 	private String lectureName;
 	private String lectureClassfication;
 	private int maximumCapacity;
@@ -12,6 +14,7 @@ public class LectureVO {
 	private int grantedSemester;
 	private int lectureScore;
 	private String classRoom;
+	private int lecStatus;
 	
 	private String empNumber;
 	private int timetblCode;
@@ -23,6 +26,18 @@ public class LectureVO {
 	private String majorName;
 	private int rank;
 	
+	public String getUserImage() {
+		return userImage;
+	}
+	public void setUserImage(String userImage) {
+		this.userImage = userImage;
+	}
+	public int getLecStatus() {
+		return lecStatus;
+	}
+	public void setLecStatus(int lecStatus) {
+		this.lecStatus = lecStatus;
+	}
 	public int getRank() {
 		return rank;
 	}
@@ -88,6 +103,12 @@ public class LectureVO {
 	}
 	public void setUserNumber(String userNumber) {
 		this.userNumber = userNumber;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 	public String getLectureName() {
 		return lectureName;

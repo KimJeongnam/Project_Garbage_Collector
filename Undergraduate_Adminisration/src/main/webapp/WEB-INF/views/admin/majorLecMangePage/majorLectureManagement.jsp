@@ -10,7 +10,6 @@
 <body class="nav-md">
 	<%@ include file="../../Basic/navbar.jsp"%>
 
-
 	<!-- page content -->
 	<div class="right_col" role="main">
 		<div class="">
@@ -67,13 +66,13 @@
 								</div>
 								<div class="col-md-5 col-sm-8 col-xs-6 form-inline"
 									style="padding-right: 0px;">
+									<div style="text-align: right;">
 									<label>
-										<div style="text-align: right;">
 											<input type="search" id="major-search-keyword"
 												class="form-control input-sm col-md-2"
 												onkeyup="getMajors();" placeholder="학과명">
-										</div>
 									</label>
+									</div>
 								</div>
 							</div>
 							<div id="majorList"></div>
@@ -94,10 +93,10 @@
 						<div class="x_content">
 							<div class="row form-inline">
 								<div class="col-md-6">
-									<div class="col-md-3 col-sm-4 col-xs-6 form-inline"
+									<div class="col-md-4 col-sm-4 col-xs-6 form-inline"
 										style="padding-right: 0px;">
 										<label> Show <select class="form-control input-sm"
-											id="lecture-pagesize" onchange="">
+											id="lecture-pagesize" onchange="getLectureList();">
 												<option value="5">5</option>
 												<option value="10" selected="selected">10</option>
 												<option value="25">25</option>
@@ -106,26 +105,36 @@
 										</select>
 										</label>
 									</div>
-									<div class="col-md-3 col-sm-4 col-xs-6 form-inline"
+									<div class="col-md-4 col-sm-4 col-xs-6 form-inline"
 										style="padding-right: 0px;">
 										<label>구분: <select class="form-control input-sm"
-											id="divisionSelector" onchange="">
+											id="divisionSelector" onchange="getLectureList();">
+												<option selected="selected" value="all">전체</option>
+												<option value="1">전공</option>
+												<option value="0">교양</option>
+										</select>
+										</label>
+									</div>
+									<div class="col-md-4 col-sm-4 col-xs-6 form-inline"
+										style="padding-right: 0px;">
+										<label>단과대: <select class="form-control input-sm"
+											id="lec-facultySelector" onchange="selectLecFaculty();">
 												<option selected="selected" value="0">전체</option>
 										</select>
 										</label>
 									</div>
-									<div class="col-md-3 col-sm-4 col-xs-6 form-inline"
+									
+								</div>
+								<div class="col-md-6">
+									<div class="col-md-4 col-sm-6 col-xs-6 form-inline"
 										style="padding-right: 0px;">
 										<label>학과: <select class="form-control input-sm"
-											id="majorSelector" onchange="">
-												<option selected="selected" value="0">전체</option>
+											id="lec-majorSelector" onchange="getLectureList();">
+												<option selected="selected" value="0">단과대 선택</option>
 										</select>
 										</label>
 									</div>
-								</div>
-								
-								<div class="col-md-6">
-									<div style="text-align: right;">
+									<div class="col-md-8 col-sm-6 col-xs-6" style="text-align: right;">
 										<label> Search: <input type="search"
 											id="lecture-search-keyword" class="form-control input-sm"
 											onkeyup="" placeholder="학과명">
@@ -134,8 +143,8 @@
 								</div>
 							</div>
 							<div id="lectureList"></div>
-							<input type="button" class="btn btn-primary" onclick=""
-								value="신규">
+							<input type="button" class="btn btn-primary" 
+								onclick="openNewLectureModal();" value="신규">
 						</div>
 					</div>
 				</div>
@@ -236,6 +245,7 @@
 					<div class="modal-body">
 						<form id="demo-form2" data-parsley-validate
 							class="form-horizontal form-label-left">
+							<input hidden="true" type="text" id="majorNum"> <!-- 학과번호 -->
 							<!--  -->
 							<div class="col-md-6">
 								<div class="form-group">
@@ -243,39 +253,108 @@
 										for="majorCode">강의 코드 <span class="required">*</span>
 									</label>
 									<div class="col-md-6 col-sm-6 col-xs-12">
-										<input type="text" id="majorCode_view" disabled="disabled"
+										<input type="text" id="lecCode_view" disabled="disabled"
 											class="form-control col-md-7 col-xs-12"> <input
-											hidden="true" type="text" id="majorCode" name="majorCode"
+											hidden="true" type="text" id="lecCode" name="majorCode"
 											required="required" class="form-control col-md-7 col-xs-12">
 									</div>
 								</div>
 								
 								<div class="form-group">
-									<label class="control-label col-md-3 col-sm-3 col-xs-12"
-										for="college">단과대 <span class="required">*</span>
-									</label>
-									<div class="col-md-3 col-sm-3 col-xs-8">
-										<select id="college" name="last-name" required="required"
-											class="form-control col-md-6 col-xs-12">
+									<label for="middle-name"
+										class="control-label col-md-3 col-sm-3 col-xs-12"
+										for="majorName">교수 선택</label>
+									<div class="col-md-6 col-sm-6 col-xs-12">
+										<input id="empNumber" class="form-control btn btn-danger col-md-7 col-xs-12"
+											type="button" name="empNumber" required="required" onclick="openProfessorSelector()" onchange=""
+											value="선택 하세요.">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label for="middle-name"
+										class="control-label col-md-3 col-sm-3 col-xs-12"
+										for="grade">학년</label>
+									<div class="col-md-3 col-sm-3 col-xs-12">
+										<select  id="grade" class="form-control col-md-3 col-xs-12">
+											<option value="1" selected="selected">1</option>
+											<option value="2">2</option>
+											<option value="3">3</option>
+											<option value="4">4</option>
 										</select>
+									</div>
+									<label for="middle-name"
+										class="control-label col-md-2 col-sm-3 col-xs-12"
+										for="grantedSemester">학기</label>
+									<div class="col-md-3 col-sm-6 col-xs-12">
+										<select  id="grantedSemester" class="form-control col-md-3 col-xs-12">
+											<option value="1" selected="selected">1</option>
+											<option value="2">2</option>
+										</select>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label for="middle-name"
+										class="control-label col-md-3 col-sm-3 col-xs-12"
+										for="classRoom">강의실</label>
+									<div class="col-md-8 col-sm-6 col-xs-12">
+										<input id="classRoom" class="form-control col-md-7 col-xs-12"
+											type="text" required="required">
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="middle-name"
+										class="control-label col-md-3 col-sm-3 col-xs-12"
+										for="classRoom">강의 시간 선택</label>
+									<div class="col-md-8 col-sm-6 col-xs-12">
+										<input id="classRoom" class="form-control btn btn-danger col-md-7 col-xs-12"
+											type="button" value="교수를 선택하세요.">
 									</div>
 								</div>
 							</div>
 							<!--  -->
 							<div class="col-md-6">
 								<div class="form-group">
+									<label class="control-label col-md-3 col-sm-3 col-xs-12"
+										for="college">구분 <span class="required">*</span>
+									</label>
+									<div class="col-md-3 col-sm-3 col-xs-8">
+										<select id="professor" name="last-name" required="required"
+											class="form-control col-md-6 col-xs-12">
+											<option value="선택">선택</option>
+											<option value="0">교양</option>
+											<option value="1">전공</option>
+										</select>
+									</div>
+								</div>
+								
+								<div class="form-group">
 									<label for="middle-name"
 										class="control-label col-md-3 col-sm-3 col-xs-12"
-										for="majorName">학과명</label>
+										for="majorName">강의명</label>
 									<div class="col-md-6 col-sm-6 col-xs-12">
-										<input id="majorName" class="form-control col-md-7 col-xs-12"
-											type="text" name="majorName" required="required">
+										<input id="lectureName" class="form-control col-md-7 col-xs-12"
+											type="text" required="required">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label for="middle-name"
+										class="control-label col-md-3 col-sm-3 col-xs-12"
+										for="lectureScore">학점</label>
+									<div class="col-md-3 col-sm-3 col-xs-12">
+										<select  id="lectureScore" class="form-control col-md-3 col-xs-12">
+											<option value="1" selected="selected">1 학점</option>
+											<option value="2">2 학점</option>
+											<option value="3">3 학점</option>
+										</select>
 									</div>
 								</div>
 								
 								<div class="form-group">
 									<label class="control-label col-md-3 col-sm-3 col-xs-12"
-										for="count">학년별 최대 인원수 <span class="required">*</span>
+										for="count">제한 인원수 <span class="required">*</span>
 									</label>
 									<div class="col-md-3 col-sm-3 col-xs-8">
 										<input type="number" id="count"
@@ -285,17 +364,21 @@
 								</div>
 							</div>
 							<!--  -->
-							<div class="ln_solid"></div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<form id="demo-form3" data-parsley-validate
+							class="form-horizontal form-label-left">
 							<div class="col-md-6">
 								<div class="form-group">
-									<div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-										<input type="button" class="btn btn-success" value=""
-											onclick="" id="majorModalBtn"> <input hidden="true"
+									<div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3 text-left">
+										<input type="button" class="btn btn-success" value="등록"
+											onclick="" id="lectureModalBtn"> <input hidden="true"
 											type="button" class="btn btn-danger" value="삭제" onclick=""
-											id="majorModalDelBtn">
+											id="lectureModalDelBtn">
 									</div>
 								</div>
-							</div>
+							</div><div class="col-md-6"></div>
 						</form>
 					</div>
 				</div>
@@ -314,10 +397,19 @@
 					text : facultys[i]
 				}));
 		}
+		var init_lec_facultySelector = function(facultys){
+			for (var i = 0; i < facultys.length; i++)
+				$('#lec-facultySelector').append($('<option>', {
+					value : facultys[i],
+					text : facultys[i]
+				}));
+		} 
 
 		$(function() {
 			getFacultys(init_collegeSelector);
+			getFacultys(init_lec_facultySelector);
 			getMajors();
+			getLectureList();
 		});
 	</script>
 </body>

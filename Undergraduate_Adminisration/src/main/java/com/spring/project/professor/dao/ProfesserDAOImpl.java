@@ -7,11 +7,12 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.spring.project.professor.vo.classStudentVO;
-import com.spring.project.professor.vo.myClassVO;
-import com.spring.project.professor.vo.myPageVO;
-import com.spring.project.professor.vo.searchVO;
-import com.spring.project.professor.vo.studentVO;
+import com.spring.project.professor.vo.ClassStudentVO;
+import com.spring.project.professor.vo.LecScore;
+import com.spring.project.professor.vo.MyClassVO;
+import com.spring.project.professor.vo.MyPageVO;
+import com.spring.project.professor.vo.SearchVO;
+import com.spring.project.professor.vo.StudentVO;
 
 @Repository
 public class ProfesserDAOImpl implements ProfesserDAO{
@@ -21,13 +22,13 @@ public class ProfesserDAOImpl implements ProfesserDAO{
 	
 	//마이페이지
 	@Override
-	public myPageVO myPage(String userNumber) {
+	public MyPageVO myPage(String userNumber) {
 		return sql.selectOne("com.spring.project.professor.dao.ProfesserDAO.myPage",userNumber);
 	}
 
 	//프로필 이미지 변경
 	@Override
-	public int imageUpload(myPageVO vo) {
+	public int imageUpload(MyPageVO vo) {
 		
 		System.out.println(vo);
 		
@@ -43,7 +44,7 @@ public class ProfesserDAOImpl implements ProfesserDAO{
 	}
 	//교수 소개 변경
 	@Override
-	public int introUpdate(myPageVO vo) {
+	public int introUpdate(MyPageVO vo) {
 		
 		System.out.println(vo);
 		
@@ -60,7 +61,7 @@ public class ProfesserDAOImpl implements ProfesserDAO{
 	
 	//개인정보 업데이트1
 	@Override
-	public int update(myPageVO vo) {
+	public int update(MyPageVO vo) {
 		
 		System.out.println(vo);
 		
@@ -76,7 +77,7 @@ public class ProfesserDAOImpl implements ProfesserDAO{
 	}
 	//개인정보 업데이트2
 	@Override
-	public int update2(myPageVO vo) {
+	public int update2(MyPageVO vo) {
 		
 		System.out.println(vo);
 		
@@ -92,23 +93,41 @@ public class ProfesserDAOImpl implements ProfesserDAO{
 	}
 	//내 강의 학생 목록
 	@Override
-	public List<studentVO> list(String userNumber) {
+	public List<StudentVO> list(String userNumber) {
 		return sql.selectList("com.spring.project.professor.dao.ProfesserDAO.list",userNumber);
 	}
 	//내 강의 목록
 	@Override
-	public List<myClassVO> myClass(String userNumber) {
+	public List<MyClassVO> myClass(String userNumber) {
 		return sql.selectList("com.spring.project.professor.dao.ProfesserDAO.myClass",userNumber);
 	}
 	//강의별 수강 학생 목록
 	@Override
-	public List<classStudentVO> getStudent(Map<String, Object> map) {
+	public List<ClassStudentVO> getStudent(Map<String, Object> map) {
 		return sql.selectList("com.spring.project.professor.dao.ProfesserDAO.getStudent",map);
+	}
+	//수강생 검색
+	@Override
+	public List<SearchVO> search_student(Map<String, Object> map) {
+		return sql.selectList("com.spring.project.professor.dao.ProfesserDAO.search_student",map);
+	}
+	//학점관리 진입
+	@Override
+	public List<MyClassVO> s_myClass(String userNumber) {
+		return sql.selectList("com.spring.project.professor.dao.ProfesserDAO.s_myClass",userNumber);
+	}
+	@Override
+	public List<MyClassVO> v_myClass(String userNumber) {
+		return sql.selectList("com.spring.project.professor.dao.ProfesserDAO.v_myClass",userNumber);
 	}
 
 	@Override
-	public List<searchVO> search_student(Map<String, Object> map) {
-		return sql.selectList("com.spring.project.professor.dao.ProfesserDAO.search_student",map);
+	public List<LecScore> firstLec(Map<String, Object> map) {
+		return sql.selectList("com.spring.project.professor.dao.ProfesserDAO.firstLec",map);
+	}
+	@Override
+	public List<LecScore> getLecScore(Map<String, Object> map) {
+		return sql.selectList("com.spring.project.professor.dao.ProfesserDAO.getLecScore",map);
 	}
 
 

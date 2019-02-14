@@ -11,6 +11,7 @@ import com.spring.project.admin.vo.ScholarpkVO;
 import com.spring.project.admin.vo.auditVO;
 import com.spring.project.admin.vo.payrollVO;
 import com.spring.project.share.vo.Major;
+import com.spring.project.student.vo.LectureVO;
 
 
 @Repository
@@ -51,22 +52,31 @@ public interface AdminDAO {
 	public List<AdStdVO> getSchoolLeave(Map<String, Integer> map);
 	
 	//장학글 갯수
-	public int getArticleCnt();
-	
-	//장학 글 목록
-	public List<ScholarpkVO> getArticleList(Map<String,Object> map);
-	
-	//장학 글 추가 
-	public int insertjangjag(ScholarpkVO vo);
-	
-	//장학 글 상세 
-	public ScholarpkVO getArticle(int scholarpk); 
-	
-	//장학글 삭제
-	public int delete(String[] checkbox);
-	
-	//장학글 심사
-	public List<auditVO> auditCnt();
+		public int getArticleCnt(Map<String,Object> map);
+		
+		//장학 글 목록
+		public List<ScholarpkVO> getArticleList(Map<String,Object> map);
+		
+		//장학 글 추가 
+		public int insertjangjag(ScholarpkVO vo);
+		
+		//장학 글 상세 
+		public ScholarpkVO getArticle(int scholarpk); 
+		
+		//장학글 삭제
+		public int delete(String[] checkbox);
+		
+		//장학글 심사
+		public List<auditVO> auditCnt();
+		
+		//장학글 심사
+		public List<auditVO> auditCnt2(int auditct);
+		
+		//장학금 심사 완료
+		public int auditupdate(String[] checkbox);
+		
+		//장학금 심사 탈락
+		public int auditupdate2(String[] checkbox);
 	
 	
 	//---------------교직 업무 관리 START-------------------
@@ -84,6 +94,16 @@ public interface AdminDAO {
 	// 해당 교수 빈 강의 조회
 	public List<Object> emptyLecTime(String empNumber);
 	
+	// 해당 교수가 맡은 강의 조회
+	public List<Object> getEmpLectures(String empNumber);
+	// 강의코드 시퀀스 다음 번호 조회
+	public int getLectureSeqNextval();
+	
+	// 강의 목록 갯수
+	public int getLectureCount(Map<String, Object> map);
+	// 강의 목록 조회
+	public List<Object> getLectureList(Map<String, Object> map);
+
 	//---------------교직 업무 관리 END-------------------
 	
 	public List<payrollVO> payrollList();

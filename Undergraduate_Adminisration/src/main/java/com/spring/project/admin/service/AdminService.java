@@ -4,6 +4,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -46,19 +47,25 @@ public interface AdminService {
 	public void schoolLeaveList(HttpServletRequest req, Model model);
 	
 	//장학심사 
-	public void judge(HttpServletRequest req,  Model model);
-	
-	//장학 목록 
-	public void registrationList(HttpServletRequest req,  Model model);
-	
-	//장학 글 추가
-	public void rigisterPro(HttpServletRequest req,  Model model);
-	
-	//장학 글 상세
-	public void contentform(HttpServletRequest req,  Model model);
-	
-	//장학 글 삭제
-	public void deletePro(HttpServletRequest req,  RedirectAttributes red);
+		public void judge(HttpServletRequest req,  Model model); 
+		
+		//장학심사 
+		public void auditPro(HttpServletRequest req,  Model model);
+		
+		//장학심사 
+		public void judge2(Map<String, Object> map, Logger logger, Model model);
+		
+		//장학 목록 
+		public void registrationList(Map<String, Object> map, Model model);
+		
+		//장학 글 추가
+		public void rigisterPro(HttpServletRequest req,  Model model);
+		
+		//장학 글 상세
+		public void contentform(HttpServletRequest req,  Model model);
+		
+		//장학 글 삭제
+		public void deletePro(HttpServletRequest req,  RedirectAttributes red);
 	
 	//---------------교직 업무 관리 START-------------------
 	// 학과 리스트
@@ -72,6 +79,11 @@ public interface AdminService {
 	
 	// 해당 교수 빈강의시간 조회
 	public void getEmptyLecTime(String empNumber, Model model);
+	
+	// 생성될 강의코드 조회 
+	public Map<String, Object> getLectureSeqNextval();
+	
+	public void getLectureList(Map<String, Object> map,Model model);
 	
 	//---------------교직 업무 관리 END-------------------
 	

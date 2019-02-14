@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -41,70 +40,84 @@ public class AdminController {
 		return "admin/userInfo";
 	}
 
-	/* 장학단--------------------------------- */
-
-	// 장학 신청 심사
-	@RequestMapping("/admin/judge")
-	public String judge(HttpServletRequest req, Model model) {
-		System.out.println("장학 심사");
-		service.judge(req, model);
-
-		return "admin/judge";
-	}
-
-	// 장학 목록
-	@RequestMapping("/admin/registrationList")
-	public String registrationList(HttpServletRequest req, Model model) {
+	/*장학단---------------------------------*/
+	//장학 목록
+	@RequestMapping(value = "/admin/resister/adminjudgeList",method=RequestMethod.POST)
+	public String judgeList(@RequestBody Map<String, Object> map, Model model) {
 		System.out.println("장학 목록");
-		service.registrationList(req, model);
-
-		return "admin/registrationList";
+		service.judge2(map,logger, model);
+		
+		return "admin/resister/judge";
 	}
-
-	// 장학 등록
+	
+	
+	//장학 신청 심사 완료
+	@RequestMapping("/admin/auditPro")
+	public String auditPro(HttpServletRequest req, Model model) {
+		System.out.println("장학 심사 완료");
+		service.auditPro(req,model);
+		
+		return "redirect:/admin/registrationList";
+	}
+	 //장학 목록 페이지
+	@RequestMapping(value="/admin/registrationList", method=RequestMethod.GET)
+	public String bulletinPage() {
+		return "admin/resister/resisterPage";
+	}
+	//장학 목록
+	@RequestMapping(value = "/admin/resister/adminregistrationList2",method=RequestMethod.POST)
+	public String registrationList(@RequestBody Map<String, Object> map, Model model) {
+		System.out.println("장학 목록");
+		service.registrationList(map, model);
+		
+		return "admin/resister/registrationList";
+	}
+	
+	
+	//장학 등록
 	@RequestMapping("/admin/registration")
 	public String registration() {
 		System.out.println("장학 등록");
-
+		
 		return "admin/registration";
 	}
-
-	// 장학 등록 완료
+	
+	//장학 등록 완료
 	@RequestMapping("/admin/rigisterPro")
 	public String rigisterPro(HttpServletRequest req, Model model) {
 		System.out.println("장학 등록");
-		service.rigisterPro(req, model);
-
+		service.rigisterPro(req,model);
+		
 		return "admin/rigisterPro";
 	}
-
-	// 장학 상세 페이지
+	
+	//장학 상세 페이지
 	@RequestMapping("/admin/contentForm")
 	public String contentform(HttpServletRequest req, Model model) {
 		System.out.println("장학 상세");
-		service.contentform(req, model);
-
+		service.contentform(req,model);
+		
 		return "admin/contentForm";
 	}
-
-	// 장학 삭제 페이지
+	
+	//장학 삭제 페이지
 	@RequestMapping("/admin/deletePro")
 	public String deletePro(HttpServletRequest req, RedirectAttributes red) {
 		System.out.println("장학 삭제");
-		service.deletePro(req, red);
-
+		service.deletePro(req,red);
+		
 		return "redirect:/admin/registrationList";
 	}
-
-	// 장학 예산
+	
+	//장학 예산
 	@RequestMapping("/admin/budget")
 	public String budget() {
 		System.out.println("장학 예산");
-
+		
 		return "admin/budget";
 	}
-
-	/* 장학단---------------------------------끝 */
+	
+	/*장학단---------------------------------끝*/
 
 	// -------------------------
 	@RequestMapping("/admin/majorLectureManagement")
@@ -212,8 +225,7 @@ public class AdminController {
 		return "admin/menu7";
 	}
 
-	// ---------------------------------학과, 강의 관리
-	// START----------------------------------------
+	// ---------------------------------학과, 강의 관리START----------------------------------------
 	// 학과 조회(게시판 형식)
 	@RequestMapping(value = "/admin/major_lecture_Manager/getMajors", method = RequestMethod.POST)
 	public String getMajors(@RequestBody Map<String, Object> map, Model model) {
@@ -248,54 +260,72 @@ public class AdminController {
 
 	// 강의 조회
 	@RequestMapping(value = "/admin/major_lecture_Manager/getLectureList", method = RequestMethod.POST)
-	public String getLectureList(@RequestBody Map<String, Object> map) {
+	public String getLectureList(@RequestBody Map<String, Object> map, Model model) {
+		logger.info("getLectureList()");
+		service.getLectureList(map, model);
+		return "admin/majorLecMangePage/lectureList";
+	}
 
-		return "";
-	}
-	
-	//---------------------------------학과, 강의 관리 END----------------------------------------
-	
-	
-	//---------------------------------회계 관리 START----------------------------------------
-	
-	// 교직원 급여관리
-	@RequestMapping(value="/admin/facultyAccountManage", method=RequestMethod.GET)
-	public String facultyAccountManage(Model model) {
-		service.facultyAccountManage(model);
-		return "admin/accountingManagement/AccountManagePage";
-	}
-	
-	// 교직원 급여관리
-	@RequestMapping(value="/admin/facultyMajorConfirmation", method=RequestMethod.GET)
-	public String facultyMajorConfirmation(@RequestBody Map<String, Object> map, Model model) {
-		service.facultyMajorConfirmation(map, model);
-		return "admin/accountingManagement/facultyMajorConfirmation";
-	}
-	// 급여대장 조회
-	@RequestMapping(value="/admin/lookupWorkRecord", method=RequestMethod.POST)
-	public String lookupWorkRecord(@RequestBody Map<String, Object> map, Model model) {
-		service.lookupWorkRecord(map, model);
-		return "admin/accountingManagement/lookupWorkRecord";
-	}
-	
-	// 
-	@RequestMapping("/admin/insertPayroll")
-	public String insertPayroll(HttpServletRequest req, RedirectAttributes red) {
-		service.insertPayroll(req, red);
-
-		return "redirect:/admin/facultyAccountManage";
-	}
-	
-	//---------------------------------회계 관리 END------------------------------------------
-	
 	// 해당 교수의 빈강의 조회
-	@RequestMapping(value="/admin/major_lecture_Manager/getEmptyLecTime/{empNumber}", method=RequestMethod.GET)
+	@RequestMapping(value = "/admin/major_lecture_Manager/getEmptyLecTime/{empNumber}", method = RequestMethod.GET)
 	public String getEmptyLecTime(@PathVariable String empNumber, Model model) {
 		logger.info("getEmptyLecTime()");
 		service.getEmptyLecTime(empNumber, model);
 		return "admin/majorLecMangePage/lectureTimeSelector";
 	}
+	
+	// 다음에 생성될 강의코드 조회
+	@ResponseBody
+	@RequestMapping(value="/admin/major_lecture_Manager/getLectureSeqNextVal",  method = RequestMethod.GET)
+	public Map<String, Object> getLectureSeqNextVal() {
+		return service.getLectureSeqNextval();
+	}
+	
+	// 교수 선택 페이지
+	@RequestMapping(value="/admin/major_lecture_Manager/professorSelector/")
+	public String professorSelector(Model model) {
+		logger.info("professorSelector()");
+		return "admin/majorLecMangePage/professorSelector";
+	}
+	
+	// 해당 강의의 시간 조회
+	@RequestMapping(value="/admin/major_lecture_Manager/LecTime/{lecCode}")
+	public String getLecTime(@PathVariable String lecCode, Model model) {
+		return "admin/majorLecMangePage/lectureTimeSelector";
+	}
 
-	// ---------------------------------학과, 강의 관리
-	// END----------------------------------------
+	// ---------------------------------학과, 강의 관리 END----------------------------------------
+
+	
+	//---------------------------------회계 관리 START----------------------------------------
+	
+		// 교직원 급여관리
+		@RequestMapping(value="/admin/facultyAccountManage", method=RequestMethod.GET)
+		public String facultyAccountManage(Model model) {
+			service.facultyAccountManage(model);
+			return "admin/accountingManagement/AccountManagePage";
+		}
+		
+		// 교직원 급여관리
+		@RequestMapping(value="/admin/facultyMajorConfirmation", method=RequestMethod.GET)
+		public String facultyMajorConfirmation(@RequestBody Map<String, Object> map, Model model) {
+			service.facultyMajorConfirmation(map, model);
+			return "admin/accountingManagement/facultyMajorConfirmation";
+		}
+		// 급여대장 조회
+		@RequestMapping(value="/admin/lookupWorkRecord", method=RequestMethod.POST)
+		public String lookupWorkRecord(@RequestBody Map<String, Object> map, Model model) {
+			service.lookupWorkRecord(map, model);
+			return "admin/accountingManagement/lookupWorkRecord";
+		}
+		
+		// 
+		@RequestMapping("/admin/insertPayroll")
+		public String insertPayroll(HttpServletRequest req, RedirectAttributes red) {
+			service.insertPayroll(req, red);
+
+			return "redirect:/admin/facultyAccountManage";
+		}
+		
+		//---------------------------------회계 관리 END------------------------------------------
 }

@@ -1,6 +1,6 @@
 package com.spring.project.professor.vo;
 
-public class searchVO {
+public class SearchVO {
 	private String userName;
 	private String userNumber;
 	private String userCellNum;
