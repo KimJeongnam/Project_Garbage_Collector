@@ -1,10 +1,17 @@
 package com.spring.project.professor.vo;
 
-public class myClassVO {
+public class MyClassVO {
 	
 	private String lectureName; //강의명
-	private String empNumber; //교수번호
+	private String empNumber; //교수번호 list에서 사용
+	private String userNumber; //교수번호 score에서 사용
 	
+	public String getUserNumber() {
+		return userNumber;
+	}
+	public void setUserNumber(String userNumber) {
+		this.userNumber = userNumber;
+	}
 	public String getLectureName() {
 		return lectureName;
 	}

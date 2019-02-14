@@ -2920,8 +2920,8 @@ ul.messages li,
 }
 ul.messages li img.avatar,
 img.avatar {
-    height: 32px;
-    width: 32px;
+    height: 65px;
+    width: 60px;
     float: left;
     display: inline-block;
     border-radius: 2px;
@@ -4051,7 +4051,7 @@ fieldset {
     height: 10px !important
 }
 .progress.progress_sm .progress-bar {
-    height: 10px !important
+    height: 50px !important
 }
 .dashboard_graph p {
     margin: 0 0 4px

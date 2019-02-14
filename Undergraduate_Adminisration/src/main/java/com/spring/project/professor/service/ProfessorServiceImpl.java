@@ -17,11 +17,12 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.project.professor.dao.ProfesserDAO;
-import com.spring.project.professor.vo.classStudentVO;
-import com.spring.project.professor.vo.myClassVO;
-import com.spring.project.professor.vo.myPageVO;
-import com.spring.project.professor.vo.searchVO;
-import com.spring.project.professor.vo.studentVO;
+import com.spring.project.professor.vo.ClassStudentVO;
+import com.spring.project.professor.vo.LecScore;
+import com.spring.project.professor.vo.MyClassVO;
+import com.spring.project.professor.vo.MyPageVO;
+import com.spring.project.professor.vo.SearchVO;
+import com.spring.project.professor.vo.StudentVO;
 import com.spring.project.share.vo.ShareUserInfo;
 
 @Service
@@ -36,7 +37,7 @@ public class ProfessorServiceImpl implements ProfessorService {
 
 		String userNumber = (String) req.getSession().getAttribute("userNumber");
 
-		myPageVO vo = dao.myPage(userNumber);
+		MyPageVO vo = dao.myPage(userNumber);
 
 		model.addAttribute("vo", vo);
 	}
@@ -69,7 +70,7 @@ public class ProfessorServiceImpl implements ProfessorService {
 			String image = file.getOriginalFilename();
 			String userNumber = (String) req.getSession().getAttribute("userNumber");
 
-			myPageVO vo = new myPageVO();
+			MyPageVO vo = new MyPageVO();
 
 			vo.setUserNumber(userNumber);
 
@@ -106,7 +107,7 @@ public class ProfessorServiceImpl implements ProfessorService {
 		String userNumber = (String) req.getSession().getAttribute("userNumber");
 		String introduction = req.getParameter("introduction");
 
-		myPageVO vo = new myPageVO();
+		MyPageVO vo = new MyPageVO();
 
 		vo.setUserNumber(userNumber);
 		vo.setIntroduction(introduction);
@@ -140,7 +141,7 @@ public class ProfessorServiceImpl implements ProfessorService {
 
 		// String userZipCode = req.getparameter("zipcode");
 
-		myPageVO vo = new myPageVO();
+		MyPageVO vo = new MyPageVO();
 		
 		vo.setBankName(bankName);
 		vo.setAccountNumber(accountNumber);
@@ -178,11 +179,11 @@ public class ProfessorServiceImpl implements ProfessorService {
 		
 		String userNumber = (String) req.getSession().getAttribute("userNumber");
 		
-		List<myClassVO> myClass = dao.myClass(userNumber);
+		List<MyClassVO> myClass = dao.myClass(userNumber);
 		
 		System.out.println("교수 강의 목록  myClass : " + myClass);
 		
-		List<studentVO> list = dao.list(userNumber);
+		List<StudentVO> list = dao.list(userNumber);
 		
 		System.out.println("내 강의 모든 학생 list : " + list);
 		
@@ -201,7 +202,7 @@ public class ProfessorServiceImpl implements ProfessorService {
 		map.put("userNumber", userNumber);
 		map.put("lecName", lecName);
 		
-		List<classStudentVO> vo = dao.getStudent(map);
+		List<ClassStudentVO> vo = dao.getStudent(map);
 		
 		System.out.println("내 강의 모든 학생 vo : " + vo);
 		
@@ -218,11 +219,62 @@ public class ProfessorServiceImpl implements ProfessorService {
 		map.put("userNumber", userNumber);
 		map.put("userName", userName);
 		
-		List<searchVO> search_student = dao.search_student(map);
+		List<SearchVO> search_student = dao.search_student(map);
 		
 		System.out.println("내 강의 학생검색 search_student : " + search_student);
 		
 		model.addAttribute("search_student",search_student);
+	}
+	
+	
+	//학점입력 페이지
+	@Override
+	public void score(HttpServletRequest req, Model model) {
+		String userNumber = (String) req.getSession().getAttribute("userNumber");
+		
+		List<MyClassVO> s_myClass = dao.s_myClass(userNumber);
+		
+		System.out.println("교수 강의 목록  s_myClass : " + s_myClass);
+		
+		List<MyClassVO> v_myClass = dao.v_myClass(userNumber);
+		
+		System.out.println("교수 강의 목록  v_myClass : " + v_myClass);
+		
+		model.addAttribute("v_myClass",v_myClass);
+		model.addAttribute("s_myClass",s_myClass);
+	}
+
+	@Override
+	public void firstLec(Map<String, Object> map, HttpServletRequest req, Model model) {
+		
+		String userNumber = (String) req.getSession().getAttribute("userNumber");
+		String firstLec = (String) map.get("firstLec");
+		
+		map.put("userNumber", userNumber);
+		map.put("firstLec", firstLec);
+		
+		List<LecScore> vo = dao.firstLec(map);
+		
+		System.out.println("첫번째 강의 학생 학점정보  vo : " + vo);
+		
+		model.addAttribute("vo",vo);
+		
+	}
+
+	@Override
+	public void getLecScore(Map<String, Object> map, HttpServletRequest req, Model model) {
+		String userNumber = (String) req.getSession().getAttribute("userNumber");
+		String lecName = (String) map.get("lecName");
+		
+		map.put("userNumber", userNumber);
+		map.put("lecName", lecName);
+		
+		List<LecScore> getLecScore = dao.getLecScore(map);
+		
+		System.out.println("온클릭 강의 학생 학점정보  getLecScore : " + getLecScore);
+		
+		model.addAttribute("getLecScore",getLecScore);
+		
 	}
 
 }

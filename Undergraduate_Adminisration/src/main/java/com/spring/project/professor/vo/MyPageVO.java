@@ -1,6 +1,6 @@
 package com.spring.project.professor.vo;
 
-public class myPageVO {
+public class MyPageVO {
 	private String userNumber;
 	private String userPassword;
 	private String userName;
