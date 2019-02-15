@@ -40,7 +40,7 @@ public interface ProfesserDAO {
 	List<ClassStudentVO> getStudent(Map<String, Object> map);
 	//학생검색
 	List<SearchVO> search_student(Map<String, Object> map);
-	List<SearchVO> lec(Map<String, Object> map);
+	List<SearchVO> search_student_click(Map<String, Object> map);
 
 	//학점관리 진입
 	List<MyClassVO> s_myClass(String userNumber);
