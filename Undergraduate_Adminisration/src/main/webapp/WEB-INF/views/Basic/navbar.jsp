@@ -48,7 +48,7 @@
                                         <li><a>교직업무<span class="fa fa-chevron-down"></span></a>
                                             <ul class="nav child_menu">
                                                 <li class="sub_menu">
-                                                    <a href="${authPath }/majorLectureManagement">학과/강의 관리</a>
+                                                    <a href="${authPath}/majorLectureManagement">학과/강의 관리</a>
                                                 </li>
                                             </ul>
                                         </li>
@@ -70,8 +70,7 @@
                                 <li><a><i class="fa fa-bar-chart-o"></i> 회계관리<span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu" style="">
                                         <li><a href="${authPath }/facultyAccountManage">급여계산/대장</a></li>
-                                        <li><a href="${authPath }/menu6">시간제 강사 급여관리</a></li>
-                                        <li><a href="#">장학금 수혜현황</a></li>
+                                        <li><a href="#">*</a></li>
                                     </ul>
                                 </li>
                             </ul>

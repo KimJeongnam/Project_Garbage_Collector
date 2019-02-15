@@ -114,6 +114,8 @@ public interface AdminDAO {
 	
 	public List<payrollVO> getPaymentClassfication();
 	
+	public List<payrollVO> getFinalPayrollList();
+	
 	public List<payrollVO> lookupWorkRecord(Map<String, Object> map);
 	
 	public List<payrollVO> accountFacultyList(Map<String, Object> map);

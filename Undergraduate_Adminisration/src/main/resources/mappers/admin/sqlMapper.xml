@@ -473,8 +473,16 @@
 
 	<select id="getFacultyList"
 		resultType="com.spring.project.admin.vo.payrollVO">
-		select empNumber, accountHolder, majorName from employee e, major m where
-		e.majorNum = m.majorNum
+		SELECT empNumber, accountHolder, majorName, sum(기본급) basicPay, extraPay,
+		sum(식대) foodExpenses,sum(차량유지비) vehicleCost 
+		from(SELECT e.empNumber, e.accountHolder, m.majorName,
+	        CASE WHEN i.incentiveName = '기본급' THEN p.cashAmount ELSE 0 END "기본급",
+	        CASE WHEN i.incentiveName = '식대' THEN p.cashAmount ELSE 0 END "식대",
+	        CASE WHEN i.incentiveName = '차량유지비' THEN p.cashAmount ELSE 0 END "차량유지비",
+	        (select amount from overpaytable where empNumber=p.empNumber) as extraPay
+		FROM employee e, major m, payment p, incentiveMenu i, OverPayTable o
+		where e.majorNum = m.majorNum and p.empNumber=e.empNumber and p.incentiveCode=i.incentiveCode and o.empNumber = e.empNumber)
+		group by empNumber, accountHolder, majorName, extraPay
 	</select>
 
 	<select id="getPaymentClassfication"
@@ -482,7 +490,13 @@
 		select to_char(imputedYear,'yyyy/mm'), paymentClassfication from
 		paymentlist
 	</select>
-
+	
+	<select id="getFinalPayrollList"
+		resultType="com.spring.project.admin.vo.payrollVO">
+		select to_char(imputedYear,'yyyy/mm'), paymentClassfication from
+		paymentlist
+	</select>
+	
 	<select id="lookupWorkRecord" parameterType="java.util.Map"
 		resultType="com.spring.project.admin.vo.payrollVO">
 		select * from where imputedYear=#{imputedYear}

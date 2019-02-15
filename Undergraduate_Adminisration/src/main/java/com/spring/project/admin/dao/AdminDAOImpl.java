@@ -235,6 +235,10 @@ public class AdminDAOImpl implements AdminDAO{
 		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.getPaymentClassfication");
 	}
 	@Override
+	public List<payrollVO> getFinalPayrollList() {
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.getFinalPayrollList");
+	}
+	@Override
 	public List<payrollVO> lookupWorkRecord(Map<String, Object> map) {
 		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.lookupWorkRecord", map);
 	}
@@ -250,4 +254,5 @@ public class AdminDAOImpl implements AdminDAO{
 	public int insertPayroll(payrollVO vo) {
 		return sqlSession.insert("com.spring.project.admin.dao.AdminDAO.insertPayroll", vo);
 	}
+	
 }

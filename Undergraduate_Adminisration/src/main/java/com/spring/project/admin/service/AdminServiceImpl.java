@@ -753,6 +753,9 @@ public class AdminServiceImpl implements AdminService{
 		
 		List<payrollVO> dtosC = dao.getPaymentClassfication();
 		model.addAttribute("dtosC", dtosC);
+		
+		List<payrollVO> dtosT = dao.getFinalPayrollList();
+		model.addAttribute("dtosT", dtosT);
 	}
 	@Override
 	public Map<String, Object> getLectureSeqNextval() {
