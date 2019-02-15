@@ -26,7 +26,7 @@
                     <h3> 강의별 학점관리 <small>강의 선택 후 학생별 입력</small></h3>
                 </div>
                 
-                 
+<!--                  
 				<div class="title_right">
                     <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
                         <div class="input-group">
@@ -38,7 +38,7 @@
                     </div>
                 </div>
 
-
+ -->
             </div>
             <div class="clearfix"></div>
                 <div class="col-md-12">

@@ -135,8 +135,8 @@
 						</table>
 						<div class="ln_solid"></div>
 							<div class="form-group">
-								<div class="col-md-6 col-md-offset-1">
-									<button type="button" class="btn btn-primary">취소</button>
+								<div class="col-md-6 col-md-offset-4">
+									<button type="button" class="btn btn-primary" onclick="window.location='empStdManagement'">뒤로</button>
 									<button id="send" type="submit" class="btn btn-success">학생등록</button>
 								</div>
 							</div>

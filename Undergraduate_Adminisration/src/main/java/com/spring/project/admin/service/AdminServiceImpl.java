@@ -3,6 +3,7 @@ package com.spring.project.admin.service;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,6 +26,7 @@ import com.spring.project.admin.vo.AdStdVO;
 import com.spring.project.admin.vo.ScholarpkVO;
 import com.spring.project.admin.vo.auditVO;
 import com.spring.project.admin.vo.payrollVO;
+import com.spring.project.share.Config;
 import com.spring.project.share.dao.ShareDAO;
 import com.spring.project.share.vo.Major;
 
@@ -275,7 +277,6 @@ public class AdminServiceImpl implements AdminService{
 	    
 	}
 	
-	
 	//학생등록 처리
 	@Override
 	public void stdInputPro(MultipartHttpServletRequest req, RedirectAttributes red) {
@@ -289,7 +290,7 @@ public class AdminServiceImpl implements AdminService{
 		String saveDir = req.getSession().getServletContext().getRealPath("/resources/images/");
 
 		//업로드할 파일이 위치하게 될 물리적인 경로
-		String realDir="C:\\Users\\guaba\\git\\Project_Garbage_Collector\\Undergraduate_Adminisration\\src\\main\\webapp\\resources\\images\\";
+		String realDir= Config.REAL_PATH;
 
 		//인코딩 타입 : 한글 파일명이 열화되는것을 방지
 		/*String encType= "UTF-8";*/
@@ -297,9 +298,9 @@ public class AdminServiceImpl implements AdminService{
 		try {
 			/* *DefaultFileRenamePolicy()객체는 중복된 파일명이 있을 경우, 자동으로 파일명을 변경함 
 			 *(예 : filename.png가 이미 존재할 경우, filename1.png와 같이)*/
-			if (!file.getOriginalFilename().equals("")) {
 				file.transferTo(new File(saveDir+file.getOriginalFilename()));
 		
+				if(file.getOriginalFilename() != "")  {
 				FileInputStream fis = new FileInputStream(saveDir + file.getOriginalFilename());
 				FileOutputStream fos = new FileOutputStream(realDir + file.getOriginalFilename());
 				int data =0;
@@ -366,6 +367,7 @@ public class AdminServiceImpl implements AdminService{
 			e.printStackTrace();
 		}
 	}
+	
 	//교수 인서트
 	@Override
 	public void ProInputPro(MultipartHttpServletRequest req,  RedirectAttributes red) {
@@ -379,7 +381,7 @@ public class AdminServiceImpl implements AdminService{
 		String saveDir = req.getSession().getServletContext().getRealPath("/resources/images/");
 
 		//업로드할 파일이 위치하게 될 물리적인 경로
-		String realDir="C:\\Users\\guaba\\git\\Project_Garbage_Collector\\Undergraduate_Adminisration\\src\\main\\webapp\\resources\\images\\";
+		String realDir=Config.REAL_PATH;
 
 		//인코딩 타입 : 한글 파일명이 열화되는것을 방지
 		/*String encType= "UTF-8";*/
@@ -389,6 +391,7 @@ public class AdminServiceImpl implements AdminService{
 			 *(예 : filename.png가 이미 존재할 경우, filename1.png와 같이)*/
 			file.transferTo(new File(saveDir+file.getOriginalFilename()));
 
+		if(file.getOriginalFilename() != "")  {
 			FileInputStream fis = new FileInputStream(saveDir + file.getOriginalFilename());
 			FileOutputStream fos = new FileOutputStream(realDir + file.getOriginalFilename());
 			int data =0;
@@ -399,7 +402,7 @@ public class AdminServiceImpl implements AdminService{
 			}
 			fis.close();
 			fos.close();
-
+		}
 
 			/* *위에서 MultipartRequest()객체를 선언해서 받는 모든 request 객체들은
 			 *MultipartRequest 타입으로 참조되어야 함
@@ -450,6 +453,7 @@ public class AdminServiceImpl implements AdminService{
 			e.printStackTrace();
 		}
 	}
+	
 	//학생*교수 리스트
 	@Override
 	public void stdList(HttpServletRequest req, Model model) {
@@ -468,9 +472,9 @@ public class AdminServiceImpl implements AdminService{
 		
 		List<AdProVO> vo = dao.getProList(map);
 		
-		
 		req.setAttribute("vo", vo);
 	}
+	
 	//학부 + 학과 리스트
 	@Override
 	public void fandMList(HttpServletRequest req, Model model) {
@@ -478,30 +482,35 @@ public class AdminServiceImpl implements AdminService{
 		List<AdProVO> vo = dao.FandMList(map);
 		req.setAttribute("outFandM", vo);
 	}
+	
 	//학생 상세페이지
 	@Override
 	public void showStdDetail(HttpServletRequest req, Model model) {
-		int userNum = Integer.parseInt(req.getParameter("userNumber")); 
+		String userNumber = req.getParameter("userNumber"); 
 		
 		Map<String, Integer> map = new HashMap<String, Integer>();
+		
 		List<AdProVO> voList = dao.FandMList(map);
+
 		req.setAttribute("outFandM", voList);
 
-		AdStdVO vo = dao.stdDetail(userNum);
+		AdStdVO vo = dao.stdDetail(userNumber);
 		req.setAttribute("vo", vo);
 	}
+	
 	//교수 상세
 	@Override
 	public void showProDetail(HttpServletRequest req, Model model) {
-		int userNum = Integer.parseInt(req.getParameter("userNumber"));
+		String userNumber =req.getParameter("userNumber");
 	
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		List<AdProVO> voList = dao.FandMList(map);
 		req.setAttribute("outFandM", voList);
 		
-		AdProVO vo = dao.proDetail(userNum);
+		AdProVO vo = dao.proDetail(userNumber);
 		req.setAttribute("vo", vo);
 	 }
+	
 	//학생정보수정
 	@Override
 	public void stdDetailUpdate(HttpServletRequest req, RedirectAttributes red) {
@@ -539,11 +548,123 @@ public class AdminServiceImpl implements AdminService{
 		
 		int stdUpdatetResult = userUp + stdUp + stdStateUp;
 
-		 if (stdUpdatetResult == 3) 
-			red.addFlashAttribute("message", "학생정보수정완료.");
-		 else if(stdUpdatetResult != 3) 
-			red.addFlashAttribute("message", "학생정보수정에러.");
+		  if (stdUpdatetResult == 3) 
+			  red.addFlashAttribute("message", "학생정보수정완료.");
+		  else
+			  red.addFlashAttribute("message", "학생정보수정에러.");
+		 
 	}
+	
+	//교수정보수정
+	@Override
+	public void proDetailUpdate(HttpServletRequest req, RedirectAttributes red) {
+		AdProVO vo = new AdProVO();
+
+		//users
+		vo.setUserNumber(req.getParameter("userNumber"));
+		vo.setUserName(req.getParameter("userName"));
+		vo.setUserEngName(req.getParameter("userEngName"));
+		vo.setUserSsn(req.getParameter("userSsn"));
+		vo.setGender(req.getParameter("gender"));
+		vo.setUserCellNum(req.getParameter("userCellNum"));
+		vo.setUserEmail(req.getParameter("userEmail"));
+		vo.setUserZipCode(req.getParameter("userZipCode"));
+		vo.setUserAddr1(req.getParameter("userAddr1"));
+		vo.setUserAddr2(req.getParameter("userAddr2"));
+		vo.setGender(req.getParameter("gender"));
+		/*vo.setDelStatus(Integer.parseInt(req.getParameter("delStatus")));*/
+		
+		//major
+		vo.setMajorNum(Integer.parseInt(req.getParameter("majorNum")));
+		
+		//employees
+		vo.setEmpHiredDate(Date.valueOf(req.getParameter("empHiredDate")));
+		vo.setAnnualLevel(Integer.parseInt(req.getParameter("annualLevel")));
+		vo.setBankName(req.getParameter("bankName"));
+		vo.setAccountHolder(req.getParameter("accountHolder"));
+		vo.setEmpHiredDate(Date.valueOf(req.getParameter("empHiredDate")));
+		vo.setAccountNumber(req.getParameter("accountNumber"));
+		
+		int userUp = dao.updatePUsers(vo); 
+		int empUp = dao.updateEmployees(vo); 
+		
+		int proUpResult = userUp+ empUp ;
+
+		 if (proUpResult == 2) 
+			red.addFlashAttribute("message", "교수정보수정완료.");
+		 else
+			red.addFlashAttribute("message", "교수정보수정실패.");
+	}
+	
+	//회원 이미지수정
+	@Override
+	public void userImgUpdate(MultipartHttpServletRequest req, RedirectAttributes red) {
+		MultipartFile file = req.getFile("userImage");
+
+		String saveDir = req.getSession().getServletContext().getRealPath("/resources/images");
+		String realDir = Config.REAL_PATH;
+																																				// 경로
+		// 각자의 이미지 저장경로 수정하셈
+		try {
+				file.transferTo(new File(saveDir + file.getOriginalFilename()));
+
+			if(file.getOriginalFilename() != "")  {
+				FileInputStream fis = new FileInputStream(saveDir + file.getOriginalFilename());
+				FileOutputStream fos = new FileOutputStream(realDir + file.getOriginalFilename());
+
+				int data = 0;
+
+				while ((data = fis.read()) != -1) {
+					fos.write(data);
+				}
+				fis.close();
+				fos.close();
+			}
+			String image = file.getOriginalFilename();
+			String userNum = req.getParameter("userNumber");
+
+			AdProVO proVO = new AdProVO();
+			AdStdVO stdVO = new AdStdVO();
+			proVO.setUserNumber(userNum);
+			stdVO.setUserNumber(userNum);
+
+			String img = "";
+
+			img = "/images/" + image;
+
+			proVO.setUserImage(img);
+			stdVO.setUserImage(img);
+			
+			
+			//ShareUserInfo user = (ShareUserInfo) req.getParameter("")
+			int proImageUpload = dao.proImgUpdate(proVO);
+			
+			if (proImageUpload == 1) {
+				proVO.setUserImage(img);
+				red.addFlashAttribute("message", "프로필 이미지를 변경하였습니다.");
+				//req.getSession().setAttribute("user", user);
+			}
+			if (proImageUpload != 1)
+				red.addFlashAttribute("message", "프로필 이미지를 변경하는 도중에 오류가 발생하였습니다.");
+
+			System.out.println("프로필 이미지 변경 imageUpload : " + proImageUpload);
+			
+			int stdImageUpload = dao.stdImgUpdate(stdVO);
+			
+			if (stdImageUpload == 1) {
+				proVO.setUserImage(img);
+				red.addFlashAttribute("message", "프로필 이미지를 변경하였습니다.");
+				//req.getSession().setAttribute("user", user);
+			}
+			if (stdImageUpload != 1)
+				red.addFlashAttribute("message", "프로필 이미지를 변경하는 도중에 오류가 발생하였습니다.");
+
+			System.out.println("프로필 이미지 변경 imageUpload : " + stdImageUpload);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	//학생 + 교수삭제
 	@Override
 	public void stdDeletePro(HttpServletRequest req, RedirectAttributes red) {
@@ -876,6 +997,5 @@ public class AdminServiceImpl implements AdminService{
 		red.addFlashAttribute("message","등록이 완료되었습니다.");
 		}
 	}
-	
 	
 }

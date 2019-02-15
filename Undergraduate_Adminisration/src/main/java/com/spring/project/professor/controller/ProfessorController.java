@@ -81,14 +81,14 @@ public class ProfessorController {
 			service.list(req,model);
 			return "professor/list";
 		}
-		
+		//학생조회 탭 클릭 시 
 		@RequestMapping(value="/professor/list/class_click", method=RequestMethod.POST)
 		public String getStudent(@RequestBody Map<String, Object> map, HttpServletRequest req, Model model) {
 			logger.info("getStudent()");
 			service.getStudent(map, req, model);
 			return "professor/myClassStudent";
 		}
-		
+		//학생조회 검색
 		@RequestMapping(value="/professor/list/search_student", method=RequestMethod.POST)
 		public String search_student(@RequestBody Map<String, Object> map, HttpServletRequest req, Model model) {
 			logger.info("search_student()");

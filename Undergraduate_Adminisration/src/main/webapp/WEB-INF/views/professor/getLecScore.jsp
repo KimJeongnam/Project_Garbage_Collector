@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="staticPath" value="/project/resources" />
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <!-- Meta, title, CSS, favicons, etc. -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- Meta, title, CSS, favicons, etc. -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <table class="table table-striped projects">
     <thead>
@@ -23,7 +23,7 @@
 
 
 
-        <c:forEach var="vo2" items="${getLecScore}" varStatus="status">
+        <c:forEach var="vo2" items="${vo}" varStatus="status">
             <tr>
                 <td style="text-align-last: center;"><h4>${status.index+1}</h4></td>
                 <td>

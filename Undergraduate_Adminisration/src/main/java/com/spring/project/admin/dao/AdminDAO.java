@@ -16,6 +16,7 @@ import com.spring.project.student.vo.LectureVO;
 
 @Repository
 public interface AdminDAO {
+	
 	//학생등록 처리페이지
 	public int insertUsers(AdStdVO vo);
 	public int insertStudent(AdStdVO vo);
@@ -30,11 +31,18 @@ public interface AdminDAO {
 	public int updateStudent(AdStdVO vo);
 	public int updateStudentState(AdStdVO vo);
 	
+	//교수정보 업데이트
+	public int updatePUsers(AdProVO vo);
+	public int updateEmployees(AdProVO vo);
+		
+	//이미지 업데이트
+	public int proImgUpdate(AdProVO vo);
+	public int stdImgUpdate(AdStdVO vo);
 	//학생 상세페이지
-	public AdStdVO stdDetail(int userNum);
+	public AdStdVO stdDetail(String userNumber);
 	
-	//학생 상세페이지
-	public AdProVO proDetail(int userNum);
+	//교수 상세페이지
+	public AdProVO proDetail(String userNumber);
 	
 	//학생+ 교수 삭제
 	public int stdDelete(String userNum);
@@ -52,31 +60,31 @@ public interface AdminDAO {
 	public List<AdStdVO> getSchoolLeave(Map<String, Integer> map);
 	
 	//장학글 갯수
-		public int getArticleCnt(Map<String,Object> map);
-		
-		//장학 글 목록
-		public List<ScholarpkVO> getArticleList(Map<String,Object> map);
-		
-		//장학 글 추가 
-		public int insertjangjag(ScholarpkVO vo);
-		
-		//장학 글 상세 
-		public ScholarpkVO getArticle(int scholarpk); 
-		
-		//장학글 삭제
-		public int delete(String[] checkbox);
-		
-		//장학글 심사
-		public List<auditVO> auditCnt();
-		
-		//장학글 심사
-		public List<auditVO> auditCnt2(int auditct);
-		
-		//장학금 심사 완료
-		public int auditupdate(String[] checkbox);
-		
-		//장학금 심사 탈락
-		public int auditupdate2(String[] checkbox);
+	public int getArticleCnt(Map<String,Object> map);
+	
+	//장학 글 목록
+	public List<ScholarpkVO> getArticleList(Map<String,Object> map);
+	
+	//장학 글 추가 
+	public int insertjangjag(ScholarpkVO vo);
+	
+	//장학 글 상세 
+	public ScholarpkVO getArticle(int scholarpk); 
+	
+	//장학글 삭제
+	public int delete(String[] checkbox);
+	
+	//장학글 심사
+	public List<auditVO> auditCnt();
+	
+	//장학글 심사
+	public List<auditVO> auditCnt2(int auditct);
+	
+	//장학금 심사 완료
+	public int auditupdate(String[] checkbox);
+	
+	//장학금 심사 탈락
+	public int auditupdate2(String[] checkbox);
 	
 	
 	//---------------교직 업무 관리 START-------------------
