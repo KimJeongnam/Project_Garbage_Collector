@@ -5,19 +5,19 @@
 <!-- Meta, title, CSS, favicons, etc. -->
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
-<table class="table table-striped projects">
+<table id="datatable" class="table table-striped table-hover">
     <thead>
         <tr>
-            <th style="text-align-last: center; width: 3%;">번호</th>
-            <th style="text-align-last: center; width: 5%;">이름</th>
-            <th style="text-align-last: center; width: 5%;">학번</th>
-            <th style="text-align-last: center; width: 1%;">사진</th>
-            <th>점수</th>
-            <th style="text-align-last: center; width: 5%;">학점</th>
-            <th style="text-align-last: center; width: 20%;">메뉴</th>
+            <th style="text-align: center; width: 5%;">번호</th>
+            <th style="text-align: center; width: 7%;">이름</th>
+            <th style="text-align: center; width: 7%;">학번</th>
+            <th id="none1" style="text-align: center; width: 5%;">사진</th>
+            <th style="text-align: center;">점수</th>
+            <th style="text-align: center; width: 5%;">학점</th>
+            <th id="none2" style="text-align: center; width: 20%;">메뉴</th>
         </tr>
     </thead>
+    
     <tbody>
 
         <c:forEach var="vo2" items="${vo}" varStatus="status">
