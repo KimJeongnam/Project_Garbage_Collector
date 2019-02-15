@@ -73,8 +73,8 @@
                     <h1 style="text-align-last: center;">${vo2.credit}</h1>
                 </td>
                 <td style="text-align-last: center;">
-                    <a href="#" class="btn btn-primary btn" data-toggle="modal" data-target=".bs-example-modal-sm${vo2.stdNumber}${status.index+1}"><i class="fa fa-folder"></i>입력</a>
-                    <a href="#" class="btn btn-info btn" data-toggle="modal" data-target=".bs-example-modal-sm${vo2.stdNumber}${status.index+2}"><i class="fa fa-pencil"></i>수정</a>
+                    <a href="#" class="btn btn-primary btn-sm" data-toggle="modal" data-target=".bs-example-modal-sm${vo2.stdNumber}${status.index+1}"><i class="fa fa-folder"></i>입력</a>
+                    <a href="#" class="btn btn-info btn-sm" data-toggle="modal" data-target=".bs-example-modal-sm${vo2.stdNumber}${status.index+2}"><i class="fa fa-pencil"></i>수정</a>
                 </td>
             </tr>
         </c:forEach>

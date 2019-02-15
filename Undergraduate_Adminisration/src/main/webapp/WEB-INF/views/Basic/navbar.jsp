@@ -109,10 +109,6 @@
                             <li class=""><a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> <img src="${staticPath}${user.userImage }" alt="">${user.userName } <span class=" fa fa-angle-down"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                    <li><a href="javascript:;"> 메뉴1 </a></li>
-                                    <li><a href="javascript:;"> <span>메뉴2</span>
-                                        </a></li>
-                                    <li><a href="javascript:;">메뉴3</a></li>
                                     <li><a href="${contextPath}/logout"><i class="fa fa-sign-out pull-right"></i>로그아웃</a></li>
                                 </ul>
                             </li>
@@ -212,10 +208,6 @@
                             <li class=""><a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> <img src="${staticPath}${user.userImage }" alt="">${user.userName } <span class=" fa fa-angle-down"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                    <li><a href="javascript:;"> 메뉴1 </a></li>
-                                    <li><a href="javascript:;"> <span>메뉴2</span>
-                                        </a></li>
-                                    <li><a href="javascript:;">메뉴3</a></li>
                                     <li><a href="${contextPath}/logout"><i class="fa fa-sign-out pull-right"></i>로그아웃</a></li>
                                 </ul>
                             </li>
@@ -314,10 +306,6 @@
                                     <img src="${staticPath}${user.userImage }" alt="">${user.userName } <span class=" fa fa-angle-down"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                    <li><a href="javascript:;"> 메뉴1 </a></li>
-                                    <li><a href="javascript:;"> <span>메뉴2</span>
-                                        </a></li>
-                                    <li><a href="javascript:;">메뉴3</a></li>
                                     <li><a href="${contextPath}/logout"><i class="fa fa-sign-out pull-right"></i>로그아웃</a></li>
                                 </ul>
                             </li>

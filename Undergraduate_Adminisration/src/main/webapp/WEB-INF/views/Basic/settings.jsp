@@ -60,6 +60,6 @@
     <link href="/project/resources/build/css/custom.min.css" rel="stylesheet">
     
     <link href="${staticPath }/css/bootstrap.vertical.center.css" rel="stylesheet">
-    
+
     
     

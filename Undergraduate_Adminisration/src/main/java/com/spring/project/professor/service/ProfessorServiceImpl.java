@@ -220,14 +220,27 @@ public class ProfessorServiceImpl implements ProfessorService {
 		map.put("userName", userName);
 		
 		List<SearchVO> search_student = dao.search_student(map);
-		List<SearchVO> lec = dao.lec(map);
 		
 		System.out.println("내 강의 학생검색 search_student : " + search_student);
-		System.out.println("내 강의 학생검색 듣는 강의 lec : " + lec);
 		
 		model.addAttribute("search_student",search_student);
-		model.addAttribute("lec",lec);
 	}
+	
+	@Override
+	public void search_student_click(Map<String, Object> map, HttpServletRequest req, Model model) {
+		String userNumber = (String) req.getSession().getAttribute("userNumber");
+		String stdName = (String) map.get("studentName");
+		
+		map.put("userNumber", userNumber);
+		map.put("stdName", stdName);
+		
+		List<SearchVO> search_student_click = dao.search_student_click(map);
+		
+		System.out.println("내 강의 학생검색 듣는 강의 search_student_click : " + search_student_click);
+		
+		model.addAttribute("search_student_click",search_student_click);
+	}
+
 	
 	
 	//학점입력 페이지
