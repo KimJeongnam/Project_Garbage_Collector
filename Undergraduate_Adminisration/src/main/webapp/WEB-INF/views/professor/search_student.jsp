@@ -36,13 +36,18 @@
                             <div class="profile_details" id="${vo.userName}">
                                 <div class="well profile_view">
                                     <div class="col-sm-12" style="height:200px;">
-                                        <h2><strong>No. ${vo.stdNumber}</strong></h2>
+                                        <h2><strong style="color: #73879C;">No. ${vo.stdNumber}</strong></h2>
                                         <div class="left col-xs-7">
                                             <h2>${vo.userName}</h2>
                                             ${vo.userEngName}<br>
                                             <ul class="list-unstyled">
                                                 <li><i class="fa fa-phone"> &nbsp; &nbsp;</i>${vo.userCellNum}</li>
                                                 <li><i class="fa fa-send"> &nbsp; &nbsp;</i>${vo.userEmail}</li>
+                                                <li><i class="fa fa-check"> &nbsp; &nbsp;</i>
+                                                	 <c:forEach var="lec" items="${lec}">
+                                                	 	${lec.lectureName}  &nbsp; &nbsp;
+                                                	 </c:forEach> ..수강중
+                                                </li>
                                             </ul>
 
                                         </div>
@@ -52,7 +57,7 @@
                                     </div>
                                     <div class="col-xs-12 bottom text-center">
                                         <div class="col-xs-12 col-sm-6 emphasis">
-                                            <p><strong>${vo.grade} 학년&nbsp;</strong>&nbsp;${vo.faculty }&nbsp;${vo.majorName}</p>
+                                            <p><strong style="color: #73879C;">${vo.grade} 학년&nbsp;</strong>&nbsp;${vo.faculty}&nbsp;${vo.majorName}</p>
                                         </div>
 
 

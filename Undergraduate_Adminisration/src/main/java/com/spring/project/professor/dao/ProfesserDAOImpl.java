@@ -111,6 +111,11 @@ public class ProfesserDAOImpl implements ProfesserDAO{
 	public List<SearchVO> search_student(Map<String, Object> map) {
 		return sql.selectList("com.spring.project.professor.dao.ProfesserDAO.search_student",map);
 	}
+	//수강생이 듣는 내 강의 목록
+	@Override
+	public List<SearchVO> lec(Map<String, Object> map) {
+		return sql.selectList("com.spring.project.professor.dao.ProfesserDAO.lec",map);
+	}
 	//학점관리 진입
 	@Override
 	public List<MyClassVO> s_myClass(String userNumber) {
@@ -129,7 +134,6 @@ public class ProfesserDAOImpl implements ProfesserDAO{
 	public List<LecScore> getLecScore(Map<String, Object> map) {
 		return sql.selectList("com.spring.project.professor.dao.ProfesserDAO.getLecScore",map);
 	}
-
 
 
 }

@@ -11,9 +11,15 @@ public class SearchVO {
 	private String faculty;
 	private String majorName;
 	private String userEngName;
+	private String lectureName;
 	
 	
-	
+	public String getLectureName() {
+		return lectureName;
+	}
+	public void setLectureName(String lectureName) {
+		this.lectureName = lectureName;
+	}
 	public String getUserCellNum() {
 		return userCellNum;
 	}
