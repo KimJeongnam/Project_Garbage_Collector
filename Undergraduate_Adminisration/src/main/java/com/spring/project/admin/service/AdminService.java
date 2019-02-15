@@ -23,7 +23,7 @@ public interface AdminService {
 	public void ProInputPro(MultipartHttpServletRequest req,  RedirectAttributes red);
 	
 	//학생 상세페이지
-	public void showStdDetail(HttpServletRequest req,  Model model);
+	public void showStdDetail(Map<String, Object> map, HttpServletRequest req, Model model);
 	
 	//교수 상세페이지
 	public void showProDetail(HttpServletRequest req,  Model model);

@@ -50,9 +50,10 @@
 									</tr>
 								</thead>
 								<tbody>
-								<c:forEach var="vo" items="${vo}">
+								<c:forEach var="vo" items="${vo}" varStatus="status">
 									<tr>
-										<td><a href="proMyPage?userNumber=${vo.userNumber}">${vo.userName}</a></td>
+										<td><a href=".x_panel${status.index}" 
+											   onclick="class_click('x_panel${status.index}', '${vo.userNumber}')">${vo.userName}</a></td>
 										<td>
 											 <c:if test = "${vo.authority eq 'ROLE_PROFESSOR'}">
 													교수
@@ -77,7 +78,9 @@
 					</div>
 				</div>
 				<div class="col-md-12 col-sm-12 col-xs-12">
+					
 					<div class="x_panel">
+					
 						<div class="x_title">
 							<h2>학생</h2>
 							<ul class="nav navbar-right panel_toolbox">
@@ -146,9 +149,30 @@
 	<%@ include file="../../Basic/footer.jsp"%>
 
 	<script type="text/javascript">
-		$(function (){
-			
-		});
+	
+			  function class_click(divid, userNum) {
+		            var obj = new Object();
+		            obj.userNum = userNum;
+		            
+		            console.log(userNum);
+		            if($('#'+divid)!= null){
+		            	
+			            var jsonData = JSON.stringify(obj);
+			            $.ajax({
+			                url: '/project/admin/list/class_click',
+			                type: 'POST',
+			                data: jsonData,
+			                contentType: 'application/json;charset=UTF-8',
+			                success: function(data) {
+			                	console.log(data);
+			                   $('#'+divid).html(data);//#divid로 데이터를 뿌려라.
+			                },
+			                error: function() {
+			                	alert("Error! class_click();");
+			                }
+			            });
+		            }
+		        }
 	</script>
 </body>
 </html>

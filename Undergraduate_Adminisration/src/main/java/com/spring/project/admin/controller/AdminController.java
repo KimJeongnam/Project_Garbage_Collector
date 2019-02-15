@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.project.admin.service.AdminService;
+import com.spring.project.admin.vo.AdStdVO;
 import com.spring.project.share.vo.Major;
 
 @Controller
@@ -170,11 +171,18 @@ public class AdminController {
 	
 	//학생상세정보 
 	@RequestMapping("/admin/stdMyPage")
-	public String stdMyPage(HttpServletRequest req, Model model) {
-		service.showStdDetail(req, model);
+	public String stdMyPage(Map<String, Object> map, HttpServletRequest req, Model model) {
+		service.showStdDetail(map, req, model);
+		
 		return "admin/HRD/stdMyPage";
 	}
 	
+	//학생조회 탭 클릭 시 
+	@RequestMapping(value="/admin/list/class_click", method=RequestMethod.POST)
+	public String getStudent(@RequestBody Map<String, Object> map, HttpServletRequest req, Model model) {
+		service.showStdDetail(map, req, model);
+		return "admin/HRD/stdMyPage";
+	}
 	//교수상세정보 
 	 @RequestMapping("/admin/proMyPage") 
 	 public String proMyPage(HttpServletRequest req, Model model) {
@@ -182,10 +190,12 @@ public class AdminController {
 		 return "admin/HRD/proMyPage";
 	 }
 	 
-	//이미지 수정
+	//학생이미지 수정
 	 @RequestMapping("/admin/userImgUpdate") 
 	 public String userImgUpdate(MultipartHttpServletRequest req, RedirectAttributes red) {
 		 service.userImgUpdate(req, red);
+		 String userNumber = req.getParameter("userNumber");
+			req.setAttribute("userNumber", userNumber);
 		 return "redirect:/admin/stdMyPage";
 	 }
 	 
