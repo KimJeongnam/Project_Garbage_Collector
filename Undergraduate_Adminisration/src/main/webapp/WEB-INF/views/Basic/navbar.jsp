@@ -246,12 +246,15 @@
                         <div class="menu_section active">
                             <h3>학번 : '${userNumber }'</h3>
                             <ul class="nav side-menu" style="">
-                                <li><a><i class="fa fa-desktop"></i>개인정보<span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu" style="display: none;">
-                                        <li><a href="${authPath }/personalProfile">학생개인정보<span class="fa fa-chevron-down"></span></a>
-                                        </li>
+                            
+                            <li><a><i class="fa fa-desktop"></i> 개인정보 <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu" style="">
+                                        <li><a href="${authPath }/personalProfile">학생개인정보</a></li>
+
                                     </ul>
                                 </li>
+                            
+                                
                                 <li class=""><a><i class="fa fa-graduation-cap"></i>학사관리<span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu" style="display: none;">
                                         <li><a href="${authPath }/lectureList">수강신청 / 시간표</a>
