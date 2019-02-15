@@ -1,6 +1,6 @@
 package com.spring.project.admin.dao;
 
-import java.util.List; 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -12,8 +12,6 @@ import com.spring.project.admin.vo.AdStdVO;
 import com.spring.project.admin.vo.ScholarpkVO;
 import com.spring.project.admin.vo.auditVO;
 import com.spring.project.admin.vo.payrollVO;
-import com.spring.project.professor.dao.ProfesserDAO;
-import com.spring.project.share.dao.ShareDAO;
 import com.spring.project.share.vo.Major;
 
 @Repository
@@ -229,7 +227,7 @@ public class AdminDAOImpl implements AdminDAO{
 		return 0;
 	}
 
-	//---------------교직 업무 관리 START-------------------
+	//-------------------------------------------------------------교직 업무 관리 START----------------------------------------------
 	// 학과 리스트 갯수 구하기
 	@Override
 	public int majorListCount(Map<String, Object> map) {
@@ -261,7 +259,28 @@ public class AdminDAOImpl implements AdminDAO{
 	public List<Object> emptyLecTime(String empNumber) {
 		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.emptyLecTime", empNumber);
 	}
-	//---------------교직 업무 관리 END-------------------
+	
+	@Override
+	public List<Object> getEmpLectures(String empNumber) {
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.getEmpLectures", empNumber);
+	}
+	
+	@Override
+	public int getLectureSeqNextval() {
+		return sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.getLectureSeqNextval");
+	}
+	
+	@Override
+	public int getLectureCount(Map<String, Object> map) {
+		return sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.getLectureCount");
+	}
+	@Override
+	public List<Object> getLectureList(Map<String, Object> map) {
+		//System.out.println(ShareDAO.getQuery(sqlSession, "getLectureList", map));
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.getLectureList", map);
+	}
+	
+	//------------------------------------------------------교직 업무 관리 END----------------------------------------------------------
 	
 	@Override
 	public List<payrollVO> payrollList() {

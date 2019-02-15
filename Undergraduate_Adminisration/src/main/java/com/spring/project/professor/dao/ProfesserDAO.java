@@ -5,41 +5,48 @@ package com.spring.project.professor.dao;
 import java.util.List;
 import java.util.Map;
 
-import com.spring.project.professor.vo.classStudentVO;
-import com.spring.project.professor.vo.myClassVO;
-import com.spring.project.professor.vo.myPageVO;
-import com.spring.project.professor.vo.searchVO;
-import com.spring.project.professor.vo.studentVO;
+import com.spring.project.professor.vo.ClassStudentVO;
+import com.spring.project.professor.vo.LecScore;
+import com.spring.project.professor.vo.MyClassVO;
+import com.spring.project.professor.vo.MyPageVO;
+import com.spring.project.professor.vo.SearchVO;
+import com.spring.project.professor.vo.StudentVO;
 
 public interface ProfesserDAO {
 	
 	//마이페이지
-	public myPageVO myPage(String userNumber);
+	public MyPageVO myPage(String userNumber);
 	
 	//마이페이지 이미지 변경
-	public int imageUpload(myPageVO vo);
+	public int imageUpload(MyPageVO vo);
 	
 	//교수 소개 변경
-	public int introUpdate(myPageVO vo);
+	public int introUpdate(MyPageVO vo);
 	
 	
 	//개인정보 업데이트1
-	public int update(myPageVO vo);
+	public int update(MyPageVO vo);
 	//개인정보 업데이트2
-	public int update2(myPageVO vo);
+	public int update2(MyPageVO vo);
 	
 	
 	
 	
 	//내 강의 학생 
-	List<studentVO>list(String userNumber);
+	List<StudentVO>list(String userNumber);
 	//내 강의 목록
-	List<myClassVO> myClass(String userNumber);
+	List<MyClassVO> myClass(String userNumber);
 	//강의별 수강학생목록
-	List<classStudentVO> getStudent(Map<String, Object> map);
+	List<ClassStudentVO> getStudent(Map<String, Object> map);
 	//학생검색
-	List<searchVO> search_student(Map<String, Object> map);
+	List<SearchVO> search_student(Map<String, Object> map);
+	List<SearchVO> lec(Map<String, Object> map);
+
+	//학점관리 진입
+	List<MyClassVO> s_myClass(String userNumber);
+	List<MyClassVO> v_myClass(String userNumber);
+	List<LecScore> firstLec(Map<String, Object> map);
+	List<LecScore> getLecScore(Map<String, Object> map);
+
 	
-
-
 }

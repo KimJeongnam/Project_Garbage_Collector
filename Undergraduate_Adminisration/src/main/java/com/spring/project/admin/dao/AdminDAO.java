@@ -11,6 +11,7 @@ import com.spring.project.admin.vo.ScholarpkVO;
 import com.spring.project.admin.vo.auditVO;
 import com.spring.project.admin.vo.payrollVO;
 import com.spring.project.share.vo.Major;
+import com.spring.project.student.vo.LectureVO;
 
 
 @Repository
@@ -101,6 +102,16 @@ public interface AdminDAO {
 	// 해당 교수 빈 강의 조회
 	public List<Object> emptyLecTime(String empNumber);
 	
+	// 해당 교수가 맡은 강의 조회
+	public List<Object> getEmpLectures(String empNumber);
+	// 강의코드 시퀀스 다음 번호 조회
+	public int getLectureSeqNextval();
+	
+	// 강의 목록 갯수
+	public int getLectureCount(Map<String, Object> map);
+	// 강의 목록 조회
+	public List<Object> getLectureList(Map<String, Object> map);
+
 	//---------------교직 업무 관리 END-------------------
 	
 	public List<payrollVO> payrollList();

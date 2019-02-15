@@ -9,48 +9,67 @@
 
 
 	<!-- 마이페이지 -->
-	<select id="myPage" parameterType="String" resultType="com.spring.project.professor.vo.myPageVO">
+	<select id="myPage" parameterType="String" resultType="com.spring.project.professor.vo.MyPageVO">
  		SELECT * FROM users u JOIN employee e ON u.usernumber = e.empnumber WHERE u.userNumber=#{userNumber}
  	</select>
  	 
  	 
  	<!-- 프로필 이미지 변경 -->
-	<update id="imageUpload" parameterType="com.spring.project.professor.vo.myPageVO">
+	<update id="imageUpload" parameterType="com.spring.project.professor.vo.MyPageVO">
  		UPDATE users SET userImage=#{userImage} WHERE userNumber=#{userNumber}
  	</update>
  	
  	<!-- 프로필 이미지 변경 -->
-	<update id="introUpdate" parameterType="com.spring.project.professor.vo.myPageVO">
+	<update id="introUpdate" parameterType="com.spring.project.professor.vo.MyPageVO">
  		UPDATE employee SET introduction=#{introduction} WHERE EMPNUMBER=#{userNumber}
  	</update>
  	
  	
  	<!-- 개인정보 변경1 -->	
- 	<update id="update" parameterType="com.spring.project.professor.vo.myPageVO">
+ 	<update id="update" parameterType="com.spring.project.professor.vo.MyPageVO">
 		UPDATE users SET USERNAME=#{userName}, USERENGNAME=#{userEngName}, USERPASSWORD=#{userPassword}, USERCELLNUM=#{userCellNum}, USEREMAIL=#{userEmail},USERADDR1=#{userAddr1},USERADDR2=#{userAddr2} WHERE USERNUMBER=#{userNumber}
  	</update> 
  	
  	<!-- 개인정보 변경2 -->	
- 	<update id="update2" parameterType="com.spring.project.professor.vo.myPageVO">
+ 	<update id="update2" parameterType="com.spring.project.professor.vo.MyPageVO">
  		UPDATE employee SET accountNumber=#{accountNumber}, bankName=#{bankName} WHERE EMPNUMBER=#{userNumber}
  	</update> 
    
    	<!-- 내 강의 학생 조회 -->
-	<select id="list" parameterType="java.util.Map" resultType="com.spring.project.professor.vo.studentVO">
+	<select id="list" parameterType="java.util.Map" resultType="com.spring.project.professor.vo.StudentVO">
 	SELECT * FROM myClassAllStudent WHERE empnumber = #{userNumber}
 	</select>
+	
    	<!-- 내 강의 목록 교수 강의 목록 -->
-	<select id="myClass" parameterType="java.util.Map" resultType="com.spring.project.professor.vo.myClassVO">
- 		SELECT lecturename FROM lecture WHERE empNumber = #{userNumber}
+	<select id="myClass" parameterType="java.util.Map" resultType="com.spring.project.professor.vo.MyClassVO">
+ 		SELECT lecturename FROM lecture WHERE lecstatus in (1,2) AND empnumber= #{userNumber}
  	</select>
+ 	
    	<!-- 내 강의별 수강학생목록 -->
-	<select id="getStudent" parameterType="java.util.Map" resultType="com.spring.project.professor.vo.classStudentVO">
+	<select id="getStudent" parameterType="java.util.Map" resultType="com.spring.project.professor.vo.ClassStudentVO">
  		SELECT * FROM myClassStudent WHERE lecturename =#{lecName} AND empnumber = #{userNumber}
  	</select>
+ 	
  	<!-- 학생검색 -->
-	<select id="search_student" parameterType="java.util.Map" resultType="com.spring.project.professor.vo.searchVO">
+	<select id="search_student" parameterType="java.util.Map" resultType="com.spring.project.professor.vo.SearchVO">
  		SELECT * FROM myClassStudent_search WHERE empnumber=#{userNumber} AND userName LIKE '%'||#{userName}||'%'
  	</select>
+ 	<!-- 수강생이 듣는 내 강의 목록 -->
+	<select id="lec" parameterType="java.util.Map" resultType="com.spring.project.professor.vo.SearchVO">
+ 		SELECT * FROM myClassStudent_search_lec WHERE empnumber=#{userNumber} AND userName LIKE '%'||#{userName}||'%'
+ 	</select>
    
- 	
+ 	<!-- 내 강의 목록 교수 강의 목록 -->
+	<select id="s_myClass" parameterType="String" resultType="com.spring.project.professor.vo.MyClassVO">
+ 		SELECT*FROM(SELECT ROWNUM num, lecturename FROM lecture WHERE empnumber=#{userNumber} AND lecstatus=2)a WHERE a.num='1'
+ 	</select>
+	<select id="v_myClass" parameterType="String" resultType="com.spring.project.professor.vo.MyClassVO">
+ 		SELECT*FROM(SELECT ROWNUM num, lecturename FROM lecture WHERE empnumber=#{userNumber} AND lecstatus=2)a WHERE a.num!='1'
+ 	</select>
+	<select id="firstLec" parameterType="String" resultType="com.spring.project.professor.vo.LecScore">
+ 		SELECT*FROM myClassStudent_gpa WHERE empnumber = #{userNumber} AND lecturename = #{firstLec}
+ 	</select>
+	<select id="getLecScore" parameterType="String" resultType="com.spring.project.professor.vo.LecScore">
+ 		SELECT*FROM myClassStudent_gpa WHERE empnumber = #{userNumber} AND lecturename = #{lecName}
+ 	</select>
 </mapper>

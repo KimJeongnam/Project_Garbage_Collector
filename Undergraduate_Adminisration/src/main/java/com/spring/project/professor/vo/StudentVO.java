@@ -1,8 +1,7 @@
 package com.spring.project.professor.vo;
 
-import java.sql.Date;
 
-public class studentVO {
+public class StudentVO {
 	
 	private String userNumber; // 학생 학번
 	private String empNumber; //교번
