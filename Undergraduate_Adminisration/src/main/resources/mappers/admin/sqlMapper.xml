@@ -80,8 +80,7 @@
 	</select>
 
 	<!-- 학생상세 -->
-	<select id="stdDetail"
-		resultType="com.spring.project.admin.vo.AdStdVO" >
+	<select id="stdDetail" resultType="com.spring.project.admin.vo.AdStdVO" >
 		select u.userNumber, u.userZipCode, u.userAddr1, u.userAddr2, u.userName,
 		u.userImage,
 		u.userEngName,u.userSsn, u.gender, m.majorName, m.majorNum, st.semester,

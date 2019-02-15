@@ -68,6 +68,7 @@ public class AdminDAOImpl implements AdminDAO{
 	//학생상세
 	@Override
 	public AdStdVO stdDetail(String userNumber) {
+		System.out.println("학생" +userNumber);
 		return sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.stdDetail", userNumber);
 	}
 	

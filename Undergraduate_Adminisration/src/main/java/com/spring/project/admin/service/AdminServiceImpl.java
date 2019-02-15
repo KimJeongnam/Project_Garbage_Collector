@@ -485,12 +485,12 @@ public class AdminServiceImpl implements AdminService{
 	
 	//학생 상세페이지
 	@Override
-	public void showStdDetail(HttpServletRequest req, Model model) {
+	public void showStdDetail(Map<String, Object> map, HttpServletRequest req, Model model) {
 		String userNumber = req.getParameter("userNumber"); 
 		
-		Map<String, Integer> map = new HashMap<String, Integer>();
+		Map<String, Integer> map1 = new HashMap<String, Integer>();
 		
-		List<AdProVO> voList = dao.FandMList(map);
+		List<AdProVO> voList = dao.FandMList(map1);
 
 		req.setAttribute("outFandM", voList);
 
@@ -621,42 +621,39 @@ public class AdminServiceImpl implements AdminService{
 				fos.close();
 			}
 			String image = file.getOriginalFilename();
-			String userNum = req.getParameter("userNumber");
+			String userNumber = req.getParameter("userNumber");
 
-			AdProVO proVO = new AdProVO();
+			//AdProVO proVO = new AdProVO();
 			AdStdVO stdVO = new AdStdVO();
-			proVO.setUserNumber(userNum);
-			stdVO.setUserNumber(userNum);
+			//proVO.setUserNumber(userNumber);
+			stdVO.setUserNumber(userNumber);
 
 			String img = "";
 
 			img = "/images/" + image;
 
-			proVO.setUserImage(img);
+			//proVO.setUserImage(img);
 			stdVO.setUserImage(img);
 			
 			
 			//ShareUserInfo user = (ShareUserInfo) req.getParameter("")
-			int proImageUpload = dao.proImgUpdate(proVO);
-			
-			if (proImageUpload == 1) {
-				proVO.setUserImage(img);
-				red.addFlashAttribute("message", "프로필 이미지를 변경하였습니다.");
-				//req.getSession().setAttribute("user", user);
-			}
-			if (proImageUpload != 1)
-				red.addFlashAttribute("message", "프로필 이미지를 변경하는 도중에 오류가 발생하였습니다.");
-
-			System.out.println("프로필 이미지 변경 imageUpload : " + proImageUpload);
+			/*
+			 * int proImageUpload = dao.proImgUpdate(proVO);
+			 * 
+			 * if (proImageUpload == 1) { proVO.setUserImage(img);
+			 * red.addFlashAttribute("message", "프로필 이미지를 변경하였습니다.");
+			 * //req.getSession().setAttribute("user", user); } if (proImageUpload != 1)
+			 * red.addFlashAttribute("message", "프로필 이미지를 변경하는 도중에 오류가 발생하였습니다.");
+			 * 
+			 * System.out.println("프로필 이미지 변경 imageUpload : " + proImageUpload);
+			 */
 			
 			int stdImageUpload = dao.stdImgUpdate(stdVO);
 			
 			if (stdImageUpload == 1) {
-				proVO.setUserImage(img);
 				red.addFlashAttribute("message", "프로필 이미지를 변경하였습니다.");
-				//req.getSession().setAttribute("user", user);
-			}
-			if (stdImageUpload != 1)
+			}else
+			
 				red.addFlashAttribute("message", "프로필 이미지를 변경하는 도중에 오류가 발생하였습니다.");
 
 			System.out.println("프로필 이미지 변경 imageUpload : " + stdImageUpload);

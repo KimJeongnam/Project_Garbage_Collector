@@ -16,6 +16,7 @@ public class AdStdVO {
 	private String userZipCode;		//우편번호
 	private String userAddr1;		//주소1
 	private String userAddr2;		//주소2
+	
 	private String gender;			//성별
 	private int delStatus;			//삭제상태
 	private String authority; 
@@ -46,8 +47,9 @@ public class AdStdVO {
 	
 	
 	
-	
-	
+	public String getUserNumber() {
+		return userNumber;
+	}
 	public Date getLeaveStart() {
 		return leaveStart;
 	}
@@ -101,9 +103,6 @@ public class AdStdVO {
 	}
 	public void setUserEngName(String userEngName) {
 		this.userEngName = userEngName;
-	}
-	public String getUserNumber() {
-		return userNumber;
 	}
 	public void setUserNumber(String userNumber) {
 		this.userNumber = userNumber;
