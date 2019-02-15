@@ -51,22 +51,22 @@
 												alt="Avatar" title="Change the avatar">
 										</div>
 									</div>
-									<h3>김설현</h3>
+									<h3>${vo.userName}</h3>
 									<ul class="list-unstyled user_data">
 										<li>
 											<i class="fa fa-map-marker user-profile-icon"></i>
-											경기도 안양시 만안구 병목안로 179 금용아파트 1111호
+											&nbsp; ${vo.userAddr1} &nbsp;${vo.userAddr2}
 										</li>
 
 										<li>
 											<i class="fa fa-briefcase user-profile-icon"></i>
-											중국어학과 전임 교수
+											&nbsp;&nbsp;${vo.majorName}
 										</li>
 										<li>
-											<i class="fa fa-university user-profile-icon">경기대학교</i>
+											<i class="fa fa-university user-profile-icon">&nbsp;&nbsp;자바대학교</i>
 										</li>
 										<li>
-											<i class="fa fa-phone user-profile-icon">010-2458-7354</i>
+											<i class="fa fa-phone user-profile-icon">&nbsp;&nbsp;${vo.userCellNum}</i>
 										</li>
 									</ul>
 									<!-- 이미지 변경 모달  -->
@@ -225,7 +225,7 @@
 															<div class="ln_solid"></div>
 															<div class="form-group">
 																<div class="col-md-6 col-md-offset-5">
-																	<button type="submit" class="btn btn-primary">취소</button>
+																	<button type="button" class="btn btn-primary" onclick="window.location='empStdManagement'">뒤로</button>
 																	<button id="send" type="submit" class="btn btn-success">수정</button>
 																	<button type="button" class="btn btn-danger" 
 																	onclick="window.location='stdDeletePro?userNumber=${vo.userNumber}'">삭제</button>
@@ -444,6 +444,58 @@
 		}).open();
 	});
 	};
+	$('#faculty').change(function(){
+ 		var obj = new Object();
+ 		// 임의의 obj변수명 faculty에 faculty라는 클라스가 변할때 값을 담는다.
+ 		obj.college = $(this).val(); 
+ 		
+ 		//위의 obj에 담긴 값을 json문자열데이터 변환해서 jsonData에 담는다.
+ 		var jsonData = JSON.stringify(obj);
+ 		
+ 		if($(this).val()==""){
+ 			
+ 			  $('#faculty').empty(); // 메이저 셀렉터 초기화
+ 			// 초기화 이후 들어갈 value와 text 설정
+ 			$('#faculty').append($('<option>', {
+				text : '선택하세요',
+				disabled : 'disabled',
+				selected : 'selected'
+			}));  
+ 		}else{
+ 			$.ajax({
+ 				url : "/project/rest/json/getMajors",
+ 				type : 'POST',
+ 				data : jsonData,
+ 				contentType : 'application/json;charset=UTF-8',
+ 				success : function(data){
+ 					//JSONDATA(키 : 맵)의 리스트가 담겨있음
+ 					setMajors(data);
+ 				},
+ 				error : function(){
+ 					alert("잘못된 접근입니다.")
+ 				}
+ 			});
+ 		}
+ 	});
+ 	/*자바스크립트 - 메이저넘 셀렉터에 옵션값을 성정해줌.   */
+ 	  var setMajors = function(data){
+		$('#majorNum').empty();
+		
+		$('#majorNum').append($('<option>', {
+			text : '선택하세요',
+			disabled : 'disabled',
+			selected : 'selected'
+		}));
+		
+		for(var i=0; i<data.length; i++){
+			$('#majorNum').append($('<option>',{
+			
+				//데이터의 변수명은 vo의 정의된 변수명과 동일해야 함.
+				text : data[i].majorNum +" : "+ data[i].majorName,
+	 			value : data[i].majorNum 
+			}));
+		}
+	}  
     </script>
 </body>
 

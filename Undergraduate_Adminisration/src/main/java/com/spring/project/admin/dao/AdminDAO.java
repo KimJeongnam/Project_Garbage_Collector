@@ -30,16 +30,18 @@ public interface AdminDAO {
 	public int updateStudent(AdStdVO vo);
 	public int updateStudentState(AdStdVO vo);
 	
-	
-	//교수등록 처리
+	//교수정보 업데이트
 	public int updatePUsers(AdProVO vo);
 	public int updateEmployees(AdProVO vo);
 		
+	//이미지 업데이트
+	public int proImgUpdate(AdProVO vo);
+	public int stdImgUpdate(AdStdVO vo);
 	//학생 상세페이지
-	public AdStdVO stdDetail(int userNum);
+	public AdStdVO stdDetail(String userNumber);
 	
-	//학생 상세페이지
-	public AdProVO proDetail(int userNum);
+	//교수 상세페이지
+	public AdProVO proDetail(String userNumber);
 	
 	//학생+ 교수 삭제
 	public int stdDelete(String userNum);
@@ -57,7 +59,7 @@ public interface AdminDAO {
 	public List<AdStdVO> getSchoolLeave(Map<String, Integer> map);
 	
 	//장학글 갯수
-	public int getArticleCnt();
+	public int getArticleCnt(Map<String,Object> map);
 	
 	//장학 글 목록
 	public List<ScholarpkVO> getArticleList(Map<String,Object> map);
@@ -73,6 +75,15 @@ public interface AdminDAO {
 	
 	//장학글 심사
 	public List<auditVO> auditCnt();
+	
+	//장학글 심사
+	public List<auditVO> auditCnt2(int auditct);
+	
+	//장학금 심사 완료
+	public int auditupdate(String[] checkbox);
+	
+	//장학금 심사 탈락
+	public int auditupdate2(String[] checkbox);
 	
 	
 	//---------------교직 업무 관리 START-------------------
@@ -93,4 +104,17 @@ public interface AdminDAO {
 	//---------------교직 업무 관리 END-------------------
 	
 	public List<payrollVO> payrollList();
+	
+	public List<payrollVO> getFacultyList();
+	
+	public List<payrollVO> getFacultyMajor();
+	
+	public List<payrollVO> getPaymentClassfication();
+	
+	public List<payrollVO> lookupWorkRecord(Map<String, Object> map);
+	
+	public List<payrollVO> accountFacultyList(Map<String, Object> map);
+	
+	
+	public int insertPayroll(payrollVO vo);
 }

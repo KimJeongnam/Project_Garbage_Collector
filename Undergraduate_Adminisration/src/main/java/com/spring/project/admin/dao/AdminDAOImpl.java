@@ -12,6 +12,8 @@ import com.spring.project.admin.vo.AdStdVO;
 import com.spring.project.admin.vo.ScholarpkVO;
 import com.spring.project.admin.vo.auditVO;
 import com.spring.project.admin.vo.payrollVO;
+import com.spring.project.professor.dao.ProfesserDAO;
+import com.spring.project.share.dao.ShareDAO;
 import com.spring.project.share.vo.Major;
 
 @Repository
@@ -67,14 +69,14 @@ public class AdminDAOImpl implements AdminDAO{
 	}
 	//학생상세
 	@Override
-	public AdStdVO stdDetail(int userNum) {
-		return sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.stdDetail", userNum);
+	public AdStdVO stdDetail(String userNumber) {
+		return sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.stdDetail", userNumber);
 	}
 	
 	//교수상세
 	@Override
-	public AdProVO proDetail(int userNum) {
-		return sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.proDetail", userNum);
+	public AdProVO proDetail(String userNumber) {
+		return sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.proDetail", userNumber);
 	}
 	
 	//학생정보 업데이트
@@ -107,6 +109,38 @@ public class AdminDAOImpl implements AdminDAO{
 		return sqlSession.update("com.spring.project.admin.dao.AdminDAO.updateEmployees", vo);
 	}
 
+	//교수 이미지변경
+	@Override
+	public int proImgUpdate(AdProVO vo) {
+		System.out.println(vo);
+		
+		int proImgUpdate=0;
+		
+		AdminDAO dao = sqlSession.getMapper(AdminDAO.class);
+		
+		proImgUpdate=dao.proImgUpdate(vo);
+		
+		System.out.println(proImgUpdate==1?"프로필 이미지 변경 성공!":"프로필 이미지 변경 실패!");
+		
+		return proImgUpdate;
+	}
+	
+	//학생 이미지변경
+	@Override
+	public int stdImgUpdate(AdStdVO vo) {
+		System.out.println(vo);
+		
+		int stdImgUpdate=0;
+		
+		AdminDAO dao = sqlSession.getMapper(AdminDAO.class);
+		
+		stdImgUpdate=dao.stdImgUpdate(vo);
+		
+		System.out.println(stdImgUpdate==1?"프로필 이미지 변경 성공!":"프로필 이미지 변경 실패!");
+		
+		return stdImgUpdate;
+	}
+
 	//학생+교수 삭제
 	@Override
 	public int stdDelete(String userNum) {
@@ -128,8 +162,8 @@ public class AdminDAOImpl implements AdminDAO{
 	//=============================장학금 대그니꺼=======================================
 	//장학 글 갯수
 	@Override
-	public int getArticleCnt() {
-		int selectCnt = sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.getArticleCnt");
+	public int getArticleCnt(Map<String,Object> map) {
+		int selectCnt = sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.getArticleCnt",map);
 		return selectCnt;
 	}
 	
@@ -173,6 +207,27 @@ public class AdminDAOImpl implements AdminDAO{
 		
 		return dtos;
 	}
+	
+	@Override
+	public List<auditVO> auditCnt2(int auditct) {
+		System.out.println("111111111111");
+		List<auditVO> dtos = sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.auditCnt2",auditct);
+		
+		return dtos;
+	}
+	//장학금 심사 완료
+	@Override
+	public int auditupdate(String[] checkbox) {
+		int auditupdateCnt = sqlSession.update("com.spring.project.admin.dao.AdminDAO.auditupdate",checkbox);
+		return 0;
+	}
+	
+	//장학금 심사 불합격 완료
+	@Override
+	public int auditupdate2(String[] checkbox) {
+		int auditupdateCnt = sqlSession.update("com.spring.project.admin.dao.AdminDAO.auditupdate2",checkbox);
+		return 0;
+	}
 
 	//---------------교직 업무 관리 START-------------------
 	// 학과 리스트 갯수 구하기
@@ -211,5 +266,29 @@ public class AdminDAOImpl implements AdminDAO{
 	@Override
 	public List<payrollVO> payrollList() {
 		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.payrollList");
+	}
+	@Override
+	public List<payrollVO> getFacultyList() {
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.getFacultyList");
+	}
+	@Override
+	public List<payrollVO> getPaymentClassfication() {
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.getPaymentClassfication");
+	}
+	@Override
+	public List<payrollVO> lookupWorkRecord(Map<String, Object> map) {
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.lookupWorkRecord", map);
+	}
+	@Override
+	public List<payrollVO> getFacultyMajor() {
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.getFacultyMajor");
+	}
+	@Override
+	public List<payrollVO> accountFacultyList(Map<String, Object> map) {
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.accountFacultyList", map);
+	}
+	@Override
+	public int insertPayroll(payrollVO vo) {
+		return sqlSession.insert("com.spring.project.admin.dao.AdminDAO.insertPayroll", vo);
 	}
 }
