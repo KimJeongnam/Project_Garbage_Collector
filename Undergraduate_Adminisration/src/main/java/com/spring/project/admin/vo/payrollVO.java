@@ -19,6 +19,35 @@ public class payrollVO {
 	private Date endPeriod;
 	
 	
+	private int basicPay;
+	private int extraPay;
+	private int foodExpenses;
+	private int vehicleCost;
+	
+	public int getBasicPay() {
+		return basicPay;
+	}
+	public void setBasicPay(int basicPay) {
+		this.basicPay = basicPay;
+	}
+	public int getFoodExpenses() {
+		return foodExpenses;
+	}
+	public void setFoodExpenses(int foodExpenses) {
+		this.foodExpenses = foodExpenses;
+	}
+	public int getVehicleCost() {
+		return vehicleCost;
+	}
+	public void setVehicleCost(int vehicleCost) {
+		this.vehicleCost = vehicleCost;
+	}
+	public int getExtraPay() {
+		return extraPay;
+	}
+	public void setExtraPay(int extraPay) {
+		this.extraPay = extraPay;
+	}
 	public int getTotalAmount() {
 		return totalAmount;
 	}

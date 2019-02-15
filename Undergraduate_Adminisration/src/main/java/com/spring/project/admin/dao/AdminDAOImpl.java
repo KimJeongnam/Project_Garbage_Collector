@@ -1,6 +1,6 @@
 package com.spring.project.admin.dao;
 
-import java.util.List; 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -12,7 +12,6 @@ import com.spring.project.admin.vo.AdStdVO;
 import com.spring.project.admin.vo.ScholarpkVO;
 import com.spring.project.admin.vo.auditVO;
 import com.spring.project.admin.vo.payrollVO;
-import com.spring.project.share.dao.ShareDAO;
 import com.spring.project.share.vo.Major;
 
 @Repository
@@ -26,26 +25,31 @@ public class AdminDAOImpl implements AdminDAO{
 	public int insertUsers(AdStdVO vo) {
 		return sqlSession.insert("com.spring.project.admin.dao.AdminDAO.insertUsers", vo);
 	}
+	
 	//학생등록(학생)
 	@Override
 	public int insertStudent(AdStdVO vo) {
 		return sqlSession.insert("com.spring.project.admin.dao.AdminDAO.insertStudent", vo);
 	}
+	
 	//학기 등록(학생)
 	@Override
 	public int insertStudentState(AdStdVO vo) {
 		return sqlSession.insert("com.spring.project.admin.dao.AdminDAO.insertStudentState", vo);
 	}
+	
 	// 교수등록
 	@Override
 	public int insertPUsers(AdProVO vo) {
 		return sqlSession.insert("com.spring.project.admin.dao.AdminDAO.insertPUsers", vo);
 	}
+	
 	//교수등록
 	@Override
 	public int insertEmployees(AdProVO vo) {
 		return sqlSession.insert("com.spring.project.admin.dao.AdminDAO.insertEmployees", vo);
 	}
+	
 	//학생리스트 by admin
 	@Override
 	public List<AdStdVO> getStdList(Map<String, Integer> map) {
@@ -55,6 +59,7 @@ public class AdminDAOImpl implements AdminDAO{
 		return dtos;
 		//return sqlSession.selectList()
 	}
+	
 	//교수리스트 by admin
 	@Override
 	public List<AdProVO> getProList(Map<String, Integer> map) {
@@ -62,44 +67,96 @@ public class AdminDAOImpl implements AdminDAO{
 	}
 	//학생상세
 	@Override
-	public AdStdVO stdDetail(int userNum) {
-		return sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.stdDetail", userNum);
+	public AdStdVO stdDetail(String userNumber) {
+		return sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.stdDetail", userNumber);
 	}
+	
 	//교수상세
 	@Override
-	public AdProVO proDetail(int userNum) {
-		return sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.proDetail", userNum);
+	public AdProVO proDetail(String userNumber) {
+		return sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.proDetail", userNumber);
 	}
+	
 	//학생정보 업데이트
 	@Override
 	public int updateUsers(AdStdVO vo) {
 		return sqlSession.update("com.spring.project.admin.dao.AdminDAO.updateUsers", vo);
 	}
+	
 	//학생정보 업데이트
 	@Override
 	public int updateStudent(AdStdVO vo) {
 		return sqlSession.update("com.spring.project.admin.dao.AdminDAO.updateStudent", vo);
 	}
+	
 	//학생정보 업데이트
 	@Override
 	public int updateStudentState(AdStdVO vo) {
 		return sqlSession.update("com.spring.project.admin.dao.AdminDAO.updateStudentState", vo);
 	}
+	
+	//교수정보 업데이트
+	@Override
+	public int updatePUsers(AdProVO vo) {
+		return sqlSession.update("com.spring.project.admin.dao.AdminDAO.updatePUsers", vo);
+	}
+	
+	//교수정보 업데이트
+	@Override
+	public int updateEmployees(AdProVO vo) {
+		return sqlSession.update("com.spring.project.admin.dao.AdminDAO.updateEmployees", vo);
+	}
+
+	//교수 이미지변경
+	@Override
+	public int proImgUpdate(AdProVO vo) {
+		System.out.println(vo);
+		
+		int proImgUpdate=0;
+		
+		AdminDAO dao = sqlSession.getMapper(AdminDAO.class);
+		
+		proImgUpdate=dao.proImgUpdate(vo);
+		
+		System.out.println(proImgUpdate==1?"프로필 이미지 변경 성공!":"프로필 이미지 변경 실패!");
+		
+		return proImgUpdate;
+	}
+	
+	//학생 이미지변경
+	@Override
+	public int stdImgUpdate(AdStdVO vo) {
+		System.out.println(vo);
+		
+		int stdImgUpdate=0;
+		
+		AdminDAO dao = sqlSession.getMapper(AdminDAO.class);
+		
+		stdImgUpdate=dao.stdImgUpdate(vo);
+		
+		System.out.println(stdImgUpdate==1?"프로필 이미지 변경 성공!":"프로필 이미지 변경 실패!");
+		
+		return stdImgUpdate;
+	}
+
 	//학생+교수 삭제
 	@Override
 	public int stdDelete(String userNum) {
 		return sqlSession.update("com.spring.project.admin.dao.AdminDAO.stdDelete", userNum);
 	}
+	
 	//단과대 + 학과 리스트
 	@Override
 	public List<AdProVO> FandMList(Map<String, Integer> map) {
 		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.FandMList", map);
 	}
+	
 	//휴복학 리스트
 	@Override
 	public List<AdStdVO> getSchoolLeave(Map<String, Integer> map) {
 		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.getSchoolLeave", map);
 	}
+	
 	//=============================장학금 대그니꺼=======================================
 	//장학 글 갯수
 	@Override
@@ -115,6 +172,7 @@ public class AdminDAOImpl implements AdminDAO{
 		
 		return dtos;
 	}
+	
 	@Override
 	//장학금 글 추가
 	public int insertjangjag(ScholarpkVO vo) {
@@ -122,12 +180,14 @@ public class AdminDAOImpl implements AdminDAO{
 		int insertCnt = sqlSession.insert("com.spring.project.admin.dao.AdminDAO.insertjangjag",vo);
 		return insertCnt;
 	}
+	
 	@Override
 	//장학금 글 상세
 	public ScholarpkVO getArticle(int scholarpk) {
 		ScholarpkVO dtos = sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.getArticle",scholarpk);
 		return dtos;
 	}
+	
 	//장학금 글 삭제
 	@Override
 	public int delete(String[] checkbox) {
@@ -235,6 +295,10 @@ public class AdminDAOImpl implements AdminDAO{
 		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.getPaymentClassfication");
 	}
 	@Override
+	public List<payrollVO> getFinalPayrollList() {
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.getFinalPayrollList");
+	}
+	@Override
 	public List<payrollVO> lookupWorkRecord(Map<String, Object> map) {
 		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.lookupWorkRecord", map);
 	}
@@ -250,4 +314,5 @@ public class AdminDAOImpl implements AdminDAO{
 	public int insertPayroll(payrollVO vo) {
 		return sqlSession.insert("com.spring.project.admin.dao.AdminDAO.insertPayroll", vo);
 	}
+	
 }

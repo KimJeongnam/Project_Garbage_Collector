@@ -53,7 +53,7 @@
 											&nbsp; ${vo.userAddr1} &nbsp;${vo.userAddr2}
 										</li>
 										<li><i class="fa fa-briefcase user-profile-icon"></i>&nbsp;&nbsp;${vo.majorName}</li>
-										<li><i class="fa fa-university user-profile-icon">&nbsp;&nbsp;경기대학교</i></li>
+										<li><i class="fa fa-university user-profile-icon">&nbsp;&nbsp;자바대학교</i></li>
 										<li><i class="fa fa-phone user-profile-icon">&nbsp;&nbsp;${vo.userCellNum}</i></li>
 									</ul>
 									  <!-- 이미지 변경 모달  -->
@@ -240,7 +240,7 @@
 															<div class="ln_solid"></div>
 															<div class="form-group">
 																<div class="col-md-6 col-md-offset-5">
-																	<button type="reset" class="btn btn-primary">취소</button>
+																	<button type="button" class="btn btn-primary" onclick="window.location='empStdManagement'">뒤로</button>
 																	<button id="send" type="submit" class="btn btn-success">수정</button>
 																	<button type="button" class="btn btn-danger" 
 																	onclick="window.location='stdDeletePro?userNumber=${vo.userNumber}'">삭제</button>
@@ -489,9 +489,10 @@
                     <h4 class="modal-title" id="myModalLabel2">프로필 사진 바꾸기</h4>
                 </div>
                 <div class="modal-body">
-                    <form action="stdUpdate" method="post" enctype="multipart/form-data">  
-                    	<input class="btn btn-info" type="file" name="image" style="position:relative;right:11px;">
-                    	<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+                    <form action="userImgUpdate" method="post" enctype="multipart/form-data">  
+                    	<input type="hidden" name="userNumber" value="${vo.userNumber}">
+                    	<input class="btn btn-info" type="file" name="userImage" style="position:relative;right:11px;">
+                    	<button type="reset" class="btn btn-default" data-dismiss="modal">취소</button>
                    		<button type="submit" class="btn btn-primary">변경</button>
                     </form>
                 </div>

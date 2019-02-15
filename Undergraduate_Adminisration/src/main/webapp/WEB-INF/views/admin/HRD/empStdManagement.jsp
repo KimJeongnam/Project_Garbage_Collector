@@ -52,7 +52,7 @@
 								<tbody>
 								<c:forEach var="vo" items="${vo}">
 									<tr>
-										<td><a href="proMyPage?userNumber=${dto.userNumber}">${vo.userName}</a></td>
+										<td><a href="proMyPage?userNumber=${vo.userNumber}">${vo.userName}</a></td>
 										<td>
 											 <c:if test = "${vo.authority eq 'ROLE_PROFESSOR'}">
 													교수
@@ -116,6 +116,9 @@
 															재학중
 														</c:if>
 														<c:if test = "${dto.graduation_state ==1}">
+															휴학중
+														</c:if>
+														<c:if test = "${dto.graduation_state ==2}">
 															졸업
 														</c:if>
 													</td>

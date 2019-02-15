@@ -110,19 +110,6 @@
 				<div class="modal-body">
 					<div class="row form-inline"
 						style="margin: 0px; vertical-align: middle">
-						<%-- <div class="col-sm-2">
-							<select class="form-control input-sm"
-								id="faculty-major-confirmation"
-								onchange="facultyMajorConfirmation();">
-								<option value="0" selected="selected">부서/전공 조회</option>
-								<c:if test="${!empty dtosM}">
-									<c:forEach var="dto" items="${dtosM}" varStatus="i">
-										<option value="${dto.majorName}">${dto.majorName}</option>
-									</c:forEach>
-								</c:if>
-							</select>
-						</div> --%>
-
 						<div style="float: right">
 							<input type="text" style="height: 30px; margin-right: 4px">
 							<button class="btn btn-primary">확정</button>
@@ -147,7 +134,8 @@
 									<td>${dto.empNumber}</td>
 									<td>${dto.accountHolder}</td>
 									<td>${dto.majorName}</td>
-									<td><input type="text" value="0.00"
+									<td><input type="text"
+										value="<fmt:formatNumber value="${dto.extraPay}" pattern="#,###" />원"
 										style="width: 80px; text-align: right"></td>
 								</tr>
 							</c:forEach>
@@ -179,25 +167,13 @@
 				<div class="modal-body">
 					<div class="row form-inline"
 						style="margin: 0px; vertical-align: middle">
-						<%-- <div class="col-sm-2">
-							<select class="form-control input-sm" id="faculty-major-insert"
-								onchange="accountFacultyList();">
-								<option value="0" selected="selected">부서/전공 조회</option>
-								<c:if test="${!empty dtosM}">
-									<c:forEach var="dto" items="${dtosM}" varStatus="i">
-										<option value="${dto.majorName}">${dto.majorName}</option>
-									</c:forEach>
-								</c:if>
-							</select>
-						</div> --%>
-
 						<div style="float: right">
 							<select class="form-control input-sm" id="lectureList-grade"
 								onchange=""
 								style="width: 150px; height: 30px; margin-bottom: 3px">
-								<option value="야근수당시간" selected="selected">야근수당시간</option>
-								<option value="주말근무수당시간">주말근무수당시간</option>
-								<option value="연차수당일수">연차수당일수</option>
+								<option value="추가근무수당" selected="selected">추가근무수당</option>
+								<option value="식대">식대</option>
+								<option value="차량유지비">차량유지비</option>
 							</select> <input type="text" style="height: 30px; margin-right: 4px">
 							<button class="btn btn-primary">확정</button>
 						</div>
@@ -214,7 +190,6 @@
 								<th>추가근무수당</th>
 								<th>식대</th>
 								<th>차량유지비</th>
-
 							</tr>
 						</thead>
 						<tbody>
@@ -225,13 +200,17 @@
 									<td>${dto.accountHolder}</td>
 									<td>${dto.majorName}</td>
 									<td><input type="text"
-										style="width: 80px; text-align: right"></td>
+										style="width: 80px; text-align: right"
+										value="<fmt:formatNumber value="${dto.basicPay}" pattern="#,###" />원"></td>
 									<td><input type="text"
-										style="width: 80px; text-align: right"></td>
+										style="width: 80px; text-align: right"
+										value="<fmt:formatNumber value="${dto.extraPay}" pattern="#,###" />원"></td>
 									<td><input type="text"
-										style="width: 80px; text-align: right"></td>
+										style="width: 80px; text-align: right"
+										value="<fmt:formatNumber value="${dto.foodExpenses}" pattern="#,###" />원"></td>
 									<td><input type="text"
-										style="width: 80px; text-align: right"></td>
+										style="width: 80px; text-align: right"
+										value="<fmt:formatNumber value="${dto.vehicleCost}" pattern="#,###" />원"></td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -253,19 +232,14 @@
 		<div class="modal-dialog" style="width: 1300px">
 			<div class="modal-content">
 				<!-- header -->
-				<div class="modal-header">
-					<!-- 닫기(x) 버튼 -->
-					<button type="button" class="close" data-dismiss="modal">×</button>
-					<!-- header title -->
-					<div class="row form-inline"
-						style="margin: 0px; vertical-align: middle">
+				<!-- 
 						<button class="btn btn-primary"
 							onclick="window.print('$(#Lookup-workRecord-print)')">인쇄</button>
 						<button class="btn btn-default">Excel</button>
 						<button class="btn btn-default">미리보기</button>
 						<button class="btn btn-default">명쇄서인쇄</button>
-					</div>
-				</div>
+					
+				 -->
 				<!-- body -->
 				<div class="modal-body">
 					<div class="col-md-12 col-sm-12 col-xs-12">
@@ -283,23 +257,31 @@
 									class="table table-striped table-bordered" style="width: 100%">
 									<thead>
 										<tr>
-											<th>Name</th>
-											<th>Position</th>
-											<th>Office</th>
-											<th>Age</th>
-											<th>Start date</th>
-											<th>Salary</th>
+											<th>교번</th>
+											<th>성명</th>
+											<th>전공/부서</th>
+											<th>기본급</th>
+											<th>추가근무수당</th>
+											<th>식대</th>
+											<th>차량유지비</th>
+											<th>실지급액</th>
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
-											<td>Tiger Nixon</td>
-											<td>System Architect</td>
-											<td>Edinburgh</td>
-											<td>61</td>
-											<td>2011/04/25</td>
-											<td>$320,800</td>
-										</tr>
+										<c:forEach var="dto" items="${dtosF}">
+											<tr>
+												<td>${dto.empNumber}</td>
+												<td>${dto.accountHolder}</td>
+												<td>${dto.majorName}</td>
+												<td><fmt:formatNumber value="${dto.basicPay}" pattern="#,###" />원</td>
+												<td><fmt:formatNumber value="${dto.extraPay}" pattern="#,###" />원</td>
+												<td><fmt:formatNumber value="${dto.foodExpenses}" pattern="#,###" />원</td>
+												<td><fmt:formatNumber value="${dto.vehicleCost}" pattern="#,###" />원</td>
+												<c:set var="ActualPayment" value="${dto.basicPay + dto.extraPay + dto.foodExpenses + dto.vehicleCost}" />
+												<td><fmt:formatNumber value="${ActualPayment}" pattern="#,###" />원</td>
+												
+											</tr>
+										</c:forEach>
 									</tbody>
 								</table>
 							</div>
