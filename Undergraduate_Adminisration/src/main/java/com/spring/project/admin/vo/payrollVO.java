@@ -8,7 +8,8 @@ public class payrollVO {
 	private String registerName;
 	private Date paymentDate;
 	private String paymentYear;
-	private int totalAmount;
+	private int totalAmount
+;
 	
 	private String empNumber;
 	private String accountHolder;
