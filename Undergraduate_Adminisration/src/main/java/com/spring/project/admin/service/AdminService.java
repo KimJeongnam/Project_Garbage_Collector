@@ -23,17 +23,20 @@ public interface AdminService {
 	public void ProInputPro(MultipartHttpServletRequest req,  RedirectAttributes red);
 	
 	//학생 상세페이지
-	public void showStdDetail(HttpServletRequest req,  Model model);
+	public void showStdDetail(Map<String, Object> map, HttpServletRequest req, Model model);
 	
 	//교수 상세페이지
 	public void showProDetail(HttpServletRequest req,  Model model);
 	
-	//학생 이미지수정
-	//public void stdUpdate(MultipartHttpServletRequest req, RedirectAttributes red);
+	//유저 이미지수정
+	public void userImgUpdate(MultipartHttpServletRequest req, RedirectAttributes red);
 	
 	//학생정보수정
-	public void stdDetailUpdate(HttpServletRequest req, RedirectAttributes red);
+	public void stdDetailUpdate(HttpServletRequest req,  RedirectAttributes red);
 	
+	//교수정보수정
+	public void proDetailUpdate(HttpServletRequest req,  RedirectAttributes red);
+		
 	//학생+교수 삭제
 	public void stdDeletePro(HttpServletRequest req, RedirectAttributes red);
 	
@@ -47,25 +50,25 @@ public interface AdminService {
 	public void schoolLeaveList(HttpServletRequest req, Model model);
 	
 	//장학심사 
-		public void judge(HttpServletRequest req,  Model model); 
-		
-		//장학심사 
-		public void auditPro(HttpServletRequest req,  Model model);
-		
-		//장학심사 
-		public void judge2(Map<String, Object> map, Logger logger, Model model);
-		
-		//장학 목록 
-		public void registrationList(Map<String, Object> map, Model model);
-		
-		//장학 글 추가
-		public void rigisterPro(HttpServletRequest req,  Model model);
-		
-		//장학 글 상세
-		public void contentform(HttpServletRequest req,  Model model);
-		
-		//장학 글 삭제
-		public void deletePro(HttpServletRequest req,  RedirectAttributes red);
+	public void judge(HttpServletRequest req,  Model model); 
+	
+	//장학심사 
+	public void auditPro(HttpServletRequest req,  Model model);
+	
+	//장학심사 
+	public void judge2(Map<String, Object> map, Logger logger, Model model);
+	
+	//장학 목록 
+	public void registrationList(Map<String, Object> map, Model model);
+	
+	//장학 글 추가
+	public void rigisterPro(HttpServletRequest req,  Model model);
+	
+	//장학 글 상세
+	public void contentform(HttpServletRequest req,  Model model);
+	
+	//장학 글 삭제
+	public void deletePro(HttpServletRequest req,  RedirectAttributes red);
 	
 	//---------------교직 업무 관리 START-------------------
 	// 학과 리스트

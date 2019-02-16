@@ -22,6 +22,7 @@ public interface ProfessorService {
 	public void list(HttpServletRequest req, Model model);
 	public void getStudent(Map<String, Object> map, HttpServletRequest req, Model model);
 	public void search_student(Map<String, Object> map, HttpServletRequest req, Model model);
+	public void search_student_click(Map<String, Object> map, HttpServletRequest req, Model model);
 	
 	//학점입력
 	public void score(HttpServletRequest req, Model model);

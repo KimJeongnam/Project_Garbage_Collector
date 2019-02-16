@@ -23,6 +23,7 @@ import com.spring.project.professor.vo.MyClassVO;
 import com.spring.project.professor.vo.MyPageVO;
 import com.spring.project.professor.vo.SearchVO;
 import com.spring.project.professor.vo.StudentVO;
+import com.spring.project.share.Config;
 import com.spring.project.share.vo.ShareUserInfo;
 
 @Service
@@ -48,7 +49,7 @@ public class ProfessorServiceImpl implements ProfessorService {
 		MultipartFile file = req.getFile("image");
 
 		String saveDir = req.getSession().getServletContext().getRealPath("/resources/images");
-		String realDir = "C:\\Users\\k\\git\\Project_Garbage_Collector\\Undergraduate_Adminisration\\src\\main\\webapp\\resources\\images\\"; // 저장
+		String realDir = Config.REAL_PATH; // 저장
 																																				// 경로
 		// 각자의 이미지 저장경로 수정하셈
 		try {
@@ -225,6 +226,22 @@ public class ProfessorServiceImpl implements ProfessorService {
 		model.addAttribute("search_student",search_student);
 	}
 	
+	@Override
+	public void search_student_click(Map<String, Object> map, HttpServletRequest req, Model model) {
+		String userNumber = (String) req.getSession().getAttribute("userNumber");
+		String stdName = (String) map.get("studentName");
+		
+		map.put("userNumber", userNumber);
+		map.put("stdName", stdName);
+		
+		List<SearchVO> search_student_click = dao.search_student_click(map);
+		
+		System.out.println("내 강의 학생검색 듣는 강의 search_student_click : " + search_student_click);
+		
+		model.addAttribute("search_student_click",search_student_click);
+	}
+
+	
 	
 	//학점입력 페이지
 	@Override
@@ -242,7 +259,7 @@ public class ProfessorServiceImpl implements ProfessorService {
 		model.addAttribute("v_myClass",v_myClass);
 		model.addAttribute("s_myClass",s_myClass);
 	}
-
+	//학점관리 첫번째 강의부분
 	@Override
 	public void firstLec(Map<String, Object> map, HttpServletRequest req, Model model) {
 		
@@ -259,7 +276,7 @@ public class ProfessorServiceImpl implements ProfessorService {
 		model.addAttribute("vo",vo);
 		
 	}
-
+	//학점관리 나머지 부분
 	@Override
 	public void getLecScore(Map<String, Object> map, HttpServletRequest req, Model model) {
 		String userNumber = (String) req.getSession().getAttribute("userNumber");
@@ -268,11 +285,11 @@ public class ProfessorServiceImpl implements ProfessorService {
 		map.put("userNumber", userNumber);
 		map.put("lecName", lecName);
 		
-		List<LecScore> getLecScore = dao.getLecScore(map);
+		List<LecScore> vo = dao.getLecScore(map);
 		
-		System.out.println("온클릭 강의 학생 학점정보  getLecScore : " + getLecScore);
+		System.out.println("온클릭 강의 학생 학점정보  vo : " + vo);
 		
-		model.addAttribute("getLecScore",getLecScore);
+		model.addAttribute("vo",vo);
 		
 	}
 

@@ -54,6 +54,10 @@
 	<select id="search_student" parameterType="java.util.Map" resultType="com.spring.project.professor.vo.SearchVO">
  		SELECT * FROM myClassStudent_search WHERE empnumber=#{userNumber} AND userName LIKE '%'||#{userName}||'%'
  	</select>
+ 	<!-- 수강생이 듣는 내 강의 목록 -->
+	<select id="search_student_click" parameterType="java.util.Map" resultType="com.spring.project.professor.vo.SearchVO">
+ 		SELECT*FROM myClassStudent_search_lec WHERE empnumber=#{userNumber} AND username=#{stdName}
+ 	</select>
    
  	<!-- 내 강의 목록 교수 강의 목록 -->
 	<select id="s_myClass" parameterType="String" resultType="com.spring.project.professor.vo.MyClassVO">

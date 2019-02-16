@@ -19,13 +19,13 @@
 <body>
 
     <c:forEach var="vo3" items="${search_student}">
-	<div class="autocomplete-suggestion onclick_search" data-toggle="modal" id="onclick_search" data-target=".bs-example-modal-sm${vo3.stdNumber}"><strong>${vo3.userName}</strong></div>
+	<div class="autocomplete-suggestion onclick_search" onclick="search_student_click('${vo3.userName}','${vo3.stdNumber}');" data-toggle="modal" id="onclick_search" data-target=".bs-example-modal-sm${vo3.stdNumber}"><strong>${vo3.userName}</strong></div>
     </c:forEach>
     <c:forEach var="vo" items="${search_student}">
         <!-- 학생정보 모달  -->
         <div class="modal fade bs-example-modal-sm${vo.stdNumber}" tabindex="-1" role="dialog" aria-hidden="true" style="z-index: 99998 !important;">
             <div class="modal-dialog modal-sm">
-                <div class="modal-content" style="width: 400px; height: 360px; z-index: 99999 !important;">
+                <div class="modal-content" style="width: 400px; height: auto; z-index: 99999 !important;">
 
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
@@ -35,14 +35,17 @@
                    		 <div class="modal-body">
                             <div class="profile_details" id="${vo.userName}">
                                 <div class="well profile_view">
-                                    <div class="col-sm-12" style="height:200px;">
-                                        <h2><strong>No. ${vo.stdNumber}</strong></h2>
+                                    <div class="col-sm-12" style="height:auto;">
+                                        <h2><strong style="color: #73879C;">No. ${vo.stdNumber}</strong></h2>
                                         <div class="left col-xs-7">
                                             <h2>${vo.userName}</h2>
                                             ${vo.userEngName}<br>
                                             <ul class="list-unstyled">
                                                 <li><i class="fa fa-phone"> &nbsp; &nbsp;</i>${vo.userCellNum}</li>
                                                 <li><i class="fa fa-send"> &nbsp; &nbsp;</i>${vo.userEmail}</li>
+                                                <li id="lec_li${vo.stdNumber}" style="margin-top: 5px;">
+                                                	<!-- ajax  -->
+                                                </li>
                                             </ul>
 
                                         </div>
@@ -52,7 +55,7 @@
                                     </div>
                                     <div class="col-xs-12 bottom text-center">
                                         <div class="col-xs-12 col-sm-6 emphasis">
-                                            <p><strong>${vo.grade} 학년&nbsp;</strong>&nbsp;${vo.faculty }&nbsp;${vo.majorName}</p>
+                                            <p><strong style="color: #73879C;">${vo.grade} 학년&nbsp;</strong>&nbsp;${vo.faculty}&nbsp;${vo.majorName}</p>
                                         </div>
 
 
@@ -76,6 +79,29 @@
         </div>
         <!-- 학생정보 모달 끝 -->
     </c:forEach>
+    <script type="text/javascript">
+    function search_student_click(studentName,stdNumber) {
+        var obj = new Object();
+        obj.studentName = studentName;
+        
+        
+        	
+            var jsonData = JSON.stringify(obj);
+            $.ajax({
+                url: '/project/professor/list/search_student_click',
+                type: 'POST',
+                data: jsonData,
+                contentType: 'application/json;charset=UTF-8',
+                success: function(data) {
+                   $('#lec_li'+stdNumber).html(data);//#divid로 데이터를 뿌려라.
+                },
+                error: function() {
+                	alert("Error! search_student_click();");
+                }
+            });
+        
+    }
+    </script>
 </body>
 
 </html>

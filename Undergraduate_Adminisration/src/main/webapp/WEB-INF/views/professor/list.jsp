@@ -7,12 +7,16 @@
     <%@ include file="../Basic/settings.jsp" %>
     <title>Insert title here</title>
 </head>
+
+
 <c:if test="${empty list}">
 <script type="text/javascript">
 	alert("개강한 수업이 없습니다. 이전 페이지로 돌아갑니다.");
 	history.back();
 </script>
 </c:if>
+
+
 <c:if test="${!empty list}">
 <body class="nav-md">
     <%@ include file="../Basic/navbar.jsp" %>

@@ -40,12 +40,13 @@ public interface ProfesserDAO {
 	List<ClassStudentVO> getStudent(Map<String, Object> map);
 	//학생검색
 	List<SearchVO> search_student(Map<String, Object> map);
-	
+	List<SearchVO> search_student_click(Map<String, Object> map);
 
 	//학점관리 진입
 	List<MyClassVO> s_myClass(String userNumber);
 	List<MyClassVO> v_myClass(String userNumber);
 	List<LecScore> firstLec(Map<String, Object> map);
 	List<LecScore> getLecScore(Map<String, Object> map);
+
 	
 }

@@ -48,7 +48,7 @@
                                         <li><a>교직업무<span class="fa fa-chevron-down"></span></a>
                                             <ul class="nav child_menu">
                                                 <li class="sub_menu">
-                                                    <a href="${authPath }/majorLectureManagement">학과/강의 관리</a>
+                                                    <a href="${authPath}/majorLectureManagement">학과/강의 관리</a>
                                                 </li>
                                             </ul>
                                         </li>
@@ -56,7 +56,6 @@
                                 </li>
                                 <li><a><i class="fa fa-desktop"></i> 장학관리 <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu" style="">
-                                        <li><a href="${authPath }/judge">장학금 심사</a></li>
                                         <li><a href="${authPath }/registrationList">장학금 등록</a></li>
                                         <li><a href="${authPath }/budget">장학금 예산</a></li>
                                     </ul>
@@ -70,8 +69,7 @@
                                 <li><a><i class="fa fa-bar-chart-o"></i> 회계관리<span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu" style="">
                                         <li><a href="${authPath }/facultyAccountManage">급여계산/대장</a></li>
-                                        <li><a href="${authPath }/menu6">시간제 강사 급여관리</a></li>
-                                        <li><a href="#">장학금 수혜현황</a></li>
+                                        <li><a href="#">*</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -109,10 +107,6 @@
                             <li class=""><a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> <img src="${staticPath}${user.userImage }" alt="">${user.userName } <span class=" fa fa-angle-down"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                    <li><a href="javascript:;"> 메뉴1 </a></li>
-                                    <li><a href="javascript:;"> <span>메뉴2</span>
-                                        </a></li>
-                                    <li><a href="javascript:;">메뉴3</a></li>
                                     <li><a href="${contextPath}/logout"><i class="fa fa-sign-out pull-right"></i>로그아웃</a></li>
                                 </ul>
                             </li>
@@ -212,10 +206,6 @@
                             <li class=""><a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> <img src="${staticPath}${user.userImage }" alt="">${user.userName } <span class=" fa fa-angle-down"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                    <li><a href="javascript:;"> 메뉴1 </a></li>
-                                    <li><a href="javascript:;"> <span>메뉴2</span>
-                                        </a></li>
-                                    <li><a href="javascript:;">메뉴3</a></li>
                                     <li><a href="${contextPath}/logout"><i class="fa fa-sign-out pull-right"></i>로그아웃</a></li>
                                 </ul>
                             </li>
@@ -255,12 +245,15 @@
                         <div class="menu_section active">
                             <h3>학번 : '${userNumber }'</h3>
                             <ul class="nav side-menu" style="">
-                                <li><a><i class="fa fa-desktop"></i>개인정보<span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu" style="display: none;">
-                                        <li><a href="${authPath }/personalProfile">학생개인정보<span class="fa fa-chevron-down"></span></a>
-                                        </li>
+                            
+                            <li><a><i class="fa fa-desktop"></i> 개인정보 <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu" style="">
+                                        <li><a href="${authPath }/personalProfile">학생개인정보</a></li>
+
                                     </ul>
                                 </li>
+                            
+                                
                                 <li class=""><a><i class="fa fa-graduation-cap"></i>학사관리<span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu" style="display: none;">
                                         <li><a href="${authPath }/lectureList">수강신청 / 시간표</a>
@@ -314,10 +307,6 @@
                                     <img src="${staticPath}${user.userImage }" alt="">${user.userName } <span class=" fa fa-angle-down"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                    <li><a href="javascript:;"> 메뉴1 </a></li>
-                                    <li><a href="javascript:;"> <span>메뉴2</span>
-                                        </a></li>
-                                    <li><a href="javascript:;">메뉴3</a></li>
                                     <li><a href="${contextPath}/logout"><i class="fa fa-sign-out pull-right"></i>로그아웃</a></li>
                                 </ul>
                             </li>
