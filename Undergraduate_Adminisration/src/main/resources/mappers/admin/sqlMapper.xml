@@ -10,43 +10,53 @@
 	<!-- 학생 가입처리 delStatus, authority 는 하드코딩 -->
 	<insert id="insertUsers"
 		parameterType="com.spring.project.admin.vo.AdStdVO">
-		insert into users(userNumber, userPassword, userEngName, userName,
+		insert into users(userNumber, userPassword, userEngName,
+		userName,
 		userImage, userSsn,userCellNum,
-		userEmail, delStatus, authority, gender, userZipCode, userAddr1, userAddr2 )
+		userEmail, delStatus,
+		authority, gender, userZipCode, userAddr1, userAddr2 )
 		values(#{userNumber},1234,#{userEngName},#{userName},#{userImage},
 		#{userSsn},#{userCellNum},#{userEmail},0,'ROLE_STUDENT', #{gender}
-		, #{userZipCode}, #{userAddr1}, #{userAddr2})
+		,
+		#{userZipCode}, #{userAddr1}, #{userAddr2})
 	</insert>
 
 	<!-- 학생 가입처리 stdNumber는 userNumber = 학번 //학년은 한자리숫자 -->
 	<insert id="insertStudent"
 		parameterType="com.spring.project.admin.vo.AdStdVO">
-		insert into student(stdNumber,grade, adDate, graDate, majorNum)
-		values(#{userNumber},#{grade},#{adDate},#{graDate}, #{majorNum})
+		insert into student(stdNumber,grade, adDate, graDate,
+		majorNum)
+		values(#{userNumber},#{grade},#{adDate},#{graDate},
+		#{majorNum})
 	</insert>
 
 	<!-- 학생 가입처리 stdNumber는 userNumber = 학번 -->
 	<insert id="insertStudentState"
 		parameterType="com.spring.project.admin.vo.AdStdVO">
-		insert into studentState(stdNumber, semester, graduation_state)
+		insert into studentState(stdNumber, semester,
+		graduation_state)
 		values(#{userNumber},#{semester},0)
 	</insert>
 
 	<!-- 교수등록 -->
 	<insert id="insertPUsers"
 		parameterType="com.spring.project.admin.vo.AdProVO">
-		insert into users(userNumber, userPassword, userEngName, userName,
+		insert into users(userNumber, userPassword, userEngName,
+		userName,
 		userImage, userSsn,userCellNum,
-		userEmail, delStatus, authority, gender, userZipCode, userAddr1, userAddr2 )
+		userEmail, delStatus,
+		authority, gender, userZipCode, userAddr1, userAddr2 )
 		values(#{userNumber},1234,#{userEngName},#{userName},#{userImage},
 		#{userSsn},#{userCellNum},#{userEmail},0,'ROLE_PROFESSOR', #{gender}
-		, #{userZipCode}, #{userAddr1}, #{userAddr2})
+		,
+		#{userZipCode}, #{userAddr1}, #{userAddr2})
 	</insert>
 
 	<!-- 교수등록 -->
 	<insert id="insertEmployees"
 		parameterType="com.spring.project.admin.vo.AdProVO">
-		insert into employee(empNumber, majorNum,empHiredDate, annualLevel,
+		insert into employee(empNumber, majorNum,empHiredDate,
+		annualLevel,
 		bankName, accountNumber, accountHolder)
 		values(#{userNumber},#{majorNum},#{empHiredDate},1,#{bankName},#{accountNumber},#{accountHolder})
 	</insert>
@@ -56,64 +66,86 @@
 		resultType="com.spring.project.admin.vo.AdStdVO">
 		select u.userNumber, u.userName, m.majorName, m.majorNum,
 		u.userCellNum , s.grade , st.graduation_state, f.faculty
-		from student s, studentState st , users u, major m, faculty f
-		where u.userNumber= s.stdNumber
+		from student
+		s, studentState st , users u, major m, faculty f
+		where u.userNumber=
+		s.stdNumber
 		and s.stdNumber = st.stdNumber
 		and s.majorNum = m.majorNum
 		and f.faculty = m.faculty
 		and u.authority = 'ROLE_STUDENT'
-		and u.delstatus != 1
+		and
+		u.delstatus != 1
 	</select>
 
 	<!-- 교수리스트 -->
 	<select id="getProList" parameterType="java.util.Map"
 		resultType="com.spring.project.admin.vo.AdProVO">
 		select u.userNumber, u.userName, m.majorName ,m.majorNum ,
-		u.authority, e.annualLevel, e.empHiredDate ,rd.totalPayment , f.faculty
-		from employee e , users u, major m, payment p, registerDetail rd, faculty
+		u.authority, e.annualLevel, e.empHiredDate ,rd.totalPayment ,
+		f.faculty
+		from employee e , users u, major m, payment p, registerDetail
+		rd, faculty
 		f
 		where u.userNumber= e.empnumber
-		and e.empnumber = p.empnumber
+		and e.empnumber =
+		p.empnumber
 		and e.majorNum = m.majorNum
 		and f.faculty = m.faculty
-		and p.paymentcode = rd.paymentcode
+		and
+		p.paymentcode = rd.paymentcode
 		and u.authority = 'ROLE_PROFESSOR'
-		and u.delstatus != 1
+		and
+		u.delstatus != 1
 	</select>
 
 	<!-- 학생상세 -->
 	<select id="stdDetail"
 		resultType="com.spring.project.admin.vo.AdStdVO">
-		select u.userNumber, u.userZipCode, u.userAddr1, u.userAddr2, u.userName,
+		select u.userNumber, u.userZipCode, u.userAddr1,
+		u.userAddr2, u.userName,
 		u.userImage,
-		u.userEngName,u.userSsn, u.gender, m.majorName, m.majorNum, st.semester,
-		u.userEmail, u.userCellNum , s.grade ,s.graDate, st.graduation_state, f.faculty
-		from student s, studentState st , users u, major m, faculty f
-		where u.userNumber= s.stdNumber
+		u.userEngName,u.userSsn, u.gender,
+		m.majorName, m.majorNum, st.semester,
+		u.userEmail, u.userCellNum ,
+		s.grade ,s.graDate, st.graduation_state, f.faculty
+		from student s,
+		studentState st , users u, major m, faculty f
+		where u.userNumber=
+		s.stdNumber
 		and s.stdNumber = st.stdNumber
 		and s.majorNum = m.majorNum
 		and f.faculty = m.faculty
 		and u.authority = 'ROLE_STUDENT'
-		and u.userNumber = #{userNumber}
+		and
+		u.userNumber = #{userNumber}
 		and u.delstatus != 1
 	</select>
 
 	<!-- 교수상세 -->
 	<select id="proDetail"
 		resultType="com.spring.project.admin.vo.AdProVO">
-		select u.userNumber, u.userZipCode, u.userAddr1, u.userAddr2, u.userName,
+		select u.userNumber, u.userZipCode, u.userAddr1,
+		u.userAddr2, u.userName,
 		u.userImage,
-		u.userEngName, u.userSsn, u.gender, m.majorName, m.majorNum,
-		u.userEmail, u.userCellNum , e.annualLevel, e.empHiredDate, f.faculty,
-		e.bankName, e.accountNumber, e.accountHolder, rd.totalPayment ,
+		u.userEngName, u.userSsn,
+		u.gender, m.majorName, m.majorNum,
+		u.userEmail, u.userCellNum ,
+		e.annualLevel, e.empHiredDate, f.faculty,
+		e.bankName, e.accountNumber,
+		e.accountHolder, rd.totalPayment ,
 		pl.paymentDate
-		from employee e, users u, major m, faculty f, registerDetail rd,
+		from employee e, users
+		u, major m, faculty f, registerDetail rd,
 		paymentList pl
-		where u.userNumber= e.empNumber
+		where
+		u.userNumber= e.empNumber
 		and e.majorNum = m.majorNum
-		and f.faculty = m.faculty
+		and f.faculty =
+		m.faculty
 		and rd.paylistNum = pl.paylistNum
-		and u.authority = 'ROLE_PROFESSOR'
+		and u.authority =
+		'ROLE_PROFESSOR'
 		and u.userNumber = #{userNumber}
 		and u.delstatus != 1
 	</select>
@@ -121,7 +153,8 @@
 	<!--학생정보수정 -->
 	<update id="updateUsers"
 		parameterType="com.spring.project.admin.vo.AdStdVO">
-		update users set userNumber = #{userNumber},userPassword=1234,
+		update users set userNumber =
+		#{userNumber},userPassword=1234,
 		userEngName=#{userEngName},
 		userName=#{userName}, userSsn=#{userSsn},
 		userCellNum=#{userCellNum},userEmail=#{userEmail}, gender=#{gender},
@@ -133,35 +166,42 @@
 	<!--학생정보수정 -->
 	<update id="updateStudent"
 		parameterType="com.spring.project.admin.vo.AdStdVO">
-		update student set stdNumber=#{userNumber}, grade=#{grade},
+		update student set stdNumber=#{userNumber},
+		grade=#{grade},
 		graDate=#{graDate}, majorNum=#{majorNum}
-		WHERE stdNumber = #{userNumber}
+		WHERE stdNumber
+		= #{userNumber}
 	</update>
 
 	<!--학생정보수정 -->
 	<update id="updateStudentState"
 		parameterType="com.spring.project.admin.vo.AdStdVO">
-		update studentState set stdNumber=#{userNumber}, semester=#{semester},
+		update studentState set stdNumber=#{userNumber},
+		semester=#{semester},
 		graduation_state =#{graduation_state}
-		WHERE stdNumber = #{userNumber}
+		WHERE
+		stdNumber = #{userNumber}
 	</update>
 
 	<!--학생 삭제 -->
 	<update id="stdDelete" parameterType="String">
-		update users set delStatus=1 WHERE userNumber = #{userNumber}
+		update users set
+		delStatus=1 WHERE userNumber = #{userNumber}
 	</update>
 
 	<!-- 단과대 + 학과 리스트 -->
 	<select id="FandMList" parameterType="java.util.Map"
 		resultType="com.spring.project.admin.vo.AdProVO">
-		select distinct f.faculty from major m, faculty f where f.faculty =
+		select distinct f.faculty from major m, faculty f where
+		f.faculty =
 		m.faculty
 	</select>
 
 	<!-- 휴복학 리스트 -->
 	<select id="getSchoolLeave" parameterType="java.util.Map"
 		resultType="com.spring.project.admin.vo.AdStdVO">
-		select sl.schoolLeaveStateCode, sl.kind, sl.leaveStart, sl.leaveEnd,
+		select sl.schoolLeaveStateCode, sl.kind, sl.leaveStart,
+		sl.leaveEnd,
 		u.userName, sl.leaveStatus
 		from users u, schoolLeave sl
 		where u.userNumber = sl.stdNumber
@@ -194,7 +234,8 @@
 		from (
 		select * FROM SCHOLARSHIP
 		where delstatus = 0
-		order by SCHOLARPK desc
+		order by
+		SCHOLARPK desc
 		)
 		<where>
 			<if test="year != 0">
@@ -293,7 +334,8 @@
 		resultType="int">
 		SELECT COUNT(*)
 		FROM (
-		SELECT ROWNUM rnum, majorNum, faculty, majorName, maxnum
+		SELECT ROWNUM rnum, majorNum, faculty, majorName,
+		maxnum
 		FROM major
 		<where>
 				<![CDATA[ delStatus <> 1 ]]>
@@ -351,135 +393,223 @@
 	<insert id="addMajor"
 		parameterType="com.spring.project.share.vo.Major">
 		INSERT INTO major
-		values(SEQ_MAJOR_MAJORNUM.nextval, #{faculty}, #{majorName}, #{maxNum}, 0)
+		values(SEQ_MAJOR_MAJORNUM.nextval,
+		#{faculty}, #{majorName}, #{maxNum}, 0)
 	</insert>
 
-	<update id="modifyMajor" parameterType="com.spring.project.share.vo.Major">
- 		UPDATE major
- 		<set>
- 			<if test="faculty != null"> faculty = #{faculty}</if>
- 			<if test="majorName != null">, majorName = #{majorName}</if>
- 			<if test="maxNum != null">, maxNum = #{maxNum}</if>
- 			<if test="delStatus != null">, delStatus = #{delStatus}</if>
- 		</set>
- 		WHERE majorNum = #{majorNum}
- 	</update>
- 	
- 	<!-- =====강의 관리==== -->
- 	<select id="emptyLecTime" resultType="com.spring.project.admin.vo.LectureTime">
- 	select * 
-    FROM timetable
-    WHERE timetblCode NOT IN(
-        SELECT lt.timetblCode
-            FROM lectureTime lt JOIN lecture l
-            ON lt.leccode = l.leccode
-            WHERE l.empNumber = #{empNumber})
-            ORDER BY timetblCode
- 	</select>
- 	
- 	<select id="getEmpLectures" resultType="com.spring.project.student.vo.LectureVO">
- 	SELECT l.lecCode
-    , l.lectureName
-    , l.empNumber
-    , tt.timetblcode
-    , tt.beginninglecturetime
-    , tt.endlecturetime
-    , tt.classTime
-    , tt.lectureday
-    FROM lecture l JOIN employee emp
-    ON l.empNumber = emp.empnumber
-    JOIN lectureTime lt
-    ON l.leccode = lt.leccode
-    JOIN timetable tt
-    ON lt.timetblcode = tt.timetblcode
-    WHERE l.empNumber = #{empNumber}
-    ORDER BY tt.timetblcode
- 	</select>
- 	
- 	<select id="getLectureSeqNextval" resultType="int">
- 	SELECT last_number FROM USER_SEQUENCES
-    WHERE sequence_name = 'LECTURE_SEQ'
- 	</select>
- 	
- 	<select id="getLectureCount" resultType="int">
- 		SELECT COUNT(*)
-	    FROM(
-	        SELECT ROWNUM rnum
-	            , l.lecCode , l.majorNum, m.majorName, l.lectureName, u.userNumber, u.userImage
-	            , u.userName, l.lectureClassfication, l.grade, l.grantedSemester, l.maximumCapacity, l.lecStatus, l.lectureScore
-	            FROM lecture l JOIN major m
-	            ON l.majorNum = m.majorNum
-	            JOIN employee emp
-	            ON l.empNumber = emp.empNumber
-	            JOIN users u
-	            ON emp.empNumber = u.userNumber
-	            	<where>
-	            		<if test="division != null">
-	            			l.lectureClassfication = #{division}
-	            		</if>
-	            		<if test="faculty != null">
-	            			AND m.faculty = #{faculty}
-	            		</if>
-	            		<if test="major != null">
-	            			AND l.majorNum = #{major}
-	            		</if>
-	            		<if test="keyword != null">
-	            			OR m.majorName like '%'||#{keyword}||'%'
-	            		</if>
-	            	</where>
-	    )
- 	</select>
- 	
- 	<select id="getLectureList" resultType="com.spring.project.student.vo.LectureVO">
- 	SELECT *
-	    FROM(
-	        SELECT ROWNUM rnum
-	            , l.lecCode , l.majorNum, m.majorName, l.lectureName, u.userNumber, u.userImage
-	            , u.userName, l.lectureClassfication, l.grade, l.grantedSemester, l.maximumCapacity, l.lecStatus, l.lectureScore
-	            FROM lecture l JOIN major m
-	            ON l.majorNum = m.majorNum
-	            JOIN employee emp
-	            ON l.empNumber = emp.empNumber
-	            JOIN users u
-	            ON emp.empNumber = u.userNumber
-	            	<where>
-	            		<if test="division != null">
-	            			l.lectureClassfication = #{division}
-	            		</if>
-	            		<if test="faculty != null">
-	            			AND m.faculty = #{faculty}
-	            		</if>
-	            		<if test="major != null">
-	            			AND l.majorNum = #{major}
-	            		</if>
-	            		<if test="keyword != null">
-	            			OR m.majorName like '%'||#{keyword}||'%'
-	            		</if>
-	            	</where>
-	    )
+	<update id="modifyMajor"
+		parameterType="com.spring.project.share.vo.Major">
+		UPDATE major
+		<set>
+			<if test="faculty != null"> faculty = #{faculty}</if>
+			<if test="majorName != null">, majorName = #{majorName}</if>
+			<if test="maxNum != null">, maxNum = #{maxNum}</if>
+			<if test="delStatus != null">, delStatus = #{delStatus}</if>
+		</set>
+		WHERE majorNum = #{majorNum}
+	</update>
+
+	<!-- =====강의 관리==== -->
+	<select id="emptyLecTime"
+		resultType="com.spring.project.admin.vo.LectureTime">
+		select *
+		FROM timetable
+		WHERE timetblCode NOT IN(
+		SELECT
+		lt.timetblCode
+		FROM lectureTime lt JOIN lecture l
+		ON lt.leccode =
+		l.leccode
+		WHERE l.empNumber = #{empNumber})
+		ORDER BY timetblCode
+	</select>
+
+	<select id="getEmpLectures"
+		resultType="com.spring.project.student.vo.LectureVO">
+		SELECT l.lecCode
+		, l.lectureName
+		, l.empNumber
+		,
+		tt.timetblcode
+		, tt.beginninglecturetime
+		, tt.endlecturetime
+		,
+		tt.classTime
+		, tt.lectureday
+		FROM lecture l JOIN employee emp
+		ON
+		l.empNumber = emp.empnumber
+		JOIN lectureTime lt
+		ON l.leccode =
+		lt.leccode
+		JOIN timetable tt
+		ON lt.timetblcode = tt.timetblcode
+		WHERE
+		l.empNumber = #{empNumber}
+		ORDER BY tt.timetblcode
+	</select>
+
+	<select id="getLectureSeqNextval" resultType="int">
+		SELECT last_number
+		FROM USER_SEQUENCES
+		WHERE sequence_name = 'LECTURE_SEQ'
+	</select>
+
+	<select id="getLectureCount" resultType="int">
+		SELECT COUNT(*)
+		FROM(
+		SELECT ROWNUM rnum
+		, l.lecCode , l.majorNum,
+		m.majorName, l.lectureName, u.userNumber,
+		u.userImage
+		, u.userName,
+		l.lectureClassfication, l.grade, l.grantedSemester,
+		l.maximumCapacity,
+		l.lecStatus, l.lectureScore
+		FROM lecture l JOIN major m
+		ON l.majorNum =
+		m.majorNum
+		JOIN employee emp
+		ON l.empNumber = emp.empNumber
+		JOIN users u
+		ON emp.empNumber = u.userNumber
+		<where>
+	            	<![CDATA[ 
+	            	l.delStatus <> 1 
+	            	]]>
+			<if test="division != null">
+				AND l.lectureClassfication = #{division}
+			</if>
+			<if test="faculty != null">
+				AND m.faculty = #{faculty}
+			</if>
+			<if test="major != null">
+				AND l.majorNum = #{major}
+			</if>
+			<if test="keyword != null">
+				AND m.majorName like '%'||#{keyword}||'%'
+			</if>
+		</where>
+		)
+	</select>
+
+	<select id="getLectureList"
+		resultType="com.spring.project.student.vo.LectureVO">
+		SELECT *
+		FROM(
+		SELECT ROWNUM rnum
+		, l.lecCode , l.majorNum, m.majorName,
+		l.lectureName, u.userNumber,
+		u.userImage
+		, u.userName,
+		l.lectureClassfication, l.grade, l.grantedSemester,
+		l.maximumCapacity,
+		l.lecStatus, l.lectureScore
+		FROM lecture l JOIN major m
+		ON l.majorNum =
+		m.majorNum
+		JOIN employee emp
+		ON l.empNumber = emp.empNumber
+		JOIN users u
+		ON emp.empNumber = u.userNumber
+		<where>
+	            	<![CDATA[ 
+	            	l.delStatus <> 1 
+	            	]]>
+			<if test="division != null">
+				AND l.lectureClassfication = #{division}
+			</if>
+			<if test="faculty != null">
+				AND m.faculty = #{faculty}
+			</if>
+			<if test="major != null">
+				AND l.majorNum = #{major}
+			</if>
+			<if test="keyword != null">
+				AND m.majorName like '%'||#{keyword}||'%'
+			</if>
+		</where>
+		)
 	    <![CDATA[ WHERE rnum >= #{start} AND rnum <= #{end} 
 	    ORDER BY userName, majorNum, lectureClassfication DESC ]]>
- 	</select>
+	</select>
+
+	<select id="getProfessorCount" parameterType="java.util.Map" resultType="int">
+		SELECT COUNT(*) FROM(
+		SELECT ROWNUM rnum
+		, u.userNumber, u.userImage,
+		m.faculty, m.majorNum, m.majorName, u.userName
+		FROM users u JOIN employee emp
+		ON
+		u.userNumber = emp.empNumber
+		JOIN major m
+		ON emp.majornum = m.majornum
+		<where>
+			<if test="faculty != null">
+				m.faculty = #{faculty}
+			</if>
+			<if test="majorNum != null">
+				AND m.majorNum = #{majorNum}
+			</if>
+			<if test="keyword != null">
+				AND (u.userName like '%'||#{keyword}||'%' 
+				OR u.userNumber like '%'||#{keyword}||'%')
+			</if>
+		</where>
+		)
+	</select>
+
+	<select id="getProfessorList" parameterType="java.util.Map" resultType="com.spring.project.admin.vo.AdProVO">
+		SELECT * FROM(
+		SELECT ROWNUM rnum
+		, u.userNumber, u.userImage,
+		m.faculty, m.majorNum, m.majorName, u.userName
+		FROM users u JOIN employee emp
+		ON
+		u.userNumber = emp.empNumber
+		JOIN major m
+		ON emp.majornum = m.majornum
+		<where>
+			<if test="faculty != null">
+				m.faculty = #{faculty}
+			</if>
+			<if test="majorNum != null">
+				AND m.majorNum = #{majorNum}
+			</if>
+			<if test="keyword != null">
+				AND (u.userName like '%'||#{keyword}||'%' 
+				OR u.userNumber like '%'||#{keyword}||'%')
+			</if>
+		</where>
+		)
+		<![CDATA[
+		WHERE rnum >= 1 AND rnum <= 10
+		]]>
+	</select>
 	<!-- ==========================================교직 업무 관리 END========================================= -->
 
 	<!-- ==========================================회계관리 START========================================= -->
 	<!-- 급여계산/대장 -->
 	<select id="payrollList"
 		resultType="com.spring.project.admin.vo.payrollVO">
-		select to_char(imputedYear,'yyyy/mm') imputedYear, paymentClassfication,
+		select to_char(imputedYear,'yyyy/mm') imputedYear,
+		paymentClassfication,
 		registerName, paymentDate,
-		to_char(paymentYear,'yyyy/mm') paymentYear, totalAmount from paymentlist
+		to_char(paymentYear,'yyyy/mm') paymentYear, totalAmount from
+		paymentlist
 	</select>
 
 	<select id="getFacultyList"
 		resultType="com.spring.project.admin.vo.payrollVO">
-		select empNumber, accountHolder, majorName from employee e, major m where
+		select empNumber, accountHolder, majorName from employee e,
+		major m where
 		e.majorNum = m.majorNum
 	</select>
 
 	<select id="getPaymentClassfication"
 		resultType="com.spring.project.admin.vo.payrollVO">
-		select to_char(imputedYear,'yyyy/mm'), paymentClassfication from
+		select to_char(imputedYear,'yyyy/mm'), paymentClassfication
+		from
 		paymentlist
 	</select>
 
@@ -490,7 +620,8 @@
 
 	<select id="getFacultyMajor"
 		resultType="com.spring.project.admin.vo.payrollVO">
-		select m.majorName from employee e, major m where e.majorNum=m.majorNum
+		select m.majorName from employee e, major m where
+		e.majorNum=m.majorNum
 	</select>
 
 	<select id="accountFacultyList" parameterType="java.util.Map"
@@ -501,7 +632,8 @@
 	<insert id="insertPayroll"
 		parameterType="com.spring.project.admin.vo.payrollVO">
 		insert into paymentlist
-		values(PAYMENTLIST_SEQ.nextval, to_date(#{imputedYear},'yyyy/mm'),#{paymentClassfication},
+		values(PAYMENTLIST_SEQ.nextval,
+		to_date(#{imputedYear},'yyyy/mm'),#{paymentClassfication},
 		#{beginningPeriod},#{endPeriod},#{paymentDate},
 		to_date(#{paymentYear},'yyyy/mm'),#{registerName},0)
 	</insert>
