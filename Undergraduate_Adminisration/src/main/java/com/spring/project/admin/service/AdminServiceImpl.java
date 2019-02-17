@@ -65,7 +65,7 @@ public class AdminServiceImpl implements AdminService{
 		else
 			pageNum = (Integer) map.get("pageNum");
 		// 수강신청 목록 갯수 구하기
-		cnt = dao.getArticleCnt(map);
+		cnt = dao.Jang_getArticleCnt(map);
 
 
 		pageCount = cnt / pageSize + (cnt % pageSize > 0 ? 1 : 0);
@@ -91,7 +91,7 @@ public class AdminServiceImpl implements AdminService{
 		
 		if (cnt > 0) {
 			// 수강신청 목록 조회
-			List<ScholarpkVO> dtos = dao.getArticleList(map);
+			List<ScholarpkVO> dtos = dao.jang_getArticleList(map);
 
 			model.addAttribute("dtos", dtos);
 		}
@@ -250,7 +250,7 @@ public class AdminServiceImpl implements AdminService{
 		
 		
 		//5-2 상세페이지
-		ScholarpkVO dto = dao.getArticle(scholarpk);
+		ScholarpkVO dto = dao.content_getArticle(scholarpk);
 		 System.out.println();
 		 
 				
@@ -265,7 +265,7 @@ public class AdminServiceImpl implements AdminService{
 		
 		System.out.println("checkbox" + checkbox);
 		
-		int updateCnt =dao.delete(checkbox);
+		int updateCnt =dao.jang_delete(checkbox);
 		System.out.println("22222");
 		
 	    if (updateCnt != 0) {
@@ -841,20 +841,94 @@ public class AdminServiceImpl implements AdminService{
 	}
 	@Override
 	public void judge2(Map<String, Object> map, Logger logger, Model model) {
-		int auditct = Integer.parseInt((String)map.get("audit"));
+		int pageSize = 0; // 한 페이지당 출력할 글 갯수
+		int pageBlock = 5; // 한블럭당 페이지 갯수
+
+		int cnt = 0; // 총 글 갯수
+		int start = 0; // 현재 페이지 시작 글번호
+		int end = 0; // 현재 페이지 마지막 글 번호
+		int number = 0; // 출력용 글번호
+		int pageNum = 0; // 페이지 번호
+		int pageCount = 0; // 페이지 갯수
+		int startPage = 0; // 시작 페이지
+		int endPage = 0; // 마지막 페이지
+
+		if (!map.containsKey("pageSize")) {
+			pageSize = 10;
+		} else
+			pageSize = Integer.parseInt((String) map.get("pageSize"));
+
+		if (!map.containsKey("pageNum"))
+			pageNum = 1;
+		else
+			pageNum = (Integer) map.get("pageNum");
+		// 수강신청 목록 갯수 구하기
+		cnt = dao.audit_getArticleCnt(map);
+
+
+		pageCount = cnt / pageSize + (cnt % pageSize > 0 ? 1 : 0);
+
+		start = (pageNum - 1) * pageSize + 1;
+		end = start + pageSize - 1;
+
+		map.put("start", start);
+		map.put("end", end);
+		System.out.println(map.get("year"));
+		System.out.println(map.get("smester"));
 		
-		List<auditVO> audit;
-		
-		
-		//심사 리스트
-		if(auditct == 2) {
-		audit = dao.auditCnt();
-		}else{
-		audit = dao.auditCnt2(auditct);
+		if(map.get("year") != "0") {
+		map.put("year", map.get("year"));
+		map.put("smester", map.get("smester"));
 		}
 		
-		//심사리스트 반환
-		model.addAttribute("audit", audit);
+		if (end > cnt)
+			end = cnt;
+
+		number = cnt - (pageNum - 1) * pageSize;
+
+		
+		if (cnt > 0) {
+			// 수강신청 목록 조회
+			int auditct = Integer.parseInt((String)map.get("audit"));
+			
+			List<auditVO> audit;
+			//심사 리스트
+			if(auditct == 3) {
+			audit = dao.auditCnt();
+			}else{
+			audit = dao.auditCnt2(auditct);
+			}
+			
+			//심사리스트 반환
+			model.addAttribute("audit", audit);
+		}
+
+		// 시작페이지
+		// 1 = (1 / 3) * 3 + 1;
+		startPage = (pageNum / pageBlock) * pageBlock + 1;
+		if (pageNum % pageBlock == 0)
+			startPage -= pageBlock;
+		
+		endPage = startPage + pageBlock - 1;
+
+		// 마지막 페이지
+		// 3 = 1 + 3 - 1;
+		endPage = startPage + pageBlock - 1;
+		if (endPage > pageCount)
+			endPage = pageCount;
+
+		model.addAttribute("cnt", cnt); // 글갯수
+		model.addAttribute("number", number); // 출력용 글번호
+		model.addAttribute("pageNum", pageNum); // 페이지번호
+
+		if (cnt > 0) {
+			model.addAttribute("startPage", startPage); // 시작 페이지
+			model.addAttribute("endPage", endPage); // 마지막 페이지
+			model.addAttribute("pageBlock", pageBlock); // 출력할 페이지 갯수
+			model.addAttribute("pageCount", pageCount); // 페이지 갯수
+			model.addAttribute("pageSize", pageSize); // 현재페이지
+		}
+		
 		
 	}
 	

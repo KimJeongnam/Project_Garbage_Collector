@@ -68,6 +68,7 @@
 											</label>
 											<div id="bulletinList" class=""></div>
 										</div>
+										<div id="managementlist" class=""></div>
 									</div>
 								</div>
 							</div>
@@ -78,12 +79,13 @@
 		</div>
 	</div>
 	
+	
 	<!-- /page content -->
 	<%@ include file="../../Basic/footer.jsp"%>
 	<script type="text/javascript">
 		$(function() {
-	<%@ include file="../../Basic/docReadyScripts.jsp" %>
-		 studentBulletinlist('${userNumber}'); 
+		 studentBulletinlist('${userNumber}',1); 
+		 studentmanagementlist('${userNumber}',1); 
 		});
 	</script>
 

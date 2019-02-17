@@ -1,6 +1,7 @@
-function studentBulletinlist(userNumber){
+function studentBulletinlist(userNumber,page){
 	var obj = new Object();
 	obj.userNumber = userNumber;
+	obj.pageNum = page;
 	
 	if($('#bulletinList-year')!=null)
 		obj.year = $('#bulletinList-year')[0].value;

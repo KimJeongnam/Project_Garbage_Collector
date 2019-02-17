@@ -60,19 +60,22 @@ public interface AdminDAO {
 	public List<AdStdVO> getSchoolLeave(Map<String, Integer> map);
 	
 	//장학글 갯수
-	public int getArticleCnt(Map<String,Object> map);
+	public int Jang_getArticleCnt(Map<String,Object> map);
 	
 	//장학 글 목록
-	public List<ScholarpkVO> getArticleList(Map<String,Object> map);
+	public List<ScholarpkVO> jang_getArticleList(Map<String,Object> map);
+	
+	//장학 심사 글 갯수 
+	public int audit_getArticleCnt(Map<String,Object> map);
 	
 	//장학 글 추가 
 	public int insertjangjag(ScholarpkVO vo);
 	
 	//장학 글 상세 
-	public ScholarpkVO getArticle(int scholarpk); 
+	public ScholarpkVO content_getArticle(int scholarpk); 
 	
 	//장학글 삭제
-	public int delete(String[] checkbox);
+	public int jang_delete(String[] checkbox);
 	
 	//장학글 심사
 	public List<auditVO> auditCnt();
@@ -80,11 +83,14 @@ public interface AdminDAO {
 	//장학글 심사
 	public List<auditVO> auditCnt2(int auditct);
 	
-	//장학금 심사 완료
+	//장학금 심사 합격
 	public int auditupdate(String[] checkbox);
 	
 	//장학금 심사 탈락
 	public int auditupdate2(String[] checkbox);
+	
+	//장학금 심사 심사 완료
+	public int auditupdate3(String[] checkbox);
 	
 	
 	//---------------교직 업무 관리 START-------------------

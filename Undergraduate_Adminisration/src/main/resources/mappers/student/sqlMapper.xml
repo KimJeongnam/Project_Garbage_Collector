@@ -149,10 +149,10 @@
 
 	<select id="getArticleCnt" resultType="int">
 
-		SELECT COUNT(*) as cnt FROM SCHOLARSHIP
+		SELECT COUNT(*) as cnt FROM SCHOLARSHIP where delstatus != 1
 		<where>
 			<if test="year != 0">
-				to_char(year,'yyyy') like #{year}
+				and to_char(year,'yyyy') like #{year}
 				<if test="smester != 0">
 					and semester like #{smester}
 				</if>
@@ -171,6 +171,7 @@
 		YEAR,SEMESTER,AMOUNT,ROWNUM rNum
 		from (
 		select * FROM SCHOLARSHIP
+		where delstatus = 0
 		order by SCHOLARPK desc
 		)
 
@@ -186,7 +187,7 @@
 		)
 				                 
 				                
-				               <![CDATA[ where rNum >= #{start} and rNum <= #{end}]]>
+		<![CDATA[ where rNum >= #{start} and rNum <= #{end}]]>
 
 	</select>
 
