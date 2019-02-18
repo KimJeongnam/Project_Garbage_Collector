@@ -12,6 +12,7 @@ import com.spring.project.admin.vo.AdStdVO;
 import com.spring.project.admin.vo.ScholarpkVO;
 import com.spring.project.admin.vo.auditVO;
 import com.spring.project.admin.vo.payrollVO;
+import com.spring.project.share.dao.ShareDAO;
 import com.spring.project.share.vo.Major;
 
 @Repository
@@ -68,6 +69,7 @@ public class AdminDAOImpl implements AdminDAO{
 	//학생상세
 	@Override
 	public AdStdVO stdDetail(String userNumber) {
+		System.out.println("학생" +userNumber);
 		return sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.stdDetail", userNumber);
 	}
 	
@@ -155,6 +157,12 @@ public class AdminDAOImpl implements AdminDAO{
 	@Override
 	public List<AdStdVO> getSchoolLeave(Map<String, Integer> map) {
 		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.getSchoolLeave", map);
+	}
+	
+	//전화번호부 가져오기
+	@Override
+	public List<String> getUserCellNumList(Map<String, Object> map){
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.getUserCellNumList", map);
 	}
 	
 	//=============================장학금 대그니꺼=======================================
@@ -247,7 +255,7 @@ public class AdminDAOImpl implements AdminDAO{
 	
 	// 학과 조회
 	@Override
-	public List<Major> majorList(Map<String, Object> map) {
+	public List<Object> majorList(Map<String, Object> map) {
 		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.majorList", map);
 	}
 	
@@ -291,6 +299,18 @@ public class AdminDAOImpl implements AdminDAO{
 		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.getLectureList", map);
 	}
 	
+
+	@Override
+	public int getProfessorCount(Map<String, Object> map) {
+		System.out.println(ShareDAO.getQuery(sqlSession, "getProfessorCount", map));
+		return sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.getProfessorCount",map);
+	}
+	@Override
+	public List<Object> getProfessorList(Map<String, Object> map) {
+		System.out.println(ShareDAO.getQuery(sqlSession, "getProfessorCount", map));
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.getProfessorList",map);
+	}
+	
 	//------------------------------------------------------교직 업무 관리 END----------------------------------------------------------
 	
 	@Override
@@ -325,5 +345,6 @@ public class AdminDAOImpl implements AdminDAO{
 	public int insertPayroll(payrollVO vo) {
 		return sqlSession.insert("com.spring.project.admin.dao.AdminDAO.insertPayroll", vo);
 	}
+	
 	
 }

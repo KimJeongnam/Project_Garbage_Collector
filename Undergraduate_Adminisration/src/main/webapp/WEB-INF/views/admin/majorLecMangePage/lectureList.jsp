@@ -16,6 +16,7 @@
 			<th class="text-center">인원수</th>
 			<th class="text-center">시간표</th>
 			<th class="text-center">강의 상태</th>
+			<th></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -42,20 +43,21 @@
 				<input class="btn btn-info" type="button" value="보기">
 			</td>
 			<td class="text-center" style="vertical-align: middle;">
-				<c:choose>
-					<c:when test="${dto.lectureScore == 0 }">
+					<c:if test="${dto.lecStatus == 0 }">
 						수강신청 기간
-					</c:when>
-					<c:when test="${dto.lectureScore == 1 }">
+					</c:if>
+					<c:if test="${dto.lecStatus == 1 }">
 						개강
-					</c:when>
-					<c:when test="${dto.lectureScore == 2 }">
+					</c:if>
+					<c:if test="${dto.lecStatus == 2 }">
 						학점 입력 기간
-					</c:when>
-					<c:when test="${dto.lectureScore == 3 }">
+					</c:if>
+					<c:if test="${dto.lecStatus == 3 }">
 						종강
-					</c:when>
-				</c:choose>
+					</c:if>
+			</td>
+			<td>
+				<input type="button" class="btn btn-success" value="수정">
 			</td>
 		</tr>
 		</c:forEach>
