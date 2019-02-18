@@ -113,7 +113,7 @@
 								</div>
 								
 								<div style="float: right;">
-									  <input type = "button" class="btn btn-info" value="글쓰기" onclick="window.location='registration'">
+									  <input type = "button" class="btn btn-info" value="글쓰기1" onclick="window.location='registration'">
 				                      <input type = "button" class="btn btn-info" value="글 삭제" name="aaaa" onclick="delete_scholar();">
 									</div>
 							</div>

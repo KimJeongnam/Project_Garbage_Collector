@@ -22,13 +22,14 @@
 					<div class="x_panel">
 							<div class="x_panel">
 								<div class="x_title">
-									<h2>수강신청</h2>
+									<h2>장학금 신청 & 수혜내역</h2>
 									<div class="clearfix"></div>
 								</div>
 								<div class= "row">
 								<div class="x_content">
 									<div class="row form-inline">
 										<div class="col-sm-6">
+										<h2>장학금 신청 글</h2>
 											<label> 년도 <select class="form-control input-sm"
 												id="bulletinList-year"
 												onchange="studentBulletinlist('${userNumber}');">
@@ -66,9 +67,16 @@
 													<option value="2">2 학기</option>
 											</select>
 											</label>
+											<br>
+											<br>
+											
 											<div id="bulletinList" class=""></div>
 										</div>
+										<br>
+										<br>
+										<div class="col-md-6 col-sm-6 col-xs-6">
 										<div id="managementlist" class=""></div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -84,8 +92,8 @@
 	<%@ include file="../../Basic/footer.jsp"%>
 	<script type="text/javascript">
 		$(function() {
-		 studentBulletinlist('${userNumber}',1); 
-		 studentmanagementlist('${userNumber}',1); 
+		studentBulletinlist('${userNumber}',1); 
+		studentmanagementlist('${userNumber}',1);
 		});
 	</script>
 

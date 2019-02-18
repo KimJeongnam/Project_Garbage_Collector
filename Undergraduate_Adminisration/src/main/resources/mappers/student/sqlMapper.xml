@@ -168,7 +168,7 @@
 
 		SELECT *
 		FROM (select SCHOLARPK,SCHOLARNAME,to_char(YEAR,'YYYY') as
-		YEAR,SEMESTER,AMOUNT,ROWNUM rNum
+		YEAR,SEMESTER,TO_CHAR(AMOUNT,'$999,999,999,999,999') as AMOUNT,ROWNUM rNum
 		from (
 		select * FROM SCHOLARSHIP
 		where delstatus = 0
@@ -190,10 +190,32 @@
 		<![CDATA[ where rNum >= #{start} and rNum <= #{end}]]>
 
 	</select>
+	
+	<!-- 장학금 수혜 내역 갯수 -->
+
+	<select id="management_cnt" resultType="int">
+
+		SELECT count(*) as cnt FROM Receiveddetails where stdnumber =  #{userNumber} and statcode=1
+
+	</select>
+
+	<!-- 장학금 수혜 내역 목록 -->
+
+	<select id="managementList" parameterType="java.util.Map"
+		resultType="com.spring.project.student.vo.DetailsVO">
+
+		select stdnumber,to_char(s_year,'yyyy') as s_year,semester,scholarname,TO_CHAR(AMOUNT,'$999,999,999,999,999') as AMOUNT,year,statcode
+        from (
+        select * FROM Receiveddetails
+        where stdnumber =  #{userNumber} and statcode=1
+        order by s_year desc
+        )
+
+	</select>
 
 	<!-- 장학글 상세 -->
 	<select id="getArticle"
-		resultType="com.spring.project.admin.vo.ScholarpkVO">
+		resultType="com.spring.project.admin.vo.auditVO">
 
 		SELECT * FROM SCHOLARSHIP where scholarpk = #{scholarpk}
 

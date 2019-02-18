@@ -65,7 +65,9 @@ public class AdminServiceImpl implements AdminService{
 		else
 			pageNum = (Integer) map.get("pageNum");
 		// 수강신청 목록 갯수 구하기
-		cnt = dao.Jang_getArticleCnt(map);
+		cnt = dao.Jang_getArticleCnt(map); 
+		System.out.println("cnt"+cnt);
+		System.out.println("pageNum"+pageNum);
 
 
 		pageCount = cnt / pageSize + (cnt % pageSize > 0 ? 1 : 0);
@@ -864,6 +866,7 @@ public class AdminServiceImpl implements AdminService{
 			pageNum = (Integer) map.get("pageNum");
 		// 수강신청 목록 갯수 구하기
 		cnt = dao.audit_getArticleCnt(map);
+		System.out.println("pageNum"+pageNum);
 
 
 		pageCount = cnt / pageSize + (cnt % pageSize > 0 ? 1 : 0);

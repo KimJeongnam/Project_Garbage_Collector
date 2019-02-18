@@ -18,9 +18,8 @@
 	<!-- page content -->
 	<div class="" role="main">
 		<div class="">
-			<div class="page-title">
+			<div class="">
 				<div class="title_left">
-					<h2>장학금 신청 글</h2>
 
 				</div>
 			</div>
