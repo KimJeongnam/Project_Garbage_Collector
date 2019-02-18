@@ -123,6 +123,14 @@ public class ProfessorController {
 			service.getLecScore(map, req, model);
 			return "professor/getLecScore";
 		}
+		/*
+		@RequestMapping("/professor/insertScore")
+		public String score(HttpServletRequest req ,RedirectAttributes red) {
+			logger.info("insertScore()");
+			service.insertScore(req,red);
+			return "redirect:/professor/score";
+		}
+		*/
 		//학점관리끝
 		
 		
