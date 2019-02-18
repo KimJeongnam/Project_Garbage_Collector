@@ -399,7 +399,7 @@
 	</update>
 
 	<!-- =====강의 관리==== -->
-	<select id="emptyLecTime"
+	<select id="emptyLecTime" parameterType="java.util.Map"
 		resultType="com.spring.project.admin.vo.LectureTime">
 		select *
 		FROM timetable
@@ -409,11 +409,13 @@
 		FROM lectureTime lt JOIN lecture l
 		ON lt.leccode =
 		l.leccode
-		WHERE l.empNumber = #{empNumber})
+		WHERE l.empNumber = #{empNumber}
+		AND l.grantedsemester = #{semester}
+		)
 		ORDER BY timetblCode
 	</select>
 
-	<select id="getEmpLectures"
+	<select id="getLecturesTimes" parameterType="java.util.Map"
 		resultType="com.spring.project.student.vo.LectureVO">
 		SELECT l.lecCode
 		, l.lectureName
@@ -433,8 +435,8 @@
 		lt.leccode
 		JOIN timetable tt
 		ON lt.timetblcode = tt.timetblcode
-		WHERE
-		l.empNumber = #{empNumber}
+		WHERE l.empNumber = #{empNumber}
+		AND l.grantedsemester = #{semester}
 		ORDER BY tt.timetblcode
 	</select>
 
@@ -572,8 +574,14 @@
 		</where>
 		)
 		<![CDATA[
-		WHERE rnum >= 1 AND rnum <= 10
+		WHERE rnum >= #{start} AND rnum <= #{end}
 		]]>
+	</select>
+	
+	<select id="addLecture" statementType="CALLABLE" parameterType="com.spring.project.student.vo.LectureVO">
+		{call add_lecture_proc(#{majorNum}, #{userNumber}, #{lectureName}
+		, #{lectureClassfication}, #{maximumCapacity}, #{grade}, #{grantedSemester}, #{lectureScore}, #{classRoom}
+		, TO_NUMBER(TO_CHAR(SYSDATE, 'YYYY')), #{ttc, mode=IN, typeHandler=com.spring.project.admin.vo.LectureTimetblCodesHandler}, #{result, mode=OUT, javaType=int, jdbcType=NUMERIC})}
 	</select>
 	<!-- ==========================================교직 업무 관리 END========================================= -->
 

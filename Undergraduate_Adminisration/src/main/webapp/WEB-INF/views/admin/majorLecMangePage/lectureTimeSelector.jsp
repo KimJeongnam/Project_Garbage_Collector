@@ -77,7 +77,9 @@ button, input {
 	box-sizing: border-box;
 }
 </style>
-
+<div>
+<h1>'${empNumber }'<span>${semester}학기</span></h1>
+</div>
 <div class="cd-schedule loading" style="width: 700; height: 1050;">
 	<!-- page content -->
 	<div class="timeline">

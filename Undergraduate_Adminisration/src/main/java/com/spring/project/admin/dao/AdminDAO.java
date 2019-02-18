@@ -100,10 +100,10 @@ public interface AdminDAO {
 	public int modifyMajor(Major major);
 	
 	// 해당 교수 빈 강의 조회
-	public List<Object> emptyLecTime(String empNumber);
+	public List<Object> emptyLecTime(Map<String, Object>map);
 	
 	// 해당 교수가 맡은 강의 조회
-	public List<Object> getEmpLectures(String empNumber);
+	public List<Object> getLecturesTimes(Map<String, Object>map);
 	// 강의코드 시퀀스 다음 번호 조회
 	public int getLectureSeqNextval();
 	
@@ -114,10 +114,12 @@ public interface AdminDAO {
 	
 	
 	// 교수 조회 
-	 
 	public int getProfessorCount(Map<String, Object> map);
 	public List<Object> getProfessorList(Map<String, Object> map);
 
+	// 강의 추가
+	public void addLecture(LectureVO lecture);
+	
 	//---------------교직 업무 관리 END-------------------
 	
 	public List<payrollVO> payrollList();

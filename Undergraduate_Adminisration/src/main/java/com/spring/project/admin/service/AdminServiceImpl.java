@@ -31,6 +31,7 @@ import com.spring.project.admin.vo.payrollVO;
 import com.spring.project.share.Config;
 import com.spring.project.share.dao.ShareDAO;
 import com.spring.project.share.vo.Major;
+import com.spring.project.student.vo.LectureVO;
 
 @Service
 public class AdminServiceImpl extends Board implements AdminService {
@@ -735,10 +736,13 @@ public class AdminServiceImpl extends Board implements AdminService {
 
 	// 교수의 빈강의시간 조회
 	@Override
-	public void getEmptyLecTime(String empNumber, Model model) {
+	public void getEmptyLecTime(String empNumber, String semester, Model model) {
 		List<Object> days = new ArrayList<Object>();
-		List<Object> list = dao.emptyLecTime(empNumber);
-		List<Object> lectures = dao.getEmpLectures(empNumber);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("empNumber", empNumber);
+		map.put("semester", semester);
+		List<Object> list = dao.emptyLecTime(map);
+		List<Object> lectures = dao.getLecturesTimes(map);
 		days.add("월");
 		days.add("화");
 		days.add("수");
@@ -747,43 +751,8 @@ public class AdminServiceImpl extends Board implements AdminService {
 		model.addAttribute("lectures", lectures);
 		model.addAttribute("days", days);
 		model.addAttribute("dtos", list);
-	}
-
-	@Override
-	public void judge2(Map<String, Object> map, Logger logger, Model model) {
-		int auditct = Integer.parseInt((String) map.get("audit"));
-
-		List<auditVO> audit;
-
-		// 심사 리스트
-		if (auditct == 2) {
-			audit = dao.auditCnt();
-		} else {
-			audit = dao.auditCnt2(auditct);
-		}
-
-		// 심사리스트 반환
-		model.addAttribute("audit", audit);
-
-	}
-
-	// 교직원 급여관리
-	@Override
-	public void facultyAccountManage(Model model) {
-		List<payrollVO> dtos = dao.payrollList();
-		model.addAttribute("dtos", dtos);
-
-		List<payrollVO> dtosF = dao.getFacultyList();
-		model.addAttribute("dtosF", dtosF);
-
-		List<payrollVO> dtosM = dao.getFacultyMajor();
-		model.addAttribute("dtosM", dtosM);
-
-		List<payrollVO> dtosC = dao.getPaymentClassfication();
-		model.addAttribute("dtosC", dtosC);
-		
-		List<payrollVO> dtosT = dao.getFinalPayrollList();
-		model.addAttribute("dtosT", dtosT);
+		model.addAttribute("semester", semester);
+		model.addAttribute("empNumber", empNumber);
 	}
 
 	@Override
@@ -823,8 +792,60 @@ public class AdminServiceImpl extends Board implements AdminService {
 		});
 	
 	}
+	
+	@Override
+	public Map<String, Object> addLecture(LectureVO lecture) {
+		Map<String, Object> responseData = new HashMap<String, Object>();
+		lecture.setTtc(lecture.getTimetblCodes().stream().mapToInt(i->i).toArray());
+		dao.addLecture(lecture);
+		
+		if(lecture.getResult()==0) {
+			responseData.put("message",  "Error!! 강의 추가 실패! 'lecture TABLE INSERT FAILE!'");
+		}else if((lecture.getTimetblCodes().size()+1)==lecture.getResult()) {
+			responseData.put("message",  "강의 추가 완료");
+		}else
+			responseData.put("message",  "Error!! 강의 추가 실패! 'lectureTime TABLE INSERT FAILE!'");
+		return responseData;
+	}
 
 	// -------------------------------------------------------교직업무관리END-------------------------------------------------
+
+	@Override
+	public void judge2(Map<String, Object> map, Logger logger, Model model) {
+		int auditct = Integer.parseInt((String) map.get("audit"));
+
+		List<auditVO> audit;
+
+		// 심사 리스트
+		if (auditct == 2) {
+			audit = dao.auditCnt();
+		} else {
+			audit = dao.auditCnt2(auditct);
+		}
+
+		// 심사리스트 반환
+		model.addAttribute("audit", audit);
+
+	}
+
+	// 교직원 급여관리
+	@Override
+	public void facultyAccountManage(Model model) {
+		List<payrollVO> dtos = dao.payrollList();
+		model.addAttribute("dtos", dtos);
+
+		List<payrollVO> dtosF = dao.getFacultyList();
+		model.addAttribute("dtosF", dtosF);
+
+		List<payrollVO> dtosM = dao.getFacultyMajor();
+		model.addAttribute("dtosM", dtosM);
+
+		List<payrollVO> dtosC = dao.getPaymentClassfication();
+		model.addAttribute("dtosC", dtosC);
+		
+		List<payrollVO> dtosT = dao.getFinalPayrollList();
+		model.addAttribute("dtosT", dtosT);
+	}
 
 	// 급여대장 조회
 	@Override

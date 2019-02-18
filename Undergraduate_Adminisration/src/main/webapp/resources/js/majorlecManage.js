@@ -16,7 +16,7 @@ var setFacultys = function(facultys) {
 		}));
 	}
 	
-	setMode(arguments[1]);
+	setMode(arguments[1]);		// 두번째 매개변수 넘김
 }
 
 // 강의 코드 세팅
@@ -30,11 +30,11 @@ function openMajorModal(mode) {
 	$('#majorName').val('');
 	$('#count').val('');
 	
-	getFacultys(setFacultys, arguments);
+	getFacultys(setFacultys, arguments);	// 가변매개변수 들 넘긴다.
 		
 	$('#majorAdd-Modal').modal();
 }
-
+// 학과 모달창의 모드 세팅
 function setMode(args){
 	var mode = args[0];
 	if (mode == '신규') {
@@ -243,13 +243,14 @@ var lectureTimeMap = new Map();  //선택된 강의 시간
  * 강의 시간 선택 창 open
  */
 function openTimeSelector(empNumber){
+	var semester = $('#grantedSemester').val();
 	var popupX = (window.screen.width / 2) - (1200 / 2);
 	// 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
 
 	var popupY= (window.screen.height /2) - (1000 / 2);
 	// 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
 	
-	window.open('/project/admin/major_lecture_Manager/getEmptyLecTime/'+empNumber
+	window.open('/project/admin/major_lecture_Manager/getEmptyLecTime/'+empNumber+'/'+semester
 			, '시간 선택'
 			, 'status=no, height=1000, width=1200, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
 }
@@ -484,7 +485,7 @@ function professorList(){
 		obj.majorNum = $('#pro-major-selector').val();
 	
 	if($('#pro-search').val().length >0)
-		obj.keyword = $('#pro-search').val();
+			obj.keyword = $('#pro-search').val();
 	
 	var jsonData = JSON.stringify(obj);
 	
@@ -605,4 +606,71 @@ function initLectureModal(){
 	$('#lectureName').val("");
 	$('#lectureScore').val("1");
 	$('#maximumcapacity').val("");
+	$('#lectureModalBtn').attr("onclick", "insertLecture();");
+}
+
+function insertLecture(){
+	var obj = new Object();
+
+	
+	obj.lecCode = $('#lecCode').val();
+	if($('#empNumber').val()>0){
+		obj.userNumber = $('#empNumber').val();
+		obj.majorNum = $('#majorNum').val();
+	}else{
+		alert("교수를 선택해주세요!"); return;
+		$('#empNumber').focus();
+	}
+	if($('#classRoom').val()<1){
+		alert("강의실을 입력해주세요."); return;
+		$('#classRoom').focus();
+	}
+	if($('#lectureName').val()<1){
+		alert("강의명을 입력해 주세요."); return;
+		$('#lectureName').focus();
+	}
+	if($('#maximumcapacity').val() == ''){
+		alert("제한 인원수를 입력해 주세요."); return;
+		$('#maximumcapacity').focus();
+	}
+	
+	
+	obj.grade = $('#grade').val();
+	obj.grantedSemester = $('#grantedSemester').val();
+	obj.classRoom = $('#classRoom').val();
+	obj.lectureClassfication = $('#lectureClassfication').val();
+	obj.lectureName = $('#lectureName').val();
+	obj.maximumCapacity = $('#maximumcapacity').val();
+	obj.lectureScore = $('#lectureScore').val();
+	
+	
+	
+	
+	if(lectureTimeMap.size < 1){
+		alert("강의시간을 선택해 주세요!");
+		return;
+	}
+	
+	
+	obj.timetblCodes = [];
+	for(var key of lectureTimeMap.keys())
+		obj.timetblCodes.push(key);
+	
+	var jsonData = JSON.stringify(obj);
+	
+	$.ajax({
+		url:'/project/admin/major_lecture_Manager/insertLecture',
+		type:'POST',
+		contentType:'application/json;charset=utf8',
+		data:jsonData,
+		success:function(data){
+			alert(data.message);
+			getLectureList();
+			initLectureModal();
+			$('#lecture-Modal').modal('hide');
+		},
+		error:function(){
+			alert("Error! insertLecture()");
+		}
+	});
 }

@@ -14,6 +14,7 @@ import com.spring.project.admin.vo.auditVO;
 import com.spring.project.admin.vo.payrollVO;
 import com.spring.project.share.dao.ShareDAO;
 import com.spring.project.share.vo.Major;
+import com.spring.project.student.vo.LectureVO;
 
 @Repository
 public class AdminDAOImpl implements AdminDAO{
@@ -258,13 +259,13 @@ public class AdminDAOImpl implements AdminDAO{
 		return sqlSession.update("com.spring.project.admin.dao.AdminDAO.modifyMajor", major);
 	}
 	@Override
-	public List<Object> emptyLecTime(String empNumber) {
-		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.emptyLecTime", empNumber);
+	public List<Object> emptyLecTime(Map<String, Object>map) {
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.emptyLecTime", map);
 	}
 	
 	@Override
-	public List<Object> getEmpLectures(String empNumber) {
-		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.getEmpLectures", empNumber);
+	public List<Object> getLecturesTimes(Map<String, Object>map) {
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.getLecturesTimes", map);
 	}
 	
 	@Override
@@ -293,9 +294,16 @@ public class AdminDAOImpl implements AdminDAO{
 		System.out.println(ShareDAO.getQuery(sqlSession, "getProfessorCount", map));
 		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.getProfessorList",map);
 	}
+
+	@Override
+	public void addLecture(LectureVO lecture) {
+		sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.addLecture", lecture);
+		return;
+	}
 	
 	//------------------------------------------------------교직 업무 관리 END----------------------------------------------------------
 	
+
 	@Override
 	public List<payrollVO> payrollList() {
 		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.payrollList");
