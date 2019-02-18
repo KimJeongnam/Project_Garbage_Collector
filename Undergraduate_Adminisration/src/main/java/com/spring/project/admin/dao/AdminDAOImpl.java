@@ -12,6 +12,7 @@ import com.spring.project.admin.vo.AdStdVO;
 import com.spring.project.admin.vo.ScholarpkVO;
 import com.spring.project.admin.vo.auditVO;
 import com.spring.project.admin.vo.payrollVO;
+import com.spring.project.share.dao.ShareDAO;
 import com.spring.project.share.vo.Major;
 
 @Repository
@@ -243,7 +244,7 @@ public class AdminDAOImpl implements AdminDAO{
 	
 	// 학과 조회
 	@Override
-	public List<Major> majorList(Map<String, Object> map) {
+	public List<Object> majorList(Map<String, Object> map) {
 		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.majorList", map);
 	}
 	
@@ -285,6 +286,18 @@ public class AdminDAOImpl implements AdminDAO{
 	public List<Object> getLectureList(Map<String, Object> map) {
 		//System.out.println(ShareDAO.getQuery(sqlSession, "getLectureList", map));
 		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.getLectureList", map);
+	}
+	
+
+	@Override
+	public int getProfessorCount(Map<String, Object> map) {
+		System.out.println(ShareDAO.getQuery(sqlSession, "getProfessorCount", map));
+		return sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.getProfessorCount",map);
+	}
+	@Override
+	public List<Object> getProfessorList(Map<String, Object> map) {
+		System.out.println(ShareDAO.getQuery(sqlSession, "getProfessorCount", map));
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.getProfessorList",map);
 	}
 	
 	//------------------------------------------------------교직 업무 관리 END----------------------------------------------------------

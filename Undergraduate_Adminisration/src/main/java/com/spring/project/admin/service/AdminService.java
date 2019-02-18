@@ -88,6 +88,8 @@ public interface AdminService {
 	
 	public void getLectureList(Map<String, Object> map,Model model);
 	
+	public void getProfessorList(Map<String, Object> map, Model model);
+	
 	//---------------교직 업무 관리 END-------------------
 	
 	

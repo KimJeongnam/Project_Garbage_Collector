@@ -91,7 +91,7 @@ public interface AdminDAO {
 	// 학과 갯수 조회
 	public int majorListCount(Map<String, Object> map);
 	// 학과 조회
-	public List<Major> majorList(Map<String, Object> map);
+	public List<Object> majorList(Map<String, Object> map);
 	// 학과 삭제
 	public int  deleteMajor(Map<String, Object> map);
 	// 학과 등록
@@ -111,6 +111,12 @@ public interface AdminDAO {
 	public int getLectureCount(Map<String, Object> map);
 	// 강의 목록 조회
 	public List<Object> getLectureList(Map<String, Object> map);
+	
+	
+	// 교수 조회 
+	 
+	public int getProfessorCount(Map<String, Object> map);
+	public List<Object> getProfessorList(Map<String, Object> map);
 
 	//---------------교직 업무 관리 END-------------------
 	
