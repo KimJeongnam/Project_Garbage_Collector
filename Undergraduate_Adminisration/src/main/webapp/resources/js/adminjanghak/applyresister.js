@@ -1,6 +1,7 @@
-function adminregistrationList(userNumber){
+function adminregistrationList(userNumber,page){
 	var obj = new Object();
 	obj.userNumber = userNumber;
+	obj.pageNum = page;
 	
 	if($('#registrationList-year')!=null)
 		obj.year = $('#registrationList-year')[0].value;
@@ -25,10 +26,11 @@ function adminregistrationList(userNumber){
 		}
 	});
 }
-	function adminjudgeList(userNumber){
+	function adminjudgeList(userNumber,page){
 		
 		var obj = new Object();
 		obj.userNumber = userNumber;
+		obj.pageNum = page;
 		
 		if($('#auditList')!=null)
 			obj.audit = $('#auditList')[0].value;

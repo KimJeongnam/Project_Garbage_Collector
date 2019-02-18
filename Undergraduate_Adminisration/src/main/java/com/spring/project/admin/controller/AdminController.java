@@ -1,6 +1,5 @@
 package com.spring.project.admin.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 //github.com/KimJeongnam/Project_Garbage_Collector.git
@@ -23,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.project.admin.service.AdminService;
 import com.spring.project.share.vo.Major;
+import com.spring.project.student.vo.LectureVO;
 import com.spring.project.util.AWSUtil;
 
 @Controller
@@ -303,10 +303,13 @@ public class AdminController {
 	}
 
 	// 해당 교수의 빈강의 조회*
-	@RequestMapping(value = "/admin/major_lecture_Manager/getEmptyLecTime/{empNumber}", method = RequestMethod.GET)
-	public String getEmptyLecTime(@PathVariable String empNumber, Model model) {
+	@RequestMapping(value = "/admin/major_lecture_Manager/getEmptyLecTime/{empNumber}/{semester}", method = RequestMethod.GET)
+	public String getEmptyLecTime(
+			@PathVariable String empNumber
+			,@PathVariable String semester
+			, Model model) {
 		logger.info("getEmptyLecTime()");
-		service.getEmptyLecTime(empNumber, model);
+		service.getEmptyLecTime(empNumber, semester, model);
 		return "admin/majorLecMangePage/lectureTimeSelector";
 	}
 
@@ -339,6 +342,13 @@ public class AdminController {
 		return "admin/majorLecMangePage/lectureTimeSelector";
 	}
 
+	//강의 추가
+	@ResponseBody
+	@RequestMapping(value="/admin/major_lecture_Manager/insertLecture", method=RequestMethod.POST)
+	public Map<String, Object> insertLecture(@RequestBody LectureVO lecture){
+		logger.info("insertLecture()");
+		return service.addLecture(lecture);
+	}
 	// ---------------------------------학과,강의관리END----------------------------------------
 
 	// ---------------------------------회계관리START----------------------------------------
@@ -364,7 +374,7 @@ public class AdminController {
 		return "admin/accountingManagement/lookupWorkRecord";
 	}
 
-	//
+	
 	@RequestMapping("/admin/insertPayroll")
 	public String insertPayroll(HttpServletRequest req, RedirectAttributes red) {
 		service.insertPayroll(req, red);

@@ -205,9 +205,9 @@
 	<!-- 장학단 -->
 	<!-- 장학글 갯수 -->
 
-	<select id="getArticleCnt" resultType="int">
+	<select id="Jang_getArticleCnt" resultType="int">
 
-		SELECT COUNT(*) as cnt FROM SCHOLARSHIP where delstatus = 0
+		SELECT COUNT(*) as cnt FROM SCHOLARSHIP where delstatus != 1
 		<if test="year != 0">
 			and to_char(year,'yyyy') like #{year}
 			<if test="smester != 0">
@@ -219,7 +219,7 @@
 
 	<!-- 장학글 목록 -->
 
-	<select id="getArticleList" parameterType="java.util.Map"
+	<select id="jang_getArticleList" parameterType="java.util.Map"
 		resultType="com.spring.project.admin.vo.ScholarpkVO">
 
 		SELECT *
@@ -245,6 +245,14 @@
 				               <![CDATA[where rNum >= #{start} and rNum <= #{end}]]>
 
 	</select>
+	
+	<!-- 장학심사 글 갯수 -->
+
+	<select id="audit_getArticleCnt" resultType="int">
+
+		select count(*) from Evaluation
+
+	</select>
 
 	<!-- 장학글 추가 -->
 
@@ -258,7 +266,7 @@
 	</insert>
 
 	<!-- 장학글 상세 -->
-	<select id="getArticle"
+	<select id="content_getArticle"
 		resultType="com.spring.project.admin.vo.ScholarpkVO">
 
 		SELECT * FROM SCHOLARSHIP where scholarpk = #{scholarpk}
@@ -266,7 +274,7 @@
 	</select>
 
 	<!-- 장학글 삭제 -->
-	<update id="delete">
+	<update id="jang_delete">
 
 		UPDATE SCHOLARSHIP
 		SET delstatus = 1
@@ -282,7 +290,7 @@
 	<select id="auditCnt"
 		resultType="com.spring.project.admin.vo.auditVO">
 
-		select * from Evaluation
+		<![CDATA[select * from Evaluation where TO_DATE(sysdate) - TO_DATE(year) <= 1095]]>
 
 	</select>
 
@@ -290,14 +298,14 @@
 	<select id="auditCnt2"
 		resultType="com.spring.project.admin.vo.auditVO">
 
-		select * from Evaluation where statCode = #{auditct}
+		<![CDATA[select * from Evaluation where statCode = #{auditct} and TO_DATE(sysdate) - TO_DATE(year) <= 1095]]>
 
 	</select>
 
 
 
 
-	<!-- 장학금 심사 완료 -->
+	<!-- 장학금 심사 합격완료 -->
 	<update id="auditupdate">
 
 		UPDATE scholarshipInfo
@@ -322,6 +330,33 @@
 		</foreach>
 
 	</update>
+	
+	<!-- 장학금 심사 완료 -->
+	<select id="auditupdate3" resultType="int">
+
+		select count(*)
+		from scholarshipinfo
+		WHERE schInfoPk in
+		
+		<foreach item="schInfoPk" collection="array" open="("
+			separator="," close=")">
+			#{schInfoPk}
+		</foreach>
+		
+	</select>
+	
+	<!-- 장학금 심사 완료 -->
+	<!-- <update id="auditupdate3">
+
+		UPDATE scholarship
+		SET delstatus = 2
+		WHERE schInfoPk in
+		<foreach item="schInfoPk" collection="array" open="("
+			separator="," close=")">
+			#{schInfoPk}
+		</foreach>
+		
+	</update> -->
 
 	<!-- ==========================================교직 업무 관리 START========================================= -->
 	<!-- 교직 업무 관리 -->
@@ -405,7 +440,7 @@
 	</update>
 
 	<!-- =====강의 관리==== -->
-	<select id="emptyLecTime"
+	<select id="emptyLecTime" parameterType="java.util.Map"
 		resultType="com.spring.project.admin.vo.LectureTime">
 		select *
 		FROM timetable
@@ -415,11 +450,13 @@
 		FROM lectureTime lt JOIN lecture l
 		ON lt.leccode =
 		l.leccode
-		WHERE l.empNumber = #{empNumber})
+		WHERE l.empNumber = #{empNumber}
+		AND l.grantedsemester = #{semester}
+		)
 		ORDER BY timetblCode
 	</select>
 
-	<select id="getEmpLectures"
+	<select id="getLecturesTimes" parameterType="java.util.Map"
 		resultType="com.spring.project.student.vo.LectureVO">
 		SELECT l.lecCode
 		, l.lectureName
@@ -439,8 +476,8 @@
 		lt.leccode
 		JOIN timetable tt
 		ON lt.timetblcode = tt.timetblcode
-		WHERE
-		l.empNumber = #{empNumber}
+		WHERE l.empNumber = #{empNumber}
+		AND l.grantedsemester = #{semester}
 		ORDER BY tt.timetblcode
 	</select>
 
@@ -578,8 +615,14 @@
 		</where>
 		)
 		<![CDATA[
-		WHERE rnum >= 1 AND rnum <= 10
+		WHERE rnum >= #{start} AND rnum <= #{end}
 		]]>
+	</select>
+	
+	<select id="addLecture" statementType="CALLABLE" parameterType="com.spring.project.student.vo.LectureVO">
+		{call add_lecture_proc(#{majorNum}, #{userNumber}, #{lectureName}
+		, #{lectureClassfication}, #{maximumCapacity}, #{grade}, #{grantedSemester}, #{lectureScore}, #{classRoom}
+		, TO_NUMBER(TO_CHAR(SYSDATE, 'YYYY')), #{ttc, mode=IN, typeHandler=com.spring.project.admin.vo.LectureTimetblCodesHandler}, #{result, mode=OUT, javaType=int, jdbcType=NUMERIC})}
 	</select>
 	<!-- ==========================================교직 업무 관리 END========================================= -->
 

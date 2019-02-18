@@ -1,6 +1,10 @@
 package com.spring.project.student.vo;
 
+import java.util.List;
+
 public class LectureVO {
+	private List<Integer> timetblCodes;
+	private int[] ttc;
 	
 	private String lecCode;
 	private int majorNum;
@@ -26,6 +30,27 @@ public class LectureVO {
 	private String majorName;
 	private int rank;
 	
+	private int result;
+	
+	public int[] getTtc() {
+		return ttc;
+	}
+	public void setTtc(int[] ttc) {
+		this.ttc = ttc;
+	}
+	
+	public int getResult() {
+		return result;
+	}
+	public void setResult(int result) {
+		this.result = result;
+	}
+	public List<Integer> getTimetblCodes() {
+		return timetblCodes;
+	}
+	public void setTimetblCodes(List<Integer> timetblCodes) {
+		this.timetblCodes = timetblCodes;
+	}
 	public String getUserImage() {
 		return userImage;
 	}
