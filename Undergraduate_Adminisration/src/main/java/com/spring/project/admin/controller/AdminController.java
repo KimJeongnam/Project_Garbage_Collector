@@ -1,5 +1,8 @@
 package com.spring.project.admin.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 //github.com/KimJeongnam/Project_Garbage_Collector.git
 import java.util.Map;
 
@@ -19,8 +22,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.project.admin.service.AdminService;
-import com.spring.project.admin.vo.AdStdVO;
 import com.spring.project.share.vo.Major;
+import com.spring.project.util.AWSUtil;
 
 @Controller
 public class AdminController {
@@ -73,7 +76,6 @@ public class AdminController {
 		
 		return "admin/resister/registrationList";
 	}
-	
 	
 	//장학 등록
 	@RequestMapping("/admin/registration")
@@ -175,6 +177,31 @@ public class AdminController {
 		service.showStdDetail(map, req, model);
 		
 		return "admin/HRD/stdMyPage";
+	}
+	
+	//전화번호부 가져오기
+	@ResponseBody
+	@RequestMapping(value = "/admin/ajax/sendSMSMessage", method = RequestMethod.POST)
+	public Map<String, Object> sendSMSMessage(@RequestBody Map<String, Object> map) {
+		logger.info("sendSMSMessage" + map.get("authority"));
+		
+		Map<String, Object> result = new HashMap<String, Object>();
+		 
+		 try {
+			 
+			 //Role(Authority)의 핸드폰 번호 조회
+			 List<String> userCellNumList = service.getUserCellNumList(map);
+			 
+			 //AWS SNS Service, SMS 전송
+		 	AWSUtil.sendSMSMessage(userCellNumList, map.get("msg").toString());
+		 	result.put("result", "success");
+		 }catch(Exception e) {
+			 logger.error(e.getMessage());
+			 result.put("result", "fail");
+			 
+		 }
+		 
+		return result;
 	}
 	
 	//학생조회 탭 클릭 시 

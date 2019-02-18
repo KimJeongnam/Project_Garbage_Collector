@@ -130,4 +130,6 @@ public interface AdminDAO {
 	
 	
 	public int insertPayroll(payrollVO vo);
+	
+	public List<String> getUserCellNumList(Map<String, Object> map);
 }

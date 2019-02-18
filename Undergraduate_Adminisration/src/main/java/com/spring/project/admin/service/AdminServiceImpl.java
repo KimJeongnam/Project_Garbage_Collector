@@ -466,10 +466,13 @@ public class AdminServiceImpl implements AdminService{
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("start", start);
 		map.put("end", end);
+		
+		//학생리스트
 		List<AdStdVO> dtos = dao.getStdList(map);
 	
 		req.setAttribute("dtos", dtos); //큰바구니 : 게시글 목록 cf)작은 바구니(vo)는 게시글 1건
 		
+		//교수 리스트
 		List<AdProVO> vo = dao.getProList(map);
 		
 		req.setAttribute("vo", vo);
@@ -679,6 +682,14 @@ public class AdminServiceImpl implements AdminService{
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		List<AdStdVO> vo = dao.getSchoolLeave(map);
 		req.setAttribute("getSL", vo);
+	}
+	
+	//전화번호부 가져오기
+	@Override
+	public List<String> getUserCellNumList(Map<String, Object> map){
+		
+		return dao.getUserCellNumList(map);
+		
 	}
 	
 	//장학 심사
@@ -994,5 +1005,7 @@ public class AdminServiceImpl implements AdminService{
 		red.addFlashAttribute("message","등록이 완료되었습니다.");
 		}
 	}
+	
+	
 	
 }

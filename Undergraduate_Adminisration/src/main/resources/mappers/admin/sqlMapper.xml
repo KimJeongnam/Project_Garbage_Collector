@@ -54,7 +54,7 @@
 	<!-- 학생리스트 -->
 	<select id="getStdList" parameterType="java.util.Map"
 		resultType="com.spring.project.admin.vo.AdStdVO">
-		select u.userNumber, u.userName, m.majorName, m.majorNum,
+		select u.userNumber, u.userName, m.majorName, m.majorNum, u.authority,
 		u.userCellNum , s.grade , st.graduation_state, f.faculty
 		from student s, studentState st , users u, major m, faculty f
 		where  u.userNumber(+)= s.stdNumber
@@ -180,6 +180,15 @@
 		from users u, schoolLeave sl
 		where u.userNumber = sl.stdNumber
 	</select>
+	
+	<!--전화번호 가져오기 -->
+	<select id="getUserCellNumList" parameterType="java.util.Map" resultType="String">
+ 		SELECT 
+ 			USERCELLNUM 
+ 		FROM USERS
+		WHERE AUTHORITY = #{authority}
+		AND DELSTATUS = 0
+ 	</select>
 	<!-- 장학 단 -->
 	<!-- 장학단 -->
 	<!-- 장학글 갯수 -->
@@ -537,4 +546,9 @@
 
 
 	<!-- ==========================================회계관리 END========================================= -->
+	
+	
+	
+
+ 	
 </mapper>

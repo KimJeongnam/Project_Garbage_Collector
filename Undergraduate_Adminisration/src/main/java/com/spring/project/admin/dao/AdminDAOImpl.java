@@ -158,6 +158,12 @@ public class AdminDAOImpl implements AdminDAO{
 		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.getSchoolLeave", map);
 	}
 	
+	//전화번호부 가져오기
+	@Override
+	public List<String> getUserCellNumList(Map<String, Object> map){
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.getUserCellNumList", map);
+	}
+	
 	//=============================장학금 대그니꺼=======================================
 	//장학 글 갯수
 	@Override
@@ -315,5 +321,6 @@ public class AdminDAOImpl implements AdminDAO{
 	public int insertPayroll(payrollVO vo) {
 		return sqlSession.insert("com.spring.project.admin.dao.AdminDAO.insertPayroll", vo);
 	}
+	
 	
 }
