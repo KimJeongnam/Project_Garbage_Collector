@@ -10,8 +10,77 @@
 <link rel="stylesheet" href="/project/resources/css/schedule/style.css">
 <!-- Resource style -->
 
+<style>
+html {
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
 
-<div class="cd-schedule loading">
+button, html input[type=button], input[type=reset], input[type=submit] {
+	-webkit-appearance: button;
+	cursor: pointer;
+}
+
+.btn-success:hover {
+	background: #169F85;
+	color: #fff;
+}
+
+.btn-danger:hover {
+	background: #d43f3a;
+	color: #fff;
+}
+
+.btn:hover {
+	text-decoration: none;
+}
+
+.btn {
+	margin-bottom: -6px;
+	border-radius: 3px;
+	margin-bottom: 5px;
+	margin-right: 5px;
+	display: inline-block;
+	padding: 6px 12px;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 1.42857143;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	touch-action: manipulation;
+	user-select: none;
+	background-image: none;
+	border: 1px solid transparent;
+	text-transform: none;
+}
+
+.btn-success {
+	color: #fff;
+	background: #26B99A;
+	border: 1px solid #169F85;
+}
+
+.btn-danger {
+	color: #fff;
+	background-color: #d9534f;
+	border: 1px solid #d43f3a;
+}
+
+button, input {
+	font: inherit;
+	margin: 0;
+	overflow: visible;
+	-webkit-writing-mode: horizontal-tb !important;
+}
+
+:after, :before {
+	box-sizing: border-box;
+}
+</style>
+<div>
+<h1>'${empNumber }'<span>${semester}학기</span></h1>
+</div>
+<div class="cd-schedule loading" style="width: 700; height: 1050;">
 	<!-- page content -->
 	<div class="timeline">
 		<ul>
@@ -51,22 +120,28 @@
 					<ul>
 						<c:forEach var="lecture" items="${lectures}">
 							<c:if test="${lecture.lectureDay == day}">
-								<li class="single-event" data-start="${lecture.beginningLectureTime}"
+								<li class="single-event"
+									data-start="${lecture.beginningLectureTime}"
 									data-end="${lecture.endLectureTime}" data-event="event-3"
-									onclick=""
-									id="li-${dStatus.index }${iStatus.index}">
-									<a><span></span> <em class="event-name" id="chk-${dStatus.index }${iStatus.index}">${lecture.lectureName }</em>
+									onclick="" id="li-${dStatus.index }${iStatus.index}"><a><span></span>
+										<em class="event-name"
+										id="chk-${dStatus.index }${iStatus.index}">${lecture.lectureName }</em>
 								</a></li>
 							</c:if>
 						</c:forEach>
-						
+
 						<c:forEach var="dto" items="${dtos}" varStatus="iStatus">
 							<c:if test="${dto.lectureDay == day}">
-								<li class="single-event" data-start="${dto.beginningLectureTime}"
+								<li class="single-event"
+									data-start="${dto.beginningLectureTime}"
 									data-end="${dto.endLectureTime}" data-event="event-6"
-									onclick="selectTime(${dto.timetblCode },'${dStatus.index }${iStatus.index}');"
-									id="li-${dStatus.index }${iStatus.index}">
-									<a style="cursor: pointer;"><span></span> <em class="event-name" id="chk-${dStatus.index }${iStatus.index}"></em>
+									onclick="selectTime(${dto.timetblCode }
+										,'${dStatus.index }${iStatus.index}'
+										, '${dto.lectureDay}'
+										,'${dto.classTime}');"
+									id="li-${dStatus.index }${iStatus.index}"><a
+									style="cursor: pointer;"><span></span> <em
+										class="event-name" id="chk-${dStatus.index }${iStatus.index}"></em>
 								</a></li>
 							</c:if>
 						</c:forEach>
@@ -76,12 +151,22 @@
 		</ul>
 	</div>
 
-	
+
 	<div class="cover-layer"></div>
+</div>
+
+<div class="button" style="width: 700; margin:2em auto; margin-top: 50px;">
+	<table>
+		<tr>
+			<td><input type="button" class="btn btn-success" value="확인" onclick="selectTimeDo();">
+				<input type="button" class="btn btn-danger" value="취소" onclick="self.close();"></td>
+		</tr>
+	</table>
 </div>
 <!-- jQuery -->
 <script src="/project/resources/vendors/jquery/dist/jquery.min.js"></script>
 <script src="/project/resources/js/schedule/modernizr.js"></script>
 <script src="/project/resources/js/schedule/main.js"></script>
-<script src="/project/resources/js/majorlecManage.js" type="text/javascript"></script>
+<script src="/project/resources/js/majorlecManage.js"
+	type="text/javascript"></script>
 

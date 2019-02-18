@@ -6,7 +6,7 @@ public class auditVO {
 	
 	private String schinfopk; //장학 신청 완료 콛
 	private String userName; //유저 이름
-	private int grade; //
+	private int grade; // 학년
 	private int semester; //학기
 	private String scholarName; //장학금명
 	private Date year; //년도

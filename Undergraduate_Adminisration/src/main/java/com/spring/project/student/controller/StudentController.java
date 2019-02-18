@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.project.professor.controller.ProfessorController;
@@ -25,6 +26,8 @@ public class StudentController {
 	StudentServiceImpl service;
 	
 	private static final Logger logger = LoggerFactory.getLogger(ProfessorController.class);
+	
+	/*대근이 단~*/
 	
 	@RequestMapping("/student/index")
 	public String index() {
@@ -63,6 +66,14 @@ public class StudentController {
 		
 		return "redirect:/student/bulletin";
 	} 
+	//장학금 수혜현황
+	@RequestMapping(value="/student/studentmanagementlist", method=RequestMethod.POST)
+	public String management(@RequestBody Map<String, Object> map, Model model) {
+		logger.info("장학금 수혜현황");
+		service.management(map, logger, model);
+		
+		return "student/bulletin/management";
+	}
 
 	//장학금 수혜현황
 	@RequestMapping("/student/management")
@@ -70,7 +81,7 @@ public class StudentController {
 		logger.info("management");
 		//service.management(req, model);
 		
-		return "student/management";
+		return "/student/bulletin/management";
 	}
 	//학생개인정보
 	@RequestMapping("/student/personalProfile")
@@ -125,14 +136,14 @@ public class StudentController {
 		return "student/lecture&timetable/schoolTimeTable";
 	}
 	
-	/*// 시간표 Hover
+	// 시간표 Hover
 	@RequestMapping(value="/student/lectureHover", method=RequestMethod.POST)
 	public String lectureHover(@RequestBody Map<String, Object> map, Model model) {
 		logger.info("schoolTimeTable");
 		
 		service.lectureHover(map, logger, model);
 		return "student/schoolTimeTable";
-	}*/
+	}
 		
 	//강의 신청
 	@ResponseBody

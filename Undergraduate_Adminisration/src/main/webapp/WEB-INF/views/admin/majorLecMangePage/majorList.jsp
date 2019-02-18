@@ -16,14 +16,14 @@
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach var="major" items="${majors }">
+			<c:forEach var="major" items="${dtos }">
 				<tr>
 					<td class="text-center" style="vertical-align: middle;">${major.majorNum}</td>
 					<td class="text-center" style="vertical-align: middle;">${major.faculty }</td>
 					<td class="text-center" style="vertical-align: middle;">${major.majorName }</td>
 					<td class="text-center" style="vertical-align: middle;">${major.maxNum }</td>
 					<td>
-						<input class="btn btn-info" type="button" value="수정"
+						<input class="btn btn-success" type="button" value="수정"
 							onclick="openMajorModal('수정'
 								, '${major.majorNum}'
 								, '${major.faculty }'

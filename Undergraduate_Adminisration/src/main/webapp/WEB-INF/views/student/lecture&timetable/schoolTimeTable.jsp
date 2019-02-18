@@ -83,6 +83,7 @@
 							<li class="single-event" data-start="${dto.beginningLectureTime}"
 								data-end="${dto.endLectureTime}" data-event="event-${dto.rank}"><a
 								href="#0"><span></span> <em class="event-name">${dto.lectureName}</em>
+								
 							</a></li>
 						</c:if>
 					</c:forEach>

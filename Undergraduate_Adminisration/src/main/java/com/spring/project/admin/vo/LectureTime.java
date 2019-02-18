@@ -5,6 +5,7 @@ public class LectureTime {
 	public int timetblCode;
 	public String lectureDay;
 	public int lectureTimeCode;
+	public String classTime;
 	public String beginningLectureTime;
 	public String endLectureTime;
 	public int getTimetblCode() {
@@ -12,6 +13,12 @@ public class LectureTime {
 	}
 	public void setTimetblCode(int timetblCode) {
 		this.timetblCode = timetblCode;
+	}
+	public String getClassTime() {
+		return classTime;
+	}
+	public void setClassTime(String classTime) {
+		this.classTime = classTime;
 	}
 	public String getLectureDay() {
 		return lectureDay;

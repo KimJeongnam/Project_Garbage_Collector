@@ -29,10 +29,10 @@
 								<div class= "row">
 								<div class="x_content">
 									<div class="row form-inline">
-										<div class="col-sm-6">
+										<div class="col-sm-5">
 											<label> 년도 <select class="form-control input-sm"
 												id="registrationList-year"
-												onchange="adminregistrationList('${userNumber}');">
+												onchange="adminregistrationList('${userNumber}',1);">
 													<option value="0" selected="selected">선택</option>
 													<option value="1998">1998</option>
 													<option value="1999">1999</option>
@@ -61,7 +61,7 @@
 											
 											<label> 학기 <select class="form-control input-sm"
 												id="registrationList-semester"
-												onchange="adminregistrationList('${userNumber}');">
+												onchange="adminregistrationList('${userNumber}',1);">
 													<option value="0" selected="selected">선택</option>
 													<option value="1">1 학기</option>
 													<option value="2">2 학기</option>
@@ -73,10 +73,11 @@
 											
 											<label for="heard">합/불 검색:</label>
 					                         <select id="auditList" class="form-control" 
-					                         onchange="adminjudgeList('${userNumber}');" required>
-					                           <option value="2" selected="selected">전체</option>
+					                         onchange="adminjudgeList('${userNumber}',1);" required>
+					                           <option value="3" selected="selected">전체</option>
 					                           <option value="1">합격자</option>
 					                           <option value="0">불 합격자</option>
+					                           <option value="2">심사 중</option>
 					                         </select>
 
 									</div>
@@ -95,8 +96,8 @@
 	<%@ include file="../../Basic/footer.jsp"%>
 	<script type="text/javascript">
 		$(function() {
-		adminregistrationList('${userNumber}'); 
-		adminjudgeList('${userNumber}');
+		adminregistrationList('${userNumber}',1); 
+		adminjudgeList('${userNumber}',1);
 		});
 	
 	</script>

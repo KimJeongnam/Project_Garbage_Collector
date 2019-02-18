@@ -22,6 +22,9 @@ public interface StudentService {
 	//장학금 신청 
 	public void bulletin(Map<String, Object> map, Logger logger, Model model);
 	
+	//장학금 수혜내역
+	public void management(Map<String, Object> map, Logger logger, Model model);
+	
 	//장학금 글 신청 상세
 	public void contentForm(HttpServletRequest req,  Model model); 
 	

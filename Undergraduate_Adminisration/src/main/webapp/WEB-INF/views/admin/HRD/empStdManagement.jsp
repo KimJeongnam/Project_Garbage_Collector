@@ -71,8 +71,7 @@
 							<div>
 								<input class="btn btn-primary" type="button" value="등록"
 									onclick="window.location='proInsert2'">
-								<!-- <input class="btn btn-info" type="button" value="수정" onclick="window.location='proUpdate'">
-								<input class="btn btn-danger" type="button" value="삭제" onclick="window.location='proDelete'"> -->
+								<button type="button" class="btn btn-success" id="btnTest" data-toggle="modal" data-target=".bs-example-modal-sm">문자전송</button>
 							</div>
 						</div>
 					</div>
@@ -132,8 +131,9 @@
 										<div>
 											<input class="btn btn-primary" type="button" value="등록"
 												onclick="window.location='stdInsert2'">
-											<!-- <input class="btn btn-info" type="button" value="수정" onclick="window.location='proUpdate'">
-											<input class="btn btn-danger" type="button" value="삭제" onclick="window.location='proDelete'"> -->
+											<button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-sm">문자전송</button>
+											<!-- <input class="btn btn-primary" id="sendStudentBtn" type="button" value="문자전송"> -->
+											
 										</div>
 									</div>
 								</div>
@@ -144,12 +144,97 @@
 			</div>
 		</div>
 	</div>
+	 <!-- 문자전송 모달  -->
+    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel2">단체문자 전송</h4>
+                </div>
+                <div class="modal-body">
+                	<c:forEach var="stdDto" items="${dtos}">
+                   		<input  id="smsType" type="hidden" value="${stdDto.authority}">
+                    </c:forEach>
+                    	<textarea rows="" cols=""  style="resize :none; width : 265px; height: 80px;" id="SMSArea"></textarea>
+                </div>
+                <div class="modal-footer">
+                    	<button type="reset" class="btn btn-default" data-dismiss="modal">취소</button>
+                   		<button type="button" id="sendSMSBtn" class="btn btn-primary">전송</button>
+             
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 문자전송 모달 끝  -->
 	<!-- /page content -->
 
 	<%@ include file="../../Basic/footer.jsp"%>
 
 	<script type="text/javascript">
+		//학생문자전송버튼 클릭 시, 문자전송
+	/* 	$('#sendStudentBtn').click(function(){
+			if(confirm("전송하시겠습니까?")){
+				sendSMSMessage("ROLE_STUDENT");
+			}
+			
+			//todo: open modal pop
+			//smsType = 'ROLE_STUDENT';
+			//$('#smsType').val('ROLE_STUDENT');
+		});
 	
+		$('#sendEmployeeBtn').click(function(){
+			if(confirm("전송하시겠습니까?")){
+				sendSMSMessage("employee");
+			}
+			//todo: open modal pop
+			//smsType = 'employee';
+			//$('#smsType').val('employee');
+			
+		}); */
+		
+		//todo: textarea 변경시 전송 버튼 이벤트
+		 $('#sendSMSBtn').click(function(){
+			if(confirm("전송하시겠습니까?")){
+				//sendSMSMessage($('#smsType').val());
+				//sendSMSMessage(smsType);
+			 	if(confirm == true){
+				$('.modal').remove();
+				
+			 	}
+			}
+		}); 
+		
+		
+		//Send SMS message (보내는 ROLE)
+		function sendSMSMessage(authority){
+		   var obj = new Object();
+           obj.authority = authority;
+           
+           //todo: textarea value 로 변경 필요
+           obj.msg =$('#SMSArea').val();
+           
+            var jsonData = JSON.stringify(obj);
+            
+            //project/admin/ajax/sendSMSMessage 호출(ajax)
+            $.ajax({
+                url: '/project/admin/ajax/sendSMSMessage',
+                type: 'POST',
+                data: jsonData,
+                contentType: 'application/json;charset=UTF-8',
+                success: function(data) {
+                	if(data.result == "success"){
+                		alert("전송 성공");
+                	}else{
+                		alert("전송실패");
+                	}
+                },
+                error: function() {
+                	alert("Error!");
+                }
+            });
+		}
 			  function class_click(divid, userNum) {
 		            var obj = new Object();
 		            obj.userNum = userNum;
