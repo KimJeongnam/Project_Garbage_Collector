@@ -56,22 +56,27 @@
 		                      
 		                      <!-- 페이지 컨트롤 -->
 							<div class="row">
+								<div class="col-sm-5">
+									<div class="dataTables_info" id="datatable_info" role="status"
+										aria-live="polite">Showing ${number} to ${number+pageCount} of
+										${cnt} entries</div>
+								</div>
 								
 								<div class="col-sm-6">
-									<div class="text-right">
+									<div class="text-left">
 										<ul class="pagination">
 											<c:if test="${cnt > 0 }">
 												<c:if test="${startPage > pageBlock }">
-													<a href="/student/lectureList">[◀◀]</a>
-													<a href="/student/lectureList?pageNum=${startPage - pageBlock }">[◀&nbsp;prev]</a>
+													<a href="/admin/resister/adminregistrationList2">[◀◀]</a>
+													<a href="/admin/resister/adminregistrationList2?pageNum=${startPage - pageBlock }">[◀&nbsp;prev]</a>
 								
 													<li class="paginate_button previous disabled"
 														style="cursor: pointer;" id="datatable_previous"><a
-														onclick="studentLecture('${userNumber}', 1);"
+														onclick="adminregistrationList('${userNumber}', 1);"
 														aria-controls="datatable" data-dt-idx="0" tabindex="0">Frist</a></li>
 													<li class="paginate_button previous disabled"
 														style="cursor: pointer;"
-														onclick="studentLecture('${userNumber}', ${startPage - pageBlock});"
+														onclick="adminregistrationList('${userNumber}', ${startPage - pageBlock});"
 														id="datatable_previous"><a aria-controls="datatable"
 														data-dt-idx="0" tabindex="0">Previous</a></li>
 												</c:if>
@@ -83,7 +88,7 @@
 														</c:when>
 														<c:otherwise>
 															<li class="paginate_button" style="cursor: pointer;"
-																onclick="window.location='../../admin/registrationList?pageNum=${page }'"><a
+																onclick="adminregistrationList('${userNumber}', ${page });"><a
 																aria-controls="datatable" tabindex="0">${page }</a></li>
 														</c:otherwise>
 													</c:choose>
@@ -92,12 +97,12 @@
 												<c:if test="${pageCount > endPage }">
 													<li class="paginate_button next" id="datatable_next"
 														style="cursor: pointer;"
-													onclick="window.location='../../admin/registrationList?pageNum=${startPage + pageBlock }'">
+														onclick="adminregistrationList('${userNumber}', ${startPage + pageBlock });">
 														<a aria-controls="datatable" tabindex="0">Next</a>
 													</li>
 													<li class="paginate_button next" id="datatable_next"
 														style="cursor: pointer;"
-														onclick="window.location='../../admin/registrationList?pageNum=${pageCount }'">
+														onclick="adminregistrationList('${userNumber}', ${pageCount });">
 														<a aria-controls="datatable" tabindex="0">Last</a>
 													</li>
 												</c:if>
@@ -108,7 +113,7 @@
 								</div>
 								
 								<div style="float: right;">
-									  <input type = "button" class="btn btn-info" value="글쓰기" onclick="window.location='registration'">
+									  <input type = "button" class="btn btn-info" value="글쓰기1" onclick="window.location='registration'">
 				                      <input type = "button" class="btn btn-info" value="글 삭제" name="aaaa" onclick="delete_scholar();">
 									</div>
 							</div>

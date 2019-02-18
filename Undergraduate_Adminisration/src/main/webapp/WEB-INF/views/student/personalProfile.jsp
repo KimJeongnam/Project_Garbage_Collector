@@ -40,24 +40,40 @@
 							</div>
 							<div class="x_content">
 								<div class="col-md-3 col-sm-3 col-xs-12 profile_left">
-									<div class="profile_img">
-										<div id="crop-avatar">
-											<!-- Current avatar -->
-											<img style="width: 180px; height: 218px;" class="img-responsive avatar-view"
-												src="../resources/images/img.jpg" alt="Avatar" title="Change the avatar">
-										</div>
-									</div>
-									<h3>김설현</h3>
-									<ul class="list-unstyled user_data">
-										<li><i class="fa fa-map-marker user-profile-icon"></i>
-											경기도 안양시 만안구 병목안로 179 금용아파트 1111호
-										</li>
-										<li><i class="fa fa-briefcase user-profile-icon"></i>중국어학과</li>
-										<li><i class="fa fa-university user-profile-icon">경기대학교</i></li>
-										<li><i class="fa fa-phone user-profile-icon">010-2458-7354</i></li>
-									</ul>
-									<a class="btn btn-success"><i class="fa fa-edit m-right-xs"></i>프로필 사진 변경</a> <br />
-								</div>
+                                    <div class="profile_img">
+                                        <div id="crop-avatar">
+                                            <!-- Current avatar -->
+                                            <img style="width: 180px; height: 218px;" id="pimage" name="pimage" class="img-responsive avatar-view" src="../resources/images/img.jpg<%-- ${staticPath }${vo.getUserImage()} --%>" alt="Avatar" title="Change the avatar">
+                                        </div>
+                                    </div>
+                                    <h3>${vo.getUserName()}</h3>
+
+                                    <ul class="list-unstyled user_data">
+                                        <li><i class="fa fa-map-marker user-profile-icon"></i> 111111111
+                                        </li>
+
+                                        <li>
+                                            <i class="fa fa-briefcase user-profile-icon"></i> 일본어학과 전임 교수
+                                        </li>
+
+                                        <li>
+                                            <i class="fa fa-university user-profile-icon">Kwansei Gakuin 대학</i>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-phone user-profile-icon"> 111111111111111111</i>
+                                        </li>
+
+                                    </ul>
+                                   
+
+                                    <!-- 이미지 변경 모달  -->
+                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-sm">프로필 사진 바꾸기</button>
+                                    <!-- 이미지 변경 모달끝  -->
+                                    <br />
+
+                                </div>
+                                
+                                
 								<div class="col-md-9 col-sm-9 col-xs-12">
 									<div class="x_panel">
 										<div class="x_title">
@@ -431,6 +447,30 @@
 			</div>
 		</div>
 	</div>
+	<!-- 이미지 업로드 모달  -->
+    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel2">프로필 사진 바꾸기</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="imageUpload" method="post" enctype="multipart/form-data">  
+                    	<input class="btn btn-info" type="file" name="image" style="position:relative;right:11px;" required="required">
+                    	<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+                   		<button type="submit" class="btn btn-primary">변경</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 이미지 업로드 모달 끝 -->
+	
 	<!-- 다음 주소 API 추가  -->
 	<script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
 	<!-- /page content -->

@@ -1,5 +1,6 @@
  package com.spring.project.admin.service;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -7,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -111,4 +111,7 @@ public interface AdminService {
 	
 	
 	//---------------회계 START-------------------
+	
+	//메시지 전송부
+	public List<String> getUserCellNumList(Map<String, Object> map);
 }

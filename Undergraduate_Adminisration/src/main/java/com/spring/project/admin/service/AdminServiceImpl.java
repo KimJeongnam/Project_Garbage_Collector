@@ -67,7 +67,9 @@ public class AdminServiceImpl extends Board implements AdminService {
 		else
 			pageNum = (Integer) map.get("pageNum");
 		// 수강신청 목록 갯수 구하기
-		cnt = dao.getArticleCnt(map);
+		cnt = dao.Jang_getArticleCnt(map); 
+		System.out.println("cnt"+cnt);
+		System.out.println("pageNum"+pageNum);
 
 		pageCount = cnt / pageSize + (cnt % pageSize > 0 ? 1 : 0);
 
@@ -91,7 +93,7 @@ public class AdminServiceImpl extends Board implements AdminService {
 
 		if (cnt > 0) {
 			// 수강신청 목록 조회
-			List<ScholarpkVO> dtos = dao.getArticleList(map);
+			List<ScholarpkVO> dtos = dao.jang_getArticleList(map);
 
 			model.addAttribute("dtos", dtos);
 		}
@@ -221,13 +223,14 @@ public class AdminServiceImpl extends Board implements AdminService {
 
 	@Override
 	public void contentform(HttpServletRequest req, Model model) {
-		int scholarpk = Integer.parseInt(req.getParameter("scholarpk"));// sql용
-
-		// 5-2 상세페이지
-		ScholarpkVO dto = dao.getArticle(scholarpk);
-		System.out.println();
-
-		// 6단계 request나 session 에 처리 결과를 저장 (jsp에 전달하기 위함)
+		int scholarpk = Integer.parseInt(req.getParameter("scholarpk"));//sql용
+		
+		
+		//5-2 상세페이지
+		ScholarpkVO dto = dao.content_getArticle(scholarpk);
+		 
+				
+		//6단계 request나 session 에 처리 결과를 저장 (jsp에 전달하기 위함)
 		model.addAttribute("dto", dto);
 
 	}
@@ -237,8 +240,8 @@ public class AdminServiceImpl extends Board implements AdminService {
 		String[] checkbox = req.getParameterValues("scholarpks");
 
 		System.out.println("checkbox" + checkbox);
-
-		int updateCnt = dao.delete(checkbox);
+		
+		int updateCnt =dao.jang_delete(checkbox);
 		System.out.println("22222");
 
 		if (updateCnt != 0) {
@@ -440,12 +443,13 @@ public class AdminServiceImpl extends Board implements AdminService {
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("start", start);
 		map.put("end", end);
-		List<AdStdVO> dtos = dao.getStdList(map);
-
-		req.setAttribute("dtos", dtos); // 큰바구니 : 게시글 목록 cf)작은 바구니(vo)는 게시글 1건
-
-		List<AdProVO> vo = dao.getProList(map);
 		
+		//학생리스트
+		List<AdStdVO> dtos = dao.getStdList(map);
+		req.setAttribute("dtos", dtos); //큰바구니 : 게시글 목록 cf)작은 바구니(vo)는 게시글 1건
+		
+		//교수 리스트
+		List<AdProVO> vo = dao.getProList(map);
 		req.setAttribute("vo", vo);
 	}
 	
@@ -654,6 +658,14 @@ public class AdminServiceImpl extends Board implements AdminService {
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		List<AdStdVO> vo = dao.getSchoolLeave(map);
 		req.setAttribute("getSL", vo);
+	}
+	
+	//전화번호부 가져오기
+	@Override
+	public List<String> getUserCellNumList(Map<String, Object> map){
+		
+		return dao.getUserCellNumList(map);
+		
 	}
 
 	// 장학 심사
@@ -884,5 +896,7 @@ public class AdminServiceImpl extends Board implements AdminService {
 			red.addFlashAttribute("message", "등록이 완료되었습니다.");
 		}
 	}
+	
+	
 	
 }
