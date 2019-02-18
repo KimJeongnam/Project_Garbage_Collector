@@ -62,8 +62,7 @@
 	</insert>
 
 	<!-- 학생리스트 -->
-	<select id="getStdList" parameterType="java.util.Map"
-		resultType="com.spring.project.admin.vo.AdStdVO">
+	<select id="getStdList" parameterType="java.util.Map" resultType="com.spring.project.admin.vo.AdStdVO">
 		select u.userNumber, u.userName, m.majorName, m.majorNum, u.authority,
 		u.userCellNum , s.grade , st.graduation_state, f.faculty
 		from student s, studentState st , users u, major m, faculty f
@@ -77,14 +76,12 @@
 
 	<!-- 교수리스트 -->
 	<select id="getProList" parameterType="java.util.Map" resultType="com.spring.project.admin.vo.AdProVO">
-		select u.userNumber,  u.userName, m.majorName ,m.majorNum , 
-      			 u.authority,  e.annualLevel, e.empHiredDate ,rd.totalPayment , f.faculty
-		from employee e , users u, major m, payment p, registerDetail rd, faculty f
+		select u.userNumber,  u.userName, m.majorName ,m.majorNum , u.usercellnum,
+      			 u.authority,  e.annualLevel, e.empHiredDate, f.faculty
+		from employee e , users u, major m,  faculty f
 		where  u.userNumber(+)= e.empnumber
-		   		 and e.empnumber =  p.empnumber(+)
-		   		 and e.majorNum = m.majorNum
+		   		 and e.majorNum(+) = m.majorNum
 		   		 and f.faculty = m.faculty(+)
-		   		 and p.paymentcode = rd.paymentcode(+)
 		   		 and u.authority = 'ROLE_PROFESSOR'
 		   		 and u.delstatus != 1 
 	</select>

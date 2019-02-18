@@ -327,10 +327,6 @@ public class AdminServiceImpl extends Board implements AdminService {
 
 			int stdInsertResult = userInsert + stdInsert + stdState;
 
-			Map<String, Integer> map = new HashMap<String, Integer>();
-			List<AdProVO> voList = dao.FandMList(map);
-			req.setAttribute("outFandM", voList);
-
 			if (stdInsertResult != 0)
 				red.addFlashAttribute("message", "학생등록완료.");
 			else
@@ -487,7 +483,8 @@ public class AdminServiceImpl extends Board implements AdminService {
 	
 	//학생정보수정
 	@Override
-	public void stdDetailUpdate(HttpServletRequest req, RedirectAttributes red) {
+	public void stdDetailUpdate(HttpServletRequest req, Model model) {
+		
 		AdStdVO vo = new AdStdVO();
 
 		// users
@@ -520,22 +517,20 @@ public class AdminServiceImpl extends Board implements AdminService {
 		int stdUp = dao.updateStudent(vo);
 		int stdStateUp = dao.updateStudentState(vo);
 
-		int stdUpdatetResult = userUp + stdUp + stdStateUp;
+		int stdUpResult = userUp + stdUp + stdStateUp;
 
-		  if (stdUpdatetResult == 3) 
-			  red.addFlashAttribute("message", "학생정보수정완료.");
-		  else
-			  red.addFlashAttribute("message", "학생정보수정에러.");
-		 
+		 req.setAttribute("stdUpResult", stdUpResult);
 	}
 	
 	//교수정보수정
 	@Override
-	public void proDetailUpdate(HttpServletRequest req, RedirectAttributes red) {
+	public void proDetailUpdate(HttpServletRequest req, Model model) {
+		String usrNum = req.getParameter("userNumber");
+		
 		AdProVO vo = new AdProVO();
 
 		//users
-		vo.setUserNumber(req.getParameter("userNumber"));
+		vo.setUserNumber(req.getParameter(usrNum));
 		vo.setUserName(req.getParameter("userName"));
 		vo.setUserEngName(req.getParameter("userEngName"));
 		vo.setUserSsn(req.getParameter("userSsn"));
@@ -563,11 +558,8 @@ public class AdminServiceImpl extends Board implements AdminService {
 		int empUp = dao.updateEmployees(vo); 
 		
 		int proUpResult = userUp+ empUp ;
-
-		 if (proUpResult == 2) 
-			red.addFlashAttribute("message", "교수정보수정완료.");
-		 else
-			red.addFlashAttribute("message", "교수정보수정실패.");
+		
+		req.setAttribute("proUpResult", proUpResult);
 	}
 	
 	//회원 이미지수정

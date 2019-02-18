@@ -172,14 +172,6 @@ public class AdminController {
 		return "admin/HRD/empStdManagement";
 	}
 	
-	//학생상세정보 
-	@RequestMapping("/admin/stdMyPage")
-	public String stdMyPage(Map<String, Object> map, HttpServletRequest req, Model model) {
-		service.showStdDetail(map, req, model);
-		
-		return "admin/HRD/stdMyPage";
-	}
-	
 	//전화번호부 가져오기
 	@ResponseBody
 	@RequestMapping(value = "/admin/ajax/sendSMSMessage", method = RequestMethod.POST)
@@ -189,7 +181,6 @@ public class AdminController {
 		Map<String, Object> result = new HashMap<String, Object>();
 		 
 		 try {
-			 
 			 //Role(Authority)의 핸드폰 번호 조회
 			 List<String> userCellNumList = service.getUserCellNumList(map);
 			 
@@ -199,9 +190,7 @@ public class AdminController {
 		 }catch(Exception e) {
 			 logger.error(e.getMessage());
 			 result.put("result", "fail");
-			 
 		 }
-		 
 		return result;
 	}
 	
@@ -217,7 +206,14 @@ public class AdminController {
 		 service.showProDetail(req, model);
 		 return "admin/HRD/proMyPage";
 	 }
-	 
+	
+	//학생상세정보 
+	@RequestMapping("/admin/stdMyPage")
+	public String stdMyPage(Map<String, Object> map, HttpServletRequest req, Model model) {
+		service.showStdDetail(map, req, model);
+		return "admin/HRD/stdMyPage";
+	}
+	
 	//학생이미지 수정
 	 @RequestMapping("/admin/userImgUpdate") 
 	 public String userImgUpdate(MultipartHttpServletRequest req, RedirectAttributes red) {
@@ -229,16 +225,16 @@ public class AdminController {
 	 
 	//학생정보수정
 	 @RequestMapping("/admin/stdDetailUpdate") 
-	 public String stdDetailUpdate(HttpServletRequest req, RedirectAttributes red) {
-		 service.stdDetailUpdate(req, red);
-		 return "redirect:/admin/empStdManagement";
+	 public String stdDetailUpdate(HttpServletRequest req,  Model model) {
+		 service.stdDetailUpdate(req, model);
+		 return "admin/HRD/stdMypage?userNumber=+req.getParameter('userNumber')";
 	 }
 	 
 	//교수정보수정
 	 @RequestMapping("/admin/proDetailUpdate") 
-	 public String proDetailUpdate(HttpServletRequest req, RedirectAttributes red) {
-		 service.proDetailUpdate(req, red);
-		 return "redirect:/admin/empStdManagement";
+	 public String proDetailUpdate(HttpServletRequest req,  Model model) {
+		 service.proDetailUpdate(req, model);
+		 return "admin/HRD/proUpPro";
 	 }
 	 
 	  //학생+교수정보삭제
