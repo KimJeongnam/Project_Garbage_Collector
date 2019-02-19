@@ -101,7 +101,10 @@
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input type="text" disabled="disabled" class="form-control col-md-7 col-xs-12" name="userName" value=" ${vo.userName}">
-
+                                <input type="hidden" name="infoCode" value=" ${vo.incode}">
+                                <input type="hidden" name="grade" value=" ${vo.grade}">
+                                <input type="hidden" name="semester2" value=" ${vo.semester2}">
+                                <input type="hidden" name="userName" value=" ${vo.userName}">
                             </div>
                         </div>
                         <div class="form-group">
@@ -120,14 +123,14 @@
                             </div>
 
 
-
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="college">학점 <span class="required">*</span>
+						<div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">학점 <span class="required">*</span>
                             </label>
                             <div class="col-md-3 col-sm-3 col-xs-8">
-                                <input type="text" disabled="disabled" id="credit${status.index}" name="credit" class="form-control col-md-7 col-xs-12" value="">
+                                <input type="text" readonly="readonly" id="credit${status.index}" name="credit" class="form-control col-md-7 col-xs-12">
                             </div>
 
-
+						</div>
                         </div>
                         <div class="ln_solid"></div>
                         <div class="form-group">
@@ -157,8 +160,9 @@
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">이름 <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" disabled="disabled" name="userName" class="form-control col-md-7 col-xs-12" value=" ${vo.userName}">
-
+                            						<!-- disabled="disabled" 는 파라미터로 못받아옴 readonly="readonly" 는 파라미터로 받아옴 -->
+                                <input type="text" readonly="readonly" name="userName2" class="form-control col-md-7 col-xs-12" value=" ${vo.userName}">
+								<input type="hidden" name="infoCode" value=" ${vo.incode}">
                             </div>
                         </div>
                         <div class="form-group">
@@ -180,7 +184,7 @@
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="college">학점 <span class="required">*</span>
                             </label>
                             <div class="col-md-3 col-sm-3 col-xs-8">
-                                <input type="text" disabled="disabled" name="credit" id="credit${status.index+100}" class="form-control col-md-7 col-xs-12" value="${vo.credit}">
+                                <input type="text" readonly="readonly" name="credit2" id="credit${status.index+100}" class="form-control col-md-7 col-xs-12" value="${vo.credit}">
                             </div>
 
 
@@ -188,7 +192,7 @@
                         <div class="ln_solid"></div>
                         <div class="form-group">
                             <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-4">
-                                <input type="submit" class="btn btn-primary" value="입력">
+                                <input type="submit" class="btn btn-primary" value="수정">
                                 <input type="button" class="btn btn-dark" data-dismiss="modal" aria-label="Close" value="취소">
                             </div>
                         </div>
