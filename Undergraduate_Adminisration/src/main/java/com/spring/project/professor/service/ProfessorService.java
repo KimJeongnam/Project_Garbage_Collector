@@ -32,6 +32,9 @@ public interface ProfessorService {
 	public void updateScore(HttpServletRequest req, RedirectAttributes red);
 	
 	//강의계획
+	public void plan(HttpServletRequest req, Model model);
+	public void firstPlan(Map<String, Object> map, HttpServletRequest req, Model model);
+	public void getPlan(Map<String, Object> map, HttpServletRequest req, Model model);
 	
 	//과제관리
 }

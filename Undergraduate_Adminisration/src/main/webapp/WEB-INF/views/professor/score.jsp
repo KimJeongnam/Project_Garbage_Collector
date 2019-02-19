@@ -85,7 +85,11 @@
 
                     },
                     error: function() {
-                        alert("Error! firstLec();");
+                    	swal({
+    						text:"Error! firstLec();",
+    						icon: "error",
+    						button:"확인",
+    					});
                     }
                 });
             })();
@@ -104,7 +108,11 @@
                         $('#tab_content1').html(data);
                     },
                     error: function() {
-                        alert("Error! class_click();");
+                    	swal({
+    						text:"Error! class_click();",
+    						icon: "error",
+    						button:"확인",
+    					});
                     }
                 });
             }
@@ -124,7 +132,11 @@
                             $('#tab_content1').html(data); //#tab_content1로 데이터를 뿌려라.
                         },
                         error: function() {
-                            alert("Error! firstLec();");
+                        	swal({
+        						text:"Error! firstLec();",
+        						icon: "error",
+        						button:"확인",
+        					});
                         }
                     });
                 });
