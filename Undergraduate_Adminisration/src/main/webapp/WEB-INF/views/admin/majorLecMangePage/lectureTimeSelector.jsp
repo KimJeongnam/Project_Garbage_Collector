@@ -142,9 +142,10 @@ button, input {
 							<c:if test="${lecture.lectureDay == day}">
 								<c:choose>
 									<c:when test="${mode eq 'selector' }">
+									<c:set var="key">${lecture.lectureName}</c:set>
 										<li class="single-event"
 											data-start="${lecture.beginningLectureTime}"
-											data-end="${lecture.endLectureTime}" data-event="event-3"
+											data-end="${lecture.endLectureTime}" data-event="event-${colorMap[key] }"
 											onclick="" id="li-${dStatus.index }${iStatus.index}"><a><span></span>
 												<em style="color:white; font-weight: bold; padding: 5px; font-size: 10px;">
 													${lecture.classTime }교시

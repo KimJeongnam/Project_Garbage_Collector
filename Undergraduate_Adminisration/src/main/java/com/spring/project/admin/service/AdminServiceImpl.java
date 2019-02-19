@@ -718,9 +718,12 @@ public class AdminServiceImpl extends Board implements AdminService {
 
 	// 학과 삭제
 	@Override
-	public Map<String, Object> deleteMajor(Map<String, Object> map) {
+	public Map<String, Object> deleteMajor(LectureVO lecture) {
 		Map<String, Object> resopnseData = new HashMap<String, Object>();
-		if (dao.deleteMajor(map) > 0)
+		dao.deleteMajor(lecture);
+		
+		System.out.println("result : "+lecture.getResult());
+		if (lecture.getResult() > 0)
 			resopnseData.put("status", "success");
 		else
 			resopnseData.put("status", "fail");
@@ -756,11 +759,24 @@ public class AdminServiceImpl extends Board implements AdminService {
 		map.put("semester", semester);
 		List<Object> list = dao.emptyLecTime(map);
 		List<Object> lectures = dao.getLecturesTimes(map);
+		Map<String, Integer> colorMap = new HashMap<String, Integer>();
+		
+		int idx = 1;
+		for(Object obj: lectures) {
+			LectureVO data = ((LectureVO)obj);
+			if(!colorMap.containsKey(data.getLectureName())) {
+				if(idx==6)
+					idx+=1;
+				colorMap.put(data.getLectureName(), idx++);
+			}
+		}
+		
 		days.add("월");
 		days.add("화");
 		days.add("수");
 		days.add("목");
 		days.add("금");
+		model.addAttribute("colorMap", colorMap);
 		model.addAttribute("lectures", lectures);
 		model.addAttribute("days", days);
 		model.addAttribute("dtos", list);

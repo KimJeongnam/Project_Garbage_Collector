@@ -277,9 +277,9 @@ public class AdminController {
 	// 학과 삭제*
 	@ResponseBody
 	@RequestMapping(value = "/admin/major_lecture_Manager/ajax/deleteMajor", method = RequestMethod.POST)
-	public Map<String, Object> deleteMajor(@RequestBody Map<String, Object> map) {
+	public Map<String, Object> deleteMajor(@RequestBody LectureVO lecture) {
 		logger.info("deleteMajor()");
-		return service.deleteMajor(map);
+		return service.deleteMajor(lecture);
 	}
 
 	// 학과 추가*

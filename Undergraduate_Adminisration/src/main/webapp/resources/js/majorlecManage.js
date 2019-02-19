@@ -137,6 +137,9 @@ function deleteMajor(majorNum){
 			}else{
 				$('#majorAdd-Modal').modal('hide');
 				getMajors(pageNum);
+				getFacultys(init_collegeSelector);
+				getFacultys(init_lec_facultySelector);
+				getLectureList();
 			}
 		},
 		error : function(){	}
@@ -308,31 +311,8 @@ function selectTimeDo(){
 	if(lectureTimeMap.size==0) self.close();
 	else{
 		opener.lectureTimeMap = lectureTimeMap;
-		var classTimes = '';
-		var ids = [];
-	
-		for(var key of lectureTimeMap.keys()){
-			ids.push(key);
-		}
-		ids.sort(function(a,b){
-			return a-b;
-		})
-		
-		var day = 999;
-		var str = '';
-		ids.forEach(function(key){
-			var obj = lectureTimeMap.get(key);
-			
-			if(day != Math.floor((key/10))){
-				if(str.length>0) str += "], ";
-				day = Math.floor((key/10));
-				str += obj.lectureDay;
-				str += "["+obj.classTime;
-			}else
-				str += ","+obj.classTime;
-				
-		});
-		str += "]";
+
+		var str = dayParser(lectureTimeMap);
 		
 		$(opener.document).find("#classTimeButton").val(str);
 		$(opener.document).find("#classTimeButton").attr("class", "form-control btn btn-success col-md-7 col-xs-12");
@@ -340,6 +320,36 @@ function selectTimeDo(){
 		self.close();
 	}
 }
+
+function dayParser(map){
+	var ids = [];
+	
+	for(var key of map.keys()){
+		ids.push(key);
+	}
+	ids.sort(function(a,b){
+		return a-b;
+	})
+	
+	var day = 999;
+	var str = '';
+	ids.forEach(function(key){
+		var obj = map.get(key);
+		
+		if(day != Math.floor((key/10))){
+			if(str.length>0) str += "], ";
+			day = Math.floor((key/10));
+			str += obj.lectureDay;
+			str += "["+obj.classTime;
+		}else
+			str += ","+obj.classTime;
+			
+	});
+	str += "]";
+	
+	return str;
+}
+
 //-----------------강의선택END--------------
 
 
@@ -349,6 +359,7 @@ function openNewLectureModal(){
 		url : '/project/admin/major_lecture_Manager/getLectureSeqNextVal',
 		type : 'GET',
 		success : function(data){
+			initLectureModal();
 			setLecCode(data.lectureNextVal);
 		},
 		error : function(){
@@ -611,6 +622,7 @@ function initLectureModal(){
 	initTime();				// 선택한 강의 시간을 초기화함
 	$('#majorNum').val('');
 	$('#lecCode').val('');
+	$('#lecTimeReset').attr('hidden', 'true');
 	$('#empNumberButton').val('선택 하세요.');
 	$('#empNumberButton').attr("class", "form-control btn btn-warning col-md-7 col-xs-12")
 	$('#empNumber').val('');
@@ -696,6 +708,14 @@ function insertLecture(){
 
 function getLectureInfo(leccode, callback){
 	$.ajax({
-		
+		url : '/project/rest/api/v1.0/getLecture/'+leccode,
+		type : 'GET',
+		success : function(data){
+			if(data!=null)
+				callback(data);
+		},
+		error : function(){
+			alert("Error! getLectureInfo()");
+		}
 	});
 }

@@ -310,10 +310,14 @@
 									<label for="middle-name"
 										class="control-label col-md-3 col-sm-3 col-xs-12"
 										for="classTimeButton">강의 시간 선택</label>
-									<div class="col-md-8 col-sm-6 col-xs-12">
+									<div class="col-md-6 col-sm-6 col-xs-12">
 										<input id="classTimeButton" class="form-control btn btn-default col-md-7 col-xs-12"
 											type="button" value="교수를 선택하세요." disabled="disabled">
 										<input id="classTime" hidden="true" type="text">
+									</div>
+									<div class="col-md-3 col-sm-6 col-xs-12">
+										<input id="lecTimeReset" class="btn btn-warning col-md-7 col-xs-12"
+											type="button" required="required" value="초기화" style="padding:5px;">
 									</div>
 								</div>
 							</div>
@@ -381,20 +385,65 @@
 											type="button" class="btn btn-danger" value="삭제" onclick=""
 											id="lectureModalDelBtn">
 									</div>
-								</div>
+								</div>``
 							</div><div class="col-md-6"></div>
 						</form>
 					</div>
 				</div>
 			</div>
 		</div>
+		
 		<!-- ==============================강의 추가,수정모달창END================================ -->
 	</div>
 
 	<%@ include file="../../Basic/footer.jsp"%>
 	<script src="${staticPath }/js/majorlecManage.js"
 		type="text/javascript"></script>
+	
+	
 	<script>
+	var setModifyLectureModal = function(data){
+		initTime();
+		
+		if(data.lectureTimes.length==0){
+			$('#classTimeButton').val('강의 시간을 선택 하세요.');
+			$('#classTimeButton').attr("class", "form-control btn btn-warning col-md-7 col-xs-12");
+		}else{
+			$('#classTimeButton').attr("class", "form-control btn btn-success col-md-7 col-xs-12");	
+
+			data.lectureTimes.forEach(function (time){
+				var obj = new Object();
+				obj.lectureDay = time.lectureDay;
+				obj.classTime = time.classTime;
+				lectureTimeMap.set(time.timetblCode, obj);
+			});
+			var str = dayParser(lectureTimeMap);
+			$('#classTimeButton').val(str);
+		}
+		$('#classTimeButton').attr("onclick", "openTimeSelector('"+data.userNumber+"');")
+		$('#classTimeButton').removeAttr("disabled");
+		
+		$('#majorNum').val(data.majorNum);
+		setLecCode(data.lecCode);
+		$('#lecTimeReset').attr('hidden', 'false');
+		// 초기화 버튼 onclick 설정 해줘야함
+		$('#empNumberButton').val(data.userNumber);
+		$('#empNumberButton').attr("class", "form-control btn btn-success col-md-7 col-xs-12")
+		$('#empNumber').val(data.userNumber);
+		$('#grade').val(data.grade);
+		$('#grantedSemester').val(data.grantedSemester);
+		$('#classRoom').val(data.classRoom);
+		$('#lectureClassfication').val(Number(data.lectureClassfication));
+		$('#lectureName').val(data.lectureName);
+		$('#lectureScore').val(data.lectureScore);
+		$('#maximumcapacity').val(data.maximumCapacity);
+		$('#lectureModalBtn').attr("onclick", "");
+		$('#lectureModalBtn').attr("value", "수정");
+		
+		$('#lecture-Modal').modal({backdrop:'static', keyboard:false});
+	}
+	
+	
 		$(function() {
 			getFacultys(init_collegeSelector);
 			getFacultys(init_lec_facultySelector);

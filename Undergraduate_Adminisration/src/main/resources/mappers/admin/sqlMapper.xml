@@ -363,6 +363,7 @@
 
 	<!-- ==========================================교직 업무 관리 START========================================= -->
 	<resultMap type="com.spring.project.student.vo.LectureVO" id="lectureMap">
+		<id property="lecCode" column="leccode"/>
 		<collection property="lectureTimes" column="leccode" select="getLectureTime"></collection>
 	</resultMap>
 	
@@ -435,11 +436,9 @@
 		    ]]>
 	</select>
 
-	<update id="deleteMajor" parameterType="java.util.Map">
-		UPDATE major SET
-		delStatus = 1
-		WHERE majorNum = #{majorNum}
-	</update>
+	<select id="deleteMajor" statementType="CALLABLE" parameterType="com.spring.project.student.vo.LectureVO">
+		{ call update_major_delstatus_proc(#{majorNum}, 1,  #{result, mode=OUT, javaType=int, jdbcType=NUMERIC}) }
+	</select>
 
 	<insert id="addMajor"
 		parameterType="com.spring.project.share.vo.Major">
@@ -539,7 +538,6 @@
 		<where>
 	            	<![CDATA[ 
 	            	l.delStatus <> 1 
-	            	AND m.delStatus <> 1
 	            	]]>
 			<if test="division != null">
 				AND l.lectureClassfication = #{division}
@@ -579,7 +577,6 @@
 		<where>
 	            	<![CDATA[ 
 	            	l.delStatus <> 1 
-	            	AND m.delStatus <> 1
 	            	]]>
 			<if test="division != null">
 				AND l.lectureClassfication = #{division}

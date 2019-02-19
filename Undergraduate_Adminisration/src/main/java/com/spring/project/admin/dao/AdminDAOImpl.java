@@ -262,8 +262,8 @@ public class AdminDAOImpl implements AdminDAO{
 	
 	// 학과 폐지
 	@Override
-	public int deleteMajor(Map<String, Object> map) {
-		return sqlSession.update("com.spring.project.admin.dao.AdminDAO.deleteMajor", map);
+	public void deleteMajor(LectureVO lecture) {
+		sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.deleteMajor", lecture);
 	}
 	// 학과 개설
 	@Override

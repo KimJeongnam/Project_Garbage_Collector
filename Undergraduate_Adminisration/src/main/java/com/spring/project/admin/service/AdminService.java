@@ -75,7 +75,7 @@ public interface AdminService {
 	// 학과 리스트
 	public void getMajors(Map<String, Object> map, Model model);
 	// 학과 삭제
-	public Map<String, Object> deleteMajor(Map<String, Object>map);
+	public Map<String, Object> deleteMajor(LectureVO lecture);
 	// 학과 추가
 	public Map<String, Object> addMajor(Major major);
 	// 학과 수정
