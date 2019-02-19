@@ -45,8 +45,6 @@ public class AdProVO {
 	private int regDeCode;			//급여대장 상세코드
 	private int totalPayment;		//총금액
 	
-	
-	
 	public Date getPaymentDate() {
 		return paymentDate;
 	}

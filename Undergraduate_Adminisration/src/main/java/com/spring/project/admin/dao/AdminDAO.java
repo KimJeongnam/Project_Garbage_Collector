@@ -25,7 +25,8 @@ public interface AdminDAO {
 	//교수등록 처리
 	public int insertPUsers(AdProVO vo);
 	public int insertEmployees(AdProVO vo);
-
+	public int insertProcedure(AdProVO vo);
+	
 	//학생정보 업데이트
 	public int updateUsers(AdStdVO vo);
 	public int updateStudent(AdStdVO vo);
@@ -128,6 +129,12 @@ public interface AdminDAO {
 	
 	public List<payrollVO> accountFacultyList(Map<String, Object> map);
 	
-	
 	public int insertPayroll(payrollVO vo);
+	
+	public int ConfirmationWorkRecord(List<Map<String, Object>> list);
+	
+	public int updateOverPay(List<Map<String, Object>> list);
+	
+	public int SaveEnterAmountManually(List<Map<String, Object>> list);
+	
 }

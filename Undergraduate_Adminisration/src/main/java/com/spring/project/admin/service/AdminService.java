@@ -102,6 +102,8 @@ public interface AdminService {
 	
 	public void insertPayroll(HttpServletRequest req,  RedirectAttributes red);
 	
+	public void ConfirmationWorkRecord(HttpServletRequest req, RedirectAttributes red);
 	
+	public void SaveEnterAmountManually(HttpServletRequest req, RedirectAttributes red);
 	//---------------회계 START-------------------
 }

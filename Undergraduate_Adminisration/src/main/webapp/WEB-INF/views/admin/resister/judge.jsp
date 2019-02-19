@@ -175,7 +175,6 @@
 						field.setAttribute("value", $('.table_records2')[i].value);
 						form.appendChild(field);
 					}
-					
 				}
 				
 				document.body.appendChild(form);

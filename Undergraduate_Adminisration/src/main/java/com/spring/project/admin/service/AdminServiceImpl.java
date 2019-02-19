@@ -438,12 +438,12 @@ public class AdminServiceImpl implements AdminService{
 			vo.setAccountHolder(req.getParameter("accountHolder"));
 			vo.setAccountNumber(req.getParameter("accountNumber"));
 			
-			
 			int userInsert = dao.insertPUsers(vo); 
 			int empInsert = dao.insertEmployees(vo); 
+			int insertProcedure = dao.insertProcedure(vo);
 			
-			int proInsertResult = userInsert+ empInsert ;
-
+			int proInsertResult = userInsert+ empInsert+insertProcedure;
+			
 			 if (proInsertResult != 0) 
 				red.addFlashAttribute("message", "교수등록완료.");
 			 else
@@ -877,6 +877,7 @@ public class AdminServiceImpl implements AdminService{
 		
 		List<payrollVO> dtosT = dao.getFinalPayrollList();
 		model.addAttribute("dtosT", dtosT);
+		
 	}
 	@Override
 	public Map<String, Object> getLectureSeqNextval() {
@@ -995,6 +996,64 @@ public class AdminServiceImpl implements AdminService{
 		
 		if (cnt == 1) {
 		red.addFlashAttribute("message","등록이 완료되었습니다.");
+		}
+	}
+	@Override
+	public void ConfirmationWorkRecord(HttpServletRequest req, RedirectAttributes red) {
+		String[] overtime = req.getParameterValues("overtime");
+		String[] empNumber = req.getParameterValues("empNumber");
+		
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		
+		for(int i=0; i<overtime.length; i++) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("overtime", overtime[i]);
+			map.put("empNumber", empNumber[i]);
+			
+			list.add(map);
+		}
+		
+		if(overtime != null) {
+			int cnt1 = dao.ConfirmationWorkRecord(list);
+			int cnt2 = dao.updateOverPay(list);
+			int cnt = cnt1+ cnt2; 
+			if(cnt != 0) {
+				red.addFlashAttribute("message","저장이 완료되었습니다");
+			} else {
+				red.addFlashAttribute("message","ConfirmationWorkRecord() Error");
+			}
+		}
+	}
+	@Override
+	public void SaveEnterAmountManually(HttpServletRequest req, RedirectAttributes red) {
+		String[] basicPay = req.getParameterValues("basicPay");
+		String[] extraPay = req.getParameterValues("extraPay");
+		String[] foodExpenses = req.getParameterValues("foodExpenses");
+		String[] vehicleCost = req.getParameterValues("vehicleCost");
+		String[] empNumber = req.getParameterValues("empNumber");
+		
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		
+		for(int i=0; i<basicPay.length; i++) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("basicPay", basicPay[i].replaceAll("[,]",""));
+			map.put("extraPay", extraPay[i].replaceAll("[,]",""));
+			map.put("foodExpenses", foodExpenses[i].replaceAll("[,]",""));
+			map.put("vehicleCost", vehicleCost[i].replaceAll("[,]",""));
+			map.put("empNumber", empNumber[i]);
+			
+			list.add(map);
+		}
+		
+		if(basicPay != null) {
+			int cnt = dao.SaveEnterAmountManually(list);
+			//int cnt2 = dao.updateOverPay(list);
+			//int cnt1 = cnt1+ cnt2; 
+			if(cnt != 0) {
+				red.addFlashAttribute("message","저장이 완료되었습니다");
+			} else {
+				red.addFlashAttribute("message","SaveEnterAmountManually() Error");
+			}
 		}
 	}
 	

@@ -57,24 +57,27 @@
 											<td style="vertical-align: middle">${dto.paymentDate}</td>
 											<td style="vertical-align: middle">${dto.paymentYear}</td>
 											<th style="vertical-align: middle"><a
-												class="btn btn-success"
-												data-target="#Confirmation-workRecord" data-toggle="modal"><i
+												class="btn btn-success" 
+												<%-- onclick="ConfirmationWorkRecord(${dto.imputedYear});" --%>
+												data-target="#ConfirmationWorkRecord" data-toggle="modal"><i
 													class="fa fa-edit m-right-xs"></i>근무기록확정</a><br> <a
 												class="btn btn-success" data-target="#Insert-workRecord"
 												data-toggle="modal"><i class="fa fa-edit m-right-xs"></i>금액직접입력</a></th>
 											<td style="vertical-align: middle"><a
-												onclick="lookupWorkRecord('${dto.imputedYear}')"
+												<%-- onclick="lookupWorkRecord('${dto.imputedYear}')" --%>
 												class="btn btn-success" data-target="#Lookup-workRecord"
 												data-toggle="modal"><i
 													class="glyphicon glyphicon-search"></i>조회</a> <a onclick=""
 												class="btn btn-success"
 												data-target="#Specification-workRecord" data-toggle="modal">
 													<i class="glyphicon glyphicon-list-alt"></i>명세서
-											</a> <br> <a onclick="" class="btn btn-success"><i
-													class="glyphicon glyphicon-ok"></i>확정</a> <a onclick=""
+											</a> <br> <a onclick="Confirm();" 
+													class="btn btn-success"><i
+													class="glyphicon glyphicon-ok"></i>확정</a> 
+												<a onclick="Delete();"
 												class="btn btn-danger"><i
 													class="glyphicon glyphicon-trash"></i>삭제</a></td>
-											<td style="vertical-align: middle">${dto.totalAmount}</td>
+											<td style="vertical-align: middle" id="total"></td>
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -96,7 +99,7 @@
 	</div>
 	<!-- /page content -->
 
-	<div class="modal fade" id="Confirmation-workRecord">
+	<div class="modal fade" id="ConfirmationWorkRecord">
 		<div class="modal-dialog">
 			<div class="modal-content" style="width: 730px">
 				<!-- header -->
@@ -107,44 +110,45 @@
 					<h4 class="modal-title">근무기록확정</h4>
 				</div>
 				<!-- body -->
+				
 				<div class="modal-body">
 					<div class="row form-inline"
 						style="margin: 0px; vertical-align: middle">
 						<div style="float: right">
-							<input type="text" style="height: 30px; margin-right: 4px">
-							<button class="btn btn-primary">확정</button>
+							<input type="text" id="worktime" style="text-align:right;height: 30px; margin-right: 4px">
+							<button class="btn btn-primary" onclick="fixSetting();">확정</button>
 						</div>
 					</div>
-
+					
 					<table class="table table-striped jambo_table bulk_action">
 						<thead>
 							<tr class="headings">
-								<th><input type="checkbox" id="checkAll"
-									onclick="checkAll();"></th>
+								<th><input type="checkbox" id="allCheck1"></th>
 								<th>교직원번호</th>
 								<th>교직원명</th>
 								<th>부서/전공</th>
-								<th>추가수당시간</th>
+								<th>추가수당시간(hr)</th>
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="dto" items="${dtosF}">
+							<c:forEach var="dto" items="${dtosF}" varStatus="status">
 								<tr>
-									<td><input type="checkbox" class="checkbox"></td>
+									<td><input type="checkbox" class="checkbox1"></td>
 									<td>${dto.empNumber}</td>
-									<td>${dto.accountHolder}</td>
+									<td>${dto.userName}</td>
 									<td>${dto.majorName}</td>
-									<td><input type="text"
-										value="<fmt:formatNumber value="${dto.extraPay}" pattern="#,###" />원"
+									<td><input type="text" class="checkboxResult${status.index}" name="overtime"
+										value="<fmt:formatNumber value="${dto.overtime}"/>"
 										style="width: 80px; text-align: right"></td>
 								</tr>
+									<input type="hidden" name="empNumber" value="${dto.empNumber}">
 							</c:forEach>
 						</tbody>
 					</table>
 				</div>
 				<!-- Footer -->
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary">저장</button>
+					<button type="button" class="btn btn-primary" onclick="saveOverTime()">저장</button>
 					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
 				</div>
 			</div>
@@ -155,7 +159,7 @@
 
 	<div class="modal fade" id="Insert-workRecord">
 		<div class="modal-dialog">
-			<div class="modal-content" style="width: 730px">
+			<div class="modal-content" style="width: 800px">
 				<!-- header -->
 				<div class="modal-header">
 					<!-- 닫기(x) 버튼 -->
@@ -168,21 +172,20 @@
 					<div class="row form-inline"
 						style="margin: 0px; vertical-align: middle">
 						<div style="float: right">
-							<select class="form-control input-sm" id="lectureList-grade"
-								onchange=""
+							<select class="form-control input-sm" id="kindsofpay"
 								style="width: 150px; height: 30px; margin-bottom: 3px">
-								<option value="추가근무수당" selected="selected">추가근무수당</option>
+								<option value="기본급" selected="selected">기본급</option>
+								<option value="추가근무수당">추가근무수당</option>
 								<option value="식대">식대</option>
 								<option value="차량유지비">차량유지비</option>
-							</select> <input type="text" style="height: 30px; margin-right: 4px">
-							<button class="btn btn-primary">확정</button>
+							</select> <input type="text" id="payamount" style="text-align:right;height: 30px; margin-right: 4px">
+							<button class="btn btn-primary" onclick="fixSetting2();">확정</button>
 						</div>
 					</div>
 					<table class="table table-striped jambo_table bulk_action">
 						<thead>
 							<tr class="headings">
-								<th><input type="checkbox" id="checkAll"
-									onclick="checkAll();"></th>
+								<th><input type="checkbox" id="allCheck2"></th>
 								<th>교직원번호</th>
 								<th>교직원명</th>
 								<th>부서/전공</th>
@@ -193,25 +196,26 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="dto" items="${dtosF}">
+							<c:forEach var="dto" items="${dtosF}" varStatus="status">
 								<tr>
-									<td><input type="checkbox" class="checkbox"></td>
+									<td><input type="checkbox" class="checkbox2"></td>
 									<td>${dto.empNumber}</td>
-									<td>${dto.accountHolder}</td>
+									<td>${dto.userName}</td>
 									<td>${dto.majorName}</td>
-									<td><input type="text"
+									<td><input type="text" class="basicPay${status.index}" name="basicPay"
 										style="width: 80px; text-align: right"
-										value="<fmt:formatNumber value="${dto.basicPay}" pattern="#,###" />원"></td>
-									<td><input type="text"
+										value="<fmt:formatNumber value="${dto.basicPay}"  />">원</td>
+									<td><input type="text" class="extraPay${status.index}" name="extraPay"
 										style="width: 80px; text-align: right"
-										value="<fmt:formatNumber value="${dto.extraPay}" pattern="#,###" />원"></td>
-									<td><input type="text"
+										value="<fmt:formatNumber value="${dto.extraPay}" />">원</td>
+									<td><input type="text" class="foodExpenses${status.index}" name="foodExpenses"
+										style="width: 80px; text-align: right" 
+										value="<fmt:formatNumber value="${dto.foodExpenses}" />">원</td>
+									<td><input type="text" class="vehicleCost${status.index}" name="vehicleCost"
 										style="width: 80px; text-align: right"
-										value="<fmt:formatNumber value="${dto.foodExpenses}" pattern="#,###" />원"></td>
-									<td><input type="text"
-										style="width: 80px; text-align: right"
-										value="<fmt:formatNumber value="${dto.vehicleCost}" pattern="#,###" />원"></td>
+										value="<fmt:formatNumber value="${dto.vehicleCost}" />">원</td>
 								</tr>
+								<input type="hidden" name="empNumber" value="${dto.empNumber}">
 							</c:forEach>
 						</tbody>
 					</table>
@@ -221,7 +225,7 @@
 
 				<!-- Footer -->
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary">저장</button>
+					<button type="button" class="btn btn-primary" onclick="SaveEnterAmountManually()">저장</button>
 					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
 				</div>
 			</div>
@@ -271,14 +275,16 @@
 										<c:forEach var="dto" items="${dtosF}">
 											<tr>
 												<td>${dto.empNumber}</td>
-												<td>${dto.accountHolder}</td>
+												<td>${dto.userName}</td>
 												<td>${dto.majorName}</td>
 												<td><fmt:formatNumber value="${dto.basicPay}" pattern="#,###" />원</td>
 												<td><fmt:formatNumber value="${dto.extraPay}" pattern="#,###" />원</td>
 												<td><fmt:formatNumber value="${dto.foodExpenses}" pattern="#,###" />원</td>
 												<td><fmt:formatNumber value="${dto.vehicleCost}" pattern="#,###" />원</td>
 												<c:set var="ActualPayment" value="${dto.basicPay + dto.extraPay + dto.foodExpenses + dto.vehicleCost}" />
-												<td><fmt:formatNumber value="${ActualPayment}" pattern="#,###" />원</td>
+												<td>
+												<fmt:formatNumber  value="${ActualPayment}" pattern="#,###"/>원
+												</td>
 												
 											</tr>
 										</c:forEach>
@@ -500,15 +506,169 @@
 
 
 	<%@ include file="../../Basic/footer.jsp"%>
-	<script src="${staticPath }/js/account/accountManagejs"
-		type="text/javascript"></script>
-	<script>
-		function checkAll() {
-			$('.checkbox').prop('checked', true).change()
+	<script src="${staticPath }/js/account/accountManagejs"></script>
+	<script type="text/javascript">
+	//전체선택 체크박스 클릭 
+		$("#allCheck1").click(function(){ 
+		// 만약 전체 선택 체크박스가 체크된상태일경우
+		if($("#allCheck1").prop("checked")) { 
+			// 해당화면에 전체 checkbox들을 체크해준다
+			$(".checkbox1").prop("checked",true); 
+			// 전체선택 체크박스가 해제된 경우
+			} else { 
+				// 해당화면에 모든 checkbox들의 체크를해제시킨다.
+				$(".checkbox1").prop("checked",false); 
+				} 
+		}) 
+	
+		// 전체선택 체크박스 클릭
+		$("#allCheck2").click(function(){ 
+			// 만약 전체 선택 체크박스가 체크된상태일경우
+			if($("#allCheck2").prop("checked")) { 
+				// 해당화면에 전체 checkbox들을 체크해준다
+				$(".checkbox2").prop("checked",true); 
+				// 전체선택 체크박스가 해제된 경우
+				} else { 
+					// 해당화면에 모든 checkbox들의 체크를해제시킨다.
+					$(".checkbox2").prop("checked",false); 
+					} 
+		}) 
+		
+		function fixSetting(){
+		var worktime =$("#worktime").get(0).value;
+		for (var i = 0; i <$(".checkbox1").size(); i++) {
+			if($(".checkbox1")[i].checked){
+				$(".checkboxResult"+i).val(worktime)
+			}
 		}
+		}
+		function fixSetting2(){
+			var payamount =$("#payamount").get(0).value;
+			for (var i = 0; i <$(".checkbox2").size(); i++) {
+				if($(".checkbox2")[i].checked){
+					if($("#kindsofpay").val()=='기본급'){
+					$(".basicPay"+i).val(payamount)
+					}
+					if($("#kindsofpay").val()=='추가근무수당'){
+						$(".extraPay"+i).val(payamount)
+					}
+					if($("#kindsofpay").val()=='식대'){
+						$(".foodExpenses"+i).val(payamount)
+					}
+					if($("#kindsofpay").val()=='차량유지비'){
+						$(".vehicleCost"+i).val(payamount)
+					}
+				}
+			}
+		}
+		
+		function saveOverTime(){
+			var list = [];
+			var list_size = 0;
+			
+			var listObj = [];
+			
+			var form = document.createElement("form");
+			form.setAttribute("charset", "UTF-8");
+			form.setAttribute("method", "POST");
+			form.setAttribute("action", "../admin/ConfirmationWorkRecord");
+			
+			var cnt = 0;
+			
+			for(var i=0; i<$('input[name=overtime]').size(); i++){
+				//var obj = new Object();
+				//list[list_size++] = $('.table_records')[i].value;
+				var field = document.createElement("input");
+				field.setAttribute("type", "text");
+				field.setAttribute("name", "overtime");
+				field.setAttribute("value", $('input[name=overtime]')[i].value);
+				form.appendChild(field);
+				
+				//obj.overtime = $('input[name=overtime]')[i].value;
+				
+				
+				var field2 = document.createElement("input");
+				field2.setAttribute("type", "hidden");
+				field2.setAttribute("name", "empNumber");
+				field2.setAttribute("value", $('input[name=empNumber]')[i].value);
+				form.appendChild(field2);
+				
+				//obj.overpaycode = $('input[name=overpaycode]')[i].value;
+				
+				//listObj.push(obj);
+				
+			}
+			
+			document.body.appendChild(form);
+			
+			form.submit();
+		} 
+		
+		function SaveEnterAmountManually(){
+			var form = document.createElement("form");
+			form.setAttribute("charset", "UTF-8");
+			form.setAttribute("method", "POST");
+			form.setAttribute("action", "../admin/SaveEnterAmountManually");
+			
+			for(var i=0; i<$('input[name=basicPay]').size(); i++){
+				var field = document.createElement("input");
+				field.setAttribute("type", "text");
+				field.setAttribute("name", "basicPay");
+				field.setAttribute("value", $('input[name=basicPay]')[i].value);
+				form.appendChild(field);
+				var field2 = document.createElement("input");
+				field2.setAttribute("type", "text");
+				field2.setAttribute("name", "extraPay");
+				field2.setAttribute("value", $('input[name=extraPay]')[i].value);
+				form.appendChild(field2);
+				var field3 = document.createElement("input");
+				field3.setAttribute("type", "text");
+				field3.setAttribute("name", "foodExpenses");
+				field3.setAttribute("value", $('input[name=foodExpenses]')[i].value);
+				form.appendChild(field3);
+				var field4 = document.createElement("input");
+				field4.setAttribute("type", "text");
+				field4.setAttribute("name", "vehicleCost");
+				field4.setAttribute("value", $('input[name=vehicleCost]')[i].value);
+				form.appendChild(field4);
+				var field5 = document.createElement("input");
+				field5.setAttribute("type", "hidden");
+				field5.setAttribute("name", "empNumber");
+				field5.setAttribute("value", $('input[name=empNumber]')[i].value);
+				form.appendChild(field5);
+				
+			}
+			document.body.appendChild(form);
+			form.submit();
+		} 
+		function Confirm() {
+			var texto1 = $(this).parent().children().eq(0).text(); 
+			var texto2 = $(this).parent().children().eq(1).text(); 
+			if(confirm(texto1+texto2+"를 확정처리하겠습니까?\n확정처리된 급여는 수정/삭제할 수 없습니다."))
+			{}
+			else
+			{}
+		}
+		function Delete() {
+			var texto1 = $(this).parent().children().eq(0).text(); 
+			var texto2 = $(this).parent().children().eq(1).text(); 
+			if(confirm(texto1+texto2+"가 전체 삭제됩니다.\n삭제하겠습니까?"))
+			{}
+			else
+			{}
+		}
+		
+		function calcTotalTable() { 
+		    var total = 0; 
+		    $('.totalPayment').each(function(){ 
+		     // add some validation 
+		     total += $j(this).val(); 
+		    }); 
 
+		    $('#total').val(total); 
+		} 
 		$(function() {
-
+			
 		});
 	</script>
 </body>
