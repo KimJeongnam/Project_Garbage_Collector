@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.spring.project.admin.vo.ScholarpkVO;
+import com.spring.project.admin.vo.auditVO;
 import com.spring.project.share.dao.ShareDAO;
+import com.spring.project.student.vo.DetailsVO;
 import com.spring.project.student.vo.GpaVO;
 //github.com/KimJeongnam/Project_Garbage_Collector.git
 import com.spring.project.student.vo.LectureVO;
@@ -89,6 +91,18 @@ public class StudentDAOImpl implements StudentDAO{
 	@Override
 	public List<ScholarpkVO> getArticleList(Map<String, Object> map) {
 		List<ScholarpkVO> dtos = sqlSession.selectList("com.spring.project.student.dao.StudentDAO.getArticleList",map);
+		return dtos;
+	}
+	//장학금 수혜 내역 갯수
+	@Override
+	public int management_cnt(Map<String, Object> map) {
+		int selectCnt = sqlSession.selectOne("com.spring.project.student.dao.StudentDAO.management_cnt",map);
+		return selectCnt;
+	}
+	//장학금 수혜 내역 목록
+	@Override
+	public List<DetailsVO> managementList(Map<String, Object> map) {
+		List<DetailsVO> dtos = sqlSession.selectList("com.spring.project.student.dao.StudentDAO.managementList",map);
 		
 		return dtos;
 	}

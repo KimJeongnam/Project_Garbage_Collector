@@ -61,19 +61,22 @@ public interface AdminDAO {
 	public List<AdStdVO> getSchoolLeave(Map<String, Integer> map);
 	
 	//장학글 갯수
-	public int getArticleCnt(Map<String,Object> map);
+	public int Jang_getArticleCnt(Map<String,Object> map);
 	
 	//장학 글 목록
-	public List<ScholarpkVO> getArticleList(Map<String,Object> map);
+	public List<ScholarpkVO> jang_getArticleList(Map<String,Object> map);
+	
+	//장학 심사 글 갯수 
+	public int audit_getArticleCnt(Map<String,Object> map);
 	
 	//장학 글 추가 
 	public int insertjangjag(ScholarpkVO vo);
 	
 	//장학 글 상세 
-	public ScholarpkVO getArticle(int scholarpk); 
+	public ScholarpkVO content_getArticle(int scholarpk); 
 	
 	//장학글 삭제
-	public int delete(String[] checkbox);
+	public int jang_delete(String[] checkbox);
 	
 	//장학글 심사
 	public List<auditVO> auditCnt();
@@ -81,18 +84,21 @@ public interface AdminDAO {
 	//장학글 심사
 	public List<auditVO> auditCnt2(int auditct);
 	
-	//장학금 심사 완료
+	//장학금 심사 합격
 	public int auditupdate(String[] checkbox);
 	
 	//장학금 심사 탈락
 	public int auditupdate2(String[] checkbox);
+	
+	//장학금 심사 심사 완료
+	public int auditupdate3(String[] checkbox);
 	
 	
 	//---------------교직 업무 관리 START-------------------
 	// 학과 갯수 조회
 	public int majorListCount(Map<String, Object> map);
 	// 학과 조회
-	public List<Major> majorList(Map<String, Object> map);
+	public List<Object> majorList(Map<String, Object> map);
 	// 학과 삭제
 	public int  deleteMajor(Map<String, Object> map);
 	// 학과 등록
@@ -101,10 +107,10 @@ public interface AdminDAO {
 	public int modifyMajor(Major major);
 	
 	// 해당 교수 빈 강의 조회
-	public List<Object> emptyLecTime(String empNumber);
+	public List<Object> emptyLecTime(Map<String, Object>map);
 	
 	// 해당 교수가 맡은 강의 조회
-	public List<Object> getEmpLectures(String empNumber);
+	public List<Object> getLecturesTimes(Map<String, Object>map);
 	// 강의코드 시퀀스 다음 번호 조회
 	public int getLectureSeqNextval();
 	
@@ -112,7 +118,18 @@ public interface AdminDAO {
 	public int getLectureCount(Map<String, Object> map);
 	// 강의 목록 조회
 	public List<Object> getLectureList(Map<String, Object> map);
+	
+	
+	// 교수 조회 
+	public int getProfessorCount(Map<String, Object> map);
+	public List<Object> getProfessorList(Map<String, Object> map);
 
+	// 강의 추가
+	public void addLecture(LectureVO lecture);
+	
+	// 강의 조회
+	public LectureVO getLecture(Map<String, Object> map);
+	
 	//---------------교직 업무 관리 END-------------------
 	
 	public List<payrollVO> payrollList();
@@ -137,4 +154,5 @@ public interface AdminDAO {
 	
 	public int SaveEnterAmountManually(List<Map<String, Object>> list);
 	
+	public List<String> getUserCellNumList(Map<String, Object> map);
 }

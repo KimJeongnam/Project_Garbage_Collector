@@ -86,8 +86,6 @@
                                                     </li>
                                                     <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">교수소개</a>
                                                     </li>
-                                                    <li role="presentation" class=""><a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">이력사항</a>
-                                                    </li>
                                                 </ul>
 
 
@@ -202,97 +200,6 @@
                                                     </div>
                                                     
 													<!-- 자기소개  끝 -->
-
-
-													<!-- 이력사항 -->
-                                                    <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
-
-
-
-                                                        <form class="form-horizontal form-label-left" novalidate>
-
-
-                                                            <span class="section">이력사항</span>
-
-                                                            <div class="item form-group">
-                                                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">중학교 <span class="required">*</span>
-                                                                </label>
-                                                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                    <input id="middleSchool" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="middleSchool" placeholder="출신 중학교를 입력하시오" required="required" type="text">
-                                                                </div>
-                                                            </div>
-                                                            <div class="item form-group">
-                                                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">고등학교 <span class="required">*</span>
-                                                                </label>
-                                                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                    <input id="highSchool" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="highSchool" placeholder="출신 고등학교를 입력하시오" required="required" type="text">
-                                                                </div>
-                                                            </div>
-                                                            <div class="item form-group">
-                                                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">대학교 <span class="required">*</span>
-                                                                </label>
-                                                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                    <input id="college" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="college" placeholder="출신 대학교를 입력하시오" required="required" type="text">
-                                                                </div>
-                                                            </div>
-                                                            <div class="item form-group">
-                                                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">전공 <span class="required">*</span>
-                                                                </label>
-                                                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                    <input id="major1" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="major1" placeholder="전공를 입력하시오" required="required" type="text">
-                                                                </div>
-                                                            </div>
-                                                            <div class="item form-group">
-                                                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">대학원 <span class="required">*</span>
-                                                                </label>
-                                                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                    <input id="major2" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="major2" placeholder="대학원를 입력하시오" required="required" type="text">
-                                                                </div>
-                                                            </div>
-                                                            <div class="item form-group">
-                                                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">박사과정 <span class="required">*</span>
-                                                                </label>
-                                                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                    <input id="Phd" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="Phd" placeholder="박사과정을 입력하시오" required="required" type="text">
-                                                                </div>
-                                                            </div>
-                                                            <div class="item form-group">
-                                                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">경력사항 1 <span class="required"></span>
-                                                                </label>
-                                                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                    <input id="career1" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="career1" placeholder="경력사항 1 입력하시오" required="required" type="text">
-                                                                </div>
-                                                            </div>
-                                                            <div class="item form-group">
-                                                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">경력사항 2 <span class="required"></span>
-                                                                </label>
-                                                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                    <input id="career2" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="career2" placeholder="경력사항 2 입력하시오" required="required" type="text">
-                                                                </div>
-                                                            </div>
-                                                            <div class="item form-group">
-                                                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">경력사항 3 <span class="required"></span>
-                                                                </label>
-                                                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                    <input id="career3" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="career3" placeholder="경력사항 3 입력하시오" required="required" type="text">
-                                                                </div>
-                                                            </div>
-                                                            <div class="item form-group">
-                                                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">경력사항 4 <span class="required"></span>
-                                                                </label>
-                                                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                    <input id="career4" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="career4" placeholder="경력사항 4 입력하시오" required="required" type="text">
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                            <div class="col-md-6 col-md-offset-3">
-                                                                <button type="reset" class="btn btn-primary">재작성</button>
-                                                                <button type="submit" class="btn btn-success">수정</button>
-                                                            </div>
-                                                        </div>
-                                                        </form>
-                                                    </div>
-                                                    <!-- 이력사항 끝 -->
                                                     
                                                 </div>
                                             </div>

@@ -41,17 +41,17 @@
 
 var CURRENT_URL = window.location.href.split('#')[0].split('?')[0],
     $BODY = $('body'),
-    $MENU_TOGGLE = $('#menu_toggle'),
-    $SIDEBAR_MENU = $('#sidebar-menu'),
-    $SIDEBAR_FOOTER = $('.sidebar-footer'),
+   /* $MENU_TOGGLE = $('#menu_toggle'),*/
+    /*$SIDEBAR_MENU = $('#sidebar-menu'),*/
+    /*$SIDEBAR_FOOTER = $('.sidebar-footer'),*/
     $LEFT_COL = $('.left_col'),
     $RIGHT_COL = $('.right_col'),
-    $NAV_MENU = $('.nav_menu'),
+    /*$NAV_MENU = $('.nav_menu'),*/
     $FOOTER = $('footer');
 
 	
 	
-// Sidebar
+/*// Sidebar
 function init_sidebar() {
 // TODO: This is some kind of easy fix, maybe we can improve this
 var setContentHeight = function () {
@@ -147,7 +147,7 @@ $MENU_TOGGLE.on('click', function() {
 
 	var randNum = function() {
 	  return (Math.floor(Math.random() * (1 + 40 - 20))) + 20;
-	};
+	};*/
 
 
 // Panel toolbox
@@ -287,6 +287,17 @@ $(document).ready(function() {
         }
     });
 });
+
+/*// NProgress
+if (typeof NProgress != 'undefined') {
+    $(document).ready(function () {
+        NProgress.start();
+    });
+
+    $(window).load(function () {
+        NProgress.done();
+    });
+}*/
 
 	
 	  //hover and retain popover when on popover content
@@ -4997,7 +5008,7 @@ $(document).ready(function() {
 				
 		init_sparklines();
 		init_flot_chart();
-		init_sidebar();
+		/*init_sidebar();*/
 		init_wysiwyg();
 		init_InputMask();
 		init_JQVmap();

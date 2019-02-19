@@ -20,15 +20,15 @@
 	<table id="datatable" class="table table-striped table-bordered">
 		<thead>
 			<tr>
-				<th>학년구분</th>
-				<th>강의번호</th>
-				<th>이수구분</th>
-				<th>강의명</th>
-				<th>학점</th>
-				<th>담당교수</th>
-				<th>강의시간</th>
-				<th>잔여석</th>
-				<th>신청</th>
+				<th style="width:9%">학년구분</th>
+				<th style="width:6%">강의번호</th>
+				<th style="width:6%">이수구분</th>
+				<th style="width:23%">강의명</th>
+				<th style="width:7%">학점</th>
+				<th style="width:11%">담당교수</th>
+				<th style="width:23%">강의시간</th>
+				<th style="width:7%">잔여석</th>
+				<th style="width:8%">신청</th>
 			</tr>
 		</thead>
 		<tbody>

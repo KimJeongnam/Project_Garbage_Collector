@@ -158,7 +158,9 @@
 	<!-- 장학 글   -->
     <script src="${staticPath }/js/bulletin/applybulletin.js"></script>
     <script src="${staticPath }/js/adminjanghak/applyresister.js"></script>
-	
+    
+    <!-- https://sweetalert.js.org/guides/ -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	
     
 

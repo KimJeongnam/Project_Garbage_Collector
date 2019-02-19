@@ -14,7 +14,7 @@ SELECT *
     		WHERE sequence_name = 'SEQ_MAJOR_MAJORNUM';
     		
     		
-  
+-- 강의 조회
 SELECT *
     FROM(
         SELECT ROWNUM rnum

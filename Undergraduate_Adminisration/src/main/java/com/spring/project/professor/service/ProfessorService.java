@@ -24,8 +24,17 @@ public interface ProfessorService {
 	public void search_student(Map<String, Object> map, HttpServletRequest req, Model model);
 	public void search_student_click(Map<String, Object> map, HttpServletRequest req, Model model);
 	
-	//학점입력
+	//학점관리
 	public void score(HttpServletRequest req, Model model);
 	public void firstLec(Map<String, Object> map, HttpServletRequest req, Model model);
 	public void getLecScore(Map<String, Object> map, HttpServletRequest req, Model model);
+	public void insertScore(HttpServletRequest req, RedirectAttributes red);
+	public void updateScore(HttpServletRequest req, RedirectAttributes red);
+	
+	//강의계획
+	public void plan(HttpServletRequest req, Model model);
+	public void firstPlan(Map<String, Object> map, HttpServletRequest req, Model model);
+	public void getPlan(Map<String, Object> map, HttpServletRequest req, Model model);
+	
+	//과제관리
 }

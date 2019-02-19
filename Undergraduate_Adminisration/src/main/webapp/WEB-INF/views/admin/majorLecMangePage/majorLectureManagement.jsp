@@ -137,7 +137,7 @@
 									<div class="col-md-8 col-sm-6 col-xs-6" style="text-align: right;">
 										<label> Search: <input type="search"
 											id="lecture-search-keyword" class="form-control input-sm"
-											onkeyup="" placeholder="학과명">
+											onkeyup="getLectureList();" placeholder="학과명">
 										</label>
 									</div>
 								</div>
@@ -151,7 +151,7 @@
 			</div>
 		</div>
 
-		<!-- majorModal -->
+		<!-- ==============================학과 추가, 수정 모달창START================================ -->
 
 		<div class="modal fade" id="majorAdd-Modal" tabindex="-1"
 			role="dialog" aria-hidden="true">
@@ -173,7 +173,7 @@
 							class="form-horizontal form-label-left">
 							<div class="form-group">
 								<label class="control-label col-md-3 col-sm-3 col-xs-12"
-									for="majorCode">학과 코드 <span class="required">*</span>
+									for="majorCode">학과 코드 
 								</label>
 								<div class="col-md-6 col-sm-6 col-xs-12">
 									<input type="text" id="majorCode_view" disabled="disabled"
@@ -185,7 +185,7 @@
 							</div>
 							<div class="form-group">
 								<label class="control-label col-md-3 col-sm-3 col-xs-12"
-									for="college">단과대 <span class="required">*</span>
+									for="college">단과대 
 								</label>
 								<div class="col-md-3 col-sm-3 col-xs-8">
 									<select id="college" name="last-name" required="required"
@@ -204,7 +204,7 @@
 							</div>
 							<div class="form-group">
 								<label class="control-label col-md-3 col-sm-3 col-xs-12"
-									for="count">학년별 최대 인원수 <span class="required">*</span>
+									for="count">학년별 최대 인원수 
 								</label>
 								<div class="col-md-3 col-sm-3 col-xs-8">
 									<input type="number" id="count"
@@ -226,13 +226,15 @@
 				</div>
 			</div>
 		</div>
-
+		<!-- ==============================학과 추가, 수정모달창END================================ -->
+		
+		<!-- ==============================강의 추가,수정모달창START================================ -->
 		<div class="modal fade" id="lecture-Modal" tabindex="-1"
 			role="dialog" aria-hidden="true">
 			<div class="modal-dialog modal-lg" role="dialog">
 				<div class="modal-content">
 					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">
+						<button type="button" class="close" data-dismiss="modal" onclick="initLectureModal();">
 							<span aria-hidden="true">×</span>
 						</button>
 
@@ -250,12 +252,12 @@
 							<div class="col-md-6">
 								<div class="form-group">
 									<label class="control-label col-md-3 col-sm-3 col-xs-12"
-										for="majorCode">강의 코드 <span class="required">*</span>
+										for="lecCode">강의 코드 
 									</label>
 									<div class="col-md-6 col-sm-6 col-xs-12">
 										<input type="text" id="lecCode_view" disabled="disabled"
 											class="form-control col-md-7 col-xs-12"> <input
-											hidden="true" type="text" id="lecCode" name="majorCode"
+											hidden="true" type="text" id="lecCode"
 											required="required" class="form-control col-md-7 col-xs-12">
 									</div>
 								</div>
@@ -265,9 +267,10 @@
 										class="control-label col-md-3 col-sm-3 col-xs-12"
 										for="majorName">교수 선택</label>
 									<div class="col-md-6 col-sm-6 col-xs-12">
-										<input id="empNumber" class="form-control btn btn-danger col-md-7 col-xs-12"
-											type="button" name="empNumber" required="required" onclick="openProfessorSelector()" onchange=""
+										<input id="empNumberButton" class="form-control btn btn-warning col-md-7 col-xs-12"
+											type="button" required="required" onclick="openProfessorSelector()" onchange=""
 											value="선택 하세요.">
+										<input id="empNumber" hidden="true" type="text">
 									</div>
 								</div>
 								
@@ -306,10 +309,11 @@
 								<div class="form-group">
 									<label for="middle-name"
 										class="control-label col-md-3 col-sm-3 col-xs-12"
-										for="classRoom">강의 시간 선택</label>
+										for="classTimeButton">강의 시간 선택</label>
 									<div class="col-md-8 col-sm-6 col-xs-12">
-										<input id="classRoom" class="form-control btn btn-danger col-md-7 col-xs-12"
-											type="button" value="교수를 선택하세요.">
+										<input id="classTimeButton" class="form-control btn btn-default col-md-7 col-xs-12"
+											type="button" value="교수를 선택하세요." disabled="disabled">
+										<input id="classTime" hidden="true" type="text">
 									</div>
 								</div>
 							</div>
@@ -317,10 +321,10 @@
 							<div class="col-md-6">
 								<div class="form-group">
 									<label class="control-label col-md-3 col-sm-3 col-xs-12"
-										for="college">구분 <span class="required">*</span>
+										for="lectureClassfication">구분
 									</label>
 									<div class="col-md-3 col-sm-3 col-xs-8">
-										<select id="professor" name="last-name" required="required"
+										<select id="lectureClassfication" required="required"
 											class="form-control col-md-6 col-xs-12">
 											<option value="선택">선택</option>
 											<option value="0">교양</option>
@@ -332,7 +336,7 @@
 								<div class="form-group">
 									<label for="middle-name"
 										class="control-label col-md-3 col-sm-3 col-xs-12"
-										for="majorName">강의명</label>
+										for="lectureName">강의명</label>
 									<div class="col-md-6 col-sm-6 col-xs-12">
 										<input id="lectureName" class="form-control col-md-7 col-xs-12"
 											type="text" required="required">
@@ -354,11 +358,11 @@
 								
 								<div class="form-group">
 									<label class="control-label col-md-3 col-sm-3 col-xs-12"
-										for="count">제한 인원수 <span class="required">*</span>
+										for="maximumcapacity">제한 인원수
 									</label>
 									<div class="col-md-3 col-sm-3 col-xs-8">
-										<input type="number" id="count"
-											class="date-picker form-control col-md-7 col-xs-12"
+										<input type="number" id="maximumcapacity"
+											class="form-control col-md-7 col-xs-12"
 											required="required" type="text" min="0">
 									</div>
 								</div>
@@ -373,7 +377,7 @@
 								<div class="form-group">
 									<div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3 text-left">
 										<input type="button" class="btn btn-success" value="등록"
-											onclick="" id="lectureModalBtn"> <input hidden="true"
+											onclick="insertLecture();" id="lectureModalBtn"> <input hidden="true"
 											type="button" class="btn btn-danger" value="삭제" onclick=""
 											id="lectureModalDelBtn">
 									</div>
@@ -384,27 +388,13 @@
 				</div>
 			</div>
 		</div>
+		<!-- ==============================강의 추가,수정모달창END================================ -->
 	</div>
 
 	<%@ include file="../../Basic/footer.jsp"%>
 	<script src="${staticPath }/js/majorlecManage.js"
 		type="text/javascript"></script>
 	<script>
-		var init_collegeSelector = function(facultys) {
-			for (var i = 0; i < facultys.length; i++)
-				$('#collegeSelector').append($('<option>', {
-					value : facultys[i],
-					text : facultys[i]
-				}));
-		}
-		var init_lec_facultySelector = function(facultys){
-			for (var i = 0; i < facultys.length; i++)
-				$('#lec-facultySelector').append($('<option>', {
-					value : facultys[i],
-					text : facultys[i]
-				}));
-		} 
-
 		$(function() {
 			getFacultys(init_collegeSelector);
 			getFacultys(init_lec_facultySelector);

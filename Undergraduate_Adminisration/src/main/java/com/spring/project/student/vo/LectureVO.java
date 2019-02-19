@@ -1,6 +1,13 @@
 package com.spring.project.student.vo;
 
+import java.util.List;
+
+import com.spring.project.admin.vo.LectureTime;
+
 public class LectureVO {
+	private List<LectureTime> lectureTimes;
+	private List<Integer> timetblCodes;
+	private int[] ttc;
 	
 	private String lecCode;
 	private int majorNum;
@@ -26,6 +33,34 @@ public class LectureVO {
 	private String majorName;
 	private int rank;
 	
+	private int result;
+	
+	public List<LectureTime> getLectureTimes() {
+		return lectureTimes;
+	}
+	public void setLectureTimes(List<LectureTime> lectureTimes) {
+		this.lectureTimes = lectureTimes;
+	}
+	
+	public int[] getTtc() {
+		return ttc;
+	}
+	public void setTtc(int[] ttc) {
+		this.ttc = ttc;
+	}
+	
+	public int getResult() {
+		return result;
+	}
+	public void setResult(int result) {
+		this.result = result;
+	}
+	public List<Integer> getTimetblCodes() {
+		return timetblCodes;
+	}
+	public void setTimetblCodes(List<Integer> timetblCodes) {
+		this.timetblCodes = timetblCodes;
+	}
 	public String getUserImage() {
 		return userImage;
 	}
