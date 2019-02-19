@@ -2,7 +2,10 @@ package com.spring.project.student.vo;
 
 import java.util.List;
 
+import com.spring.project.admin.vo.LectureTime;
+
 public class LectureVO {
+	private List<LectureTime> lectureTimes;
 	private List<Integer> timetblCodes;
 	private int[] ttc;
 	
@@ -31,6 +34,13 @@ public class LectureVO {
 	private int rank;
 	
 	private int result;
+	
+	public List<LectureTime> getLectureTimes() {
+		return lectureTimes;
+	}
+	public void setLectureTimes(List<LectureTime> lectureTimes) {
+		this.lectureTimes = lectureTimes;
+	}
 	
 	public int[] getTtc() {
 		return ttc;

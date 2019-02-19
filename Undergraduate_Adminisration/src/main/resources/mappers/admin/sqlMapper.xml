@@ -362,6 +362,24 @@
 	</update> -->
 
 	<!-- ==========================================교직 업무 관리 START========================================= -->
+	<resultMap type="com.spring.project.student.vo.LectureVO" id="lectureMap">
+		<collection property="lectureTimes" column="leccode" select="getLectureTime"></collection>
+	</resultMap>
+	
+	<select id="getLectureTime" resultType="com.spring.project.admin.vo.LectureTime">
+	SELECT 	lt.lecturetimecode
+        , tt.timetblcode
+		, tt.beginninglecturetime
+		, tt.endlecturetime
+		, tt.classTime
+		, tt.lectureday
+		FROM lecturetime lt JOIN timetable tt
+        ON lt.timetblcode = tt.timetblcode
+        WHERE 
+             lt.lecCode = #{leccode}
+		ORDER BY tt.timetblcode
+	</select>
+	
 	<!-- 교직 업무 관리 -->
 	<select id="majorListCount" parameterType="java.util.Map"
 		resultType="int">
@@ -464,6 +482,7 @@
 		SELECT l.lecCode
 		, l.lectureName
 		, l.empNumber
+		, l.grantedSemester
 		,
 		tt.timetblcode
 		, tt.beginninglecturetime
@@ -479,8 +498,17 @@
 		lt.leccode
 		JOIN timetable tt
 		ON lt.timetblcode = tt.timetblcode
-		WHERE l.empNumber = #{empNumber}
-		AND l.grantedsemester = #{semester}
+		<where>
+			<if test="empNumber !=null"> 
+				l.empNumber = #{empNumber}
+			</if>
+			<if test="semester != null">
+				AND l.grantedsemester = #{semester}
+			</if>
+			<if test="lecCode != null">
+				AND l.lecCode = #{lecCode}
+			</if>
+		</where>
 		ORDER BY tt.timetblcode
 	</select>
 
@@ -511,6 +539,7 @@
 		<where>
 	            	<![CDATA[ 
 	            	l.delStatus <> 1 
+	            	AND m.delStatus <> 1
 	            	]]>
 			<if test="division != null">
 				AND l.lectureClassfication = #{division}
@@ -550,6 +579,7 @@
 		<where>
 	            	<![CDATA[ 
 	            	l.delStatus <> 1 
+	            	AND m.delStatus <> 1
 	            	]]>
 			<if test="division != null">
 				AND l.lectureClassfication = #{division}
@@ -626,6 +656,22 @@
 		{call add_lecture_proc(#{majorNum}, #{userNumber}, #{lectureName}
 		, #{lectureClassfication}, #{maximumCapacity}, #{grade}, #{grantedSemester}, #{lectureScore}, #{classRoom}
 		, TO_NUMBER(TO_CHAR(SYSDATE, 'YYYY')), #{ttc, mode=IN, typeHandler=com.spring.project.admin.vo.LectureTimetblCodesHandler}, #{result, mode=OUT, javaType=int, jdbcType=NUMERIC})}
+	</select>
+	
+	<select id="getLecture" resultMap="lectureMap">
+		SELECT l.lecCode , l.majorNum, m.majorName,
+		u.userNumber, u.userImage, u.userName
+        , l.lectureName, l.classRoom, l.lecStatus
+		, l.lectureClassfication, l.grade, l.grantedSemester
+        , l.maximumCapacity , l.lecStatus, l.lectureScore
+		FROM lecture l JOIN major m
+		ON l.majorNum =
+		m.majorNum
+		JOIN employee emp
+		ON l.empNumber = emp.empNumber
+		JOIN users u
+		ON emp.empNumber = u.userNumber
+		WHERE l.leccode = #{lecCode}
 	</select>
 	<!-- ==========================================교직 업무 관리 END========================================= -->
 

@@ -317,9 +317,15 @@ public class AdminDAOImpl implements AdminDAO{
 		sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.addLecture", lecture);
 		return;
 	}
+
+	@Override
+	public LectureVO getLecture(Map<String, Object> map) {
+		return sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.getLecture", map);
+	}
 	
 	//------------------------------------------------------교직 업무 관리 END----------------------------------------------------------
 	
+
 
 	@Override
 	public List<payrollVO> payrollList() {

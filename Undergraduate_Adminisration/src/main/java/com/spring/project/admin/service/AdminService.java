@@ -84,6 +84,9 @@ public interface AdminService {
 	// 해당 교수 빈강의시간 조회
 	public void getEmptyLecTime(String empNumber, String semester, Model model);
 	
+	// 강의 시간 조회
+	public void getLectureTime(String lecCode, Model model);
+	
 	// 생성될 강의코드 조회 
 	public Map<String, Object> getLectureSeqNextval();
 	
@@ -95,6 +98,10 @@ public interface AdminService {
 	
 	// 강의 추가
 	public Map<String, Object> addLecture(LectureVO lecture);
+	
+	// 강의 조회
+	public LectureVO getLecture(Map<String, Object> map);
+
 	//-----------------------------------교직 업무 관리 END-----------------------------
 	
 	

@@ -339,13 +339,6 @@ public class AdminController {
 		return "admin/majorLecMangePage/professorList";
 	}
 
-	// 해당 강의의 시간 조회 ...
-	@RequestMapping(value = "/admin/major_lecture_Manager/LecTime/{lecCode}")
-	public String getLecTime(@PathVariable String lecCode, Model model) {
-		logger.info("getLecTime()");
-		return "admin/majorLecMangePage/lectureTimeSelector";
-	}
-
 	//강의 추가
 	@ResponseBody
 	@RequestMapping(value="/admin/major_lecture_Manager/insertLecture", method=RequestMethod.POST)
@@ -353,6 +346,7 @@ public class AdminController {
 		logger.info("insertLecture()");
 		return service.addLecture(lecture);
 	}
+	
 	// ---------------------------------학과,강의관리END----------------------------------------
 
 	// ---------------------------------회계관리START----------------------------------------

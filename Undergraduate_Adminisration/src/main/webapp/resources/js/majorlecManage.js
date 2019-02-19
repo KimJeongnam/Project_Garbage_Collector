@@ -255,6 +255,22 @@ function openTimeSelector(empNumber){
 			, 'status=no, height=1000, width=1200, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
 }
 
+/*
+ * 강의 시간 보기
+ */
+function showLectureTimes(lecCode){
+
+	var popupX = (window.screen.width / 2) - (1200 / 2);
+	// 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
+
+	var popupY= (window.screen.height /2) - (1000 / 2);
+	// 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
+	
+	window.open('/project/share/LecTime/'+lecCode
+			, '시간 선택'
+			, 'status=no, height=1000, width=1200, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
+}
+
 // 선택한 시간 map 클리어
 function initTime(){
 	lectureTimeMap.clear();
@@ -290,37 +306,39 @@ function selectTime(timecode, id, lectureDay, classTime){
  */
 function selectTimeDo(){
 	if(lectureTimeMap.size==0) self.close();
-	opener.lectureTimeMap = lectureTimeMap;
-	var classTimes = '';
-	var ids = [];
-
-	for(var key of lectureTimeMap.keys()){
-		ids.push(key);
-	}
-	ids.sort(function(a,b){
-		return a-b;
-	})
+	else{
+		opener.lectureTimeMap = lectureTimeMap;
+		var classTimes = '';
+		var ids = [];
 	
-	var day = 999;
-	var str = '';
-	ids.forEach(function(key){
-		var obj = lectureTimeMap.get(key);
+		for(var key of lectureTimeMap.keys()){
+			ids.push(key);
+		}
+		ids.sort(function(a,b){
+			return a-b;
+		})
 		
-		if(day != Math.floor((key/10))){
-			if(str.length>0) str += "], ";
-			day = Math.floor((key/10));
-			str += obj.lectureDay;
-			str += "["+obj.classTime;
-		}else
-			str += ","+obj.classTime;
+		var day = 999;
+		var str = '';
+		ids.forEach(function(key){
+			var obj = lectureTimeMap.get(key);
 			
-	});
-	str += "]";
-	
-	$(opener.document).find("#classTimeButton").val(str);
-	$(opener.document).find("#classTimeButton").attr("class", "form-control btn btn-success col-md-7 col-xs-12");
-	// 현재창 닫기
-	self.close();
+			if(day != Math.floor((key/10))){
+				if(str.length>0) str += "], ";
+				day = Math.floor((key/10));
+				str += obj.lectureDay;
+				str += "["+obj.classTime;
+			}else
+				str += ","+obj.classTime;
+				
+		});
+		str += "]";
+		
+		$(opener.document).find("#classTimeButton").val(str);
+		$(opener.document).find("#classTimeButton").attr("class", "form-control btn btn-success col-md-7 col-xs-12");
+		// 현재창 닫기
+		self.close();
+	}
 }
 //-----------------강의선택END--------------
 
@@ -672,5 +690,12 @@ function insertLecture(){
 		error:function(){
 			alert("Error! insertLecture()");
 		}
+	});
+}
+
+
+function getLectureInfo(leccode, callback){
+	$.ajax({
+		
 	});
 }
