@@ -47,6 +47,16 @@ public interface ProfesserDAO {
 	List<MyClassVO> v_myClass(String userNumber);
 	List<LecScore> firstLec(Map<String, Object> map);
 	List<LecScore> getLecScore(Map<String, Object> map);
+	
+	//학점입력
+	public int insertScore(LecScore vo);
+	//학점수정
+	public int updateScore(LecScore vo);
+	
+	
+	//강의계획
+	
+	//과제관리
 
 	
 }

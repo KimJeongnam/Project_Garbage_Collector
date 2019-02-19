@@ -225,7 +225,7 @@ public class ProfessorServiceImpl implements ProfessorService {
 		
 		model.addAttribute("search_student",search_student);
 	}
-	
+	//학생검색 후 클릭 시
 	@Override
 	public void search_student_click(Map<String, Object> map, HttpServletRequest req, Model model) {
 		String userNumber = (String) req.getSession().getAttribute("userNumber");
@@ -291,6 +291,61 @@ public class ProfessorServiceImpl implements ProfessorService {
 		
 		model.addAttribute("vo",vo);
 		
+	}
+	//학점 입력
+	@Override
+	public void insertScore(HttpServletRequest req, RedirectAttributes red) {
+		
+		String jscore = req.getParameter("score");
+		String credit = req.getParameter("credit");
+		String semester = req.getParameter("semester2");
+		String infoCode = req.getParameter("infoCode");
+		String grade = req.getParameter("grade");
+		String userName = req.getParameter("userName");
+		
+		LecScore vo = new LecScore();
+		
+		vo.setCredit(credit);
+		vo.setGrade(grade);
+		vo.setIncode(infoCode);
+		vo.setJscore(jscore);
+		vo.setSemester2(semester);
+
+		int insertScore = dao.insertScore(vo);
+		System.out.println("학점입력 insertScore : " + insertScore);
+
+
+		int up = insertScore;
+
+		if (up == 1)
+			red.addFlashAttribute("message", userName+" 학생의 학점 "+credit+" 을 입력하였습니다.");
+		if (up != 1)
+			red.addFlashAttribute("message", "학점을 입력하는 과정에서 오류가 발생하였습니다.");
+	}
+	//학점수정
+	@Override
+	public void updateScore(HttpServletRequest req, RedirectAttributes red) {
+		String jscore = req.getParameter("score");
+		String credit = req.getParameter("credit2");
+		String infoCode = req.getParameter("infoCode");
+		String userName = req.getParameter("userName2");
+		
+		LecScore vo = new LecScore();
+		
+		vo.setIncode(infoCode);
+		vo.setJscore(jscore);
+		vo.setCredit(credit);
+		
+		int updateScore = dao.updateScore(vo);
+		System.out.println("학점입력 updateScore : " + updateScore);
+
+
+		int up = updateScore;
+
+		if (up == 1)
+			red.addFlashAttribute("message", userName+" 학생의 학점을 "+credit+" 로 수정하였습니다.");
+		if (up != 1)
+			red.addFlashAttribute("message", "학점을 수정하는 과정에서 오류가 발생하였습니다.");
 	}
 
 }

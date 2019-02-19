@@ -135,5 +135,35 @@ public class ProfesserDAOImpl implements ProfesserDAO{
 		return sql.selectList("com.spring.project.professor.dao.ProfesserDAO.getLecScore",map);
 	}
 
+	@Override
+	public int insertScore(LecScore vo) {
+		System.out.println(vo);
+		
+		int insertScore=0;
+		
+		ProfesserDAO dao = sql.getMapper(ProfesserDAO.class);
+		
+		insertScore=dao.insertScore(vo);
+		
+		System.out.println(insertScore==1?"학점 입력 성공!":"학점 입력 실패!");
+		
+		return insertScore;
+	}
+
+	@Override
+	public int updateScore(LecScore vo) {
+		System.out.println(vo);
+		
+		int updateScore=0;
+		
+		ProfesserDAO dao = sql.getMapper(ProfesserDAO.class);
+		
+		updateScore=dao.updateScore(vo);
+		
+		System.out.println(updateScore==1?"학점 수정 성공!":"학점 수정 실패!");
+		
+		return updateScore;
+	}
+
 
 }

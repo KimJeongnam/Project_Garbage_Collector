@@ -37,7 +37,7 @@ public class ProfessorController {
 		}
 		
 		
-		/////마이페이지
+		////////////////////////////////////////마이페이지
 		//마이페이지 진입
 		@RequestMapping("/professor/myPage")
 		public String myPage(HttpServletRequest req ,Model model) {
@@ -69,11 +69,11 @@ public class ProfessorController {
 			service.update(req, red);
 			return "redirect:/professor/myPage";
 		}
-		/////마이페이지끝
+		////////////////////////////////////////마이페이지끝
 		
 		
 		
-		/////학생조회
+		////////////////////////////////////////학생조회
 		//학생조회
 		@RequestMapping("/professor/list")
 		public String list(HttpServletRequest req ,Model model) {
@@ -95,35 +95,58 @@ public class ProfessorController {
 			service.search_student(map, req, model);
 			return "professor/search_student";
 		}
+		//학생조회 후 이름  클릭시 내 강의 목록
 		@RequestMapping(value="/professor/list/search_student_click", method=RequestMethod.POST)
 		public String search_student_click(@RequestBody Map<String, Object> map, HttpServletRequest req, Model model) {
 			logger.info("search_student_click()");
 			service.search_student_click(map, req, model);
 			return "professor/search_student_click";
 		}
-		/////학생조회끝
+		////////////////////////////////////////학생조회끝
 		
 		
-		//학점관리
+		
+		////////////////////////////////////////학점관리
+		//학점관리 진입
 		@RequestMapping("/professor/score")
 		public String score(HttpServletRequest req ,Model model) {
 			logger.info("score()");
 			service.score(req,model);
 			return "professor/score";
 		}
+		
+		//학점관리 첫번째 탭
 		@RequestMapping(value="/professor/score/firstLec", method=RequestMethod.POST)
 		public String firstLec(@RequestBody Map<String, Object> map, HttpServletRequest req, Model model) {
 			logger.info("firstLec()");
 			service.firstLec(map, req, model);
 			return "professor/firstLec";
 		}
+		//학점관리 탭 클릭
 		@RequestMapping(value="/professor/score/class_click", method=RequestMethod.POST)
 		public String getLecScore(@RequestBody Map<String, Object> map, HttpServletRequest req, Model model) {
 			logger.info("getLecScore()");
 			service.getLecScore(map, req, model);
 			return "professor/getLecScore";
 		}
-		//학점관리끝
+		
+		//학점입력
+		@RequestMapping("/professor/insertScore")
+		public String insertScore(HttpServletRequest req ,RedirectAttributes red) {
+			logger.info("insertScore()");
+			service.insertScore(req,red);
+			return "redirect:/professor/score";
+		}
+		
+		//학점수정
+		@RequestMapping("/professor/updateScore")
+		public String updateScore(HttpServletRequest req ,RedirectAttributes red) {
+			logger.info("updateScore()");
+			service.updateScore(req,red);
+			return "redirect:/professor/score";
+		}
+		
+		////////////////////////////////////////학점관리끝
 		
 		
 		
