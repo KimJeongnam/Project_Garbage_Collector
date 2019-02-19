@@ -149,13 +149,31 @@ public class ProfessorController {
 		////////////////////////////////////////학점관리끝
 		
 		
-		
+		////////////////////////////////////////강의계획서
 		//강의계획서
 		@RequestMapping("/professor/plan")
-		public String plan() {
+		public String plan(HttpServletRequest req ,Model model) {
 			logger.info("plan()");
+			service.plan(req,model);
 			return "professor/plan";
 		}
+		//강의계획서 첫번째 
+		@RequestMapping(value="/professor/plan/firstLec", method=RequestMethod.POST)
+		public String firstPlan(@RequestBody Map<String, Object> map, HttpServletRequest req, Model model) {
+		logger.info("firstPlan()");
+		service.firstPlan(map, req, model);
+		return "professor/firstPlan";
+		}
+
+		//강의계획서  클릭
+		@RequestMapping(value = "/professor/plan/class_click", method = RequestMethod.POST)
+		public String getPlan(@RequestBody Map<String, Object> map, HttpServletRequest req, Model model) {
+		logger.info("getPlan()");
+		service.getPlan(map, req, model);
+		return "professor/getPlan";
+		}
+		////////////////////////////////////////강의계획서 끝		
+				
 		
 		//과제관리
 		@RequestMapping("/professor/report")

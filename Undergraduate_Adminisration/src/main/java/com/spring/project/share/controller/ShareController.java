@@ -63,6 +63,7 @@ public class ShareController {
 	public String loginFail(RedirectAttributes redirectAttributes) {
 		logger.info("loginFail()");
 		redirectAttributes.addFlashAttribute("message", "로그인 실패!! 아이디 혹은 비밀번호가 다릅니다.!");
+		redirectAttributes.addFlashAttribute("alertIcon", "error");
 		return "redirect:/loginForm";
 	}
 
@@ -71,6 +72,7 @@ public class ShareController {
 		logger.info("logoutDo()");
 		request.getSession().invalidate();
 		redirectAttributes.addFlashAttribute("message", "로그아웃!");
+		redirectAttributes.addFlashAttribute("alertIcon", "success");
 		return "redirect:/loginForm";
 	}
 

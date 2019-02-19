@@ -167,7 +167,11 @@
                             $('#search').html(data); //성공할시 이곳으로 데이터를 뿌려라
                         },
                         error: function() {
-                            alert("Error! searchAjax()");
+                            swal({
+        						text:"Error! searchAjax();",
+        						icon: "error",
+        						button:"확인",
+        					});
                         }
                     });
             }
@@ -189,7 +193,11 @@
                             $('#' + divid).html(data); //#divid로 데이터를 뿌려라.
                         },
                         error: function() {
-                            alert("Error! class_click();");
+                            swal({
+        						text:"Error! class_click();",
+        						icon: "error",
+        						button:"확인",
+        					});
                         }
                     });
                 }

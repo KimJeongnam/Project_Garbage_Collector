@@ -21,6 +21,7 @@ import com.spring.project.professor.vo.ClassStudentVO;
 import com.spring.project.professor.vo.LecScore;
 import com.spring.project.professor.vo.MyClassVO;
 import com.spring.project.professor.vo.MyPageVO;
+import com.spring.project.professor.vo.PlanVO;
 import com.spring.project.professor.vo.SearchVO;
 import com.spring.project.professor.vo.StudentVO;
 import com.spring.project.share.Config;
@@ -88,12 +89,14 @@ public class ProfessorServiceImpl implements ProfessorService {
 
 			if (imageUpload == 1) {
 				red.addFlashAttribute("message", "프로필 이미지를 변경하였습니다.");
+				red.addFlashAttribute("alertIcon","success");
 				user.setUserImage(img);
 				req.getSession().setAttribute("user", user);
 			}
-			if (imageUpload != 1)
+			if (imageUpload != 1) {
 				red.addFlashAttribute("message", "프로필 이미지를 변경하는 도중에 오류가 발생하였습니다.");
-
+				red.addFlashAttribute("alertIcon","error");
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 
@@ -116,10 +119,14 @@ public class ProfessorServiceImpl implements ProfessorService {
 
 		System.out.println("교수 소개 변경 introUpdate : " + introUpdate);
 
-		if (introUpdate == 1)
+		if (introUpdate == 1) {
 			red.addFlashAttribute("message", "교수 소개를 변경하였습니다.");
-		if (introUpdate != 1)
+			red.addFlashAttribute("alertIcon","success");
+		}
+		if (introUpdate != 1) {
 			red.addFlashAttribute("message", "교수 소개르 변경하는 도중에 오류가 발생하였습니다.");
+			red.addFlashAttribute("alertIcon","error");
+		}
 
 	}
 
@@ -163,11 +170,15 @@ public class ProfessorServiceImpl implements ProfessorService {
 
 		int up = update2 + update;
 
-		if (up == 2)
+		if (up == 2) {
 			red.addFlashAttribute("message", "개인정보를 변경하였습니다.");
-		if (up != 2)
+			red.addFlashAttribute("alertIcon","success");
+		}
+		if (up != 2) {
 			red.addFlashAttribute("message", "개인정보를 변경하는 도중에 오류가 발생하였습니다.");
-	}
+			red.addFlashAttribute("alertIcon","error");
+		}
+	}	
 
 	
 	
@@ -317,10 +328,14 @@ public class ProfessorServiceImpl implements ProfessorService {
 
 		int up = insertScore;
 
-		if (up == 1)
+		if (up == 1) {
 			red.addFlashAttribute("message", userName+" 학생의 학점 "+credit+" 을 입력하였습니다.");
-		if (up != 1)
+			red.addFlashAttribute("alertIcon","success");
+		}
+		if (up != 1) {
 			red.addFlashAttribute("message", "학점을 입력하는 과정에서 오류가 발생하였습니다.");
+			red.addFlashAttribute("alertIcon","error");
+		}
 	}
 	//학점수정
 	@Override
@@ -342,10 +357,61 @@ public class ProfessorServiceImpl implements ProfessorService {
 
 		int up = updateScore;
 
-		if (up == 1)
+		if (up == 1) {
 			red.addFlashAttribute("message", userName+" 학생의 학점을 "+credit+" 로 수정하였습니다.");
-		if (up != 1)
+			red.addFlashAttribute("alertIcon","success");
+		}
+		if (up != 1) {
 			red.addFlashAttribute("message", "학점을 수정하는 과정에서 오류가 발생하였습니다.");
+			red.addFlashAttribute("alertIcon","error");
+		}
+	}
+	//강의계획서 진입
+	@Override
+	public void plan(HttpServletRequest req, Model model) {
+		
+		String userNumber = (String) req.getSession().getAttribute("userNumber");
+		
+		List<PlanVO> vo1 = dao.plan(userNumber);
+		List<PlanVO> vo2 = dao.plan2(userNumber);
+		
+		System.out.println("교수 강의 목록  vo1 : " + vo1);
+		System.out.println("교수 강의 목록  vo2 : " + vo2);
+		
+		model.addAttribute("vo1",vo1);
+		model.addAttribute("vo2",vo2);
+	}
+	//강의계획서 첫번째 
+	@Override
+	public void firstPlan(Map<String, Object> map, HttpServletRequest req, Model model) {
+		
+		String userNumber = (String) req.getSession().getAttribute("userNumber");
+		String firstLec = (String) map.get("firstLec");
+		
+		map.put("userNumber", userNumber);
+		map.put("firstLec", firstLec);
+		
+		List<PlanVO> vo = dao.firstPlan(map);
+		
+		System.out.println("첫번째 강의 강의계획서  vo : " + vo);
+		
+		model.addAttribute("vo",vo);
+		
+	}
+	//강의계획서 나머지 클릭
+	@Override
+	public void getPlan(Map<String, Object> map, HttpServletRequest req, Model model) {
+		String userNumber = (String) req.getSession().getAttribute("userNumber");
+		String lecName = (String) map.get("lecName");
+		
+		map.put("userNumber", userNumber);
+		map.put("lecName", lecName);
+
+		List<PlanVO> vo = dao.firstPlan(map);
+		
+		System.out.println("나머지 강의 강의계획서  vo : " + vo);
+		
+		model.addAttribute("vo",vo);
 	}
 
 }

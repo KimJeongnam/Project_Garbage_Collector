@@ -84,4 +84,20 @@
 	<update id="updateScore" parameterType="com.spring.project.professor.vo.LecScore">
  		UPDATE GPA SET credit=#{credit}, jscore =#{jscore} WHERE infoCode=#{incode}
  	</update>
+ 	
+ 	<!-- 강의계획서 강의목록 나누기 -->
+	<select id="plan" parameterType="String" resultType="com.spring.project.professor.vo.PlanVO">
+ 		SELECT*FROM(SELECT ROWNUM num, lecturename FROM lecture WHERE empnumber=#{userNumber} AND lecstatus!=3)a WHERE a.num='1'
+ 	</select>
+	<select id="plan2" parameterType="String" resultType="com.spring.project.professor.vo.PlanVO">
+ 		SELECT*FROM(SELECT ROWNUM num, lecturename FROM lecture WHERE empnumber=#{userNumber} AND lecstatus!=3)a WHERE a.num!='1'
+ 	</select>
+ 	
+ 	<!-- 강의계획서 진입 -->
+ 	<select id="firstPlan" parameterType="String" resultType="com.spring.project.professor.vo.PlanVO">
+ 		SELECT*FROM MyLecturePlan WHERE empnumber=#{userNumber} AND lecturename=#{firstLec}  ORDER BY week
+ 	</select>
+	<select id="getPlan" parameterType="String" resultType="com.spring.project.professor.vo.PlanVO">
+		SELECT*FROM MyLecturePlan WHERE empnumber=#{userNumber} AND lecturename=#{lecName}  ORDER BY week
+ 	</select>
 </mapper>
