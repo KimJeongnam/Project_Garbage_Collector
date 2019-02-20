@@ -5,7 +5,6 @@
 <head>
 <meta charset="UTF-8">
 <%@ include file="../../Basic/settings.jsp"%>
-<title>Insert title here</title>
 </head>
 <body class="nav-md">
 	<%@ include file="../../Basic/navbar.jsp"%>
