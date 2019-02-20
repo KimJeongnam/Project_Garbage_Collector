@@ -12,8 +12,9 @@
 	</div>
 
 	<div class="compose-body">
-		<div id="alerts">메세지를 입력하신 후 '메세지 보내기' 버튼을 누르세요.</div>
-
+		<div id="alerts">받는이 : <span id="compose-sendUser-view"></span>
+			<input hidden="true" type="text" id="compose-sendUser">
+		</div>
 		<div id="editor" class="editor-wrapper" style="height: 125px;"></div>
 	</div>
 

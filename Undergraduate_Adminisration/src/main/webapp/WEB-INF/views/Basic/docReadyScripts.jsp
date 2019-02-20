@@ -40,3 +40,6 @@
 	</c:choose>
 </c:if>
 	ansycTaskMessage('${userNumber}');
+	$('#send').click(function(){
+		sendMessage();
+	});
