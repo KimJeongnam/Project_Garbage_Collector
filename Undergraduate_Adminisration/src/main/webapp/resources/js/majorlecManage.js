@@ -49,11 +49,15 @@ function setMode(args){
 		getMajorCurrval(setMajorCode);
 	} else if (mode == '수정') {
 		if(args.length<5){
-			alert("Error! Usage: openMajorModal(mode" +
-					", majorNum" +
-					", faculty" +
-					", majorName" +
-					", maxNum) ");
+			swal({
+				text:"Error! Usage: openMajorModal(mode" +
+				", majorNum" +
+				", faculty" +
+				", majorName" +
+				", maxNum) ",
+				icon: "error",
+				button:"확인",
+			});
 			return;
 		}
 		
@@ -125,24 +129,46 @@ function deleteMajor(majorNum){
 	
 	var pageNum = $('#majorPageNum').val();
 	
-	if(!confirm("학과 '폐지' 하시겠습니까?")) return;
-	$.ajax({
-		url : '/project/admin//major_lecture_Manager/ajax/deleteMajor',
-		type : 'POST',
-		data : JsonData,
-		contentType : 'application/json;charset=utf-8',
-		success : function(data){
-			if(data.status == 'fail'){
-				alert("ERROR! 삭제 실패");
-			}else{
-				$('#majorAdd-Modal').modal('hide');
-				getMajors(pageNum);
-				getFacultys(init_collegeSelector);
-				getFacultys(init_lec_facultySelector);
-				getLectureList();
-			}
+	swal({
+		text:"학과 '폐지' 하시겠습니까?",
+		  buttons:{
+			  cancel: {
+			    text: "취소",
+			    value: false,
+			    visible: true,
+			  },
+			  ok: {
+			    text: "확인",
+			    value: true,
+			    visible: true,
+			  }
 		},
-		error : function(){	}
+	}).then((value)=>{
+		if(value){
+			$.ajax({
+				url : '/project/admin//major_lecture_Manager/ajax/deleteMajor',
+				type : 'POST',
+				data : JsonData,
+				contentType : 'application/json;charset=utf-8',
+				success : function(data){
+					if(data.status == 'fail'){
+						swal({
+							text:"ERROR! 삭제 실패",
+							icon: "error",
+							button:"확인",
+						});
+					}else{
+						$('#majorAdd-Modal').modal('hide');
+						swal("success", "삭제 완료.","success");
+						getMajors(pageNum);
+						getFacultys(init_collegeSelector);
+						getFacultys(init_lec_facultySelector);
+						getLectureList();
+					}
+				},
+				error : function(){	}
+			});
+		}
 	});
 }
 
@@ -154,11 +180,26 @@ function addMajor(){
 	var pageNum = $('#majorPageNum').val();
 	
 	if(faculty == null){
-		alert("단과대를 선택해 주세요."); return;
+		swal({
+			text:"단과대를 선택해 주세요.",
+			icon:"warning",
+			button:"확인",
+		});
+		return;
 	}else if(majorName.length<1){
-		alert("학과명을 입력해 주세요."); return;
+		swal({
+			text:"학과명을 입력해 주세요.",
+			icon:"warning",
+			button:"확인",
+		});
+		return;
 	}else if(maxNum.length<1){
-		alert("최대 학생수를 입력하세요."); return;
+		swal({
+			text:"최대 학생수를 입력하세요.",
+			icon:"warning",
+			button:"확인",
+		});
+		return;
 	}	
 	
 	var obj = new Object();
@@ -175,8 +216,13 @@ function addMajor(){
 		contentType : 'application/json;charset=utf-8',
 		success : function(data){
 			if(data.status == 0){
-				alert("ERROR! 학과 추가 오류.");
+				swal({
+					text:"ERROR! 학과 추가 오류.",
+					icon:'error',
+					button:"확인",
+				});
 			}else{
+				swal("success", "학과 추가 완료.","success");
 				$('#majorAdd-Modal').modal('hide');
 				getMajors(pageNum);
 			}
@@ -195,15 +241,27 @@ function modifyMajor(){
 	
 	if($('#majorPageNum').val().length>0)
 		pageNum = $('#majorPageNum').val();
-	
-	if(!confirm("학과 '수정' 하시겠습니까?")) return;
-	
 	if(faculty == null){
-		alert("Error 단과대를 선택해 주세요."); return;
+		swal({
+			text:"Warning 단과대를 선택해 주세요.",
+			icon:'warning',
+			button:"확인",
+		});
+		return;
 	}else if(majorName.length<1){
-		alert("Error 학과명을 입력해 주세요."); return;
+		swal({
+			text:"Warning 학과명을 입력해 주세요.",
+			icon:'warning',
+			button:"확인",
+		});
+		return;
 	}else if(maxNum.length<1){
-		alert("Error 최대 학생수를 입력하세요."); return;
+		swal({
+			text:"Warning 최대 학생수를 입력하세요.",
+			icon:'warning',
+			button:"확인",
+		});
+		return;
 	}
 	
 	var obj = new Object();
@@ -214,20 +272,40 @@ function modifyMajor(){
 	
 	var JsonData = JSON.stringify(obj);
 	
-	$.ajax({
-		url : '/project/admin/major_lecture_Manager/modifyMajor',
-		type : 'POST',
-		data : JsonData,
-		contentType : 'application/json;charset=utf-8',
-		success : function(data){
-			if(data.status == 0){
-				alert("ERROR! 학과 수정 오류.");
-			}else{
-				$('#majorAdd-Modal').modal('hide');
-				getMajors(pageNum);
-			}
+	swal({
+		text:"학과 '수정' 하시겠습니까?",
+		  buttons:{
+			  cancel: {
+			    text: "취소",
+			    value: false,
+			    visible: true,
+			  },
+			  ok: {
+			    text: "확인",
+			    value: true,
+			    visible: true,
+			  }
 		},
-		error : function(){	}
+	}).then((value)=>{
+		$.ajax({
+			url : '/project/admin/major_lecture_Manager/modifyMajor',
+			type : 'POST',
+			data : JsonData,
+			contentType : 'application/json;charset=utf-8',
+			success : function(data){
+				if(data.status == 0){
+					swal({
+						text:"ERROR! 학과 수정 오류.",
+						icon:'error',
+						button:"확인",
+					});
+				}else{
+					$('#majorAdd-Modal').modal('hide');
+					getMajors(pageNum);
+				}
+			},
+			error : function(){	}
+		});
 	});
 }
 
@@ -363,7 +441,11 @@ function openNewLectureModal(){
 			setLecCode(data.lectureNextVal);
 		},
 		error : function(){
-			alert("강의시간 코드 받아오기 Error!");
+			swal({
+				text:"강의시간 코드 받아오기 Error!",
+				icon:'error',
+				button:"확인",
+			});
 		}
 	})
 	
@@ -442,7 +524,11 @@ function setLecmajorSelector(faculty){
 			}
 		},
 		error : function(){
-			alert("Error! setLecmajorSelector()");
+			swal({
+				text:"Error! setLecmajorSelector()",
+				icon:'error',
+				button:"확인",
+			});
 		}
 	});
 }
@@ -491,7 +577,11 @@ function  getLectureList(){
 				$('#lectureList').html(data);
 		},
 		error : function(){
-			alert("Error! getLectureList()");
+			swal({
+				text:"Error! getLectureList()",
+				icon:'error',
+				button:"확인",
+			});
 		}
 	});
 }
@@ -527,7 +617,13 @@ function professorList(){
 			if(data != null)
 				$('#professorList').html(data);
 		},
-		error : function(){ alert("Error : professorList()"); }
+		error : function(){ 
+			swal({
+				text:"Error : professorList()",
+				icon:'error',
+				button:"확인",
+			});
+		}
 	})
 }
 
@@ -613,7 +709,11 @@ function setProMajorSelector(faculty){
 			}
 		},
 		error : function(){
-			alert("Error! setLecmajorSelector()");
+			swal({
+				text:"Error! setLecmajorSelector()",
+				icon:'error',
+				button:"확인",
+			});
 		}
 	});
 }
@@ -637,30 +737,51 @@ function initLectureModal(){
 	$('#lectureScore').val("1");
 	$('#maximumcapacity').val("");
 	$('#lectureModalBtn').attr("onclick", "insertLecture();");
+	$('#lectureModalBtn').val("등록");
+	$('#lectureModalDelBtn').attr("hidden", "true");
 }
 
 function insertLecture(){
 	var obj = new Object();
-
 	
 	obj.lecCode = $('#lecCode').val();
 	if($('#empNumber').val()>0){
 		obj.userNumber = $('#empNumber').val();
 		obj.majorNum = $('#majorNum').val();
 	}else{
-		alert("교수를 선택해주세요!"); return;
+		swal({
+			text:"교수를 선택해주세요!",
+			icon:"warning",
+			button:"확인",
+		});
+		return;
 		$('#empNumber').focus();
 	}
 	if($('#classRoom').val()<1){
-		alert("강의실을 입력해주세요."); return;
+		swal({
+			text:"강의실을 입력해주세요.",
+			icon:"warning",
+			button:"확인",
+		});
+		return;
 		$('#classRoom').focus();
 	}
 	if($('#lectureName').val()<1){
-		alert("강의명을 입력해 주세요."); return;
+		swal({
+			text:"강의명을 입력해 주세요.",
+			icon:"warning",
+			button:"확인",
+		});
+		return;
 		$('#lectureName').focus();
 	}
 	if($('#maximumcapacity').val() == ''){
-		alert("제한 인원수를 입력해 주세요."); return;
+		swal({
+			text:"제한 인원수를 입력해 주세요.",
+			icon:"warning",
+			button:"확인",
+		});
+		return;
 		$('#maximumcapacity').focus();
 	}
 	
@@ -677,7 +798,11 @@ function insertLecture(){
 	
 	
 	if(lectureTimeMap.size < 1){
-		alert("강의시간을 선택해 주세요!");
+		swal({
+			text:"강의시간을 선택해 주세요!",
+			icon:"warning",
+			button:"확인",
+		});
 		return;
 	}
 	
@@ -694,7 +819,7 @@ function insertLecture(){
 		contentType:'application/json;charset=utf8',
 		data:jsonData,
 		success:function(data){
-			alert(data.message);
+			swal(data.status, data.message, data.status);
 			getLectureList();
 			initLectureModal();
 			$('#lecture-Modal').modal('hide');
@@ -716,6 +841,156 @@ function getLectureInfo(leccode, callback){
 		},
 		error : function(){
 			alert("Error! getLectureInfo()");
+		}
+	});
+}
+
+
+// 학과 수정
+function modifyLecture(){
+	var obj = new Object();
+	
+	obj.lecCode = $('#lecCode').val();
+	if($('#empNumber').val()>0){
+		obj.userNumber = $('#empNumber').val();
+		obj.majorNum = $('#majorNum').val();
+	}else{
+		swal({
+			text:"교수를 선택해주세요!",
+			icon:"warning",
+			button:"확인",
+		});
+		return;
+		$('#empNumber').focus();
+	}
+	if($('#classRoom').val()<1){
+		swal({
+			text:"강의실을 입력해주세요.",
+			icon:"warning",
+			button:"확인",
+		});
+		return;
+		$('#classRoom').focus();
+	}
+	if($('#lectureName').val()<1){
+		swal({
+			text:"강의명을 입력해 주세요.",
+			icon:"warning",
+			button:"확인",
+		});
+		return;
+		$('#lectureName').focus();
+	}
+	if($('#maximumcapacity').val() == ''){
+		swal({
+			text:"제한 인원수를 입력해 주세요.",
+			icon:"warning",
+			button:"확인",
+		});
+		return;
+		$('#maximumcapacity').focus();
+	}
+	
+	obj.grade = $('#grade').val();
+	obj.grantedSemester = $('#grantedSemester').val();
+	obj.classRoom = $('#classRoom').val();
+	obj.lectureClassfication = $('#lectureClassfication').val();
+	obj.lectureName = $('#lectureName').val();
+	obj.maximumCapacity = $('#maximumcapacity').val();
+	obj.lectureScore = $('#lectureScore').val();
+	
+	if(lectureTimeMap.size < 1){
+		swal({
+			text:"강의시간을 선택해 주세요!",
+			icon:"warning",
+			button:"확인",
+		});
+		return;
+	}
+	
+	obj.timetblCodes = [];
+	for(var key of lectureTimeMap.keys())
+		obj.timetblCodes.push(key);
+	
+	var jsonData = JSON.stringify(obj);
+	
+	swal({
+		text:"강의 번호 :"+obj.lecCode+" '"+obj.lectureName+"' 수정 하시겠습니까?",
+		  buttons:{
+			  cancel: {
+			    text: "취소",
+			    value: false,
+			    visible: true,
+			  },
+			  ok: {
+			    text: "확인",
+			    value: true,
+			    visible: true,
+			  }
+		},
+	}).then((value)=>{
+		if(value){
+			$.ajax({
+				url:'/project/admin/major_lecture_Manager/modifyLecture',
+				type:'POST',
+				contentType:'application/json;charset=utf8',
+				data:jsonData,
+				success:function(data){
+					swal(data.status, data.message, data.status);
+					getLectureList();
+					initLectureModal();
+					$('#lecture-Modal').modal('hide');
+				},
+				error:function(){
+					alert("Error! insertLecture()");
+				}
+			});
+		}
+	});
+}
+
+function deleteLecture(callback){
+	var lecCode = $('#lecCode').val();
+	
+	swal({
+		text:"강의 번호 :"+lecCode+" '삭제' 하시겠습니까?",
+		  buttons:{
+			  cancel: {
+			    text: "취소",
+			    value: false,
+			    visible: true,
+			  },
+			  ok: {
+			    text: "확인",
+			    value: true,
+			    visible: true,
+			  }
+		},
+	}).then((value)=>{
+		if(value){
+			callback(lecCode);
+		}
+	});
+}
+
+function deleteLectureAjax(leccode){
+	var obj = new Object();
+	obj.lecCode = leccode;
+	var jsonData = JSON.stringify(obj);
+	
+	$.ajax({
+		url:'/project/admin/major_lecture_Manager/deleteLecture',
+		type:'POST',
+		contentType:'application/json;charset=utf8',
+		data:jsonData,
+		success:function(data){
+			swal(data.status, data.message, data.status);
+			getLectureList();
+			initLectureModal();
+			$('#lecture-Modal').modal('hide');
+		},
+		error:function(){
+			swal("Error", "insertLecture()", "error");
 		}
 	});
 }

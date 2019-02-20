@@ -315,17 +315,24 @@ public class AdminDAOImpl implements AdminDAO{
 	@Override
 	public void addLecture(LectureVO lecture) {
 		sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.addLecture", lecture);
-		return;
 	}
 
 	@Override
 	public LectureVO getLecture(Map<String, Object> map) {
 		return sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.getLecture", map);
 	}
+
+	@Override
+	public void modifyLecture(LectureVO lecture) {
+		sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.modifyLecture", lecture);
+	}
+
+	@Override
+	public int deleteLecture(Map<String, Object> map) {
+		return sqlSession.update("com.spring.project.admin.dao.AdminDAO.deleteLecture", map);
+	}
 	
 	//------------------------------------------------------교직 업무 관리 END----------------------------------------------------------
-	
-
 
 	@Override
 	public List<payrollVO> payrollList() {

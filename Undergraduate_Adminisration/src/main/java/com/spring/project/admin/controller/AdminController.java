@@ -347,6 +347,26 @@ public class AdminController {
 		return service.addLecture(lecture);
 	}
 	
+	// 강의 수정
+	@ResponseBody
+	@RequestMapping(value="/admin/major_lecture_Manager/modifyLecture", method=RequestMethod.POST)
+	public Map<String, Object> modifyLecture(@RequestBody LectureVO lecture){
+		logger.info("insertLecture()");
+		logger.info("insertLecture-> getTimetblCodes()");
+		for(int key : lecture.getTimetblCodes()) {
+			logger.info("code:"+key);
+		}
+		return service.modifyLecture(lecture);
+	}
+	
+	// 강의 삭제
+	@ResponseBody
+	@RequestMapping(value="/admin/major_lecture_Manager/deleteLecture", method=RequestMethod.POST)
+	public Map<String, Object> deleteLecture(@RequestBody Map<String, Object> map){
+		logger.info("deleteLecture()");
+		return service.deleteLecture(map);
+	}
+	
 	// ---------------------------------학과,강의관리END----------------------------------------
 
 	// ---------------------------------회계관리START----------------------------------------

@@ -128,6 +128,13 @@ public interface AdminDAO {
 	// 강의 조회
 	public LectureVO getLecture(Map<String, Object> map);
 	
+	// 강의 수정
+	public void modifyLecture(LectureVO lecture);
+	
+	// 강의 삭제
+	
+	public int deleteLecture(Map<String, Object> map);
+	
 	//---------------교직 업무 관리 END-------------------
 	
 	public List<payrollVO> payrollList();

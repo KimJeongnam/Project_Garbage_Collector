@@ -670,6 +670,18 @@
 		ON emp.empNumber = u.userNumber
 		WHERE l.leccode = #{lecCode}
 	</select>
+	
+	<select id="modifyLecture" statementType="CALLABLE" parameterType="com.spring.project.student.vo.LectureVO">
+		{call modify_lecture_proc(#{lecCode}, #{majorNum}, #{userNumber}, #{lectureName}
+		, #{lectureClassfication}, #{maximumCapacity}, #{grade}, #{grantedSemester}, #{lectureScore}, #{classRoom}
+		, TO_NUMBER(TO_CHAR(SYSDATE, 'YYYY')), #{ttc, mode=IN, typeHandler=com.spring.project.admin.vo.LectureTimetblCodesHandler}, #{result, mode=OUT, javaType=int, jdbcType=NUMERIC})}
+	</select>
+	
+	<update id="deleteLecture" parameterType="java.util.Map">
+	UPDATE lecture 
+    SET delstatus = 1
+    WHERE leccode = #{lecCode}
+	</update>
 	<!-- ==========================================교직 업무 관리 END========================================= -->
 
 	<!-- ==========================================회계관리 START========================================= -->

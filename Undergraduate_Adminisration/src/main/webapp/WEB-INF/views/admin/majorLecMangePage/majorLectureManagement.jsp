@@ -123,7 +123,6 @@
 										</select>
 										</label>
 									</div>
-									
 								</div>
 								<div class="col-md-6">
 									<div class="col-md-4 col-sm-6 col-xs-6 form-inline"
@@ -331,7 +330,7 @@
 										<select id="lectureClassfication" required="required"
 											class="form-control col-md-6 col-xs-12">
 											<option value="선택">선택</option>
-											<option value="0">교양</option>
+											<option value="2">교양</option>
 											<option value="1">전공</option>
 										</select>
 									</div>
@@ -380,12 +379,17 @@
 							<div class="col-md-6">
 								<div class="form-group">
 									<div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3 text-left">
-										<input type="button" class="btn btn-success" value="등록"
-											onclick="insertLecture();" id="lectureModalBtn"> <input hidden="true"
+										<div class="col-md-3">
+											<input type="button" class="btn btn-success" value="등록"
+												onclick="insertLecture();" id="lectureModalBtn"> 
+										</div>
+										<div class="col-md-3">
+										<input hidden="true"
 											type="button" class="btn btn-danger" value="삭제" onclick=""
 											id="lectureModalDelBtn">
+										</div>
 									</div>
-								</div>``
+								</div>
 							</div><div class="col-md-6"></div>
 						</form>
 					</div>
@@ -437,8 +441,10 @@
 		$('#lectureName').val(data.lectureName);
 		$('#lectureScore').val(data.lectureScore);
 		$('#maximumcapacity').val(data.maximumCapacity);
-		$('#lectureModalBtn').attr("onclick", "");
+		$('#lectureModalBtn').attr("onclick", "modifyLecture();");
 		$('#lectureModalBtn').attr("value", "수정");
+		$('#lectureModalDelBtn').attr("onclick", "deleteLecture(deleteLectureAjax);")
+		$('#lectureModalDelBtn').removeAttr("hidden");
 		
 		$('#lecture-Modal').modal({backdrop:'static', keyboard:false});
 	}

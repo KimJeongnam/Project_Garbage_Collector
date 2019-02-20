@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -102,6 +103,12 @@ public interface AdminService {
 	// 강의 조회
 	public LectureVO getLecture(Map<String, Object> map);
 
+	// 강의 수정
+	public Map<String, Object> modifyLecture(LectureVO lecture);
+	
+	// 강의 삭제
+	public Map<String, Object> deleteLecture(Map<String, Object> map);
+	
 	//-----------------------------------교직 업무 관리 END-----------------------------
 	
 	

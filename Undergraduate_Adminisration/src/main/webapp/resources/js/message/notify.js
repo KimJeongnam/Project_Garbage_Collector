@@ -1,3 +1,5 @@
+
+
 function notifyMessage(title, text, important){
 	if(important == 0){
 		new PNotify({
@@ -165,7 +167,11 @@ function getMessages(userNumber, page){
 			}
 		},
 		error:function(){
-			alert("Error! getMessages();");
+			swal({
+				text:"Error! getMessages();",
+				icon: "error",
+				button:"확인",
+			});
 		}
 	});
 }

@@ -142,6 +142,9 @@
     <script src="${staticPath}/vendors/pnotify/dist/pnotify.js"></script>
     <script src="${staticPath}/vendors/pnotify/dist/pnotify.buttons.js"></script>
     <script src="${staticPath}/vendors/pnotify/dist/pnotify.nonblock.js"></script>
+	
+	<!-- https://sweetalert.js.org/guides/ -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     
 	<!-- Custom Theme Scripts -->
     <script src="${staticPath}/build/js/custom.min.js"></script>
@@ -159,8 +162,7 @@
     <script src="${staticPath }/js/bulletin/applybulletin.js"></script>
     <script src="${staticPath }/js/adminjanghak/applyresister.js"></script>
     
-    <!-- https://sweetalert.js.org/guides/ -->
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+   
 	
     
 

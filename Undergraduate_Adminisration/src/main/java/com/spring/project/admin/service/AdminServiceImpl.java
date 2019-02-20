@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -850,10 +851,14 @@ public class AdminServiceImpl extends Board implements AdminService {
 
 		if (lecture.getResult() == 0) {
 			responseData.put("message", "Error!! 강의 추가 실패! 'lecture TABLE INSERT FAILE!'");
+			responseData.put("status", "error");
 		} else if ((lecture.getTimetblCodes().size() + 1) == lecture.getResult()) {
 			responseData.put("message", "강의 추가 완료");
-		} else
+			responseData.put("status", "success");
+		} else {
 			responseData.put("message", "Error!! 강의 추가 실패! 'lectureTime TABLE INSERT FAILE!'");
+			responseData.put("status", "error");
+		}
 		return responseData;
 	}
 
@@ -861,9 +866,38 @@ public class AdminServiceImpl extends Board implements AdminService {
 	public LectureVO getLecture(Map<String, Object> map) {
 		return dao.getLecture(map);
 	}
+
+	@Override
+	public Map<String, Object> modifyLecture(LectureVO lecture) {
+		Map<String, Object> responseData = new HashMap<String, Object>();
+		lecture.setTtc(lecture.getTimetblCodes().stream().mapToInt(i -> i).toArray());
+		dao.modifyLecture(lecture);
+		
+		System.out.println("result : "+lecture.getResult());
+		if (lecture.getResult() != 0) {
+			responseData.put("message", "강의 수정 완료.");
+			responseData.put("status", "success");
+		}else {
+			responseData.put("message", "Error!! 강의 수정 실패! 'lectureTime TABLE INSERT FAILE!'");
+			responseData.put("status", "error");
+		}
+		return responseData;
+	}
+	
+	@Override
+	public Map<String, Object> deleteLecture(Map<String, Object> map) {
+		Map<String, Object> responseData = new HashMap<String, Object>();
+		if(dao.deleteLecture(map)==1) {
+			responseData.put("message", "강의 삭제 완료.");
+			responseData.put("status", "success");
+		}else {
+			responseData.put("message", "Error!! 강의 삭제 실패!");
+			responseData.put("status", "error");
+		}
+		return responseData;
+	}
 	
 	// -------------------------------------------------------교직업무관리END-------------------------------------------------
-
 	
 
 	@Override
