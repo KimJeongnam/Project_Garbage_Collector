@@ -686,17 +686,16 @@
 	<!-- 급여계산/대장 -->
 	<select id="payrollList"
 		resultType="com.spring.project.admin.vo.payrollVO">
-		select to_char(imputedYear,'yyyy/mm') imputedYear,
-		paymentClassfication,
-		registerName, paymentDate,
-		to_char(paymentYear,'yyyy/mm') paymentYear, totalAmount from
-		paymentlist
+		select to_char(imputedYear,'yyyy/mm') imputedYear, paymentClassfication, registerName, paymentDate,
+		to_char(paymentYear,'yyyy/mm') paymentYear, 
+		nvl((select sum(PersonnelTotalPay) from payrollListview where paylistNum = p.paylistNum),0) totalAmount 
+        from paymentlist p
 	</select>
 
 	<select id="getFacultyList"
 		resultType="com.spring.project.admin.vo.payrollVO">
 		SELECT empNumber, userName, majorName,sum(overtime) overtime,sum(기본급) basicPay, sum(extraPay) extraPay,
-		sum(식대) foodExpenses,sum(차량유지비) vehicleCost
+		sum(식대) foodExpenses,sum(차량유지비) vehicleCost, sum(기본급)+sum(extraPay)+sum(식대)+sum(차량유지비) personnelTotalPay
 		from(SELECT e.empNumber, u.userName, m.majorName,r.overtime,
 	        CASE WHEN i.incentiveName = '기본급' THEN p.cashAmount ELSE 0 END "기본급",
 	        CASE WHEN i.incentiveName = '식대' THEN p.cashAmount ELSE 0 END "식대",
@@ -710,7 +709,7 @@
 
 	<select id="getPaymentClassfication"
 		resultType="com.spring.project.admin.vo.payrollVO">
-		select to_char(imputedYear,'yyyy/mm'), paymentClassfication
+		select to_char(imputedYear,'yyyy/mm') imputedYear, paymentClassfication
 		from
 		paymentlist
 	</select>

@@ -46,8 +46,6 @@
 										<th>지급총액</th>
 									</tr>
 								</thead>
-
-
 								<tbody>
 									<c:forEach var="dto" items="${dtos}">
 										<tr>
@@ -75,7 +73,10 @@
 													class="glyphicon glyphicon-ok"></i>확정</a> <a
 												onclick="Delete();" class="btn btn-danger"><i
 													class="glyphicon glyphicon-trash"></i>삭제</a></td>
-											<td style="vertical-align: middle" id="total"></td>
+											<td style="vertical-align: middle" id="total"><input
+												type="text" style="text-align: right;width:100px"
+												value="<fmt:formatNumber value="${dto.totalAmount}" pattern="#,###" />"
+												readonly>원</td>
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -99,17 +100,13 @@
 
 	<div class="modal fade" id="ConfirmationWorkRecord">
 		<div class="modal-dialog">
-			<div class="modal-content" style="width: 730px">
+			<div class="modal-content" style="width: 880px">
 				<!-- header -->
 				<div class="modal-header">
 					<!-- 닫기(x) 버튼 -->
 					<button type="button" class="close" data-dismiss="modal">×</button>
 					<!-- header title -->
 					<h4 class="modal-title">근무기록확정</h4>
-				</div>
-				<!-- body -->
-
-				<div class="modal-body">
 					<div class="row form-inline"
 						style="margin: 0px; vertical-align: middle">
 						<div style="float: right">
@@ -118,8 +115,12 @@
 							<button class="btn btn-primary" onclick="fixSetting();">확정</button>
 						</div>
 					</div>
-
-					<table class="table table-striped jambo_table bulk_action">
+					<br><br>
+				</div>
+				<!-- body -->
+				
+				<div class="modal-body">
+					<table id="datatable" class="table table-striped jambo_table bulk_action">
 						<thead>
 							<tr class="headings">
 								<th><input type="checkbox" id="allCheck1"></th>
@@ -157,20 +158,15 @@
 		</div>
 	</div>
 
-
-
 	<div class="modal fade" id="Insert-workRecord">
 		<div class="modal-dialog">
-			<div class="modal-content" style="width: 800px">
+			<div class="modal-content" style="width: 880px">
 				<!-- header -->
 				<div class="modal-header">
 					<!-- 닫기(x) 버튼 -->
 					<button type="button" class="close" data-dismiss="modal">×</button>
 					<!-- header title -->
 					<h4 class="modal-title">금액직접입력</h4>
-				</div>
-				<!-- body -->
-				<div class="modal-body">
 					<div class="row form-inline"
 						style="margin: 0px; vertical-align: middle">
 						<div style="float: right">
@@ -186,7 +182,11 @@
 							<button class="btn btn-primary" onclick="fixSetting2();">확정</button>
 						</div>
 					</div>
-					<table class="table table-striped jambo_table bulk_action">
+					<br><br>
+				</div>
+				<!-- body -->
+				<div class="modal-body">
+					<table id="datatable-fixed-header" class="table table-striped jambo_table bulk_action">
 						<thead>
 							<tr class="headings">
 								<th><input type="checkbox" id="allCheck2"></th>
@@ -295,9 +295,7 @@
 														pattern="#,###" />원</td>
 												<td><fmt:formatNumber value="${dto.vehicleCost}"
 														pattern="#,###" />원</td>
-												<c:set var="ActualPayment"
-													value="${dto.basicPay + dto.extraPay + dto.foodExpenses + dto.vehicleCost}" />
-												<td><fmt:formatNumber value="${ActualPayment}"
+												<td><fmt:formatNumber value="${dto.personnelTotalPay}"
 														pattern="#,###" />원</td>
 
 											</tr>
@@ -413,7 +411,6 @@
 								</select>
 							</div>
 						</div>
-
 						<div class="form-group">
 							<label class="control-label col-md-3 col-sm-3 col-xs-12">급여구분
 							</label>
@@ -428,26 +425,16 @@
 						<div class="form-group">
 							<label class="control-label col-md-3 col-sm-3 col-xs-12">대상기간
 							</label>
-							<div class="input-prepend input-group">
-								<span class="add-on input-group-addon"><i
-									class="glyphicon glyphicon-calendar fa fa-calendar"></i></span> <input
-									type="text" style="width: 200px" name="reservation"
-									id="reservation" class="form-control"
-									value="01/01/2016 - 01/25/2016" />
+							<div style="display: -webkit-inline-box;">
+								<input type="date" name="beginningPeriod">~<input
+									type="date" name="endPeriod">
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="control-label col-md-3 col-sm-3 col-xs-12">지급일
 							</label>
-							<div class="input-prepend input-group">
-							<div class="col-md-12 xdisplay_inputx form-group has-feedback">
-								<input type="text" class="form-control has-feedback-left"
-									id="single_cal2" placeholder="First Name"
-									aria-describedby="inputSuccess2Status2"> <span
-									class="fa fa-calendar-o form-control-feedback left"
-									aria-hidden="true"></span> <span id="inputSuccess2Status2"
-									class="sr-only">(success)</span>
-							</div>
+							<div style="display: -webkit-inline-box;">
+								<input type="date" name="paymentDate">
 							</div>
 						</div>
 						<div class="form-group">
@@ -486,88 +473,10 @@
 							<label class="control-label col-md-3 col-sm-3 col-xs-12">급여대장명칭
 							</label>
 							<div style="display: -webkit-inline-box;">
-							<input type="text" name="registerName" class="form-control col-md-3 col-sm-3 col-xs-12">
+								<input type="text" name="registerName"
+									class="form-control col-md-3 col-sm-3 col-xs-12">
 							</div>
 						</div>
-
-
-						<table border="1">
-							<tr>
-								<td>신고귀속</td>
-								<td><select name="imputedYear">
-										<option value="2018" selected="selected">2019</option>
-										<option value="2017">2017</option>
-										<option value="2016">2016</option>
-										<option value="2015">2015</option>
-										<option value="2014">2014</option>
-										<option value="2013">2013</option>
-										<option value="2012">2012</option>
-										<option value="2011">2011</option>
-										<option value="2010">2010</option>
-								</select> <select name="imputedMonth">
-										<option value="-01" selected="selected">1월</option>
-										<option value="-02">2월</option>
-										<option value="-03">3월</option>
-										<option value="-04">4월</option>
-										<option value="-05">5월</option>
-										<option value="-06">6월</option>
-										<option value="-07">7월</option>
-										<option value="-08">8월</option>
-										<option value="-09">9월</option>
-										<option value="-10">10월</option>
-										<option value="-11">11월</option>
-										<option value="-12">12월</option>
-								</select></td>
-							</tr>
-							<tr>
-								<td>급여구분</td>
-								<td><select name="paymentClassfication">
-										<option value="급여" selected="selected">급여</option>
-										<option value="상여">상여</option>
-								</select></td>
-							</tr>
-							<tr>
-								<td>대상기간</td>
-								<td><input type="date" name="beginningPeriod">~<input
-									type="date" name="endPeriod"></td>
-							</tr>
-							<tr>
-								<td>지급일</td>
-								<td><input type="date" name="paymentDate"></td>
-							</tr>
-							<tr>
-								<td>지급연월</td>
-								<td><select name="paymentYear">
-										<option value="2018" selected="selected">2019</option>
-										<option value="2017">2017</option>
-										<option value="2016">2016</option>
-										<option value="2015">2015</option>
-										<option value="2014">2014</option>
-										<option value="2013">2013</option>
-										<option value="2012">2012</option>
-										<option value="2011">2011</option>
-										<option value="2010">2010</option>
-								</select> <select name="paymentMonth">
-										<option value="-01" selected="selected">1월</option>
-										<option value="-02">2월</option>
-										<option value="-03">3월</option>
-										<option value="-04">4월</option>
-										<option value="-05">5월</option>
-										<option value="-06">6월</option>
-										<option value="-07">7월</option>
-										<option value="-08">8월</option>
-										<option value="-09">9월</option>
-										<option value="-10">10월</option>
-										<option value="-11">11월</option>
-										<option value="-12">12월</option>
-								</select></td>
-							</tr>
-							<tr>
-								<td>급여대장명칭</td>
-								<td><input type="text" name="registerName"></td>
-							</tr>
-						</table>
-
 					</div>
 					<!-- Footer -->
 					<div class="modal-footer">
@@ -592,29 +501,35 @@
 					</div>
 					<!-- body -->
 					<div class="modal-body">
-						<table border="1">
-							<tr>
-								<td>기준월(From)</td>
-								<td><i class="fa fa-arrow-right"></i></td>
-								<td>복사월(To)</td>
-							</tr>
-							<tr>
-								<td><select>
-										<option value="0" selected="selected">▼선택</option>
-										<c:forEach var="dto" items="${dtosC}">
-											<option
-												value="${dto.imputedYear}-${dto.paymentClassfication}">${dto.imputedYear}-${dto.paymentClassfication}</option>
-										</c:forEach>
-								</select></td>
-								<td><i class="fa fa-arrow-right"></i></td>
-								<td><select>
-										<option value="0" selected="selected">▼선택</option>
-										<c:forEach var="dto" items="${dtosC}">
-											<option
-												value="${dto.imputedYear}-${dto.paymentClassfication}">${dto.imputedYear}-${dto.paymentClassfication}</option>
-										</c:forEach>
-								</select></td>
-							</tr>
+						<table class="table">
+							<thead>
+								<tr>
+									<td>기준월(From)</td>
+									<td><i class="fa fa-arrow-right"></i></td>
+									<td>복사월(To)</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><select
+										class="form-control col-md-3 col-sm-3 col-xs-12">
+											<option value="0" selected="selected">▼선택</option>
+											<c:forEach var="dto" items="${dtosC}">
+												<option
+													value="${dto.imputedYear}-${dto.paymentClassfication}">${dto.imputedYear}-${dto.paymentClassfication}</option>
+											</c:forEach>
+									</select></td>
+									<td><i class="fa fa-arrow-right"></i></td>
+									<td><select
+										class="form-control col-md-3 col-sm-3 col-xs-12">
+											<option value="0" selected="selected">▼선택</option>
+											<c:forEach var="dto" items="${dtosC}">
+												<option
+													value="${dto.imputedYear}-${dto.paymentClassfication}">${dto.imputedYear}-${dto.paymentClassfication}</option>
+											</c:forEach>
+									</select></td>
+								</tr>
+							</tbody>
 						</table>
 
 					</div>
