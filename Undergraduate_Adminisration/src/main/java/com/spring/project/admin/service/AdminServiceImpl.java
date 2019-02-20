@@ -418,13 +418,15 @@ public class AdminServiceImpl extends Board implements AdminService {
 			vo.setBankName(req.getParameter("bankName"));
 			vo.setAccountHolder(req.getParameter("accountHolder"));
 			vo.setAccountNumber(req.getParameter("accountNumber"));
+			
+			int userInsert = dao.insertPUsers(vo); 
+			int empInsert = dao.insertEmployees(vo); 
+			int insertProcedure = dao.insertProcedure(vo);
+			
+			int proInsertResult = userInsert+ empInsert+insertProcedure;
+			
+			 if (proInsertResult != 0) 
 
-			int userInsert = dao.insertPUsers(vo);
-			int empInsert = dao.insertEmployees(vo);
-
-			int proInsertResult = userInsert + empInsert;
-
-			if (proInsertResult != 0)
 				red.addFlashAttribute("message", "교수등록완료.");
 			else
 				red.addFlashAttribute("message", "교수등록에러.");
@@ -803,7 +805,6 @@ public class AdminServiceImpl extends Board implements AdminService {
 		model.addAttribute("semester", ((LectureVO)lectures.get(1)).getGrantedSemester());
 		model.addAttribute("empNumber", ((LectureVO)lectures.get(1)).getEmpNumber());
 	}
-
 	@Override
 	public Map<String, Object> getLectureSeqNextval() {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -902,20 +903,96 @@ public class AdminServiceImpl extends Board implements AdminService {
 
 	@Override
 	public void judge2(Map<String, Object> map, Logger logger, Model model) {
-		int auditct = Integer.parseInt((String) map.get("audit"));
+		int pageSize = 0; // 한 페이지당 출력할 글 갯수
+		int pageBlock = 5; // 한블럭당 페이지 갯수
 
-		List<auditVO> audit;
+		int cnt = 0; // 총 글 갯수
+		int start = 0; // 현재 페이지 시작 글번호
+		int end = 0; // 현재 페이지 마지막 글 번호
+		int number = 0; // 출력용 글번호
+		int pageNum = 0; // 페이지 번호
+		int pageCount = 0; // 페이지 갯수
+		int startPage = 0; // 시작 페이지
+		int endPage = 0; // 마지막 페이지
 
-		// 심사 리스트
-		if (auditct == 2) {
+		if (!map.containsKey("pageSize")) {
+			pageSize = 10;
+		} else
+			pageSize = Integer.parseInt((String) map.get("pageSize"));
+
+		if (!map.containsKey("pageNum"))
+			pageNum = 1;
+		else
+			pageNum = (Integer) map.get("pageNum");
+		// 수강신청 목록 갯수 구하기
+		cnt = dao.audit_getArticleCnt(map);
+		System.out.println("pageNum"+pageNum);
+
+
+		pageCount = cnt / pageSize + (cnt % pageSize > 0 ? 1 : 0);
+
+		start = (pageNum - 1) * pageSize + 1;
+		end = start + pageSize - 1;
+
+		map.put("start", start);
+		map.put("end", end);
+		System.out.println(map.get("year"));
+		System.out.println(map.get("smester"));
+		
+		if(map.get("year") != "0") {
+		map.put("year", map.get("year"));
+		map.put("smester", map.get("smester"));
+		}
+		
+		if (end > cnt)
+			end = cnt;
+
+		number = cnt - (pageNum - 1) * pageSize;
+
+		
+		if (cnt > 0) {
+			// 수강신청 목록 조회
+			int auditct = Integer.parseInt((String)map.get("audit"));
+			
+			List<auditVO> audit;
+			//심사 리스트
+			if(auditct == 3) {
 			audit = dao.auditCnt();
-		} else {
+			}else{
 			audit = dao.auditCnt2(auditct);
+			}
+			
+			//심사리스트 반환
+			model.addAttribute("audit", audit);
 		}
 
-		// 심사리스트 반환
-		model.addAttribute("audit", audit);
+		// 시작페이지
+		// 1 = (1 / 3) * 3 + 1;
+		startPage = (pageNum / pageBlock) * pageBlock + 1;
+		if (pageNum % pageBlock == 0)
+			startPage -= pageBlock;
+		
+		endPage = startPage + pageBlock - 1;
 
+		// 마지막 페이지
+		// 3 = 1 + 3 - 1;
+		endPage = startPage + pageBlock - 1;
+		if (endPage > pageCount)
+			endPage = pageCount;
+
+		model.addAttribute("cnt", cnt); // 글갯수
+		model.addAttribute("number", number); // 출력용 글번호
+		model.addAttribute("pageNum", pageNum); // 페이지번호
+
+		if (cnt > 0) {
+			model.addAttribute("startPage", startPage); // 시작 페이지
+			model.addAttribute("endPage", endPage); // 마지막 페이지
+			model.addAttribute("pageBlock", pageBlock); // 출력할 페이지 갯수
+			model.addAttribute("pageCount", pageCount); // 페이지 갯수
+			model.addAttribute("pageSize", pageSize); // 현재페이지
+		}
+		
+		
 	}
 
 	// 교직원 급여관리
@@ -936,7 +1013,8 @@ public class AdminServiceImpl extends Board implements AdminService {
 		List<payrollVO> dtosT = dao.getFinalPayrollList();
 		model.addAttribute("dtosT", dtosT);
 	}
-
+	
+	
 	// 급여대장 조회
 	@Override
 	public void lookupWorkRecord(Map<String, Object> map, Model model) {
@@ -974,5 +1052,63 @@ public class AdminServiceImpl extends Board implements AdminService {
 			red.addFlashAttribute("message", "등록이 완료되었습니다.");
 		}
 	}
-
+	@Override
+	public void ConfirmationWorkRecord(HttpServletRequest req, RedirectAttributes red) {
+		String[] overtime = req.getParameterValues("overtime");
+		String[] empNumber = req.getParameterValues("empNumber");
+		
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		
+		for(int i=0; i<overtime.length; i++) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("overtime", overtime[i]);
+			map.put("empNumber", empNumber[i]);
+			
+			list.add(map);
+		}
+		
+		if(overtime != null) {
+			int cnt1 = dao.ConfirmationWorkRecord(list);
+			int cnt2 = dao.updateOverPay(list);
+			int cnt = cnt1+ cnt2; 
+			if(cnt != 0) {
+				red.addFlashAttribute("message","저장이 완료되었습니다");
+			} else {
+				red.addFlashAttribute("message","ConfirmationWorkRecord() Error");
+			}
+		}
+	}
+	@Override
+	public void SaveEnterAmountManually(HttpServletRequest req, RedirectAttributes red) {
+		String[] basicPay = req.getParameterValues("basicPay");
+		String[] extraPay = req.getParameterValues("extraPay");
+		String[] foodExpenses = req.getParameterValues("foodExpenses");
+		String[] vehicleCost = req.getParameterValues("vehicleCost");
+		String[] empNumber = req.getParameterValues("empNumber");
+		
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		
+		for(int i=0; i<basicPay.length; i++) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("basicPay", basicPay[i].replaceAll("[,]",""));
+			map.put("extraPay", extraPay[i].replaceAll("[,]",""));
+			map.put("foodExpenses", foodExpenses[i].replaceAll("[,]",""));
+			map.put("vehicleCost", vehicleCost[i].replaceAll("[,]",""));
+			map.put("empNumber", empNumber[i]);
+			
+			list.add(map);
+		}
+		
+		if(basicPay != null) {
+			int cnt = dao.SaveEnterAmountManually(list);
+			//int cnt2 = dao.updateOverPay(list);
+			//int cnt1 = cnt1+ cnt2; 
+			if(cnt != 0) {
+				red.addFlashAttribute("message","저장이 완료되었습니다");
+			} else {
+				red.addFlashAttribute("message","SaveEnterAmountManually() Error");
+			}
+		}
+	}
+	
 }

@@ -60,7 +60,14 @@
 		bankName, accountNumber, accountHolder)
 		values(#{userNumber},#{majorNum},#{empHiredDate},1,#{bankName},#{accountNumber},#{accountHolder})
 	</insert>
-
+	
+	<!-- 교수등록 -->
+	<insert id="insertProcedure"
+		parameterType="com.spring.project.admin.vo.AdProVO">
+		BEGIN
+		   insertPaydetails(#{userNumber});
+		END
+	</insert>
 	<!-- 학생리스트 -->
 	<select id="getStdList" parameterType="java.util.Map"
 		resultType="com.spring.project.admin.vo.AdStdVO">
@@ -697,16 +704,17 @@
 
 	<select id="getFacultyList"
 		resultType="com.spring.project.admin.vo.payrollVO">
-		SELECT empNumber, accountHolder, majorName, sum(기본급) basicPay, extraPay,
-		sum(식대) foodExpenses,sum(차량유지비) vehicleCost 
-		from(SELECT e.empNumber, e.accountHolder, m.majorName,
+		SELECT empNumber, userName, majorName,sum(overtime) overtime,sum(기본급) basicPay, sum(extraPay) extraPay,
+		sum(식대) foodExpenses,sum(차량유지비) vehicleCost
+		from(SELECT e.empNumber, u.userName, m.majorName,r.overtime,
 	        CASE WHEN i.incentiveName = '기본급' THEN p.cashAmount ELSE 0 END "기본급",
 	        CASE WHEN i.incentiveName = '식대' THEN p.cashAmount ELSE 0 END "식대",
 	        CASE WHEN i.incentiveName = '차량유지비' THEN p.cashAmount ELSE 0 END "차량유지비",
-	        (select amount from overpaytable where empNumber=p.empNumber) as extraPay
-		FROM employee e, major m, payment p, incentiveMenu i, OverPayTable o
-		where e.majorNum = m.majorNum and p.empNumber=e.empNumber and p.incentiveCode=i.incentiveCode and o.empNumber = e.empNumber)
-		group by empNumber, accountHolder, majorName, extraPay
+	        (select ConfirmedPayment from registerDetail re, payment pa where re.paymentCode=pa.paymentCode and re.regdecode=r.regdecode) as extraPay
+		FROM users u,employee e, major m, payment p, incentiveMenu i, registerDetail r
+		where u.userNumber = e.empNumber and e.majorNum = m.majorNum and p.empNumber=e.empNumber 
+        and p.incentiveCode=i.incentiveCode and r.paymentCode=p.paymentCode)
+		group by empNumber, userName, majorName
 	</select>
 
 	<select id="getPaymentClassfication"
@@ -747,8 +755,31 @@
 		to_date(#{paymentYear},'yyyy/mm'),#{registerName},0)
 	</insert>
 
-
-
+	<update id="ConfirmationWorkRecord"
+		parameterType="com.spring.project.admin.vo.payrollVO">
+		<foreach item="map" collection="list" separator=";" open="DECLARE BEGIN" close=";END;">
+			UPDATE registerDetail
+			SET overtime = #{map.overtime}
+			WHERE regDeCode= 
+			(select regDeCode from registerDetail r, payment p where r.paymentCode=p.paymentCode 
+			and p.empNumber=#{map.empNumber} and p.incentivecode = 3)
+		</foreach>
+	</update>
+	
+	<update id="updateOverPay"
+		parameterType="com.spring.project.admin.vo.payrollVO">
+		<foreach item="map" collection="list" separator=";" open="BEGIN" close=";END;">
+			updateOverPay(#{map.empNumber}, #{map.overtime})
+		</foreach>
+	</update>
+	
+	<update id="SaveEnterAmountManually"
+		parameterType="com.spring.project.admin.vo.payrollVO">
+		<foreach item="map" collection="list" separator=";" open="BEGIN" close=";END;">
+			SaveEnterAmountManually(#{map.basicPay},#{map.extraPay},#{map.foodExpenses},#{map.vehicleCost},#{map.empNumber})
+		</foreach>
+	</update>
+	
 	<!-- ==========================================회계관리 END========================================= -->
 	
 	

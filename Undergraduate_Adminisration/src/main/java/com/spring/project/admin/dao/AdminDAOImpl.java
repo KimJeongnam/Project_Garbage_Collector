@@ -52,6 +52,10 @@ public class AdminDAOImpl implements AdminDAO{
 		return sqlSession.insert("com.spring.project.admin.dao.AdminDAO.insertEmployees", vo);
 	}
 	
+	@Override
+	public int insertProcedure(AdProVO vo) {
+		return sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.insertProcedure", vo);
+	}
 	//학생리스트 by admin
 	@Override
 	public List<AdStdVO> getStdList(Map<String, Integer> map) {
@@ -366,6 +370,25 @@ public class AdminDAOImpl implements AdminDAO{
 	public int insertPayroll(payrollVO vo) {
 		return sqlSession.insert("com.spring.project.admin.dao.AdminDAO.insertPayroll", vo);
 	}
+
+	@Override
+	public int ConfirmationWorkRecord(List<Map<String, Object>> list) {
+		return sqlSession.update("com.spring.project.admin.dao.AdminDAO.ConfirmationWorkRecord", list);
+	}
+
+	@Override
+	public int updateOverPay(List<Map<String, Object>> list) {
+		return sqlSession.update("com.spring.project.admin.dao.AdminDAO.updateOverPay", list);
+	}
+
+	@Override
+	public int SaveEnterAmountManually(List<Map<String, Object>> list) {
+		return sqlSession.update("com.spring.project.admin.dao.AdminDAO.SaveEnterAmountManually", list);
+	}
+
+	
+
+	
 	
 	
 }

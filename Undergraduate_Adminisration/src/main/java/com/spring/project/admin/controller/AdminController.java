@@ -397,8 +397,30 @@ public class AdminController {
 	public String insertPayroll(HttpServletRequest req, RedirectAttributes red) {
 		service.insertPayroll(req, red);
 
-		return "redirect:/admin/facultyAccountManage";
+			return "redirect:/admin/facultyAccountManage";
+		}
+		
+		// 
+		@RequestMapping("/admin/ConfirmationWorkRecord")
+		public String ConfirmationWorkRecord(HttpServletRequest req, RedirectAttributes red) {
+			service.ConfirmationWorkRecord(req, red);
+
+			return "redirect:/admin/facultyAccountManage";
+		}
+		// 
+		@RequestMapping("/admin/SaveEnterAmountManually")
+		public String SaveEnterAmountManually(HttpServletRequest req, RedirectAttributes red) {
+			service.SaveEnterAmountManually(req, red);
+
+			return "redirect:/admin/facultyAccountManage";
+		}
+		// 급여대장 조회
+		/*@RequestMapping(value="/admin/ConfirmationWorkRecord", method=RequestMethod.POST)
+		public String ConfirmationWorkRecord(@RequestBody Map<String, Object> map, RedirectAttributes red, Model model) {
+			service.ConfirmationWorkRecord(map, red, model);
+			return "admin/accountingManagement/ConfirmationWorkRecord";
+		}*/
+		//---------------------------------회계 관리 END------------------------------------------
 	}
 
 	// ---------------------------------회계관리END------------------------------------------
-}
