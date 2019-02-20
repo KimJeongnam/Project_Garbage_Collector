@@ -1,5 +1,9 @@
 package com.spring.project.student.service;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
 
 
@@ -12,15 +16,23 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.project.admin.vo.ScholarpkVO;
 import com.spring.project.admin.vo.auditVO;
+import com.spring.project.professor.vo.MyPageVO;
 import com.spring.project.restful.vo.Message;
+import com.spring.project.share.Config;
+import com.spring.project.share.vo.ShareUserInfo;
 import com.spring.project.student.dao.StudentDAO;
 import com.spring.project.student.vo.DetailsVO;
 import com.spring.project.student.vo.GpaVO;
 import com.spring.project.student.vo.LectureVO;
+import com.spring.project.student.vo.S_informationVO;
+import com.spring.project.student.vo.middle_classVO;
+import com.spring.project.student.vo.report_tblVO;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -180,6 +192,119 @@ public class StudentServiceImpl implements StudentService {
 		List<LectureVO> dtos = dao.lectureHover(map);
 		model.addAttribute("dtosH", dtos);
 	}
+	/*대근이딴!!*/
+	//이미지 업로드
+	@Override
+	public void s_imageUpload(MultipartHttpServletRequest req, RedirectAttributes red) {
+
+		MultipartFile file = req.getFile("image");
+
+		String saveDir = req.getSession().getServletContext().getRealPath("/resources/images");
+		String realDir = Config.REAL_PATH; // 저장
+																																				// 경로
+		// 각자의 이미지 저장경로 수정하셈
+		try {
+			if (!file.getOriginalFilename().equals("")) {
+				file.transferTo(new File(saveDir + file.getOriginalFilename()));
+
+				FileInputStream fis = new FileInputStream(saveDir + file.getOriginalFilename());
+				FileOutputStream fos = new FileOutputStream(realDir + file.getOriginalFilename());
+
+				int data = 0;
+
+				while ((data = fis.read()) != -1) {
+					fos.write(data);
+				}
+				fis.close();
+				fos.close();
+			}
+			String image = file.getOriginalFilename();
+			String userNumber = (String) req.getSession().getAttribute("userNumber");
+
+			S_informationVO vo = new S_informationVO();
+
+			vo.setUserNumber(userNumber);
+
+			String img = "";
+
+			img = "/images/" + image;
+			System.out.println("img" + img);
+
+			vo.setUserImage(img);
+
+			int imageUpload = dao.s_imageUpload(vo);
+
+			System.out.println("프로필 이미지 변경 imageUpload : " + imageUpload);
+			
+			ShareUserInfo user = (ShareUserInfo) req.getSession().getAttribute("user"); 
+
+			if (imageUpload == 1) {
+				red.addFlashAttribute("message", "프로필 이미지를 변경하였습니다.");
+				user.setUserImage(img);
+				req.getSession().setAttribute("user", user);
+			}
+			if (imageUpload != 1)
+				red.addFlashAttribute("message", "프로필 이미지를 변경하는 도중에 오류가 발생하였습니다.");
+
+		} catch (IOException e) {
+			e.printStackTrace();
+
+		}
+
+	}
+	
+	// 마이페이지
+	@Override
+	public void personalProfile(HttpServletRequest req, Model model) {
+		//학생 개인정보
+		String userNumber = (String) req.getSession().getAttribute("userNumber");
+		System.out.println("userNumber:::" + userNumber);
+
+		S_informationVO vo = dao.personalProfile(userNumber);
+
+		model.addAttribute("vo", vo);
+		
+		//수강중 강의
+		List<middle_classVO> dtos = dao.s_Lecture(userNumber);
+		
+		model.addAttribute("dtos", dtos);
+		
+		//과제 리스트
+		List<report_tblVO> dtos2 = dao.s_report(userNumber);
+		
+		model.addAttribute("dtos2", dtos2);
+		
+	}
+	
+	//개인정보 업데이트
+	@Override
+	public void s_infoupdate(HttpServletRequest req, RedirectAttributes red) {
+		
+		//학생 개인 정보
+		String userNumber = (String) req.getSession().getAttribute("userNumber");
+		String userName = req.getParameter("name");
+		String userCellNum = req.getParameter("telephone");
+		String userAddr1 = req.getParameter("addr1");
+		String userAddr2 = req.getParameter("addr2");
+
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("userNumber", userNumber);
+		map.put("userName", userName);
+		map.put("userCellNum", userCellNum);
+		map.put("userAddr1", userAddr1);
+		map.put("userAddr2", userAddr2);
+		
+		int update = dao.s_infoupdate(map);
+		System.out.println("개인정보 변경1 update : " + update);
+
+		if (update != 0)
+			red.addFlashAttribute("message", "개인정보를 변경하였습니다.");
+		if (update == 0)
+			red.addFlashAttribute("message", "개인정보를 변경하는 도중에 오류가 발생하였습니다.");
+		
+		
+	}
+	
 	//장학금  글 목록
 	@Override
 	public void bulletin(Map<String, Object> map, Logger logger, Model model) {
@@ -468,5 +593,6 @@ public class StudentServiceImpl implements StudentService {
 		int applyCredit = dao.ApplyCredit(userNumber);
 		model.addAttribute("applyCredit", applyCredit);
 	}
+	
 
 }

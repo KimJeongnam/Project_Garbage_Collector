@@ -27,12 +27,37 @@ public class StudentController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(ProfessorController.class);
 	
-	/*대근이 단~*/
+	
 	
 	@RequestMapping("/student/index")
 	public String index() {
 		logger.info("index");
 		return "student/index";
+	}
+	/*대근이 단~*/
+	//이미지 변경
+	@RequestMapping("/student/imageUpload")
+	public String s_imageUpload(MultipartHttpServletRequest req ,RedirectAttributes red) {
+		logger.info("imageUpload()");
+		service.s_imageUpload(req, red);
+		return "redirect:/student/personalProfile";
+	}
+	//학생개인정보
+	@RequestMapping("/student/personalProfile")
+	public String personalProfile(HttpServletRequest req ,Model model) {
+		logger.info("personalProfile");
+		service.personalProfile(req, model);
+		
+		return "student/personalProfile";
+	}
+	
+	//학생개인정보 업데이트
+	@RequestMapping("/student/s_infoupdate")
+	public String s_infoupdate(HttpServletRequest req ,RedirectAttributes red) {
+		logger.info("s_infoupdate");
+		service.s_infoupdate(req, red);
+		
+		return "redirect:/student/personalProfile";
 	}
 
 	// 수강신청 페이지
@@ -82,12 +107,6 @@ public class StudentController {
 		//service.management(req, model);
 		
 		return "/student/bulletin/management";
-	}
-	//학생개인정보
-	@RequestMapping("/student/personalProfile")
-	public String personalProfile() {
-		logger.info("personalProfile");
-		return "student/personalProfile";
 	}
 
 	//휴학신청

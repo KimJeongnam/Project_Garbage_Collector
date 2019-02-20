@@ -6,9 +6,13 @@ import java.util.Map;
 
 import com.spring.project.admin.vo.ScholarpkVO;
 import com.spring.project.admin.vo.auditVO;
+import com.spring.project.professor.vo.MyPageVO;
 import com.spring.project.student.vo.DetailsVO;
 import com.spring.project.student.vo.GpaVO;
 import com.spring.project.student.vo.LectureVO;
+import com.spring.project.student.vo.S_informationVO;
+import com.spring.project.student.vo.middle_classVO;
+import com.spring.project.student.vo.report_tblVO;
 
 public interface StudentDAO {
 	// 수강신청 목록 갯수 구하기
@@ -40,6 +44,21 @@ public interface StudentDAO {
 	
 	// 강의 신청
 	public int applyLecture(Map<String, Object> map);
+	
+	// 이미지 변경
+	public int s_imageUpload(S_informationVO vo);
+	
+	// 개인정보
+	public S_informationVO personalProfile(String userNumber);
+	
+	// 개인정보 업데이트
+	public int s_infoupdate(Map<String, Object> map);
+	
+	//수강중 강의 
+	public List<middle_classVO> s_Lecture(String userNumber);
+
+	//수강중 과제 
+	public List<report_tblVO> s_report(String userNumber);
 	
 	//장학금 갯수 
 	public int getArticleCnt(Map<String,Object> map);
