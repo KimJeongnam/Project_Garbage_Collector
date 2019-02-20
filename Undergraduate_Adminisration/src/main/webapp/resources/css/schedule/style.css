@@ -284,7 +284,8 @@ Main Components
 
 @media only screen and (min-width: 800px) {
   .cd-schedule .event-name {
-    font-size: 15px;
+  	margin-top:5px;
+    font-size: 12px;
   }
 }
 

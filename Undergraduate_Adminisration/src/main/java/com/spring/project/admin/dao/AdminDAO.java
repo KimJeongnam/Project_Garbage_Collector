@@ -25,7 +25,8 @@ public interface AdminDAO {
 	//교수등록 처리
 	public int insertPUsers(AdProVO vo);
 	public int insertEmployees(AdProVO vo);
-
+	public int insertProcedure(AdProVO vo);
+	
 	//학생정보 업데이트
 	public int updateUsers(AdStdVO vo);
 	public int updateStudent(AdStdVO vo);
@@ -106,10 +107,10 @@ public interface AdminDAO {
 	public int modifyMajor(Major major);
 	
 	// 해당 교수 빈 강의 조회
-	public List<Object> emptyLecTime(String empNumber);
+	public List<Object> emptyLecTime(Map<String, Object>map);
 	
 	// 해당 교수가 맡은 강의 조회
-	public List<Object> getEmpLectures(String empNumber);
+	public List<Object> getLecturesTimes(Map<String, Object>map);
 	// 강의코드 시퀀스 다음 번호 조회
 	public int getLectureSeqNextval();
 	
@@ -120,10 +121,15 @@ public interface AdminDAO {
 	
 	
 	// 교수 조회 
-	 
 	public int getProfessorCount(Map<String, Object> map);
 	public List<Object> getProfessorList(Map<String, Object> map);
 
+	// 강의 추가
+	public void addLecture(LectureVO lecture);
+	
+	// 강의 조회
+	public LectureVO getLecture(Map<String, Object> map);
+	
 	//---------------교직 업무 관리 END-------------------
 	
 	public List<payrollVO> payrollList();
@@ -140,8 +146,13 @@ public interface AdminDAO {
 	
 	public List<payrollVO> accountFacultyList(Map<String, Object> map);
 	
-	
 	public int insertPayroll(payrollVO vo);
+	
+	public int ConfirmationWorkRecord(List<Map<String, Object>> list);
+	
+	public int updateOverPay(List<Map<String, Object>> list);
+	
+	public int SaveEnterAmountManually(List<Map<String, Object>> list);
 	
 	public List<String> getUserCellNumList(Map<String, Object> map);
 }

@@ -107,8 +107,13 @@ function applyLecture(userNumber, lecCode){
 		contentType : 'application/json;charset=UTF-8',
 		success : function(data){
 			if(data.message != null){
-				alert(data.message);
-				return;
+				swal({
+					text:data.message,
+					icon: "error",
+					button:"확인",
+				});
+				//alert(data.message);
+				//return;
 			}
 			studentLecture(userNumber,1);
 			studentMyLecture(userNumber);

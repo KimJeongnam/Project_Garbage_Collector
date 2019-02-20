@@ -60,6 +60,8 @@ public class ShareServiceImpl implements ShareService{
 		if(user.getMajorNum() != 0)
 			request.getSession().setAttribute("majorNum", user.getMajorNum());
 		redirectAttributes.addFlashAttribute("message","환영합니다. '"+user.getUserName()+"' 님");
+		redirectAttributes.addFlashAttribute("alertIcon","success");
+		
 		return redirectUrl;
 	}
 	

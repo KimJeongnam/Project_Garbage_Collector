@@ -252,12 +252,12 @@
 							<div class="col-md-6">
 								<div class="form-group">
 									<label class="control-label col-md-3 col-sm-3 col-xs-12"
-										for="majorCode">강의 코드 
+										for="lecCode">강의 코드 
 									</label>
 									<div class="col-md-6 col-sm-6 col-xs-12">
 										<input type="text" id="lecCode_view" disabled="disabled"
 											class="form-control col-md-7 col-xs-12"> <input
-											hidden="true" type="text" id="lecCode" name="majorCode"
+											hidden="true" type="text" id="lecCode"
 											required="required" class="form-control col-md-7 col-xs-12">
 									</div>
 								</div>
@@ -362,7 +362,7 @@
 									</label>
 									<div class="col-md-3 col-sm-3 col-xs-8">
 										<input type="number" id="maximumcapacity"
-											class="date-picker form-control col-md-7 col-xs-12"
+											class="form-control col-md-7 col-xs-12"
 											required="required" type="text" min="0">
 									</div>
 								</div>
@@ -377,7 +377,7 @@
 								<div class="form-group">
 									<div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3 text-left">
 										<input type="button" class="btn btn-success" value="등록"
-											onclick="" id="lectureModalBtn"> <input hidden="true"
+											onclick="insertLecture();" id="lectureModalBtn"> <input hidden="true"
 											type="button" class="btn btn-danger" value="삭제" onclick=""
 											id="lectureModalDelBtn">
 									</div>

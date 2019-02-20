@@ -5,30 +5,39 @@ public class LecScore {
 	private String userNumber;
 	private String userImage;
 	private String lectureName;
-	private String credit;
 	private String stdNumber;
+	
+	private String credit;
 	private String jscore;
-	private String semester;
-	private String infoCode;
+	private String semester2;
+	private String incode;
+	private String grade;
 	
 	
+	public String getIncode() {
+		return incode;
+	}
+	public void setIncode(String incode) {
+		this.incode = incode;
+	}
+	public String getGrade() {
+		return grade;
+	}
+	public void setGrade(String grade) {
+		this.grade = grade;
+	}
 	public String getStdNumber() {
 		return stdNumber;
 	}
 	public void setStdNumber(String stdNumber) {
 		this.stdNumber = stdNumber;
 	}
-	public String getSemester() {
-		return semester;
+
+	public String getSemester2() {
+		return semester2;
 	}
-	public void setSemester(String semester) {
-		this.semester = semester;
-	}
-	public String getInfoCode() {
-		return infoCode;
-	}
-	public void setInfoCode(String infoCode) {
-		this.infoCode = infoCode;
+	public void setSemester2(String semester2) {
+		this.semester2 = semester2;
 	}
 	public String getJscore() {
 		return jscore;

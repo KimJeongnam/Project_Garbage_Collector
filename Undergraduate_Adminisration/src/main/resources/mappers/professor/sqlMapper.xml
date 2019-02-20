@@ -66,10 +66,38 @@
 	<select id="v_myClass" parameterType="String" resultType="com.spring.project.professor.vo.MyClassVO">
  		SELECT*FROM(SELECT ROWNUM num, lecturename FROM lecture WHERE empnumber=#{userNumber} AND lecstatus=2)a WHERE a.num!='1'
  	</select>
+ 	
+ 	<!-- 학점관리 진입 -->
 	<select id="firstLec" parameterType="String" resultType="com.spring.project.professor.vo.LecScore">
  		SELECT*FROM myClassStudent_gpa WHERE empnumber = #{userNumber} AND lecturename = #{firstLec}
  	</select>
 	<select id="getLecScore" parameterType="String" resultType="com.spring.project.professor.vo.LecScore">
  		SELECT*FROM myClassStudent_gpa WHERE empnumber = #{userNumber} AND lecturename = #{lecName}
+ 	</select>
+ 	
+ 	<!-- 학점입력 -->
+ 	<insert id="insertScore" parameterType="com.spring.project.professor.vo.LecScore">
+ 		INSERT INTO GPA(infoCode, credit, grade, jscore, semester)VALUES(#{incode}, #{credit}, #{grade}, #{jscore}, #{semester2})
+ 	</insert>
+ 	
+ 	<!-- 학점 수정 -->
+	<update id="updateScore" parameterType="com.spring.project.professor.vo.LecScore">
+ 		UPDATE GPA SET credit=#{credit}, jscore =#{jscore} WHERE infoCode=#{incode}
+ 	</update>
+ 	
+ 	<!-- 강의계획서 강의목록 나누기 -->
+	<select id="plan" parameterType="String" resultType="com.spring.project.professor.vo.PlanVO">
+ 		SELECT*FROM(SELECT ROWNUM num, lecturename FROM lecture WHERE empnumber=#{userNumber} AND lecstatus!=3)a WHERE a.num='1'
+ 	</select>
+	<select id="plan2" parameterType="String" resultType="com.spring.project.professor.vo.PlanVO">
+ 		SELECT*FROM(SELECT ROWNUM num, lecturename FROM lecture WHERE empnumber=#{userNumber} AND lecstatus!=3)a WHERE a.num!='1'
+ 	</select>
+ 	
+ 	<!-- 강의계획서 진입 -->
+ 	<select id="firstPlan" parameterType="String" resultType="com.spring.project.professor.vo.PlanVO">
+ 		SELECT*FROM MyLecturePlan WHERE empnumber=#{userNumber} AND lecturename=#{firstLec}  ORDER BY week
+ 	</select>
+	<select id="getPlan" parameterType="String" resultType="com.spring.project.professor.vo.PlanVO">
+		SELECT*FROM MyLecturePlan WHERE empnumber=#{userNumber} AND lecturename=#{lecName}  ORDER BY week
  	</select>
 </mapper>

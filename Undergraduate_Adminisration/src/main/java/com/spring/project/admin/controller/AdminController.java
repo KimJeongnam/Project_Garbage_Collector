@@ -1,6 +1,5 @@
 package com.spring.project.admin.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 //github.com/KimJeongnam/Project_Garbage_Collector.git
@@ -23,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.project.admin.service.AdminService;
 import com.spring.project.share.vo.Major;
+import com.spring.project.student.vo.LectureVO;
 import com.spring.project.util.AWSUtil;
 
 @Controller
@@ -307,10 +307,13 @@ public class AdminController {
 	}
 
 	// 해당 교수의 빈강의 조회*
-	@RequestMapping(value = "/admin/major_lecture_Manager/getEmptyLecTime/{empNumber}", method = RequestMethod.GET)
-	public String getEmptyLecTime(@PathVariable String empNumber, Model model) {
+	@RequestMapping(value = "/admin/major_lecture_Manager/getEmptyLecTime/{empNumber}/{semester}", method = RequestMethod.GET)
+	public String getEmptyLecTime(
+			@PathVariable String empNumber
+			,@PathVariable String semester
+			, Model model) {
 		logger.info("getEmptyLecTime()");
-		service.getEmptyLecTime(empNumber, model);
+		service.getEmptyLecTime(empNumber, semester, model);
 		return "admin/majorLecMangePage/lectureTimeSelector";
 	}
 
@@ -336,13 +339,14 @@ public class AdminController {
 		return "admin/majorLecMangePage/professorList";
 	}
 
-	// 해당 강의의 시간 조회 ...
-	@RequestMapping(value = "/admin/major_lecture_Manager/LecTime/{lecCode}")
-	public String getLecTime(@PathVariable String lecCode, Model model) {
-		logger.info("getLecTime()");
-		return "admin/majorLecMangePage/lectureTimeSelector";
+	//강의 추가
+	@ResponseBody
+	@RequestMapping(value="/admin/major_lecture_Manager/insertLecture", method=RequestMethod.POST)
+	public Map<String, Object> insertLecture(@RequestBody LectureVO lecture){
+		logger.info("insertLecture()");
+		return service.addLecture(lecture);
 	}
-
+	
 	// ---------------------------------학과,강의관리END----------------------------------------
 
 	// ---------------------------------회계관리START----------------------------------------
@@ -368,13 +372,35 @@ public class AdminController {
 		return "admin/accountingManagement/lookupWorkRecord";
 	}
 
-	//
+	
 	@RequestMapping("/admin/insertPayroll")
 	public String insertPayroll(HttpServletRequest req, RedirectAttributes red) {
 		service.insertPayroll(req, red);
 
-		return "redirect:/admin/facultyAccountManage";
+			return "redirect:/admin/facultyAccountManage";
+		}
+		
+		// 
+		@RequestMapping("/admin/ConfirmationWorkRecord")
+		public String ConfirmationWorkRecord(HttpServletRequest req, RedirectAttributes red) {
+			service.ConfirmationWorkRecord(req, red);
+
+			return "redirect:/admin/facultyAccountManage";
+		}
+		// 
+		@RequestMapping("/admin/SaveEnterAmountManually")
+		public String SaveEnterAmountManually(HttpServletRequest req, RedirectAttributes red) {
+			service.SaveEnterAmountManually(req, red);
+
+			return "redirect:/admin/facultyAccountManage";
+		}
+		// 급여대장 조회
+		/*@RequestMapping(value="/admin/ConfirmationWorkRecord", method=RequestMethod.POST)
+		public String ConfirmationWorkRecord(@RequestBody Map<String, Object> map, RedirectAttributes red, Model model) {
+			service.ConfirmationWorkRecord(map, red, model);
+			return "admin/accountingManagement/ConfirmationWorkRecord";
+		}*/
+		//---------------------------------회계 관리 END------------------------------------------
 	}
 
 	// ---------------------------------회계관리END------------------------------------------
-}
