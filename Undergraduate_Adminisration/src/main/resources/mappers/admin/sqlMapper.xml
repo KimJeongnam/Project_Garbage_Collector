@@ -370,6 +370,7 @@
 
 	<!-- ==========================================교직 업무 관리 START========================================= -->
 	<resultMap type="com.spring.project.student.vo.LectureVO" id="lectureMap">
+		<id property="lecCode" column="leccode"/>
 		<collection property="lectureTimes" column="leccode" select="getLectureTime"></collection>
 	</resultMap>
 	
@@ -442,11 +443,9 @@
 		    ]]>
 	</select>
 
-	<update id="deleteMajor" parameterType="java.util.Map">
-		UPDATE major SET
-		delStatus = 1
-		WHERE majorNum = #{majorNum}
-	</update>
+	<select id="deleteMajor" statementType="CALLABLE" parameterType="com.spring.project.student.vo.LectureVO">
+		{ call update_major_delstatus_proc(#{majorNum}, 1,  #{result, mode=OUT, javaType=int, jdbcType=NUMERIC}) }
+	</select>
 
 	<insert id="addMajor"
 		parameterType="com.spring.project.share.vo.Major">
@@ -546,7 +545,6 @@
 		<where>
 	            	<![CDATA[ 
 	            	l.delStatus <> 1 
-	            	AND m.delStatus <> 1
 	            	]]>
 			<if test="division != null">
 				AND l.lectureClassfication = #{division}
@@ -586,7 +584,6 @@
 		<where>
 	            	<![CDATA[ 
 	            	l.delStatus <> 1 
-	            	AND m.delStatus <> 1
 	            	]]>
 			<if test="division != null">
 				AND l.lectureClassfication = #{division}
@@ -680,6 +677,18 @@
 		ON emp.empNumber = u.userNumber
 		WHERE l.leccode = #{lecCode}
 	</select>
+	
+	<select id="modifyLecture" statementType="CALLABLE" parameterType="com.spring.project.student.vo.LectureVO">
+		{call modify_lecture_proc(#{lecCode}, #{majorNum}, #{userNumber}, #{lectureName}
+		, #{lectureClassfication}, #{maximumCapacity}, #{grade}, #{grantedSemester}, #{lectureScore}, #{classRoom}
+		, TO_NUMBER(TO_CHAR(SYSDATE, 'YYYY')), #{ttc, mode=IN, typeHandler=com.spring.project.admin.vo.LectureTimetblCodesHandler}, #{result, mode=OUT, javaType=int, jdbcType=NUMERIC})}
+	</select>
+	
+	<update id="deleteLecture" parameterType="java.util.Map">
+	UPDATE lecture 
+    SET delstatus = 1
+    WHERE leccode = #{lecCode}
+	</update>
 	<!-- ==========================================교직 업무 관리 END========================================= -->
 
 	<!-- ==========================================회계관리 START========================================= -->

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="x_panel" >
 	<div class="x_title">
 		<div class="col-md-3">
@@ -7,7 +8,10 @@
 		</div>
 		<div class="col-md-3">
 			<h2>
-				${msg.sendUser } <small>${msg.sendYear }-${msg.sendMonth }-${msg.sendDay }&nbsp;&nbsp;
+				<c:if test="${msg.notifyStatus == 1 }">
+					<span class="fa fa-bullhorn"></span>
+				</c:if>
+					${msg.sendUser } <small>${msg.sendYear }-${msg.sendMonth }-${msg.sendDay }&nbsp;&nbsp;
 					${msg.sendHour }:${msg.sendMin }:${msg.sendSec }</small>
 			</h2>
 		</div>
@@ -16,7 +20,10 @@
 		</ul>
 		<div class="clearfix"></div>
 	</div>
-	<div class="x_content">
+	<div class="x_content" style="font-size: 15px;">
 		${msg.message }
+	</div>
+	<div class="col-md-12" style="margin-top: 15px;">
+		<input type="button" class="btn btn-success" value="답장" onclick="toggleMessageModal('${msg.sendUser}');">
 	</div>
 </div>

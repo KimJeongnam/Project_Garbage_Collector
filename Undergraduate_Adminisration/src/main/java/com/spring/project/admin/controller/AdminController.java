@@ -277,9 +277,9 @@ public class AdminController {
 	// 학과 삭제*
 	@ResponseBody
 	@RequestMapping(value = "/admin/major_lecture_Manager/ajax/deleteMajor", method = RequestMethod.POST)
-	public Map<String, Object> deleteMajor(@RequestBody Map<String, Object> map) {
+	public Map<String, Object> deleteMajor(@RequestBody LectureVO lecture) {
 		logger.info("deleteMajor()");
-		return service.deleteMajor(map);
+		return service.deleteMajor(lecture);
 	}
 
 	// 학과 추가*
@@ -345,6 +345,26 @@ public class AdminController {
 	public Map<String, Object> insertLecture(@RequestBody LectureVO lecture){
 		logger.info("insertLecture()");
 		return service.addLecture(lecture);
+	}
+	
+	// 강의 수정
+	@ResponseBody
+	@RequestMapping(value="/admin/major_lecture_Manager/modifyLecture", method=RequestMethod.POST)
+	public Map<String, Object> modifyLecture(@RequestBody LectureVO lecture){
+		logger.info("insertLecture()");
+		logger.info("insertLecture-> getTimetblCodes()");
+		for(int key : lecture.getTimetblCodes()) {
+			logger.info("code:"+key);
+		}
+		return service.modifyLecture(lecture);
+	}
+	
+	// 강의 삭제
+	@ResponseBody
+	@RequestMapping(value="/admin/major_lecture_Manager/deleteLecture", method=RequestMethod.POST)
+	public Map<String, Object> deleteLecture(@RequestBody Map<String, Object> map){
+		logger.info("deleteLecture()");
+		return service.deleteLecture(map);
 	}
 	
 	// ---------------------------------학과,강의관리END----------------------------------------

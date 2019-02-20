@@ -100,7 +100,7 @@ public interface AdminDAO {
 	// 학과 조회
 	public List<Object> majorList(Map<String, Object> map);
 	// 학과 삭제
-	public int  deleteMajor(Map<String, Object> map);
+	public void  deleteMajor(LectureVO lecture);
 	// 학과 등록
 	public int addMajor(Major major);
 	// 학과 수정
@@ -119,7 +119,6 @@ public interface AdminDAO {
 	// 강의 목록 조회
 	public List<Object> getLectureList(Map<String, Object> map);
 	
-	
 	// 교수 조회 
 	public int getProfessorCount(Map<String, Object> map);
 	public List<Object> getProfessorList(Map<String, Object> map);
@@ -129,6 +128,13 @@ public interface AdminDAO {
 	
 	// 강의 조회
 	public LectureVO getLecture(Map<String, Object> map);
+	
+	// 강의 수정
+	public void modifyLecture(LectureVO lecture);
+	
+	// 강의 삭제
+	
+	public int deleteLecture(Map<String, Object> map);
 	
 	//---------------교직 업무 관리 END-------------------
 	

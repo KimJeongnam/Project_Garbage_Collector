@@ -12,8 +12,9 @@
 	</div>
 
 	<div class="compose-body">
-		<div id="alerts">메세지를 입력하신 후 '메세지 보내기' 버튼을 누르세요.</div>
-
+		<div id="alerts">받는이 : <span id="compose-sendUser-view"></span>
+			<input hidden="true" type="text" id="compose-sendUser">
+		</div>
 		<div id="editor" class="editor-wrapper" style="height: 125px;"></div>
 	</div>
 
@@ -142,6 +143,9 @@
     <script src="${staticPath}/vendors/pnotify/dist/pnotify.js"></script>
     <script src="${staticPath}/vendors/pnotify/dist/pnotify.buttons.js"></script>
     <script src="${staticPath}/vendors/pnotify/dist/pnotify.nonblock.js"></script>
+	
+	<!-- https://sweetalert.js.org/guides/ -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     
 	<!-- Custom Theme Scripts -->
     <script src="${staticPath}/build/js/custom.min.js"></script>
@@ -159,8 +163,7 @@
     <script src="${staticPath }/js/bulletin/applybulletin.js"></script>
     <script src="${staticPath }/js/adminjanghak/applyresister.js"></script>
     
-    <!-- https://sweetalert.js.org/guides/ -->
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+   
 	
     
 

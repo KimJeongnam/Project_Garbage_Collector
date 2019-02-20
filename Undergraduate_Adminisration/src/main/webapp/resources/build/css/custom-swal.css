@@ -1,4 +1,10 @@
-.swal-button {
+.swal-button--confirm{
   background-color: #169f85;
   text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.3);
 }
+
+/* .swal-button--cancel{
+	color:white;
+	background-color: #d9534f;
+	text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.3);
+} */

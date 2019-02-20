@@ -144,6 +144,38 @@
 		studentClassInfo(infoCode, lecCode, userNumber, status)
 		values(STUDENTCLASSINFO_SEQ.nextval,#{lecCode},#{userNumber},1)
 	</insert>
+	
+	<!-- 프로필 이미지 변경 -->
+	<update id="s_imageUpload" parameterType="com.spring.project.professor.vo.MyPageVO">
+ 		UPDATE users SET userImage=#{userImage} WHERE userNumber=#{userNumber}
+ 	</update>
+ 	
+ 	<!-- 개인정보  -->
+ 	<select id="personalProfile" parameterType="String" resultType="com.spring.project.student.vo.S_informationVO">
+ 		SELECT * FROM information WHERE userNumber=#{userNumber}
+ 	</select>
+ 	
+ 	<!-- 개인정보 업데이트 -->	
+ 	<update id="s_infoupdate" parameterType="com.spring.project.student.vo.S_informationVO">
+		UPDATE users SET userName=#{userName}, userCellNum=#{userCellNum}, userAddr1=#{userAddr1}, userAddr2=#{userAddr2} where userNumber=#{userNumber}
+ 	</update> 
+ 	
+ 	<!-- 수강중 강의  -->
+ 	<select id="s_Lecture" parameterType="String" resultType="com.spring.project.student.vo.middle_classVO">
+ 		select * from middle_class where userNumber = #{userNumber}
+ 	</select>
+ 	
+ 	<!-- 수강중 과제  -->
+ 	<select id="s_report" parameterType="String" resultType="com.spring.project.student.vo.report_tblVO">
+ 		select REPORTCODE
+		,LECCODE
+		,YEAR
+		,REPORTINFO
+		,REPORTNAME
+		,ENDDATE
+		,to_number(to_char(ENDDATE - sysdate)) as Progress
+		from report_tbl
+ 	</select>
 
 	<!-- 장학글 갯수 -->
 

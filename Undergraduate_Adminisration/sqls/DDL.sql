@@ -1133,3 +1133,99 @@ ALTER SEQUENCE SCHOLARSTATE_SEQ NOCACHE;
 ALTER SEQUENCE SEQ_MAJOR_MAJORNUM NOCACHE;
 ALTER SEQUENCE STUDENTCLASSINFO_SEQ NOCACHE;
 ALTER SEQUENCE TIMETBLCODE_SEQ NOCACHE;
+
+
+CREATE TABLE report_tbl
+(
+    reportcode    NUMBER           NOT NULL, 
+    lecCode       NVARCHAR2(10)    NOT NULL, 
+    Year          NVARCHAR2(20)    NOT NULL, 
+    reportInfo    NVARCHAR2(20)    NOT NULL, 
+    reportName    NVARCHAR2(20)    NOT NULL, 
+    endDate       DATE             NOT NULL, 
+    CONSTRAINT REPORT_TBL_PK PRIMARY KEY (reportcode)
+)
+/
+
+COMMENT ON TABLE report_tbl IS '과제 테이블'
+/
+
+COMMENT ON COLUMN report_tbl.reportcode IS '과제 번호'
+/
+
+COMMENT ON COLUMN report_tbl.lecCode IS '강의코드'
+/
+
+COMMENT ON COLUMN report_tbl.Year IS '년도'
+/
+
+COMMENT ON COLUMN report_tbl.reportInfo IS '과제 내용'
+/
+
+COMMENT ON COLUMN report_tbl.reportName IS '과제명name'
+/
+
+COMMENT ON COLUMN report_tbl.endDate IS '마감일'
+/
+
+ALTER TABLE report_tbl
+    ADD CONSTRAINT FK_report_tbl_lecCode_lecture_ FOREIGN KEY (lecCode)
+        REFERENCES lecture (lecCode) ON DELETE CASCADE
+/
+
+
+CREATE SEQUENCE report_tbl_seq
+    START WITH 1
+    INCREMENT BY 1;
+    
+ALTER SEQUENCE report_tbl_seq NOCACHE;
+
+
+CREATE TABLE report_submit_tbl
+(
+    reportsubmitcode    NUMBER            NOT NULL, 
+    reportcode          NUMBER            NULL, 
+    stdNumber           VARCHAR2(20)      NULL, 
+    title               NVARCHAR2(50)     NULL, 
+    originFileName      NVARCHAR2(100)    NULL, 
+    fileName            NVARCHAR2(100)    NULL, 
+    Year                TIMESTAMP         NULL, 
+    CONSTRAINT REPORT_SUBMIT_TBL_PK PRIMARY KEY (reportsubmitcode)
+)
+/
+
+COMMENT ON TABLE report_submit_tbl IS '과제 제출 테이블'
+/
+
+COMMENT ON COLUMN report_submit_tbl.reportsubmitcode IS '과제제출 테이블 번호'
+/
+
+COMMENT ON COLUMN report_submit_tbl.reportcode IS '과제 번호'
+/
+
+COMMENT ON COLUMN report_submit_tbl.stdNumber IS '학번'
+/
+
+COMMENT ON COLUMN report_submit_tbl.title IS '제목'
+/
+
+COMMENT ON COLUMN report_submit_tbl.originFileName IS '원본파일이름'
+/
+
+COMMENT ON COLUMN report_submit_tbl.fileName IS '파일 이름'
+/
+
+COMMENT ON COLUMN report_submit_tbl.Year IS '제출일'
+/
+
+ALTER TABLE report_submit_tbl
+    ADD CONSTRAINT FK_report_submit_tbl_reportcod FOREIGN KEY (reportcode)
+        REFERENCES report_tbl (reportcode) ON DELETE CASCADE
+/
+
+
+CREATE SEQUENCE report_submit_seq
+    START WITH 1
+    INCREMENT BY 1;
+    
+ALTER SEQUENCE report_submit_seq NOCACHE;

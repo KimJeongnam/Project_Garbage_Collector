@@ -1,3 +1,5 @@
+
+
 function notifyMessage(title, text, important){
 	if(important == 0){
 		new PNotify({
@@ -165,7 +167,11 @@ function getMessages(userNumber, page){
 			}
 		},
 		error:function(){
-			alert("Error! getMessages();");
+			swal({
+				text:"Error! getMessages();",
+				icon: "error",
+				button:"확인",
+			});
 		}
 	});
 }
@@ -194,3 +200,19 @@ function showMessageInPage(messageCode, userNumber, pageNum){
 	});
 }
 
+function toggleMessageModal(userNumber){
+	$('#compose-sendUser-view').html(userNumber);
+	$('#compose-sendUser').val(userNumber);
+	$('.compose').slideToggle();
+}
+
+function sendMessage(){
+	var userNumber = $('#compose-sendUser').val();
+	var message = $('#editor').html();
+	
+	if(userNumber.length<1)
+		swal("Error", "SendUser 에러", "error");
+	if(message.length<1)
+		swal("", "메세지 내용이 비었습니다.", "warning");
+	
+}
