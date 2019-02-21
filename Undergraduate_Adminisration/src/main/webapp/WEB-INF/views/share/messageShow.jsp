@@ -24,6 +24,6 @@
 		${msg.message }
 	</div>
 	<div class="col-md-12" style="margin-top: 15px;">
-		<input type="button" class="btn btn-success" value="답장" onclick="toggleMessageModal('${msg.sendUser}');">
+		<input type="button" class="btn btn-success" value="답장" onclick="toggleMessageModal('${msg.sendUser}','${userNumber }');">
 	</div>
 </div>

@@ -89,6 +89,11 @@ public class RestfulServiceImpl implements RestfulService {
 	public List<Major> getMajors(Map<String, Object> map) {
 		return shareDao.getMajors(map);
 	}
-	
-	
+
+	@Override
+	public Map<String, Object> sendMessage(Map<String, Object> map) {
+		Map<String, Object> response = new HashMap<String, Object>();
+		response.put("result",  dao.sendMessage(map));
+		return response;
+	}
 }

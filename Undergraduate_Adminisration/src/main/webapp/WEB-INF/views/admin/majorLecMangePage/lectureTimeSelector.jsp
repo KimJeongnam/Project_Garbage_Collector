@@ -141,7 +141,7 @@ button, input {
 						<c:forEach var="lecture" items="${lectures}">
 							<c:if test="${lecture.lectureDay == day}">
 								<c:choose>
-									<c:when test="${mode eq 'selector' }">
+									<c:when test="${mode eq 'selector' || mode eq 'timetbl'}">
 									<c:set var="key">${lecture.lectureName}</c:set>
 										<li class="single-event"
 											data-start="${lecture.beginningLectureTime}"

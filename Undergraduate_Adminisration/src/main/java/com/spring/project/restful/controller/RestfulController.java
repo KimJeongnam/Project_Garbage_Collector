@@ -70,12 +70,10 @@ public class RestfulController {
 		return adminService.getLecture(map);
 	}
 
-	// 해당 교수의 빈강의 조회*
-	@RequestMapping(value = "/rest/api/v1.0/professor/getLecTime/{empNumber}/{semester}", method = RequestMethod.GET)
-	public String getEmptyLecTime(@PathVariable String empNumber, @PathVariable String semester, Model model) {
-		logger.info("getEmptyLecTime()");
-		adminService.getEmptyLecTime(empNumber, semester, model);
-		return "admin/majorLecMangePage/lectureTimeSelector";
+	// 메세지 송신
+	@ResponseBody
+	@RequestMapping(value = "/rest/api/v1.0/messsage/send", method=RequestMethod.POST)
+	public Map<String, Object> sendMessage(@RequestBody Map<String, Object> map) {
+		return service.sendMessage(map);
 	}
-
 }

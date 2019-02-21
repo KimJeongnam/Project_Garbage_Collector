@@ -115,4 +115,14 @@ public class ShareController {
 		adminService.getLectureTime(lecCode, model);
 		return "admin/majorLecMangePage/lectureTimeSelector";
 	}
+
+	// 해당 교수의 강의시간 조회
+	@RequestMapping(value = "/share/professor/getLecTime/{empNumber}/{semester}", method = RequestMethod.GET)
+	public String getEmptyLecTime(@PathVariable String empNumber, @PathVariable String semester, Model model) {
+		logger.info("getEmptyLecTime()");
+		shareService.getProfessorLectureTime(empNumber, semester, model);
+		return "admin/majorLecMangePage/lectureTimeSelector";
+	}
+	
+	
 }

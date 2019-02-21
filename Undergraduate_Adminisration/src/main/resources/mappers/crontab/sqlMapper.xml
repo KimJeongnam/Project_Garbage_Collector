@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.crontab.dao.ScheduleDAO">
+	<select id="getYearSemester" resultType="com.crontab.vo.LectrueSelectPeriod">
+	SELECT year, semester 
+    FROM LECTURESELECTPERIOD
+    <![CDATA[
+    WHERE TO_CHAR(STARTSELECTLECTURE, 'YYYY-MM-DD') <= TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+    AND TO_CHAR(ENDINGDAY, 'YYYY-MM-DD') >= TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+	]]>
+	</select>
+</mapper>
