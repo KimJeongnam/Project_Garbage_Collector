@@ -17,7 +17,8 @@
 		<security:form-login
 			login-processing-url="/security_login" login-page="/loginForm"
 			authentication-success-handler-ref="loginSuccessHandler"
-			authentication-failure-url="/loginFail" username-parameter="id"
+			authentication-failure-handler-ref="loginFailhandler"
+			 username-parameter="id"
 			password-parameter="pw" />
 		<!-- login-page="/loginForm" 로그인 페이지 설정 login-processing-url="/security_login" 
 			폼액션 주소 설정 default-target-url="/index" 성공했을때 주소 authentication-failure-url="/loginFail" 
@@ -42,7 +43,7 @@
 			<security:jdbc-user-service
 				data-source-ref="dataSource"
 				users-by-username-query="SELECT usernumber as username, userpassword as password, 1 as enabled FROM users where usernumber = ?"
-				authorities-by-username-query="SELECT usernumber as username, authority FROM users where usernumber = ?" />
+				authorities-by-username-query="SELECT usernumber as username, authority FROM users where delstatus != 1 AND usernumber = ?" />
 
 		</security:authentication-provider>
 	</security:authentication-manager>
@@ -51,6 +52,11 @@
 		class="com.spring.project.security.LoginSuccessHandler">
 		<property name="defaultTargetUrl" value="/loginSucces" />
 		<!-- <property name="alwaysUseDefaultTargetUrl" value="true" /> -->
+	</bean>
+	
+	<bean id="loginFailhandler"
+		class="com.spring.project.security.LoginFailhandler">
+		
 	</bean>
 
 </beans>

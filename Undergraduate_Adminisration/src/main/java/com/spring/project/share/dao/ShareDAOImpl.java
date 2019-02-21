@@ -51,4 +51,25 @@ public class ShareDAOImpl implements ShareDAO{
 	public List<Major> getMajors(Map<String, Object> map) {
 		return sqlSession.selectList("com.spring.project.share.dao.ShareDAO.getMajors", map);
 	}
+
+	@Override
+	public String idCheck(String id) {
+		return sqlSession.selectOne("com.spring.project.share.dao.ShareDAO.idCheck", id);
+	}
+
+	@Override
+	public String loginFailEvent(String id, String pw) {
+		String getpw = idCheck(id);
+		String message = "없는 아이디 입니다.";
+		
+		if(getpw != null) {
+			if(!getpw.equals(pw))
+				message = "비밀번호가 다릅니다.";
+			else
+				message = "삭제된 회원 입니다. 관리자에게 문의 하세요.";
+		}
+		return message;
+	}
+	
+	
 }

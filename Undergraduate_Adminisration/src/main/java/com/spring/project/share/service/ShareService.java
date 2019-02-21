@@ -17,6 +17,7 @@ public interface ShareService {
 	public void messageShow(Map<String, Object> map, Logger logger, Model model);
 	public List<String> getFacultys();
 	public int getMajorCurrval();
+	public String loginFailEvent(String id, String pw);
 	
 	// 교수의 강의 시간 조회
 	public void getProfessorLectureTime(String empNumber, String semester, Model model);
