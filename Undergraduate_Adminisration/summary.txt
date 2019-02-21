@@ -4,3 +4,6 @@
 		maxWait="1000" name="jdbc/Oracle11g_AWS_oracle" password="tiger"
 		type="javax.sql.DataSource" url="jdbc:oracle:thin:@54.180.118.64:1521:XE"
 		username="oracle" />
+
+		
+	정치호	  C:\\Users\\k\\git\\Project_Garbage_Collector\\Undergraduate_Adminisration\\src\\main\\webapp\\resources\\images\\
