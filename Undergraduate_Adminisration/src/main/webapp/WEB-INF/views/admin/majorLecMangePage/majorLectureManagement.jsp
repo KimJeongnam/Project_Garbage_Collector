@@ -438,13 +438,12 @@
 		$('#lecture-Modal').modal({backdrop:'static', keyboard:false});
 	}
 	
-	
-		$(function() {
-			getFacultys(init_collegeSelector);
-			getFacultys(init_lec_facultySelector);
-			getMajors();
-			getLectureList();
-		});
+	$(function() {
+		getFacultys(init_collegeSelector);
+		getFacultys(init_lec_facultySelector);
+		getMajors();
+		getLectureList();
+	});
 	</script>
 </body>
 </html>

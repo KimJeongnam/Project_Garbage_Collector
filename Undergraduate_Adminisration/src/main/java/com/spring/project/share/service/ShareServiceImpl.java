@@ -65,8 +65,8 @@ public class ShareServiceImpl implements ShareService{
 		LectrueSelectPeriod lectrueSelectPeriod = scheduleDao.getYearSemester();
 		
 		if(lectrueSelectPeriod!= null) {
-			request.getSession().setAttribute("Year", lectrueSelectPeriod.getYear());
-			request.getSession().setAttribute("Semester", lectrueSelectPeriod.getSemester());
+			request.getSession().setAttribute("year", lectrueSelectPeriod.getYear());
+			request.getSession().setAttribute("semester", lectrueSelectPeriod.getSemester());
 		}
 		
 		logger.info(user.toString());

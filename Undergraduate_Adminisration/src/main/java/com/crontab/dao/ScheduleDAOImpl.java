@@ -17,28 +17,32 @@ public class ScheduleDAOImpl implements ScheduleDAO{
 	}
 
 	@Override
-	public int checkStartSelectLecture() {
-		return 0;
+	public int checkStartSelectLecture(LectrueSelectPeriod lectrueSelectPeriod) {
+		return sqlSession.selectOne("com.crontab.dao.ScheduleDAO.checkStartSelectLecture", lectrueSelectPeriod);
 	}
 
 	@Override
-	public int checkEndSelectLecture() {
-		return 0;
+	public int checkEndSelectLecture(LectrueSelectPeriod lectrueSelectPeriod) {
+		return sqlSession.selectOne("com.crontab.dao.ScheduleDAO.checkEndSelectLecture", lectrueSelectPeriod);
 	}
 
 	@Override
-	public int checkOpening() {
-		return 0;
+	public int checkOpening(LectrueSelectPeriod lectrueSelectPeriod) {
+		return sqlSession.selectOne("com.crontab.dao.ScheduleDAO.checkOpening", lectrueSelectPeriod);
 	}
 
 	@Override
-	public int checkGradeOpening() {
-		return 0;
+	public int checkGradeOpening(LectrueSelectPeriod lectrueSelectPeriod) {
+		return sqlSession.selectOne("com.crontab.dao.ScheduleDAO.checkGradeOpening", lectrueSelectPeriod);
 	}
 
 	@Override
-	public int checkEnding() {
-		return 0;
+	public int checkEnding(LectrueSelectPeriod lectrueSelectPeriod) {
+		return sqlSession.selectOne("com.crontab.dao.ScheduleDAO.checkEnding", lectrueSelectPeriod);
 	}
-	
+
+	@Override
+	public void updateLectureStatus(LectrueSelectPeriod lectrueSelectPeriod) {
+		sqlSession.selectOne("com.crontab.dao.ScheduleDAO.updateLectureStatus", lectrueSelectPeriod);
+	}
 }
