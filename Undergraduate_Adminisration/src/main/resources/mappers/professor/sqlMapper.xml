@@ -100,4 +100,14 @@
 	<select id="getPlan" parameterType="String" resultType="com.spring.project.professor.vo.PlanVO">
 		SELECT*FROM MyLecturePlan WHERE empnumber=#{userNumber} AND lecturename=#{lecName}  ORDER BY week
  	</select>
+ 	
+ 	<!-- 강의계획서 입력 -->
+ 	<insert id="insertPlan" parameterType="com.spring.project.professor.vo.PlanVO">
+ 		INSERT INTO lectureplan(leccode, week, contents, text)VALUES(#{lecCode}, #{week}, #{contents}, #{text})
+ 	</insert>
+ 	<!-- 강의계획서 수정 -->
+ 	<update id="updatePlan" parameterType="com.spring.project.professor.vo.PlanVO">
+ 		UPDATE lectureplan SET contents=#{contents}, text=#{text} WHERE leccode=#{lecCode} AND week=#{week}
+ 	</update>
+ 	
 </mapper>

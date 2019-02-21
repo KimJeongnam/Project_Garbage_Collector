@@ -407,11 +407,79 @@ public class ProfessorServiceImpl implements ProfessorService {
 		map.put("userNumber", userNumber);
 		map.put("lecName", lecName);
 
-		List<PlanVO> vo = dao.firstPlan(map);
+		List<PlanVO> vo = dao.getPlan(map);
 		
 		System.out.println("나머지 강의 강의계획서  vo : " + vo);
 		
 		model.addAttribute("vo",vo);
+	}
+	//강의계획서 입력
+	@Override
+	public void insertPlan(HttpServletRequest req, RedirectAttributes red) {
+		
+		String lecCode = req.getParameter("lecCode");
+		String contents = req.getParameter("contents");
+		String text = req.getParameter("text");
+		String week = req.getParameter("week");
+		
+		String lecName = req.getParameter("lecName");
+		
+		PlanVO vo = new PlanVO();
+		
+		vo.setContents(contents);
+		vo.setLecCode(lecCode);
+		vo.setText(text);
+		vo.setWeek(week);
+		
+		int insertPlan = dao.insertPlan(vo);
+		System.out.println("강의계획서 입력 insertPlan : " + insertPlan);
+
+
+		int up = insertPlan;
+
+		if (up == 1) {
+			red.addFlashAttribute("message", lecName +" 의 강의계획을 작성하였습니다.");
+			red.addFlashAttribute("alertIcon","success");
+		}
+		if (up != 1) {
+			red.addFlashAttribute("message", "강의계획서를 입력하는 중 오류가 발생하였습니다.");
+			red.addFlashAttribute("alertIcon","error");
+		}
+		
+	}
+	//강의계획서 수정
+	@Override
+	public void updatePlan(HttpServletRequest req, RedirectAttributes red) {
+		
+		String lecCode = req.getParameter("lecCode");
+		String contents = req.getParameter("contents");
+		String text = req.getParameter("text");
+		String week = req.getParameter("week");
+		
+		String lecName = req.getParameter("lecName");
+		
+		PlanVO vo = new PlanVO();
+		
+		vo.setContents(contents);
+		vo.setLecCode(lecCode);
+		vo.setText(text);
+		vo.setWeek(week);
+		
+		int updatePlan = dao.updatePlan(vo);
+		System.out.println("강의계획서 수정 updatePlan : " + updatePlan);
+		
+		
+		int up = updatePlan;
+		
+		if (up == 1) {
+			red.addFlashAttribute("message", lecName +"의" +week+" 주차 강의계획을 수정하였습니다.");
+			red.addFlashAttribute("alertIcon","success");
+		}
+		if (up != 1) {
+			red.addFlashAttribute("message", "강의계획서를 수정하는 중 오류가 발생하였습니다.");
+			red.addFlashAttribute("alertIcon","error");
+		}
+		
 	}
 
 }

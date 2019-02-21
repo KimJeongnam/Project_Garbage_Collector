@@ -9,14 +9,6 @@
 </head>
 
 
-<c:if test="${empty list}">
-    <script type="text/javascript">
-        alert("개강한 수업이 없습니다. 이전 페이지로 돌아갑니다.");
-        history.back();
-
-    </script>
-</c:if>
-
 
 <c:if test="${!empty list}">
 
@@ -208,4 +200,18 @@
     </body>
 </c:if>
 
+
+<c:if test="${empty list}">
+        <%@ include file="../Basic/footer.jsp" %>
+    <script type="text/javascript">
+    swal({
+		text:"개강한 수업이 없습니다. 이전 페이지로 돌아갑니다.",
+		button:"확인",
+	}).then((value)=>{
+		if(value)
+			history.back();
+	});
+
+    </script>
+</c:if>
 </html>

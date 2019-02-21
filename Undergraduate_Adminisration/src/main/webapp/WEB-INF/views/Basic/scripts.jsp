@@ -161,6 +161,9 @@
 	<!-- https://sweetalert.js.org/guides/ -->
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     
+    <!-- https://sweetalert.js.org/guides/ -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    
 	<!-- Custom Theme Scripts -->
     <script src="${staticPath}/build/js/custom.min.js"></script>
     
@@ -177,7 +180,8 @@
     <script src="${staticPath }/js/bulletin/applybulletin.js"></script>
     <script src="${staticPath }/js/adminjanghak/applyresister.js"></script>
     
-   
-	
-    
-
+    <!-- Chart.js -->
+    <script src="${staticPath }/vendors/Chart.js/dist/Chart.min.js"></script>
+    <!-- morris.js -->
+    <script src="${staticPath }/vendors/raphael/raphael.min.js"></script>
+    <script src="${staticPath }/vendors/morris.js/morris.min.js"></script>
