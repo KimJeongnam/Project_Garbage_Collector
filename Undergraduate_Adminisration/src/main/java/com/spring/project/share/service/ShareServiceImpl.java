@@ -1,6 +1,8 @@
 package com.spring.project.share.service;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,11 +18,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.crontab.dao.ScheduleDAO;
+import com.crontab.vo.LectrueSelectPeriod;
+import com.spring.project.admin.dao.AdminDAO;
 import com.spring.project.restful.dao.RestfulDAO;
 import com.spring.project.restful.vo.Message;
 import com.spring.project.share.dao.ShareDAO;
-import com.spring.project.share.vo.Major;
 import com.spring.project.share.vo.ShareUserInfo;
+import com.spring.project.student.vo.LectureVO;
 
 @Service
 public class ShareServiceImpl implements ShareService{
@@ -28,6 +33,10 @@ public class ShareServiceImpl implements ShareService{
 	ShareDAO dao;
 	@Autowired
 	RestfulDAO restDao;
+	@Autowired
+	AdminDAO adminDao;
+	@Autowired
+	ScheduleDAO scheduleDao;
 
 	@Override
 	public String loginSucces(HttpServletRequest request, RedirectAttributes redirectAttributes, Logger logger) {
@@ -53,6 +62,12 @@ public class ShareServiceImpl implements ShareService{
 			user = dao.getStudentInfo(userNumber);
 		}
 		
+		LectrueSelectPeriod lectrueSelectPeriod = scheduleDao.getYearSemester();
+		
+		if(lectrueSelectPeriod!= null) {
+			request.getSession().setAttribute("Year", lectrueSelectPeriod.getYear());
+			request.getSession().setAttribute("Semester", lectrueSelectPeriod.getSemester());
+		}
 		
 		logger.info(user.toString());
 		logger.info(""+user.getMajorNum());
@@ -151,9 +166,45 @@ public class ShareServiceImpl implements ShareService{
 	public List<String> getFacultys() {
 		return dao.getFacultys();
 	}
-
+	// 학과의 다음 majorNum 조회
 	@Override
 	public int getMajorCurrval() {
 		return dao.getMajorCurrval();
 	}
+
+	// 교수의 강의 시간 조회
+	@Override
+	public void getProfessorLectureTime(String empNumber, String semester, Model model) {
+		List<Object> days = new ArrayList<Object>();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("empNumber", empNumber);
+		map.put("semester", semester);
+		List<Object> lectures = adminDao.getLecturesTimes(map);
+		Map<String, Integer> colorMap = new HashMap<String, Integer>();
+		
+		int idx = 1;
+		for(Object obj: lectures) {
+			LectureVO data = ((LectureVO)obj);
+			if(!colorMap.containsKey(data.getLectureName())) {
+				if(idx==6)
+					idx+=1;
+				colorMap.put(data.getLectureName(), idx++);
+			}
+		}
+		
+		days.add("월");
+		days.add("화");
+		days.add("수");
+		days.add("목");
+		days.add("금");
+		model.addAttribute("colorMap", colorMap);
+		model.addAttribute("lectures", lectures);
+		model.addAttribute("days", days);
+		model.addAttribute("mode", "timetbl");
+		model.addAttribute("semester", semester);
+		model.addAttribute("empNumber", empNumber);
+	}
+	
+	
+	
 }

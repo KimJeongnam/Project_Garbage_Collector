@@ -60,7 +60,8 @@
 					</c:if>
 			</td>
 			<td>
-				<input type="button" class="btn btn-success" value="수정">
+				<input type="button" class="btn btn-success" value="수정" 
+					onclick="getLectureInfo('${dto.lecCode}', setModifyLectureModal);">
 			</td>
 		</tr>
 		</c:forEach>

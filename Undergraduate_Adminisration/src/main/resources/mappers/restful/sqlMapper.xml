@@ -30,4 +30,16 @@
 			</if>
 		</where>
 	</select>
+	
+	<insert id="sendMessage" parameterType="java.util.Map">
+	INSERT INTO messages
+    VALUES(
+    messages_seq.nextval,
+    #{recvUser}
+    , #{sendUser}
+    , #{message}
+    , 0
+    , localtimestamp
+    , #{notify})
+	</insert>
 </mapper>

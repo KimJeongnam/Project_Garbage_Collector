@@ -29,45 +29,51 @@ public class RestfulController {
 	RestfulService service;
 	@Autowired
 	AdminService adminService;
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(RestfulController.class);
-	
+
 	@ResponseBody
-	@RequestMapping(value="/rest/api/v1.0/messages", method=RequestMethod.POST)
-	public Map<String, List<Message>> messages(@RequestBody Map<String, Object> map,
-			HttpServletRequest request) {
+	@RequestMapping(value = "/rest/api/v1.0/messages", method = RequestMethod.POST)
+	public Map<String, List<Message>> messages(@RequestBody Map<String, Object> map, HttpServletRequest request) {
 		Map<String, List<Message>> responseData = null;
-		//logger.info("messages()");
-		
+		// logger.info("messages()");
+
 		responseData = service.getMessages(map, request, logger);
-		
+
 		return responseData;
 	}
-	
+
 	@ResponseBody
-	@RequestMapping(value="/rest/api/v1.0/showMessage", method=RequestMethod.POST)
+	@RequestMapping(value = "/rest/api/v1.0/showMessage", method = RequestMethod.POST)
 	public Message getMessage(@RequestBody Map<String, Object> map) {
 		Message message = null;
 		message = service.showMessage(map, logger);
 		return message;
 	}
-	
+
 	// 학과 조회
 	@ResponseBody
-	@RequestMapping(value="/rest/json/getMajors",  method=RequestMethod.POST)
-	public List<Major> getMajors(@RequestBody Map<String, Object> map){
+	@RequestMapping(value = "/rest/json/getMajors", method = RequestMethod.POST)
+	public List<Major> getMajors(@RequestBody Map<String, Object> map) {
 		logger.info("List<Major> getMajors()");
 		List<Major> list = null;
 		list = service.getMajors(map);
 		return list;
 	}
-	
+
 	// 강의 정보 조회
-		@ResponseBody
-		@RequestMapping(value="/rest/api/v1.0/getLecture/{lecCode}",  method=RequestMethod.GET)
-		public LectureVO getLecture(@PathVariable String lecCode, Model model){
-			Map<String,Object> map = new HashMap<String, Object>();
-			map.put("lecCode", lecCode);
-			return adminService.getLecture(map);
-		}
+	@ResponseBody
+	@RequestMapping(value = "/rest/api/v1.0/getLecture/{lecCode}", method = RequestMethod.GET)
+	public LectureVO getLecture(@PathVariable String lecCode, Model model) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("lecCode", lecCode);
+		return adminService.getLecture(map);
+	}
+
+	// 메세지 송신
+	@ResponseBody
+	@RequestMapping(value = "/rest/api/v1.0/messsage/send", method=RequestMethod.POST)
+	public Map<String, Object> sendMessage(@RequestBody Map<String, Object> map) {
+		return service.sendMessage(map);
+	}
 }

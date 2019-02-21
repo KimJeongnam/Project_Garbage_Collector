@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.project.admin.vo.ScholarpkVO;
@@ -18,6 +19,15 @@ public interface StudentService {
 	
 	// 시간표 조회
 	public void schoolTimeTable(Map<String, Object> map, Logger logger, Model model);
+	
+	//이미지 업로드
+	public void s_imageUpload(MultipartHttpServletRequest req, RedirectAttributes red);
+	
+	//개인정보
+	public void personalProfile(HttpServletRequest req, Model model);
+	
+	//개인정보 업데이트
+	public void s_infoupdate(HttpServletRequest req,RedirectAttributes red);
 	
 	//장학금 신청 
 	public void bulletin(Map<String, Object> map, Logger logger, Model model);
