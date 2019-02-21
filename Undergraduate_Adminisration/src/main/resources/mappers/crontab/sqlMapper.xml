@@ -7,11 +7,56 @@
 
 <mapper namespace="com.crontab.dao.ScheduleDAO">
 	<select id="getYearSemester" resultType="com.crontab.vo.LectrueSelectPeriod">
-	SELECT year, semester 
-    FROM LECTURESELECTPERIOD
-    <![CDATA[
-    WHERE TO_CHAR(STARTSELECTLECTURE, 'YYYY-MM-DD') <= TO_CHAR(SYSDATE, 'YYYY-MM-DD')
-    AND TO_CHAR(ENDINGDAY, 'YYYY-MM-DD') >= TO_CHAR(SYSDATE, 'YYYY-MM-DD')
-	]]>
+	SELECT * FROM
+    (SELECT ROWNUM rnum, year, semester FROM
+        (SELECT year, semester 
+            FROM LECTURESELECTPERIOD
+            WHERE 
+            TO_CHAR(ENDINGDAY, 'YYYY-MM-DD') >= TO_CHAR(localtimestamp, 'YYYY-MM-DD')
+            ORDER BY semester
+        )
+    )
+    WHERE rnum = 1
 	</select>
+	
+	<select id="checkStartSelectLecture" resultType="int">
+	SELECT COUNT(*)
+    FROM LECTURESELECTPERIOD
+    WHERE YEAR = #{year} AND semester = #{semester}
+    AND TO_CHAR(STARTSELECTLECTURE, 'YYYY-MM-DD HH24:MI') = TO_CHAR(localtimestamp, 'YYYY-MM-DD HH24:MI')
+	</select>
+	
+	<select id="checkEndSelectLecture" resultType="int">
+	SELECT COUNT(*)
+    FROM LECTURESELECTPERIOD
+    WHERE YEAR = #{year} AND semester = #{semester}
+    AND TO_CHAR(ENDSELECTLECTURE, 'YYYY-MM-DD HH24:MI') = TO_CHAR(localtimestamp, 'YYYY-MM-DD HH24:MI')
+	</select>
+	
+	<select id="checkOpening" resultType="int">
+	SELECT COUNT(*)
+    FROM LECTURESELECTPERIOD
+    WHERE YEAR = #{year} AND semester = #{semester}
+    AND TO_CHAR(OPENINGDAY, 'YYYY-MM-DD HH24:MI') = TO_CHAR(localtimestamp, 'YYYY-MM-DD HH24:MI')
+	</select>
+	
+	<select id="checkGradeOpening" resultType="int">
+	SELECT COUNT(*)
+    FROM LECTURESELECTPERIOD
+    WHERE YEAR = #{year} AND semester = #{semester}
+    AND TO_CHAR(GARDEOPENINGDAY, 'YYYY-MM-DD HH24:MI') = TO_CHAR(localtimestamp, 'YYYY-MM-DD HH24:MI')
+	</select>
+	
+	<select id="checkEnding" resultType="int">
+	SELECT COUNT(*)
+    FROM LECTURESELECTPERIOD
+    WHERE YEAR = #{year} AND semester = #{semester}
+    AND TO_CHAR(ENDINGDAY, 'YYYY-MM-DD') = TO_CHAR(localtimestamp, 'YYYY-MM-DD')
+    AND TO_CHAR(ENDINGDAY, 'YYYY-MM-DD HH24:MI') = TO_CHAR(localtimestamp, 'YYYY-MM-DD HH24:MI')
+	</select>
+	
+	<select id="updateLectureStatus" statementType="CALLABLE" parameterType="com.crontab.vo.LectrueSelectPeriod">
+	{call update_lecture_lecstatus_proc(#{semester}, #{status}, #{result, mode=OUT, javaType=int, jdbcType=NUMERIC})}
+	</select>
+	
 </mapper>

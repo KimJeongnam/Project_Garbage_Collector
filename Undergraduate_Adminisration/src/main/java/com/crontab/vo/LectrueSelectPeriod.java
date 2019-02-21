@@ -9,6 +9,9 @@ public class LectrueSelectPeriod {
 	private String gradeOpeningDay;		// 학점입력일
 	private String endingDAy;				// 종강일
 	
+	private int status;						// 강의 상태 0: 수강신청일 1:개강일 2:학점입력일 3:종강일
+	private int result;						// 성공여부 1 :성공 0:실패
+	
 	public String getYear() {
 		return year;
 	}
@@ -50,5 +53,17 @@ public class LectrueSelectPeriod {
 	}
 	public void setEndingDAy(String endingDAy) {
 		this.endingDAy = endingDAy;
+	}
+	public int getStatus() {
+		return status;
+	}
+	public void setStatus(int status) {
+		this.status = status;
+	}
+	public int getResult() {
+		return result;
+	}
+	public void setResult(int result) {
+		this.result = result;
 	}
 }
