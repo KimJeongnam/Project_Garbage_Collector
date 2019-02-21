@@ -1,3 +1,5 @@
+
+
 function notifyMessage(title, text, important){
 	if(important == 0){
 		new PNotify({
@@ -165,7 +167,11 @@ function getMessages(userNumber, page){
 			}
 		},
 		error:function(){
-			alert("Error! getMessages();");
+			swal({
+				text:"Error! getMessages();",
+				icon: "error",
+				button:"확인",
+			});
 		}
 	});
 }
@@ -194,3 +200,54 @@ function showMessageInPage(messageCode, userNumber, pageNum){
 	});
 }
 
+function toggleMessageModal(recvUser, sendUser){
+	$('#compose-recvUser-view').html(recvUser);
+	$('#compose-recvUser').val(recvUser);
+	$('#compose-sendUser').val(sendUser);
+	$('.compose').slideToggle();
+}
+
+function sendMessage(){
+	var recvUser = $('#compose-recvUser').val();
+	var sendUser = $('#compose-sendUser').val();
+	var message = $('#editor').html();
+	
+	if(recvUser.length<1)
+		swal("Error", "recvUser 에러", "error");
+	if(message.length<1)
+		swal("", "메세지 내용이 비었습니다.", "warning");
+	
+	var notify = 0;
+	if($('#msg-notify').is(":checked")){
+		notify = 1;
+	}
+	
+	sendMessageAjax(recvUser, sendUser, message, notify)
+}
+
+function sendMessageAjax(recvUser, sendUser, message, notify){
+	var obj = new Object();
+	obj.recvUser = recvUser;
+	obj.sendUser = sendUser;
+	obj.message = message;
+	obj.notify = notify;
+	var jsonData = JSON.stringify(obj);
+	$.ajax({
+		url:'/project/rest/api/v1.0/messsage/send',
+		type:'POST',
+		contentType:'application/json;charset=utf-8',
+		data:jsonData,
+		success:function(data){
+			if(data.result!=0){
+				swal("Success!", "메세지 전송 성공", "success");
+				$('.compose').slideToggle();
+			}else{
+				swal("Error!", "메세지 전송 실패!!", "error");
+				$('.compose').slideToggle();
+			}
+		},
+		error:function(){
+			swal("Error!", "sendMessageAjax()", "error");
+		},
+	})
+}

@@ -9,11 +9,16 @@ import org.springframework.stereotype.Repository;
 
 import com.spring.project.admin.vo.ScholarpkVO;
 import com.spring.project.admin.vo.auditVO;
+import com.spring.project.professor.dao.ProfesserDAO;
+import com.spring.project.professor.vo.MyPageVO;
 import com.spring.project.share.dao.ShareDAO;
 import com.spring.project.student.vo.DetailsVO;
 import com.spring.project.student.vo.GpaVO;
 //github.com/KimJeongnam/Project_Garbage_Collector.git
 import com.spring.project.student.vo.LectureVO;
+import com.spring.project.student.vo.S_informationVO;
+import com.spring.project.student.vo.middle_classVO;
+import com.spring.project.student.vo.report_tblVO;
 
 @Repository
 public class StudentDAOImpl implements StudentDAO{
@@ -81,6 +86,46 @@ public class StudentDAOImpl implements StudentDAO{
 	public int applyLecture(Map<String, Object> map) {
 		return sqlSession.insert("com.spring.project.student.dao.StudentDAO.applyLecture", map);
 	}
+	//프로필 이미지 변경
+	@Override
+	public int s_imageUpload(S_informationVO vo) {
+		
+		System.out.println(vo);
+		
+		int imageUpload=0;
+		
+		StudentDAO dao = sqlSession.getMapper(StudentDAO.class);
+		
+		imageUpload=dao.s_imageUpload(vo);
+		
+		System.out.println(imageUpload==1?"프로필 이미지 변경 성공!":"프로필 이미지 변경 실패!");
+		
+		return imageUpload;
+	}
+	
+	//마이페이지
+	@Override
+	public S_informationVO personalProfile(String userNumber) {
+		return sqlSession.selectOne("com.spring.project.student.dao.StudentDAO.personalProfile",userNumber);
+		
+	}
+	
+	//개인정보 업데이트
+	public int s_infoupdate(Map<String, Object> map) {
+		int Cnt = sqlSession.update("com.spring.project.student.dao.StudentDAO.s_infoupdate",map);
+		return Cnt;
+	}
+	
+	//수강중 강의
+	public List<middle_classVO> s_Lecture(String userNumber) {
+		return sqlSession.selectList("com.spring.project.student.dao.StudentDAO.s_Lecture",userNumber);
+	}
+	//수강중 과제
+	@Override
+	public List<report_tblVO> s_report(String userNumber) {
+		return sqlSession.selectList("com.spring.project.student.dao.StudentDAO.s_report",userNumber);
+	}
+	
 	//장학금 글 갯수
 	@Override
 	public int getArticleCnt(Map<String, Object> map) {

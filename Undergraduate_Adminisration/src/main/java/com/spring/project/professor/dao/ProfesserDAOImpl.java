@@ -11,6 +11,7 @@ import com.spring.project.professor.vo.ClassStudentVO;
 import com.spring.project.professor.vo.LecScore;
 import com.spring.project.professor.vo.MyClassVO;
 import com.spring.project.professor.vo.MyPageVO;
+import com.spring.project.professor.vo.PlanVO;
 import com.spring.project.professor.vo.SearchVO;
 import com.spring.project.professor.vo.StudentVO;
 
@@ -121,19 +122,99 @@ public class ProfesserDAOImpl implements ProfesserDAO{
 	public List<MyClassVO> s_myClass(String userNumber) {
 		return sql.selectList("com.spring.project.professor.dao.ProfesserDAO.s_myClass",userNumber);
 	}
+	//학점관리 진입2
 	@Override
 	public List<MyClassVO> v_myClass(String userNumber) {
 		return sql.selectList("com.spring.project.professor.dao.ProfesserDAO.v_myClass",userNumber);
 	}
-
+	//학점관리 첫 탭
 	@Override
 	public List<LecScore> firstLec(Map<String, Object> map) {
 		return sql.selectList("com.spring.project.professor.dao.ProfesserDAO.firstLec",map);
 	}
+	//학점관리 나머지 탭
 	@Override
 	public List<LecScore> getLecScore(Map<String, Object> map) {
 		return sql.selectList("com.spring.project.professor.dao.ProfesserDAO.getLecScore",map);
 	}
+	//학점입력
+	@Override
+	public int insertScore(LecScore vo) {
+		System.out.println(vo);
+		
+		int insertScore=0;
+		
+		ProfesserDAO dao = sql.getMapper(ProfesserDAO.class);
+		
+		insertScore=dao.insertScore(vo);
+		
+		System.out.println(insertScore==1?"학점 입력 성공!":"학점 입력 실패!");
+		
+		return insertScore;
+	}
+	//학점수정
+	@Override
+	public int updateScore(LecScore vo) {
+		System.out.println(vo);
+		
+		int updateScore=0;
+		
+		ProfesserDAO dao = sql.getMapper(ProfesserDAO.class);
+		
+		updateScore=dao.updateScore(vo);
+		
+		System.out.println(updateScore==1?"학점 수정 성공!":"학점 수정 실패!");
+		
+		return updateScore;
+	}
+	
+	@Override
+	public List<PlanVO> plan(String userNumber) {
+		return sql.selectList("com.spring.project.professor.dao.ProfesserDAO.plan",userNumber);
+	}
+	@Override
+	public List<PlanVO> plan2(String userNumber) {
+		return sql.selectList("com.spring.project.professor.dao.ProfesserDAO.plan2",userNumber);
+	}
 
+	@Override
+	public List<PlanVO> firstPlan(Map<String, Object> map) {
+		return sql.selectList("com.spring.project.professor.dao.ProfesserDAO.firstPlan",map);
+	}
+
+	@Override
+	public List<PlanVO> getPlan(Map<String, Object> map) {
+		return sql.selectList("com.spring.project.professor.dao.ProfesserDAO.getPlan",map);
+	}
+	//강의계획서 입력
+	@Override
+	public int insertPlan(PlanVO vo) {
+		System.out.println(vo);
+		
+		int insertPlan=0;
+		
+		ProfesserDAO dao = sql.getMapper(ProfesserDAO.class);
+		
+		insertPlan=dao.insertPlan(vo);
+		
+		System.out.println(insertPlan==1?"강의계획서 입력 성공!":"강의계획서 입력 실패!");
+		
+		return insertPlan;
+	}
+	//강의계획서 수정
+	@Override
+	public int updatePlan(PlanVO vo) {
+		System.out.println(vo);
+		
+		int updatePlan=0;
+		
+		ProfesserDAO dao = sql.getMapper(ProfesserDAO.class);
+		
+		updatePlan=dao.updatePlan(vo);
+		
+		System.out.println(updatePlan==1?"강의계획서 수정 성공!":"강의계획서 수정 실패!");
+		
+		return updatePlan;
+	}
 
 }

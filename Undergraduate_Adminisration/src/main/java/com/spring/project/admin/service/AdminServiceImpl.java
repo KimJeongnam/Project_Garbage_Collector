@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -67,9 +68,9 @@ public class AdminServiceImpl extends Board implements AdminService {
 		else
 			pageNum = (Integer) map.get("pageNum");
 		// 수강신청 목록 갯수 구하기
-		cnt = dao.Jang_getArticleCnt(map); 
-		System.out.println("cnt"+cnt);
-		System.out.println("pageNum"+pageNum);
+		cnt = dao.Jang_getArticleCnt(map);
+		System.out.println("cnt" + cnt);
+		System.out.println("pageNum" + pageNum);
 
 		pageCount = cnt / pageSize + (cnt % pageSize > 0 ? 1 : 0);
 
@@ -223,14 +224,12 @@ public class AdminServiceImpl extends Board implements AdminService {
 
 	@Override
 	public void contentform(HttpServletRequest req, Model model) {
-		int scholarpk = Integer.parseInt(req.getParameter("scholarpk"));//sql용
+		int scholarpk = Integer.parseInt(req.getParameter("scholarpk"));// sql용
 
-
-		//5-2 상세페이지
+		// 5-2 상세페이지
 		ScholarpkVO dto = dao.content_getArticle(scholarpk);
 
-
-		//6단계 request나 session 에 처리 결과를 저장 (jsp에 전달하기 위함)
+		// 6단계 request나 session 에 처리 결과를 저장 (jsp에 전달하기 위함)
 		model.addAttribute("dto", dto);
 
 	}
@@ -241,7 +240,7 @@ public class AdminServiceImpl extends Board implements AdminService {
 
 		System.out.println("checkbox" + checkbox);
 
-		int updateCnt =dao.jang_delete(checkbox);
+		int updateCnt = dao.jang_delete(checkbox);
 		System.out.println("22222");
 
 		if (updateCnt != 0) {
@@ -252,7 +251,8 @@ public class AdminServiceImpl extends Board implements AdminService {
 		}
 
 	}
-	//학생등록 처리
+
+	// 학생등록 처리
 	@Override
 	public void stdInputPro(MultipartHttpServletRequest req, RedirectAttributes red) {
 		// MultipartRequest 타입의 변수 선언
@@ -264,18 +264,20 @@ public class AdminServiceImpl extends Board implements AdminService {
 		// 임시 파일이 저장되는 논리적인 경로
 		String saveDir = req.getSession().getServletContext().getRealPath("/resources/images/");
 
-		//업로드할 파일이 위치하게 될 물리적인 경로
-		String realDir= Config.REAL_PATH;
+		// 업로드할 파일이 위치하게 될 물리적인 경로
+		String realDir = Config.REAL_PATH;
 
 		// 인코딩 타입 : 한글 파일명이 열화되는것을 방지
 		/* String encType= "UTF-8"; */
 
 		try {
-			/* *DefaultFileRenamePolicy()객체는 중복된 파일명이 있을 경우, 자동으로 파일명을 변경함 
-			 *(예 : filename.png가 이미 존재할 경우, filename1.png와 같이)*/
-			file.transferTo(new File(saveDir+file.getOriginalFilename()));
+			/*
+			 * *DefaultFileRenamePolicy()객체는 중복된 파일명이 있을 경우, 자동으로 파일명을 변경함 (예 :
+			 * filename.png가 이미 존재할 경우, filename1.png와 같이)
+			 */
+			file.transferTo(new File(saveDir + file.getOriginalFilename()));
 
-			if(file.getOriginalFilename() != "")  {
+			if (file.getOriginalFilename() != "") {
 				FileInputStream fis = new FileInputStream(saveDir + file.getOriginalFilename());
 				FileOutputStream fos = new FileOutputStream(realDir + file.getOriginalFilename());
 				int data = 0;
@@ -340,7 +342,7 @@ public class AdminServiceImpl extends Board implements AdminService {
 		}
 	}
 
-	//교수 인서트
+	// 교수 인서트
 	@Override
 	public void ProInputPro(MultipartHttpServletRequest req, RedirectAttributes red) {
 		// MultipartRequest 타입의 변수 선언
@@ -352,8 +354,8 @@ public class AdminServiceImpl extends Board implements AdminService {
 		// 임시 파일이 저장되는 논리적인 경로
 		String saveDir = req.getSession().getServletContext().getRealPath("/resources/images/");
 
-		//업로드할 파일이 위치하게 될 물리적인 경로
-		String realDir=Config.REAL_PATH;
+		// 업로드할 파일이 위치하게 될 물리적인 경로
+		String realDir = Config.REAL_PATH;
 
 		// 인코딩 타입 : 한글 파일명이 열화되는것을 방지
 		/* String encType= "UTF-8"; */
@@ -365,7 +367,7 @@ public class AdminServiceImpl extends Board implements AdminService {
 			 */
 			file.transferTo(new File(saveDir + file.getOriginalFilename()));
 
-			if(file.getOriginalFilename() != "")  {
+			if (file.getOriginalFilename() != "") {
 				FileInputStream fis = new FileInputStream(saveDir + file.getOriginalFilename());
 				FileOutputStream fos = new FileOutputStream(realDir + file.getOriginalFilename());
 				int data = 0;
@@ -378,9 +380,10 @@ public class AdminServiceImpl extends Board implements AdminService {
 				fos.close();
 			}
 
-			/* *위에서 MultipartRequest()객체를 선언해서 받는 모든 request 객체들은
-			 *MultipartRequest 타입으로 참조되어야 함
-			 *(예 : request.getParameter 에서 mr.getParameter) */
+			/*
+			 * *위에서 MultipartRequest()객체를 선언해서 받는 모든 request 객체들은 MultipartRequest 타입으로
+			 * 참조되어야 함 (예 : request.getParameter 에서 mr.getParameter)
+			 */
 			String image = file.getOriginalFilename();
 			String img = "";
 			img = "/images/" + image;
@@ -411,13 +414,15 @@ public class AdminServiceImpl extends Board implements AdminService {
 			vo.setBankName(req.getParameter("bankName"));
 			vo.setAccountHolder(req.getParameter("accountHolder"));
 			vo.setAccountNumber(req.getParameter("accountNumber"));
+			
+			int userInsert = dao.insertPUsers(vo); 
+			int empInsert = dao.insertEmployees(vo); 
+			int insertProcedure = dao.insertProcedure(vo);
+			
+			int proInsertResult = userInsert+ empInsert+insertProcedure;
+			
+			 if (proInsertResult != 0) 
 
-			int userInsert = dao.insertPUsers(vo);
-			int empInsert = dao.insertEmployees(vo);
-
-			int proInsertResult = userInsert + empInsert;
-
-			if (proInsertResult != 0)
 				red.addFlashAttribute("message", "교수등록완료.");
 			else
 				red.addFlashAttribute("message", "교수등록에러.");
@@ -427,7 +432,7 @@ public class AdminServiceImpl extends Board implements AdminService {
 		}
 	}
 
-	//학생*교수 리스트
+	// 학생*교수 리스트
 	@Override
 	public void stdList(HttpServletRequest req, Model model) {
 		// 3단계. 화면으로부터 입력받은 값을 받아온다.
@@ -440,16 +445,16 @@ public class AdminServiceImpl extends Board implements AdminService {
 		map.put("start", start);
 		map.put("end", end);
 
-		//학생리스트
+		// 학생리스트
 		List<AdStdVO> dtos = dao.getStdList(map);
-		req.setAttribute("dtos", dtos); //큰바구니 : 게시글 목록 cf)작은 바구니(vo)는 게시글 1건
+		req.setAttribute("dtos", dtos); // 큰바구니 : 게시글 목록 cf)작은 바구니(vo)는 게시글 1건
 
-		//교수 리스트
+		// 교수 리스트
 		List<AdProVO> vo = dao.getProList(map);
 		req.setAttribute("vo", vo);
 	}
 
-	//학부 + 학과 리스트
+	// 학부 + 학과 리스트
 	@Override
 	public void fandMList(HttpServletRequest req, Model model) {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -457,13 +462,13 @@ public class AdminServiceImpl extends Board implements AdminService {
 		req.setAttribute("outFandM", vo);
 	}
 
-	//학생 상세페이지
+	// 학생 상세페이지
 	@Override
 	public void showStdDetail(Map<String, Object> map, HttpServletRequest req, Model model) {
-		String userNumber = req.getParameter("userNumber"); 
+		String userNumber = req.getParameter("userNumber");
 
 		Map<String, Object> map1 = new HashMap<String, Object>();
-		map1.put("userNumber", userNumber);
+			map1.put("userNumber", userNumber);
 		
 		List<AdProVO> voList = dao.FandMList(map1);
 		List<AdStdVO> lecList = dao.stdLectureList(map1);
@@ -475,25 +480,26 @@ public class AdminServiceImpl extends Board implements AdminService {
 		req.setAttribute("vo", vo);
 	}
 
-	//교수 상세
+	// 교수 상세
 	@Override
 	public void showProDetail(HttpServletRequest req, Model model) {
 		String userNumber =req.getParameter("userNumber");
 
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("userNumber", userNumber);
-		
+			map.put("userNumber", userNumber);
+			
 		List<AdProVO> voList = dao.FandMList(map);
 		List<AdProVO> lecList = dao.proLectureList(map);
 		
 		req.setAttribute("outFandM", voList);
 		req.setAttribute("lecList", lecList);
 		
+
 		AdProVO vo = dao.proDetail(userNumber);
 		req.setAttribute("vo", vo);
 	}
 
-	//학생정보수정
+	// 학생정보수정
 	@Override
 	public void stdDetailUpdate(HttpServletRequest req, RedirectAttributes model) {
 
@@ -540,13 +546,13 @@ public class AdminServiceImpl extends Board implements AdminService {
 		}
 	}
 
-	//교수정보수정
+	// 교수정보수정
 	@Override
 	public void proDetailUpdate(HttpServletRequest req, RedirectAttributes model) {
 
 		AdProVO vo = new AdProVO();
 
-		//users
+		// users
 		vo.setUserNumber(req.getParameter("userNumber"));
 		vo.setUserName(req.getParameter("userName"));
 		vo.setUserEngName(req.getParameter("userEngName"));
@@ -563,7 +569,7 @@ public class AdminServiceImpl extends Board implements AdminService {
 		//major
 		vo.setMajorNum(Integer.parseInt(req.getParameter("majorNum")));
 
-		//employees
+		// employees
 		vo.setEmpHiredDate(Date.valueOf(req.getParameter("empHiredDate")));
 		vo.setAnnualLevel(Integer.parseInt(req.getParameter("annualLevel")));
 		vo.setBankName(req.getParameter("bankName"));
@@ -585,7 +591,7 @@ public class AdminServiceImpl extends Board implements AdminService {
 		}
 	}
 
-	//학생 이미지수정
+	// 회원 이미지수정
 	@Override
 	public void stdImgUpdate(MultipartHttpServletRequest req, RedirectAttributes red) {
 		MultipartFile file = req.getFile("userImage");
@@ -597,7 +603,7 @@ public class AdminServiceImpl extends Board implements AdminService {
 		try {
 			file.transferTo(new File(saveDir + file.getOriginalFilename()));
 
-			if(file.getOriginalFilename() != "")  {
+			if (file.getOriginalFilename() != "") {
 				FileInputStream fis = new FileInputStream(saveDir + file.getOriginalFilename());
 				FileOutputStream fos = new FileOutputStream(realDir + file.getOriginalFilename());
 
@@ -635,7 +641,6 @@ public class AdminServiceImpl extends Board implements AdminService {
 			}else {
 				red.addFlashAttribute("message", "프로필 이미지를 변경하는 도중에 오류가 발생하였습니다.");
 			}
-			
 			System.out.println("프로필 이미지 변경 imageUpload : " + stdImageUpload);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -699,7 +704,7 @@ public class AdminServiceImpl extends Board implements AdminService {
 		}
 	}
 	
-	//학생 + 교수삭제
+	// 학생 + 교수삭제
 	@Override
 	public void stdDeletePro(HttpServletRequest req, RedirectAttributes red) {
 		String userNum = req.getParameter("userNumber");
@@ -719,7 +724,7 @@ public class AdminServiceImpl extends Board implements AdminService {
 		req.setAttribute("getSL", vo);
 	}
 
-	//전화번호부 가져오기
+	// 전화번호부 가져오기
 	@Override
 	public List<String> getUserCellNumList(Map<String, Object> map){
 		return dao.getUserCellNumList(map);
@@ -773,9 +778,12 @@ public class AdminServiceImpl extends Board implements AdminService {
 
 	// 학과 삭제
 	@Override
-	public Map<String, Object> deleteMajor(Map<String, Object> map) {
+	public Map<String, Object> deleteMajor(LectureVO lecture) {
 		Map<String, Object> resopnseData = new HashMap<String, Object>();
-		if (dao.deleteMajor(map) > 0)
+		dao.deleteMajor(lecture);
+		
+		System.out.println("result : "+lecture.getResult());
+		if (lecture.getResult() > 0)
 			resopnseData.put("status", "success");
 		else
 			resopnseData.put("status", "fail");
@@ -811,6 +819,38 @@ public class AdminServiceImpl extends Board implements AdminService {
 		map.put("semester", semester);
 		List<Object> list = dao.emptyLecTime(map);
 		List<Object> lectures = dao.getLecturesTimes(map);
+		Map<String, Integer> colorMap = new HashMap<String, Integer>();
+		
+		int idx = 1;
+		for(Object obj: lectures) {
+			LectureVO data = ((LectureVO)obj);
+			if(!colorMap.containsKey(data.getLectureName())) {
+				if(idx==6)
+					idx+=1;
+				colorMap.put(data.getLectureName(), idx++);
+			}
+		}
+		
+		days.add("월");
+		days.add("화");
+		days.add("수");
+		days.add("목");
+		days.add("금");
+		model.addAttribute("colorMap", colorMap);
+		model.addAttribute("lectures", lectures);
+		model.addAttribute("days", days);
+		model.addAttribute("dtos", list);
+		model.addAttribute("mode", "selector");
+		model.addAttribute("semester", semester);
+		model.addAttribute("empNumber", empNumber);
+	}
+
+	@Override
+	public void getLectureTime(String lecCode, Model model) {
+		List<Object> days = new ArrayList<Object>();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("lecCode", lecCode);
+		List<Object> lectures = dao.getLecturesTimes(map);
 		days.add("월");
 		days.add("화");
 		days.add("수");
@@ -818,11 +858,10 @@ public class AdminServiceImpl extends Board implements AdminService {
 		days.add("금");
 		model.addAttribute("lectures", lectures);
 		model.addAttribute("days", days);
-		model.addAttribute("dtos", list);
-		model.addAttribute("semester", semester);
-		model.addAttribute("empNumber", empNumber);
+		model.addAttribute("mode", "view");
+		model.addAttribute("semester", ((LectureVO)lectures.get(1)).getGrantedSemester());
+		model.addAttribute("empNumber", ((LectureVO)lectures.get(1)).getEmpNumber());
 	}
-
 	@Override
 	public Map<String, Object> getLectureSeqNextval() {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -853,6 +892,7 @@ public class AdminServiceImpl extends Board implements AdminService {
 			public int getListCount(Map<String, Object> map) {
 				return dao.getProfessorCount(map);
 			}
+
 			@Override
 			public List<Object> getList(Map<String, Object> map) {
 				return dao.getProfessorList(map);
@@ -864,36 +904,152 @@ public class AdminServiceImpl extends Board implements AdminService {
 	@Override
 	public Map<String, Object> addLecture(LectureVO lecture) {
 		Map<String, Object> responseData = new HashMap<String, Object>();
-		lecture.setTtc(lecture.getTimetblCodes().stream().mapToInt(i->i).toArray());
+		lecture.setTtc(lecture.getTimetblCodes().stream().mapToInt(i -> i).toArray());
 		dao.addLecture(lecture);
 
-		if(lecture.getResult()==0) {
-			responseData.put("message",  "Error!! 강의 추가 실패! 'lecture TABLE INSERT FAILE!'");
-		}else if((lecture.getTimetblCodes().size()+1)==lecture.getResult()) {
-			responseData.put("message",  "강의 추가 완료");
-		}else
-			responseData.put("message",  "Error!! 강의 추가 실패! 'lectureTime TABLE INSERT FAILE!'");
+		if (lecture.getResult() == 0) {
+			responseData.put("message", "Error!! 강의 추가 실패! 'lecture TABLE INSERT FAILE!'");
+			responseData.put("status", "error");
+		} else if ((lecture.getTimetblCodes().size() + 1) == lecture.getResult()) {
+			responseData.put("message", "강의 추가 완료");
+			responseData.put("status", "success");
+		} else {
+			responseData.put("message", "Error!! 강의 추가 실패! 'lectureTime TABLE INSERT FAILE!'");
+			responseData.put("status", "error");
+		}
 		return responseData;
 	}
 
+	@Override
+	public LectureVO getLecture(Map<String, Object> map) {
+		return dao.getLecture(map);
+	}
+
+	@Override
+	public Map<String, Object> modifyLecture(LectureVO lecture) {
+		Map<String, Object> responseData = new HashMap<String, Object>();
+		lecture.setTtc(lecture.getTimetblCodes().stream().mapToInt(i -> i).toArray());
+		dao.modifyLecture(lecture);
+		
+		System.out.println("result : "+lecture.getResult());
+		if (lecture.getResult() != 0) {
+			responseData.put("message", "강의 수정 완료.");
+			responseData.put("status", "success");
+		}else {
+			responseData.put("message", "Error!! 강의 수정 실패! 'lectureTime TABLE INSERT FAILE!'");
+			responseData.put("status", "error");
+		}
+		return responseData;
+	}
+	
+	@Override
+	public Map<String, Object> deleteLecture(Map<String, Object> map) {
+		Map<String, Object> responseData = new HashMap<String, Object>();
+		if(dao.deleteLecture(map)==1) {
+			responseData.put("message", "강의 삭제 완료.");
+			responseData.put("status", "success");
+		}else {
+			responseData.put("message", "Error!! 강의 삭제 실패!");
+			responseData.put("status", "error");
+		}
+		return responseData;
+	}
+	
 	// -------------------------------------------------------교직업무관리END-------------------------------------------------
+	
 
 	@Override
 	public void judge2(Map<String, Object> map, Logger logger, Model model) {
-		int auditct = Integer.parseInt((String) map.get("audit"));
+		int pageSize = 0; // 한 페이지당 출력할 글 갯수
+		int pageBlock = 5; // 한블럭당 페이지 갯수
 
-		List<auditVO> audit;
+		int cnt = 0; // 총 글 갯수
+		int start = 0; // 현재 페이지 시작 글번호
+		int end = 0; // 현재 페이지 마지막 글 번호
+		int number = 0; // 출력용 글번호
+		int pageNum = 0; // 페이지 번호
+		int pageCount = 0; // 페이지 갯수
+		int startPage = 0; // 시작 페이지
+		int endPage = 0; // 마지막 페이지
 
-		// 심사 리스트
-		if (auditct == 2) {
+		if (!map.containsKey("pageSize")) {
+			pageSize = 10;
+		} else
+			pageSize = Integer.parseInt((String) map.get("pageSize"));
+
+		if (!map.containsKey("pageNum"))
+			pageNum = 1;
+		else
+			pageNum = (Integer) map.get("pageNum");
+		// 수강신청 목록 갯수 구하기
+		cnt = dao.audit_getArticleCnt(map);
+		System.out.println("pageNum"+pageNum);
+
+
+		pageCount = cnt / pageSize + (cnt % pageSize > 0 ? 1 : 0);
+
+		start = (pageNum - 1) * pageSize + 1;
+		end = start + pageSize - 1;
+
+		map.put("start", start);
+		map.put("end", end);
+		System.out.println(map.get("year"));
+		System.out.println(map.get("smester"));
+		
+		if(map.get("year") != "0") {
+		map.put("year", map.get("year"));
+		map.put("smester", map.get("smester"));
+		}
+		
+		if (end > cnt)
+			end = cnt;
+
+		number = cnt - (pageNum - 1) * pageSize;
+
+		
+		if (cnt > 0) {
+			// 수강신청 목록 조회
+			int auditct = Integer.parseInt((String)map.get("audit"));
+			
+			List<auditVO> audit;
+			//심사 리스트
+			if(auditct == 3) {
 			audit = dao.auditCnt();
-		} else {
+			}else{
 			audit = dao.auditCnt2(auditct);
+			}
+			
+			//심사리스트 반환
+			model.addAttribute("audit", audit);
 		}
 
-		// 심사리스트 반환
-		model.addAttribute("audit", audit);
+		// 시작페이지
+		// 1 = (1 / 3) * 3 + 1;
+		startPage = (pageNum / pageBlock) * pageBlock + 1;
+		if (pageNum % pageBlock == 0)
+			startPage -= pageBlock;
+		
+		endPage = startPage + pageBlock - 1;
 
+		// 마지막 페이지
+		// 3 = 1 + 3 - 1;
+		endPage = startPage + pageBlock - 1;
+		if (endPage > pageCount)
+			endPage = pageCount;
+
+		model.addAttribute("cnt", cnt); // 글갯수
+		model.addAttribute("number", number); // 출력용 글번호
+		model.addAttribute("pageNum", pageNum); // 페이지번호
+
+		if (cnt > 0) {
+			model.addAttribute("startPage", startPage); // 시작 페이지
+			model.addAttribute("endPage", endPage); // 마지막 페이지
+			model.addAttribute("pageBlock", pageBlock); // 출력할 페이지 갯수
+			model.addAttribute("pageCount", pageCount); // 페이지 갯수
+			model.addAttribute("pageSize", pageSize); // 현재페이지
+		}
+		
+		
 	}
 
 	// 교직원 급여관리
@@ -914,7 +1070,8 @@ public class AdminServiceImpl extends Board implements AdminService {
 		List<payrollVO> dtosT = dao.getFinalPayrollList();
 		model.addAttribute("dtosT", dtosT);
 	}
-
+	
+	
 	// 급여대장 조회
 	@Override
 	public void lookupWorkRecord(Map<String, Object> map, Model model) {
@@ -952,9 +1109,63 @@ public class AdminServiceImpl extends Board implements AdminService {
 			red.addFlashAttribute("message", "등록이 완료되었습니다.");
 		}
 	}
-
-
-
-
-
+	@Override
+	public void ConfirmationWorkRecord(HttpServletRequest req, RedirectAttributes red) {
+		String[] overtime = req.getParameterValues("overtime");
+		String[] empNumber = req.getParameterValues("empNumber");
+		
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		
+		for(int i=0; i<overtime.length; i++) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("overtime", overtime[i]);
+			map.put("empNumber", empNumber[i]);
+			
+			list.add(map);
+		}
+		
+		if(overtime != null) {
+			int cnt1 = dao.ConfirmationWorkRecord(list);
+			int cnt2 = dao.updateOverPay(list);
+			int cnt = cnt1+ cnt2; 
+			if(cnt != 0) {
+				red.addFlashAttribute("message","저장이 완료되었습니다");
+			} else {
+				red.addFlashAttribute("message","ConfirmationWorkRecord() Error");
+			}
+		}
+	}
+	@Override
+	public void SaveEnterAmountManually(HttpServletRequest req, RedirectAttributes red) {
+		String[] basicPay = req.getParameterValues("basicPay");
+		String[] extraPay = req.getParameterValues("extraPay");
+		String[] foodExpenses = req.getParameterValues("foodExpenses");
+		String[] vehicleCost = req.getParameterValues("vehicleCost");
+		String[] empNumber = req.getParameterValues("empNumber");
+		
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		
+		for(int i=0; i<basicPay.length; i++) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("basicPay", basicPay[i].replaceAll("[,]",""));
+			map.put("extraPay", extraPay[i].replaceAll("[,]",""));
+			map.put("foodExpenses", foodExpenses[i].replaceAll("[,]",""));
+			map.put("vehicleCost", vehicleCost[i].replaceAll("[,]",""));
+			map.put("empNumber", empNumber[i]);
+			
+			list.add(map);
+		}
+		
+		if(basicPay != null) {
+			int cnt = dao.SaveEnterAmountManually(list);
+			//int cnt2 = dao.updateOverPay(list);
+			//int cnt1 = cnt1+ cnt2; 
+			if(cnt != 0) {
+				red.addFlashAttribute("message","저장이 완료되었습니다");
+			} else {
+				red.addFlashAttribute("message","SaveEnterAmountManually() Error");
+			}
+		}
+	}
+	
 }

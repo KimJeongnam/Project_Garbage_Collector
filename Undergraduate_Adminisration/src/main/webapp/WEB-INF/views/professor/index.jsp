@@ -12,16 +12,35 @@
 	
 			<!-- page content -->
             <div class="right_col" role="main">
-                <div class="">
-                    <div class="page-title">
-                        <div class="title_left">
-                            <h3>안녕하세요 <small> 자바대종합정보서비스 <strong>볼드체</strong></small></h3>
-                        </div>
-                    </div>
-                </div>
+                <div id="professerSchedule"></div>
             </div>
             <!-- /page content -->
             
 	<%@ include file="../Basic/footer.jsp" %>
 </body>
+
+<script type="text/javascript">
+function professerSchedule(userNumber,semester) {
+    $.ajax({
+        url: '/project/share/professor/getLecTime/'+userNumber+'/'+semester,
+        type: 'GET',
+        success: function(data) {
+        	 $('#professerSchedule').html(data); 
+        },
+        error: function() {
+        	swal({
+				text:"Error! professerSchedule();",
+				icon: "error",
+				button:"확인",
+			});
+        }
+    });
+}
+
+$(function() {
+	professerSchedule('${userNumber}','${semester}');
+});
+
+
+</script>
 </html>

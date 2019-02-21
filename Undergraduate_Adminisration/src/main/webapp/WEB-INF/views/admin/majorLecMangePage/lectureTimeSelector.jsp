@@ -11,6 +11,20 @@
 <!-- Resource style -->
 
 <style>
+.h1, h1 < span{
+	font: inherit;
+	font-style: inherit;
+	font-variant-ligatures: inherit;
+	font-variant-caps: inherit;
+	font-variant-numeric: inherit;
+	font-variant-east-asian: inherit;
+	font-weight: bold;
+	font-stretch: inherit;
+	font-size: 100%;
+	line-height: inherit;
+	font-family: inherit;
+}
+
 html {
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
@@ -77,9 +91,15 @@ button, input {
 	box-sizing: border-box;
 }
 </style>
-<div>
-<h1>'${empNumber }'<span>${semester}학기</span></h1>
+
+<div style="width: 700; margin: 2em auto; margin-top: 20px;">
+	<h1 style="font-size: 25px; font-weight: bold;">
+		[교번 : ${empNumber } <span
+			style="margin-left: 10px; margin-right: 10px; font-size: 20px; font-weight: normal;">'${semester}학기'
+			시간표</span>]
+	</h1>
 </div>
+
 <div class="cd-schedule loading" style="width: 700; height: 1050;">
 	<!-- page content -->
 	<div class="timeline">
@@ -120,13 +140,33 @@ button, input {
 					<ul>
 						<c:forEach var="lecture" items="${lectures}">
 							<c:if test="${lecture.lectureDay == day}">
-								<li class="single-event"
-									data-start="${lecture.beginningLectureTime}"
-									data-end="${lecture.endLectureTime}" data-event="event-3"
-									onclick="" id="li-${dStatus.index }${iStatus.index}"><a><span></span>
-										<em class="event-name"
-										id="chk-${dStatus.index }${iStatus.index}">${lecture.lectureName }</em>
-								</a></li>
+								<c:choose>
+									<c:when test="${mode eq 'selector' || mode eq 'timetbl'}">
+									<c:set var="key">${lecture.lectureName}</c:set>
+										<li class="single-event"
+											data-start="${lecture.beginningLectureTime}"
+											data-end="${lecture.endLectureTime}" data-event="event-${colorMap[key] }"
+											onclick="" id="li-${dStatus.index }${iStatus.index}"><a><span></span>
+												<em style="color:white; font-weight: bold; padding: 5px; font-size: 10px;">
+													${lecture.classTime }교시
+												</em>
+												<em class="event-name"
+												id="chk-${dStatus.index }${iStatus.index}">${lecture.lectureName }</em>
+										</a></li>
+									</c:when>
+									<c:when test="${mode eq 'view' }">
+										<li class="single-event"
+											data-start="${lecture.beginningLectureTime}"
+											data-end="${lecture.endLectureTime}" data-event="event-3" style="background: #2E9AFE;"
+											onclick="" id="li-${dStatus.index }${iStatus.index}" ><a><span></span>
+												<em style="color:white; font-weight: bold; padding: 5px; font-size: 10px;">
+												${lecture.classTime }교시
+												</em>
+												<em class="event-name"
+												id="chk-${dStatus.index }${iStatus.index}">${lecture.lectureName }</em>
+										</a></li>
+									</c:when>
+								</c:choose>
 							</c:if>
 						</c:forEach>
 
@@ -155,14 +195,18 @@ button, input {
 	<div class="cover-layer"></div>
 </div>
 
-<div class="button" style="width: 700; margin:2em auto; margin-top: 50px;">
+<c:if test="${mode eq 'selector' }">
+<div class="button"
+	style="width: 700; margin: 2em auto; margin-top: 50px;">
 	<table>
 		<tr>
-			<td><input type="button" class="btn btn-success" value="확인" onclick="selectTimeDo();">
-				<input type="button" class="btn btn-danger" value="취소" onclick="self.close();"></td>
+			<td><input type="button" class="btn btn-success" value="확인"
+				onclick="selectTimeDo();"> <input type="button"
+				class="btn btn-danger" value="취소" onclick="self.close();"></td>
 		</tr>
 	</table>
 </div>
+</c:if>
 <!-- jQuery -->
 <script src="/project/resources/vendors/jquery/dist/jquery.min.js"></script>
 <script src="/project/resources/js/schedule/modernizr.js"></script>

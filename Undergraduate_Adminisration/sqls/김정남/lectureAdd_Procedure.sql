@@ -47,6 +47,13 @@ BEGIN
         add_lecturetime_proc(lecture_seq.currval, ttc_array(i));
         v_result:=v_result+1;
     END LOOP;
+    
+    IF v_result-1 = ttc_array.COUNT THEN
+        COMMIT;
+    ELSE
+        ROLLBACK;
+    END IF;
+        
 END;
 /
 
@@ -68,7 +75,6 @@ SELECT * FROM dual;
 
 ROLLBACK;
 
--- 위에 기술한 프로시져가 잘동작 하는지 테스트하는 프로시져
 CREATE OR REPLACE PROCEDURE addlecture_test
 IS
     v_ttc array_int;
@@ -91,3 +97,5 @@ END;
 execute addlecture_test;
 
 rollback;
+
+SELECT * FROM All_coll_types WHERE type_name like '%ARRAY%';

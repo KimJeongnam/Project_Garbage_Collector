@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -78,7 +79,7 @@ public interface AdminService {
 	// 학과 리스트
 	public void getMajors(Map<String, Object> map, Model model);
 	// 학과 삭제
-	public Map<String, Object> deleteMajor(Map<String, Object>map);
+	public Map<String, Object> deleteMajor(LectureVO lecture);
 	// 학과 추가
 	public Map<String, Object> addMajor(Major major);
 	// 학과 수정
@@ -86,6 +87,9 @@ public interface AdminService {
 	
 	// 해당 교수 빈강의시간 조회
 	public void getEmptyLecTime(String empNumber, String semester, Model model);
+	
+	// 강의 시간 조회
+	public void getLectureTime(String lecCode, Model model);
 	
 	// 생성될 강의코드 조회 
 	public Map<String, Object> getLectureSeqNextval();
@@ -98,6 +102,16 @@ public interface AdminService {
 	
 	// 강의 추가
 	public Map<String, Object> addLecture(LectureVO lecture);
+	
+	// 강의 조회
+	public LectureVO getLecture(Map<String, Object> map);
+
+	// 강의 수정
+	public Map<String, Object> modifyLecture(LectureVO lecture);
+	
+	// 강의 삭제
+	public Map<String, Object> deleteLecture(Map<String, Object> map);
+	
 	//-----------------------------------교직 업무 관리 END-----------------------------
 	
 	
@@ -112,7 +126,9 @@ public interface AdminService {
 	
 	public void insertPayroll(HttpServletRequest req,  RedirectAttributes red);
 	
+	public void ConfirmationWorkRecord(HttpServletRequest req, RedirectAttributes red);
 	
+	public void SaveEnterAmountManually(HttpServletRequest req, RedirectAttributes red);
 	//---------------회계 START-------------------
 	
 	//메시지 전송부

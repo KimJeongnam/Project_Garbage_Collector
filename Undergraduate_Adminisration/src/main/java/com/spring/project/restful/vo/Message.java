@@ -1,5 +1,7 @@
 package com.spring.project.restful.vo;
 
+import java.sql.Timestamp;
+
 public class Message implements Comparable<Message>, Cloneable{
 	private int messageCode;
 	private String userNumber;
@@ -18,6 +20,7 @@ public class Message implements Comparable<Message>, Cloneable{
 	private int sec;
 	private int notifyStatus;
 	private String senduserimage;
+	private Timestamp now;
 	
 	public int getMessageCode() {
 		return messageCode;
@@ -123,6 +126,12 @@ public class Message implements Comparable<Message>, Cloneable{
 	}
 	
 	
+	public Timestamp getNow() {
+		return now;
+	}
+	public void setNow(Timestamp now) {
+		this.now = now;
+	}
 	@Override
 	public int compareTo(Message arg0) {
 		if(this.getNotifyStatus() < arg0.getNotifyStatus())

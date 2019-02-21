@@ -8,8 +8,7 @@ public class payrollVO {
 	private String registerName;
 	private Date paymentDate;
 	private String paymentYear;
-	private int totalAmount
-;
+	private int totalAmount;
 	
 	private String empNumber;
 	private String accountHolder;
@@ -18,12 +17,33 @@ public class payrollVO {
 	private Date beginningPeriod;
 	private Date endPeriod;
 	
-	
+	private String userName;
 	private int basicPay;
 	private int extraPay;
 	private int foodExpenses;
 	private int vehicleCost;
+	private int overtime;
+	private int overpaycode;
 	
+	
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public int getOverpaycode() {
+		return overpaycode;
+	}
+	public void setOverpaycode(int overpaycode) {
+		this.overpaycode = overpaycode;
+	}
+	public int getOvertime() {
+		return overtime;
+	}
+	public void setOvertime(int overtime) {
+		this.overtime = overtime;
+	}
 	public int getBasicPay() {
 		return basicPay;
 	}

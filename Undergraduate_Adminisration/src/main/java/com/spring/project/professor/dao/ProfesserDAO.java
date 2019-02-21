@@ -9,6 +9,7 @@ import com.spring.project.professor.vo.ClassStudentVO;
 import com.spring.project.professor.vo.LecScore;
 import com.spring.project.professor.vo.MyClassVO;
 import com.spring.project.professor.vo.MyPageVO;
+import com.spring.project.professor.vo.PlanVO;
 import com.spring.project.professor.vo.SearchVO;
 import com.spring.project.professor.vo.StudentVO;
 
@@ -47,6 +48,24 @@ public interface ProfesserDAO {
 	List<MyClassVO> v_myClass(String userNumber);
 	List<LecScore> firstLec(Map<String, Object> map);
 	List<LecScore> getLecScore(Map<String, Object> map);
+	
+	//학점입력
+	public int insertScore(LecScore vo);
+	//학점수정
+	public int updateScore(LecScore vo);
+	
+	
+	//강의계획
+	List<PlanVO> plan(String userNumber);
+	List<PlanVO> plan2(String userNumber);
+	List<PlanVO> firstPlan(Map<String, Object> map);
+	List<PlanVO> getPlan(Map<String, Object> map);
+	
+	//강의계획서 입력
+	public int insertPlan(PlanVO vo);
+	public int updatePlan(PlanVO vo);
+
+	//과제관리
 
 	
 }

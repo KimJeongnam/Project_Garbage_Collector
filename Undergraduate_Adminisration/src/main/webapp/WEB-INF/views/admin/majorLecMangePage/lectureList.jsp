@@ -6,6 +6,7 @@
 <table class="table table-striped jambo_table bulk_action">
 	<thead>
 		<tr class="headings">
+			<th class="text-center">강의 Code</th>
 			<th class="text-center">구분</th>
 			<th class="text-center">학과</th>
 			<th class="text-center">강의명</th>
@@ -22,6 +23,7 @@
 	<tbody>
 		<c:forEach var="dto" items="${dtos }">
 		<tr>
+			<td class="text-center" style="vertical-align: middle;">${dto.lecCode }</td>
 			<td class="text-center" style="vertical-align: middle;">
 				<c:choose>
 					<c:when test='${dto.lectureClassfication == "1"}'>
@@ -40,7 +42,8 @@
 			<td class="text-center" style="vertical-align: middle;">${dto.userName }</td>
 			<td class="text-center" style="vertical-align: middle;">${dto.maximumCapacity }</td>
 			<td class="text-center" style="vertical-align: middle;">
-				<input class="btn btn-info" type="button" value="보기">
+				<input class="btn btn-info" type="button" value="보기"
+					onclick="showLectureTimes('${dto.lecCode}');">
 			</td>
 			<td class="text-center" style="vertical-align: middle;">
 					<c:if test="${dto.lecStatus == 0 }">
@@ -57,7 +60,8 @@
 					</c:if>
 			</td>
 			<td>
-				<input type="button" class="btn btn-success" value="수정">
+				<input type="button" class="btn btn-success" value="수정" 
+					onclick="getLectureInfo('${dto.lecCode}', setModifyLectureModal);">
 			</td>
 		</tr>
 		</c:forEach>

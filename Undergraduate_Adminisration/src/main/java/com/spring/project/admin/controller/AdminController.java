@@ -275,9 +275,9 @@ public class AdminController {
 	// 학과 삭제*
 	@ResponseBody
 	@RequestMapping(value = "/admin/major_lecture_Manager/ajax/deleteMajor", method = RequestMethod.POST)
-	public Map<String, Object> deleteMajor(@RequestBody Map<String, Object> map) {
+	public Map<String, Object> deleteMajor(@RequestBody LectureVO lecture) {
 		logger.info("deleteMajor()");
-		return service.deleteMajor(map);
+		return service.deleteMajor(lecture);
 	}
 
 	// 학과 추가*
@@ -337,13 +337,6 @@ public class AdminController {
 		return "admin/majorLecMangePage/professorList";
 	}
 
-	// 해당 강의의 시간 조회 ...
-	@RequestMapping(value = "/admin/major_lecture_Manager/LecTime/{lecCode}")
-	public String getLecTime(@PathVariable String lecCode, Model model) {
-		logger.info("getLecTime()");
-		return "admin/majorLecMangePage/lectureTimeSelector";
-	}
-
 	//강의 추가
 	@ResponseBody
 	@RequestMapping(value="/admin/major_lecture_Manager/insertLecture", method=RequestMethod.POST)
@@ -351,6 +344,27 @@ public class AdminController {
 		logger.info("insertLecture()");
 		return service.addLecture(lecture);
 	}
+	
+	// 강의 수정
+	@ResponseBody
+	@RequestMapping(value="/admin/major_lecture_Manager/modifyLecture", method=RequestMethod.POST)
+	public Map<String, Object> modifyLecture(@RequestBody LectureVO lecture){
+		logger.info("insertLecture()");
+		logger.info("insertLecture-> getTimetblCodes()");
+		for(int key : lecture.getTimetblCodes()) {
+			logger.info("code:"+key);
+		}
+		return service.modifyLecture(lecture);
+	}
+	
+	// 강의 삭제
+	@ResponseBody
+	@RequestMapping(value="/admin/major_lecture_Manager/deleteLecture", method=RequestMethod.POST)
+	public Map<String, Object> deleteLecture(@RequestBody Map<String, Object> map){
+		logger.info("deleteLecture()");
+		return service.deleteLecture(map);
+	}
+	
 	// ---------------------------------학과,강의관리END----------------------------------------
 
 	// ---------------------------------회계관리START----------------------------------------
@@ -381,8 +395,53 @@ public class AdminController {
 	public String insertPayroll(HttpServletRequest req, RedirectAttributes red) {
 		service.insertPayroll(req, red);
 
-		return "redirect:/admin/facultyAccountManage";
-	}
+			return "redirect:/admin/facultyAccountManage";
+		}
+		
+		// 
+		@RequestMapping("/admin/ConfirmationWorkRecord")
+		public String ConfirmationWorkRecord(HttpServletRequest req, RedirectAttributes red) {
+			service.ConfirmationWorkRecord(req, red);
 
-	// ---------------------------------회계관리END------------------------------------------
+			return "redirect:/admin/facultyAccountManage";
+		}
+		// 
+		@RequestMapping("/admin/SaveEnterAmountManually")
+		public String SaveEnterAmountManually(HttpServletRequest req, RedirectAttributes red) {
+			service.SaveEnterAmountManually(req, red);
+
+			return "redirect:/admin/facultyAccountManage";
+		}
+		// 급여대장 조회
+		/*@RequestMapping(value="/admin/ConfirmationWorkRecord", method=RequestMethod.POST)
+		public String ConfirmationWorkRecord(@RequestBody Map<String, Object> map, RedirectAttributes red, Model model) {
+			service.ConfirmationWorkRecord(map, red, model);
+			return "admin/accountingManagement/ConfirmationWorkRecord";
+		}*/
+		//---------------------------------회계 관리 END------------------------------------------
+	
+
+	
+	
+	
+	
+	// ---------------------------------학사 수업업무START------------------------------------------
+	@RequestMapping("/admin/lec_score_Management/lecManagement")
+	public String lecManagement() {
+		logger.info("lecManagement()");
+		return "admin/lec_score_Management/lecManagement";
+	}
+	// ---------------------------------학사 수업업무END------------------------------------------
+	
+	
+	
+	// ---------------------------------학사 성적(?)업무START------------------------------------------
+	@RequestMapping("/admin/lec_score_Management/scoreManagement")
+	public String scoreManagement() {
+		logger.info("scoreManagement()");
+		return "admin/lec_score_Management/scoreManagement";
+	}
+	// ---------------------------------학사 성적(?)업무END------------------------------------------
+	
+	
 }
