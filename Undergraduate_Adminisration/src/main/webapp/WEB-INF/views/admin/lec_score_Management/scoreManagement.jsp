@@ -19,7 +19,7 @@
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
-                    <div id="graph_bar21" style="width:100%; height:280px;"></div>
+                    <div id="major_chart" style="width:100%; height:280px;"></div>
                 </div>
             </div>
         </div>
@@ -31,7 +31,7 @@
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
-                    <div id="graph_area21" style="width:100%; height:280px;"></div>
+                    <div id="fac_chart" style="width:100%; height:280px;"></div>
                 </div>
             </div>
         </div>
@@ -42,7 +42,7 @@
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
-                     <div id="graph_line21" style="width:100%; height:300px;"></div>
+                     <div id="all_chart" style="width:100%; height:300px;"></div>
                 </div>
             </div>
         </div>
@@ -53,7 +53,7 @@
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
-                    <canvas id="lineChart21"></canvas>
+                    <canvas id="lvl_chart"></canvas>
                 </div>
             </div>
         </div>
@@ -65,10 +65,219 @@
 
  <%@ include file="../../Basic/footer.jsp" %> 
 <script>
+   
+
     $(function() {
-        if ($('#lineChart21').length) {
-        	//학년별 학점평균
-            var ctx = document.getElementById("lineChart21");
+
+        if (typeof(Morris) === 'undefined') {
+            return;
+        }
+        console.log('init_morris_charts');
+        if ($('#major_chart').length) {
+
+            Morris.Bar({
+                element: 'major_chart',
+                data: [{
+                			학과명: '간호학과',
+                			평균점수: 66
+                    },
+                    {
+                    		학과명: '수학교육과',
+                    		평균점수: 88
+                    },
+                    {
+                     	 	학과명: '체육교육과',
+                       	 	평균점수: 75
+                    },
+                    {
+                      	  	학과명: '연극학과',
+                        	평균점수: 71
+                    },
+                    {
+                        	학과명: '경영학과',
+                        	평균점수: 65
+                    },
+                    {
+                        	학과명: '물리학과',
+                        	평균점수: 54
+                    },
+                    {
+                        	학과명: '기계공학과',
+                        	평균점수: 11
+                    },
+                    {
+                        	학과명: '일본어학과',
+                        	평균점수: 66
+                    },
+                    {
+                        	학과명: '멀티미디어학과',
+                        	평균점수: 47
+                    },
+                    {
+                        	학과명: '컴퓨터공학과',
+                        	평균점수: 71
+                    }
+                ],
+                xkey: '학과명',
+                ykeys: ['평균점수'],
+                labels: ['평균점수'],
+                barRatio: 0.4,
+                barColors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
+                xLabelAngle: 35,
+                hideHover: 'auto',
+                resize: true
+            });
+
+        }
+        
+        if ($('#all_chart').length) {
+            Morris.Line({
+                element: 'all_chart',
+                xkey: '연도',
+                ykeys: ['평균학점'],
+                labels: ['평균학점'],
+                hideHover: 'auto',
+                lineColors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
+                data: [{
+                		연도: '2015',
+                      	평균학점: 66
+                    },
+                    {
+                    	연도: '2016',
+                    	평균학점: 71
+                    },
+                    {
+                    	연도: '2017',
+                    	평균학점: 65
+                    },
+                    {
+                    	연도: '2018',
+                    	평균학점: 85
+                    },
+                    {
+                    	연도: '2019',
+                    	평균학점: 88
+                    }
+                ],
+                resize: true
+            });
+
+        }
+
+        
+        if ($('#fac_chart').length) {
+            Morris.Area({
+                element: 'fac_chart',
+                data: [{
+                        기간범위: '2015 1학기',
+                        경영대: 14,
+                        사범대: 27,
+                        체육대: 13,
+                        자연대: 84,
+                        예술대: 57,
+                        공과대: 17
+                    },
+                    {
+                        기간범위: '2015 2학기',
+                        경영대: 81,
+                        사범대: 52,
+                        체육대: 13,
+                        자연대: 84,
+                        예술대: 55,
+                        공과대: 16
+                    },
+                    {
+                        기간범위: '2016 1학기',
+                        경영대: 87,
+                        사범대: 58,
+                        체육대: 19,
+                        자연대: 10,
+                        예술대: 51,
+                        공과대: 12
+                    },
+                    {
+                        기간범위: '2016 2학기',
+                        경영대: 34,
+                        사범대: 47,
+                        체육대: 57,
+                        자연대: 64,
+                        예술대: 77,
+                        공과대: 87
+                    },
+                    {
+                        기간범위: '2017 1학기',
+                        경영대: 94,
+                        사범대: 87,
+                        체육대: 17,
+                        자연대: 86,
+                        예술대: 55,
+                        공과대: 14
+                    },
+                    {
+                        기간범위: '2017 2학기',
+                        경영대: 83,
+                        사범대: 52,
+                        체육대: 11,
+                        자연대: 80,
+                        예술대: 70,
+                        공과대: 87
+                    },
+                    {
+                        기간범위: '2018 1학기',
+                        경영대: 84,
+                        사범대: 57,
+                        체육대: 17,
+                        자연대: 84,
+                        예술대: 57,
+                        공과대: 44
+                    },
+                    {
+                        기간범위: '2018 2학기',
+                        경영대: 84,
+                        사범대: 88,
+                        체육대: 66,
+                        자연대: 44,
+                        예술대: 20,
+                        공과대: 66
+                    },
+                    {
+                        기간범위: '2019 1학기',
+                        경영대: 41,
+                        사범대: 77,
+                        체육대: 17,
+                        자연대: 12,
+                        예술대: 57,
+                        공과대: 30
+                    },
+                    {
+                        기간범위: '2019 2학기',
+                        경영대: 84,
+                        사범대: 57,
+                        체육대: 77,
+                        자연대: 84,
+                        예술대: 57,
+                        공과대: 55
+                    
+                    }
+                ],
+                xkey: '기간범위',
+                ykeys: ['경영대','사범대','체육대','자연대','예술대','공과대'],
+                lineColors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
+                labels: ['경영대', '사범대','체육대','자연대','예술대','공과대'],
+                pointSize: 2,
+                hideHover: 'auto',
+                resize: true
+            });
+
+        }
+        
+        
+    });
+
+    
+    $(function() {
+        if ($('#lvl_chart').length) {
+            var ctx = document.getElementById("lvl_chart");
             var lineChart = new Chart(ctx, {
                 type: 'line',
                 data: {
@@ -120,187 +329,6 @@
         }
 
     });
-
-    $(function() {
-
-        if (typeof(Morris) === 'undefined') {
-            return;
-        }
-        console.log('init_morris_charts');
-		//학과별 학점 평균
-        if ($('#graph_bar21').length) {
-
-            Morris.Bar({
-                element: 'graph_bar21',
-                data: [{
-                        device: 'iPhone 4',
-                        geekbench: 380
-                    },
-                    {
-                        device: 'iPhone 4S',
-                        geekbench: 655
-                    },
-                    {
-                        device: 'iPhone 3GS',
-                        geekbench: 275
-                    },
-                    {
-                        device: 'iPhone 5',
-                        geekbench: 1571
-                    },
-                    {
-                        device: 'iPhone 5S',
-                        geekbench: 655
-                    },
-                    {
-                        device: 'iPhone 6',
-                        geekbench: 2154
-                    },
-                    {
-                        device: 'iPhone 6 Plus',
-                        geekbench: 1144
-                    },
-                    {
-                        device: 'iPhone 6S',
-                        geekbench: 2371
-                    },
-                    {
-                        device: 'iPhone 6S Plus',
-                        geekbench: 1471
-                    },
-                    {
-                        device: 'Other',
-                        geekbench: 1371
-                    }
-                ],
-                xkey: 'device',
-                ykeys: ['geekbench'],
-                labels: ['Geekbench'],
-                barRatio: 0.4,
-                barColors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
-                xLabelAngle: 35,
-                hideHover: 'auto',
-                resize: true
-            });
-
-        }
-
-       
-
-        if ($('#graph_area21').length) {
-			//단과대별 학점 평균
-            Morris.Area({
-                element: 'graph_area21',
-                data: [{
-                        period: '2014 Q1',
-                        iphone: 2666,
-                        ipad: null,
-                        itouch: 2647
-                    },
-                    {
-                        period: '2014 Q2',
-                        iphone: 2778,
-                        ipad: 2294,
-                        itouch: 2441
-                    },
-                    {
-                        period: '2014 Q3',
-                        iphone: 4912,
-                        ipad: 1969,
-                        itouch: 2501
-                    },
-                    {
-                        period: '2014 Q4',
-                        iphone: 3767,
-                        ipad: 3597,
-                        itouch: 5689
-                    },
-                    {
-                        period: '2015 Q1',
-                        iphone: 6810,
-                        ipad: 1914,
-                        itouch: 2293
-                    },
-                    {
-                        period: '2015 Q2',
-                        iphone: 5670,
-                        ipad: 4293,
-                        itouch: 1881
-                    },
-                    {
-                        period: '2015 Q3',
-                        iphone: 4820,
-                        ipad: 3795,
-                        itouch: 1588
-                    },
-                    {
-                        period: '2015 Q4',
-                        iphone: 15073,
-                        ipad: 5967,
-                        itouch: 5175
-                    },
-                    {
-                        period: '2016 Q1',
-                        iphone: 10687,
-                        ipad: 4460,
-                        itouch: 2028
-                    },
-                    {
-                        period: '2016 Q2',
-                        iphone: 8432,
-                        ipad: 5713,
-                        itouch: 1791
-                    }
-                ],
-                xkey: 'period',
-                ykeys: ['iphone', 'ipad', 'itouch'],
-                lineColors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
-                labels: ['iPhone', 'iPad', 'iPod Touch'],
-                pointSize: 2,
-                hideHover: 'auto',
-                resize: true
-            });
-
-        }
-
-        
-        if ($('#graph_line21').length) {
-			//연도별 전교생 학점평균
-            Morris.Line({
-                element: 'graph_line21',
-                xkey: 'year',
-                ykeys: ['value'],
-                labels: ['Value'],
-                hideHover: 'auto',
-                lineColors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
-                data: [{
-                        year: '2012',
-                        value: 20
-                    },
-                    {
-                        year: '2013',
-                        value: 10
-                    },
-                    {
-                        year: '2014',
-                        value: 5
-                    },
-                    {
-                        year: '2015',
-                        value: 5
-                    },
-                    {
-                        year: '2016',
-                        value: 20
-                    }
-                ],
-                resize: true
-            });
-
-        }
-
-    });
-
 </script>
 
 
