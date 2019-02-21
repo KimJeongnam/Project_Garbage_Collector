@@ -34,6 +34,7 @@ public class AdProVO {
 	private String bankName;		//은행명
 	private String accountNumber;	//계좌번호
 	private String accountHolder;	//예금주
+	private String introduction;
 	
 	//payment
 	private int paymentCode;		//급여코드
@@ -45,8 +46,72 @@ public class AdProVO {
 	private int regDeCode;			//급여대장 상세코드
 	private int totalPayment;		//총금액
 	
+	//lecture
+	private int maximumCapacity;			//최대 수강인원
+	private String lectureName;				//강의명
+	private String lectureClassfication;	//강의구분 ex)전공/교양
+	private int grade;						//학년
+	private int grantedSemester;			//학기
+	private int lectureScore;				//이수학점
+	private String classRoom;				//강의실
+	private int appliedStd;					//현재 수강인원
 	
 	
+	
+	public String getIntroduction() {
+		return introduction;
+	}
+	public void setIntroduction(String introduction) {
+		this.introduction = introduction;
+	}
+	public int getAppliedStd() {
+		return appliedStd;
+	}
+	public void setAppliedStd(int appliedStd) {
+		this.appliedStd = appliedStd;
+	}
+	public String getLectureClassfication() {
+		return lectureClassfication;
+	}
+	public void setLectureClassfication(String lectureClassfication) {
+		this.lectureClassfication = lectureClassfication;
+	}
+	public int getGrade() {
+		return grade;
+	}
+	public void setGrade(int grade) {
+		this.grade = grade;
+	}
+	public int getGrantedSemester() {
+		return grantedSemester;
+	}
+	public void setGrantedSemester(int grantedSemester) {
+		this.grantedSemester = grantedSemester;
+	}
+	public int getLectureScore() {
+		return lectureScore;
+	}
+	public void setLectureScore(int lectureScore) {
+		this.lectureScore = lectureScore;
+	}
+	public String getClassRoom() {
+		return classRoom;
+	}
+	public void setClassRoom(String classRoom) {
+		this.classRoom = classRoom;
+	}
+	public int getMaximumCapacity() {
+		return maximumCapacity;
+	}
+	public void setMaximumCapacity(int maximumCapacity) {
+		this.maximumCapacity = maximumCapacity;
+	}
+	public String getLectureName() {
+		return lectureName;
+	}
+	public void setLectureName(String lectureName) {
+		this.lectureName = lectureName;
+	}
 	public Date getPaymentDate() {
 		return paymentDate;
 	}

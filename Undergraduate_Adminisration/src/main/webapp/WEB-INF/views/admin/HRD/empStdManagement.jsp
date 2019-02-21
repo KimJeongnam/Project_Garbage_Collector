@@ -69,7 +69,7 @@
 							<div>
 								<input class="btn btn-primary" type="button" value="등록"
 									onclick="window.location='proInsert2'">
-								<button type="button" class="btn btn-success" data-toggle="modal" data-target=".sendProModal">문자전송</button>
+								<button type="button" class="btn btn-success" data-toggle="modal" id="proSend" data-target=".sendProModal">문자전송</button>
 							</div>
 						</div>
 					</div>
@@ -105,7 +105,7 @@
 												</tr>
 											</thead>
 											<tbody>
-											<c:forEach var="dto" items="${dtos}" varStatus="vs">
+											<c:forEach var="dto" items="${dtos}" >
 												<tr>
 													<td><a href="stdMyPage?userNumber=${dto.userNumber}">${dto.userName}</a></td>
 													<td>${dto.userNumber}</td>
@@ -129,7 +129,7 @@
 										<div>
 											<input class="btn btn-primary" type="button" value="등록"
 												onclick="window.location='stdInsert2'">
-											<button type="button" class="btn btn-success" data-toggle="modal" data-target=".sendStdModal">문자전송</button>
+											<button type="button" class="btn btn-success" data-toggle="modal" id="stdSend" data-target=".sendStdModal">문자전송</button>
 										</div>
 									</div>
 								</div>
@@ -140,29 +140,6 @@
 			</div>
 		</div>
 	</div>
-	 <!-- 문자전송 모달 to 학생 -->
-    <div class="modal fade sendStdModal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
-                    </button>
-                    <h4 class="modal-title" id="myModalLabel2">단체문자 전송</h4>
-                </div>
-                <div class="modal-body">
-                	<c:forEach var="stdDto" items="${dtos}">
-                   		<input  id="smsType" type="hidden" value="${stdDto.authority}">
-                    </c:forEach>
-                    	<textarea rows="" cols=""  style="resize :none; width : 265px; height: 80px;" id="SMSArea"></textarea>
-                </div>
-                <div class="modal-footer">
-                    	<button type="reset" class="btn btn-default" data-dismiss="modal">취소</button>
-                   		<button type="button" id="sendSMSStdBtn" class="btn btn-primary" data-dismiss="modal">전송</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- 문자전송 모달 끝  -->
      <!-- 문자전송 모달 to 교수 -->
     <div class="modal fade sendProModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-sm">
@@ -174,13 +151,36 @@
                 </div>
                 <div class="modal-body">
                 	<c:forEach var="proDto" items="${vo}">
-                   		<input  id="smsType" type="hidden" value="${proDto.authority}">
+                   		<input  id="smsTypePro" type="hidden" value="${proDto.authority}">
                     </c:forEach>
-                    	<textarea rows="" cols=""  style="resize :none; width : 265px; height: 80px;" id="SMSArea"></textarea>
+                    	<textarea rows="" cols=""  style="resize :none; width : 265px; height: 80px;" id="textPro"></textarea>
+                </div>
+                <div class="modal-footer">
+                    	<button type="reset" class="btn btn-default"  data-dismiss="modal">취소</button>
+                   		<button type="button" id="sendSMSProBtn" class="btn btn-primary" data-dismiss="modal">전송</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 문자전송 모달 끝  -->
+     <!-- 문자전송 모달 to 학생 -->
+    <div class="modal fade sendStdModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel2">단체문자 전송</h4>
+                </div>
+                <div class="modal-body">
+                	<c:forEach var="stdDto" items="${dtos}">
+                   		<input  id="smsTypeStd" type="hidden" value="${stdDto.authority}">
+                    </c:forEach>
+                    	<textarea rows="" cols=""  style="resize :none; width : 265px; height: 80px;" id="textStd"></textarea>
                 </div>
                 <div class="modal-footer">
                     	<button type="reset" class="btn btn-default" data-dismiss="modal">취소</button>
-                   		<button type="button" id="sendSMSProBtn" class="btn btn-primary" data-dismiss="modal" data-dismiss="modal">전송</button>
+                   		<button type="button" id="sendSMSStdBtn" class="btn btn-primary" data-dismiss="modal">전송</button>
                 </div>
             </div>
         </div>
@@ -193,15 +193,20 @@
 	<script type="text/javascript">
 	
 	//문자전송 클릭시 텍스트창 초기화
-	$('.btn').click(function(){
-		  $('#SMSArea').val("");
+	$('#stdSend').click(function(){
+		  $('#textStd').val("");
         
+	}); 
+	
+	$('#proSend').click(function(){
+		  $('#textPro').val("");
+      
 	}); 
 	
 	//학생 단체문자전송
 	$('#sendSMSStdBtn').click(function(){
 		if(confirm("전송하시겠습니까?")){
-			sendSMSMessage($('#smsType').val());
+			sendSMSMessage($('#smsTypeStd').val());
 			
 		 	}
 		});
@@ -209,7 +214,7 @@
 	//교수단체문자 전송
 	 $('#sendSMSProBtn').click(function(){
 		if(confirm("전송하시겠습니까?")){
-			sendSMSMessage($('#smsType').val());
+			sendSMSMessage($('#smsTypePro').val());
 			
 		 	}
 		});
@@ -219,8 +224,11 @@
 	   var obj = new Object();
           obj.authority = authority;
           
-          //todo: textarea value 로 변경 필요
-          obj.msg =$('#SMSArea').val();
+		if(authority ==$('#smsTypeStd').val()){
+         	 obj.msg =$('#textStd').val();
+		}else {
+			 obj.msg =$('#textPro').val();
+		}          
           
            var jsonData = JSON.stringify(obj);
            
@@ -242,6 +250,8 @@
                }
            });
 	}
+	
+	
 	</script>
 </body>
 </html>

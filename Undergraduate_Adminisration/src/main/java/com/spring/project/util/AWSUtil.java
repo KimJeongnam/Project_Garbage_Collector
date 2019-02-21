@@ -28,8 +28,8 @@ public class AWSUtil {
 	//Init: snsClient, smsAttribute 초기화
 	//key, 속성(sendId, smsType)
 	public static void init() {
-		AWSCredentials credentials = new BasicAWSCredentials("AKIAJFP326Z7EOVQUMYA", 
-				"");//guDvAFNkxSoTCuS0WuCgOm0OUjUKKMtGrp+9Xoan
+		AWSCredentials credentials = new BasicAWSCredentials("AKIAI2VWA7DQAEHNMDRA", 
+				"");//+4MfJZ/yuPXPUy7tuQCGfoIfDK90SgzjUT1GGnpb
 		snsClient = new AmazonSNSClient(credentials);
 		smsAttributes = new HashMap<String, MessageAttributeValue>();
 		smsAttributes.put("AWS.SNS.SMS.SenderID", new MessageAttributeValue()
@@ -119,6 +119,7 @@ public class AWSUtil {
 			if(chkStr.startsWith("010") && chkStr.length() ==11) {
 				parsedUserCellNumList.add(SMS_COUNTRY_NUM + distinctUserCellNumList.get(i).replaceAll("-", " ")); 
 			}
+			System.out.println("parsedUserCellNumList" + parsedUserCellNumList);
 		}
 		return parsedUserCellNumList;
 	}

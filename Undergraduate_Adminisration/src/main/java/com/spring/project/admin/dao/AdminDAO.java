@@ -38,11 +38,14 @@ public interface AdminDAO {
 	//이미지 업데이트
 	public int proImgUpdate(AdProVO vo);
 	public int stdImgUpdate(AdStdVO vo);
-	//학생 상세페이지
-	public AdStdVO stdDetail(String userNumber);
 	
-	//교수 상세페이지
+	//학생 상세페이지 + 신청과목
+	public AdStdVO stdDetail(String userNumber);
+	public List<AdStdVO> stdLectureList(Map<String, Object> map);
+	
+	//교수 상세페이지 + 담당과목
 	public AdProVO proDetail(String userNumber);
+	public List<AdProVO> proLectureList(Map<String, Object> map);
 	
 	//학생+ 교수 삭제
 	public int stdDelete(String userNum);
@@ -54,7 +57,7 @@ public interface AdminDAO {
 	public List<AdProVO> getProList(Map<String, Integer> map);
 	
 	//학부 + 학과 리스트
-	public List<AdProVO> FandMList(Map<String, Integer> map);
+	public List<AdProVO> FandMList(Map<String, Object> map);
 	
 	//휴복학 리스트
 	public List<AdStdVO> getSchoolLeave(Map<String, Integer> map);

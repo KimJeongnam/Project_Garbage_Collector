@@ -4,3 +4,7 @@
 		maxWait="1000" name="jdbc/Oracle11g_AWS_oracle" password="tiger"
 		type="javax.sql.DataSource" url="jdbc:oracle:thin:@54.180.118.64:1521:XE"
 		username="oracle" />
+
+//이정섭		
+public static String REAL_PATH = "C:\\Users\\guaba\\git\\Project_Garbage_Collector\\Undergraduate_Adminisration\\src\\main\\webapp\\resources\\images\\"; 
+		

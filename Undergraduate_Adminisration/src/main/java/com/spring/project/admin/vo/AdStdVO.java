@@ -16,7 +16,6 @@ public class AdStdVO {
 	private String userZipCode;		//우편번호
 	private String userAddr1;		//주소1
 	private String userAddr2;		//주소2
-	
 	private String gender;			//성별
 	private int delStatus;			//삭제상태
 	private String authority; 
@@ -45,8 +44,46 @@ public class AdStdVO {
 	private Date leaveStart;
 	private Date leaveEnd;
 	
+	//lecture
+	private int maximumCapacity;	//최대 수강인원
+	private String lectureName;		//강의명
+	private String lecCode;			//강의코드
+	private int lectureScore;		//이수학점
+	private int appliedStd;			//현재 수강인원
 	
 	
+	
+	
+	public int getAppliedStd() {
+		return appliedStd;
+	}
+	public void setAppliedStd(int appliedStd) {
+		this.appliedStd = appliedStd;
+	}
+	public int getLectureScore() {
+		return lectureScore;
+	}
+	public void setLectureScore(int lectureScore) {
+		this.lectureScore = lectureScore;
+	}
+	public String getLecCode() {
+		return lecCode;
+	}
+	public void setLecCode(String lecCode) {
+		this.lecCode = lecCode;
+	}
+	public int getMaximumCapacity() {
+		return maximumCapacity;
+	}
+	public void setMaximumCapacity(int maximumCapacity) {
+		this.maximumCapacity = maximumCapacity;
+	}
+	public String getLectureName() {
+		return lectureName;
+	}
+	public void setLectureName(String lectureName) {
+		this.lectureName = lectureName;
+	}
 	public String getUserNumber() {
 		return userNumber;
 	}

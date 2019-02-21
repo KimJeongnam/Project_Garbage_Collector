@@ -224,12 +224,12 @@ public class AdminServiceImpl extends Board implements AdminService {
 	@Override
 	public void contentform(HttpServletRequest req, Model model) {
 		int scholarpk = Integer.parseInt(req.getParameter("scholarpk"));//sql용
-		
-		
+
+
 		//5-2 상세페이지
 		ScholarpkVO dto = dao.content_getArticle(scholarpk);
-		 
-				
+
+
 		//6단계 request나 session 에 처리 결과를 저장 (jsp에 전달하기 위함)
 		model.addAttribute("dto", dto);
 
@@ -240,7 +240,7 @@ public class AdminServiceImpl extends Board implements AdminService {
 		String[] checkbox = req.getParameterValues("scholarpks");
 
 		System.out.println("checkbox" + checkbox);
-		
+
 		int updateCnt =dao.jang_delete(checkbox);
 		System.out.println("22222");
 
@@ -273,9 +273,9 @@ public class AdminServiceImpl extends Board implements AdminService {
 		try {
 			/* *DefaultFileRenamePolicy()객체는 중복된 파일명이 있을 경우, 자동으로 파일명을 변경함 
 			 *(예 : filename.png가 이미 존재할 경우, filename1.png와 같이)*/
-				file.transferTo(new File(saveDir+file.getOriginalFilename()));
-		
-				if(file.getOriginalFilename() != "")  {
+			file.transferTo(new File(saveDir+file.getOriginalFilename()));
+
+			if(file.getOriginalFilename() != "")  {
 				FileInputStream fis = new FileInputStream(saveDir + file.getOriginalFilename());
 				FileOutputStream fos = new FileOutputStream(realDir + file.getOriginalFilename());
 				int data = 0;
@@ -339,7 +339,7 @@ public class AdminServiceImpl extends Board implements AdminService {
 			e.printStackTrace();
 		}
 	}
-	
+
 	//교수 인서트
 	@Override
 	public void ProInputPro(MultipartHttpServletRequest req, RedirectAttributes red) {
@@ -365,18 +365,18 @@ public class AdminServiceImpl extends Board implements AdminService {
 			 */
 			file.transferTo(new File(saveDir + file.getOriginalFilename()));
 
-		if(file.getOriginalFilename() != "")  {
-			FileInputStream fis = new FileInputStream(saveDir + file.getOriginalFilename());
-			FileOutputStream fos = new FileOutputStream(realDir + file.getOriginalFilename());
-			int data = 0;
+			if(file.getOriginalFilename() != "")  {
+				FileInputStream fis = new FileInputStream(saveDir + file.getOriginalFilename());
+				FileOutputStream fos = new FileOutputStream(realDir + file.getOriginalFilename());
+				int data = 0;
 
-			// 논리적인 경로에 저장된 임시 파일을 물리적인 경로로 복사함
-			while ((data = fis.read()) != -1) {
-				fos.write(data);
+				// 논리적인 경로에 저장된 임시 파일을 물리적인 경로로 복사함
+				while ((data = fis.read()) != -1) {
+					fos.write(data);
+				}
+				fis.close();
+				fos.close();
 			}
-			fis.close();
-			fos.close();
-		}
 
 			/* *위에서 MultipartRequest()객체를 선언해서 받는 모든 request 객체들은
 			 *MultipartRequest 타입으로 참조되어야 함
@@ -426,7 +426,7 @@ public class AdminServiceImpl extends Board implements AdminService {
 			e.printStackTrace();
 		}
 	}
-	
+
 	//학생*교수 리스트
 	@Override
 	public void stdList(HttpServletRequest req, Model model) {
@@ -439,56 +439,64 @@ public class AdminServiceImpl extends Board implements AdminService {
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("start", start);
 		map.put("end", end);
-		
+
 		//학생리스트
 		List<AdStdVO> dtos = dao.getStdList(map);
 		req.setAttribute("dtos", dtos); //큰바구니 : 게시글 목록 cf)작은 바구니(vo)는 게시글 1건
-		
+
 		//교수 리스트
 		List<AdProVO> vo = dao.getProList(map);
 		req.setAttribute("vo", vo);
 	}
-	
+
 	//학부 + 학과 리스트
 	@Override
 	public void fandMList(HttpServletRequest req, Model model) {
-		Map<String, Integer> map = new HashMap<String, Integer>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		List<AdProVO> vo = dao.FandMList(map);
 		req.setAttribute("outFandM", vo);
 	}
-	
+
 	//학생 상세페이지
 	@Override
 	public void showStdDetail(Map<String, Object> map, HttpServletRequest req, Model model) {
 		String userNumber = req.getParameter("userNumber"); 
-		
-		Map<String, Integer> map1 = new HashMap<String, Integer>();
+
+		Map<String, Object> map1 = new HashMap<String, Object>();
+		map1.put("userNumber", userNumber);
 		
 		List<AdProVO> voList = dao.FandMList(map1);
-
+		List<AdStdVO> lecList = dao.stdLectureList(map1);
+		
 		req.setAttribute("outFandM", voList);
-
+		req.setAttribute("lecList", lecList);
+		
 		AdStdVO vo = dao.stdDetail(userNumber);
 		req.setAttribute("vo", vo);
 	}
-	
+
 	//교수 상세
 	@Override
 	public void showProDetail(HttpServletRequest req, Model model) {
 		String userNumber =req.getParameter("userNumber");
-	
-		Map<String, Integer> map = new HashMap<String, Integer>();
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userNumber", userNumber);
+		
 		List<AdProVO> voList = dao.FandMList(map);
+		List<AdProVO> lecList = dao.proLectureList(map);
+		
 		req.setAttribute("outFandM", voList);
+		req.setAttribute("lecList", lecList);
 		
 		AdProVO vo = dao.proDetail(userNumber);
 		req.setAttribute("vo", vo);
-	 }
-	
+	}
+
 	//학생정보수정
 	@Override
-	public void stdDetailUpdate(HttpServletRequest req, Model model) {
-		
+	public void stdDetailUpdate(HttpServletRequest req, RedirectAttributes model) {
+
 		AdStdVO vo = new AdStdVO();
 
 		// users
@@ -523,18 +531,23 @@ public class AdminServiceImpl extends Board implements AdminService {
 
 		int stdUpResult = userUp + stdUp + stdStateUp;
 
-		 req.setAttribute("stdUpResult", stdUpResult);
+		model.addAttribute("userNumber", req.getParameter("userNumber"));
+
+		if(stdUpResult == 3) {
+			model.addFlashAttribute("message", "수정 완료");
+		}else{
+			model.addFlashAttribute("message", "Error!! 수정 실패! stdUpResult:"+stdUpResult);
+		}
 	}
-	
+
 	//교수정보수정
 	@Override
-	public void proDetailUpdate(HttpServletRequest req, Model model) {
-		String usrNum = req.getParameter("userNumber");
-		
+	public void proDetailUpdate(HttpServletRequest req, RedirectAttributes model) {
+
 		AdProVO vo = new AdProVO();
 
 		//users
-		vo.setUserNumber(req.getParameter(usrNum));
+		vo.setUserNumber(req.getParameter("userNumber"));
 		vo.setUserName(req.getParameter("userName"));
 		vo.setUserEngName(req.getParameter("userEngName"));
 		vo.setUserSsn(req.getParameter("userSsn"));
@@ -546,10 +559,10 @@ public class AdminServiceImpl extends Board implements AdminService {
 		vo.setUserAddr2(req.getParameter("userAddr2"));
 		vo.setGender(req.getParameter("gender"));
 		/*vo.setDelStatus(Integer.parseInt(req.getParameter("delStatus")));*/
-		
+
 		//major
 		vo.setMajorNum(Integer.parseInt(req.getParameter("majorNum")));
-		
+
 		//employees
 		vo.setEmpHiredDate(Date.valueOf(req.getParameter("empHiredDate")));
 		vo.setAnnualLevel(Integer.parseInt(req.getParameter("annualLevel")));
@@ -557,26 +570,32 @@ public class AdminServiceImpl extends Board implements AdminService {
 		vo.setAccountHolder(req.getParameter("accountHolder"));
 		vo.setEmpHiredDate(Date.valueOf(req.getParameter("empHiredDate")));
 		vo.setAccountNumber(req.getParameter("accountNumber"));
-		
+
 		int userUp = dao.updatePUsers(vo); 
 		int empUp = dao.updateEmployees(vo); 
-		
+
 		int proUpResult = userUp+ empUp ;
-		
-		req.setAttribute("proUpResult", proUpResult);
+
+		model.addAttribute("userNumber", req.getParameter("userNumber"));
+
+		if(proUpResult == 2) {
+			model.addFlashAttribute("message", "수정 완료");
+		}else{
+			model.addFlashAttribute("message", "Error!! 수정 실패! proUpResult:"+proUpResult);
+		}
 	}
-	
-	//회원 이미지수정
+
+	//학생 이미지수정
 	@Override
-	public void userImgUpdate(MultipartHttpServletRequest req, RedirectAttributes red) {
+	public void stdImgUpdate(MultipartHttpServletRequest req, RedirectAttributes red) {
 		MultipartFile file = req.getFile("userImage");
 
-		String saveDir = req.getSession().getServletContext().getRealPath("/resources/images");
+		String saveDir = req.getSession().getServletContext().getRealPath("/resources/images/");
 		String realDir = Config.REAL_PATH;
-																																				// 경로
+		// 경로
 		// 각자의 이미지 저장경로 수정하셈
 		try {
-				file.transferTo(new File(saveDir + file.getOriginalFilename()));
+			file.transferTo(new File(saveDir + file.getOriginalFilename()));
 
 			if(file.getOriginalFilename() != "")  {
 				FileInputStream fis = new FileInputStream(saveDir + file.getOriginalFilename());
@@ -590,44 +609,92 @@ public class AdminServiceImpl extends Board implements AdminService {
 				fis.close();
 				fos.close();
 			}
-			String image = file.getOriginalFilename();
 			String userNumber = req.getParameter("userNumber");
 
-			//AdProVO proVO = new AdProVO();
 			AdStdVO stdVO = new AdStdVO();
-			//proVO.setUserNumber(userNumber);
 			stdVO.setUserNumber(userNumber);
 
+			String ori_image = req.getParameter("userImage");
+			String update_image = file.getOriginalFilename();
 			String img = "";
 
-			img = "/images/" + image;
+			if(update_image.equals("")) {
+				img = "/images/"+ori_image;
+			}else {
+				img = "/images/"+update_image;
+			}
 
-			//proVO.setUserImage(img);
 			stdVO.setUserImage(img);
-			
-			
-			//ShareUserInfo user = (ShareUserInfo) req.getParameter("")
-			/*
-			 * int proImageUpload = dao.proImgUpdate(proVO);
-			 * 
-			 * if (proImageUpload == 1) { proVO.setUserImage(img);
-			 * red.addFlashAttribute("message", "프로필 이미지를 변경하였습니다.");
-			 * //req.getSession().setAttribute("user", user); } if (proImageUpload != 1)
-			 * red.addFlashAttribute("message", "프로필 이미지를 변경하는 도중에 오류가 발생하였습니다.");
-			 * 
-			 * System.out.println("프로필 이미지 변경 imageUpload : " + proImageUpload);
-			 */
-			
+
 			int stdImageUpload = dao.stdImgUpdate(stdVO);
+
+			red.addAttribute("userNumber", userNumber);
 			
 			if (stdImageUpload == 1) {
 				red.addFlashAttribute("message", "프로필 이미지를 변경하였습니다.");
-			}else
-			
+			}else {
 				red.addFlashAttribute("message", "프로필 이미지를 변경하는 도중에 오류가 발생하였습니다.");
-
+			}
+			
 			System.out.println("프로필 이미지 변경 imageUpload : " + stdImageUpload);
 		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	//교수 이미지 수정
+	@Override
+	public void proImgUpdate(MultipartHttpServletRequest req, RedirectAttributes red) {
+		MultipartFile file = req.getFile("userImage");
+
+		String saveDir = req.getSession().getServletContext().getRealPath("/resources/images");
+		String realDir = Config.REAL_PATH;
+		// 경로
+		// 각자의 이미지 저장경로 수정하셈
+		try {
+			file.transferTo(new File(saveDir + file.getOriginalFilename()));
+
+			if(file.getOriginalFilename() != "")  {
+				FileInputStream fis = new FileInputStream(saveDir + file.getOriginalFilename());
+				FileOutputStream fos = new FileOutputStream(realDir + file.getOriginalFilename());
+
+				int data = 0;
+
+				while ((data = fis.read()) != -1) {
+					fos.write(data);
+				}
+				fis.close();
+				fos.close();
+			}
+			String userNumber = req.getParameter("userNumber");
+
+			AdProVO proVO = new AdProVO();
+			proVO.setUserNumber(userNumber);
+			
+			String ori_image = req.getParameter("userImage");
+			String update_image = file.getOriginalFilename();
+			String img = "";
+
+			if(update_image.equals("")) {
+				img = "/images/"+ori_image;
+			}else {
+				img ="/images/"+ update_image;
+			}
+			
+			proVO.setUserImage(img);
+
+			int proImageUpload = dao.proImgUpdate(proVO);
+			
+			//리다이렉트로 유저넘을 넘겨줌
+			red.addAttribute("userNumber", userNumber);
+			
+			if (proImageUpload == 1) { proVO.setUserImage(img);
+				red.addFlashAttribute("message", "프로필 이미지를 변경하였습니다.");
+			}else { 
+				red.addFlashAttribute("message", "프로필 이미지를 변경하는 도중에 오류가 발생하였습니다.");
+			}
+			System.out.println("프로필 이미지 변경 imageUpload : " + proImageUpload);
+		}catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -651,13 +718,11 @@ public class AdminServiceImpl extends Board implements AdminService {
 		List<AdStdVO> vo = dao.getSchoolLeave(map);
 		req.setAttribute("getSL", vo);
 	}
-	
+
 	//전화번호부 가져오기
 	@Override
 	public List<String> getUserCellNumList(Map<String, Object> map){
-		
 		return dao.getUserCellNumList(map);
-		
 	}
 
 	// 장학 심사
@@ -669,7 +734,6 @@ public class AdminServiceImpl extends Board implements AdminService {
 
 		// 심사리스트 반환
 		model.addAttribute("audit", audit);
-
 	}
 
 	// 장학 심사 완료
@@ -703,7 +767,7 @@ public class AdminServiceImpl extends Board implements AdminService {
 			public List<Object> getList(Map<String, Object> map) {
 				return dao.majorList(map);
 			}
-			
+
 		});
 	}
 
@@ -781,7 +845,7 @@ public class AdminServiceImpl extends Board implements AdminService {
 			}
 		});
 	}
-	
+
 	@Override
 	public void getProfessorList(Map<String, Object> map, Model model) {
 		setList(map, model, new BoardInterface() {
@@ -794,15 +858,15 @@ public class AdminServiceImpl extends Board implements AdminService {
 				return dao.getProfessorList(map);
 			}
 		});
-	
+
 	}
-	
+
 	@Override
 	public Map<String, Object> addLecture(LectureVO lecture) {
 		Map<String, Object> responseData = new HashMap<String, Object>();
 		lecture.setTtc(lecture.getTimetblCodes().stream().mapToInt(i->i).toArray());
 		dao.addLecture(lecture);
-		
+
 		if(lecture.getResult()==0) {
 			responseData.put("message",  "Error!! 강의 추가 실패! 'lecture TABLE INSERT FAILE!'");
 		}else if((lecture.getTimetblCodes().size()+1)==lecture.getResult()) {
@@ -846,7 +910,7 @@ public class AdminServiceImpl extends Board implements AdminService {
 
 		List<payrollVO> dtosC = dao.getPaymentClassfication();
 		model.addAttribute("dtosC", dtosC);
-		
+
 		List<payrollVO> dtosT = dao.getFinalPayrollList();
 		model.addAttribute("dtosT", dtosT);
 	}
@@ -888,7 +952,9 @@ public class AdminServiceImpl extends Board implements AdminService {
 			red.addFlashAttribute("message", "등록이 완료되었습니다.");
 		}
 	}
-	
-	
-	
+
+
+
+
+
 }

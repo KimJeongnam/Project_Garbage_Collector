@@ -67,10 +67,10 @@ public class AdminDAOImpl implements AdminDAO{
 	public List<AdProVO> getProList(Map<String, Integer> map) {
 		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.getProList", map);
 	}
+	
 	//학생상세
 	@Override
 	public AdStdVO stdDetail(String userNumber) {
-		System.out.println("학생" +userNumber);
 		return sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.stdDetail", userNumber);
 	}
 	
@@ -150,7 +150,7 @@ public class AdminDAOImpl implements AdminDAO{
 	
 	//단과대 + 학과 리스트
 	@Override
-	public List<AdProVO> FandMList(Map<String, Integer> map) {
+	public List<AdProVO> FandMList(Map<String, Object> map) {
 		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.FandMList", map);
 	}
 	
@@ -164,6 +164,19 @@ public class AdminDAOImpl implements AdminDAO{
 	@Override
 	public List<String> getUserCellNumList(Map<String, Object> map){
 		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.getUserCellNumList", map);
+	}
+	
+	
+	//교수 - 강의목록
+	@Override
+	public List<AdProVO> proLectureList(Map<String, Object> map) {
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.proLectureList", map);	
+	}
+
+	//학생 - 신청과목
+	@Override
+	public List<AdStdVO> stdLectureList(Map<String, Object> map) {
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.stdLectureList", map);
 	}
 	
 	//=============================장학금 대그니꺼=======================================
@@ -353,6 +366,7 @@ public class AdminDAOImpl implements AdminDAO{
 	public int insertPayroll(payrollVO vo) {
 		return sqlSession.insert("com.spring.project.admin.dao.AdminDAO.insertPayroll", vo);
 	}
+
 	
 	
 }
