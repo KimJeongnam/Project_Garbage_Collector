@@ -381,4 +381,27 @@ public class AdminController {
 	}
 
 	// ---------------------------------회계관리END------------------------------------------
+	
+	
+	
+	
+	// ---------------------------------학사 수업업무START------------------------------------------
+	@RequestMapping("/admin/lec_score_Management/lecManagement")
+	public String lecManagement() {
+		logger.info("lecManagement()");
+		return "admin/lec_score_Management/lecManagement";
+	}
+	// ---------------------------------학사 수업업무END------------------------------------------
+	
+	
+	
+	// ---------------------------------학사 성적(?)업무START------------------------------------------
+	@RequestMapping("/admin/lec_score_Management/scoreManagement")
+	public String scoreManagement() {
+		logger.info("scoreManagement()");
+		return "admin/lec_score_Management/scoreManagement";
+	}
+	// ---------------------------------학사 성적(?)업무END------------------------------------------
+	
+	
 }

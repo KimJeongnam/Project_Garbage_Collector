@@ -172,8 +172,31 @@ public class ProfessorController {
 		service.getPlan(map, req, model);
 		return "professor/getPlan";
 		}
+		
+		//강의계획서 입력
+		@RequestMapping("/professor/insertPlan")
+		public String insertPlan(HttpServletRequest req ,RedirectAttributes red) {
+			logger.info("insertPlan()");
+			service.insertPlan(req,red);
+			return "redirect:/professor/plan";
+		}
+		//강의계획서 수정
+		@RequestMapping("/professor/updatePlan")
+		public String updatePlan(HttpServletRequest req ,RedirectAttributes red) {
+			logger.info("updatePlan()");
+			service.updatePlan(req,red);
+			return "redirect:/professor/plan";
+		}
 		////////////////////////////////////////강의계획서 끝		
 				
+		
+		
+		
+		
+		// 위로 jeong to the chi to the ho!
+		
+		//밑으로  park to the dae to the guen! 
+		
 		
 		//과제관리
 		@RequestMapping("/professor/report")

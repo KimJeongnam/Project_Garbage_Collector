@@ -186,6 +186,35 @@ public class ProfesserDAOImpl implements ProfesserDAO{
 	public List<PlanVO> getPlan(Map<String, Object> map) {
 		return sql.selectList("com.spring.project.professor.dao.ProfesserDAO.getPlan",map);
 	}
-
+	//강의계획서 입력
+	@Override
+	public int insertPlan(PlanVO vo) {
+		System.out.println(vo);
+		
+		int insertPlan=0;
+		
+		ProfesserDAO dao = sql.getMapper(ProfesserDAO.class);
+		
+		insertPlan=dao.insertPlan(vo);
+		
+		System.out.println(insertPlan==1?"강의계획서 입력 성공!":"강의계획서 입력 실패!");
+		
+		return insertPlan;
+	}
+	//강의계획서 수정
+	@Override
+	public int updatePlan(PlanVO vo) {
+		System.out.println(vo);
+		
+		int updatePlan=0;
+		
+		ProfesserDAO dao = sql.getMapper(ProfesserDAO.class);
+		
+		updatePlan=dao.updatePlan(vo);
+		
+		System.out.println(updatePlan==1?"강의계획서 수정 성공!":"강의계획서 수정 실패!");
+		
+		return updatePlan;
+	}
 
 }

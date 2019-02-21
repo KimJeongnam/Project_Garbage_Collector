@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <sec:authorize access="hasRole('ROLE_ADMIN')">
-<c:set var="authPath" value="${contextPath }/admin"/>
+    <c:set var="authPath" value="${contextPath }/admin" />
     <div class="container body">
         <div class="main_container">
             <div class="col-md-3 left_col menu_fixed">
@@ -37,21 +37,9 @@
 
                                 <li class=""><a><i class="fa fa-graduation-cap"></i>학사관리<span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu" style="display: none;">
-                                        <li><a>수업업무<span class="fa fa-chevron-down"></span></a>
-                                            <ul class="nav child_menu">
-                                                <li class="sub_menu">
-                                                    <a href="#">수강 신청 관리</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="#">성적업무</a></li>
-                                        <!-- <li><a href="menu2">교직업무</a></li> -->
-                                        <li><a>교직업무<span class="fa fa-chevron-down"></span></a>
-                                            <ul class="nav child_menu">
-                                                <li class="sub_menu">
-                                                    <a href="${authPath}/majorLectureManagement">학과/강의 관리</a>
-                                                </li>
-                                            </ul>
-                                        </li>
+                                        <li><a href="${authPath }/lec_score_Management/lecManagement">수업업무</a></li>
+                                        <li><a href="${authPath }/lec_score_Management/scoreManagement">성적업무</a></li>
+                                        <li><a href="${authPath}/majorLectureManagement">교직업무</a></li>
                                     </ul>
                                 </li>
                                 <li><a><i class="fa fa-desktop"></i> 장학관리 <span class="fa fa-chevron-down"></span></a>
@@ -118,7 +106,7 @@
             <!-- /top navigation -->
 </sec:authorize>
 <sec:authorize access="hasRole('ROLE_PROFESSOR')">
-<c:set var="authPath" value="${contextPath }/professor"/>
+    <c:set var="authPath" value="${contextPath }/professor" />
     <div class="container body">
         <div class="main_container">
             <div class="col-md-3 left_col menu_fixed">
@@ -217,7 +205,7 @@
             <!-- /top navigation -->
 </sec:authorize>
 <sec:authorize access="hasRole('ROLE_STUDENT')">
-<c:set var="authPath" value="${contextPath }/student"/>
+    <c:set var="authPath" value="${contextPath }/student" />
     <div class="container body">
         <div class="main_container">
             <div class="col-md-3 left_col menu_fixed">
@@ -244,15 +232,15 @@
                         <div class="menu_section active">
                             <h3>학번 : '${userNumber }'</h3>
                             <ul class="nav side-menu" style="">
-                            
-                            <li><a><i class="fa fa-desktop"></i> 개인정보 <span class="fa fa-chevron-down"></span></a>
+
+                                <li><a><i class="fa fa-desktop"></i> 개인정보 <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu" style="">
                                         <li><a href="${authPath }/personalProfile">학생개인정보</a></li>
 
                                     </ul>
                                 </li>
-                            
-                                
+
+
                                 <li class=""><a><i class="fa fa-graduation-cap"></i>학사관리<span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu" style="display: none;">
                                         <li><a href="${authPath }/lectureList">수강신청 / 시간표</a>
@@ -309,7 +297,7 @@
                                 </ul>
                             </li>
                             <%@ include file="messageNav.jsp" %>
-                
+
                         </ul>
                     </nav>
                 </div>
