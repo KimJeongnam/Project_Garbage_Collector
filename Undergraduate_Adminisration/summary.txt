@@ -6,4 +6,6 @@
 		username="oracle" />
 
 		
-	정치호	  C:\\Users\\k\\git\\Project_Garbage_Collector\\Undergraduate_Adminisration\\src\\main\\webapp\\resources\\images\\
+정치호 C:\\Users\\k\\git\\Project_Garbage_Collector\\Undergraduate_Adminisration\\src\\main\\webapp\\resources\\images\\
+이정섭	C:\\Users\\guaba\\git\\Project_Garbage_Collector\\Undergraduate_Adminisration\\src\\main\\webapp\\resources\\images\\ 
+김정남   /home/jeongnam/git/Project_Garbage_Collector/Undergraduate_Adminisration/src/main/webapp/resources/images

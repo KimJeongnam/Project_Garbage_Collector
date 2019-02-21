@@ -153,7 +153,17 @@
 																			<td>
 																				<select name="graduation_state" style="height : 22px; width : 165px;"
 																						selected="${vo.graduation_state}">
-																					<option value="${vo.graduation_state}" selected>${vo.graduation_state}</option>	
+																					<option value="${vo.graduation_state}" selected>
+																						<c:if test="${vo.graduation_state ==0}">
+																							재학중
+																						</c:if>
+																						<c:if test="${vo.graduation_state ==1}">
+																							휴학중
+																						</c:if>
+																						<c:if test="${vo.graduation_state ==2}">
+																							졸업
+																						</c:if>
+																					</option>	
 																					<option value="0">재학중</option>
 																					<option value="1">휴학중</option>
 																					<option value="2">졸업</option>
@@ -256,62 +266,25 @@
 														<table class="data table table-striped no-margin">
 															<thead>
 																<tr>
-																	<th>#</th>
+																	<th>강의코드</th>
 																	<th>강의명</th>
 																	<th>교수명</th>
 																	<th class="hidden-phone">교수 연락처</th>
-																	<th>학업 진행상황</th>
+																	<th>이수학점</th>
+																	<th>수강인원</th>
 																</tr>
 															</thead>
 															<tbody>
+															<c:forEach var="lec" items="${lecList }">
 																<tr>
-																	<td>1</td>
-																	<td>경제학개론</td>
-																	<td>김민섭</td>
-																	<td class="hidden-phone">010-2265-4578</td>
-																	<td class="vertical-align-mid">
-																		<div class="progress">
-																			<div class="progress-bar progress-bar-success"
-																				data-transitiongoal="35"></div>
-																		</div>
-																	</td>
+																	<td>${lec.lecCode }</td>
+																	<td>${lec.lectureName }</td>
+																	<td>${lec.userName }</td>
+																	<td class="hidden-phone">${lec.userCellNum }</td>
+																	<td class="vertical-align-mid">${lec.lectureScore }</td>
+																	<td>${lec.appliedStd} / ${lec.maximumCapacity}</td>
 																</tr>
-																<tr>
-																	<td>2</td>
-																	<td>정치학개론</td>
-																	<td>정치호</td>
-																	<td class="hidden-phone">010-2265-4578</td>
-																	<td class="vertical-align-mid">
-																		<div class="progress">
-																			<div class="progress-bar progress-bar-danger"
-																				data-transitiongoal="15"></div>
-																		</div>
-																	</td>
-																</tr>
-																<tr>
-																	<td>3</td>
-																	<td>초급 자바</td>
-																	<td>김정남</td>
-																	<td class="hidden-phone">010-2265-4578</td>
-																	<td class="vertical-align-mid">
-																		<div class="progress">
-																			<div class="progress-bar progress-bar-success"
-																				data-transitiongoal="45"></div>
-																		</div>
-																	</td>
-																</tr>
-																<tr>
-																	<td>4</td>
-																	<td>자동차 분해실습</td>
-																	<td>박대근</td>
-																	<td class="hidden-phone">010-2265-4578</td>
-																	<td class="vertical-align-mid">
-																		<div class="progress">
-																			<div class="progress-bar progress-bar-success"
-																				data-transitiongoal="75"></div>
-																		</div>
-																	</td>
-																</tr>
+															</c:forEach>	
 															</tbody>
 														</table>
 														<!-- end user projects -->
@@ -489,9 +462,9 @@
                     <h4 class="modal-title" id="myModalLabel2">프로필 사진 바꾸기</h4>
                 </div>
                 <div class="modal-body">
-                    <form action="userImgUpdate" method="post" enctype="multipart/form-data">  
+                    <form action="stdImgUpdate" method="post" enctype="multipart/form-data">  
                     	<input type="hidden" name="userNumber" value="${vo.userNumber}">
-                    	<input class="btn btn-info" type="file" name="userImage" style="position:relative;right:11px;">
+                    	<input class="btn btn-info" type="file" name="userImage" style="position:relative; right:11px;">
                     	<button type="reset" class="btn btn-default" data-dismiss="modal">취소</button>
                    		<button type="submit" class="btn btn-primary">변경</button>
                     </form>

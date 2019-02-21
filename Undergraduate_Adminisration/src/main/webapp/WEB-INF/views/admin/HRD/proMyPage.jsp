@@ -96,7 +96,7 @@
 													</li>
 													<li role="presentation" class="">
 														<a href="#tab_content3" role="tab" id="profile-tab2"
-														data-toggle="tab" aria-expanded="false">이력사항</a>
+														data-toggle="tab" aria-expanded="false">교수소개</a>
 													</li>
 												</ul>
 												<div id="myTabContent" class="tab-content">
@@ -237,162 +237,56 @@
 														id="tab_content2" aria-labelledby="profile-tab">
 														<table class="table table-striped jambo_table bulk_action">
 					                                        <thead>
+					                                        
 					                                            <tr class="headings">
 					                                                <th class="text-center">구분</th>
-					                                                <th class="text-center">학과</th>
+					                                                <th class="text-center">학과(학과코드)</th>
 					                                                <th class="text-center">강의명</th>
 					                                                <th class="text-center">학년</th>
 					                                                <th class="text-center">학기</th>
 					                                                <th class="text-center">학점</th>
-					                                                <th class="text-center">담당 교수</th>
-					                                                <th class="text-center">인원수</th>
+					                                                <th class="text-center">강의실</th>
+					                                                <th class="text-center">수강인원</th>
 					                                            </tr>
 					                                        </thead>
 					                                        <tbody>
+					                                        <c:forEach var="lec" items="${lecList}">
 					                                            <tr>
+					                                            	<c:if test="${lec.lectureClassfication ==1}">
 					                                                <td class="text-center">전공</td>
-					                                                <td class="text-center">컴퓨터공학과</td>
-					                                                <td class="text-center">전공실기I</td>
-					                                                <td class="text-center">1학년</td>
-					                                                <td class="text-center">1학기</td>
-					                                                <td class="text-center">3</td>
-					                                                <td class="text-center">홍길동</td>
-					                                                <td class="text-center">50</td>
+					                                                </c:if>
+					                                                <c:if test="${lec.lectureClassfication ==2}">
+					                                                <td class="text-center">교양</td>
+					                                                </c:if>
+					                                                <td class="text-center">${lec.majorNum}(${lec.majorName})</td>
+					                                                <td class="text-center">${lec.lectureName }</td>
+					                                                <td class="text-center">${lec.grade }</td>
+					                                                <td class="text-center">${lec.grantedSemester }</td>
+					                                                <td class="text-center">${lec.lectureScore }</td>
+					                                                <td class="text-center">${lec.classRoom}</td>
+					                                                <td class="text-center">${lec.appliedStd} / ${lec.maximumCapacity }</td>
 					                                            </tr>
+					                                        </c:forEach>
 					                                        </tbody>
 					                                    </table>
-														<div class="ln_solid"></div>
-														<div class="form-group">
-															<div class="col-md-6 col-md-offset-5">
-																<button type="submit" class="btn btn-primary">취소</button>
-																<button id="send" type="submit" class="btn btn-success">수정</button>
-															</div>
-														</div>
 													</div>
-													<div role="tabpanel" class="tab-pane fade"
-														id="tab_content3" aria-labelledby="profile-tab">
-														<form class="form-horizontal form-label-left" novalidate>
-															<span class="section">이력사항</span>
-															<div class="item form-group">
-																<label class="control-label col-md-3 col-sm-3 col-xs-12"
-																	for="name">중학교 <span class="required">*</span>
-																</label>
-																<div class="col-md-6 col-sm-6 col-xs-12">
-																	<input id="name"
-																		class="form-control col-md-7 col-xs-12"
-																		data-validate-length-range="6" data-validate-words="2"
-																		name="name" placeholder="출신 중학교를 입력하시오"
-																		required="required" type="text">
-																</div>
-															</div>
-															<div class="item form-group">
-																<label class="control-label col-md-3 col-sm-3 col-xs-12"
-																	for="name">고등학교 <span class="required">*</span>
-																</label>
-																<div class="col-md-6 col-sm-6 col-xs-12">
-																	<input id="name" class="form-control col-md-7 col-xs-12"
-																		data-validate-length-range="6" data-validate-words="2"
-																		name="name" placeholder="출신 고등학교를 입력하시오"
-																		required="required" type="text">
-																</div>
-															</div>
-															<div class="item form-group">
-																<label class="control-label col-md-3 col-sm-3 col-xs-12"
-																	for="name">대학교 <span class="required">*</span>
-																</label>
-																<div class="col-md-6 col-sm-6 col-xs-12">
-																	<input id="name" class="form-control col-md-7 col-xs-12"
-																		data-validate-length-range="6" data-validate-words="2"
-																		name="name" placeholder="출신 대학교를 입력하시오"
-																		required="required" type="text">
-																</div>
-															</div>
-															<div class="item form-group">
-																<label class="control-label col-md-3 col-sm-3 col-xs-12"
-																	for="name">전공 <span class="required">*</span>
-																</label>
-																<div class="col-md-6 col-sm-6 col-xs-12">
-																	<input id="name" class="form-control col-md-7 col-xs-12"
-																		data-validate-length-range="6" data-validate-words="2"
-																		name="name" placeholder="전공를 입력하시오"
-																		required="required" type="text">
-																</div>
-															</div>
-															<div class="item form-group">
-																<label class="control-label col-md-3 col-sm-3 col-xs-12"
-																	for="name">대학원 <span class="required">*</span>
-																</label>
-																<div class="col-md-6 col-sm-6 col-xs-12">
-																	<input id="name" class="form-control col-md-7 col-xs-12"
-																		data-validate-length-range="6" data-validate-words="2"
-																		name="name" placeholder="대학원를 입력하시오"
-																		required="required" type="text">
-																</div>
-															</div>
-															<div class="item form-group">
-																<label class="control-label col-md-3 col-sm-3 col-xs-12"
-																	for="name">박사과정 <span class="required">*</span>
-																</label>
-																<div class="col-md-6 col-sm-6 col-xs-12">
-																	<input id="name" class="form-control col-md-7 col-xs-12"
-																		data-validate-length-range="6" data-validate-words="2"
-																		name="name" placeholder="박사과정을 입력하시오"
-																		required="required" type="text">
-																</div>
-															</div>
-															<div class="item form-group">
-																<label class="control-label col-md-3 col-sm-3 col-xs-12"
-																	for="name">경력사항 1 <span class="required"></span>
-																</label>
-																<div class="col-md-6 col-sm-6 col-xs-12">
-																	<input id="name" class="form-control col-md-7 col-xs-12"
-																		data-validate-length-range="6" data-validate-words="2"
-																		name="name" placeholder="경력사항 1 입력하시오"
-																		required="required" type="text">
-																</div>
-															</div>
-															<div class="item form-group">
-																<label class="control-label col-md-3 col-sm-3 col-xs-12"
-																	for="name">경력사항 2 <span class="required"></span>
-																</label>
-																<div class="col-md-6 col-sm-6 col-xs-12">
-																	<input id="name" class="form-control col-md-7 col-xs-12"
-																		data-validate-length-range="6" data-validate-words="2"
-																		name="name" placeholder="경력사항 2 입력하시오"
-																		required="required" type="text">
-																</div>
-															</div>
-															<div class="item form-group">
-																<label class="control-label col-md-3 col-sm-3 col-xs-12"
-																	for="name">경력사항 3 <span class="required"></span>
-																</label>
-																<div class="col-md-6 col-sm-6 col-xs-12">
-																	<input id="name" class="form-control col-md-7 col-xs-12"
-																		data-validate-length-range="6" data-validate-words="2"
-																		name="name" placeholder="경력사항 3 입력하시오"
-																		required="required" type="text">
-																</div>
-															</div>
-															<div class="item form-group">
-																<label class="control-label col-md-3 col-sm-3 col-xs-12"
-																	for="name">경력사항 4 <span class="required"></span>
-																</label>
-																<div class="col-md-6 col-sm-6 col-xs-12">
-																	<input id="name" class="form-control col-md-7 col-xs-12"
-																		data-validate-length-range="6" data-validate-words="2"
-																		name="name" placeholder="경력사항 4 입력하시오"
-																		required="required" type="text">
-																</div>
-															</div>
-															<div class="ln_solid"></div>
-															<div class="form-group">
-																<div class="col-md-6 col-md-offset-5">
-																	<button type="submit" class="btn btn-primary">취소</button>
-																	<button id="send" type="submit" class="btn btn-success">수정</button>
-																</div>
-															</div>
-														</form>
-													</div>
+													<!-- 자기소개  -->
+                                                    <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
+                                                     <form class="form-horizontal form-label-left" novalidate action="introUpdate" method="post">
+                                                       <span class="section">교수소개</span>
+                                                        <textarea id="introduction" required="required" class="form-control" name="introduction" data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="3500" 
+                                                        data-parsley-minlength-message="20자 이상 작성하셔야 합니다!!" data-parsley-validation-threshold="10" style="height: 300px;">${vo.introduction }</textarea>
+                                                       <br>
+                                                       <div class="form-group">
+                                                            <div class="col-md-6 col-md-offset-3">
+                                                                <button type="reset" class="btn btn-primary">재작성</button>
+                                                                <button type="submit" class="btn btn-success">수정</button>
+                                                            </div>
+                                                        </div>
+                                                       </form>
+                                                    </div>
+                                                    
+													<!-- 자기소개  끝 -->
 												</div>
 											</div>
 										</div>
@@ -406,28 +300,29 @@
 		</div>
 	</div>
 	<!-- /page content -->
-	<!-- 이미지 업로드 모달  -->
-	<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
-		<div class="modal-dialog modal-sm">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-					<h4 class="modal-title" id="myModalLabel2">프로필 사진 바꾸기</h4>
-				</div>
-				<div class="modal-body">
-					<form action="#" class="dropzone"></form>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
-					<button type="button" class="btn btn-primary">변경</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- 이미지 업로드 모달 끝 -->
+	 <!-- 이미지 업로드 모달  -->
+    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel2">프로필 사진 바꾸기</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="proImgUpdate" method="post" enctype="multipart/form-data">  
+                    	<input type="hidden" name="userNumber" value="${vo.userNumber}">
+                    	<input class="btn btn-info" type="file" name="userImage" style="position:relative; right:11px;">
+                    	<button type="reset" class="btn btn-default" data-dismiss="modal">취소</button>
+                   		<button type="submit" class="btn btn-primary">변경</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 이미지 업로드 모달 끝 -->
 	<!-- 다음 주소 API 추가  -->
 	<script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
 	<%@ include file="../../Basic/footer.jsp"%>

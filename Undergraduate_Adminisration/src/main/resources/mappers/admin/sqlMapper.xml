@@ -69,10 +69,9 @@
 		END
 	</insert>
 	<!-- 학생리스트 -->
-	<select id="getStdList" parameterType="java.util.Map"
-		resultType="com.spring.project.admin.vo.AdStdVO">
+	<select id="getStdList" parameterType="java.util.Map" resultType="com.spring.project.admin.vo.AdStdVO">
 		select u.userNumber, u.userName, m.majorName, m.majorNum, u.authority,
-		u.userCellNum , s.grade , st.graduation_state, f.faculty
+				u.userCellNum , s.grade , st.graduation_state, f.faculty
 		from student s, studentState st , users u, major m, faculty f
 		where  u.userNumber(+)= s.stdNumber
     			and s.stdNumber = st.stdNumber(+)
@@ -84,14 +83,12 @@
 
 	<!-- 교수리스트 -->
 	<select id="getProList" parameterType="java.util.Map" resultType="com.spring.project.admin.vo.AdProVO">
-		select u.userNumber,  u.userName, m.majorName ,m.majorNum , 
-      			 u.authority,  e.annualLevel, e.empHiredDate ,rd.totalPayment , f.faculty
-		from employee e , users u, major m, payment p, registerDetail rd, faculty f
+		select u.userNumber,  u.userName, m.majorName ,m.majorNum , u.usercellnum,
+      			 u.authority,  e.annualLevel, e.empHiredDate, f.faculty
+		from employee e , users u, major m,  faculty f
 		where  u.userNumber(+)= e.empnumber
-		   		 and e.empnumber =  p.empnumber(+)
-		   		 and e.majorNum = m.majorNum
+		   		 and e.majorNum(+) = m.majorNum
 		   		 and f.faculty = m.faculty(+)
-		   		 and p.paymentcode = rd.paymentcode(+)
 		   		 and u.authority = 'ROLE_PROFESSOR'
 		   		 and u.delstatus != 1 
 	</select>
@@ -99,33 +96,31 @@
 	<!-- 학생상세 -->
 	<select id="stdDetail" resultType="com.spring.project.admin.vo.AdStdVO" >
 		select u.userNumber, u.userZipCode, u.userAddr1, u.userAddr2, u.userName,
-		u.userImage,
-		u.userEngName,u.userSsn, u.gender, m.majorName, m.majorNum, st.semester,
-		u.userEmail, u.userCellNum , s.grade ,s.graDate, st.graduation_state, f.faculty
-		from student s, studentState st , users u, major m, faculty f
-		where  u.userNumber= s.stdNumber
-    			and s.stdNumber = st.stdNumber
-    			and s.majorNum = m.majorNum
-    			and f.faculty = m.faculty
-    			and u.authority = 'ROLE_STUDENT'
-    			and u.userNumber = #{userNumber}
-    			and u.delstatus != 1
+				u.userImage, u.userEngName,u.userSsn, u.gender, m.majorName, m.majorNum, st.semester,
+				u.userEmail, u.userCellNum , s.grade ,s.graDate, st.graduation_state, f.faculty
+		  from student s, studentState st , users u, major m, faculty f
+		 where u.userNumber(+)= s.stdNumber
+           and s.stdNumber = st.stdNumber(+)
+           and s.majorNum(+) = m.majorNum
+           and f.faculty = m.faculty
+           and u.authority = 'ROLE_STUDENT'
+           and u.userNumber = #{userNumber}
+           and u.delstatus != 1
 	</select>
 
 	<!-- 교수상세 -->
 	 <select id="proDetail" resultType="com.spring.project.admin.vo.AdProVO">
 		select u.userNumber, u.userZipCode, u.userAddr1, u.userAddr2, u.userName, u.userImage,
-				u.userEngName, u.userSsn, u.gender, m.majorName, m.majorNum, 
-      		 	u.userEmail, u.userCellNum, e.annualLevel, to_date(e.empHiredDate,'yy/mm/dd') empHiredDate, f.faculty,
-      		 	e.bankName, e.accountNumber, e.accountHolder, rd.totalPayment, to_date(pl.paymentDate,'yy/mm/dd') paymentDate
-		from employee e, users u, major m, faculty f, registerDetail rd, paymentList pl
-		where  u.userNumber= e.empNumber
-    			and e.majorNum = m.majorNum
-    			and f.faculty = m.faculty
-                and rd.paylistNum = pl.paylistNum
-    			and u.authority = 'ROLE_PROFESSOR'
-    			and u.userNumber = #{userNumber}
-    			and u.delstatus != 1
+				u.userEngName, u.userSsn, u.gender, m.majorName, m.majorNum, e.INTRODUCTION,
+      		 	u.userEmail, u.userCellNum, e.annualLevel, to_date(e.empHiredDate, 'yy/mm/dd') empHiredDate, f.faculty,
+      		 	e.bankName, e.accountNumber, e.accountHolder
+		  from employee e, users u, major m, faculty f
+		 where u.userNumber(+)= e.empNumber
+           and e.majorNum(+) = m.majorNum
+           and f.faculty = m.faculty
+           and u.authority = 'ROLE_PROFESSOR'
+           and u.userNumber =#{userNumber}
+           and u.delstatus != 1
 	</select> 
 	
 	<!--학생 정보수정 -->	
@@ -139,18 +134,16 @@
 
 	<!--학생정보수정 -->
 	<update id="updateStudent" parameterType="com.spring.project.admin.vo.AdStdVO">
-		update student set stdNumber=#{userNumber}, grade=#{grade},
-		graDate=#{graDate}, majorNum=#{majorNum}
-		WHERE stdNumber
-		= #{userNumber}
+		update 	student set stdNumber=#{userNumber}, grade=#{grade},
+				graDate=#{graDate}, majorNum=#{majorNum}
+		WHERE 	stdNumber = #{userNumber}
 	</update>
 
 	<!--학생정보수정 -->
 	<update id="updateStudentState" parameterType="com.spring.project.admin.vo.AdStdVO">
-		update studentState set stdNumber=#{userNumber}, semester=#{semester},
-		graduation_state =#{graduation_state}
-		WHERE
-		stdNumber = #{userNumber}
+		update 	studentState set stdNumber=#{userNumber}, semester=#{semester},
+				graduation_state =#{graduation_state}
+		WHERE 	stdNumber = #{userNumber}
 	</update>
 	
 	<!--교수정보수정 -->	
@@ -189,16 +182,14 @@
 	<select id="FandMList" parameterType="java.util.Map"
 		resultType="com.spring.project.admin.vo.AdProVO">
 		select distinct f.faculty from major m, faculty f where
-		f.faculty =
-		m.faculty
+		f.faculty = m.faculty
 	</select>
 
 	<!-- 휴복학 리스트 -->
 	<select id="getSchoolLeave" parameterType="java.util.Map"
 		resultType="com.spring.project.admin.vo.AdStdVO">
 		select sl.schoolLeaveStateCode, sl.kind, sl.leaveStart,
-		sl.leaveEnd,
-		u.userName, sl.leaveStatus
+			   sl.leaveEnd, u.userName, sl.leaveStatus
 		from users u, schoolLeave sl
 		where u.userNumber = sl.stdNumber
 	</select>
@@ -211,6 +202,40 @@
 		WHERE AUTHORITY = #{authority}
 		AND DELSTATUS = 0
  	</select>
+ 	
+ 	<!--교수 - 강의목록  -->
+ 	<select id="proLectureList" parameterType="java.util.Map" resultType="com.spring.project.admin.vo.AdProVO">
+ 		SELECT u.userName, e.empNumber, f.faculty, m.majorName, m.majorNum, l.lectureName, l.maximumCapacity,
+       		   l.lectureClassfication, l.grade, l.grantedSemester, l.lectureScore, l.classRoom,
+       		   (select count(*) from studentClassInfo where lecCode=l.leccode) as appliedStd
+		  FROM users u, employee e, faculty f, major m, lecture l 
+		 WHERE u.userNumber = e.empNumber
+	       AND e.majorNum = m.majorNum
+           AND m.faculty = f.faculty
+		   AND e.empNumber = l.empNumber
+		   AND e.empNumber =#{userNumber}
+		   AND l.delstatus = 0
+           AND l.LECSTATUS = 0
+ 	</select>
+ 	
+ 	<!--학생 - 강의목록  -->
+ 	<select id="stdLectureList" parameterType="java.util.Map" resultType="com.spring.project.admin.vo.AdStdVO">
+ 		SELECT u.username, l.lecCode, l.majorNum, l.lectureName, l.lectureClassfication, l.maximumCapacity, l.grade,
+         		l.grantedSemester, l.lectureScore, l.classRoom, sc.userNumber, u.userCellNum,
+         		(select count(*) from studentClassInfo where lecCode=l.lecCode) as appliedStd
+		  FROM studentClassInfo sc, lecture l, employee e, users u
+		 WHERE sc.lecCode = l.lecCode 
+	       AND e.empNumber = l.empNumber
+		   AND u.userNumber = e.empNumber 
+		   AND sc.userNumber = #{userNumber}
+		   AND sc.status = 1
+		   AND l.delstatus = 0
+           AND l.LECSTATUS = 0
+	  GROUP BY u.username, l.lecCode, l.majorNum, l.lectureName, l.lectureClassfication, 
+			   l.maximumCapacity, l.grade, l.grantedSemester, l.lectureScore, l.classRoom, 
+			   sc.userNumber, u.userCellNum
+ 	</select>
+ 	
 	<!-- 장학 단 -->
 	<!-- 장학단 -->
 	<!-- 장학글 갯수 -->
