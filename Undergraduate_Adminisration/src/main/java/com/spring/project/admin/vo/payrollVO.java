@@ -25,7 +25,16 @@ public class payrollVO {
 	private int overtime;
 	private int overpaycode;
 	private int personnelTotalPay;
+	private int paylistNum;
 	
+	
+	
+	public int getPaylistNum() {
+		return paylistNum;
+	}
+	public void setPaylistNum(int paylistNum) {
+		this.paylistNum = paylistNum;
+	}
 	public int getPersonnelTotalPay() {
 		return personnelTotalPay;
 	}

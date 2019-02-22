@@ -6,7 +6,6 @@
 <c:set var="staticPath" value="/project/resources" />
 <html>
 <body>
-	<form id="overtimeForm">
 	<div class="modal-body">
 		<div class="row form-inline"
 			style="margin: 0px; vertical-align: middle">
@@ -53,7 +52,6 @@
 		<button type="reset" class="btn btn-warning" onclick="resetOverTime();">취소</button>
 		<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
 	</div>
-	</form>
 </body>
 <script src="${staticPath}/build/js/custom2.js"></script>
 <script src="${staticPath}/js/account/accountManage.js"

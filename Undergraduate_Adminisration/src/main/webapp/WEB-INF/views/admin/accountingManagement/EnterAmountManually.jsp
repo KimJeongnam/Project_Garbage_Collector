@@ -5,7 +5,6 @@
 <c:set var="staticPath" value="/project/resources" />
 <html>
 <body>
-	<form id="SaveEnterAmountManuallyForm">
 	<div class="modal-body">
 		<table id="datatable-fixed-header"
 			class="table table-striped jambo_table bulk_action">
@@ -59,7 +58,6 @@
 		<button type="reset" class="btn btn-warning" onclick="ResetSaveEnterAmountManually();">취소</button>
 		<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
 	</div>
-	</form>
 </body>
 <!--  Custome Theme Scripts -->
 <script src="${staticPath}/build/js/custom2.js"></script>

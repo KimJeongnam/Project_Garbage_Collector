@@ -33,7 +33,7 @@
 						</div>
 						<div class="x_content">
 							<p class="text-muted font-13 m-b-30">교직원의 급여를 확인, 수정하는 페이지</p>
-							<table class="table table-striped jambo_table bulk_action">
+							<table id= "PayrollListTable" class="table table-striped jambo_table bulk_action">
 								<thead>
 									<tr class="headings">
 										<th>신고귀속</th>
@@ -49,8 +49,8 @@
 								<tbody>
 									<c:forEach var="dto" items="${dtos}">
 										<tr>
-											<td style="vertical-align: middle">${dto.imputedYear}</td>
-											<td style="vertical-align: middle">${dto.paymentClassfication}</td>
+											<td style="vertical-align: middle" id="confirmYear">${dto.imputedYear}</td>
+											<td style="vertical-align: middle" id="confirmPaymentClassfication">${dto.paymentClassfication}</td>
 											<td style="vertical-align: middle">${dto.registerName}</td>
 											<td style="vertical-align: middle">${dto.paymentDate}</td>
 											<td style="vertical-align: middle">${dto.paymentYear}</td>
@@ -70,9 +70,9 @@
 												class="btn btn-success"
 												data-target="#Specification-workRecord" data-toggle="modal">
 													<i class="glyphicon glyphicon-list-alt"></i>명세서
-											</a> <br> <a id="Confirm" class="btn btn-success"><i
+											</a> <br> <a onclick="Confirm('${dto.imputedYear}','${dto.paymentClassfication}');" class="btn btn-success"><i
 													class="glyphicon glyphicon-ok"></i>확정</a> <a
-												onclick="Delete();" class="btn btn-danger"><i
+												onclick="Delete('${dto.imputedYear}','${dto.paymentClassfication}');" class="btn btn-danger"><i
 													class="glyphicon glyphicon-trash"></i>삭제</a></td>
 											<td style="vertical-align: middle" id="total"><input
 												type="text" style="text-align: right; width: 100px"
@@ -218,7 +218,130 @@
 		</div>
 	</div>
 
-	<div class="modal fade" id="Insert-payroll">
+		<div class="modal fade" id="Insert-payroll">
+			<div class="modal-dialog">
+				<div class="modal-content" style="width: 730px">
+					<!-- header -->
+					<div class="modal-header">
+						<!-- 닫기(x) 버튼 -->
+						<button type="button" class="close" data-dismiss="modal">×</button>
+						<!-- header title -->
+						<h4 class="modal-title">급여정보입력</h4>
+					</div>
+					<!-- body -->
+					<div class="modal-body">
+						<div class="form-group">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12">신고귀속
+							</label>
+							<div style="display: -webkit-inline-box;">
+								<select id="imputedYear"
+									class="form-control col-md-3 col-sm-3 col-xs-12">
+									<option value="2019" selected="selected">2019</option>
+									<option value="2018">2018</option>
+									<option value="2017">2017</option>
+									<option value="2016">2016</option>
+									<option value="2015">2015</option>
+									<option value="2014">2014</option>
+									<option value="2013">2013</option>
+									<option value="2012">2012</option>
+									<option value="2011">2011</option>
+									<option value="2010">2010</option>
+								</select> <select id="imputedMonth"
+									class="form-control col-md-3 col-sm-3 col-xs-12">
+									<option value="01" selected="selected">1월</option>
+									<option value="02">2월</option>
+									<option value="03">3월</option>
+									<option value="04">4월</option>
+									<option value="05">5월</option>
+									<option value="06">6월</option>
+									<option value="07">7월</option>
+									<option value="08">8월</option>
+									<option value="09">9월</option>
+									<option value="10">10월</option>
+									<option value="11">11월</option>
+									<option value="12">12월</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12">급여구분
+							</label>
+							<div style="display: -webkit-inline-box;">
+								<select id="paymentClassfication"
+									class="form-control col-md-3 col-sm-3 col-xs-12">
+									<option value="급여" selected="selected">급여</option>
+									<option value="상여">상여</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12">대상기간
+							</label>
+							<div style="display: -webkit-inline-box;">
+								<input type="date" id="beginningPeriod">~<input
+									type="date" id="endPeriod">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12">지급일
+							</label>
+							<div style="display: -webkit-inline-box;">
+								<input type="date" id="paymentDate">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12">지급연월
+							</label>
+							<div style="display: -webkit-inline-box;">
+								<select id="paymentYear"
+									class="form-control col-md-3 col-sm-3 col-xs-12">
+									<option value="2019" selected="selected">2019</option>
+									<option value="2018">2018</option>
+									<option value="2017">2017</option>
+									<option value="2016">2016</option>
+									<option value="2015">2015</option>
+									<option value="2014">2014</option>
+									<option value="2013">2013</option>
+									<option value="2012">2012</option>
+									<option value="2011">2011</option>
+									<option value="2010">2010</option>
+								</select> <select id="paymentMonth"
+									class="form-control col-md-3 col-sm-3 col-xs-12">
+									<option value="01" selected="selected">1월</option>
+									<option value="02">2월</option>
+									<option value="03">3월</option>
+									<option value="04">4월</option>
+									<option value="05">5월</option>
+									<option value="06">6월</option>
+									<option value="07">7월</option>
+									<option value="08">8월</option>
+									<option value="09">9월</option>
+									<option value="10">10월</option>
+									<option value="11">11월</option>
+									<option value="12">12월</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12">급여대장명칭
+							</label>
+							<div style="display: -webkit-inline-box;">
+								<input type="text" id="registerName"
+									class="form-control col-md-3 col-sm-3 col-xs-12">
+							</div>
+						</div>
+					</div>
+					<!-- Footer -->
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" onclick="InsertPayroll();">저장</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+
+	<div class="modal fade" id="Copy-payroll">
 		<div class="modal-dialog">
 			<div class="modal-content" style="width: 730px">
 				<!-- header -->
@@ -226,170 +349,49 @@
 					<!-- 닫기(x) 버튼 -->
 					<button type="button" class="close" data-dismiss="modal">×</button>
 					<!-- header title -->
-					<h4 class="modal-title">급여정보입력</h4>
+					<h4 class="modal-title">급여복사</h4>
 				</div>
 				<!-- body -->
 				<div class="modal-body">
-					<div class="form-group">
-						<label class="control-label col-md-3 col-sm-3 col-xs-12">신고귀속
-						</label>
-						<div style="display: -webkit-inline-box;">
-							<select name="imputedYear"
-								class="form-control col-md-3 col-sm-3 col-xs-12">
-								<option value="2018" selected="selected">2019</option>
-								<option value="2017">2017</option>
-								<option value="2016">2016</option>
-								<option value="2015">2015</option>
-								<option value="2014">2014</option>
-								<option value="2013">2013</option>
-								<option value="2012">2012</option>
-								<option value="2011">2011</option>
-								<option value="2010">2010</option>
-							</select> <select name="imputedMonth"
-								class="form-control col-md-3 col-sm-3 col-xs-12">
-								<option value="-01" selected="selected">1월</option>
-								<option value="-02">2월</option>
-								<option value="-03">3월</option>
-								<option value="-04">4월</option>
-								<option value="-05">5월</option>
-								<option value="-06">6월</option>
-								<option value="-07">7월</option>
-								<option value="-08">8월</option>
-								<option value="-09">9월</option>
-								<option value="-10">10월</option>
-								<option value="-11">11월</option>
-								<option value="-12">12월</option>
-							</select>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="control-label col-md-3 col-sm-3 col-xs-12">급여구분
-						</label>
-						<div style="display: -webkit-inline-box;">
-							<select name="paymentClassfication"
-								class="form-control col-md-3 col-sm-3 col-xs-12">
-								<option value="급여" selected="selected">급여</option>
-								<option value="상여">상여</option>
-							</select>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="control-label col-md-3 col-sm-3 col-xs-12">대상기간
-						</label>
-						<div style="display: -webkit-inline-box;">
-							<input type="date" name="beginningPeriod">~<input
-								type="date" name="endPeriod">
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="control-label col-md-3 col-sm-3 col-xs-12">지급일
-						</label>
-						<div style="display: -webkit-inline-box;">
-							<input type="date" name="paymentDate">
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="control-label col-md-3 col-sm-3 col-xs-12">지급연월
-						</label>
-						<div style="display: -webkit-inline-box;">
-							<select name="imputedYear"
-								class="form-control col-md-3 col-sm-3 col-xs-12">
-								<option value="2018" selected="selected">2019</option>
-								<option value="2017">2017</option>
-								<option value="2016">2016</option>
-								<option value="2015">2015</option>
-								<option value="2014">2014</option>
-								<option value="2013">2013</option>
-								<option value="2012">2012</option>
-								<option value="2011">2011</option>
-								<option value="2010">2010</option>
-							</select> <select name="imputedMonth"
-								class="form-control col-md-3 col-sm-3 col-xs-12">
-								<option value="-01" selected="selected">1월</option>
-								<option value="-02">2월</option>
-								<option value="-03">3월</option>
-								<option value="-04">4월</option>
-								<option value="-05">5월</option>
-								<option value="-06">6월</option>
-								<option value="-07">7월</option>
-								<option value="-08">8월</option>
-								<option value="-09">9월</option>
-								<option value="-10">10월</option>
-								<option value="-11">11월</option>
-								<option value="-12">12월</option>
-							</select>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="control-label col-md-3 col-sm-3 col-xs-12">급여대장명칭
-						</label>
-						<div style="display: -webkit-inline-box;">
-							<input type="text" name="registerName"
-								class="form-control col-md-3 col-sm-3 col-xs-12">
-						</div>
-					</div>
+					<table class="table">
+						<thead>
+							<tr>
+								<td>기준월(From)</td>
+								<td><i class="fa fa-arrow-right"></i></td>
+								<td>복사월(To)</td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><select id="copyPayrollFrom"
+									class="form-control col-md-3 col-sm-3 col-xs-12">
+										<option value="0" selected="selected">▼선택</option>
+										<c:forEach var="dto" items="${dtosC}">
+											<option
+												value="${dto.paylistNum}">${dto.imputedYear}-${dto.paymentClassfication}</option>
+										</c:forEach>
+								</select></td>
+								<td><i class="fa fa-arrow-right"></i></td>
+								<td><select id="copyPayrollTo"
+									class="form-control col-md-3 col-sm-3 col-xs-12">
+										<option value="0" selected="selected">▼선택</option>
+										<c:forEach var="dto" items="${dtosC}">
+											<option
+												value="${dto.paylistNum}">${dto.imputedYear}-${dto.paymentClassfication}</option>
+										</c:forEach>
+								</select></td>
+							</tr>
+						</tbody>
+					</table>
+
 				</div>
 				<!-- Footer -->
 				<div class="modal-footer">
-					<button type="submit" class="btn btn-primary">저장</button>
+					<button type="button" class="btn btn-primary"
+						onclick="CopyPayroll();">복사</button>
 					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
 				</div>
 			</div>
-		</div>
-	</div>
-
-	<div class="modal fade" id="Copy-payroll">
-		<div class="modal-dialog">
-			<form action="insertPayroll" method="post">
-				<div class="modal-content" style="width: 730px">
-					<!-- header -->
-					<div class="modal-header">
-						<!-- 닫기(x) 버튼 -->
-						<button type="button" class="close" data-dismiss="modal">×</button>
-						<!-- header title -->
-						<h4 class="modal-title">급여복사</h4>
-					</div>
-					<!-- body -->
-					<div class="modal-body">
-						<table class="table">
-							<thead>
-								<tr>
-									<td>기준월(From)</td>
-									<td><i class="fa fa-arrow-right"></i></td>
-									<td>복사월(To)</td>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td><select id="copyPayrollFrom"
-										class="form-control col-md-3 col-sm-3 col-xs-12">
-											<option value="0" selected="selected">▼선택</option>
-											<c:forEach var="dto" items="${dtosC}">
-												<option
-													value="${dto.imputedYear}-${dto.paymentClassfication}">${dto.imputedYear}-${dto.paymentClassfication}</option>
-											</c:forEach>
-									</select></td>
-									<td><i class="fa fa-arrow-right"></i></td>
-									<td><select id="copyPayrollTo"
-										class="form-control col-md-3 col-sm-3 col-xs-12">
-											<option value="0" selected="selected">▼선택</option>
-											<c:forEach var="dto" items="${dtosC}">
-												<option
-													value="${dto.imputedYear}-${dto.paymentClassfication}">${dto.imputedYear}-${dto.paymentClassfication}</option>
-											</c:forEach>
-									</select></td>
-								</tr>
-							</tbody>
-						</table>
-
-					</div>
-					<!-- Footer -->
-					<div class="modal-footer">
-						<button type="button" class="btn btn-primary" onclick="CopyPayroll();">복사</button>
-						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-					</div>
-				</div>
-			</form>
 		</div>
 	</div>
 

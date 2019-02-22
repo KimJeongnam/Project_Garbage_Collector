@@ -1087,14 +1087,14 @@ public class AdminServiceImpl extends Board implements AdminService {
 
 	@Override
 	public Map<String, Object> insertPayroll(Map<String, Object> map) {
-		payrollVO vo = new payrollVO();
+		/*payrollVO vo = new payrollVO();
 		vo.setImputedYear((String)map.get("imputedYear") + (String)map.get("imputedMonth"));
 		vo.setPaymentClassfication((String)map.get("paymentClassfication"));
 		vo.setBeginningPeriod((Date)map.get("beginningPeriod"));
 		vo.setEndPeriod((Date)map.get("endPeriod"));
 		vo.setPaymentDate((Date)map.get("paymentDate"));
 		vo.setPaymentYear((String)map.get("paymentYear") + (String)map.get("paymentMonth"));
-		vo.setRegisterName((String)map.get("registerName"));
+		vo.setRegisterName((String)map.get("registerName"));*/
 
 		/*System.out.println("imputedYear : " + map.get("imputedYear") + map.get("imputedMonth"));
 		System.out.println("paymentClassfication :" + map.get("paymentClassfication"));
@@ -1103,7 +1103,7 @@ public class AdminServiceImpl extends Board implements AdminService {
 		System.out.println("paymentYear :" + map.get("paymentYear") + map.get("paymentMonth"));
 		System.out.println("registerName :" + map.get("registerName"));*/
 
-		int cnt = dao.insertPayroll(vo);
+		int cnt = dao.insertPayroll(map);
 		
 		Map<String, Object> responseData = new HashMap<String,Object>();
 		if (cnt == 1) {
@@ -1140,16 +1140,16 @@ public class AdminServiceImpl extends Board implements AdminService {
 	@Override
 	public Map<String, Object> SaveEnterAmountManually(List<Map<String, Object>> data, Logger logger) {
 		
-			int cnt = dao.SaveEnterAmountManually(data);
-			//int cnt2 = dao.updateOverPay(list);
-			//int cnt1 = cnt1+ cnt2; 
-			Map<String, Object> responseData = new HashMap<String,Object>();
-			if(cnt != 0) {
-				responseData.put("message","저장이 완료되었습니다");
-			} else {
-				responseData.put("message","SaveEnterAmountManually() Error");
-			}
-			return responseData;
+		int cnt = dao.SaveEnterAmountManually(data);
+		//int cnt2 = dao.updateOverPay(list);
+		//int cnt1 = cnt1+ cnt2; 
+		Map<String, Object> responseData = new HashMap<String,Object>();
+		if(cnt != 0) {
+			responseData.put("message","저장이 완료되었습니다");
+		} else {
+			responseData.put("message","SaveEnterAmountManually() Error");
+		}
+		return responseData;
 	}
 
 	@Override
@@ -1173,9 +1173,11 @@ public class AdminServiceImpl extends Board implements AdminService {
 	@Override
 	public Map<String, Object> CopyPayroll(Map<String, Object> map) {
 		List<payrollVO> empNumber = dao.getEmpNumber();
-		//int cnt1 = dao.insertPayroll(empNumber);
-		int cnt = dao.CopyPayroll(map);
+		int cnt1 = dao.CopyAllEmployeesDetail(empNumber);
 		
+		// mapper 없음
+		int cnt2 = dao.CopyPayroll(map);
+		int cnt= cnt1 + cnt2;
 		Map<String, Object> responseData = new HashMap<String,Object>();
 		if(cnt != 0) {
 			responseData.put("message","저장이 완료되었습니다");

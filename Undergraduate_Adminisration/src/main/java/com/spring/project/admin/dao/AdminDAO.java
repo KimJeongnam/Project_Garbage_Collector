@@ -156,7 +156,7 @@ public interface AdminDAO {
 	
 	public List<payrollVO> accountFacultyList(Map<String, Object> map);
 	
-	public int insertPayroll(payrollVO vo);
+	public int insertPayroll(Map<String, Object> map);
 	
 	public int ConfirmationWorkRecord(List<Map<String, Object>> data);
 	
@@ -171,5 +171,7 @@ public interface AdminDAO {
 	public int CopyPayroll(Map<String, Object> map);
 	
 	public List<payrollVO> getEmpNumber();
+	
+	public int CopyAllEmployeesDetail(List<payrollVO> empNumber);
 	//---------------회계 관리 END -------------------
 }
