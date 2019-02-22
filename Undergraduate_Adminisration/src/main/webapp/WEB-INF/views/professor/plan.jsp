@@ -8,20 +8,10 @@
     <%@ include file="../Basic/settings.jsp" %>
     <title>Insert title here</title>
 </head>
-
 <body class="nav-md">
-    <%@ include file="../Basic/navbar.jsp" %>
-<c:if test="${empty vo1}">
-    <script type="text/javascript">
-        swal({
-    		text:"개강한 강의가 없습니다. 이전 페이지로 돌아갑니다.",
-    		button:"확인",
-    	});
-        history.back();
-
-    </script>
-</c:if>
+    
 <c:if test="${!empty vo1}">
+<%@ include file="../Basic/navbar.jsp" %>
     <!-- page content -->
     <div class="right_col" role="main">
         <div class="">
@@ -69,9 +59,9 @@
         </div>
     </div>
     <!-- /page content -->
+    <%@ include file="../Basic/footer.jsp" %>
 </c:if>
 
-    <%@ include file="../Basic/footer.jsp" %>
         
         <script>
         
@@ -153,7 +143,19 @@
             }
       
         </script>
+<c:if test="${empty vo1}">
+<%@ include file="../Basic/footer.jsp" %>
+    <script type="text/javascript">
+    swal({
+		text:"개강한 수업이 없습니다. 이전 페이지로 돌아갑니다.",
+		button:"확인",
+	}).then((value)=>{
+		if(value)
+			history.back();
+	});
 
+    </script>
+</c:if>
 </body>
 
 </html>
