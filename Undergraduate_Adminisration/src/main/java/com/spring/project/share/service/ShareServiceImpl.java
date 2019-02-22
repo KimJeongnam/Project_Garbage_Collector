@@ -204,6 +204,11 @@ public class ShareServiceImpl implements ShareService{
 		model.addAttribute("semester", semester);
 		model.addAttribute("empNumber", empNumber);
 	}
+
+	@Override
+	public String loginFailEvent(String id, String pw) {
+		return dao.loginFailEvent(id, pw);
+	}
 	
 	
 	

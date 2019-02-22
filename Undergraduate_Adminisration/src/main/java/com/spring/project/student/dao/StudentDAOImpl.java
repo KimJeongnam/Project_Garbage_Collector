@@ -122,8 +122,14 @@ public class StudentDAOImpl implements StudentDAO{
 	}
 	//수강중 과제
 	@Override
-	public List<report_tblVO> s_report(String userNumber) {
-		return sqlSession.selectList("com.spring.project.student.dao.StudentDAO.s_report",userNumber);
+	public List<report_tblVO> s_report(Map<String, Object> map) {
+		return sqlSession.selectList("com.spring.project.student.dao.StudentDAO.s_report",map);
+	}
+	//과제 내용
+	@Override
+	public report_tblVO reportcontent(Map<String, Object> map) {
+		return sqlSession.selectOne("com.spring.project.student.dao.StudentDAO.reportcontent",map);
+		
 	}
 	
 	//장학금 글 갯수

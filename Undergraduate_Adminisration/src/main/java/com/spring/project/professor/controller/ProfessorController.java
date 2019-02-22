@@ -189,19 +189,15 @@ public class ProfessorController {
 		}
 		////////////////////////////////////////강의계획서 끝		
 				
-		
-		
-		
-		
 		// 위로 jeong to the chi to the ho!
 		
 		//밑으로  park to the dae to the guen! 
 		
-		
 		//과제관리
 		@RequestMapping("/professor/report")
-		public String report() {
+		public String report(HttpServletRequest req ,Model model) {
 			logger.info("report()");
+			service.report(req, model);
 			return "professor/report";
 		}
 		

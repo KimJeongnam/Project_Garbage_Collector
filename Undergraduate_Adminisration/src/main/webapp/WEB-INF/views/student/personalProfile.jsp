@@ -266,14 +266,13 @@
 																			<div class="x_title">
 																				<h2>과제 관리</h2>
 																				<div class="btn-group" style="float: right">
-																					<button data-toggle="dropdown"
-																						class="btn btn-default dropdown-toggle" type="button">
-																						진행중인 강의 선택 <span class="caret"></span>
-																					</button>
-																					<ul class="dropdown-menu">
-																					<c:forEach var="dto" items="${dtos}">
-																						<li><a onchange="">${dto.lectureName}</a></li>
-																					</c:forEach>
+																					<select class="form-control input-sm"
+																						id="mystatus"
+																						onchange="reportlist('${userNumber}');">
+																							<c:forEach var="dto" items="${dtos}">
+																								<option value="${dto.lectureName}">${dto.lectureName}</option>
+																							</c:forEach>
+																					</select>
 																					</ul>
 																				</div>
 																				<div class="clearfix"></div>
@@ -283,7 +282,7 @@
 																					<div>
 																						<h4>과제리스트</h4>
 																						<!-- end of user messages -->
-																						<table class="data table table-striped no-margin">
+																						<%-- <table class="data table table-striped no-margin">
 																							<thead>
 																								<tr>
 																									<th>과제 번호</th>
@@ -293,9 +292,10 @@
 																									<th>진행 상태</th>
 																								</tr>
 																							</thead>
+																							<div id="rerortList" class=""></div>
 																							<tbody>
 																							<c:forEach items="${dtos2}" var="dto">
-																							<%-- <c:forEach var="dto" items="${dtos}"> --%>
+																							<c:forEach var="dto" items="${dtos}">
 																								<tr>
 																									<td>${dto.lecCode}</td>
 																									<td>${dto.year}</td>
@@ -311,7 +311,7 @@
 																								</tr>
 																							</c:forEach>
 																							</tbody>
-																						</table>
+																						</table> --%>
 																						<!-- <ul class="messages">
 																							<li><img src="../resources/images/img.jpg" class="avatar" alt="Avatar">
 																								<div class="message_date">
@@ -345,15 +345,11 @@
 																									</p>
 																								</div>
 																							</li>
-																						</ul> -->
+																						</ul> --><div id="reprotList" class=""></div>
 																						<!-- end of user messages -->
 																					</div>
 																				</div>
-																				
-																				<div id="bulletinList" class=""></div>
-																				<!-- start project-detail sidebar -->
-																				 
-																				<!-- end project-detail sidebar -->
+																				<div id="reportcontent" class=""></div>
 																			</div>
 																		</div>
 																	</div>
@@ -415,6 +411,14 @@
 		}).open();
 	});
 	};
+	
+	
+	$("#mystatus option:eq(0)").prop("selected", true);
+	
+	$(function() {
+		reportlist('${userNumber}');
+		});
+
 	</script>
 </body>
 </html>
