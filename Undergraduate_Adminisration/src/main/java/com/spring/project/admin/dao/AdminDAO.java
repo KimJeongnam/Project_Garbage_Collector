@@ -138,6 +138,7 @@ public interface AdminDAO {
 	
 	//---------------교직 업무 관리 END-------------------
 	
+	//---------------회계 관리 START -------------------
 	public List<payrollVO> payrollList();
 	
 	public List<payrollVO> getFacultyList();
@@ -154,11 +155,18 @@ public interface AdminDAO {
 	
 	public int insertPayroll(payrollVO vo);
 	
-	public int ConfirmationWorkRecord(List<Map<String, Object>> list);
+	public int ConfirmationWorkRecord(List<Map<String, Object>> data);
 	
-	public int updateOverPay(List<Map<String, Object>> list);
+	public int updateOverPay(List<Map<String, Object>> data);
 	
 	public int SaveEnterAmountManually(List<Map<String, Object>> list);
 	
 	public List<String> getUserCellNumList(Map<String, Object> map);
+	
+	public List<payrollVO> ConfirmOvertime(Map<String, Object> map);
+	
+	public int CopyPayroll(Map<String, Object> map);
+	
+	public List<payrollVO> getEmpNumber();
+	//---------------회계 관리 END -------------------
 }

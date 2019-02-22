@@ -121,12 +121,21 @@ public interface AdminService {
 	
 	public void facultyMajorConfirmation(Map<String, Object> map, Model model);
 	
-	public void insertPayroll(HttpServletRequest req,  RedirectAttributes red);
+	public Map<String, Object> insertPayroll(Map<String, Object> map);
 	
-	public void ConfirmationWorkRecord(HttpServletRequest req, RedirectAttributes red);
+	public Map<String, Object> ConfirmationWorkRecord(List<Map<String, Object>> data, Logger logger);
 	
-	public void SaveEnterAmountManually(HttpServletRequest req, RedirectAttributes red);
-	//---------------회계 START-------------------
+	public Map<String, Object> SaveEnterAmountManually(List<Map<String, Object>> data, Logger logger);
+	
+	public void ConfirmOvertime(Map<String, Object> map, Model model);
+	
+	public void EnterAmountManually(Map<String, Object> map, Model model);
+	
+	public void LookupWorkRecord(Map<String, Object> map, Model model);
+	
+	public Map<String, Object> CopyPayroll(Map<String, Object> map);
+	
+	//---------------회계 END-------------------
 	
 	//메시지 전송부
 	public List<String> getUserCellNumList(Map<String, Object> map);
