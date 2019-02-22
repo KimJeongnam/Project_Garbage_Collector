@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.spring.project.restful.vo.Message;
+import com.spring.project.restful.vo.RestUser;
 import com.spring.project.share.dao.ShareDAO;
 
 @Repository
@@ -50,4 +51,13 @@ public class RestfulDAOImpl implements RestfulDAO{
 		return sqlSession.insert("com.spring.project.restful.dao"
 				+ ".RestfulDAO.sendMessage", map);
 	}
+
+	
+	//---------------------------Android-START---------------------------------
+	@Override
+	public RestUser getUser(Map<String, Object> map) {
+		return sqlSession.selectOne("com.spring.project.restful.dao"
+				+ ".RestfulDAO.getUser", map);
+	}
+	//---------------------------Android-END---------------------------------
 }

@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 
 import com.spring.project.restful.dao.RestfulDAO;
 import com.spring.project.restful.vo.Message;
+import com.spring.project.restful.vo.ResponseData;
+import com.spring.project.restful.vo.RestUser;
 import com.spring.project.share.dao.ShareDAO;
 import com.spring.project.share.vo.Major;
 
@@ -24,11 +26,10 @@ public class RestfulServiceImpl implements RestfulService {
 	@Autowired
 	ShareDAO shareDao;
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Map<String, List<Message>> getMessages(Map<String, Object> map, HttpServletRequest request, Logger logger) {
 		Map<String, List<Message>> result = new HashMap<String, List<Message>>();
-		String userNumber = (String) map.get("userNumber");
-
 		map.put("readStatus",  0);
 		
 		List<Message> sessionMessages = null;
@@ -96,4 +97,35 @@ public class RestfulServiceImpl implements RestfulService {
 		response.put("result",  dao.sendMessage(map));
 		return response;
 	}
+	
+	//---------------------------Android-START---------------------------------
+	@Override
+	public ResponseData studentLogin(Map<String, Object> map) {
+		ResponseData responseData = new ResponseData();
+		RestUser user = dao.getUser(map);
+		int status = 0;
+		String message = "";
+		
+		message = "로그인 실패 없는 아이디 입니다.";
+		
+		if(user != null) {
+			
+			if(user.getDelStatus()==1)
+				message = "로그인 실패! '삭제된 회원 입니다. 관리자에게 문의 하세요.'";
+			String pw = user.getUserPassword();
+			
+			if(pw.equals((String)map.get("userPassword"))) {
+				message = "로그인 성공!";
+				status=1;
+				responseData.setData(user);
+			}else {
+				message = "로그인 실패 '비밀번호'가 다릅니다.!";
+			}
+		}
+		
+		responseData.setStatus(status);
+		responseData.setMessage(message);
+		return responseData;
+	}	
+	//---------------------------Android-END---------------------------------
 }

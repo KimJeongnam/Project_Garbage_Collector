@@ -20,9 +20,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.spring.project.admin.service.AdminService;
 import com.spring.project.restful.service.RestfulService;
 import com.spring.project.restful.vo.Message;
+import com.spring.project.restful.vo.ResponseData;
 import com.spring.project.share.vo.Major;
 import com.spring.project.student.vo.LectureVO;
 
+// ****************************************************** 김 정 남 ******************************************************
 @Controller
 public class RestfulController {
 	@Autowired
@@ -76,4 +78,12 @@ public class RestfulController {
 	public Map<String, Object> sendMessage(@RequestBody Map<String, Object> map) {
 		return service.sendMessage(map);
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/rest/api/v.1.0/login/student", method=RequestMethod.POST)
+	public ResponseData studentLogin(@RequestBody Map<String, Object> map) {
+		logger.info("studentLogin");
+		return service.studentLogin(map);
+	}
 }
+//****************************************************** 김 정 남 ******************************************************
