@@ -3,6 +3,7 @@ package com.spring.project.share.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.naming.spi.DirStateFactory.Result;
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -60,9 +61,12 @@ public class ShareController {
 	}
 
 	@RequestMapping("/loginFail")
-	public String loginFail(RedirectAttributes redirectAttributes) {
+	public String loginFail(HttpServletRequest request, RedirectAttributes redirectAttributes) {
 		logger.info("loginFail()");
-		redirectAttributes.addFlashAttribute("message", "로그인 실패!! 아이디 혹은 비밀번호가 다릅니다.!");
+		String id = request.getParameter("id");
+		String pw = request.getParameter("pw");
+		String message = shareService.loginFailEvent(id, pw);
+		redirectAttributes.addFlashAttribute("message", message);
 		redirectAttributes.addFlashAttribute("alertIcon", "error");
 		return "redirect:/loginForm";
 	}
@@ -115,4 +119,14 @@ public class ShareController {
 		adminService.getLectureTime(lecCode, model);
 		return "admin/majorLecMangePage/lectureTimeSelector";
 	}
+
+	// 해당 교수의 강의시간 조회
+	@RequestMapping(value = "/share/professor/getLecTime/{empNumber}/{semester}", method = RequestMethod.GET)
+	public String getEmptyLecTime(@PathVariable String empNumber, @PathVariable String semester, Model model) {
+		logger.info("getEmptyLecTime()");
+		shareService.getProfessorLectureTime(empNumber, semester, model);
+		return "admin/majorLecMangePage/lectureTimeSelector";
+	}
+	
+	
 }

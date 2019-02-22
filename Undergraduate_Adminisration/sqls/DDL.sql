@@ -1229,3 +1229,40 @@ CREATE SEQUENCE report_submit_seq
     INCREMENT BY 1;
     
 ALTER SEQUENCE report_submit_seq NOCACHE;
+
+CREATE TABLE lectureSelectPeriod
+(
+    Year                  NVARCHAR2(20)    NOT NULL, 
+    semester              NUMBER(1)        NOT NULL, 
+    startSelectLecture    DATE             NOT NULL, 
+    endSelectLecture      DATE             NOT NULL, 
+    OPENINGDAY            DATE             NOT NULL, 
+    GARDEOPENINGDAY       DATE             NOT NULL, 
+    ENDINGDAY             DATE             NOT NULL, 
+    CONSTRAINT LECTURESELECTPERIOD_PK PRIMARY KEY (Year, semester)
+)
+/
+
+COMMENT ON TABLE lectureSelectPeriod IS '수강 신청 기간'
+/
+
+COMMENT ON COLUMN lectureSelectPeriod.Year IS '년도'
+/
+
+COMMENT ON COLUMN lectureSelectPeriod.semester IS '학기'
+/
+
+COMMENT ON COLUMN lectureSelectPeriod.startSelectLecture IS '시작일'
+/
+
+COMMENT ON COLUMN lectureSelectPeriod.endSelectLecture IS '종료일'
+/
+
+COMMENT ON COLUMN lectureSelectPeriod.OPENINGDAY IS '개강일'
+/
+
+COMMENT ON COLUMN lectureSelectPeriod.GARDEOPENINGDAY IS '학점입력 시작일'
+/
+
+COMMENT ON COLUMN lectureSelectPeriod.ENDINGDAY IS '종강일'
+/

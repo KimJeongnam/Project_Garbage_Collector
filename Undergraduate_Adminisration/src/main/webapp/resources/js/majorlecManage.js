@@ -1,6 +1,7 @@
 // 단과대 세팅
 var setFacultys = function(facultys) {
 	$('#college').empty();
+	
 
 	$('#college').append($('<option>', {
 		value : '0',
@@ -79,7 +80,7 @@ function setMode(args){
 		$('#majorModalDelBtn').attr({
 			onclick : "deleteMajor('"+majorNum+"');",
 			hidden : false
-		})
+		});
 	}
 }
 // 학과 조회

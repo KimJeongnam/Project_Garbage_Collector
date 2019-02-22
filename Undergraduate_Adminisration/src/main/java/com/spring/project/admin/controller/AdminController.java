@@ -136,29 +136,29 @@ public class AdminController {
 		return "admin/facultyManage";
 	}
 
-	// 학생인서트페이지
+	//학생인서트페이지
 	@RequestMapping("/admin/stdInsert2")
 	public String stdInsert2(HttpServletRequest req, Model model) {
 		service.fandMList(req, model);
-		return "admin/HRD/stdInsert2";
-	}
+		return "admin/HRD/stdInsert2"; 
+	} 
 
-	// 교수인서트페이지
-	@RequestMapping("/admin/proInsert2")
+	//교수인서트페이지
+	@RequestMapping("/admin/proInsert2") 
 	public String proInsert2(HttpServletRequest req, Model model) {
 		service.fandMList(req, model);
 		return "admin/HRD/proInsert2";
 	}
 
-	// admin - 학생 등록처리
-	@RequestMapping(value = "/admin/stdInsertPro", method = RequestMethod.POST)
+	//admin - 학생 등록처리
+	@RequestMapping(value="/admin/stdInsertPro",method=RequestMethod.POST )
 	public String stdInsertPro(MultipartHttpServletRequest req, RedirectAttributes red) {
 		service.stdInputPro(req, red);
 		return "redirect:/admin/empStdManagement";
 	}
 
-	// admin - 교수 등록처리
-	@RequestMapping(value = "/admin/proInsertPro", method = RequestMethod.POST)
+	//admin - 교수 등록처리
+	@RequestMapping(value="/admin/proInsertPro",method=RequestMethod.POST )
 	public String proInsertPro(MultipartHttpServletRequest req, RedirectAttributes red) {
 		service.ProInputPro(req, red);
 		return "redirect:/admin/empStdManagement";
@@ -172,81 +172,77 @@ public class AdminController {
 		return "admin/HRD/empStdManagement";
 	}
 
-	// 학생상세정보
-	@RequestMapping("/admin/stdMyPage")
-	public String stdMyPage(Map<String, Object> map, HttpServletRequest req, Model model) {
-		service.showStdDetail(map, req, model);
-
-		return "admin/HRD/stdMyPage";
-	}
-
-	// 전화번호부 가져오기
+	//전화번호부 가져오기
 	@ResponseBody
 	@RequestMapping(value = "/admin/ajax/sendSMSMessage", method = RequestMethod.POST)
-	public Map<String, Object> sendSMSMessage(@RequestBody Map<String, Object> map) {
+	public Map<String, Object> sendSMSMessageStd(@RequestBody Map<String, Object> map) {
 		logger.info("sendSMSMessage" + map.get("authority"));
 
 		Map<String, Object> result = new HashMap<String, Object>();
 
 		try {
-
-			// Role(Authority)의 핸드폰 번호 조회
+			//Role(Authority)의 핸드폰 번호 조회
 			List<String> userCellNumList = service.getUserCellNumList(map);
 
-			// AWS SNS Service, SMS 전송
+			//AWS SNS Service, SMS 전송
 			AWSUtil.sendSMSMessage(userCellNumList, map.get("msg").toString());
 			result.put("result", "success");
-		} catch (Exception e) {
+		}catch(Exception e) {
 			logger.error(e.getMessage());
 			result.put("result", "fail");
-
 		}
-
 		return result;
 	}
 
-	// 학생조회 탭 클릭 시
-	@RequestMapping(value = "/admin/list/class_click", method = RequestMethod.POST)
-	public String getStudent(@RequestBody Map<String, Object> map, HttpServletRequest req, Model model) {
-		service.showStdDetail(map, req, model);
-		return "admin/HRD/stdMyPage";
-	}
 
-	// 교수상세정보
-	@RequestMapping("/admin/proMyPage")
+
+	//교수상세정보 
+	@RequestMapping("/admin/proMyPage") 
 	public String proMyPage(HttpServletRequest req, Model model) {
 		service.showProDetail(req, model);
 		return "admin/HRD/proMyPage";
 	}
 
-	// 학생이미지 수정
-	@RequestMapping("/admin/userImgUpdate")
-	public String userImgUpdate(MultipartHttpServletRequest req, RedirectAttributes red) {
-		service.userImgUpdate(req, red);
-		String userNumber = req.getParameter("userNumber");
-		req.setAttribute("userNumber", userNumber);
+	//학생상세정보 
+	@RequestMapping("/admin/stdMyPage")
+	public String stdMyPage(Map<String, Object> map, HttpServletRequest req, Model model) {
+		service.showStdDetail(map, req, model);
+		return "admin/HRD/stdMyPage";
+	}
+
+	//학생이미지 수정
+	@RequestMapping("/admin/stdImgUpdate") 
+	public String stdImgUpdate(MultipartHttpServletRequest req, RedirectAttributes red) {
+		service.stdImgUpdate(req, red);
 		return "redirect:/admin/stdMyPage";
 	}
 
-	// 학생정보수정
-	@RequestMapping("/admin/stdDetailUpdate")
-	public String stdDetailUpdate(HttpServletRequest req, RedirectAttributes red) {
-		service.stdDetailUpdate(req, red);
-		return "redirect:/admin/empStdManagement";
+	//교수이미지 수정
+	@RequestMapping("/admin/proImgUpdate") 
+	public String proImgUpdate(MultipartHttpServletRequest req, RedirectAttributes red) {
+		service.stdImgUpdate(req, red);
+		return "redirect:/admin/proMyPage";
 	}
 
-	// 교수정보수정
-	@RequestMapping("/admin/proDetailUpdate")
-	public String proDetailUpdate(HttpServletRequest req, RedirectAttributes red) {
-		service.proDetailUpdate(req, red);
-		return "redirect:/admin/empStdManagement";
+	//학생정보수정
+	@RequestMapping("/admin/stdDetailUpdate") 
+	public String stdDetailUpdate(HttpServletRequest req,  RedirectAttributes model) {
+		service.stdDetailUpdate(req, model);
+		return "redirect:/admin/stdMyPage";
 	}
 
-	// 학생+교수정보삭제
-	@RequestMapping("/admin/stdDeletePro")
+	//교수정보수정
+	@RequestMapping("/admin/proDetailUpdate") 
+	public String proDetailUpdate(HttpServletRequest req,  RedirectAttributes model) {
+		service.proDetailUpdate(req, model);
+		return "redirect:/admin/proMyPage";
+	}
+
+	//학생+교수정보삭제
+	@RequestMapping("/admin/stdDeletePro") 
 	public String stdDeletePro(HttpServletRequest req, RedirectAttributes red) {
-		service.stdDeletePro(req, red);
-		return "redirect:/admin/empStdManagement";
+		service.stdDeletePro(req, red); 
+		return "redirect:/admin/empStdManagement"; 
 	}
 
 	// 휴복학 리스트
@@ -255,6 +251,7 @@ public class AdminController {
 		service.schoolLeaveList(req, model);
 		return "admin/HRD/schoolLeaveList";
 	}
+
 
 	@RequestMapping("/admin/menu7")
 	public String menu7() {
@@ -395,6 +392,16 @@ public class AdminController {
 		return service.insertPayroll(map);
 	}
 
+	@RequestMapping("/admin/insertPayroll")
+	public String insertPayroll(HttpServletRequest req, RedirectAttributes red) {
+	//service.insertPayroll(req, red);
+
+		return "redirect:/admin/facultyAccountManage";
+	}
+		
+		
+		//---------------------------------회계 관리 END------------------------------------------
+	
 	//
 	@ResponseBody
 	@RequestMapping(value="/admin/ConfirmationWorkRecord", method= RequestMethod.POST)
@@ -425,7 +432,7 @@ public class AdminController {
 		return "admin/accountingManagement/EnterAmountManually";
 	}
 
-	// 조회
+	// 복사
 	@RequestMapping(value = "/admin/LookupWorkRecord", method = RequestMethod.POST)
 	public String LookupWorkRecord(@RequestBody Map<String, Object> map, Model model) {
 		service.LookupWorkRecord(map, model);
@@ -440,9 +447,29 @@ public class AdminController {
 		return service.CopyPayroll(map);
 	}
 	
-	
-	// ---------------------------------회계 관리
-	// END------------------------------------------
-}
 
 // ---------------------------------회계관리END------------------------------------------
+	
+	
+	
+	
+	// ---------------------------------학사 수업업무START------------------------------------------
+	@RequestMapping("/admin/lec_score_Management/lecManagement")
+	public String lecManagement() {
+		logger.info("lecManagement()");
+		return "admin/lec_score_Management/lecManagement";
+	}
+	// ---------------------------------학사 수업업무END------------------------------------------
+	
+	
+	
+	// ---------------------------------학사 성적(?)업무START------------------------------------------
+	@RequestMapping("/admin/lec_score_Management/scoreManagement")
+	public String scoreManagement() {
+		logger.info("scoreManagement()");
+		return "admin/lec_score_Management/scoreManagement";
+	}
+	// ---------------------------------학사 성적(?)업무END------------------------------------------
+	
+	
+}

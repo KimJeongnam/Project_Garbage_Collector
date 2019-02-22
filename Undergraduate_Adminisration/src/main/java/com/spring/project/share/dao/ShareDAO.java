@@ -19,6 +19,8 @@ public interface ShareDAO {
 	public List<String> getFacultys();
 	public int getMajorCurrval();
 	public List<Major> getMajors(Map<String, Object> map);
+	public String idCheck(String id);
+	public String loginFailEvent(String id, String pw);
 	
 	public static String getQuery(SqlSession sqlSession, String queryId, Object sqlParam) {
 		BoundSql boundSql = sqlSession.getConfiguration().getMappedStatement(queryId).getSqlSource()
@@ -36,4 +38,5 @@ public interface ShareDAO {
 		}
 		return query1;
 	}
+	 
 }

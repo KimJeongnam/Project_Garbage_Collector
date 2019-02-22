@@ -10,15 +10,6 @@
 </head>
 
 
-<c:if test="${empty s_myClass}">
-    <script type="text/javascript">
-        alert("학점입력기간이 아닙니다. 이전 페이지로 돌아갑니다.");
-        history.back();
-
-    </script>
-</c:if>
-
-
 <c:if test="${!empty s_myClass}">
 
     <body class="nav-md">
@@ -146,4 +137,19 @@
     </body>
 </c:if>
 
+
+
+<c:if test="${empty s_myClass}">
+ <%@ include file="../Basic/footer.jsp" %>
+    <script type="text/javascript">
+        swal({
+    		text:"학점입력기간이 아닙니다. 이전 페이지로 돌아갑니다.",
+    		button:"확인",
+    	}).then((value)=>{
+    		if(value)
+    			history.back();
+    	});
+
+    </script>
+</c:if>
 </html>

@@ -44,4 +44,10 @@ public class RestfulDAOImpl implements RestfulDAO{
 	public List<Message> getAllmessages(Map<String, Object> map){
 		return null;
 	}
+
+	@Override
+	public int sendMessage(Map<String, Object> map) {
+		return sqlSession.insert("com.spring.project.restful.dao"
+				+ ".RestfulDAO.sendMessage", map);
+	}
 }

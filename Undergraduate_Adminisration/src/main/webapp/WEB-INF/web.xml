@@ -10,6 +10,7 @@
 		<param-value>
 			classpath:/mybatis-context.xml
 			classpath:/security-context.xml
+			classpath:/schedulerContext.xml
 			/WEB-INF/spring/root-context.xml
 		</param-value>
 	</context-param>

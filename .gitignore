@@ -24,4 +24,4 @@ target/
 hs_err_pid*
 
 # image Upload Path
-Config.java
+Undergraduate_Adminisration/src/main/java/com/spring/project/share/Config.java

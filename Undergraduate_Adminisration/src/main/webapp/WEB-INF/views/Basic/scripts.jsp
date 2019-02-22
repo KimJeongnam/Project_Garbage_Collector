@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!-- button id : compose -->
 <!-- 메세지보내기 -->
 <div class="compose col-md-3 col-xs-12">
@@ -12,7 +13,20 @@
 	</div>
 
 	<div class="compose-body">
-		<div id="alerts">받는이 : <span id="compose-sendUser-view"></span>
+		<div id="alerts" style="font-size: 15px;">
+		<sec:authorize access="hasRole('ROLE_ADMIN')">
+		<label>공지
+		</label>
+		<input  type="checkbox" id="msg-notify">
+		</sec:authorize>
+		<sec:authorize access="hasRole('ROLE_PROFESSOR')">
+		<input hidden="true" type="checkbox" id="msg-notify">
+		</sec:authorize>
+		<sec:authorize access="hasRole('ROLE_STUDENT')">
+		<input hidden="true" type="checkbox" id="msg-notify">
+		</sec:authorize>
+			받는이 : <span id="compose-recvUser-view"></span>
+			<input hidden="true" type="text" id="compose-recvUser">
 			<input hidden="true" type="text" id="compose-sendUser">
 		</div>
 		<div id="editor" class="editor-wrapper" style="height: 125px;"></div>
@@ -147,6 +161,9 @@
 	<!-- https://sweetalert.js.org/guides/ -->
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     
+    <!-- https://sweetalert.js.org/guides/ -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    
 	<!-- Custom Theme Scripts -->
     <script src="${staticPath}/build/js/custom.min.js"></script>
     
@@ -163,7 +180,8 @@
     <script src="${staticPath }/js/bulletin/applybulletin.js"></script>
     <script src="${staticPath }/js/adminjanghak/applyresister.js"></script>
     
-   
-	
-    
-
+    <!-- Chart.js -->
+    <script src="${staticPath }/vendors/Chart.js/dist/Chart.min.js"></script>
+    <!-- morris.js -->
+    <script src="${staticPath }/vendors/raphael/raphael.min.js"></script>
+    <script src="${staticPath }/vendors/morris.js/morris.min.js"></script>

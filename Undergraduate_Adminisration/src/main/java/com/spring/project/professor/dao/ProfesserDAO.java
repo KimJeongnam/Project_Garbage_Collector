@@ -60,6 +60,11 @@ public interface ProfesserDAO {
 	List<PlanVO> plan2(String userNumber);
 	List<PlanVO> firstPlan(Map<String, Object> map);
 	List<PlanVO> getPlan(Map<String, Object> map);
+	
+	//강의계획서 입력
+	public int insertPlan(PlanVO vo);
+	public int updatePlan(PlanVO vo);
+
 	//과제관리
 
 	

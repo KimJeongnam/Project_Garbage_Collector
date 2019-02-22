@@ -11,7 +11,17 @@
 
 <body class="nav-md">
     <%@ include file="../Basic/navbar.jsp" %>
+<c:if test="${empty vo1}">
+    <script type="text/javascript">
+        swal({
+    		text:"개강한 강의가 없습니다. 이전 페이지로 돌아갑니다.",
+    		button:"확인",
+    	});
+        history.back();
 
+    </script>
+</c:if>
+<c:if test="${!empty vo1}">
     <!-- page content -->
     <div class="right_col" role="main">
         <div class="">
@@ -27,16 +37,16 @@
                 <div class="col-md-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>총 강의 주차에 맞게 작성해주십시요.</h2>
+                            <h2 id="lecT"></h2>
                             <div class="btn-group" style="float: right">
-                                <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button"> 강의 선택 <span class="caret"></span> </button>
+                                <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" > 강의 선택 <span class="caret"></span> </button>
                                 <ul class="dropdown-menu">
                                     <c:forEach var="vo1" items="${vo1}" varStatus="status">
-                                        <li><a href="#" id="lec">${vo1.lectureName}</a>
+                                        <li onclick="leC('${vo1.lectureName}');"><a href="#" id="lec">${vo1.lectureName}</a>
                                         </li>
                                     </c:forEach>
                                     <c:forEach var="vo2" items="${vo2}" varStatus="status">
-                                        <li><a href="#" onclick="class_click('${vo2.lectureName}')">${vo2.lectureName}</a>
+                                        <li onclick="leC('${vo2.lectureName}');"><a href="#" onclick="class_click('${vo2.lectureName}')">${vo2.lectureName}</a>
                                         </li>
                                     </c:forEach>
                                 </ul>
@@ -59,7 +69,7 @@
         </div>
     </div>
     <!-- /page content -->
-
+</c:if>
 
     <%@ include file="../Basic/footer.jsp" %>
         
@@ -78,7 +88,7 @@
                     contentType: 'application/json;charset=UTF-8',
                     success: function(data) {
                         $('.x_content').html(data); //#x_content로 데이터를 뿌려라.
-
+                        $('#lecT').text(firstLec);
                     },
                     error: function() {
                 		swal({
@@ -137,7 +147,11 @@
                     });
                 });
             });
-
+            
+            function leC(lecName) {
+            	 $('#lecT').text(lecName);
+            }
+      
         </script>
 
 </body>

@@ -35,6 +35,8 @@ public interface ProfessorService {
 	public void plan(HttpServletRequest req, Model model);
 	public void firstPlan(Map<String, Object> map, HttpServletRequest req, Model model);
 	public void getPlan(Map<String, Object> map, HttpServletRequest req, Model model);
+	public void insertPlan(HttpServletRequest req, RedirectAttributes red);
+	public void updatePlan(HttpServletRequest req, RedirectAttributes red);
 	
 	//과제관리
 }
