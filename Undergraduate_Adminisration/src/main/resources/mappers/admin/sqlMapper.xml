@@ -218,7 +218,7 @@
 		   AND e.empNumber = l.empNumber
 		   AND e.empNumber =#{userNumber}
 		   AND l.delstatus = 0
-           AND l.LECSTATUS = 0
+           AND l.LECSTATUS != 3
  	</select>
  	
  	<!--학생 - 강의목록  -->
@@ -233,7 +233,7 @@
 		   AND sc.userNumber = #{userNumber}
 		   AND sc.status = 1
 		   AND l.delstatus = 0
-           AND l.LECSTATUS = 0
+           AND l.LECSTATUS != 3
 	  GROUP BY u.username, l.lecCode, l.majorNum, l.lectureName, l.lectureClassfication, 
 			   l.maximumCapacity, l.grade, l.grantedSemester, l.lectureScore, l.classRoom, 
 			   sc.userNumber, u.userCellNum

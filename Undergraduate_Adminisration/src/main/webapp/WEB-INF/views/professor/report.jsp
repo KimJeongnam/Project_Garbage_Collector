@@ -98,7 +98,7 @@
                                         </div>
                                     </li>
                                     <li>
-                                        <img src="/project/resources/images/img.jpg" class="avatar" alt="Avatar">
+                                        <img src="/project/resources/images/1.jpg" class="avatar" alt="Avatar">
                                         <div class="message_date">
                                             <h3 class="date text-info">24</h3>
                                             <p class="month">1월</p>
@@ -114,7 +114,7 @@
                                         </div>
                                     </li>
                                     <li>
-                                        <img src="/project/resources/images/img.jpg" class="avatar" alt="Avatar">
+                                        <img src="/project/resources/images/1.jpg" class="avatar" alt="Avatar">
                                         <div class="message_date">
                                             <h3 class="date text-info">24</h3>
                                             <p class="month">1월</p>
