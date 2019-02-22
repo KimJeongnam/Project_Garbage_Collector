@@ -40,9 +40,10 @@
                                         <th style="width: 3%; text-align: center">삭제</th>
                                         <th style="width: 6%; text-align: center">연도</th>
                                         <th style="width: 3%; text-align: center">학기</th>
-                                        <th style="width: 10%; text-align: center">수강신청기간</th>
+                                        <th style="width: 10%; text-align: center">수강신청 시작일</th>
+                                        <th style="width: 10%; text-align: center">수강신청 종료일</th>
                                         <th style="width: 10%; text-align: center">개강일</th>
-                                        <th style="width: 10%; text-align: center">학점입력기간</th>
+                                        <th style="width: 10%; text-align: center">학점입력 시작일</th>
                                         <th style="width: 10%; text-align: center">종강일</th>
 
                                     </tr>
@@ -50,35 +51,52 @@
                                 
                                 
                                 <tbody>
+                                
+                                <c:forEach var="vo" items="${vo}" varStatus="status">
                                     <tr>
-                                        <td>
-                                            <a><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
-                                        </td>
+                                    
                                         <td style="text-align: center">
-
+                                            <a id="delete_sc" onclick=""><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                                        </td>
+                                        
+                                        
+                                        <td style="text-align: center">
+											${vo.year }
                                         </td>
 
 
-                                        <td>
+                                        <td style="text-align: center">
+                                        	${vo.semester }
                                         </td>
 
 
-                                        <td>
-
+                                        <td style="text-align: center">
+											${vo.startSelectLecture }
                                         </td>
 
-                                        <td>
-                                        </td>
-
-
-                                        <td>
+                                        <td style="text-align: center">
+                                        	${vo.endSelectLecture }
                                         </td>
 
 
-                                        <td>
-
+                                        <td style="text-align: center">
+                                        	${vo.openingDay }
                                         </td>
+
+
+                                        <td style="text-align: center">
+                                        	${vo.gradeOpeningDay}
+                                        </td>
+                                        
+                                        
+                                        <td style="text-align: center">
+                                        	${vo.endingDay}
+                                        </td>
+                                        
+                                        
                                     </tr>
+                                    
+                                    </c:forEach>
                                 </tbody>
                                 
                                 
@@ -108,7 +126,7 @@
                             <form class="form-horizontal form-label-left input_mask">
                             		수강신청 시작일
                                 <fieldset>
-                                    <div class="col-md-4 col-sm-4 col-xs-12">
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
                                         <div class="controls">
                                             <div class="input-prepend input-group">
                                                 <span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
@@ -116,8 +134,10 @@
                                             </div>
                                         </div>
                                     </div>
+                                </fieldset>
                                 	수강신청 종료일
-                                    <div class="col-md-4 col-sm-4 col-xs-12">
+                               	<fieldset>
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
                                         <div class="controls">
                                             <div class="input-prepend input-group">
                                                 <span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
@@ -128,7 +148,7 @@
                                 </fieldset>
                                 	개강일
                                 <fieldset>
-                                   <div class="col-md-4 col-sm-4 col-xs-12">
+                                   <div class="col-md-5 col-sm-5 col-xs-12">
                                         <div class="controls">
                                             <div class="input-prepend input-group">
                                                 <span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
@@ -136,8 +156,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                	학점입력기간 시작일
-                                    <div class="col-md-4 col-sm-4 col-xs-12">
+                                </fieldset>    
+									학점입력기간 시작일
+                                <fieldset>
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
                                         <div class="controls">
                                             <div class="input-prepend input-group">
                                                 <span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
@@ -148,7 +170,7 @@
                                 </fieldset>
                                 	종강일
                                 <fieldset>
-                                    <div class="col-md-4 col-sm-4 col-xs-12">
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
                                         <div class="controls">
                                             <div class="input-prepend input-group">
                                                 <span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>

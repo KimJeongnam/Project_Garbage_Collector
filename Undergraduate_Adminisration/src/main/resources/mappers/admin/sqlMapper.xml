@@ -924,4 +924,12 @@
 
 
 
+
+	<!-- ==========================================학사일정 START========================================= -->
+	<select id="lecMVO" parameterType="String" resultType="com.spring.project.admin.vo.lecMVO">
+ 		SELECT*FROM lectureselectperiod
+ 	</select>
+ 	<!-- ==========================================학사일정 END============================================ -->
+
+
 </mapper>

@@ -454,7 +454,8 @@ public class AdminController {
 	
 	// ---------------------------------학사 수업업무START------------------------------------------
 	@RequestMapping("/admin/lec_score_Management/lecManagement")
-	public String lecManagement() {
+	public String lecManagement(HttpServletRequest req, Model model) {
+		service.lecM(req, model);
 		logger.info("lecManagement()");
 		return "admin/lec_score_Management/lecManagement";
 	}

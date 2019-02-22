@@ -142,4 +142,12 @@ public interface AdminService {
 	
 	//메시지 전송부
 	public List<String> getUserCellNumList(Map<String, Object> map);
+	
+	
+	
+	//---------------학사관리 START-------------------
+	
+	public void lecM(HttpServletRequest req,  Model model);
+	
+	//---------------학사관리 END-------------------
 }

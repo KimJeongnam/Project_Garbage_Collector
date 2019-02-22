@@ -9,6 +9,7 @@ import com.spring.project.admin.vo.AdProVO;
 import com.spring.project.admin.vo.AdStdVO;
 import com.spring.project.admin.vo.ScholarpkVO;
 import com.spring.project.admin.vo.auditVO;
+import com.spring.project.admin.vo.lecMVO;
 import com.spring.project.admin.vo.payrollVO;
 import com.spring.project.share.vo.Major;
 import com.spring.project.student.vo.LectureVO;
@@ -174,4 +175,10 @@ public interface AdminDAO {
 	
 	public int CopyAllEmployeesDetail(List<payrollVO> empNumber);
 	//---------------회계 관리 END -------------------
+	
+	
+	
+	//---------------학사관리 START-------------------
+	public List<lecMVO> lecM();
+	//---------------학사관리 END---------------------
 }
