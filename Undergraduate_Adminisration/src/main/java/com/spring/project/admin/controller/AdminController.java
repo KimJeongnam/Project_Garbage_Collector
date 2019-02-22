@@ -338,6 +338,7 @@ public class AdminController {
 	@ResponseBody
 	@RequestMapping(value = "/admin/major_lecture_Manager/insertLecture", method = RequestMethod.POST)
 	public Map<String, Object> insertLecture(@RequestBody LectureVO lecture) {
+
 		logger.info("insertLecture()");
 		return service.addLecture(lecture);
 	}
