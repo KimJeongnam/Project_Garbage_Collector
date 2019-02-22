@@ -3,6 +3,7 @@ package com.spring.project.student.vo;
 import java.sql.Date;
 
 public class report_tblVO {
+	private String lectureName; //강의 번호
 	private int reportcode;//교수과제번호
 	private String lecCode; //강의 번호
 	private String year;//강의명
@@ -14,6 +15,12 @@ public class report_tblVO {
 	
 	
 	
+	public String getLectureName() {
+		return lectureName;
+	}
+	public void setLectureName(String lectureName) {
+		this.lectureName = lectureName;
+	}
 	public int getProgress() {
 		return progress;
 	}

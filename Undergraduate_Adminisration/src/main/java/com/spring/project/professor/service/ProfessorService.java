@@ -39,4 +39,5 @@ public interface ProfessorService {
 	public void updatePlan(HttpServletRequest req, RedirectAttributes red);
 	
 	//과제관리
+	public void report(HttpServletRequest req, Model model);
 }

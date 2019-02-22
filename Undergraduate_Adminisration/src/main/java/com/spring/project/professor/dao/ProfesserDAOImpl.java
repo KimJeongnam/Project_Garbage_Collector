@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.spring.project.professor.vo.ClassStudentVO;
 import com.spring.project.professor.vo.LecScore;
+import com.spring.project.professor.vo.LectureP_VO;
 import com.spring.project.professor.vo.MyClassVO;
 import com.spring.project.professor.vo.MyPageVO;
 import com.spring.project.professor.vo.PlanVO;
@@ -215,6 +216,12 @@ public class ProfesserDAOImpl implements ProfesserDAO{
 		System.out.println(updatePlan==1?"강의계획서 수정 성공!":"강의계획서 수정 실패!");
 		
 		return updatePlan;
+	}
+	//과제관리
+	//대그니꼬!
+	@Override
+	public List<LectureP_VO> P_Lecture(String userNumber) {
+		return sql.selectList("com.spring.project.professor.dao.ProfesserDAO.P_Lecture",userNumber);
 	}
 
 }

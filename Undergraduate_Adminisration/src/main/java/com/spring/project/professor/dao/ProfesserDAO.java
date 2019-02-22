@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.spring.project.professor.vo.ClassStudentVO;
 import com.spring.project.professor.vo.LecScore;
+import com.spring.project.professor.vo.LectureP_VO;
 import com.spring.project.professor.vo.MyClassVO;
 import com.spring.project.professor.vo.MyPageVO;
 import com.spring.project.professor.vo.PlanVO;
@@ -66,6 +67,6 @@ public interface ProfesserDAO {
 	public int updatePlan(PlanVO vo);
 
 	//과제관리
-
+	public List<LectureP_VO>P_Lecture(String userNumber);
 	
 }

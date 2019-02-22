@@ -58,7 +58,10 @@ public interface StudentDAO {
 	public List<middle_classVO> s_Lecture(String userNumber);
 
 	//수강중 과제 
-	public List<report_tblVO> s_report(String userNumber);
+	public List<report_tblVO> s_report(Map<String, Object> map); 
+	
+	// 개인정보
+	public report_tblVO reportcontent(Map<String, Object> map);
 	
 	//장학금 갯수 
 	public int getArticleCnt(Map<String,Object> map);

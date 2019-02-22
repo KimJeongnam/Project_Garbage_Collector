@@ -29,6 +29,12 @@ public interface StudentService {
 	//개인정보 업데이트
 	public void s_infoupdate(HttpServletRequest req,RedirectAttributes red);
 	
+	//과제관리
+	public void reportlist(Map<String, Object> map, Logger logger, Model model);
+	
+	//과제 내용
+	public void reportcode(Map<String, Object> map, Logger logger, Model model);
+	
 	//장학금 신청 
 	public void bulletin(Map<String, Object> map, Logger logger, Model model);
 	
