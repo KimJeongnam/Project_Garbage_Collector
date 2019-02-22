@@ -89,8 +89,9 @@ function reportlist(userNumber){
 }
 
 //과제 관리
-function reportcontent(reportcode){
+function reportcontent(userNumber,reportcode){
 	var obj = new Object();
+	obj.userNumber = userNumber;
 	obj.reportcode = reportcode;
 	
 	var jsonData = JSON.stringify(obj);

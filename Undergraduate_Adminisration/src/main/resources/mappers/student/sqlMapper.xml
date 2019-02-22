@@ -194,6 +194,11 @@
 		from report_tbl r , lecture l
 		where l.lecCode = r.lecCode and REPORTCODE = #{reportcode}
  	</select>
+ 	
+ 	<!--  과제 제출  -->
+ 	<select id="reportsub" parameterType="String" resultType="com.spring.project.student.vo.Report_subVO">
+ 		select * from users where userNumber = #{userNumber}
+ 	</select>
 
 	<!-- 장학글 갯수 -->
 

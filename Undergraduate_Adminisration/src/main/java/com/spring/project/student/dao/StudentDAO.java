@@ -10,6 +10,7 @@ import com.spring.project.professor.vo.MyPageVO;
 import com.spring.project.student.vo.DetailsVO;
 import com.spring.project.student.vo.GpaVO;
 import com.spring.project.student.vo.LectureVO;
+import com.spring.project.student.vo.Report_subVO;
 import com.spring.project.student.vo.S_informationVO;
 import com.spring.project.student.vo.middle_classVO;
 import com.spring.project.student.vo.report_tblVO;
@@ -60,8 +61,11 @@ public interface StudentDAO {
 	//수강중 과제 
 	public List<report_tblVO> s_report(Map<String, Object> map); 
 	
-	// 개인정보
+	// 과제 정보
 	public report_tblVO reportcontent(Map<String, Object> map);
+	
+	//과제 제출
+	public Report_subVO reportsub(Map<String, Object> map);
 	
 	//장학금 갯수 
 	public int getArticleCnt(Map<String,Object> map);
