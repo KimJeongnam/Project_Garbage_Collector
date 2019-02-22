@@ -11,19 +11,6 @@
 <!-- Resource style -->
 
 <style>
-.h1, h1 < span{
-	font: inherit;
-	font-style: inherit;
-	font-variant-ligatures: inherit;
-	font-variant-caps: inherit;
-	font-variant-numeric: inherit;
-	font-variant-east-asian: inherit;
-	font-weight: bold;
-	font-stretch: inherit;
-	font-size: 100%;
-	line-height: inherit;
-	font-family: inherit;
-}
 
 html {
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -68,6 +55,22 @@ button, html input[type=button], input[type=reset], input[type=submit] {
 	text-transform: none;
 }
 
+
+h3 {
+    display: block;
+    font-size: 1.17em;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.1;
+    color: #73879c;
+    font-size: 24px;
+
+}
 .btn-success {
 	color: #fff;
 	background: #26B99A;
@@ -81,7 +84,7 @@ button, html input[type=button], input[type=reset], input[type=submit] {
 }
 
 button, input {
-	font: inherit;
+	font: "Helvetica Neue",Roboto,Arial,"Droid Sans",sans-serif;
 	margin: 0;
 	overflow: visible;
 	-webkit-writing-mode: horizontal-tb !important;
@@ -93,11 +96,9 @@ button, input {
 </style>
 
 <div style="width: 700; margin: 2em auto; margin-top: 20px;">
-	<h1 style="font-size: 25px; font-weight: bold;">
-		[교번 : ${empNumber } <span
-			style="margin-left: 10px; margin-right: 10px; font-size: 20px; font-weight: normal;">'${semester}학기'
-			시간표</span>]
-	</h1>
+	<h3>
+		교번 : ${empNumber } <small>&nbsp;&nbsp;&nbsp;${semester}학기 시간표</small>
+	</h3>
 </div>
 
 <div class="cd-schedule loading" style="width: 700; height: 1050;">
@@ -197,7 +198,7 @@ button, input {
 
 <c:if test="${mode eq 'selector' }">
 <div class="button"
-	style="width: 700; margin: 2em auto; margin-top: 50px;">
+	style="width: 700; margin: 2em auto; margin-top: 50px; font-size: 24px;">
 	<table>
 		<tr>
 			<td><input type="button" class="btn btn-success" value="확인"

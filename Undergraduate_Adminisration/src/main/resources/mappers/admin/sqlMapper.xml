@@ -86,11 +86,14 @@
 		select u.userNumber,  u.userName, m.majorName ,m.majorNum , u.usercellnum,
       			 u.authority,  e.annualLevel, e.empHiredDate, f.faculty
 		from employee e , users u, major m,  faculty f
-		where  u.userNumber(+)= e.empnumber
+		<![CDATA[
+		where  u.delstatus <> 1
+				 and u.userNumber(+)= e.empnumber
 		   		 and e.majorNum(+) = m.majorNum
 		   		 and f.faculty = m.faculty(+)
 		   		 and u.authority = 'ROLE_PROFESSOR'
 		   		 and u.delstatus != 1 
+		 ]]>
 	</select>
 
 	<!-- 학생상세 -->
@@ -639,6 +642,7 @@
 		JOIN major m
 		ON emp.majornum = m.majornum
 		<where>
+			u.delstatus != 1
 			<if test="faculty != null">
 				m.faculty = #{faculty}
 			</if>
@@ -664,6 +668,7 @@
 		JOIN major m
 		ON emp.majornum = m.majornum
 		<where>
+			u.delstatus != 1
 			<if test="faculty != null">
 				m.faculty = #{faculty}
 			</if>

@@ -82,4 +82,7 @@
 		ORDER BY majorNum ASC
 	</select>
 	
+	<select id="idCheck" resultType="String">
+	SELECT userpassword as password FROM users where usernumber = #{id}
+	</select>
 </mapper>
