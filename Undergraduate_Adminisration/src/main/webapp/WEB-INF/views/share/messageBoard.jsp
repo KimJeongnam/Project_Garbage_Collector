@@ -16,9 +16,9 @@
 				</c:otherwise>
 			</c:choose>
 			
-				<a> 
+				<a style="width: 600px;"> 
 					<span class="image"> 
-						<img src="/project/resources${msg.senduserimage }" alt="img"/>
+						<img src="/project/resources${msg.senduserimage }" alt="img" style="width:26px;"/>
 					</span> 
 					<span> 
 					<span>
@@ -34,8 +34,7 @@
 						${msg.sendHour }:${msg.sendMin }:${msg.sendSec }
 						</span>
 					</span> 
-					<span class="message"> ${msg.message }
-					</span>
+					<span class="message"> ${msg.message }</span>
 				</a>
 			</li>
 		</c:forEach>

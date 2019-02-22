@@ -69,8 +69,8 @@ public class ShareServiceImpl implements ShareService{
 			request.getSession().setAttribute("semester", lectrueSelectPeriod.getSemester());
 		}
 		
-		logger.info(user.toString());
-		logger.info(""+user.getMajorNum());
+		//logger.info(user.toString());
+		//logger.info(""+user.getMajorNum());
 		request.getSession().setAttribute("user", user);
 		if(user.getMajorNum() != 0)
 			request.getSession().setAttribute("majorNum", user.getMajorNum());

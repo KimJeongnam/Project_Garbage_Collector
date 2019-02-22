@@ -306,10 +306,7 @@ public class AdminController {
 
 	// 해당 교수의 빈강의 조회*
 	@RequestMapping(value = "/admin/major_lecture_Manager/getEmptyLecTime/{empNumber}/{semester}", method = RequestMethod.GET)
-	public String getEmptyLecTime(
-			@PathVariable String empNumber
-			,@PathVariable String semester
-			, Model model) {
+	public String getEmptyLecTime(@PathVariable String empNumber, @PathVariable String semester, Model model) {
 		logger.info("getEmptyLecTime()");
 		service.getEmptyLecTime(empNumber, semester, model);
 		return "admin/majorLecMangePage/lectureTimeSelector";
@@ -337,34 +334,35 @@ public class AdminController {
 		return "admin/majorLecMangePage/professorList";
 	}
 
-	//강의 추가
+	// 강의 추가
 	@ResponseBody
-	@RequestMapping(value="/admin/major_lecture_Manager/insertLecture", method=RequestMethod.POST)
-	public Map<String, Object> insertLecture(@RequestBody LectureVO lecture){
+	@RequestMapping(value = "/admin/major_lecture_Manager/insertLecture", method = RequestMethod.POST)
+	public Map<String, Object> insertLecture(@RequestBody LectureVO lecture) {
+
 		logger.info("insertLecture()");
 		return service.addLecture(lecture);
 	}
-	
+
 	// 강의 수정
 	@ResponseBody
-	@RequestMapping(value="/admin/major_lecture_Manager/modifyLecture", method=RequestMethod.POST)
-	public Map<String, Object> modifyLecture(@RequestBody LectureVO lecture){
+	@RequestMapping(value = "/admin/major_lecture_Manager/modifyLecture", method = RequestMethod.POST)
+	public Map<String, Object> modifyLecture(@RequestBody LectureVO lecture) {
 		logger.info("insertLecture()");
 		logger.info("insertLecture-> getTimetblCodes()");
-		for(int key : lecture.getTimetblCodes()) {
-			logger.info("code:"+key);
+		for (int key : lecture.getTimetblCodes()) {
+			logger.info("code:" + key);
 		}
 		return service.modifyLecture(lecture);
 	}
-	
+
 	// 강의 삭제
 	@ResponseBody
-	@RequestMapping(value="/admin/major_lecture_Manager/deleteLecture", method=RequestMethod.POST)
-	public Map<String, Object> deleteLecture(@RequestBody Map<String, Object> map){
+	@RequestMapping(value = "/admin/major_lecture_Manager/deleteLecture", method = RequestMethod.POST)
+	public Map<String, Object> deleteLecture(@RequestBody Map<String, Object> map) {
 		logger.info("deleteLecture()");
 		return service.deleteLecture(map);
 	}
-	
+
 	// ---------------------------------학과,강의관리END----------------------------------------
 
 	// ---------------------------------회계관리START----------------------------------------
@@ -389,38 +387,67 @@ public class AdminController {
 		service.lookupWorkRecord(map, model);
 		return "admin/accountingManagement/lookupWorkRecord";
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/admin/insertPayroll", method = RequestMethod.POST)
+	public Map<String, Object> insertPayroll(@RequestBody Map<String, Object> map) {
+		return service.insertPayroll(map);
+	}
 
-
-	@RequestMapping("/admin/insertPayroll")
+	/*@RequestMapping("/admin/insertPayroll")
 	public String insertPayroll(HttpServletRequest req, RedirectAttributes red) {
-		service.insertPayroll(req, red);
+	//service.insertPayroll(req, red);
 
-			return "redirect:/admin/facultyAccountManage";
-		}
+		return "redirect:/admin/facultyAccountManage";
+	}*/
 		
-		// 
-		@RequestMapping("/admin/ConfirmationWorkRecord")
-		public String ConfirmationWorkRecord(HttpServletRequest req, RedirectAttributes red) {
-			service.ConfirmationWorkRecord(req, red);
+	//
+	@ResponseBody
+	@RequestMapping(value="/admin/ConfirmationWorkRecord", method= RequestMethod.POST)
+	public Map<String, Object> ConfirmationWorkRecord(@RequestBody List<Map<String, Object>> data) {
+		logger.info("ConfirmationWorkRecord");
+		return service.ConfirmationWorkRecord(data, logger);
+	}
+	
+	//
+	@ResponseBody
+	@RequestMapping(value="/admin/SaveEnterAmountManually", method= RequestMethod.POST)
+	public Map<String, Object> SaveEnterAmountManually(@RequestBody List<Map<String, Object>> data) {
+		logger.info("SaveEnterAmountManually");
+		return service.SaveEnterAmountManually(data, logger);
+	}
 
-			return "redirect:/admin/facultyAccountManage";
-		}
-		// 
-		@RequestMapping("/admin/SaveEnterAmountManually")
-		public String SaveEnterAmountManually(HttpServletRequest req, RedirectAttributes red) {
-			service.SaveEnterAmountManually(req, red);
+	// 근무기록확정
+	@RequestMapping(value = "/admin/ConfirmOvertime", method = RequestMethod.POST)
+	public String ConfirmOvertime(@RequestBody Map<String, Object> map, Model model) {
+		service.ConfirmOvertime(map, model);
+		return "admin/accountingManagement/ConfirmOvertime";
+	}
 
-			return "redirect:/admin/facultyAccountManage";
-		}
-		// 급여대장 조회
-		/*@RequestMapping(value="/admin/ConfirmationWorkRecord", method=RequestMethod.POST)
-		public String ConfirmationWorkRecord(@RequestBody Map<String, Object> map, RedirectAttributes red, Model model) {
-			service.ConfirmationWorkRecord(map, red, model);
-			return "admin/accountingManagement/ConfirmationWorkRecord";
-		}*/
-		//---------------------------------회계 관리 END------------------------------------------
+	// 금액직접입력
+	@RequestMapping(value = "/admin/EnterAmountManually", method = RequestMethod.POST)
+	public String EnterAmountManually(@RequestBody Map<String, Object> map, Model model) {
+		service.EnterAmountManually(map, model);
+		return "admin/accountingManagement/EnterAmountManually";
+	}
+
+	// 복사
+	@RequestMapping(value = "/admin/LookupWorkRecord", method = RequestMethod.POST)
+	public String LookupWorkRecord(@RequestBody Map<String, Object> map, Model model) {
+		service.LookupWorkRecord(map, model);
+		return "admin/accountingManagement/LookupWorkRecord";
+	}
+	
+	//
+	@ResponseBody
+	@RequestMapping(value="/admin/CopyPayroll", method= RequestMethod.POST)
+	public Map<String, Object> CopyPayroll(@RequestBody Map<String, Object> map) {
+		logger.info("CopyPayroll");
+		return service.CopyPayroll(map);
+	}
 	
 
+// ---------------------------------회계관리END------------------------------------------
 	
 	
 	

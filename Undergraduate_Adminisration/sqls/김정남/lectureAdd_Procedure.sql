@@ -99,3 +99,15 @@ execute addlecture_test;
 rollback;
 
 SELECT * FROM All_coll_types WHERE type_name like '%ARRAY%';
+
+
+
+-- 강의 상태 변화 (학기, 상태, 반환값)
+set serveroutput on
+DECLARE
+    v_result NUMBER;
+BEGIN
+    update_lecture_lecstatus_proc(1, 2, v_result);
+    DBMS_OUTPUT.PUT_LINE('result : '||v_result);
+END;
+/

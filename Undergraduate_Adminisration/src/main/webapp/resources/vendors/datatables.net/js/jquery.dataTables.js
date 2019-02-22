@@ -6402,7 +6402,7 @@
 	 *  @param {int} tn Technical note id to get more information about the error.
 	 *  @memberof DataTable#oApi
 	 */
-	function _fnLog( settings, level, msg, tn )
+	/*function _fnLog( settings, level, msg, tn )
 	{
 		msg = 'DataTables warning: '+
 			(settings ? 'table id='+settings.sTableId+' - ' : '')+msg;
@@ -6434,7 +6434,7 @@
 		else if ( window.console && console.log ) {
 			console.log( msg );
 		}
-	}
+	}*/
 	
 	
 	/**

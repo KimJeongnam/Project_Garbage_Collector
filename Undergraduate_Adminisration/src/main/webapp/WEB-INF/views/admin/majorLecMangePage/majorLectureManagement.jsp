@@ -100,7 +100,7 @@
 											id="divisionSelector" onchange="getLectureList();">
 												<option selected="selected" value="all">전체</option>
 												<option value="1">전공</option>
-												<option value="0">교양</option>
+												<option value="2">교양</option>
 										</select>
 										</label>
 									</div>

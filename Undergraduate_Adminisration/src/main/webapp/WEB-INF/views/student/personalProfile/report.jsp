@@ -59,7 +59,7 @@
 		var tr = $(this);
 		var td = tr.children();
 		
-		reportcontent(td.eq(0).text());
+		reportcontent('${userNumber}',td.eq(0).text());
 		
 	});
 	

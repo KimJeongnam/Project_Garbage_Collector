@@ -44,7 +44,7 @@
 	SELECT COUNT(*)
     FROM LECTURESELECTPERIOD
     WHERE YEAR = #{year} AND semester = #{semester}
-    AND TO_CHAR(GARDEOPENINGDAY, 'YYYY-MM-DD HH24:MI') = TO_CHAR(localtimestamp, 'YYYY-MM-DD HH24:MI')
+    AND TO_CHAR(GRADEOPENINGDAY, 'YYYY-MM-DD HH24:MI') = TO_CHAR(localtimestamp, 'YYYY-MM-DD HH24:MI')
 	</select>
 	
 	<select id="checkEnding" resultType="int">

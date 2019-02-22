@@ -18,27 +18,8 @@
         <div class="">
             <div class="page-title">
                 <div class="title_left">
-                    <h3> 관리자 수강신청 기간설정 <small>학년 선택 후 입력</small></h3>
+                    <h3> 학사일정 기간설정 <small>수강신청 / 개강 / 학점입력 / 종강</small></h3>
                 </div>
-                <div class="btn-group" style="float: right">
-                    <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button"> 학년 선택 <span class="caret"></span> </button>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">1학년</a>
-                        </li>
-                        <li><a href="#">2학년</a>
-                        </li>
-                        <li><a href="#">3학년</a>
-                        </li>
-                        <li><a href="#">4학년</a>
-                        </li>
-                    </ul>
-                </div>
-
-
-
-
-
-
             </div>
 
             <div class="clearfix"></div>
@@ -47,87 +28,225 @@
                 <div class="col-md-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>선택한 학년</h2>
+                            <h2>학사일정 목록 조회</h2>
 
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
                             <!-- start project list -->
-                            <table class="table table-striped projects">
+                            <table id="datatable" class="table table-striped jambo_table">
                                 <thead>
                                     <tr>
-                                        <th style="width: 10%; text-align: center">학년</th>
+                                        <th style="width: 3%; text-align: center">삭제</th>
+                                        <th style="width: 6%; text-align: center">연도</th>
+                                        <th style="width: 3%; text-align: center">학기</th>
+                                        <th style="width: 10%; text-align: center">수강신청기간</th>
+                                        <th style="width: 10%; text-align: center">개강일</th>
+                                        <th style="width: 10%; text-align: center">학점입력기간</th>
+                                        <th style="width: 10%; text-align: center">종강일</th>
 
-
-                                        <th style="text-align: center; width: 100px;">수강신청 열람기간</th>
-                                        <th style="text-align: center">비고</th>
-
-                                        <th style="width: 20%; text-align: center">???</th>
                                     </tr>
                                 </thead>
+                                
+                                
                                 <tbody>
-
-
-
-
                                     <tr>
-                                        <td style="text-align: center;"><a style="font-size: 18px; font-weight: bold">1</a> 학년
+                                        <td>
+                                            <a><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                                        </td>
+                                        <td style="text-align: center">
 
                                         </td>
 
 
-                                        <td style="text-align: center">
-
-                                            <form class="form-horizontal">
-                                                <fieldset>
-                                                    <div class="control-group">
-                                                        <div class="controls">
-                                                            <div class="input-prepend input-group">
-                                                                <span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
-                                                                <input type="text" style="width: 200px" name="reservation" id="reservation" class="form-control" value="01/01/2019 - 01/25/2019" />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </fieldset>
-                                            </form>
-
-
+                                        <td>
                                         </td>
 
 
-                                        <td style="text-align: center">
-                                            ???
+                                        <td>
+
+                                        </td>
+
+                                        <td>
                                         </td>
 
 
-                                        <td style="text-align: center">
-                                            ????
+                                        <td>
+                                        </td>
+
+
+                                        <td>
+
                                         </td>
                                     </tr>
-
-
-
-
-
                                 </tbody>
+                                
+                                
+                                
                             </table>
                             <!-- end project list -->
-
                         </div>
                     </div>
                 </div>
             </div>
+
+            <div class="clearfix"></div>
+
+            <div class="row">
+                <div>
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>학사일정 추가/수정 <small>위의 목록에서 선택 또는 작성 후 추가/수정</small></h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a class="collapse-link"><i class="fa fa-chevron-up" id="input-tag-icon"></i></a>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <br />
+                            <form class="form-horizontal form-label-left input_mask">
+                            		수강신청 시작일
+                                <fieldset>
+                                    <div class="col-md-4 col-sm-4 col-xs-12">
+                                        <div class="controls">
+                                            <div class="input-prepend input-group">
+                                                <span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                                <input type="text" name="reservation-time" id="reservation-time" class="form-control" value="01/01/2019 - 12/31/2019">
+                                            </div>
+                                        </div>
+                                    </div>
+                                	수강신청 종료일
+                                    <div class="col-md-4 col-sm-4 col-xs-12">
+                                        <div class="controls">
+                                            <div class="input-prepend input-group">
+                                                <span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                                <input type="text" name="reservation-time1" id="reservation-time1" class="form-control" value="01/01/2019 - 12/31/2019">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                	개강일
+                                <fieldset>
+                                   <div class="col-md-4 col-sm-4 col-xs-12">
+                                        <div class="controls">
+                                            <div class="input-prepend input-group">
+                                                <span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                                <input type="text" name="reservation-time2" id="reservation-time2" class="form-control" value="01/01/2019 - 12/31/2019">
+                                            </div>
+                                        </div>
+                                    </div>
+                                	학점입력기간 시작일
+                                    <div class="col-md-4 col-sm-4 col-xs-12">
+                                        <div class="controls">
+                                            <div class="input-prepend input-group">
+                                                <span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                                <input type="text" name="reservation-time3" id="reservation-time3" class="form-control" value="01/01/2019 - 12/31/2019">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                	종강일
+                                <fieldset>
+                                    <div class="col-md-4 col-sm-4 col-xs-12">
+                                        <div class="controls">
+                                            <div class="input-prepend input-group">
+                                                <span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                                <input type="text" name="reservation-time4" id="reservation-time4" class="form-control" value="01/01/2019 - 12/31/2019">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+								
+                                <div class="ln_solid"></div>
+                                <div class="form-group">
+                                    <div style="align-content: center;">
+                                        <button type="button" class="btn btn-danger" id="input-tap-close">닫기</button>
+                                        <button class="btn btn-primary" type="reset">비우기</button>
+                                        <button type="submit" class="btn btn-success">수정</button>
+                                        <button type="submit" class="btn btn-info">추가</button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </div>
+
     </div>
+
     <!-- /page content -->
 
     <%@ include file="../../Basic/footer.jsp" %>
     <script>
+        $('#input-tap-close').click(function() {
+            var $BOX_PANEL = $(this).closest('.x_panel'),
+                $ICON = $('#input-tag-icon'),
+                $BOX_CONTENT = $BOX_PANEL.find('.x_content');
+
+            // fix for some div with hardcoded fix class
+            if ($BOX_PANEL.attr('style')) {
+                $BOX_CONTENT.slideToggle(200, function() {
+                    $BOX_PANEL.removeAttr('style');
+                });
+            } else {
+                $BOX_CONTENT.slideToggle(200);
+                $BOX_PANEL.css('height', 'auto');
+            }
+
+            $ICON.toggleClass('fa-chevron-up fa-chevron-down');
+        });
+
+
+        $('#reservation').daterangepicker(null, function(start, end, label) {
+            console.log(start.toISOString(), end.toISOString(), label);
+        });
+
+        $('#reservation-time1').daterangepicker({
+            timePicker: true,
+            timePickerIncrement: 30,
+            locale: {
+                format: 'MM/DD/YYYY h:mm A'
+            }
+        });
+        $('#reservation').daterangepicker(null, function(start, end, label) {
+            console.log(start.toISOString(), end.toISOString(), label);
+        });
+
+        $('#reservation-time2').daterangepicker({
+            timePicker: true,
+            timePickerIncrement: 30,
+            locale: {
+                format: 'MM/DD/YYYY h:mm A'
+            }
+        });
+        $('#reservation').daterangepicker(null, function(start, end, label) {
+            console.log(start.toISOString(), end.toISOString(), label);
+        });
+
+        $('#reservation-time3').daterangepicker({
+            timePicker: true,
+            timePickerIncrement: 30,
+            locale: {
+                format: 'MM/DD/YYYY h:mm A'
+            }
+        });
+        $('#reservation').daterangepicker(null, function(start, end, label) {
+            console.log(start.toISOString(), end.toISOString(), label);
+        });
+
+        $('#reservation-time4').daterangepicker({
+            timePicker: true,
+            timePickerIncrement: 30,
+            locale: {
+                format: 'MM/DD/YYYY h:mm A'
+            }
+        });
 
     </script>
-
-
-
 
 </body>
 

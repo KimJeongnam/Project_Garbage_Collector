@@ -135,7 +135,7 @@
 							<input class="btn btn-primary" type="submit" value="작성">
 							<input class="btn btn-primary" type="reset" value="취소">
 							<input class="btn btn-primary" type="button" value="목록"
-							onclick="window.location='boardList?pageNum=${pageNum}'">
+							onclick="history.back();">
 							</div>
 							
 						</div>

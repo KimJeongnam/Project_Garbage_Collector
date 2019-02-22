@@ -2488,10 +2488,12 @@ if (typeof NProgress != 'undefined') {
 				
 				if( typeof ($.fn.DataTable) === 'undefined'){ return; }
 				console.log('init_DataTables');
-				
+				// paging: false,searching: false
 				var handleDataTableButtons = function() {
 				  if ($("#datatable-buttons").length) {
 					$("#datatable-buttons").DataTable({
+						paging: false,
+					    searching: false,
 					  dom: "Blfrtip",
 					  buttons: [
 						{
