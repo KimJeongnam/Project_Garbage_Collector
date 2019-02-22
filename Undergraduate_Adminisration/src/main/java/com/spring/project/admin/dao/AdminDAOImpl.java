@@ -381,8 +381,8 @@ public class AdminDAOImpl implements AdminDAO{
 		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.accountFacultyList", map);
 	}
 	@Override
-	public int insertPayroll(payrollVO vo) {
-		return sqlSession.insert("com.spring.project.admin.dao.AdminDAO.insertPayroll", vo);
+	public int insertPayroll(Map<String, Object> map) {
+		return sqlSession.insert("com.spring.project.admin.dao.AdminDAO.insertPayroll", map);
 	}
 	
 	@Override
@@ -413,6 +413,11 @@ public class AdminDAOImpl implements AdminDAO{
 	@Override
 	public List<payrollVO> getEmpNumber() {
 		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.getEmpNumber");
+	}
+
+	@Override
+	public int CopyAllEmployeesDetail(List<payrollVO> empNumber) {
+		return sqlSession.insert("com.spring.project.admin.dao.AdminDAO.CopyAllEmployeesDetail", empNumber);
 	}
 
 	//------------------------------------------------------회계 관리 END----------------------------------------------------------
