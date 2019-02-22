@@ -350,7 +350,8 @@ public class AdminDAOImpl implements AdminDAO{
 	}
 	
 	//------------------------------------------------------교직 업무 관리 END----------------------------------------------------------
-
+	
+	//------------------------------------------------------회계 관리 START----------------------------------------------------------
 	@Override
 	public List<payrollVO> payrollList() {
 		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.payrollList");
@@ -385,21 +386,36 @@ public class AdminDAOImpl implements AdminDAO{
 	}
 	
 	@Override
-	public int ConfirmationWorkRecord(List<Map<String, Object>> list) {
-		return sqlSession.update("com.spring.project.admin.dao.AdminDAO.ConfirmationWorkRecord", list);
+	public int ConfirmationWorkRecord(List<Map<String, Object>> data) {
+		return sqlSession.update("com.spring.project.admin.dao.AdminDAO.ConfirmationWorkRecord", data);
 	}
-
-	@Override
-	public int updateOverPay(List<Map<String, Object>> list) {
-		return sqlSession.update("com.spring.project.admin.dao.AdminDAO.updateOverPay", list);
-	}
-
-	@Override
-	public int SaveEnterAmountManually(List<Map<String, Object>> list) {
-		return sqlSession.update("com.spring.project.admin.dao.AdminDAO.SaveEnterAmountManually", list);
-	}
-
 	
+	@Override
+	public int updateOverPay(List<Map<String, Object>> data) {
+		return sqlSession.update("com.spring.project.admin.dao.AdminDAO.updateOverPay", data);
+	}
+
+	@Override
+	public int SaveEnterAmountManually(List<Map<String, Object>> data) {
+		return sqlSession.update("com.spring.project.admin.dao.AdminDAO.SaveEnterAmountManually", data);
+	}
+
+	@Override
+	public List<payrollVO> ConfirmOvertime(Map<String, Object> map) {
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.ConfirmOvertime", map);
+	}
+
+	@Override
+	public int CopyPayroll(Map<String, Object> map) {
+		return sqlSession.insert("com.spring.project.admin.dao.AdminDAO.CopyPayroll", map);
+	}
+
+	@Override
+	public List<payrollVO> getEmpNumber() {
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.getEmpNumber");
+	}
+
+	//------------------------------------------------------회계 관리 END----------------------------------------------------------
 
 	
 	
