@@ -33,7 +33,8 @@
 	</div>
 
 	<div class="compose-footer">
-		<button id="send" class="btn btn-sm btn-success" type="button" onclick="sendMessage()">메세지
+		<button id="message-send" class="btn btn-sm btn-success" type="button" 
+			onclick="sendMessage();">메세지
 			보내기</button>
 	</div>
 </div>

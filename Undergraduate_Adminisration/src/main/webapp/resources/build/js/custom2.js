@@ -2492,6 +2492,8 @@ if (typeof NProgress != 'undefined') {
 				var handleDataTableButtons = function() {
 				  if ($("#datatable-buttons").length) {
 					$("#datatable-buttons").DataTable({
+						paging: false,
+					    searching: false,
 					  dom: "Blfrtip",
 					  buttons: [
 						{
