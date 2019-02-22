@@ -67,7 +67,7 @@
 									<h4 class="modal-title" id="myModalLabel">과제 업로드</h4>
 								</div>
 								<div class="modal-body">
-									<form action="#" class="form-horizontal form-label-left" novalidate>
+									<form action="#" class="form-horizontal form-label-left" novalidate onsubmit="aaa();">
 
 										<p>
 											파일을 잘못 보낼시 교수에게 요청
@@ -94,7 +94,7 @@
 											<div class="col-md-6 col-sm-6 col-xs-12">
 												<!-- <input type="email" id="email" name="email"
 													required="required" class="form-control col-md-7 col-xs-12"> -->
-													${dtos.getReportName()}
+													${dtos.getReportName()} 
 											</div>
 										</div>
 										<div class="item form-group">
@@ -158,7 +158,16 @@
 	<script type="text/javascript">
 	<%@ include file="../../Basic/datePickerJS.jsp"%>
 	</script>
-
+	
+	<script type="text/javascript">
+	function aaa() {
+		if(${dtos.getProgress()} < 0){
+			alert("마감되었습니다")
+			self.close();
+		}
+	}
+	
+	</script>
 
 
 </body>

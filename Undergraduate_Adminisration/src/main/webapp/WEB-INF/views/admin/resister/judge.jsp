@@ -31,8 +31,6 @@
 									<div style="float: right;">
 										<button class="btn btn-success" onclick="toggleOn()">합격</button>
 										<button class="btn btn-danger" onclick="toggleOff()">불 합격</button>
-										<button class="btn btn-warning" onclick="audit()">심사 완료</button>
-											
 									</div>
 									<div class="">
 										<table class="table table-striped jambo_table bulk_action"
