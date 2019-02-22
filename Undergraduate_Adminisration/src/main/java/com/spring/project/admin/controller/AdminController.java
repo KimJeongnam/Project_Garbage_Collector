@@ -338,6 +338,7 @@ public class AdminController {
 	@ResponseBody
 	@RequestMapping(value = "/admin/major_lecture_Manager/insertLecture", method = RequestMethod.POST)
 	public Map<String, Object> insertLecture(@RequestBody LectureVO lecture) {
+
 		logger.info("insertLecture()");
 		return service.addLecture(lecture);
 	}
@@ -386,22 +387,20 @@ public class AdminController {
 		service.lookupWorkRecord(map, model);
 		return "admin/accountingManagement/lookupWorkRecord";
 	}
-
+	
+	@ResponseBody
 	@RequestMapping(value = "/admin/insertPayroll", method = RequestMethod.POST)
 	public Map<String, Object> insertPayroll(@RequestBody Map<String, Object> map) {
 		return service.insertPayroll(map);
 	}
 
-	@RequestMapping("/admin/insertPayroll")
+	/*@RequestMapping("/admin/insertPayroll")
 	public String insertPayroll(HttpServletRequest req, RedirectAttributes red) {
 	//service.insertPayroll(req, red);
 
 		return "redirect:/admin/facultyAccountManage";
-	}
+	}*/
 		
-		
-		//---------------------------------회계 관리 END------------------------------------------
-	
 	//
 	@ResponseBody
 	@RequestMapping(value="/admin/ConfirmationWorkRecord", method= RequestMethod.POST)

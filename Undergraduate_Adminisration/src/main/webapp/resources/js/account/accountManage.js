@@ -59,7 +59,6 @@ function saveOverTime() {
 		obj.overtime = $('input[name=overtime]')[i].value;
 		obj.empNumber = $('input[name=empNumber]')[i].value;
 		listObj.push(obj);
-		//listObj.obj = obj;
 	}
 	var jsonData = JSON.stringify(listObj);
 	$.ajax({
@@ -86,15 +85,14 @@ function SaveEnterAmountManually() {
 	var listObj = new Array();
 	for (var i = 0; i < $('input[name=basicPay]').size(); i++) {
 		var obj = new Object();
-		
-		
-		
-		
-		var basicPay = $('input[name=basicPay]')[i].value.replace(/\,/g,'');
-		var extraPay = $('input[name=extraPay]')[i].value.replace(/\,/g,'');
-		var foodExpenses = $('input[name=foodExpenses]')[i].value.replace(/\,/g,'');
-		var vehicleCost = $('input[name=vehicleCost]')[i].value.replace(/\,/g,'');
-		
+
+		var basicPay = $('input[name=basicPay]')[i].value.replace(/\,/g, '');
+		var extraPay = $('input[name=extraPay]')[i].value.replace(/\,/g, '');
+		var foodExpenses = $('input[name=foodExpenses]')[i].value.replace(
+				/\,/g, '');
+		var vehicleCost = $('input[name=vehicleCost]')[i].value.replace(/\,/g,
+				'');
+
 		obj.basicPay = Number(basicPay);
 		obj.extraPay = Number(extraPay);
 		obj.foodExpenses = Number(foodExpenses);
@@ -122,33 +120,26 @@ function SaveEnterAmountManually() {
 		}
 	});
 }
-$("#Confirm").click(
-		function() {
-			var tdArr = new Array(); // 배열 선언
+function Confirm(imputedYear, paymentClassfication) {
+	var obj = new Object();
 
-			// 현재 클릭된 Row(<tr>)
-			var tr = $(this);
-			var td = tr.children();
+	obj.imputedYear = imputedYear;
+	obj.paymentClassfication = paymentClassfication;
 
-			// 반복문을 이용해서 배열에 값을 담아 사용할 수 도 있다.
-			td.each(function(i) {
-				tdArr.push(td.eq(i).text());
-			});
+	if (confirm(obj.imputedYear + obj.paymentClassfication
+			+ "를 확정처리하겠습니까?\n확정처리된 급여는 수정/삭제할 수 없습니다.")) {
+	} else {
+	}
 
-			// td.eq(index)를 통해 값을 가져올 수도 있다.
-			var imputedYear = td.eq(0).text();
-			var paymentClassfication = td.eq(1).text();
+};
+function Delete(imputedYear, paymentClassfication) {
+	var obj = new Object();
 
-			if (confirm(imputedYear + paymentClassfication
-					+ "를 확정처리하겠습니까?\n확정처리된 급여는 수정/삭제할 수 없습니다.")) {
-			} else {
-			}
-
-		});
-function Delete() {
+	obj.imputedYear = imputedYear;
+	obj.paymentClassfication = paymentClassfication;
 	var texto1 = $(this).parent().children().eq(0).text();
 	var texto2 = $(this).parent().children().eq(1).text();
-	if (confirm(texto1 + texto2 + "가 전체 삭제됩니다.\n삭제하겠습니까?")) {
+	if (confirm(obj.imputedYear + obj.paymentClassfication + "가 전체 삭제됩니다.\n삭제하겠습니까?")) {
 	} else {
 	}
 }
@@ -276,32 +267,65 @@ function ResetSaveEnterAmountManually() {
 	$('#"SaveEnterAmountManuallyForm"').find('input').val('');
 }
 
-function CopyPayroll() {
+function InsertPayroll() {
 	var obj = new Object();
-	obj.copyPayrollFrom = $("#copyPayrollFrom").val();
-	obj.copyPayrollTo = $("#copyPayrollTo").val();
-	
+	obj.imputedYear = $("#imputedYear").val() + "/" + $("#imputedMonth").val();
+	obj.paymentClassfication = $("#paymentClassfication").val();
+	obj.beginningPeriod = $("#beginningPeriod").val();
+	obj.endPeriod = $("#endPeriod").val();
+	obj.paymentDate = $("#paymentDate").val();
+	obj.paymentYear = $("#paymentYear").val() + "/" + $("#paymentMonth").val();
+	obj.registerName = $("#registerName").val();
+
 	var jsonData = JSON.stringify(obj);
-	
+
 	$.ajax({
-		url : '/project/admin/LookupWorkRecord',
+		url : '/project/admin/insertPayroll',
 		type : 'POST',
 		data : jsonData,
 		contentType : 'application/json;charset=UTF-8',
 		success : function(data) {
-			if (data != null) {
-				if ($('#LookupWorkRecordList') != null)
-					var table = $('#datatable-buttons').DataTable({
-						retrieve : true,
-						paging : false
-					});
-				table.clear()
-				$('#LookupWorkRecordList').html(data);
+			if (data.message != null) {
+				swal({
+					text : data.message,
+					icon : "success",
+					button : "확인",
+				});
+				window.location.reload();
 			}
 		},
 		error : function() {
 			alert("Error! LookupWorkRecord();");
 		}
 	});
-	
+
+}
+
+function CopyPayroll() {
+	var obj = new Object();
+	obj.copyPayrollFrom = $("#copyPayrollFrom").val();
+	obj.copyPayrollTo = $("#copyPayrollTo").val();
+
+	var jsonData = JSON.stringify(obj);
+
+	$.ajax({
+		url : '/project/admin/CopyPayroll',
+		type : 'POST',
+		data : jsonData,
+		contentType : 'application/json;charset=UTF-8',
+		success : function(data) {
+			if (data.message != null) {
+				swal({
+					text : data.message,
+					icon : "success",
+					button : "확인",
+				});
+				window.location.reload();
+			}
+		},
+		error : function() {
+			alert("Error! LookupWorkRecord();");
+		}
+	});
+
 }
