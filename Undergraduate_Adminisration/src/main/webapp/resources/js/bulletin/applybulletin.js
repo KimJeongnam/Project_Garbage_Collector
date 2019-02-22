@@ -55,3 +55,58 @@ function studentmanagementlist(userNumber,page){
 		}
 	});
 }
+
+//과제 관리
+function reportlist(userNumber){
+	var obj = new Object();
+	obj.userNumber = userNumber;
+	
+	if($("#mystatus").val() != null){
+		obj.select = $("#mystatus").val();
+	}
+	
+	/*if($("#mystatus option:selected").val() != null){
+		obj.select = $("#mystatus option:selected").val();
+		alert($("#mystatus").val());
+	}*/
+	
+	var jsonData = JSON.stringify(obj);
+	
+	$.ajax({
+		url: '/project/student/reportlist',
+		type: 'POST',
+		data : jsonData,
+		contentType : 'application/json;charset=UTF-8',
+		success : function(data){
+			if(data != null){
+					$('#reprotList').html(data);
+			}
+		},
+		error:function(){
+			alert("Error! reprotList();");
+		}
+	});
+}
+
+//과제 관리
+function reportcontent(reportcode){
+	var obj = new Object();
+	obj.reportcode = reportcode;
+	
+	var jsonData = JSON.stringify(obj);
+	
+	$.ajax({
+		url: '/project/student/reportContent',
+		type: 'POST',
+		data : jsonData,
+		contentType : 'application/json;charset=UTF-8',
+		success : function(data){
+			if(data != null){
+					$('#reportcontent').html(data);
+			}
+		},
+		error:function(){
+			alert("Error! reprotList();");
+		}
+	});
+}
