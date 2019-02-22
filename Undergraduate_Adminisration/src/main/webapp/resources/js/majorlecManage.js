@@ -303,6 +303,7 @@ function modifyMajor(){
 				}else{
 					$('#majorAdd-Modal').modal('hide');
 					getMajors(pageNum);
+					swal("Success", "학과 수정 완료", "success");
 				}
 			},
 			error : function(){	}
