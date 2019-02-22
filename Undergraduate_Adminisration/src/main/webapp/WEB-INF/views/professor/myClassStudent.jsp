@@ -30,7 +30,7 @@
 				<div class="col-xs-12 col-sm-6 emphasis">
 					<!-- id만 compose 입력하면 메세지창 뜨으으음 갸꿀!!!!-->
 					<button type="button" class="btn btn-success btn-xs"
-						onclick="$('.compose').slideToggle();">
+						onclick="toggleMessageModal('${vo3.stdNumber}', '${userNumber}');">
 						<i class="fa fa-comments-o">&nbsp;메세지&nbsp; </i>
 					</button>
 					<button type="button"

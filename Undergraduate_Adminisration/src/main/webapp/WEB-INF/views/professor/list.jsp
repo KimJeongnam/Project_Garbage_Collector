@@ -99,7 +99,7 @@
                                                         <div class="col-xs-12 col-sm-6 emphasis">
 
                                                             <!-- id만 compose 입력하면 메세지창 뜨으으음 갸꿀!!!!-->
-                                                            <button id="compose" type="button" class="btn btn-success btn-xs"><i class="fa fa-comments-o">&nbsp;메세지&nbsp;
+                                                            <button type="button" class="btn btn-success btn-xs" onclick="toggleMessageModal('${vo2.userNumber}', '${userNumber}');"><i class="fa fa-comments-o">&nbsp;메세지&nbsp;
                                                                 </i> </button>
                                                             <button type="button" onclick="window.location.href='${authPath }/score'" class="btn btn-primary btn-xs">
                                                                 <i class="fa fa-user"> </i>학점입력
