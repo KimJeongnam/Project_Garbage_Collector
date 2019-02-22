@@ -9,12 +9,8 @@
 </head>
 <body class="nav-md">
 
-
-
 	<%@ include file="../Basic/navbar.jsp" %>
 	
-			   
-          
 <!-- page content -->
 <div class="right_col" role="main">
     <div class="">
@@ -41,19 +37,18 @@
             <div class="col-md-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>강의 1 과제 관리</h2>
+                        <h2>강의  과제 관리</h2>
 
                         <div class="btn-group" style="float: right">
-                            <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button"> 진행중인 강의 선택 <span class="caret"></span> </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">운동역학</a>
-                                </li>
-                                <li><a href="#">운동 생리학</a>
-                                </li>
-                                <li><a href="#">운동 역학의 스포츠 적용</a>
-                                </li>
-                            </ul>
+                            <select class="form-control input-sm"
+								id="mystatus"
+								onchange="reportlist('${userNumber}');">
+									<c:forEach var="dto" items="${vo}">
+										<option value="${dto.lecCode}">${dto.lectureName}</option>
+									</c:forEach>
+							</select>
                         </div>
+                        
 
 
 
@@ -86,10 +81,6 @@
                                 <!-- end of user messages -->
                                 <ul class="messages">
 
-
-
-
-
                                     <li>
                                         <img src="/project/resources/images/img.jpg" class="avatar" alt="Avatar">
                                         <div class="message_date">
@@ -138,14 +129,6 @@
                                             </p>
                                         </div>
                                     </li>
-
-
-
-
-
-
-
-
                                 </ul>
                                 <!-- end of user messages -->
 
@@ -196,10 +179,6 @@
                                     </ul>
                                     <br />
 
-
-
-
-
                                     <!-- Large modal -->
                                     <div class="text-center mtop20">
                                         <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg1">참고자료 업로드</button>
@@ -227,15 +206,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
-
-
-
-
-
-
-
-
                                         <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target=".bs-example-modal-lg">&nbsp;&nbsp;과제내용 수정&nbsp;&nbsp;</button>
 
                                         <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
@@ -260,27 +230,8 @@
                                                 </div>
                                             </div>
                                         </div>
-
-
-
-
-
-
-
-
-
-
                                     </div>
-
-
-
-
-
-
-
-
                                 </div>
-
                             </section>
 
                         </div>

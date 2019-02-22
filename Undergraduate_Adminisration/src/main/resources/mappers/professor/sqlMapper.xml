@@ -110,4 +110,9 @@
  		UPDATE lectureplan SET contents=#{contents}, text=#{text} WHERE leccode=#{lecCode} AND week=#{week}
  	</update>
  	
+ 	<!--과제관리  -->
+ 	<select id="P_Lecture" parameterType="String" resultType="com.spring.project.professor.vo.LectureP_VO">
+		select lectureName,leccode from lecture where empnumber = #{userNumber}
+ 	</select>
+ 	
 </mapper>

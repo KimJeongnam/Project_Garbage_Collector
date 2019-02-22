@@ -167,14 +167,32 @@
  	
  	<!-- 수강중 과제  -->
  	<select id="s_report" parameterType="String" resultType="com.spring.project.student.vo.report_tblVO">
- 		select REPORTCODE
-		,LECCODE
-		,YEAR
+ 		select
+		lectureName
+		,REPORTCODE
+		,l.LECCODE
+		,r.YEAR
 		,REPORTINFO
 		,REPORTNAME
 		,ENDDATE
 		,to_number(to_char(ENDDATE - sysdate)) as Progress
-		from report_tbl
+		from report_tbl r , lecture l
+		where l.lecCode = r.lecCode and lectureName = #{select}
+ 	</select>
+ 	
+ 	<!--  과제 내용  -->
+ 	<select id="reportcontent" parameterType="String" resultType="com.spring.project.student.vo.report_tblVO">
+ 		select
+		lectureName
+		,REPORTCODE
+		,l.LECCODE
+		,r.YEAR
+		,REPORTINFO
+		,REPORTNAME
+		,ENDDATE
+		,to_number(to_char(ENDDATE - sysdate)) as Progress
+		from report_tbl r , lecture l
+		where l.lecCode = r.lecCode and REPORTCODE = #{reportcode}
  	</select>
 
 	<!-- 장학글 갯수 -->
