@@ -34,6 +34,12 @@ public class StudentController {
 		logger.info("index");
 		return "student/index";
 	}
+	
+	@RequestMapping("/student/report")
+	public String report() {
+		logger.info("index");
+		return "student/personalProfile/report";
+	}
 	/*대근이 단~*/
 	//이미지 변경
 	@RequestMapping("/student/imageUpload")
@@ -43,7 +49,7 @@ public class StudentController {
 		return "redirect:/student/personalProfile";
 	}
 	//학생개인정보
-	@RequestMapping("/student/personalProfile")
+	@RequestMapping(value="/student/personalProfile")
 	public String personalProfile(HttpServletRequest req ,Model model) {
 		logger.info("personalProfile");
 		service.personalProfile(req, model);
@@ -64,6 +70,24 @@ public class StudentController {
 	@RequestMapping(value="/student/bulletin", method=RequestMethod.GET)
 	public String bulletinPage() {
 		return "student/bulletin/bulletinPage";
+	}
+	
+	//과제 관리
+	@RequestMapping(value="/student/reportlist", method=RequestMethod.POST) 
+	public String reportlist(@RequestBody Map<String, Object> map, Model model) {
+		logger.info("bulletin");
+		service.reportlist(map, logger, model);
+		
+		return "student/personalProfile/report";
+	}
+	
+	//과제 상세내용
+	@RequestMapping(value="/student/reportContent", method=RequestMethod.POST) 
+	public String reportContent(@RequestBody Map<String, Object> map, Model model) {
+		logger.info("reportContent");
+		service.reportcode(map, logger, model);
+		
+		return "student/personalProfile/report2";
 	}
 
 	//장학금 신청목록

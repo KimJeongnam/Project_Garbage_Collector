@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.spring.project.professor.dao.ProfesserDAO;
 import com.spring.project.professor.vo.ClassStudentVO;
 import com.spring.project.professor.vo.LecScore;
+import com.spring.project.professor.vo.LectureP_VO;
 import com.spring.project.professor.vo.MyClassVO;
 import com.spring.project.professor.vo.MyPageVO;
 import com.spring.project.professor.vo.PlanVO;
@@ -413,6 +414,7 @@ public class ProfessorServiceImpl implements ProfessorService {
 		
 		model.addAttribute("vo",vo);
 	}
+	
 	//강의계획서 입력
 	@Override
 	public void insertPlan(HttpServletRequest req, RedirectAttributes red) {
@@ -480,6 +482,19 @@ public class ProfessorServiceImpl implements ProfessorService {
 			red.addFlashAttribute("alertIcon","error");
 		}
 		
+	}
+	
+	//ㄷㅐ그니 단~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	//과제관리
+	@Override
+	public void report(HttpServletRequest req, Model model) {
+		String userNumber = (String) req.getSession().getAttribute("userNumber");
+		
+		List<LectureP_VO> vo = dao.P_Lecture(userNumber);
+		
+		System.out.println("나머지 강의 강의계획서  vo : " + vo);
+		
+		model.addAttribute("vo",vo);
 	}
 
 }

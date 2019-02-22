@@ -1086,86 +1086,103 @@ public class AdminServiceImpl extends Board implements AdminService {
 	}
 
 	@Override
-	public void insertPayroll(HttpServletRequest req, RedirectAttributes red) {
+	public Map<String, Object> insertPayroll(Map<String, Object> map) {
 		payrollVO vo = new payrollVO();
-		vo.setImputedYear(req.getParameter("imputedYear") + req.getParameter("imputedMonth"));
-		vo.setPaymentClassfication(req.getParameter("paymentClassfication"));
-		vo.setBeginningPeriod(Date.valueOf(req.getParameter("beginningPeriod")));
-		vo.setEndPeriod(Date.valueOf(req.getParameter("endPeriod")));
-		vo.setPaymentDate(Date.valueOf(req.getParameter("paymentDate")));
-		vo.setPaymentYear(req.getParameter("paymentYear") + req.getParameter("paymentMonth"));
-		vo.setRegisterName(req.getParameter("registerName"));
+		vo.setImputedYear((String)map.get("imputedYear") + (String)map.get("imputedMonth"));
+		vo.setPaymentClassfication((String)map.get("paymentClassfication"));
+		vo.setBeginningPeriod((Date)map.get("beginningPeriod"));
+		vo.setEndPeriod((Date)map.get("endPeriod"));
+		vo.setPaymentDate((Date)map.get("paymentDate"));
+		vo.setPaymentYear((String)map.get("paymentYear") + (String)map.get("paymentMonth"));
+		vo.setRegisterName((String)map.get("registerName"));
 
-		System.out.println("imputedYear : " + req.getParameter("imputedYear") + req.getParameter("imputedMonth"));
-		System.out.println("paymentClassfication :" + req.getParameter("paymentClassfication"));
-		System.out.println("beginningPeriod :" + Date.valueOf(req.getParameter("beginningPeriod")));
-		System.out.println("endPeriod :" + Date.valueOf(req.getParameter("paymentDate")));
-		System.out.println("paymentYear :" + req.getParameter("paymentYear") + req.getParameter("paymentMonth"));
-		System.out.println("registerName :" + req.getParameter("registerName"));
+		/*System.out.println("imputedYear : " + map.get("imputedYear") + map.get("imputedMonth"));
+		System.out.println("paymentClassfication :" + map.get("paymentClassfication"));
+		System.out.println("beginningPeriod :" + (map.get("beginningPeriod")));
+		System.out.println("endPeriod :" + (map.get("paymentDate")));
+		System.out.println("paymentYear :" + map.get("paymentYear") + map.get("paymentMonth"));
+		System.out.println("registerName :" + map.get("registerName"));*/
 
 		int cnt = dao.insertPayroll(vo);
-
+		
+		Map<String, Object> responseData = new HashMap<String,Object>();
 		if (cnt == 1) {
-			red.addFlashAttribute("message", "등록이 완료되었습니다.");
+			responseData.put("message", "등록이 완료되었습니다.");
 		}
+		return responseData;
 	}
 	@Override
-	public void ConfirmationWorkRecord(HttpServletRequest req, RedirectAttributes red) {
-		String[] overtime = req.getParameterValues("overtime");
-		String[] empNumber = req.getParameterValues("empNumber");
-		
+	public Map<String, Object> ConfirmationWorkRecord(List<Map<String, Object>> data, Logger logger) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		/*String[] overtime = (String[])map.get("overtime");
+		String[] empNumber = (String[])map.get("empNumber");
+		System.out.println("overtime : " + overtime);
+		System.out.println("empNumber : " + empNumber);
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-		
 		for(int i=0; i<overtime.length; i++) {
-			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("overtime", overtime[i]);
 			map.put("empNumber", empNumber[i]);
-			
 			list.add(map);
-		}
-		
-		if(overtime != null) {
-			int cnt1 = dao.ConfirmationWorkRecord(list);
-			int cnt2 = dao.updateOverPay(list);
-			int cnt = cnt1+ cnt2; 
+		}*/
+		Map<String, Object> responseData = new HashMap<String,Object>();
+			
+		int cnt1 = dao.ConfirmationWorkRecord(data);
+		int cnt2 = dao.updateOverPay(data);
+		int cnt = cnt1+ cnt2; 
+			
 			if(cnt != 0) {
-				red.addFlashAttribute("message","저장이 완료되었습니다");
+				responseData.put("message","저장이 완료되었습니다");
 			} else {
-				red.addFlashAttribute("message","ConfirmationWorkRecord() Error");
+				responseData.put("message","저장실패");
 			}
-		}
+		return responseData;
 	}
 	@Override
-	public void SaveEnterAmountManually(HttpServletRequest req, RedirectAttributes red) {
-		String[] basicPay = req.getParameterValues("basicPay");
-		String[] extraPay = req.getParameterValues("extraPay");
-		String[] foodExpenses = req.getParameterValues("foodExpenses");
-		String[] vehicleCost = req.getParameterValues("vehicleCost");
-		String[] empNumber = req.getParameterValues("empNumber");
+	public Map<String, Object> SaveEnterAmountManually(List<Map<String, Object>> data, Logger logger) {
 		
-		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-		
-		for(int i=0; i<basicPay.length; i++) {
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("basicPay", basicPay[i].replaceAll("[,]",""));
-			map.put("extraPay", extraPay[i].replaceAll("[,]",""));
-			map.put("foodExpenses", foodExpenses[i].replaceAll("[,]",""));
-			map.put("vehicleCost", vehicleCost[i].replaceAll("[,]",""));
-			map.put("empNumber", empNumber[i]);
-			
-			list.add(map);
-		}
-		
-		if(basicPay != null) {
-			int cnt = dao.SaveEnterAmountManually(list);
+			int cnt = dao.SaveEnterAmountManually(data);
 			//int cnt2 = dao.updateOverPay(list);
 			//int cnt1 = cnt1+ cnt2; 
+			Map<String, Object> responseData = new HashMap<String,Object>();
 			if(cnt != 0) {
-				red.addFlashAttribute("message","저장이 완료되었습니다");
+				responseData.put("message","저장이 완료되었습니다");
 			} else {
-				red.addFlashAttribute("message","SaveEnterAmountManually() Error");
+				responseData.put("message","SaveEnterAmountManually() Error");
 			}
+			return responseData;
+	}
+
+	@Override
+	public void ConfirmOvertime(Map<String, Object> map, Model model) {
+		List<payrollVO> dtos = dao.ConfirmOvertime(map);
+		model.addAttribute("dtosF", dtos);
+	}
+
+	@Override
+	public void EnterAmountManually(Map<String, Object> map, Model model) {
+		List<payrollVO> dtos = dao.ConfirmOvertime(map);
+		model.addAttribute("dtosF", dtos);
+	}
+
+	@Override
+	public void LookupWorkRecord(Map<String, Object> map, Model model) {
+		List<payrollVO> dtos = dao.ConfirmOvertime(map);
+		model.addAttribute("dtosF", dtos);
+	}
+
+	@Override
+	public Map<String, Object> CopyPayroll(Map<String, Object> map) {
+		List<payrollVO> empNumber = dao.getEmpNumber();
+		//int cnt1 = dao.insertPayroll(empNumber);
+		int cnt = dao.CopyPayroll(map);
+		
+		Map<String, Object> responseData = new HashMap<String,Object>();
+		if(cnt != 0) {
+			responseData.put("message","저장이 완료되었습니다");
+		} else {
+			responseData.put("message","CopyPayroll() Error");
 		}
+		return responseData;
 	}
 	
 }

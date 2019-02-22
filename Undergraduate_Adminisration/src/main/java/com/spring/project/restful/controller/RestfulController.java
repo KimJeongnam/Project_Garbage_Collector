@@ -76,6 +76,7 @@ public class RestfulController {
 	@ResponseBody
 	@RequestMapping(value = "/rest/api/v1.0/messsage/send", method=RequestMethod.POST)
 	public Map<String, Object> sendMessage(@RequestBody Map<String, Object> map) {
+		logger.info("sendMessage()");
 		return service.sendMessage(map);
 	}
 	

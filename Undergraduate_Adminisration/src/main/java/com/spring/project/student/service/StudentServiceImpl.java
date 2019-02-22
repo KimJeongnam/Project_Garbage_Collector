@@ -270,9 +270,9 @@ public class StudentServiceImpl implements StudentService {
 		model.addAttribute("dtos", dtos);
 		
 		//과제 리스트
-		List<report_tblVO> dtos2 = dao.s_report(userNumber);
+		/*List<report_tblVO> dtos2 = dao.s_report(userNumber);
 		
-		model.addAttribute("dtos2", dtos2);
+		model.addAttribute("dtos2", dtos2);*/
 		
 	}
 	
@@ -304,6 +304,29 @@ public class StudentServiceImpl implements StudentService {
 		
 		
 	}
+	//과제 관리
+	@Override
+	public void reportlist(Map<String, Object> map, Logger logger, Model model) {
+		//과제 전체 리스트
+		List<report_tblVO> dtos2 = dao.s_report(map);
+		
+		
+		model.addAttribute("dtos2", dtos2);
+		
+	}
+	
+	//과제 관리
+	@Override
+	public void reportcode(Map<String, Object> map, Logger logger, Model model) {
+		System.out.println("reportcode"+ map.get("reportcode"));
+		//과제 전체 리스트
+		report_tblVO dtos = dao.reportcontent(map);
+		
+		
+		model.addAttribute("dtos", dtos);
+		
+	}
+	
 	
 	//장학금  글 목록
 	@Override
