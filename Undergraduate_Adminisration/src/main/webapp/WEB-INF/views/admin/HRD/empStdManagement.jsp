@@ -192,12 +192,13 @@
 
 	<script type="text/javascript">
 	
-	//문자전송 클릭시 텍스트창 초기화
+	//학생-문자전송 클릭시 텍스트창 초기화
 	$('#stdSend').click(function(){
 		  $('#textStd').val("");
         
 	}); 
 	
+	//교수 문자전송 클릭시 텍스트창 초기화
 	$('#proSend').click(function(){
 		  $('#textPro').val("");
       

@@ -28,8 +28,8 @@ public class AWSUtil {
 	//Init: snsClient, smsAttribute 초기화
 	//key, 속성(sendId, smsType)
 	public static void init() {
-		AWSCredentials credentials = new BasicAWSCredentials("AKIAI2VWA7DQAEHNMDRA", 
-				"+4MfJZ/yuPXPUy7tuQCGfoIfDK90SgzjUT1GGnpb");//+4MfJZ/yuPXPUy7tuQCGfoIfDK90SgzjUT1GGnpb
+		AWSCredentials credentials = new BasicAWSCredentials("AKIAIZ55ZKFGWEXR3RMQ", 
+				"BqALAWZYCn++V2uFCWDBmgWhnTYPUcSMYq1U3VQS");//
 		snsClient = new AmazonSNSClient(credentials);
 		smsAttributes = new HashMap<String, MessageAttributeValue>();
 		smsAttributes.put("AWS.SNS.SMS.SenderID", new MessageAttributeValue()
