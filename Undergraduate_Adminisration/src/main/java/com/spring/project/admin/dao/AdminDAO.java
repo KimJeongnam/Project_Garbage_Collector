@@ -168,6 +168,8 @@ public interface AdminDAO {
 	
 	public List<payrollVO> ConfirmOvertime(Map<String, Object> map);
 	
+	public int getCopyPayrollFrom(Map<String, Object> map);
+	
 	public int CopyPayroll(Map<String, Object> map);
 	
 	public List<payrollVO> getEmpNumber();

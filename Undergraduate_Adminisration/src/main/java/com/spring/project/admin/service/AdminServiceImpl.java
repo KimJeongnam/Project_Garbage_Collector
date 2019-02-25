@@ -1113,17 +1113,6 @@ public class AdminServiceImpl extends Board implements AdminService {
 	}
 	@Override
 	public Map<String, Object> ConfirmationWorkRecord(List<Map<String, Object>> data, Logger logger) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		/*String[] overtime = (String[])map.get("overtime");
-		String[] empNumber = (String[])map.get("empNumber");
-		System.out.println("overtime : " + overtime);
-		System.out.println("empNumber : " + empNumber);
-		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-		for(int i=0; i<overtime.length; i++) {
-			map.put("overtime", overtime[i]);
-			map.put("empNumber", empNumber[i]);
-			list.add(map);
-		}*/
 		Map<String, Object> responseData = new HashMap<String,Object>();
 			
 		int cnt1 = dao.ConfirmationWorkRecord(data);
@@ -1172,12 +1161,15 @@ public class AdminServiceImpl extends Board implements AdminService {
 
 	@Override
 	public Map<String, Object> CopyPayroll(Map<String, Object> map) {
-		List<payrollVO> empNumber = dao.getEmpNumber();
-		int cnt1 = dao.CopyAllEmployeesDetail(empNumber);
-		
+		//List<payrollVO> empNumber = dao.getEmpNumber();
+		//int cnt1 = dao.CopyAllEmployeesDetail(empNumber);
 		// mapper 없음
-		int cnt2 = dao.CopyPayroll(map);
-		int cnt= cnt1 + cnt2;
+		int payrollCnt = dao.getCopyPayrollFrom(map); 
+		map.put("payrollCnt", payrollCnt);
+		System.out.println("map :"+map);
+		int cnt = dao.CopyPayroll(map);
+		System.out.println("cnt1: " + cnt);
+		System.out.println("payrollCnt: " + payrollCnt);
 		Map<String, Object> responseData = new HashMap<String,Object>();
 		if(cnt != 0) {
 			responseData.put("message","저장이 완료되었습니다");

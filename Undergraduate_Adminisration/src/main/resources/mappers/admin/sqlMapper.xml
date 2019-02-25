@@ -906,18 +906,28 @@
 		having imputedYear=#{imputedYear}
 	</select>
 
-	<insert id="CopyAllEmployeesDetail"
+	<!-- <insert id="CopyAllEmployeesDetail"
 		parameterType="com.spring.project.admin.vo.payrollVO">
 		<foreach item="empNumber" collection="array" open="BEGIN"
 			separator=";" close=";END;">
 			insertPaydetails(#{empNumber});
 		</foreach>
-	</insert>
+	</insert> -->
 
 	<select id="getEmpNumber"
 		resultType="com.spring.project.admin.vo.payrollVO">
 		select userNumber from users where authority = 'ROLE_PROFESSOR'
 	</select>
+	
+	<select id="getCopyPayrollFrom"
+		parameterType="java.util.Map" resultType="int">
+		select count(*) from registerDetail where paylistNum = #{map.copyPayrollFrom}
+	</select>
+	
+	<insert id="CopyPayroll"
+		parameterType="java.util.Map">
+			call copypaydetails(#{map.copyPayrollFrom},#{map.copyPayrollTo},#{map.payrollCnt})
+	</insert>
 	<!-- ==========================================회계관리 END========================================= -->
 
 
