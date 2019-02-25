@@ -180,5 +180,6 @@ public interface AdminDAO {
 	
 	//---------------학사관리 START-------------------
 	public List<lecMVO> lecM();
+	public void  delete_sc(lecMVO vo);
 	//---------------학사관리 END---------------------
 }

@@ -431,7 +431,15 @@ public class AdminDAOImpl implements AdminDAO{
 	public List<lecMVO> lecM() {
 		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.lecM");
 	}
+	
+	
+	@Override
+	public void delete_sc(lecMVO vo) {
+		sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.delete_sc", vo);
+	}
+	
 	//---------------학사관리 END---------------------
+
 	
 	
 	

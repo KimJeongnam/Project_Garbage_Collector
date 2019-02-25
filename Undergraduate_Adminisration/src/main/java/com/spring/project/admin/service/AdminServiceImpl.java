@@ -1199,8 +1199,16 @@ public class AdminServiceImpl extends Board implements AdminService {
 		model.addAttribute("vo", vo);
 		
 	}
-	//---------------학사관리 END-------------------
 	
+	@Override
+	public Map<String, Object> delete_sc(lecMVO vo) {
+		
+		Map<String, Object> resultmap = new HashMap<String, Object>();
+		dao.delete_sc(vo);
+		return resultmap;
+	}
+	//---------------학사관리 END-------------------
+
 	
 	
 	

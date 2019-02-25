@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.project.admin.service.AdminService;
+import com.spring.project.admin.vo.lecMVO;
 import com.spring.project.share.vo.Major;
 import com.spring.project.student.vo.LectureVO;
 import com.spring.project.util.AWSUtil;
@@ -458,6 +459,13 @@ public class AdminController {
 		service.lecM(req, model);
 		logger.info("lecManagement()");
 		return "admin/lec_score_Management/lecManagement";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/admin/lec_score_Management/lecManagement/delete_sc", method=RequestMethod.POST)
+	public Map<String, Object> delete_sc(@RequestBody lecMVO vo) {
+		logger.info("delete_sc()");
+		return service.delete_sc(vo);
 	}
 	// ---------------------------------학사 수업업무END------------------------------------------
 	

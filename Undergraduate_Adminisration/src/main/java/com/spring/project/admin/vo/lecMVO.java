@@ -1,15 +1,16 @@
 package com.spring.project.admin.vo;
 
+import java.sql.Date;
+
 public class lecMVO {
 
 	private String year;
 	private String semester;
-	private String startSelectLecture;
-	private String endSelectLecture;
-	private String openingDay;
-	private String gradeOpeningDay;
-	private String endingDay;
-	
+	private Date startSelectLecture;
+	private Date endSelectLecture;
+	private Date openingDay;
+	private Date gradeOpeningDay;
+	private Date endingDay;
 	
 	
 	public String getYear() {
@@ -24,36 +25,38 @@ public class lecMVO {
 	public void setSemester(String semester) {
 		this.semester = semester;
 	}
-	public String getStartSelectLecture() {
+	public Date getStartSelectLecture() {
 		return startSelectLecture;
 	}
-	public void setStartSelectLecture(String startSelectLecture) {
+	public void setStartSelectLecture(Date startSelectLecture) {
 		this.startSelectLecture = startSelectLecture;
 	}
-	public String getEndSelectLecture() {
+	public Date getEndSelectLecture() {
 		return endSelectLecture;
 	}
-	public void setEndSelectLecture(String endSelectLecture) {
+	public void setEndSelectLecture(Date endSelectLecture) {
 		this.endSelectLecture = endSelectLecture;
 	}
-	public String getOpeningDay() {
+	public Date getOpeningDay() {
 		return openingDay;
 	}
-	public void setOpeningDay(String openingDay) {
+	public void setOpeningDay(Date openingDay) {
 		this.openingDay = openingDay;
 	}
-	public String getGradeOpeningDay() {
+	public Date getGradeOpeningDay() {
 		return gradeOpeningDay;
 	}
-	public void setGradeOpeningDay(String gradeOpeningDay) {
+	public void setGradeOpeningDay(Date gradeOpeningDay) {
 		this.gradeOpeningDay = gradeOpeningDay;
 	}
-	public String getEndingDay() {
+	public Date getEndingDay() {
 		return endingDay;
 	}
-	public void setEndingDay(String endingDay) {
+	public void setEndingDay(Date endingDay) {
 		this.endingDay = endingDay;
 	}
+	
+	
 	
 	
 	
