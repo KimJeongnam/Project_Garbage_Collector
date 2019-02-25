@@ -67,6 +67,9 @@ public interface StudentDAO {
 	//과제 제출
 	public Report_subVO reportsub(Map<String, Object> map);
 	
+	//과제 제출 완료
+	public int s_fileUpload(Report_subVO vo);
+	
 	//장학금 갯수 
 	public int getArticleCnt(Map<String,Object> map);
 	

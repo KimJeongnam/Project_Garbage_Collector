@@ -89,6 +89,15 @@ public class StudentController {
 		
 		return "student/personalProfile/report2";
 	}
+	
+	//과제 상세내용
+	@RequestMapping("/student/assignment")
+	public String assignment(MultipartHttpServletRequest req ,RedirectAttributes red) {
+		logger.info("assignment");
+		service.assignment(req, red);
+		
+		return "/student/assignment";
+	}
 
 	//장학금 신청목록
 	/*@RequestMapping("/student/bulletin")*/
