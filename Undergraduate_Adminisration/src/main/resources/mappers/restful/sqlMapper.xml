@@ -47,7 +47,7 @@
 	
 	<!-- ================================================ANDROID=START=============================================== -->
 	<select id="getUser" resultType="com.spring.project.restful.vo.RestUser">
-	SELECT u.userNumber, u.userPassword, u.userName, u.gender, u.userCellNum
+	SELECT u.userNumber, u.userPassword, u.userName, u.userImage, u.gender, u.userCellNum
      , std.grade, std.adDate, std.graDate, m.faculty, m.majorName, u.delStatus
      FROM users u JOIN student std
      ON u.userNumber = std.stdNumber
