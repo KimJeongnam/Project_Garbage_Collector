@@ -94,8 +94,8 @@
 								<th class="control-label">성별</th>
 								<td> 
 									 <p>
-				                        M <input type="radio" class="flat" name="gender" id="genderM" value="남"  required/> 
-				                       	&nbsp;F <input type="radio" class="flat" name="gender" id="genderF" value="여" />
+				                       	남<input type="radio" class="flat" name="gender" id="genderM" value="남자"  required/>&nbsp;
+				                       	여<input type="radio" class="flat" name="gender" id="genderF" value="여자" />
 				                     </p>
 								</td>
 							</tr>
@@ -135,7 +135,7 @@
 						</table>
 						<div class="ln_solid"></div>
 							<div class="form-group">
-								<div class="col-md-6 col-md-offset-4">
+								<div class="col-md-6 col-md-offset-2">
 									<button type="button" class="btn btn-primary" onclick="window.location='empStdManagement'">뒤로</button>
 									<button id="send" type="submit" class="btn btn-success">학생등록</button>
 								</div>

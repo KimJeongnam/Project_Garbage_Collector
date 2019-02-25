@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.spring.project.restful.vo.Message;
+import com.spring.project.restful.vo.RestUser;
 
 public interface RestfulDAO {
 	public List<Message> getMessages(Map<String, Object> map);
@@ -12,4 +13,8 @@ public interface RestfulDAO {
 	public Message showMessage(Map<String, Object> map);
 	public List<Message> getAllmessages(Map<String, Object> map);
 	public int sendMessage(Map<String, Object> map);
+	
+	//---------------------------Android-START---------------------------------
+	public RestUser getUser(Map<String, Object> map);
+	//---------------------------Android-END---------------------------------
 }

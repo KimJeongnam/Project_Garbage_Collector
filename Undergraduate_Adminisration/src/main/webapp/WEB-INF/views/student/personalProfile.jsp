@@ -281,71 +281,8 @@
 																				<div class="col-md-9 col-sm-9 col-xs-12">
 																					<div>
 																						<h4>과제리스트</h4>
-																						<!-- end of user messages -->
-																						<%-- <table class="data table table-striped no-margin">
-																							<thead>
-																								<tr>
-																									<th>과제 번호</th>
-																									<th>년도</th>
-																									<th>과제명</th>
-																									<th>과제 마감일</th>
-																									<th>진행 상태</th>
-																								</tr>
-																							</thead>
-																							<div id="rerortList" class=""></div>
-																							<tbody>
-																							<c:forEach items="${dtos2}" var="dto">
-																							<c:forEach var="dto" items="${dtos}">
-																								<tr>
-																									<td>${dto.lecCode}</td>
-																									<td>${dto.year}</td>
-																									<td>${dto.reportName}</td>
-																									<td>${dto.endDate}</td>
-																									<c:if test="${dto.progress >= 0}">
-																									<td>제출 가능</td>
-																									</c:if>
-																									
-																									<c:if test="${dto.progress < 0}">
-																									<td>마감</td>
-																									</c:if>
-																								</tr>
-																							</c:forEach>
-																							</tbody>
-																						</table> --%>
-																						<!-- <ul class="messages">
-																							<li><img src="../resources/images/img.jpg" class="avatar" alt="Avatar">
-																								<div class="message_date">
-																									<h3 class="date text-info">24</h3>
-																									<p class="month">1월</p>
-																								</div>
-																								<div class="message_wrapper">
-																									<h4 class="heading">김설현</h4>
-																									<blockquote class="message">운동역학의 이해 제출합니다.</blockquote>
-																									<br />
-																									<p class="url">
-																										<span class="fs1 text-info" aria-hidden="true" data-icon=""></span>
-																										 <a href="#"><i class="fa fa-paperclip"></i> 2019380527 김설현
-																											운동역학의 이해.doc </a>
-																									</p>
-																								</div>
-																							</li>
-																							<li><img src="../resources/images/img.jpg" class="avatar" alt="Avatar">
-																								<div class="message_date">
-																									<h3 class="date text-info">24</h3>
-																									<p class="month">1월</p>
-																								</div>
-																								<div class="message_wrapper">
-																									<h4 class="heading">김설현</h4>
-																									<blockquote class="message">운동역학의 이해 제출합니다.</blockquote>
-																									<br />
-																									<p class="url">
-																										<span class="fs1 text-info" aria-hidden="true" data-icon=""></span> 
-																										<a href="#"><i class="fa fa-paperclip"></i> 2019380527 김설현
-																											운동역학의 이해.doc </a>
-																									</p>
-																								</div>
-																							</li>
-																						</ul> --><div id="reprotList" class=""></div>
+																						
+																						<div id="reprotList" class=""></div>
 																						<!-- end of user messages -->
 																					</div>
 																				</div>
