@@ -8,10 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.spring.project.admin.vo.lecMVO;
 import com.spring.project.share.vo.Major;
 import com.spring.project.student.vo.LectureVO;
 
@@ -142,4 +142,12 @@ public interface AdminService {
 	
 	//메시지 전송부
 	public List<String> getUserCellNumList(Map<String, Object> map);
+	
+	
+	
+	//---------------학사관리 START-------------------
+	
+	public void lecM(HttpServletRequest req,  Model model);
+	public Map<String, Object> delete_sc(lecMVO vo);
+	//---------------학사관리 END-------------------
 }

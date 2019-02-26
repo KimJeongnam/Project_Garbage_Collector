@@ -277,12 +277,6 @@
                                                         <textarea id="introduction" required="required" class="form-control" name="introduction" data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="3500" 
                                                         data-parsley-minlength-message="20자 이상 작성하셔야 합니다!!" data-parsley-validation-threshold="10" style="height: 300px;">${vo.introduction }</textarea>
                                                        <br>
-                                                       <div class="form-group">
-                                                            <div class="col-md-6 col-md-offset-3">
-                                                                <button type="reset" class="btn btn-primary">재작성</button>
-                                                                <button type="submit" class="btn btn-success">수정</button>
-                                                            </div>
-                                                        </div>
                                                        </form>
                                                     </div>
                                                     

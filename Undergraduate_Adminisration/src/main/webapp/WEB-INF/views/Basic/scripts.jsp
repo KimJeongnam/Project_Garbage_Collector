@@ -151,7 +151,8 @@
     <script src="${staticPath}/vendors/google-code-prettify/src/prettify.js"></script>
     
     <!-- bootstrap-daterangepicker 추가-->
-    <script src="${staticPath}/vendors/moment/min/moment.min.js"></script>
+ <%--<script src="${staticPath}/vendors/moment/min/moment.min.js"></script> --%>
+    <script src="${staticPath}/vendors/moment/min/locales.js"></script>
     <script src="${staticPath}/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
     
     <!-- PNotify -->
