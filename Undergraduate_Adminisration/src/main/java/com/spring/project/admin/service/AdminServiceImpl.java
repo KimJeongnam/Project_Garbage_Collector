@@ -15,8 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -801,6 +801,7 @@ public class AdminServiceImpl extends Board implements AdminService {
 	}
 
 	// 학과 수정
+	@Transactional(rollbackFor=Exception.class)
 	@Override
 	public Map<String, Object> modifyMajor(Major major) {
 		Map<String, Object> resultmap = new HashMap<String, Object>();

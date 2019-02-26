@@ -470,6 +470,7 @@
 				</when>
 			</choose>
 		</where>
+		ORDER BY majorNum DESC
 		)
 	</select>
 
@@ -495,7 +496,7 @@
 			</choose>
 
 		</where>
-		ORDER BY majorNum
+		ORDER BY majorNum DESC
 		)
 		    <![CDATA[
 		    WHERE rnum >= #{start} AND rnum <= #{end}
@@ -691,6 +692,7 @@
 				OR u.userNumber like '%'||#{keyword}||'%')
 			</if>
 		</where>
+		ORDER BY u.userNumber
 		)
 	</select>
 
@@ -720,6 +722,7 @@
 				OR u.userNumber like '%'||#{keyword}||'%')
 			</if>
 		</where>
+		ORDER BY u.userNumber
 		)
 		<![CDATA[
 		WHERE rnum >= #{start} AND rnum <= #{end}
