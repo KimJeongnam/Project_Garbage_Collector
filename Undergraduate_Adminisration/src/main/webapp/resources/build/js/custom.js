@@ -3005,13 +3005,13 @@ if (typeof NProgress != 'undefined') {
 						data: [{
 						  name: 'sales',
 						  value: 182.2,
-						  xAxis: 7,
+						  xAxis: 7, //x축 7단계로 나눔
 						  yAxis: 183,
 						}, {
 						  name: 'purchases',
 						  value: 2.3,
 						  xAxis: 11,
-						  yAxis: 3
+						  yAxis: 3 //y축 3단계로 나눔
 						}]
 					  },
 					  markLine: {

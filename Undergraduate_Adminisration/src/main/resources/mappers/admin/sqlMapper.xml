@@ -923,13 +923,70 @@
 
 
 	<!-- ==========================================학사일정 START========================================= -->
+	
+	<!-- 학사일정관리 진입 -->
 	<select id="lecM" parameterType="String" resultType="com.spring.project.admin.vo.lecMVO">
  		SELECT*FROM lectureselectperiod order by year desc
  	</select>
+ 	
+ 	<!-- 학사일정 삭제 -->
 	<delete id="delete_sc" parameterType="String">
  		delete from lectureselectperiod where year = #{year} and semester = #{semester}
  	</delete>
+ 	
+ 	<!-- 학사일정 수정 -->
+ 	<update id="lecScUpdate" parameterType="com.spring.project.admin.vo.lecMVO">
+ 		UPDATE lectureselectperiod SET 
+		startSelectLecture = to_date(#{startSelectLecture}||' 09:00','YYYY-MM-DD HH24:MI'), 
+		endSelectLecture = to_date(#{endSelectLecture}||' 22:00','YYYY-MM-DD HH24:MI'), 
+		openingDay = to_date(#{openingDay}||' 09:00','YYYY-MM-DD HH24:MI'), 
+		gradeOpeningDay = to_date(#{gradeOpeningDay}||' 09:00','YYYY-MM-DD HH24:MI'), 
+		endingDay = to_date(#{endingDay}||' 22:00','YYYY-MM-DD HH24:MI')
+		WHERE year = #{year} 
+		AND semester = #{semester}
+ 	</update>
+ 	
+ 	<!-- 학사일정 추가 -->
+ 	<insert id="lecScInsert" parameterType="com.spring.project.admin.vo.lecMVO">
+		INSERT INTO lectureselectperiod(year, semester, startSelectLecture, endSelectLecture, openingDay, gradeOpeningDay, endingDay)VALUES(
+		#{year},
+		#{semester},
+		to_date(#{startSelectLecture}||' 09:00','YYYY-MM-DD HH24:MI'),
+		to_date(#{endSelectLecture}||' 22:00','YYYY-MM-DD HH24:MI'),
+		to_date(#{openingDay}||' 09:00','YYYY-MM-DD HH24:MI'),
+		to_date(#{gradeOpeningDay}||' 09:00','YYYY-MM-DD HH24:MI'),
+		to_date(#{endingDay}||' 22:00','YYYY-MM-DD HH24:MI')
+		)
+ 	</insert>
  	<!-- ==========================================학사일정 END============================================ -->
 
+
+
+	
+	
+	<!-- ==========================================성적업무통계 START============================================ -->
+	
+	<!-- 성적업무통계 단과 -->
+	<select id="facultyAvg" parameterType="String" resultType="com.spring.project.admin.vo.ChartVO">
+ 		SELECT*FROM facultyAvg
+ 	</select>
+	
+	<!-- 성적업무통계 학과 -->
+	<select id="majorAvg" parameterType="String" resultType="com.spring.project.admin.vo.ChartVO">
+ 		SELECT*FROM majorAvg
+ 	</select>
+	
+	<!-- 성적업무통계 남녀 -->
+	<select id="genderAvg" parameterType="String" resultType="com.spring.project.admin.vo.ChartVO">
+ 		SELECT*FROM genderAvg
+ 	</select>
+	
+	<!-- 성적업무통계 학년 -->
+	<select id="gradeAvg" parameterType="String" resultType="com.spring.project.admin.vo.ChartVO">
+ 		SELECT*FROM gradeAvg
+ 	</select>
+	
+	
+	<!-- ==========================================성적업무통계 END============================================== -->
 
 </mapper>
