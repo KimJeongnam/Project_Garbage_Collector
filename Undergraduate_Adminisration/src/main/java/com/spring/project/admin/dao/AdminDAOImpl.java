@@ -25,6 +25,12 @@ public class AdminDAOImpl implements AdminDAO{
 	@Autowired
 	private SqlSession sqlSession;
 	
+	//중복확인
+	@Override
+	public int userNumChk(String userNumber) {
+		return sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.userNumChk", userNumber);
+	}
+	
 	//사용자 등록(학생)
 	@Override
 	public int insertUsers(AdStdVO vo) {

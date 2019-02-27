@@ -9,12 +9,15 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.project.admin.service.AdminService;
@@ -81,10 +84,41 @@ public class RestfulController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/rest/api/v.1.0/login/student", method=RequestMethod.POST)
-	public ResponseData studentLogin(@RequestBody Map<String, Object> map) {
+	@RequestMapping(value="/rest/api/v1.0/connect_check", method=RequestMethod.GET)
+	public Map<String, Object> connectCheck(){
+		Map<String, Object> responseData = new HashMap<String, Object>();
+		responseData.put("message", "connect success");
+		responseData.put("status", 1);
+		responseData.put("data", null);
+		
+		return responseData;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/rest/api/v1.0/login/student", method=RequestMethod.POST)
+	public ResponseData studentLogin(@RequestParam String userNumber, @RequestParam String userPassword) {
 		logger.info("studentLogin");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userNumber", userNumber);
+		map.put("userPassword", userPassword);
 		return service.studentLogin(map);
+	}
+	
+	
+	// ResponseEntry 예제..
+	@ResponseBody
+	@RequestMapping(value="/rest/api/v1.0/login/student/test", method=RequestMethod.POST)
+	public ResponseEntity<Map<String, Object>> studentLogin2(@RequestParam String userNumber, @RequestParam String userPassword) {
+		logger.info("studentLogin");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userNumber", userNumber);
+		map.put("userPassword", userPassword);
+		ResponseData data = service.studentLogin(map);
+		map.clear();
+		map.put("message", data.getMessage());
+		map.put("data", data.getData());
+		
+		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
 }
 //****************************************************** 김 정 남 ******************************************************

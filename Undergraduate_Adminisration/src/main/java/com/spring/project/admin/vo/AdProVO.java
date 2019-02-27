@@ -20,6 +20,15 @@ public class AdProVO {
 	private int delStatus;			//삭제상태
 	private String authority; 
 	
+	private String userSsn2;
+	
+	public String getUserSsn2() {
+		return userSsn2;
+	}
+	public void setUserSsn2(String userSsn2) {
+		this.userSsn2 = userSsn2;
+	}
+	
 	//major
 	private int majorNum;			//학과번호 - pk
 	private String majorName;		//학과명
