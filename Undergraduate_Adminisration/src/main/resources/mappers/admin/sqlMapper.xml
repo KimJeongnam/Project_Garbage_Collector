@@ -7,27 +7,27 @@
 
 <mapper namespace="com.spring.project.admin.dao.AdminDAO">
 
+	<!--중복확인  -->
+	<select id="userNumChk" parameterType="String" resultType="int" >
+		select count(*) from users where userNumber=#{userNumber}
+	</select>
+
 	<!-- 학생 가입처리 delStatus, authority 는 하드코딩 -->
 	<insert id="insertUsers"
 		parameterType="com.spring.project.admin.vo.AdStdVO">
 		insert into users(userNumber, userPassword, userEngName,
-		userName,
-		userImage, userSsn,userCellNum,
-		userEmail, delStatus,
-		authority, gender, userZipCode, userAddr1, userAddr2 )
-		values(#{userNumber},1234,#{userEngName},#{userName},#{userImage},
-		#{userSsn},#{userCellNum},#{userEmail},0,'ROLE_STUDENT', #{gender}
-		,
-		#{userZipCode}, #{userAddr1}, #{userAddr2})
+						userName, userImage, userSsn,userCellNum,
+						userEmail, delStatus, authority, gender, userZipCode, userAddr1, userAddr2 )
+		values(#{userNumber},#{userSsn2},#{userEngName},#{userName},#{userImage},
+				#{userSsn},#{userCellNum},#{userEmail},0,'ROLE_STUDENT', #{gender},
+				#{userZipCode}, #{userAddr1}, #{userAddr2})
 	</insert>
 
 	<!-- 학생 가입처리 stdNumber는 userNumber = 학번 //학년은 한자리숫자 -->
 	<insert id="insertStudent"
 		parameterType="com.spring.project.admin.vo.AdStdVO">
-		insert into student(stdNumber,grade, adDate, graDate,
-		majorNum)
-		values(#{userNumber},#{grade},#{adDate},#{graDate},
-		#{majorNum})
+		insert into student(stdNumber,grade, adDate, graDate, majorNum)
+		values(#{userNumber},#{grade},#{adDate},#{graDate}, #{majorNum})
 	</insert>
 
 	<!-- 학생 가입처리 stdNumber는 userNumber = 학번 -->
@@ -41,24 +41,26 @@
 	<!-- 교수등록 -->
 	<insert id="insertPUsers"
 		parameterType="com.spring.project.admin.vo.AdProVO">
-		insert into users(userNumber, userPassword, userEngName,
-		userName,
-		userImage, userSsn,userCellNum,
-		userEmail, delStatus,
-		authority, gender, userZipCode, userAddr1, userAddr2 )
-		values(#{userNumber},1234,#{userEngName},#{userName},#{userImage},
-		#{userSsn},#{userCellNum},#{userEmail},0,'ROLE_PROFESSOR', #{gender}
-		,
-		#{userZipCode}, #{userAddr1}, #{userAddr2})
+		insert into users(userNumber, userPassword, userEngName, userName, userImage, userSsn,userCellNum,
+							userEmail, delStatus, authority, gender, userZipCode, userAddr1, userAddr2 )
+					values(#{userNumber},#{userSsn2},#{userEngName},#{userName},#{userImage},
+							#{userSsn},#{userCellNum},#{userEmail},0,'ROLE_PROFESSOR', #{gender},
+							#{userZipCode}, #{userAddr1}, #{userAddr2})
 	</insert>
 
 	<!-- 교수등록 -->
 	<insert id="insertEmployees"
 		parameterType="com.spring.project.admin.vo.AdProVO">
-		insert into employee(empNumber, majorNum,empHiredDate,
-		annualLevel,
-		bankName, accountNumber, accountHolder)
-		values(#{userNumber},#{majorNum},#{empHiredDate},1,#{bankName},#{accountNumber},#{accountHolder})
+		<choose>
+			<when test="majorNum != 0">
+			insert into employee(empNumber, majorNum,empHiredDate,annualLevel,bankName, accountNumber, accountHolder)
+					values(#{userNumber},#{majorNum},#{empHiredDate},1,#{bankName},#{accountNumber},#{accountHolder})
+			</when>
+			<otherwise>
+			insert into employee(empNumber,empHiredDate,annualLevel,bankName, accountNumber, accountHolder)
+					values(#{userNumber},#{empHiredDate},1,#{bankName},#{accountNumber},#{accountHolder})
+			</otherwise>
+		</choose>
 	</insert>
 
 	<!-- 교수등록 -->
@@ -89,18 +91,14 @@
 	<select id="getProList" parameterType="java.util.Map"
 		resultType="com.spring.project.admin.vo.AdProVO">
 		select u.userNumber, u.userName, m.majorName ,m.majorNum ,
-		u.usercellnum,
-		u.authority, e.annualLevel, e.empHiredDate, f.faculty
-		from employee e , users u,
-		major m, faculty f
-		<![CDATA[
-		where  u.delstatus <> 1
-				 and u.userNumber(+)= e.empnumber
-		   		 and e.majorNum(+) = m.majorNum
-		   		 and f.faculty = m.faculty(+)
-		   		 and u.authority = 'ROLE_PROFESSOR'
-		   		 and u.delstatus != 1 
-		 ]]>
+				u.usercellnum, u.authority, e.annualLevel, e.empHiredDate, f.faculty
+		from employee e , users u, major m, faculty f
+		where u.userNumber= e.empnumber(+)
+	   		 and e.majorNum = m.majorNum(+)
+	   		 and f.faculty(+) = m.faculty
+	   		 and u.authority = 'ROLE_PROFESSOR'
+	   		 and u.delstatus != 1 
+
 	</select>
 
 	<!-- 학생상세 -->
@@ -124,19 +122,17 @@
 	<!-- 교수상세 -->
 	<select id="proDetail"
 		resultType="com.spring.project.admin.vo.AdProVO">
-		select u.userNumber, u.userZipCode, u.userAddr1,
-		u.userAddr2, u.userName, u.userImage,
-		u.userEngName, u.userSsn, u.gender, m.majorName, m.majorNum, e.INTRODUCTION,
-		u.userEmail, u.userCellNum, e.annualLevel, to_date(e.empHiredDate,
-		'yy/mm/dd') empHiredDate, f.faculty,
-		e.bankName, e.accountNumber, e.accountHolder
+		select u.userNumber, u.userZipCode, u.userAddr1, u.userAddr2, u.userName, u.userImage,
+				u.userEngName, u.userSsn, u.gender, m.majorName, m.majorNum, e.INTRODUCTION,
+				u.userEmail, u.userCellNum, e.annualLevel, to_date(e.empHiredDate, 'yy/mm/dd') empHiredDate,
+				 f.faculty, e.bankName, e.accountNumber, e.accountHolder
 		from employee e, users u, major m, faculty f
-		where u.userNumber(+)= e.empNumber
-		and e.majorNum(+) = m.majorNum
-		and f.faculty = m.faculty
-		and u.authority = 'ROLE_PROFESSOR'
-		and u.userNumber =#{userNumber}
-		and u.delstatus != 1
+		where 	u.userNumber= e.empNumber(+)
+			and e.majorNum = m.majorNum(+)
+			and f.faculty(+) = m.faculty
+			and u.authority = 'ROLE_PROFESSOR'
+			and u.userNumber = #{userNumber}
+			and u.delstatus != 1
 	</select>
 
 	<!--학생 정보수정 -->
@@ -181,14 +177,21 @@
 	</update>
 
 	<!--교수정보수정 -->
-	<update id="updateEmployees"
-		parameterType="com.spring.project.admin.vo.AdProVO">
-		update employee set empNumber= #{userNumber}, majorNum=
-		#{majorNum}, empHiredDate= #{empHiredDate}, accountHolder=
-		#{accountHolder},
-		annualLevel= #{annualLevel}, bankName= #{bankName}, accountNumber=
-		#{accountNumber}
-		WHERE empNumber= #{userNumber}
+	<update id="updateEmployees" parameterType="com.spring.project.admin.vo.AdProVO">
+		<choose>
+			<when test="majorNum !=0">
+				update employee set empNumber= #{userNumber}, majorNum=#{majorNum},
+						empHiredDate= #{empHiredDate}, accountHolder=#{accountHolder},
+						annualLevel= #{annualLevel}, bankName= #{bankName}, accountNumber=#{accountNumber}
+				WHERE empNumber= #{userNumber}
+			</when>
+			<otherwise>
+				update employee set empNumber= #{userNumber},empHiredDate= #{empHiredDate}, 
+						accountHolder= #{accountHolder}, annualLevel= #{annualLevel}, 
+						bankName= #{bankName}, accountNumber=#{accountNumber}
+				WHERE empNumber= #{userNumber}
+			</otherwise>
+		</choose>
 	</update>
 
 	<!--교수 프로필 이미지 변경 -->

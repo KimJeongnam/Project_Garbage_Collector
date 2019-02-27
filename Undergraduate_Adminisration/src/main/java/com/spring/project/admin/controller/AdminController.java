@@ -136,6 +136,22 @@ public class AdminController {
 		return "admin/facultyManage";
 	}
 
+
+	
+	//중복확인
+	@ResponseBody
+	@RequestMapping("/admin/ajax/confirmNum" )
+	public Map<Object, Object> confirmNum(@RequestBody String userNumber)  {
+		int count = 0;
+        Map<Object, Object> map = new HashMap<Object, Object>();
+ 
+        count = service.confirmNum(map, userNumber);
+        map.put("cnt", count);
+ 
+		return map;
+	}
+	
+	
 	//학생인서트페이지
 	@RequestMapping("/admin/stdInsert2")
 	public String stdInsert2(HttpServletRequest req, Model model) {
@@ -175,7 +191,7 @@ public class AdminController {
 	//전화번호부 가져오기
 	@ResponseBody
 	@RequestMapping(value = "/admin/ajax/sendSMSMessage", method = RequestMethod.POST)
-	public Map<String, Object> sendSMSMessageStd(@RequestBody Map<String, Object> map) {
+	public Map<String, Object> sendSMSMessage(@RequestBody Map<String, Object> map) {
 		logger.info("sendSMSMessage" + map.get("authority"));
 
 		Map<String, Object> result = new HashMap<String, Object>();
@@ -203,6 +219,14 @@ public class AdminController {
 		return "admin/HRD/proMyPage";
 	}
 
+	//직원상세정보 
+	@RequestMapping("/admin/empMyPage") 
+	public String empMyPage(HttpServletRequest req, Model model) {
+		service.showProDetail(req, model);
+		return "admin/HRD/empMyPage";
+	}
+		
+		
 	//학생상세정보 
 	@RequestMapping("/admin/stdMyPage")
 	public String stdMyPage(Map<String, Object> map, HttpServletRequest req, Model model) {

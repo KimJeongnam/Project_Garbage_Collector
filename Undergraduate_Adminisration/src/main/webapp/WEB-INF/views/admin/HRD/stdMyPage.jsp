@@ -5,7 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <%@ include file="../../Basic/settings.jsp"%>
+<script src="${staticPath}/js/setRegister/setRegister.js"></script>
 <title>Insert title here</title>
+
 </head>
 <body class="nav-md">
 	<%@ include file="../../Basic/navbar.jsp"%>
@@ -14,7 +16,7 @@
 		<div class="">
 			<div class="page-title">
 				<div class="title_left">
-					<h3>학생 상세정보</h3>
+					<h3>학생 마이페이지</h3>
 				</div>
 				<div class="clearfix"></div>
 				<div class="row">
@@ -79,17 +81,14 @@
 													<a href="#tab_content2" role="tab" id="profile-tab"
 														data-toggle="tab" aria-expanded="false">수강중 강의</a>
 													</li>
-													<li role="presentation" class="">
-													<a href="#tab_content3" role="tab" id="profile-tab2"
-														data-toggle="tab" aria-expanded="false">과제관리</a>
-													</li>
 												</ul>
 												<!-- 학생정보 상세페이지 -->
 												
 												<div id="myTabContent" class="tab-content">
 													<div role="tabpanel" class="tab-pane fade active in"
 														id="tab_content1" aria-labelledby="home-tab">
-														<form action="stdDetailUpdate" method="POST" class="form-horizontal form-label-left" novalidate>
+														<form action="stdDetailUpdate" method="POST" name="stdMypage" 
+														onsubmit="return stdMyChk();" class="form-horizontal form-label-left" >
 															<span class="section">학생정보</span>
 															<div class="row">
 																<div class="col-md-offset-1 col-md-10">
@@ -99,31 +98,34 @@
 																				학번
 																			</th>
 																			<td>
-																				<input type="text" class="input" required="required" name="userNumber"
-																					value="${vo.userNumber}" placeholder="학번을 입력하시오">
+																				<input type="text" class="input" required="required" name="userNumber" id="userNumber"
+																					 onkeyup="nextStdPage();" value="${vo.userNumber}" placeholder="학번을 입력하시오" numberOnly = "numberOnly">
+																				<input type="button" value="중복확인" name="numberChk" id="numberChk" >
+																				<div id="displayTxt" ></div>	
 																			</td>
 																			<th class="control-label">
 																				한글성명
 																			</th>
 																			<td>
-																				<input type="text" class="input" required="required" name="userName"
-																					value="${vo.userName }" placeholder="성명을 입력하시오">
+																				<input type="text" class="input" required="required" name="userName" id="userName" style="width: 270px;"
+																					value="${vo.userName }" placeholder="성명을 입력하시오" korOnly="true" >
 																			</td>
 																		</tr>
 																		<tr>
-																			<th class="control-label">
-																				주민등록번호
-																			</th>
-																			<td>
-																				<input type="text" class="input" required="required" name="userSsn"
-																					value="${vo.userSsn }" placeholder="주민등록번호를 입력하시오">
-																			</td>
+																			<th class="control-label">주민등록번호</th>
+																				<td>
+																					<c:set var="SsnArr" value="${fn:split(vo.getUserSsn(),'-')}"/>
+																					<input class="input" type="text" name="jumin1" maxlength="6" style="width : 73px"
+																							onkeyup ="stdMyPageJumin1();" value="${SsnArr[0] }" > -
+																					 <input class="input" type="password" name="jumin2" maxlength="7"
+																							style="width:80px;" onkeyup="stdMyPageJumin2();" value="${SsnArr[1] }" readonly>
+																				</td>
 																			<th class="control-label">
 																				영어성명
 																			</th>
 																			<td>
 																				<input type="text" class="input" required="required" name="userEngName"
-																					value="${vo.userEngName }" placeholder="성명을 입력하시오">
+																					value="${vo.userEngName }" style="width: 270px;" placeholder="성명을 입력하시오">
 																			</td>
 																		</tr>
 																		<tr>
@@ -131,14 +133,18 @@
 																				성별
 																			</th>
 																			<td>
-																				<input type="text" class="input" required="required" name="gender"
-																					value="${vo.gender }" placeholder="성별을 입력하시오. 남 또는 여">
+																				남 <input type="radio" class="flat" name="gender" onclick="nextSex();"
+																						id="genderM" value="남자" required 
+																						<c:if test="${vo.gender eq '남자' }"> checked="checked"</c:if>  /> &nbsp;
+																						
+																				여 <input type="radio" class="flat" name="gender" id="genderF" onclick="nextSex();"
+																						value="여자" <c:if test="${vo.gender eq '여자' }"> checked="checked"</c:if> />
 																			</td>
 																			<th class="control-label">
 																				단과대학
 																			</th>
 																			<td>
-																				<select name="faculty" id ="faculty" style="height : 22px; width : 165px;" >
+																				<select name="faculty" id ="faculty" style="height : 22px; width : 270px;" >
 																		       			<option value="${vo.faculty}" selected>${vo.faculty}</option> 
 																		       		<c:forEach var="fa" items="${outFandM}" >
 																						<option value="${fa.faculty}" >${fa.faculty}</option> 
@@ -168,21 +174,13 @@
 																					<option value="1">휴학중</option>
 																					<option value="2">졸업</option>
 																				</select>
-																				<%-- <c:if test = "${vo.graduation_state ==0}">
-																					<input type="text" class="input" required="required" 
-																					name="graduation_state" value="재학중" placeholder="학적상태를 입력하시오 0 또는 1">
-																				</c:if>
-																				<c:if test = "${vo.graduation_state ==1}">
-																					<input type="text" class="input" required="required" 
-																					name="graduation_state" value="졸업" placeholder="학적상태를 입력하시오 0 또는 1">
-																				</c:if> --%>
 																			</td>
 																			<th class="control-label">
 																				학과(전공)
 																			</th>
 																			<td>
 																				<select name="majorNum" id ="majorNum" selected ="${vo.majorNum}"
-																						style="width : 165px; height : 22px;" >
+																						style="width : 270px; height : 22px;"  >
 																					<option value="${vo.majorNum}">${vo.majorNum} : ${vo.majorName}</option>	
 																		  		</select>
 																			</td>
@@ -192,32 +190,59 @@
 																				현재학기
 																			</th>
 																			<td>
-																				<input type="text" class="input" required="required" name="semester"
-																					value="${vo.semester }" placeholder="현재학기를 입력하시오. 1 또는 2">
+																				 <p>
+															                        1학기 <input type="radio" class="flat" name="semester" id="semester" 
+															                       			onchange="nextSemester();" value="1" checked required
+															                       			<c:if test="${vo.semester == 1 }"> checked="checked"</c:if> /> &nbsp;
+															                        2학기 <input type="radio" class="flat" name="semester" id="semester" 
+															                     			 value="2"  <c:if test="${vo.semester == 2 }"> checked="checked"</c:if>/>
+															                     </p>
 																			</td>
 																			<th class="control-label">
 																				학년
 																			</th>
 																			<td>
-																				<input type="text" class="input" required="required" name="grade"
-																					value="${vo.grade }" placeholder="학년을 입력하시오. 1,2,3,4">
+															                       1학년 <input type="radio" class="flat" name="grade" id="grade1" value="1"  required
+															                       				<c:if test="${vo.grade == 1 }">checked ="checked" </c:if> />&nbsp;  
+															                       2학년 <input type="radio" class="flat" name="grade" id="grade3" value="2"
+															                       				<c:if test="${vo.grade == 2 }">checked ="checked" </c:if>/> &nbsp; 
+															                       3학년 <input type="radio" class="flat" name="grade" id="grade3" value="3"
+															                       				<c:if test="${vo.grade == 3 }">checked ="checked" </c:if>/> &nbsp; 
+															                       4학년 <input type="radio" class="flat" name="grade" id="grade3" value="4"
+															                       				<c:if test="${vo.grade == 4 }">checked ="checked" </c:if>/> 
 																			</td>
 																		</tr>
 																		<tr>
-																			<th class="control-label">
-																				이메일
-																			</th>
-																			<td>
-																				<input type="text" class="input" required="required" name="userEmail"
-																					value="${vo.userEmail }" placeholder="이메일을 입력하시오">
-																			</td>
-																			<th class="control-label">
-																				졸업 예정일
-																			</th>
-																			<td>
-																				<input type="date" class="input" required="required" style="width: 166px;"
-																					name="graDate" value="${vo.graDate}" placeholder="졸업예정일을 입력하시오">
-																			</td>
+																			<th class="control-label">이메일</th>
+																				<td>
+																					<c:set var="emailArr" value="${fn:split(vo.getUserEmail(),'@')}"/>
+																					<input class="input" type="text" name="email1" maxlength="10" style="width : 65px"
+																							value="${emailArr[0] }"> @
+																					<input class="input" type="text" name="email2" maxlength="20" style="width : 83px"
+																							value="${emailArr[1] }">
+																					<select class ="input" name="email3" style="height:23px;" onchange="stdMyPageEmailChk();">
+																						<option value="0">직접입력</option>
+																						<option value="naver.com">네이버</option>
+																						<option value="gmail.com">구글</option>
+																						<option value="hanmail.net">다음</option>
+																						<option value="nate.com">네이트</option>
+																					</select>
+																				</td>
+																				
+																				
+																			<th class="control-label">휴대폰 연락처</th>
+																				<td>
+																					<c:set var="phArr" value="${fn:split(vo.getUserCellNum(),'-')}"/>
+																					<input class="input" type="text" name="hp1" maxlength="3"
+																				 	style= "width : 69px" onkeyup="StdMyPagePh1();" value="${phArr[0] }">
+																				 	-
+																				 	<input class="input" type="text" name="hp2" maxlength="4"
+																				 	style= "width : 89px" onkeyup="StdMyPagePh2();" value="${phArr[1] }">
+																				 	-
+																				 	<input class="input" type="text" name="hp3" maxlength="4"
+																				 	style= "width : 89px" onkeyup="StdMyPagePh3();" value="${phArr[2] }">
+																				</td>	
+																			
 																		</tr>
 																		<tr>
 																			<th class="control-label">
@@ -236,11 +261,11 @@
 																					value="${vo.userAddr2 }" placeholder="" type="text"><br>
 																			</td>
 																			<th class="control-label">
-																				연락처
+																				졸업 예정일
 																			</th>
 																			<td>
-																				<input type="text" class="input" required="required" name="userCellNum"
-																					value="${vo.userCellNum}" placeholder="연락처를 입력하시오">
+																				<input type="date" class="input" required="required" style="width: 270px;"
+																					name="graDate" value="${vo.graDate}" placeholder="졸업예정일을 입력하시오">
 																			</td>
 																		</tr>
 																		
@@ -289,157 +314,6 @@
 														</table>
 														<!-- end user projects -->
 													</div>
-													<!-- 과제관리 상세페이지 -->
-													<div role="tabpanel" class="tab-pane fade"
-														id="tab_content3" aria-labelledby="profile-tab">
-														<span class="section">과제관리</span>
-														<!-- page content -->
-															<div class="">
-																<div class="clearfix"></div>
-																<div class="row">
-																	<div class="col-md-12">
-																		<div class="x_panel">
-																			<div class="x_title">
-																				<h2>강의 1 과제 관리</h2>
-																				<div class="btn-group" style="float: right">
-																					<button data-toggle="dropdown"
-																						class="btn btn-default dropdown-toggle" type="button">
-																						진행중인 강의 선택 <span class="caret"></span>
-																					</button>
-																					<ul class="dropdown-menu">
-																						<li><a href="#">운동역학</a></li>
-																						<li><a href="#">운동 생리학</a></li>
-																						<li><a href="#">운동 역학의 스포츠 적용</a></li>
-																					</ul>
-																				</div>
-																				<div class="clearfix"></div>
-																			</div>
-																			<div class="x_content">
-																				<div class="col-md-9 col-sm-9 col-xs-12">
-																					<ul class="stats-overview">
-																						<li><span class="name"> 총 수강인원 </span> <span
-																							class="value text-success"> 30 </span></li>
-																						<li><span class="name"> 과제 제출 인원 </span> <span
-																							class="value text-success"> 3 </span></li>
-																						<li class="hidden-phone"><span class="name">
-																						과제 미제출 인원</span> 
-																						<span class="value text-success">27</span></li>
-																					</ul>
-																					<div>
-																						<h4>제출리스트</h4>
-																						<!-- end of user messages -->
-																						<ul class="messages">
-																							<li><img src="${staticPath }${vo.userImage}" name="userImage" class="avatar" alt="Avatar">
-																								<div class="message_date">
-																									<h3 class="date text-info">24</h3>
-																									<p class="month">1월</p>
-																								</div>
-																								<div class="message_wrapper">
-																									<h4 class="heading">김설현</h4>
-																									<blockquote class="message">운동역학의 이해 제출합니다.</blockquote>
-																									<br />
-																									<p class="url">
-																										<span class="fs1 text-info" aria-hidden="true" data-icon=""></span>
-																										 <a href="#"><i class="fa fa-paperclip"></i> 2019380527 김설현
-																											운동역학의 이해.doc </a>
-																									</p>
-																								</div>
-																							</li>
-																							<li><img src="${staticPath }${vo.userImage}" name="userImage" class="avatar" alt="Avatar">
-																								<div class="message_date">
-																									<h3 class="date text-info">24</h3>
-																									<p class="month">1월</p>
-																								</div>
-																								<div class="message_wrapper">
-																									<h4 class="heading">김설현</h4>
-																									<blockquote class="message">운동역학의 이해 제출합니다.</blockquote>
-																									<br />
-																									<p class="url">
-																										<span class="fs1 text-info" aria-hidden="true" data-icon=""></span> 
-																										<a href="#"><i class="fa fa-paperclip"></i> 2019380527 김설현
-																											운동역학의 이해.doc </a>
-																									</p>
-																								</div>
-																							</li>
-																						</ul>
-																						<!-- end of user messages -->
-																					</div>
-																				</div>
-																				<!-- start project-detail sidebar -->
-																				<div class="col-md-3 col-sm-3 col-xs-12">
-																					<section class="panel">
-																						<div class="x_title">
-																							<h2>운동역학</h2>
-																							<div class="clearfix"></div>
-																						</div>
-																						<div class="panel-body">
-																							<h3 class="green">
-																								<i class="fa fa-university"></i> 1주차 과제
-																							</h3>
-																							<p>
-																								1주차 운동역학의 이해. 운동역학 p.1 - p.134 까지 읽고 운동역학의 정의와
-																								개념, 목적, 필요성에 대해 서술하고 운동역학의 스포츠 적용 및 연구영역에 대해 자세히
-																								서술하시오. <br>
-																								<br> 한글 /폰트 크기 11 / 굴림 / 개요 를 준수.
-																							</p>
-																							<br />
-																							<div class="project_detail">
-																								<p class="title">교수</p> 
-																								<p>정치호</p>
-																								<p class="title">강의</p>
-																								<p>운동역학</p>
-																							</div>
-																							<br />
-																							<h5>참고자료</h5>
-																							<ul class="list-unstyled project_files">
-																								<li><a href=""><i class="fa fa-file-word-o"></i> 운동역학.docx</a></li>
-																								<li><a href=""><i class="fa fa-file-pdf-o"></i> 운동역학의 스포츠적용.pdf</a></li>
-																								<li><a href=""><i class="fa fa-mail-forward"></i> 운동역학의 역사.mln</a></li>
-																								<li><a href=""><i class="fa fa-picture-o"></i> 이미지.png</a></li>
-
-																							</ul>
-																							<br />
-																							<!-- Large modal -->
-																							<div class="text-center mtop20">
-																								<button type="button" class="btn btn-sm btn-primary"
-																									data-toggle="modal" data-target=".bs-example-modal-lg1">과제 업로드
-																								</button>
-																								<!-- modal 여러개 사용시 위 data-target 과 밑 class 이름을 같게 수정하셈!! -->
-																								<div class="modal fade bs-example-modal-lg1"
-																									tabindex="-1" role="dialog" aria-hidden="true">
-																									<div class="modal-dialog modal-lg">
-																										<div class="modal-content">
-																											<div class="modal-header">
-																												<button type="button" class="close" data-dismiss="modal">
-																													<span aria-hidden="true">×</span>
-																												</button>
-																												<h4 class="modal-title" id="myModalLabel">과제 업로드 </h4>
-																											</div>
-																											<div class="modal-body">
-																												<form action="#" class="dropzone"></form>
-																											</div>
-																											<div class="modal-footer">
-																												<button type="button" class="btn btn-default"
-																													data-dismiss="modal">취소
-																												</button>
-																												<button type="button" class="btn btn-primary">저장</button>
-																											</div>
-																										</div>
-																									</div>
-																								</div>
-																							</div>
-																						</div>
-																					</section>
-																				</div>
-																				<!-- end project-detail sidebar -->
-																			</div>
-																		</div>
-																	</div>
-																</div>
-															</div>
-														<!-- /page content -->
-													</div>
-													<!-- END/과제관리 상세페이지 -->
 												</div>
 											</div>
 										</div>
@@ -546,6 +420,70 @@
 			}));
 		}
 	}  
+ 	
+ 	//학번 -문자만
+		$("input:text[numberOnly]").on("keyup", function() {
+		    $(this).val($(this).val().replace(/[^0-9]/g,""));
+		});
+	
+		//영어이름 -영문자만
+		$(document).on("keyup", "input:text[engOnly]", function() {
+			$(this).val( $(this).val().replace(/[0-9]|[^\!-z\s]/gi,"") );
+		});
+
+		//한글이름 
+		$(document).on("keyup", "input:text[korOnly]", function() {
+			$(this).val( $(this).val().replace(/[a-z0-9]|[ \[\]{}()<>?|`~!@#$%^&*-_+=,.;:\"\\]/g,"") );
+		});
+		
+		
+		//학번중복체크
+		$(function() {
+	    //idck 버튼을 클릭했을 때 
+		var numberChk = 0;
+	    $("#numberChk").click(function() {
+	        
+	        //userNum 을 param.
+	        var userNum = $('#userNumber').val();
+	        if(userNum.length != 8){
+				alert("해당번호는 8자리를  충족하지 않습니다.");
+				$('#userNumber').val("");
+	        }else{
+	        
+	        $.ajax({
+	            async: true,
+	            type : 'POST',
+	            data : userNum,
+	            url : "/project/admin/ajax/confirmNum",
+	            dataType : "json",
+	            contentType: "application/json; charset=UTF-8",
+	            success : function(data) {
+	                if (data.cnt > 0) {
+	                    $("#displayTxt").html( "<span style='color : red'>" + $("#userNumber").val() +" 은(는) 이미 사용중 입니다. </span>");
+	                    $("#userNumber").val("");
+	                    $("#userNumber").focus();
+	                    //아이디가 존제할 경우 빨깡으로 , 아니면 검정으로 처리하는 디자인
+	                
+	                } else {
+	                	 $("#displayTxt").html( "<span style='color : black;'><b> " + $("#userNumber").val() +" 은(는) 사용가능합니다. </b></span>");
+	                	 $("#userName").focus();
+	                    
+	                    //아이디가 존제할 경우 빨깡으로 , 아니면 검정으로 처리하는 디자인
+	                    //아이디가 중복하지 않으면  numberChk = 1 
+	                    numberChk = 1;
+	                    
+	                }
+	            },
+	            error : function(error) {
+	                
+	                alert("error : " + error);
+	            }
+	        
+	        });
+	        }
+	    });
+	});
+		
 	</script>
 </body>
 </html>

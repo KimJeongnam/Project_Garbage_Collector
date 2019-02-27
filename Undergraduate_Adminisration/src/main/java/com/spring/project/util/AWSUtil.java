@@ -1,14 +1,19 @@
 package com.spring.project.util;
 
-import java.util.ArrayList; 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.util.StringUtils;
+
 import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
-import com.amazonaws.services.sns.AmazonSNSClient;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.sns.AmazonSNS;
+import com.amazonaws.services.sns.AmazonSNSClientBuilder;
 import com.amazonaws.services.sns.model.CreateTopicRequest;
 import com.amazonaws.services.sns.model.CreateTopicResult;
 import com.amazonaws.services.sns.model.MessageAttributeValue;
@@ -19,7 +24,7 @@ import com.amazonaws.services.sns.model.SubscribeResult;
 
 public class AWSUtil {
 
-	private static AmazonSNSClient snsClient = null;	//AWS SNS Client(SMS를 보내기위한 객체)
+	private static AmazonSNS snsClient = null;	//AWS SNS Client(SMS를 보내기위한 객체)
 	private static Map<String, MessageAttributeValue> smsAttributes = null;	//SMS 속성
 	private final static String SMS_TYPE = "Promotional";	//SMS Type
 	private final static String SMS_SENDER_ID = "1234";		//발신자 번호
@@ -28,9 +33,13 @@ public class AWSUtil {
 	//Init: snsClient, smsAttribute 초기화
 	//key, 속성(sendId, smsType)
 	public static void init() {
-		AWSCredentials credentials = new BasicAWSCredentials("AKIAIZ55ZKFGWEXR3RMQ", 
-				"BqALAWZYCn++V2uFCWDBmgWhnTYPUcSMYq1U3VQS");//
-		snsClient = new AmazonSNSClient(credentials);
+		AWSCredentials credentials = new BasicAWSCredentials("", 
+				"");//
+		snsClient = AmazonSNSClientBuilder.standard()
+				.withCredentials(new AWSStaticCredentialsProvider(credentials))
+                .withRegion(Regions.AP_NORTHEAST_1)
+                .build(); 
+
 		smsAttributes = new HashMap<String, MessageAttributeValue>();
 		smsAttributes.put("AWS.SNS.SMS.SenderID", new MessageAttributeValue()
 				.withStringValue(SMS_SENDER_ID) //The sender ID shown on the device.
@@ -48,28 +57,38 @@ public class AWSUtil {
 		}
 		
 		//init()메소드에서 할당된 아이디로 토픽(주제) 생성
-		String topicArn = createSNSTopic(snsClient);
+		String topicArn = "";
 		
-		//토픽의 subscribe추가 (번호 추가)
-		//userCellNumList(파싱전 리스트)를 parsedUserCellNum 메소드를 통해 aws sns service에 맞는 형식으로 바꾼다.
-		//파싱된 리스트의  값을 포문을 통해 빼낸다.
-		for(String userCellNum: parsedUserCellNum(userCellNumList)) {
+		try {
+			topicArn = createSNSTopic(snsClient);
 			
-			//해당 토픽(topicArn)에 subscribe 추가(번호추가)
-			subscribeToTopic(snsClient, topicArn, "sms", userCellNum);
+			//토픽의 subscribe추가 (번호 추가)
+			//userCellNumList(파싱전 리스트)를 parsedUserCellNum 메소드를 통해 aws sns service에 맞는 형식으로 바꾼다.
+			//파싱된 리스트의  값을 포문을 통해 빼낸다.
+			for(String userCellNum: parsedUserCellNum(userCellNumList)) {
+				//해당 토픽(topicArn)에 subscribe 추가(번호추가)
+				subscribeToTopic(snsClient, topicArn, "sms", userCellNum);
+			}
+			
+			//Topic의 추가된 번호로 SMS 전송
+			sendSMSMessageToTopic(snsClient, topicArn, msg, smsAttributes);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			//추가했던 토픽 제거
+			if(StringUtils.hasText(topicArn)) {
+				snsClient.deleteTopic(topicArn);
+			}
 			
 		}
+				
 		
-		//Topic의 추가된 번호로 SMS 전송
-		sendSMSMessageToTopic(snsClient, topicArn, msg, smsAttributes);
 		
-		//추가했던 토픽 제거
-		snsClient.deleteTopic(topicArn);
 
 	}
 
 	//토픽 생성
-	public static String createSNSTopic(AmazonSNSClient snsClient) {
+	public static String createSNSTopic(AmazonSNS snsClient) {
 		CreateTopicRequest createTopic = new CreateTopicRequest("mySNSTopic");
 		CreateTopicResult result = snsClient.createTopic(createTopic);
 		System.out.println("Create topic request: " + 
@@ -79,7 +98,7 @@ public class AWSUtil {
 	}
 
 	//해당 토픽(topicArn)에 subscribe 추가(번호추가)
-	public static void subscribeToTopic(AmazonSNSClient snsClient, String topicArn, 
+	public static void subscribeToTopic(AmazonSNS snsClient, String topicArn, 
 			String protocol, String endpoint) { 
 		SubscribeRequest subscribe = new SubscribeRequest(topicArn, protocol,
 				endpoint);
@@ -90,7 +109,7 @@ public class AWSUtil {
 	}
 
 	//해당 토픽(topicArn)의 SMS 메시지 전송(실질적인 SMS 전송)
-	public static void sendSMSMessageToTopic(AmazonSNSClient snsClient, String topicArn, 
+	public static void sendSMSMessageToTopic(AmazonSNS snsClient, String topicArn, 
 			String message, Map<String, MessageAttributeValue> smsAttributes) {
 		PublishResult result = snsClient.publish(new PublishRequest()
 				.withTopicArn(topicArn)
@@ -119,8 +138,9 @@ public class AWSUtil {
 			if(chkStr.startsWith("010") && chkStr.length() ==11) {
 				parsedUserCellNumList.add(SMS_COUNTRY_NUM + distinctUserCellNumList.get(i).replaceAll("-", " ")); 
 			}
-			System.out.println("parsedUserCellNumList" + parsedUserCellNumList);
+			
 		}
+		System.out.println("parsedUserCellNumList" + parsedUserCellNumList);
 		return parsedUserCellNumList;
 	}
 }

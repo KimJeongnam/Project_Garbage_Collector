@@ -18,6 +18,10 @@ import com.spring.project.student.vo.LectureVO;
 @Service
 public interface AdminService {
 
+	
+	//중복확인
+	public int confirmNum(Map<Object, Object> map, String userNumber);
+	
 	//학생등록
 	public void stdInputPro(MultipartHttpServletRequest req,  RedirectAttributes red);
 	

@@ -17,6 +17,9 @@ import com.spring.project.student.vo.LectureVO;
 @Repository
 public interface AdminDAO {
 	
+	//중복확인
+	public int userNumChk(String userNumber); 
+	
 	//학생등록 처리페이지
 	public int insertUsers(AdStdVO vo);
 	public int insertStudent(AdStdVO vo);

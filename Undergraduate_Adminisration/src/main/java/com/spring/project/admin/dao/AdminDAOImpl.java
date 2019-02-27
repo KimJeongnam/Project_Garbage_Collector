@@ -22,6 +22,12 @@ public class AdminDAOImpl implements AdminDAO{
 	@Autowired
 	private SqlSession sqlSession;
 	
+	//중복확인
+	@Override
+	public int userNumChk(String userNumber) {
+		return sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.userNumChk", userNumber);
+	}
+	
 	//사용자 등록(학생)
 	@Override
 	public int insertUsers(AdStdVO vo) {
@@ -419,6 +425,8 @@ public class AdminDAOImpl implements AdminDAO{
 	public int CopyAllEmployeesDetail(List<payrollVO> empNumber) {
 		return sqlSession.insert("com.spring.project.admin.dao.AdminDAO.CopyAllEmployeesDetail", empNumber);
 	}
+
+
 
 	//------------------------------------------------------회계 관리 END----------------------------------------------------------
 
