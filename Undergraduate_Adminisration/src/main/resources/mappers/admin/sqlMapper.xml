@@ -470,6 +470,7 @@
 				</when>
 			</choose>
 		</where>
+		ORDER BY majorNum DESC
 		)
 	</select>
 
@@ -495,7 +496,7 @@
 			</choose>
 
 		</where>
-		ORDER BY majorNum
+		ORDER BY majorNum DESC
 		)
 		    <![CDATA[
 		    WHERE rnum >= #{start} AND rnum <= #{end}
@@ -691,6 +692,7 @@
 				OR u.userNumber like '%'||#{keyword}||'%')
 			</if>
 		</where>
+		ORDER BY u.userNumber
 		)
 	</select>
 
@@ -720,6 +722,7 @@
 				OR u.userNumber like '%'||#{keyword}||'%')
 			</if>
 		</where>
+		ORDER BY u.userNumber
 		)
 		<![CDATA[
 		WHERE rnum >= #{start} AND rnum <= #{end}
@@ -922,6 +925,17 @@
 
 
 
+
+
+
+	<!-- ==========================================학사일정 START========================================= -->
+	<select id="lecM" parameterType="String" resultType="com.spring.project.admin.vo.lecMVO">
+ 		SELECT*FROM lectureselectperiod order by year desc
+ 	</select>
+	<delete id="delete_sc" parameterType="String">
+ 		delete from lectureselectperiod where year = #{year} and semester = #{semester}
+ 	</delete>
+ 	<!-- ==========================================학사일정 END============================================ -->
 
 
 </mapper>

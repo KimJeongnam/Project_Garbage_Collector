@@ -11,6 +11,7 @@ import com.spring.project.admin.vo.AdProVO;
 import com.spring.project.admin.vo.AdStdVO;
 import com.spring.project.admin.vo.ScholarpkVO;
 import com.spring.project.admin.vo.auditVO;
+import com.spring.project.admin.vo.lecMVO;
 import com.spring.project.admin.vo.payrollVO;
 import com.spring.project.share.dao.ShareDAO;
 import com.spring.project.share.vo.Major;
@@ -427,8 +428,23 @@ public class AdminDAOImpl implements AdminDAO{
 	}
 
 
-
 	//------------------------------------------------------회계 관리 END----------------------------------------------------------
+
+	
+	
+	//---------------학사관리 START-------------------
+	@Override
+	public List<lecMVO> lecM() {
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.lecM");
+	}
+	
+	
+	@Override
+	public void delete_sc(lecMVO vo) {
+		sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.delete_sc", vo);
+	}
+	
+	//---------------학사관리 END---------------------
 
 	
 	

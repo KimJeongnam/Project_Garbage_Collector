@@ -15,8 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -28,6 +28,7 @@ import com.spring.project.admin.vo.AdProVO;
 import com.spring.project.admin.vo.AdStdVO;
 import com.spring.project.admin.vo.ScholarpkVO;
 import com.spring.project.admin.vo.auditVO;
+import com.spring.project.admin.vo.lecMVO;
 import com.spring.project.admin.vo.payrollVO;
 import com.spring.project.share.Config;
 import com.spring.project.share.dao.ShareDAO;
@@ -844,6 +845,7 @@ public class AdminServiceImpl extends Board implements AdminService {
 	}
 
 	// 학과 수정
+	@Transactional(rollbackFor=Exception.class)
 	@Override
 	public Map<String, Object> modifyMajor(Major major) {
 		Map<String, Object> resultmap = new HashMap<String, Object>();
@@ -1230,5 +1232,41 @@ public class AdminServiceImpl extends Board implements AdminService {
 		return responseData;
 	}
 
+	
+	
+	//---------------학사관리 START-------------------
+	@Override
+	public void lecM(HttpServletRequest req, Model model) {
+		
+		List<lecMVO> vo = dao.lecM();
+	
+		model.addAttribute("vo", vo);
+		
+	}
+	
+	@Override
+	public Map<String, Object> delete_sc(lecMVO vo) {
+		
+		Map<String, Object> resultmap = new HashMap<String, Object>();
+		dao.delete_sc(vo);
+		return resultmap;
+	}
+	//---------------학사관리 END-------------------
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
