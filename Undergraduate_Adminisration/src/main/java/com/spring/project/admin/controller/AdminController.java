@@ -137,6 +137,22 @@ public class AdminController {
 		return "admin/facultyManage";
 	}
 
+
+	
+	//중복확인
+	@ResponseBody
+	@RequestMapping("/admin/ajax/confirmNum" )
+	public Map<Object, Object> confirmNum(@RequestBody String userNumber)  {
+		int count = 0;
+        Map<Object, Object> map = new HashMap<Object, Object>();
+ 
+        count = service.confirmNum(map, userNumber);
+        map.put("cnt", count);
+ 
+		return map;
+	}
+	
+	
 	//학생인서트페이지
 	@RequestMapping("/admin/stdInsert2")
 	public String stdInsert2(HttpServletRequest req, Model model) {
@@ -176,7 +192,7 @@ public class AdminController {
 	//전화번호부 가져오기
 	@ResponseBody
 	@RequestMapping(value = "/admin/ajax/sendSMSMessage", method = RequestMethod.POST)
-	public Map<String, Object> sendSMSMessageStd(@RequestBody Map<String, Object> map) {
+	public Map<String, Object> sendSMSMessage(@RequestBody Map<String, Object> map) {
 		logger.info("sendSMSMessage" + map.get("authority"));
 
 		Map<String, Object> result = new HashMap<String, Object>();
@@ -204,6 +220,14 @@ public class AdminController {
 		return "admin/HRD/proMyPage";
 	}
 
+	//직원상세정보 
+	@RequestMapping("/admin/empMyPage") 
+	public String empMyPage(HttpServletRequest req, Model model) {
+		service.showProDetail(req, model);
+		return "admin/HRD/empMyPage";
+	}
+		
+		
 	//학생상세정보 
 	@RequestMapping("/admin/stdMyPage")
 	public String stdMyPage(Map<String, Object> map, HttpServletRequest req, Model model) {
@@ -454,26 +478,51 @@ public class AdminController {
 	
 	
 	// ---------------------------------학사 수업업무START------------------------------------------
+	//진입
 	@RequestMapping("/admin/lec_score_Management/lecManagement")
 	public String lecManagement(HttpServletRequest req, Model model) {
 		service.lecM(req, model);
 		logger.info("lecManagement()");
 		return "admin/lec_score_Management/lecManagement";
 	}
-	
+	//일정 삭제
 	@ResponseBody
 	@RequestMapping(value="/admin/lec_score_Management/lecManagement/delete_sc", method=RequestMethod.POST)
 	public Map<String, Object> delete_sc(@RequestBody lecMVO vo) {
 		logger.info("delete_sc()");
 		return service.delete_sc(vo);
 	}
+	//수정
+	@RequestMapping("/admin/lec_score_Management/lecScUpdate")
+	public String lecScUpdate(HttpServletRequest req, RedirectAttributes red) {
+		service.lecScUpdate(req, red);
+		logger.info("lecScUpdate()");
+		return "redirect:/admin/lec_score_Management/lecManagement";
+	}
+	//입력
+	@RequestMapping("/admin/lec_score_Management/lecScInsert")
+	public String lecScInsert(HttpServletRequest req, RedirectAttributes red) {
+		service.lecScInsert(req, red);
+		logger.info("lecScInsert()");
+		return "redirect:/admin/lec_score_Management/lecManagement";
+	}
+	//즉시실행
+	@RequestMapping("/admin/lec_score_Management/excuteScUpdate")
+	public String excuteScUpdate(HttpServletRequest req, RedirectAttributes red) {
+		service.excuteScUpdate(req, red);
+		logger.info("excuteScUpdate()");
+		return "redirect:/admin/lec_score_Management/lecManagement";
+	}
 	// ---------------------------------학사 수업업무END------------------------------------------
 	
 	
 	
 	// ---------------------------------학사 성적(?)업무START------------------------------------------
+	
+	//학사 성적 통계 진입
 	@RequestMapping("/admin/lec_score_Management/scoreManagement")
-	public String scoreManagement() {
+	public String scoreManagement(HttpServletRequest req, Model model) {
+		service.scoreManagement(req, model);
 		logger.info("scoreManagement()");
 		return "admin/lec_score_Management/scoreManagement";
 	}

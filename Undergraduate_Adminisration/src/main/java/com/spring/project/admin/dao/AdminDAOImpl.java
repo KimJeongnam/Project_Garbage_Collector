@@ -5,10 +5,12 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
 import com.spring.project.admin.vo.AdProVO;
 import com.spring.project.admin.vo.AdStdVO;
+import com.spring.project.admin.vo.ChartVO;
 import com.spring.project.admin.vo.ScholarpkVO;
 import com.spring.project.admin.vo.auditVO;
 import com.spring.project.admin.vo.lecMVO;
@@ -22,6 +24,12 @@ public class AdminDAOImpl implements AdminDAO{
 	
 	@Autowired
 	private SqlSession sqlSession;
+	
+	//중복확인
+	@Override
+	public int userNumChk(String userNumber) {
+		return sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.userNumChk", userNumber);
+	}
 	
 	//사용자 등록(학생)
 	@Override
@@ -427,19 +435,69 @@ public class AdminDAOImpl implements AdminDAO{
 	
 	
 	//---------------학사관리 START-------------------
+	//학사일정관리 진입
 	@Override
 	public List<lecMVO> lecM() {
 		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.lecM");
 	}
 	
-	
+	//학사일정 삭제 
 	@Override
 	public void delete_sc(lecMVO vo) {
-		sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.delete_sc", vo);
+		 sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.delete_sc", vo);
 	}
+	
+	//학사일정 수정
+	@Override
+	public int lecScUpdate(lecMVO vo) {
+		return sqlSession.update("com.spring.project.admin.dao.AdminDAO.lecScUpdate", vo);
+	}
+	//학사일정 추가 
+	@Override
+	public int lecScInsert(lecMVO vo) throws DataAccessException{
+		return sqlSession.insert("com.spring.project.admin.dao.AdminDAO.lecScInsert", vo);
+	}
+	
+	
 	
 	//---------------학사관리 END---------------------
 
+	
+	
+	
+	
+	
+	
+	//---------------학사성적통계 START---------------------
+	
+	
+	//학사성적통계 단과대
+	@Override
+	public List<ChartVO> facultyAvg() {
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.facultyAvg");
+	}
+	
+	//학사성적통계 학과
+	@Override
+	public List<ChartVO> majorAvg() {
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.majorAvg");
+	}
+	
+	//학사성적통계 남녀
+	@Override
+	public List<ChartVO> genderAvg() {
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.genderAvg");
+	}
+	
+	//학사성적통계 학년
+	@Override
+	public List<ChartVO> gradeAvg() {
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.gradeAvg");
+	}
+	
+	
+	
+	//---------------학사성적통계 END-----------------------
 	
 	
 	

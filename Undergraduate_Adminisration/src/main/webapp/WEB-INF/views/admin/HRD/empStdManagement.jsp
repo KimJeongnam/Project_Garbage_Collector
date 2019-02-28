@@ -52,13 +52,29 @@
 								<tbody>
 								<c:forEach var="vo" items="${vo}" varStatus="status">
 									<tr>
-										<td><a href="proMyPage?userNumber=${vo.userNumber}">${vo.userName}</a></td>
-										<td>${vo.userNumber}</td>
-										<td>${vo.majorName}(${vo.majorNum})</td>
 										<td>
-											 <c:if test = "${vo.authority eq 'ROLE_PROFESSOR'}">
+											<c:if test = "${vo.majorNum != 0 }">
+												<a href="proMyPage?userNumber=${vo.userNumber}">${vo.userName}</a>
+											</c:if> 
+											<c:if test = "${vo.majorNum == 0 }">
+												<a href="empMyPage?userNumber=${vo.userNumber}">${vo.userName}</a>	
+											</c:if>
+											
+										</td>
+										<td>${vo.userNumber}</td>
+										<td>
+											<c:if test = "${vo.majorNum == 0 }">
+													직원
+											</c:if>
+											${vo.majorName}(${vo.majorNum})
+										</td>
+										<td>
+											 <c:if test = "${vo.majorNum != 0 }">
 													교수
 											</c:if> 
+											<c:if test = "${vo.majorNum == 0 }">
+													직원
+											</c:if>
 										</td>
 										<td>${vo.annualLevel}</td>
 										<td>${vo.userCellNum}</td>
@@ -69,7 +85,7 @@
 							<div>
 								<input class="btn btn-primary" type="button" value="등록"
 									onclick="window.location='proInsert2'">
-								<button type="button" class="btn btn-success" data-toggle="modal" id="proSend" data-target=".sendProModal">문자전송</button>
+								<button type="button" class="btn btn-success" id="proSend">문자전송</button>
 							</div>
 						</div>
 					</div>
@@ -129,7 +145,7 @@
 										<div>
 											<input class="btn btn-primary" type="button" value="등록"
 												onclick="window.location='stdInsert2'">
-											<button type="button" class="btn btn-success" data-toggle="modal" id="stdSend" data-target=".sendStdModal">문자전송</button>
+											<button type="button" class="btn btn-success"  id="stdSend" >문자전송</button>
 										</div>
 									</div>
 								</div>
@@ -140,8 +156,11 @@
 			</div>
 		</div>
 	</div>
-     <!-- 문자전송 모달 to 교수 -->
-    <div class="modal fade sendProModal" tabindex="-1" role="dialog" aria-hidden="true">
+	<!--히든인 smsType 태그에 제이쿼리로 값을 할당  -->
+    <input  id="smsType" type="hidden" value="">
+    
+     <!-- 문자전송 모달  -->
+    <div class="modal fade sendModal" tabindex="-1" id="modal" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
@@ -150,37 +169,13 @@
                     <h4 class="modal-title" id="myModalLabel2">단체문자 전송</h4>
                 </div>
                 <div class="modal-body">
-                	<c:forEach var="proDto" items="${vo}">
-                   		<input  id="smsTypePro" type="hidden" value="${proDto.authority}">
-                    </c:forEach>
-                    	<textarea rows="" cols=""  style="resize :none; width : 265px; height: 80px;" id="textPro"></textarea>
+                	
+                    	<textarea rows="" cols=""  style="resize :none; width : 265px; height: 80px;" id="text"></textarea>
+                    	<p id="textCnt">( 0 / 60 )</p>
                 </div>
                 <div class="modal-footer">
                     	<button type="reset" class="btn btn-default"  data-dismiss="modal">취소</button>
-                   		<button type="button" id="sendSMSProBtn" class="btn btn-primary" data-dismiss="modal">전송</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- 문자전송 모달 끝  -->
-     <!-- 문자전송 모달 to 학생 -->
-    <div class="modal fade sendStdModal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
-                    </button>
-                    <h4 class="modal-title" id="myModalLabel2">단체문자 전송</h4>
-                </div>
-                <div class="modal-body">
-                	<c:forEach var="stdDto" items="${dtos}">
-                   		<input  id="smsTypeStd" type="hidden" value="${stdDto.authority}">
-                    </c:forEach>
-                    	<textarea rows="" cols=""  style="resize :none; width : 265px; height: 80px;" id="textStd"></textarea>
-                </div>
-                <div class="modal-footer">
-                    	<button type="reset" class="btn btn-default" data-dismiss="modal">취소</button>
-                   		<button type="button" id="sendSMSStdBtn" class="btn btn-primary" data-dismiss="modal">전송</button>
+                   		<button type="button" id="sendSMSBtn" class="btn btn-primary" >전송</button>
                 </div>
             </div>
         </div>
@@ -194,47 +189,69 @@
 	
 	//학생-문자전송 클릭시 텍스트창 초기화
 	$('#stdSend').click(function(){
-		  $('#textStd').val("");
-        
+		  $('#text').val("");
+		  $('#textCnt').html("( 0 / 60 )");
+		  var smsStdType = "";
+		  
+		  // html소스 내에  c:if 태그가 정의 되어 있을경우 스크립트 내에서 사용 가능 
+		  <c:if test = "${!empty dtos && fn:length(dtos) > 0}">
+		  	smsStdType = "${dtos[0].authority}";
+		  </c:if>
+		  if(smsStdType ==''){
+			  alert('보낼 학생이 없습니다.');
+		  }else{
+			  //히든 타입인 smsType태그에 값을 넣어줌
+			  $('#smsType').val(smsStdType);
+			  //popopen
+			  $('#modal').modal('show');
+		  }
+          
 	}); 
 	
 	//교수 문자전송 클릭시 텍스트창 초기화
 	$('#proSend').click(function(){
-		  $('#textPro').val("");
-      
+	  $('#text').val("");
+	  $('#textCnt').html("( 0 / 60 )");
+	  var smsProType = "";
+	  <c:if test = "${!empty vo && fn:length(vo) > 0}">
+	  	smsProType = "${vo[0].authority}";
+	  </c:if>
+      if(smsProType ==''){
+		  alert('보낼 교수가 없습니다.');
+	  }else{
+		  $('#smsType').val(smsProType);
+		//popopen
+		  $('#modal').modal('show');
+	  }
+      	
 	}); 
 	
 	//학생 단체문자전송
-	$('#sendSMSStdBtn').click(function(){
-		if(confirm("전송하시겠습니까?")){
-			sendSMSMessage($('#smsTypeStd').val());
+	$('#sendSMSBtn').click(function(){
+		if($('#text').val().replace(" ", "").length == 0){
+			alert("문자를 입력해주세요.")
+		
+		}else if($('#text').val().length > 60){
+			alert('60자 이내로 입력해주세요.');
+		}else{
+			if(confirm("전송하시겠습니까?")){
+				sendSMSMessage($('#smsType').val());
 			
 		 	}
-		});
-	
-	//교수단체문자 전송
-	 $('#sendSMSProBtn').click(function(){
-		if(confirm("전송하시겠습니까?")){
-			sendSMSMessage($('#smsTypePro').val());
-			
-		 	}
-		});
+		}
+		
+	});
+
 	
 	//Send SMS message (보내는 ROLE)
 	function sendSMSMessage(authority){
 	   var obj = new Object();
           obj.authority = authority;
-          
-		if(authority ==$('#smsTypeStd').val()){
-         	 obj.msg =$('#textStd').val();
-		}else {
-			 obj.msg =$('#textPro').val();
-		}          
+          obj.msg =$('#text').val();
           
            var jsonData = JSON.stringify(obj);
-           
            //project/admin/ajax/sendSMSMessage 호출(ajax)
-           $.ajax({
+            $.ajax({
                url: '/project/admin/ajax/sendSMSMessage',
                type: 'POST',
                data: jsonData,
@@ -248,10 +265,32 @@
                },
                error: function() {
                	alert("Error!");
+               },
+               //성공이든 오류든 완료시점에 실행되는 액션정의
+               complete : function(){
+            	   $('#modal').modal('hide');
                }
-           });
+               
+           }); 
 	}
+	// 글자수 카운트
+	$('#text').keydown(function(){
+		setTextCnt($(this));
+	});
+	// 글자수 카운트
+	$('#text').keyup(function(){
+		setTextCnt($(this));
+	});
 	
+	//위에 매개변수로 넣은 카운트 = obj
+	function setTextCnt(obj){
+		if(obj.val().length > 60){
+			$('#textCnt').html("( " + "<span style='color : red'>" + obj.val().length + "</span> / 60 )");
+			
+		}else{
+			$('#textCnt').html("( " + obj.val().length + " / 60 )");
+		}
+	}
 	
 	</script>
 </body>

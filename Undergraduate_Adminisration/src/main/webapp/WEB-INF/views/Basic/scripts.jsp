@@ -187,3 +187,7 @@
     <!-- morris.js -->
     <script src="${staticPath }/vendors/raphael/raphael.min.js"></script>
     <script src="${staticPath }/vendors/morris.js/morris.min.js"></script>
+    
+    <!-- ECharts -->
+    <script src="${staticPath }/vendors/echarts/dist/echarts.min.js"></script>
+    <script src="${staticPath }/vendors/echarts/map/js/world.js"></script>

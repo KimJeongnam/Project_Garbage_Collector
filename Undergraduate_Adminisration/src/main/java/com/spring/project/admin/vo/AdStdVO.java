@@ -20,6 +20,14 @@ public class AdStdVO {
 	private int delStatus;			//삭제상태
 	private String authority; 
 	
+	private String userSsn2;
+	
+	public String getUserSsn2() {
+		return userSsn2;
+	}
+	public void setUserSsn2(String userSsn2) {
+		this.userSsn2 = userSsn2;
+	}
 	//student
 	private String stdNumber;		//학번
 	private int grade;				//학년
