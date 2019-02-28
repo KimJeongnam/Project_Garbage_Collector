@@ -12,8 +12,10 @@
 			classpath:/security-context.xml
 			classpath:/schedulerContext.xml
 			/WEB-INF/spring/root-context.xml
+			classpath:/file-context.xml
 		</param-value>
 	</context-param>
+	<!-- classpath:/ -->
 
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
 	<listener>
