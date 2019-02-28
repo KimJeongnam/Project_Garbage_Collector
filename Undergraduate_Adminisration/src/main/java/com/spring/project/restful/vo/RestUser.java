@@ -4,6 +4,7 @@ public class RestUser {
 	private String userNumber;
 	private String userPassword;
 	private String userName;
+	private String userImage;
 	private String gender;
 	private String userCellNum;
 	private String grade;
@@ -30,6 +31,12 @@ public class RestUser {
 	}
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+	public String getUserImage() {
+		return userImage;
+	}
+	public void setUserImage(String userImage) {
+		this.userImage = userImage;
 	}
 	public String getGender() {
 		return gender;

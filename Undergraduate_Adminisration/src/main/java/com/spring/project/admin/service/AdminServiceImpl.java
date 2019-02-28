@@ -14,20 +14,25 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.crontab.dao.ScheduleDAO;
+import com.crontab.vo.LectrueSelectPeriod;
 import com.spring.project.Board.Board;
 import com.spring.project.Board.BoardInterface;
 import com.spring.project.admin.dao.AdminDAO;
 import com.spring.project.admin.vo.AdProVO;
 import com.spring.project.admin.vo.AdStdVO;
+import com.spring.project.admin.vo.ChartVO;
 import com.spring.project.admin.vo.ScholarpkVO;
 import com.spring.project.admin.vo.auditVO;
+import com.spring.project.admin.vo.lecMVO;
 import com.spring.project.admin.vo.payrollVO;
 import com.spring.project.share.Config;
 import com.spring.project.share.dao.ShareDAO;
@@ -41,6 +46,8 @@ public class AdminServiceImpl extends Board implements AdminService {
 	AdminDAO dao;
 	@Autowired
 	ShareDAO shareDao;
+	@Autowired
+	ScheduleDAO schduleDao;
 
 	/* 장학 단 */
 	// 장학 글 목록
@@ -124,75 +131,7 @@ public class AdminServiceImpl extends Board implements AdminService {
 			model.addAttribute("pageCount", pageCount); // 페이지 갯수
 			model.addAttribute("pageSize", pageSize); // 현재페이지
 		}
-		// 3단계.화면으로부터 입력받은값을 받아온다.
-		// 페이징
-		/*
-		 * int pageSize =5; //한페이지당 출력할 글 갯수 int pageBlock = 3; //한블럭당 페이지 갯수
-		 * 
-		 * int cnt = 0 ; //글갯수 int start =0; //현재 페이지 시작 글번호 int end= 0; //현재페이지 마지막 글번호
-		 * int number = 0; //출력용 글번호 String pageNum = ""; //페이지번호 int currentPage = 0;
-		 * //현재페이지
-		 * 
-		 * int pageCount = 0; //페이지 갯수 int startPage = 0; //시작 페이지 int endPage = 0;//마지막
-		 * 페이지
-		 */
-
-		/*
-		 * //5단계.글의갯수 구하기 cnt = dao.getArticleCnt();
-		 * 
-		 * //6단계 req.setAttribute("selectCnt", cnt); System.out.println(cnt);//먼저 30건출력
-		 * 
-		 * pageNum =req.getParameter("pageNum");
-		 * 
-		 * if(pageNum == null) { pageNum="1";//첫페이지를 1페이지로 지정 }
-		 * 
-		 * //글30건 기준 currentPage = Integer.parseInt(pageNum);//현재페이지 :1
-		 * System.out.println("currentPage : "+currentPage);
-		 * 
-		 * //페이지 갯수 6 =(30/5)+0 pageCount=(cnt/pageSize) + (cnt%pageSize >0 ? 1:0);//페이지
-		 * 갯수 + 나머지있으면1
-		 * 
-		 * //현재 페이지 시작 글번호(페이지별) //1 =(1-1)*5+1 start =(currentPage - 1)* pageSize +1;
-		 * 
-		 * //현재 페이지 마지막 글번호(페이지별) //5 = 1 + 5 -1; end = start + pageSize -1;
-		 * 
-		 * System.out.println("start : " +start); System.out.println("end : " +end);
-		 * 
-		 * if(end>cnt) end =cnt;
-		 * 
-		 * //출력형 글번호 //30 = 30- (1-1) *5 number = cnt - (currentPage - 1) *
-		 * pageSize;//출력용 글번호
-		 * 
-		 * System.out.println("number : " +number); System.out.println("pageSize : "
-		 * +pageSize);
-		 * 
-		 * if(cnt>0) { //5-2게시글 목록 조회
-		 * 
-		 * Map<String,Object> map = new HashMap<String,Object>(); map.put("start",
-		 * start); map.put("end", end); List<ScholarpkVO> dtos=dao.getArticleList(map);
-		 * 
-		 * //jsp로 넘겨라 model.addAttribute("dtos", dtos);//큰바구니 : 게시글 목록 cf) 작은바구니 : 게시글
-		 * 1건 }
-		 * 
-		 * //6단계 request나 session 에 처리 결과를 저장 (jsp에 전달하기 위함)
-		 * 
-		 * //시작페이지 // 1 = (1 / 3) *3+1; startPage = (currentPage / pageBlock) *
-		 * pageBlock + 1; if(currentPage % pageBlock == 0) startPage -= pageBlock;
-		 * System.out.println("startPage : " + startPage);
-		 * 
-		 * //마지막페이지 //3 = 1+3-1 endPage = startPage + pageBlock -1; if(endPage >
-		 * pageCount) endPage =pageCount; System.out.println("endPage : " + endPage);
-		 * System.out.println("==================");
-		 * 
-		 * model.addAttribute("cnt", cnt); // 글갯수 model.addAttribute("number", number);
-		 * model.addAttribute("pageNum", pageNum);
-		 * 
-		 * if(cnt>0) { model.addAttribute("startPage", startPage);//시작페이지
-		 * model.addAttribute("endPage", endPage);//마지막페이지
-		 * model.addAttribute("pageBlock", pageBlock);//출력할 페이지 갯수
-		 * model.addAttribute("pageCount", pageCount);//페이지갯수
-		 * model.addAttribute("currentPage", currentPage);//현재페이지 }
-		 */
+	
 	}
 
 	// 글처리 완료
@@ -252,6 +191,13 @@ public class AdminServiceImpl extends Board implements AdminService {
 
 	}
 
+	//즁복확인
+	@Override
+	public int confirmNum(Map<Object, Object> map, String userNumber) {
+		return dao.userNumChk(userNumber);
+	}
+	
+	
 	// 학생등록 처리
 	@Override
 	public void stdInputPro(MultipartHttpServletRequest req, RedirectAttributes red) {
@@ -305,10 +251,37 @@ public class AdminServiceImpl extends Board implements AdminService {
 			vo.setUserImage(img);
 			vo.setUserName(req.getParameter("userName"));
 			vo.setUserEngName(req.getParameter("userEngName"));
-			vo.setUserSsn(req.getParameter("userSsn"));
+			
+			String userSsn ="";
+			String userSsn1 = req.getParameter("jumin1");
+			String userSsn2 = req.getParameter("jumin2");
+			if(!userSsn1.equals("") && !userSsn2.equals("")) {
+				userSsn = userSsn1 + "-" + userSsn2;
+			}
+			vo.setUserSsn(userSsn);
+			vo.setUserSsn2(userSsn2);
+			
 			vo.setGender(req.getParameter("gender"));
-			vo.setUserCellNum(req.getParameter("userCellNum"));
-			vo.setUserEmail(req.getParameter("userEmail"));
+			
+			String userCellNum="";
+			String userCellNum1 = req.getParameter("hp1");
+			String userCellNum2 = req.getParameter("hp2");
+			String userCellNum3 = req.getParameter("hp3");
+			if(!userCellNum1.equals("") && !userCellNum2.equals("") && !userCellNum3.equals("")) {
+				userCellNum = userCellNum1+"-"+userCellNum2+"-"+userCellNum3;
+			}
+			vo.setUserCellNum(userCellNum);
+			
+			
+			String userEmail ="";
+			String userEmail1 = req.getParameter("email1");
+			String userEmail2 = req.getParameter("email2");
+			if(!userEmail1.equals("") && !userEmail2.equals("")) {
+				userEmail = userEmail1 + "@"+userEmail2;
+				
+			}
+			vo.setUserEmail(userEmail);
+			
 			vo.setUserZipCode(req.getParameter("userZipCode"));
 			vo.setUserAddr1(req.getParameter("userAddr1"));
 			vo.setUserAddr2(req.getParameter("userAddr2"));
@@ -395,10 +368,35 @@ public class AdminServiceImpl extends Board implements AdminService {
 			vo.setUserImage(img);
 			vo.setUserName(req.getParameter("userName"));
 			vo.setUserEngName(req.getParameter("userEngName"));
-			vo.setUserSsn(req.getParameter("userSsn"));
+			
+			String userSsn ="";
+			String userSsn1 = req.getParameter("jumin1");
+			String userSsn2 = req.getParameter("jumin2");
+			if(!userSsn1.equals("") && !userSsn2.equals("")) {
+				userSsn = userSsn1 + "-" + userSsn2;
+			}
+			vo.setUserSsn(userSsn);			
+			vo.setUserSsn2(userSsn2);
+			
 			vo.setGender(req.getParameter("gender"));
-			vo.setUserCellNum(req.getParameter("userCellNum"));
-			vo.setUserEmail(req.getParameter("userEmail"));
+			
+			String userCellNum="";
+			String userCellNum1 = req.getParameter("hp1");
+			String userCellNum2 = req.getParameter("hp2");
+			String userCellNum3 = req.getParameter("hp3");
+			if(!userCellNum1.equals("") && !userCellNum2.equals("") && !userCellNum3.equals("")) {
+				userCellNum = userCellNum1+"-"+userCellNum2+"-"+userCellNum3;
+			}
+			vo.setUserCellNum(userCellNum);
+			
+			String userEmail ="";
+			String userEmail1 = req.getParameter("email1");
+			String userEmail2 = req.getParameter("email2");
+			if(!userEmail1.equals("") && !userEmail2.equals("")) {
+				userEmail = userEmail1 + "@"+userEmail2;
+			}
+			vo.setUserEmail(userEmail);			
+			
 			vo.setUserZipCode(req.getParameter("userZipCode"));
 			vo.setUserAddr1(req.getParameter("userAddr1"));
 			vo.setUserAddr2(req.getParameter("userAddr2"));
@@ -509,10 +507,35 @@ public class AdminServiceImpl extends Board implements AdminService {
 		vo.setUserNumber(req.getParameter("userNumber"));
 		vo.setUserName(req.getParameter("userName"));
 		vo.setUserEngName(req.getParameter("userEngName"));
-		vo.setUserSsn(req.getParameter("userSsn"));
+		
+		String userSsn ="";
+		String userSsn1 = req.getParameter("jumin1");
+		String userSsn2 = req.getParameter("jumin2");
+		if(!userSsn1.equals("") && !userSsn2.equals("")) {
+			userSsn = userSsn1 + "-" + userSsn2;
+		}
+		vo.setUserSsn(userSsn);
+		vo.setUserSsn2(userSsn2);
+		
 		vo.setGender(req.getParameter("gender"));
-		vo.setUserCellNum(req.getParameter("userCellNum"));
-		vo.setUserEmail(req.getParameter("userEmail"));
+		
+		String userCellNum="";
+		String userCellNum1 = req.getParameter("hp1");
+		String userCellNum2 = req.getParameter("hp2");
+		String userCellNum3 = req.getParameter("hp3");
+		if(!userCellNum1.equals("") && !userCellNum2.equals("") && !userCellNum3.equals("")) {
+			userCellNum = userCellNum1+"-"+userCellNum2+"-"+userCellNum3;
+		}
+		vo.setUserCellNum(userCellNum);		
+		
+		String userEmail ="";
+		String userEmail1 = req.getParameter("email1");
+		String userEmail2 = req.getParameter("email2");
+		if(!userEmail1.equals("") && !userEmail2.equals("")) {
+			userEmail = userEmail1 + "@"+userEmail2;
+		}
+		vo.setUserEmail(userEmail);				
+		
 		vo.setUserZipCode(req.getParameter("userZipCode"));
 		vo.setUserAddr1(req.getParameter("userAddr1"));
 		vo.setUserAddr2(req.getParameter("userAddr2"));
@@ -556,10 +579,36 @@ public class AdminServiceImpl extends Board implements AdminService {
 		vo.setUserNumber(req.getParameter("userNumber"));
 		vo.setUserName(req.getParameter("userName"));
 		vo.setUserEngName(req.getParameter("userEngName"));
-		vo.setUserSsn(req.getParameter("userSsn"));
+		
+		String userSsn ="";
+		String userSsn1 = req.getParameter("jumin1");
+		String userSsn2 = req.getParameter("jumin2");
+		if(!userSsn1.equals("") && !userSsn2.equals("")) {
+			userSsn = userSsn1 + "-" + userSsn2;
+		}
+		vo.setUserSsn(userSsn);
+		vo.setUserSsn2(userSsn2);
+		
 		vo.setGender(req.getParameter("gender"));
-		vo.setUserCellNum(req.getParameter("userCellNum"));
-		vo.setUserEmail(req.getParameter("userEmail"));
+		
+		String userCellNum="";
+		String userCellNum1 = req.getParameter("hp1");
+		String userCellNum2 = req.getParameter("hp2");
+		String userCellNum3 = req.getParameter("hp3");
+		if(!userCellNum1.equals("") && !userCellNum2.equals("") && !userCellNum3.equals("")) {
+			userCellNum = userCellNum1+"-"+userCellNum2+"-"+userCellNum3;
+		}
+		vo.setUserCellNum(userCellNum);
+		
+		String userEmail ="";
+		String userEmail1 = req.getParameter("email1");
+		String userEmail2 = req.getParameter("email2");
+		if(!userEmail1.equals("") && !userEmail2.equals("")) {
+			userEmail = userEmail1 + "@"+userEmail2;
+		}
+		vo.setUserEmail(userEmail);	
+		
+		
 		vo.setUserZipCode(req.getParameter("userZipCode"));
 		vo.setUserAddr1(req.getParameter("userAddr1"));
 		vo.setUserAddr2(req.getParameter("userAddr2"));
@@ -567,8 +616,9 @@ public class AdminServiceImpl extends Board implements AdminService {
 		/*vo.setDelStatus(Integer.parseInt(req.getParameter("delStatus")));*/
 
 		//major
-		vo.setMajorNum(Integer.parseInt(req.getParameter("majorNum")));
-
+		if(req.getParameter("majorNum")!=null) {
+			vo.setMajorNum(Integer.parseInt(req.getParameter("majorNum")));
+		}
 		// employees
 		vo.setEmpHiredDate(Date.valueOf(req.getParameter("empHiredDate")));
 		vo.setAnnualLevel(Integer.parseInt(req.getParameter("annualLevel")));
@@ -801,6 +851,7 @@ public class AdminServiceImpl extends Board implements AdminService {
 	}
 
 	// 학과 수정
+	@Transactional(rollbackFor=Exception.class)
 	@Override
 	public Map<String, Object> modifyMajor(Major major) {
 		Map<String, Object> resultmap = new HashMap<String, Object>();
@@ -1200,5 +1251,203 @@ public class AdminServiceImpl extends Board implements AdminService {
 		}
 		return responseData;
 	}
+
+	
+	
+	//---------------학사관리 START-------------------
+	//학사관리 진입
+	@Override
+	public void lecM(HttpServletRequest req, Model model) {
+		
+		List<lecMVO> vo = dao.lecM();
+	
+		model.addAttribute("vo", vo);
+		
+	}
+	//학사관리 일정 삭제
+	@Override
+	public Map<String, Object> delete_sc(lecMVO vo) {
+		
+		Map<String, Object> resultmap = new HashMap<String, Object>();
+		dao.delete_sc(vo);
+		return resultmap;
+	}
+	
+	//학사관리 일정 추가
+	@Override
+	public void lecScInsert(HttpServletRequest req, RedirectAttributes red) {
+		
+		String startSelectLecture = req.getParameter("ssl");
+		String endSelectLecture = req.getParameter("esl");
+		String openingDay = req.getParameter("sd");
+		String gradeOpeningDay = req.getParameter("sid");
+		String endingDay = req.getParameter("ed");
+		String year = req.getParameter("yearNum");
+		String semester = req.getParameter("options");
+		
+		lecMVO vo = new lecMVO();
+		
+		vo.setEndingDay(endingDay);
+		vo.setEndSelectLecture(endSelectLecture);
+		vo.setGradeOpeningDay(gradeOpeningDay);
+		vo.setOpeningDay(openingDay);
+		vo.setStartSelectLecture(startSelectLecture);
+		vo.setYear(year);
+		vo.setSemester(semester);
+		
+		int lecScInsert = 0;
+		try {
+			lecScInsert = dao.lecScInsert(vo);
+		}catch(DataAccessException e) {
+			System.out.println(e.getMessage());
+			System.out.println("asdfsafdasfasdfdfasfsfasdfdsafasdfsad fasdf sadf ads");
+			if(e.getMessage().contains("unique constraint"));
+			lecScInsert = 500;
+		}
+		
+		
+		System.out.println("학사일정 수정 lecScInsert : " + startSelectLecture);
+		System.out.println("학사일정 수정 lecScInsert : " + endSelectLecture);
+		System.out.println("학사일정 수정 lecScInsert : " + openingDay);
+		System.out.println("학사일정 수정 lecScInsert : " + gradeOpeningDay);
+		System.out.println("학사일정 수정 lecScInsert : " + endingDay);
+		System.out.println("학사일정 수정 lecScInsert : " + lecScInsert);
+		
+		
+		if (lecScInsert == 1) {
+			red.addFlashAttribute("message", year +"년도" +semester+"학기 학사일정을 추가하였습니다.");
+			red.addFlashAttribute("alertIcon","success");
+		}
+		if (lecScInsert == 0) {
+			red.addFlashAttribute("message", "학사일정을 추가하는 중 오류가 발생하였습니다.");
+			red.addFlashAttribute("alertIcon","error");
+		}
+		if(lecScInsert == 500) {
+			red.addFlashAttribute("message", "이미 추가 되어있는 년도와 학기 입니다.!");
+			red.addFlashAttribute("alertIcon","error");
+		}
+	}
+	
+	//학사관리 일정 수정
+	@Override
+	public void lecScUpdate(HttpServletRequest req, RedirectAttributes red) {
+		String startSelectLecture = req.getParameter("ssl");
+		String endSelectLecture = req.getParameter("esl");
+		String openingDay = req.getParameter("sd");
+		String gradeOpeningDay = req.getParameter("sid");
+		String endingDay = req.getParameter("ed");
+		String year = req.getParameter("yearNum");
+		String semester = req.getParameter("options");
+		
+		lecMVO vo = new lecMVO();
+		
+		vo.setEndingDay(endingDay);
+		vo.setEndSelectLecture(endSelectLecture);
+		vo.setGradeOpeningDay(gradeOpeningDay);
+		vo.setOpeningDay(openingDay);
+		vo.setStartSelectLecture(startSelectLecture);
+		vo.setYear(year);
+		vo.setSemester(semester);
+		
+		int lecScUpdate = dao.lecScUpdate(vo);
+		System.out.println("학사일정 수정 lecScUpdate : " + startSelectLecture);
+		System.out.println("학사일정 수정 lecScUpdate : " + endSelectLecture);
+		System.out.println("학사일정 수정 lecScUpdate : " + openingDay);
+		System.out.println("학사일정 수정 lecScUpdate : " + gradeOpeningDay);
+		System.out.println("학사일정 수정 lecScUpdate : " + endingDay);
+		System.out.println("학사일정 수정 lecScUpdate : " + lecScUpdate);
+		
+		
+		int up = lecScUpdate;
+		
+		if (up == 1) {
+			red.addFlashAttribute("message", year +"년도" +semester+"학기 학사일정을 수정하였습니다.");
+			red.addFlashAttribute("alertIcon","success");
+		}
+		if (up != 1) {
+			red.addFlashAttribute("message", "학사일정을 수정하는 중 오류가 발생하였습니다.");
+			red.addFlashAttribute("alertIcon","error");
+		}
+		
+	}
+	//학사관리 일정 즉시 실행
+	@Override
+	public void excuteScUpdate(HttpServletRequest req, RedirectAttributes red) {
+		LectrueSelectPeriod lectrueSelectPeriod = new LectrueSelectPeriod();
+
+		lectrueSelectPeriod.setSemester((Integer)req.getSession().getAttribute("semester"));
+		
+		String options = req.getParameter("optionsRadios");
+		String message = "";
+		
+		int status = 0;
+		switch(options) {
+		case "1":
+			status = 1;
+			message = "개강";
+			break;
+		case "2":
+			message = "종강";
+			status = 3;
+			break;
+		case "3":
+			message = "학점 입력 기간";
+			status = 2;
+			break;
+		case "4":
+			message = "수강신청 기간";
+			status = 0;
+			break;
+		case "5":
+			message = "수강신청 종료";
+			status = 3;
+			break;
+		}
+		lectrueSelectPeriod.setStatus(status);
+		schduleDao.updateLectureStatus(lectrueSelectPeriod);
+		
+		if(lectrueSelectPeriod.getResult() != 1) {
+			red.addFlashAttribute("message", message+" 실행 중 오류가 발생하였습니다.!");
+			red.addFlashAttribute("alertIcon","error");
+		}else {
+			red.addFlashAttribute("message", message+" 실행 완료.");
+			red.addFlashAttribute("alertIcon","success");
+		}
+	}
+
+	
+	//---------------학사관리 END-------------------
+
+
+	
+	//---------------성적통계업무  START-------------------
+	
+	
+	@Override
+	public void scoreManagement(HttpServletRequest req, Model model) {
+		
+		List<ChartVO> fa = dao.facultyAvg();
+		List<ChartVO> ma = dao.majorAvg();
+		List<ChartVO> genders = dao.genderAvg();
+		List<ChartVO> gr = dao.gradeAvg();
+		
+		model.addAttribute("fa", fa);
+		model.addAttribute("ma", ma);
+		model.addAttribute("genders", genders);
+		model.addAttribute("gr", gr);
+		
+	}
+	
+	
+	//---------------성적통계업무  END-------------------
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

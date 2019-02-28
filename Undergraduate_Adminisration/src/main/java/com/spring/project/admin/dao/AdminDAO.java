@@ -3,12 +3,15 @@ package com.spring.project.admin.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
 import com.spring.project.admin.vo.AdProVO;
 import com.spring.project.admin.vo.AdStdVO;
+import com.spring.project.admin.vo.ChartVO;
 import com.spring.project.admin.vo.ScholarpkVO;
 import com.spring.project.admin.vo.auditVO;
+import com.spring.project.admin.vo.lecMVO;
 import com.spring.project.admin.vo.payrollVO;
 import com.spring.project.share.vo.Major;
 import com.spring.project.student.vo.LectureVO;
@@ -16,6 +19,9 @@ import com.spring.project.student.vo.LectureVO;
 
 @Repository
 public interface AdminDAO {
+	
+	//중복확인
+	public int userNumChk(String userNumber); 
 	
 	//학생등록 처리페이지
 	public int insertUsers(AdStdVO vo);
@@ -187,4 +193,34 @@ public interface AdminDAO {
 	public int insertPayrollwith1(Map<String, Object> map);
 	
 	//---------------회계 관리 END -------------------
+	
+	
+	
+	//---------------학사관리 START-------------------
+	//학사일정관리 진입
+	public List<lecMVO> lecM();
+	//학사일정 게시판에서 삭제
+	public void  delete_sc(lecMVO vo);
+	//학사일정 수정
+	public int lecScUpdate(lecMVO vo);
+	//학사일정 추가
+	public int lecScInsert(lecMVO vo) throws DataAccessException;
+	//---------------학사관리 END---------------------
+	
+	
+	
+	//---------------학사성적통계업무 START---------------------
+	
+	//학사일정관리 단과별
+	public List<ChartVO> facultyAvg();
+	//학사일정관리 과별
+	public List<ChartVO> majorAvg();
+	//학사일정관리 남녀별
+	public List<ChartVO> genderAvg();
+	//학사일정관리 학년별
+	public List<ChartVO> gradeAvg();
+	
+	
+	//---------------학사성적통계업무 END-----------------------
+	
 }

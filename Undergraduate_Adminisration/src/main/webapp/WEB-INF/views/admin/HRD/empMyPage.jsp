@@ -16,7 +16,7 @@
 		<div class="">
 			<div class="page-title">
 				<div class="title_left">
-					<h3>교원 마이페이지</h3>
+					<h3>직원 마이페이지</h3>
 				</div>
 				<div class="clearfix"></div>
 				<div class="row">
@@ -91,31 +91,23 @@
 														<a href="#tab_content1" id="home-tab" role="tab"
 														data-toggle="tab" aria-expanded="true">개인정보</a>
 													</li>
-													<li role="presentation" class="">
-														<a href="#tab_content2" role="tab" id="profile-tab"
-														data-toggle="tab" aria-expanded="false">담당과목</a>
-													</li>
-													<li role="presentation" class="">
-														<a href="#tab_content3" role="tab" id="profile-tab2"
-														data-toggle="tab" aria-expanded="false">교수소개</a>
-													</li>
 												</ul>
 												<div id="myTabContent" class="tab-content">
 													<div role="tabpanel" class="tab-pane fade active in"
 														id="tab_content1" aria-labelledby="home-tab">
-														<form action="proDetailUpdate" method="POST" name="proMypage"
-																onsubmit="return proMyChk();" class="form-horizontal form-label-left" >
+														<form action="proDetailUpdate" method="POST" name="empMypage" 
+															onsubmit="return empMyChk();" class="form-horizontal form-label-left" >
 															<span class="section">개인정보</span>
 															<div class="row">
 																<div class="col-md-offset-1 col-md-10">
 																	<table class="table">
 																		<tr>
 																			<th class="control-label">
-																				교원번호
+																				직원번호
 																			</th>
 																			<td>
-																				<input type="text" class="input" required="required" name="userNumber" id="userNumber"
-																					onkeyup="nextProPage();" value="${vo.userNumber}" placeholder="교번을 입력하시오" numberOnly = "numberOnly">
+																				<input type="text" class="input" required="required" name="userNumber" id="userNumber" 
+																					 onkeyup="nextEmpPage();" value="${vo.userNumber}" placeholder="교번을 입력하시오" numberOnly = "numberOnly">
 																				<input type="button" value="중복확인" name="numberChk" id="numberChk" >
 																				<div id="displayTxt" ></div>
 																			</td>
@@ -132,9 +124,9 @@
 																				<td>
 																					<c:set var="SsnArr" value="${fn:split(vo.getUserSsn(),'-')}"/>
 																					<input class="input" type="text" name="jumin1" maxlength="6" style="width : 73px"
-																							onkeyup ="proMyPageJumin1();" value="${SsnArr[0] }" > -
+																							onkeyup ="empMyPageJumin1();" value="${SsnArr[0] }" > -
 																					 <input class="input" type="password" name="jumin2" maxlength="7"
-																							style="width:80px;" onkeyup="proMyPageJumin2();" value="${SsnArr[1] }" readonly>
+																							style="width:80px;" onkeyup="empMyPageJumin2();" value="${SsnArr[1] }" readonly>
 																				</td>
 																			<th class="control-label">
 																				영어성명
@@ -154,17 +146,18 @@
 																				여 <input type="radio" class="flat" name="gender" id="genderF" onclick="nextSex();"
 																						value="여자" <c:if test="${vo.gender eq '여자' }"> checked="checked"</c:if> />
 																			</td>
-																			<th class="control-label">
-																				단과대학
-																			</th>
+																			<th class="control-label">휴대폰 연락처</th>
 																			<td>
-																				<select name="faculty" id ="faculty" style="height : 22px; width : 165px;" >
-																		       			<option value="${vo.faculty}" selected>${vo.faculty}</option> 
-																		       		<c:forEach var="fa" items="${outFandM}" >
-																						<option value="${fa.faculty}" >${fa.faculty}</option> 
-																					</c:forEach>	
-																	      		</select>
-																			</td>
+																				<c:set var="phArr" value="${fn:split(vo.getUserCellNum(),'-')}"/>
+																				<input class="input" type="text" name="hp1" maxlength="3"
+																			 	style= "width : 40px" onkeyup="empMyPagePh1();" value="${phArr[0] }">
+																			 	-
+																			 	<input class="input" type="text" name="hp2" maxlength="4"
+																			 	style= "width : 50px" onkeyup="empMyPagePh2();" value="${phArr[1] }">
+																			 	-
+																			 	<input class="input" type="text" name="hp3" maxlength="4"
+																			 	style= "width : 50px" onkeyup="empMyPagePh3();" value="${phArr[2] }">
+																			</td>							
 																			
 																		</tr>
 																		<tr>
@@ -175,7 +168,7 @@
 																							value="${emailArr[0] }"> @
 																					<input class="input" type="text" name="email2" maxlength="20" style="width : 83px"
 																							value="${emailArr[1] }">
-																					<select class ="input" name="email3" style="height:23px;" onchange="proMyPageEmailChk();">
+																					<select class ="input" name="email3" style="height:23px;" onchange="empMyPageEmailChk();">
 																						<option value="0">직접입력</option>
 																						<option value="naver.com">네이버</option>
 																						<option value="gmail.com">구글</option>
@@ -183,34 +176,10 @@
 																						<option value="nate.com">네이트</option>
 																					</select>
 																				</td>
-																			<th class="control-label">
-																				학과(전공)
-																			</th>
-																			<td>
-																				<select name="majorNum" id ="majorNum" selected ="${vo.majorNum}"
-																						style="width : 165px; height : 22px;" >
-																					<option value="${vo.majorNum}">${vo.majorNum} : ${vo.majorName}</option>	
-																		  		</select>
-																			</td>
-																		</tr>
-																		<tr>
-																			<th class="control-label">휴대폰 연락처</th>
-																				<td>
-																					<c:set var="phArr" value="${fn:split(vo.getUserCellNum(),'-')}"/>
-																					<input class="input" type="text" name="hp1" maxlength="3"
-																				 	style= "width : 40px" onkeyup="proMyPagePh1();" value="${phArr[0] }">
-																				 	-
-																				 	<input class="input" type="text" name="hp2" maxlength="4"
-																				 	style= "width : 50px" onkeyup="proMyPagePh2();" value="${phArr[1] }">
-																				 	-
-																				 	<input class="input" type="text" name="hp3" maxlength="4"
-																				 	style= "width : 50px" onkeyup="proMyPagePh3();" value="${phArr[2] }">
+																				<th class="control-label">입사일</th>
+																				<td><input type="date" class="input" value="${vo.empHiredDate}" name="empHiredDate"
+																					style="width: 166px;" required="required" placeholder="입사일을 입력하시오">
 																				</td>
-																			
-																			<th class="control-label">입사일</th>
-																			<td><input type="date" class="input" value="${vo.empHiredDate}" name="empHiredDate"
-																				style="width: 166px;" required="required" placeholder="입사일을 입력하시오">
-																			</td>
 																		</tr>
 																		<tr>
 																			
@@ -265,54 +234,6 @@
 															</div>
 														</form>
 													</div>
-													<div role="tabpanel" class="tab-pane fade"
-														id="tab_content2" aria-labelledby="profile-tab">
-														<table class="table table-striped jambo_table bulk_action">
-					                                        <thead>
-					                                        
-					                                            <tr class="headings">
-					                                                <th class="text-center">구분</th>
-					                                                <th class="text-center">학과(학과코드)</th>
-					                                                <th class="text-center">강의명</th>
-					                                                <th class="text-center">학년</th>
-					                                                <th class="text-center">학기</th>
-					                                                <th class="text-center">학점</th>
-					                                                <th class="text-center">강의실</th>
-					                                                <th class="text-center">수강인원</th>
-					                                            </tr>
-					                                        </thead>
-					                                        <tbody>
-					                                        <c:forEach var="lec" items="${lecList}">
-					                                            <tr>
-					                                            	<c:if test="${lec.lectureClassfication ==1}">
-					                                                <td class="text-center">전공</td>
-					                                                </c:if>
-					                                                <c:if test="${lec.lectureClassfication ==2}">
-					                                                <td class="text-center">교양</td>
-					                                                </c:if>
-					                                                <td class="text-center">${lec.majorNum}(${lec.majorName})</td>
-					                                                <td class="text-center">${lec.lectureName }</td>
-					                                                <td class="text-center">${lec.grade }</td>
-					                                                <td class="text-center">${lec.grantedSemester }</td>
-					                                                <td class="text-center">${lec.lectureScore }</td>
-					                                                <td class="text-center">${lec.classRoom}</td>
-					                                                <td class="text-center">${lec.appliedStd} / ${lec.maximumCapacity }</td>
-					                                            </tr>
-					                                        </c:forEach>
-					                                        </tbody>
-					                                    </table>
-													</div>
-													<!-- 자기소개  -->
-                                                    <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
-                                                     <form class="form-horizontal form-label-left" novalidate action="introUpdate" method="post">
-                                                       <span class="section">교수소개</span>
-                                                        <textarea id="introduction" required="required" class="form-control" name="introduction" data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="3500" 
-                                                        data-parsley-minlength-message="20자 이상 작성하셔야 합니다!!" data-parsley-validation-threshold="10" style="height: 300px;">${vo.introduction }</textarea>
-                                                       <br>
-                                                       </form>
-                                                    </div>
-                                                    
-													<!-- 자기소개  끝 -->
 												</div>
 											</div>
 										</div>
@@ -435,7 +356,7 @@
 		
 		
 		
-		//교번중복체크
+		//직원번호중복체크
 		$(function() {
 	    //idck 버튼을 클릭했을 때 
 		var numberChk = 0;
@@ -481,7 +402,6 @@
 	        }
 	    });
 	});
-		
     </script>
 </body>
 
