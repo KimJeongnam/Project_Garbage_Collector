@@ -194,11 +194,44 @@ public class ProfessorController {
 		//밑으로  park to the dae to the guen! 
 		
 		//과제관리
-		@RequestMapping("/professor/report")
+		@RequestMapping(value = "/professor/report", method = RequestMethod.GET)
 		public String report(HttpServletRequest req ,Model model) {
 			logger.info("report()");
 			service.report(req, model);
 			return "professor/report";
 		}
+		
+		//총 수강인원
+		@RequestMapping(value = "/professor/personnel", method = RequestMethod.POST)
+		public String personnel(@RequestBody Map<String, Object> map, HttpServletRequest req, Model model) {
+			logger.info("report()");
+			service.personnel(map,req, model);
+			return "professor/Personnel";
+		}
+		
+		//과제 조회
+		@RequestMapping(value = "/professor/re_contentform", method = RequestMethod.POST)
+		public String re_contentform(@RequestBody Map<String, Object> map, HttpServletRequest req, Model model) {
+			logger.info("re_contentform()");
+			service.re_contentform(map,req, model);
+			return "professor/re_contentform";
+		}
+		
+		//과제 조회2
+		@RequestMapping(value = "/professor/report_contentform", method = RequestMethod.POST)
+		public String report_contentform(@RequestBody Map<String, Object> map, HttpServletRequest req, Model model) {
+			logger.info("re_contentform()");
+			service.report_contentform(map,req, model);
+			return "professor/Personnel2";
+		}
+		
+		//과제 추가
+		@RequestMapping("/professor/re_insert")
+		public String re_insert(HttpServletRequest req ,RedirectAttributes red) {
+			logger.info("re_insert()");
+			service.re_insert(req,red);
+			return "redirect:/professor/plan";
+		}
+		
 		
 }

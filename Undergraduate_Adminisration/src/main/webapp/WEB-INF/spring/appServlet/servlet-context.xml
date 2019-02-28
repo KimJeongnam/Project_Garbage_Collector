@@ -37,4 +37,5 @@
 		<beans:constructor-arg value="C:\Users\k\git\Project_Garbage_Collector\Undergraduate_Adminisration\src\main\webapp\resources\file"></beans:constructor-arg>
 	</beans:bean>
 	
+	
 </beans:beans>

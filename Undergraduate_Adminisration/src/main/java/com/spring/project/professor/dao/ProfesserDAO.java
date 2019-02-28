@@ -10,9 +10,12 @@ import com.spring.project.professor.vo.LecScore;
 import com.spring.project.professor.vo.LectureP_VO;
 import com.spring.project.professor.vo.MyClassVO;
 import com.spring.project.professor.vo.MyPageVO;
+import com.spring.project.professor.vo.PersonnelVO;
 import com.spring.project.professor.vo.PlanVO;
+import com.spring.project.professor.vo.Report_tblVO;
 import com.spring.project.professor.vo.SearchVO;
 import com.spring.project.professor.vo.StudentVO;
+import com.spring.project.professor.vo.Submission_ListVO;
 
 public interface ProfesserDAO {
 	
@@ -68,5 +71,12 @@ public interface ProfesserDAO {
 
 	//과제관리
 	public List<LectureP_VO>P_Lecture(String userNumber);
+	public int personnel(Map<String, Object> map);
+	public int p_report(Map<String, Object> map);
+	public int re_contentform(Report_tblVO vo);
+	public int codeCnt(int reportcode);
+	public Report_tblVO re_submit(Map<String, Object> map);
+	public List<Report_tblVO> task_lookup(Map<String, Object> map);
+	public List<Submission_ListVO> submissionlist(int reportcode);
 	
 }

@@ -88,11 +88,13 @@ function reportlist(userNumber){
 	});
 }
 
-//과제 관리
+//과제 관리 p_reportlist
 function reportcontent(userNumber,reportcode){
 	var obj = new Object();
 	obj.userNumber = userNumber;
 	obj.reportcode = reportcode;
+	
+	alert($(this).attr("coode"));
 	
 	var jsonData = JSON.stringify(obj);
 	
@@ -104,6 +106,88 @@ function reportcontent(userNumber,reportcode){
 		success : function(data){
 			if(data != null){
 					$('#reportcontent').html(data);
+			}
+		},
+		error:function(){
+			alert("Error! reprotList();");
+		}
+	});
+}
+
+//과제 관리 
+function p_reportlist(userNumber){
+	var obj = new Object();
+	obj.userNumber = userNumber;
+	obj.subject = $("#mystatus option:selected").text();
+	
+	
+	if($("#mystatus").val() != null){
+		obj.select = $("#mystatus").val();
+	}
+	
+	var jsonData = JSON.stringify(obj);
+	
+	$.ajax({
+		url: '/project/professor/personnel',
+		type: 'POST',
+		data : jsonData,
+		contentType : 'application/json;charset=UTF-8',
+		success : function(data){
+			if(data != null){
+					$('#Personnel').html(data);
+			}
+		},
+		error:function(){
+			alert("Error! reprotList();");
+		}
+	});
+}
+
+//과제 추가
+function re_contentform(userNumber){
+	var obj = new Object();
+	obj.userNumber = userNumber;
+	
+	if($("#mystatus").val() != null){
+		obj.select = $("#mystatus").val();
+		obj.subject = $("#mystatus option:selected").text();
+	}
+	
+	var jsonData = JSON.stringify(obj);
+	
+	$.ajax({
+		url: '/project/professor/re_contentform',
+		type: 'POST',
+		data : jsonData,
+		contentType : 'application/json;charset=UTF-8',
+		success : function(data){
+			if(data != null){
+					$('#re_contentform').html(data);
+			}
+		},
+		error:function(){
+			alert("Error! reprotList();");
+		}
+	});
+}
+
+//과제 추가
+function report_Personnel2(reportcode,leccode){
+	var obj = new Object();
+	obj.select = leccode
+	obj.reportcode = reportcode;
+	
+	
+	var jsonData = JSON.stringify(obj);
+	
+	$.ajax({
+		url: '/project/professor/report_contentform',
+		type: 'POST',
+		data : jsonData,
+		contentType : 'application/json;charset=UTF-8',
+		success : function(data){
+			if(data != null){
+					$('#Personnel2').html(data);
 			}
 		},
 		error:function(){

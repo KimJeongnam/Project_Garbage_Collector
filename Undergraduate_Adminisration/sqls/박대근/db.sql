@@ -29,4 +29,12 @@ and lt.timetblCode = t.timetblCode and u.userNumber = e.empNumber and sc.status 
 
 GROUP BY e.accountHolder, l.lecCode,l.majorNum,l.lectureName, l.lectureClassfication, l.maximumCapacity,l.grade,
 l.grantedSemester, l.lectureScore, l.classRoom, sc.userNumber,u.userCellNum,u.username;
+
+//과제제출 리스트
+CREATE OR REPLACE VIEW SubmissionList AS
+   SELECT u.userName,u.userImage,r.reportcode,r.title,r.fileName
+   FROM users u,report_submit_tbl r,student s
+   where u.userNumber = s.stdNumber
+   and s.stdNumber=r.stdNumber
+  ;
   

@@ -96,7 +96,7 @@ public class StudentController {
 		logger.info("assignment");
 		service.assignment(req, red);
 		
-		return "/student/assignment";
+		return "redirect:/student/personalProfile";
 	}
 
 	//장학금 신청목록

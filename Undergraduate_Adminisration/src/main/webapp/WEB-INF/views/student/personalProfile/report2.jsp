@@ -67,7 +67,7 @@
 									<h4 class="modal-title" id="myModalLabel">과제 업로드</h4>
 								</div>
 								<div class="modal-body">
-									<form action="../student/assignment" class="form-horizontal form-label-left" enctype="multipart/form-data">
+									<form action="../student/assignment" method="post" enctype="multipart/form-data" class="form-horizontal form-label-left">
 
 										<p>
 											파일을 잘못 보낼시 교수에게 요청

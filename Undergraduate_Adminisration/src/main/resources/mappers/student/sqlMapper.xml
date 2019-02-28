@@ -209,7 +209,7 @@
 		,TITLE
 		,FILENAME
 		,YEAR)
-		values(REPORT_SUBMIT_SEQ.nextval,#{reportcode},#{userNumber},#{userName},'#{fileName}',sysdate);
+		values(REPORT_SUBMIT_SEQ.nextval,#{reportcode},#{userNumber},#{userName},#{fileName},sysdate)
  	</insert>
 
 	<!-- 장학글 갯수 -->

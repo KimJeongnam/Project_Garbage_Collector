@@ -40,4 +40,9 @@ public interface ProfessorService {
 	
 	//과제관리
 	public void report(HttpServletRequest req, Model model);
+	public void personnel(Map<String, Object> map, HttpServletRequest req, Model model);
+	public void re_contentform(Map<String, Object> map, HttpServletRequest req, Model model); 
+	public void report_contentform(Map<String, Object> map, HttpServletRequest req, Model model);
+	public void re_insert(HttpServletRequest req, RedirectAttributes red);
+	
 }

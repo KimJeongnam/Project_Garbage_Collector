@@ -343,8 +343,8 @@ public class StudentServiceImpl implements StudentService {
 	public void assignment(MultipartHttpServletRequest req, RedirectAttributes red) {
 		MultipartFile file = req.getFile("website");
 
-		String saveDir = req.getSession().getServletContext().getRealPath("/resources/images");
-		String realDir = Config.REAL_PATH; // 저장
+		String saveDir = req.getSession().getServletContext().getRealPath("/resources/file");
+		String realDir = Config.FILES; // 저장
 																																				// 경로
 		// 각자의 이미지 저장경로 수정하셈
 		try {
@@ -375,6 +375,11 @@ public class StudentServiceImpl implements StudentService {
 			vo.setTitle(title);
 			vo.setUserName(userName);
 			
+			System.out.println("userNumber"+userNumber);
+			System.out.println("reportcode"+reportcode);
+			System.out.println("title"+title);
+			System.out.println("userName"+userName);
+			
 
 			String hwps = "";
 
@@ -385,15 +390,15 @@ public class StudentServiceImpl implements StudentService {
 
 			int fileUpload = dao.s_fileUpload(vo);
 
-			System.out.println("파일제출 imageUpload : " + fileUpload);
+			System.out.println("파일제출 fileUpload : " + fileUpload);
 			
 			/*ShareUserInfo user = (ShareUserInfo) req.getSession().getAttribute("user"); */
 
 			if (fileUpload == 1) {
-				red.addFlashAttribute("message", "프로필 이미지를 변경하였습니다.");
+				red.addFlashAttribute("message", "제출이 완료 되었습니다.");
 			}
 			if (fileUpload != 1)
-				red.addFlashAttribute("message", "프로필 이미지를 변경하는 도중에 오류가 발생하였습니다.");
+				red.addFlashAttribute("message", "제출이 실패 했습니다. 다시한번 확인 바랍니다");
 
 		} catch (IOException e) {
 			e.printStackTrace();
