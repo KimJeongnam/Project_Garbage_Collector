@@ -138,6 +138,10 @@ public interface AdminService {
 	
 	public Map<String, Object> CopyPayroll(Map<String, Object> map);
 	
+	public Map<String, Object> ConfirmPayroll(Map<String, Object> map);
+	
+	public Map<String, Object> DeletePayroll(Map<String, Object> map);
+	
 	//---------------회계 END-------------------
 	
 	//메시지 전송부

@@ -10,6 +10,7 @@ public class payrollVO {
 	private String paymentYear;
 	private int totalAmount;
 	
+	private String userNumber;
 	private String empNumber;
 	private String accountHolder;
 	private String majorName;
@@ -26,9 +27,21 @@ public class payrollVO {
 	private int overpaycode;
 	private int personnelTotalPay;
 	private int paylistNum;
+	private int status;
 	
 	
-	
+	public String getUserNumber() {
+		return userNumber;
+	}
+	public void setUserNumber(String userNumber) {
+		this.userNumber = userNumber;
+	}
+	public int getStatus() {
+		return status;
+	}
+	public void setStatus(int status) {
+		this.status = status;
+	}
 	public int getPaylistNum() {
 		return paylistNum;
 	}
