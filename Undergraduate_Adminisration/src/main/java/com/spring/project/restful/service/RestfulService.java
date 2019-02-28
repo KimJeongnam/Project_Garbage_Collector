@@ -7,9 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 
+import com.spring.project.restful.vo.Location;
 import com.spring.project.restful.vo.Message;
 import com.spring.project.restful.vo.ResponseData;
-import com.spring.project.restful.vo.RestUser;
 import com.spring.project.share.vo.Major;
 
 public interface RestfulService {
@@ -25,5 +25,7 @@ public interface RestfulService {
 	
 	//---------------------------Android-START---------------------------------
 	public ResponseData studentLogin(Map<String, Object> map);
+	// 지역 정보 검색
+	public ResponseData getLocation(Location location); 
 	//---------------------------Android-END---------------------------------
 }

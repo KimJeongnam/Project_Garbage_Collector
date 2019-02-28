@@ -9,10 +9,13 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.spring.project.restful.controller.RestfulController;
 import com.spring.project.restful.dao.RestfulDAO;
+import com.spring.project.restful.vo.Location;
 import com.spring.project.restful.vo.Message;
 import com.spring.project.restful.vo.ResponseData;
 import com.spring.project.restful.vo.RestUser;
@@ -25,6 +28,8 @@ public class RestfulServiceImpl implements RestfulService {
 	RestfulDAO dao;
 	@Autowired
 	ShareDAO shareDao;
+	
+	private static final Logger logger = LoggerFactory.getLogger(RestfulServiceImpl.class);
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -126,6 +131,24 @@ public class RestfulServiceImpl implements RestfulService {
 		responseData.setStatus(status);
 		responseData.setMessage(message);
 		return responseData;
-	}	
+	}
+
+	@Override
+	public ResponseData getLocation(Location location) {
+		ResponseData responseData = new ResponseData();
+		Location getLocation = dao.getLocation(location);
+		
+		if(getLocation != null) {
+			responseData.setStatus(1);
+			responseData.setMessage("success");
+			responseData.setData(getLocation);
+			//logger.info("getLocation not null");
+		}else {
+			responseData.setStatus(0);
+			responseData.setMessage("위치 정보 가져오기 오류!  location is null");
+			//logger.info("getLocation is null");
+		}
+		return responseData;
+	}
 	//---------------------------Android-END---------------------------------
 }
