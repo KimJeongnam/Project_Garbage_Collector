@@ -174,11 +174,24 @@ public interface AdminDAO {
 	
 	public List<payrollVO> ConfirmOvertime(Map<String, Object> map);
 	
-	public int CopyPayroll(Map<String, Object> map);
+	public int getCopyPayrollFrom(Map<String, Object> map);
+	
+	public void CopyPayroll(Map<String, Object> map);
 	
 	public List<payrollVO> getEmpNumber();
 	
 	public int CopyAllEmployeesDetail(List<payrollVO> empNumber);
+	
+	public int ConfirmPayroll(Map<String, Object> map);
+	
+	public int DeletePayroll(Map<String, Object> map);
+	
+	public int DeleteRegisterDetail(Map<String, Object> map);
+	
+	public int insertPayrollwith0(List<payrollVO> empNumber);
+	
+	public int insertPayrollwith1(Map<String, Object> map);
+	
 	//---------------회계 관리 END -------------------
 	
 	

@@ -415,11 +415,6 @@ public class AdminDAOImpl implements AdminDAO{
 	}
 
 	@Override
-	public int CopyPayroll(Map<String, Object> map) {
-		return sqlSession.insert("com.spring.project.admin.dao.AdminDAO.CopyPayroll", map);
-	}
-
-	@Override
 	public List<payrollVO> getEmpNumber() {
 		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.getEmpNumber");
 	}
@@ -429,8 +424,45 @@ public class AdminDAOImpl implements AdminDAO{
 		return sqlSession.insert("com.spring.project.admin.dao.AdminDAO.CopyAllEmployeesDetail", empNumber);
 	}
 
+	@Override
+	public int getCopyPayrollFrom(Map<String, Object> map) {
+		return sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.getCopyPayrollFrom", map);
+	}
+	
+	@Override
+	public void CopyPayroll(Map<String, Object> map) {
+		sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.CopyPayroll", map);
+	}
+	
+	@Override
+	public int ConfirmPayroll(Map<String, Object> map) {
+		return sqlSession.update("com.spring.project.admin.dao.AdminDAO.ConfirmPayroll", map);
+	}
 
+	@Override
+	public int DeletePayroll(Map<String, Object> map) {
+		return sqlSession.delete("com.spring.project.admin.dao.AdminDAO.DeletePayroll", map);
+	}
+
+	@Override
+	public int DeleteRegisterDetail(Map<String, Object> map) {
+		return sqlSession.delete("com.spring.project.admin.dao.AdminDAO.DeleteRegisterDetail", map);
+	}
+
+	@Override
+	public int insertPayrollwith0(List<payrollVO> empNumber) {
+		return sqlSession.insert("com.spring.project.admin.dao.AdminDAO.insertPayrollwith0", empNumber);
+	}
+
+	@Override
+	public int insertPayrollwith1(Map<String, Object> map) {
+		return sqlSession.update("com.spring.project.admin.dao.AdminDAO.insertPayrollwith1", map);
+	}
+
+	
 	//------------------------------------------------------회계 관리 END----------------------------------------------------------
+
+	
 
 	
 	

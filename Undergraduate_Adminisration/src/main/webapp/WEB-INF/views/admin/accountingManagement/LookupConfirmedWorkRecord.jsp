@@ -1,27 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="staticPath" value="/project/resources" />
+<html>
+<body>
+	<div class="modal-header">
+		<!-- 닫기(x) 버튼 -->
+		<button type="button" class="close" data-dismiss="modal">×</button>
+		<!-- header title -->
+		<h4 class="modal-title">근무기록보기</h4>
+	</div>
 
 	<div class="modal-body">
-		<div class="row form-inline"
-			style="margin: 0px; vertical-align: middle">
-			<c:if test="${payrollStatus == 1}">
-			</c:if>
-			<c:if test="${payrollStatus != 1}">
-				<div style="float: right">
-				<input type="text" id="worktime"
-					style="text-align: right; height: 30px; margin-right: 4px">
-				<button class="btn btn-primary" onclick="fixSetting();">확정</button>
-			</div>
-			</c:if>
-		</div>
 		<table id="datatable"
 			class="table table-striped jambo_table bulk_action">
 			<thead>
 				<tr class="headings">
-					<th><input type="checkbox" id="allCheck1" onclick="allCheck1_event();"></th>
+					<th><input type="checkbox" id="allCheck1"></th>
 					<th>교직원번호</th>
 					<th>교직원명</th>
 					<th>부서/전공</th>
@@ -50,18 +47,10 @@
 	</div>
 	<!-- Footer -->
 	<div class="modal-footer">
-		<c:if test="${payrollStatus == 1}">
-			<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-		</c:if>
-		<c:if test="${payrollStatus != 1}">
-			<button type="button" class="btn btn-primary"
-				onclick="saveOverTime();">저장</button>
-			<button type="reset" class="btn btn-warning"
-				onclick="resetOverTime();">취소</button>
-			<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-		</c:if>
+		<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
 	</div>
-
+</body>
 <script src="${staticPath}/build/js/custom2.js"></script>
 <%-- <script src="${staticPath}/js/account/accountManage.js"
 	type="text/javascript"></script> --%>
+</html>

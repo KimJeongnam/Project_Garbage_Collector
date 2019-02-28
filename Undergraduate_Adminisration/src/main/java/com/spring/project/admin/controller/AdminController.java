@@ -471,6 +471,29 @@ public class AdminController {
 		return service.CopyPayroll(map);
 	}
 	
+	//
+	@ResponseBody
+	@RequestMapping(value="/admin/ConfirmPayroll", method= RequestMethod.POST)
+	public Map<String, Object> ConfirmPayroll(@RequestBody Map<String, Object> map) {
+		logger.info("ConfirmPayroll");
+		return service.ConfirmPayroll(map);
+	}
+	
+	//
+	@ResponseBody
+	@RequestMapping(value="/admin/DeletePayroll", method= RequestMethod.POST)
+	public Map<String, Object> DeletePayroll(@RequestBody Map<String, Object> map) {
+		logger.info("DeletePayroll");
+		return service.DeletePayroll(map);
+	}
+	
+	// 
+	@RequestMapping(value = "/admin/LookupConfirmedWorkRecord", method = RequestMethod.POST)
+	public String LookupConfirmedWorkRecord(@RequestBody Map<String, Object> map, Model model) {
+		service.ConfirmOvertime(map, model);
+		return "admin/accountingManagement/LookupConfirmedWorkRecord";
+	}
+	
 
 // ---------------------------------회계관리END------------------------------------------
 	

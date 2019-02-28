@@ -78,12 +78,15 @@
 		u.userCellNum , s.grade , st.graduation_state, f.faculty
 		from student s,
 		studentState st , users u, major m, faculty f
-		where u.userNumber(+)=
+		where
+		u.userNumber(+)=
 		s.stdNumber
 		and s.stdNumber = st.stdNumber(+)
-		and s.majorNum(+) = m.majorNum
+		and
+		s.majorNum(+) = m.majorNum
 		and f.faculty = m.faculty(+)
-		and u.authority = 'ROLE_STUDENT'
+		and u.authority
+		= 'ROLE_STUDENT'
 		and u.delstatus != 1
 	</select>
 
@@ -105,16 +108,22 @@
 	<select id="stdDetail"
 		resultType="com.spring.project.admin.vo.AdStdVO">
 		select u.userNumber,
-		u.userZipCode, u.userAddr1, u.userAddr2, u.userName,
-		u.userImage, u.userEngName,u.userSsn, u.gender, m.majorName, m.majorNum,
+		u.userZipCode, u.userAddr1,
+		u.userAddr2, u.userName,
+		u.userImage, u.userEngName,u.userSsn,
+		u.gender, m.majorName, m.majorNum,
 		st.semester,
-		u.userEmail, u.userCellNum , s.grade ,s.graDate, st.graduation_state, f.faculty
+		u.userEmail,
+		u.userCellNum , s.grade ,s.graDate, st.graduation_state, f.faculty
 		from student s, studentState st , users u, major m, faculty f
-		where u.userNumber(+)= s.stdNumber
+		where
+		u.userNumber(+)= s.stdNumber
 		and s.stdNumber = st.stdNumber(+)
-		and s.majorNum(+) = m.majorNum
+		and
+		s.majorNum(+) = m.majorNum
 		and f.faculty = m.faculty
-		and u.authority = 'ROLE_STUDENT'
+		and u.authority =
+		'ROLE_STUDENT'
 		and u.userNumber = #{userNumber}
 		and u.delstatus != 1
 	</select>
@@ -153,7 +162,8 @@
 		update student set stdNumber=#{userNumber},
 		grade=#{grade},
 		graDate=#{graDate}, majorNum=#{majorNum}
-		WHERE stdNumber = #{userNumber}
+		WHERE stdNumber
+		= #{userNumber}
 	</update>
 
 	<!--학생정보수정 -->
@@ -162,7 +172,8 @@
 		update studentState set stdNumber=#{userNumber},
 		semester=#{semester},
 		graduation_state =#{graduation_state}
-		WHERE stdNumber = #{userNumber}
+		WHERE
+		stdNumber = #{userNumber}
 	</update>
 
 	<!--교수정보수정 -->
@@ -172,7 +183,8 @@
 		userEngName=#{userEngName},
 		userName=#{userName}, userSsn=#{userSsn},
 		userCellNum=#{userCellNum}, userEmail=#{userEmail}, gender=#{gender},
-		userZipCode=#{userZipCode}, userAddr1=#{userAddr1}, userAddr2=#{userAddr2}
+		userZipCode=#{userZipCode}, userAddr1=#{userAddr1},
+		userAddr2=#{userAddr2}
 		WHERE userNumber = #{userNumber}
 	</update>
 
@@ -192,18 +204,21 @@
 				WHERE empNumber= #{userNumber}
 			</otherwise>
 		</choose>
+>>>>>>> branch 'master' of https://github.com/KimJeongnam/Project_Garbage_Collector.git
 	</update>
 
 	<!--교수 프로필 이미지 변경 -->
 	<update id="proImgUpdate"
 		parameterType="com.spring.project.admin.vo.AdProVO">
-		UPDATE users SET userImage=#{userImage} WHERE userNumber=#{userNumber}
+		UPDATE users SET userImage=#{userImage} WHERE
+		userNumber=#{userNumber}
 	</update>
 
 	<!-- 학생프로필 이미지 변경 -->
 	<update id="stdImgUpdate"
 		parameterType="com.spring.project.admin.vo.AdStdVO">
-		UPDATE users SET userImage= #{userImage} WHERE userNumber= #{userNumber}
+		UPDATE users SET userImage= #{userImage} WHERE
+		userNumber= #{userNumber}
 	</update>
 
 	<!--학생 삭제 -->
@@ -236,43 +251,60 @@
 		FROM USERS
 		WHERE AUTHORITY = #{authority}
 		AND DELSTATUS = 0
- 	</select>
- 	
- 	<!--교수 - 강의목록  -->
- 	<select id="proLectureList" parameterType="java.util.Map" resultType="com.spring.project.admin.vo.AdProVO">
- 		SELECT u.userName, e.empNumber, f.faculty, m.majorName, m.majorNum, l.lectureName, l.maximumCapacity,
-       		   l.lectureClassfication, l.grade, l.grantedSemester, l.lectureScore, l.classRoom,
-       		   (select count(*) from studentClassInfo where lecCode=l.leccode) as appliedStd
-		  FROM users u, employee e, faculty f, major m, lecture l 
-		 WHERE u.userNumber = e.empNumber
-	       AND e.majorNum = m.majorNum
-           AND m.faculty = f.faculty
-		   AND e.empNumber = l.empNumber
-		   AND e.empNumber =#{userNumber}
-		   AND l.delstatus = 0
-           AND l.LECSTATUS != 3
- 	</select>
- 	
- 	<!--학생 - 강의목록  -->
- 	<select id="stdLectureList" parameterType="java.util.Map" resultType="com.spring.project.admin.vo.AdStdVO">
- 		SELECT u.username, l.lecCode, l.majorNum, l.lectureName, l.lectureClassfication, l.maximumCapacity, l.grade,
-         		l.grantedSemester, l.lectureScore, l.classRoom, sc.userNumber, u.userCellNum,
-         		(select count(*) from studentClassInfo where lecCode=l.lecCode) as appliedStd
-		  FROM studentClassInfo sc, lecture l, employee e, users u
-		 WHERE sc.lecCode = l.lecCode 
-	       AND e.empNumber = l.empNumber
-		   AND u.userNumber = e.empNumber 
-		   AND sc.userNumber = #{userNumber}
-		   AND sc.status = 1
-		   AND l.delstatus = 0
-           AND l.LECSTATUS != 3
-	  GROUP BY u.username, l.lecCode, l.majorNum, l.lectureName, l.lectureClassfication, 
-			   l.maximumCapacity, l.grade, l.grantedSemester, l.lectureScore, l.classRoom, 
-			   sc.userNumber, u.userCellNum
- 	</select>
- 	
+	</select>
 
-	
+	<!--교수 - 강의목록 -->
+	<select id="proLectureList" parameterType="java.util.Map"
+		resultType="com.spring.project.admin.vo.AdProVO">
+		SELECT u.userName, e.empNumber, f.faculty, m.majorName,
+		m.majorNum,
+		l.lectureName, l.maximumCapacity,
+		l.lectureClassfication,
+		l.grade, l.grantedSemester, l.lectureScore, l.classRoom,
+		(select
+		count(*) from studentClassInfo where lecCode=l.leccode) as appliedStd
+		FROM users u, employee e, faculty f, major m, lecture l
+		WHERE
+		u.userNumber = e.empNumber
+		AND e.majorNum = m.majorNum
+		AND m.faculty =
+		f.faculty
+		AND e.empNumber = l.empNumber
+		AND e.empNumber =#{userNumber}
+		AND l.delstatus = 0
+		AND l.LECSTATUS != 3
+	</select>
+
+	<!--학생 - 강의목록 -->
+	<select id="stdLectureList" parameterType="java.util.Map"
+		resultType="com.spring.project.admin.vo.AdStdVO">
+		SELECT u.username, l.lecCode, l.majorNum, l.lectureName,
+		l.lectureClassfication, l.maximumCapacity, l.grade,
+		l.grantedSemester,
+		l.lectureScore, l.classRoom, sc.userNumber, u.userCellNum,
+		(select
+		count(*) from studentClassInfo where lecCode=l.lecCode) as appliedStd
+		FROM studentClassInfo sc, lecture l, employee e, users u
+		WHERE
+		sc.lecCode = l.lecCode
+		AND e.empNumber = l.empNumber
+		AND u.userNumber =
+		e.empNumber
+		AND sc.userNumber = #{userNumber}
+		AND sc.status = 1
+		AND
+		l.delstatus = 0
+		AND l.LECSTATUS != 3
+		GROUP BY u.username, l.lecCode,
+		l.majorNum, l.lectureName,
+		l.lectureClassfication,
+		l.maximumCapacity,
+		l.grade, l.grantedSemester, l.lectureScore, l.classRoom,
+		sc.userNumber, u.userCellNum
+	</select>
+
+
+
 	<!-- 장학 단 -->
 	<!-- 장학단 -->
 	<!-- 장학글 갯수 -->
@@ -435,13 +467,15 @@
 		resultType="com.spring.project.admin.vo.LectureTime">
 		SELECT lt.lecturetimecode
 		, tt.timetblcode
-		, tt.beginninglecturetime
+		,
+		tt.beginninglecturetime
 		, tt.endlecturetime
 		,
 		tt.classTime
 		, tt.lectureday
 		FROM lecturetime lt JOIN timetable tt
-		ON lt.timetblcode = tt.timetblcode
+		ON lt.timetblcode =
+		tt.timetblcode
 		WHERE
 		lt.lecCode = #{leccode}
 		ORDER BY tt.timetblcode
@@ -689,7 +723,8 @@
 			</if>
 			<if test="keyword != null">
 				AND (u.userName like '%'||#{keyword}||'%'
-				OR u.userNumber like '%'||#{keyword}||'%')
+				OR u.userNumber
+				like '%'||#{keyword}||'%')
 			</if>
 		</where>
 		ORDER BY u.userNumber
@@ -719,7 +754,8 @@
 			</if>
 			<if test="keyword != null">
 				AND (u.userName like '%'||#{keyword}||'%'
-				OR u.userNumber like '%'||#{keyword}||'%')
+				OR u.userNumber
+				like '%'||#{keyword}||'%')
 			</if>
 		</where>
 		ORDER BY u.userNumber
@@ -745,9 +781,11 @@
 		SELECT l.lecCode , l.majorNum,
 		m.majorName,
 		u.userNumber, u.userImage, u.userName
-		, l.lectureName, l.classRoom, l.lecStatus
+		, l.lectureName,
+		l.classRoom, l.lecStatus
 		, l.lectureClassfication,
-		l.grade, l.grantedSemester
+		l.grade,
+		l.grantedSemester
 		, l.maximumCapacity , l.lecStatus, l.lectureScore
 		FROM lecture l JOIN
 		major m
@@ -757,7 +795,8 @@
 		ON l.empNumber =
 		emp.empNumber
 		JOIN users u
-		ON emp.empNumber = u.userNumber
+		ON emp.empNumber =
+		u.userNumber
 		WHERE
 		l.leccode = #{lecCode}
 	</select>
@@ -776,7 +815,8 @@
 
 	<update id="deleteLecture" parameterType="java.util.Map">
 		UPDATE lecture
-		SET delstatus = 1
+		SET
+		delstatus = 1
 		WHERE leccode = #{lecCode}
 	</update>
 	<!-- ==========================================교직 업무 관리 END========================================= -->
@@ -788,9 +828,14 @@
 		select to_char(imputedYear,'yyyy/mm') imputedYear,
 		paymentClassfication, registerName, paymentDate,
 		to_char(paymentYear,'yyyy/mm') paymentYear,
-		nvl((select sum(PersonnelTotalPay) from payrollListview where paylistNum =
-		p.paylistNum),0) totalAmount
-		from paymentlist p order by imputedYear desc
+		(select
+		NVL(SUM(cashamount),0) + NVL(SUM(confirmedpayment),0) as totalamount
+		from registerDetail r, payment p where r.paymentCode = p.paymentCode
+		and paylistNum =
+		p.paylistNum) totalAmount,
+		status
+		from paymentlist p
+		order by imputedYear desc
 	</select>
 
 	<select id="getFacultyList"
@@ -801,9 +846,12 @@
 		foodExpenses,sum(차량유지비) vehicleCost,
 		sum(기본급)+sum(extraPay)+sum(식대)+sum(차량유지비) personnelTotalPay
 		from(SELECT e.empNumber, u.userName, m.majorName,r.overtime,
-		CASE WHEN i.incentiveName = '기본급' THEN p.cashAmount ELSE 0 END "기본급",
-		CASE WHEN i.incentiveName = '식대' THEN p.cashAmount ELSE 0 END "식대",
-		CASE WHEN i.incentiveName = '차량유지비' THEN p.cashAmount ELSE 0 END "차량유지비",
+		CASE WHEN
+		i.incentiveName = '기본급' THEN p.cashAmount ELSE 0 END "기본급",
+		CASE WHEN
+		i.incentiveName = '식대' THEN p.cashAmount ELSE 0 END "식대",
+		CASE WHEN
+		i.incentiveName = '차량유지비' THEN p.cashAmount ELSE 0 END "차량유지비",
 		(select ConfirmedPayment from registerDetail re, payment pa where
 		re.paymentCode=pa.paymentCode and re.regdecode=r.regdecode) as
 		extraPay
@@ -811,16 +859,18 @@
 		registerDetail r
 		where u.userNumber = e.empNumber and e.majorNum =
 		m.majorNum and p.empNumber=e.empNumber
-		and p.incentiveCode=i.incentiveCode and r.paymentCode=p.paymentCode)
-		group by empNumber, userName, majorName
+		and
+		p.incentiveCode=i.incentiveCode and r.paymentCode=p.paymentCode)
+		group
+		by empNumber, userName, majorName
 	</select>
 
 	<select id="getPaymentClassfication"
 		resultType="com.spring.project.admin.vo.payrollVO">
-		select paylistNum,to_char(imputedYear,'yyyy/mm') imputedYear,
-		paymentClassfication
-		from
-		paymentlist
+		select paylistNum,to_char(imputedYear,'yyyy/mm')
+		imputedYear, paymentClassfication
+		from paymentlist order by imputedYear
+		desc
 	</select>
 
 	<select id="getFinalPayrollList"
@@ -851,7 +901,7 @@
 		values(PAYMENTLIST_SEQ.nextval,
 		to_date(#{imputedYear},'yyyy/mm'),#{paymentClassfication},
 		#{beginningPeriod},#{endPeriod},#{paymentDate},
-		to_date(#{paymentYear},'yyyy/mm'),#{registerName},0)
+		to_date(#{paymentYear},'yyyy/mm'),#{registerName},0,0)
 	</insert>
 
 	<update id="ConfirmationWorkRecord"
@@ -862,17 +912,22 @@
 			SET overtime =
 			#{map.overtime}
 			WHERE regDeCode=
-			(select regDeCode from registerDetail r, payment p where
-			r.paymentCode=p.paymentCode
-			and p.empNumber=#{map.empNumber} and p.incentivecode = 3)
+			(select regDeCode from registerDetail
+			r, payment p where
+			r.paymentCode=p.paymentCode and r.paylistNum =
+			(SELECT paylistNum from paymentList
+			where imputedYear =
+			to_date(#{map.imputedYear},'yyyy/mm'))
+			and
+			p.empNumber=#{map.empNumber} and p.incentivecode = 3)
 		</foreach>
 	</update>
 
-	<update id="updateOverPay"
-		parameterType="java.util.List">
+	<update id="updateOverPay" parameterType="java.util.List">
 		<foreach item="map" collection="list" separator=";"
 			open="BEGIN" close=";END;">
-			updateOverPay(#{map.empNumber}, #{map.overtime})
+			updateOverPay(#{map.empNumber}, #{map.overtime},
+			#{map.imputedYear})
 		</foreach>
 	</update>
 
@@ -880,47 +935,92 @@
 		parameterType="java.util.List">
 		<foreach item="map" collection="list" separator=";"
 			open="BEGIN" close=";END;">
-			SaveEnterAmountManually(#{map.basicPay},#{map.extraPay},#{map.foodExpenses},#{map.vehicleCost},#{map.empNumber})
+			SaveEnterAmountManually(#{map.basicPay},#{map.extraPay},#{map.foodExpenses},
+			#{map.vehicleCost},#{map.empNumber}, #{map.imputedYear})
 		</foreach>
 	</update>
 
 	<select id="ConfirmOvertime" parameterType="java.util.Map"
 		resultType="com.spring.project.admin.vo.payrollVO">
-		SELECT empNumber, userName, majorName,imputedYear,sum(overtime) overtime
-		,sum(기본급) basicPay, sum(extraPay) extraPay, sum(식대)
+		SELECT empNumber, userName, NVL(majorName,'교직원')
+		majorName,imputedYear,sum(overtime) overtime
+		,sum(기본급) basicPay,
+		sum(추가근무수당) extraPay, sum(식대)
 		foodExpenses,sum(차량유지비) vehicleCost,
-		sum(기본급)+sum(extraPay)+sum(식대)+sum(차량유지비) personnelTotalPay
-		from(SELECT e.empNumber, u.userName, m.majorName,r.overtime,
+		sum(기본급)+sum(추가근무수당)+sum(식대)+sum(차량유지비) personnelTotalPay
+		from(
+		SELECT e.empNumber, u.userName, m.majorName,r.overtime,
 		to_char(pa.imputedYear,'yyyy/mm') as imputedYear,
-		CASE WHEN i.incentiveName = '기본급' THEN p.cashAmount ELSE 0 END "기본급",
-		CASE WHEN i.incentiveName = '식대' THEN p.cashAmount ELSE 0 END "식대",
-		CASE WHEN i.incentiveName = '차량유지비' THEN p.cashAmount ELSE 0 END "차량유지비",
-		(select ConfirmedPayment from registerDetail re, payment pa where
-		re.paymentCode=pa.paymentCode and re.regdecode=r.regdecode) as
-		extraPay
+		case when
+		p.incentiveCode=2 then r.confirmedPayment ELSE 0 END "기본급",
+		case when p.incentiveCode=3 then r.confirmedPayment ELSE 0 END "추가근무수당",
+		case when p.incentiveCode=4 then r.confirmedPayment ELSE 0 END "식대",
+		case when p.incentiveCode=5 then r.confirmedPayment ELSE 0 END "차량유지비"
 		FROM users u,employee e, major m, payment p, incentiveMenu i,
 		registerDetail r, paymentList pa
 		where u.userNumber = e.empNumber and
-		e.majorNum = m.majorNum and p.empNumber=e.empNumber
-		and p.incentiveCode=i.incentiveCode and r.paymentCode=p.paymentCode and
+		e.majorNum = m.majorNum(+) and p.empNumber=e.empNumber
+		and
+		p.incentiveCode=i.incentiveCode and r.paymentCode=p.paymentCode and
 		pa.paylistNum=r.paylistNum)
 		group by empNumber, userName, majorName,
 		imputedYear
-		having imputedYear=#{imputedYear}
+		having
+		imputedYear=#{imputedYear}
 	</select>
 
-	<insert id="CopyAllEmployeesDetail"
-		parameterType="com.spring.project.admin.vo.payrollVO">
-		<foreach item="empNumber" collection="array" open="BEGIN"
-			separator=";" close=";END;">
-			insertPaydetails(#{empNumber});
-		</foreach>
-	</insert>
+	<!-- <insert id="CopyAllEmployeesDetail" parameterType="com.spring.project.admin.vo.payrollVO"> 
+		<foreach item="empNumber" collection="array" open="BEGIN" separator=";" close=";END;"> 
+		insertPaydetails(#{empNumber}); </foreach> </insert> -->
 
 	<select id="getEmpNumber"
 		resultType="com.spring.project.admin.vo.payrollVO">
-		select userNumber from users where authority = 'ROLE_PROFESSOR'
+		select userNumber from users where authority ='ROLE_PROFESSOR'
 	</select>
+
+	<select id="getCopyPayrollFrom" parameterType="java.util.Map"
+		resultType="int">
+		select count(*) from registerDetail where paylistNum =
+		#{copyPayrollFrom}
+	</select>
+
+	<insert id="CopyPayroll" parameterType="java.util.Map">
+		call
+		copypaydetails(#{copyPayrollFrom},#{copyPayrollTo},#{payrollCnt})
+	</insert>
+
+	<update id="ConfirmPayroll" parameterType="java.util.Map">
+		UPDATE paymentList set
+		status = 1 where imputedYear = to_date(#{imputedYear},'yyyy/mm')
+		and
+		paymentClassfication = #{paymentClassfication}
+	</update>
+
+	<delete id="DeletePayroll" parameterType="java.util.Map">
+		delete from paymentList
+		where imputedYear = to_date(#{imputedYear},'yyyy/mm')
+		and
+		paymentClassfication = #{paymentClassfication}
+	</delete>
+
+	<delete id="DeleteRegisterDetail" parameterType="java.util.Map">
+		delete from
+		registerDetail where paylistNum = (select paylistNum from paymentList
+		where imputedYear = to_date(#{imputedYear},'yyyy/mm') and
+		paymentClassfication = #{paymentClassfication})
+	</delete>
+	
+	<insert id="insertPayrollwith0" parameterType="java.util.List">
+		<foreach item="empNumber" collection="list" separator=";"
+			open="BEGIN" close=";END;">
+			insertPayrollwith0(#{empNumber})
+		</foreach>
+	</insert>
+	
+	<update id="insertPayrollwith1" parameterType="java.util.Map">
+		update registerDetail set paylistNum = #{imputedYear} where paylistNum = 0
+	</update>
+	
 	<!-- ==========================================회계관리 END========================================= -->
 
 

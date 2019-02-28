@@ -56,5 +56,4 @@
 </body>
 <!--  Custome Theme Scripts -->
 <script src="${staticPath}/build/js/custom2.js"></script>
-<script src="${staticPath }/js/account/accountManage.js"></script>
 </html>
