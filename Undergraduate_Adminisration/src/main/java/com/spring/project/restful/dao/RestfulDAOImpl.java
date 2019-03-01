@@ -4,9 +4,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.spring.project.restful.vo.Location;
 import com.spring.project.restful.vo.Message;
 import com.spring.project.restful.vo.RestUser;
 import com.spring.project.share.dao.ShareDAO;
@@ -15,6 +18,8 @@ import com.spring.project.share.dao.ShareDAO;
 public class RestfulDAOImpl implements RestfulDAO{
 	@Autowired
 	SqlSession sqlSession;
+	
+	private static final Logger logger = LoggerFactory.getLogger(RestfulDAOImpl.class);
 	
 	@Override
 	public List<Message> getMessages(Map<String, Object> map) {
@@ -51,7 +56,6 @@ public class RestfulDAOImpl implements RestfulDAO{
 		return sqlSession.insert("com.spring.project.restful.dao"
 				+ ".RestfulDAO.sendMessage", map);
 	}
-
 	
 	//---------------------------Android-START---------------------------------
 	@Override
@@ -59,5 +63,15 @@ public class RestfulDAOImpl implements RestfulDAO{
 		return sqlSession.selectOne("com.spring.project.restful.dao"
 				+ ".RestfulDAO.getUser", map);
 	}
+
+	@Override
+	public Location getLocation(Location location) {
+		/*logger.info(ShareDAO.getQuery(sqlSession, "getLocation", location));
+		logger.info(location.getArea()+location.getLocality()+location.getThoroughfare());*/
+		return sqlSession.selectOne("com.spring.project.restful.dao"
+				+ ".RestfulDAO.getLocation", location);
+	}
+	
+	
 	//---------------------------Android-END---------------------------------
 }

@@ -1007,7 +1007,6 @@ public class AdminServiceImpl extends Board implements AdminService {
 	}
 	
 	// -------------------------------------------------------교직업무관리END-------------------------------------------------
-	
 
 	@Override
 	public void judge2(Map<String, Object> map, Logger logger, Model model) {
