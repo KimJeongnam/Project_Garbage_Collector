@@ -316,12 +316,34 @@
 	<!-- 내 학점 조회 -->
 	<select id="GPA"
 		resultType="com.spring.project.student.vo.GpaVO">
-		select * from studentGPAview
+		select rownum, r.* from(SELECT l.year, g.semester, l.lecCode, l.lectureName, l.grade, 
+												l.lectureClassfication, l.lectureScore, g.credit,g.jscore, u.userName
+							   	FROM student s, studentClassInfo sc, gpa g, lecture l, users u
+								WHERE s.stdNumber = sc.userNumber
+						          and u.userNumber = s.stdNumber
+							      and sc.lecCode = l.lecCode(+)
+							      and sc.infoCode=g.infoCode(+) 
+							      and sc.status = 1
+							      and s.stdNumber = #{userNumber}
+							 order by l.lecCode asc) r
 	</select>
 
 	<!-- 신청 학점 -->
 	<select id="ApplyCredit" parameterType="String" resultType="int">
 		select sum(lectureScore) as ApplyCredit from mylectureview where
 		userNumber = #{userNumber}
+	</select>
+	
+	<!-- 이수 학점 -->
+	<select id="grantedCredit" resultType="com.spring.project.student.vo.GpaVO">
+		SELECT sum(lecturescore) as grantedCredit, count(*) as grantedCnt, sum(g.jscore) as totalJscore
+		  from student s, studentClassInfo sc, gpa g, lecture l, users u
+		WHERE s.stdNumber = sc.userNumber
+		  and u.userNumber = s.stdNumber
+		  and sc.lecCode = l.lecCode(+)
+		  and sc.infoCode=g.infoCode(+) 
+		  and sc.status = 1
+		  and s.stdNumber = #{userNumber}
+		  and credit != 'F' AND credit is not null
 	</select>
 </mapper>

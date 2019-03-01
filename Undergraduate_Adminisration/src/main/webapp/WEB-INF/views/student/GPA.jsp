@@ -28,42 +28,42 @@
 				<table class="table table-striped jambo_table bulk_action">
 					<thead>
 						<tr class="headings">
+							<TH>번호</TH>
 							<th>학년도</th>
 							<th>학기</th>
 							<th>강의번호</th>
 							<th>과목명</th>
 							<th>학년</th>
 							<th>이수구분</th>
-							<th>학점</th>
-							<th>등급</th>
-							<th>평점</th>
-							<th>평점계</th>
+							<th>교과학점</th>
+							<th>취득점수</th>
+							<th>취득학점</th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach var="dto" items="${dtos}">
 							<tr>
+								<td>${dto.rownum}</td>
 								<td>${dto.year}</td>
 								<td>${dto.semester}</td>
 								<td>${dto.lecCode}</td>
 								<td>${dto.lectureName}</td>
 								<td>${dto.grade}</td>
 								<td><c:if test="${dto.lectureClassfication == 1}">
-													전공
-												</c:if> <c:if test="${dto.lectureClassfication == 0}">
-													교양
-												</c:if></td>
+										전공
+									</c:if> <c:if test="${dto.lectureClassfication == 0}">
+										교양
+									</c:if></td>
 								<td>${dto.lectureScore}</td>
+								<td>${dto.jscore}</td>
 								<td>${dto.credit}</td>
-								<td>${dto.score}</td>
-								<td>${dto.multiply}</td>
 
-								<c:set var="totalgetlectureScore"
+								<%-- <c:set var="totalgetlectureScore"
 									value="${totalgetlectureScore + dto.lectureScore}" />
 								<c:set var="totalgetmultiply"
-									value="${totalgetmultiply + dto.multiply}" />
+									value="${(totalgetmultiply + dto.jscore)}" />
 								<fmt:formatNumber var="averageScore"
-									value="${totalgetmultiply/totalgetlectureScore}" pattern="#.##" />
+									value="${totalgetmultiply/totalgetlectureScore}" pattern="#.##" /> --%>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -74,16 +74,35 @@
 						<tr class="headings">
 							<td>신청학점</td>
 							<td>취득학점</td>
-							<td>총평점</td>
+							<td>총점수</td>
 							<td>평균학점</td>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
 							<td>${applyCredit}</td>
-							<td><c:out value="${totalgetlectureScore}" /></td>
-							<td><c:out value="${totalgetmultiply}" /></td>
-							<td><c:out value="${averageScore}" /></td>
+							<c:forEach var="granted" items="${granted}">
+							<td>${granted.grantedCredit}</td>
+							<td>${granted.totalJscore}</td>
+							<td>
+								<c:if test="${granted.totalJscore / granted.grantedCnt >=95}">A+</c:if>
+								<c:if test="${granted.totalJscore / granted.grantedCnt <95 &&
+											granted.totalJscore / granted.grantedCnt >=90}">A</c:if>
+								<c:if test="${granted.totalJscore / granted.grantedCnt <90 &&
+											granted.totalJscore / granted.grantedCnt >=85}">B+</c:if>
+								<c:if test="${granted.totalJscore / granted.grantedCnt <85 &&
+											granted.totalJscore / granted.grantedCnt >80}">B</c:if>
+								<c:if test="${granted.totalJscore / granted.grantedCnt <80 &&
+											granted.totalJscore / granted.grantedCnt >=75}">C+</c:if>
+								<c:if test="${granted.totalJscore / granted.grantedCnt <75 &&
+											granted.totalJscore / granted.grantedCnt >=70}">C</c:if>
+								<c:if test="${granted.totalJscore / granted.grantedCnt <70 &&
+											granted.totalJscore / granted.grantedCnt >=65}">D+</c:if>
+								<c:if test="${granted.totalJscore / granted.grantedCnt <65 &&
+											granted.totalJscore / granted.grantedCnt >=60}">D</c:if>			
+
+							</td>
+							</c:forEach>
 						</tr>
 					</tbody>
 				</table>

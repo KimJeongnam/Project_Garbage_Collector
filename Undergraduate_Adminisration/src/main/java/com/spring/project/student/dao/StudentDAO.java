@@ -107,4 +107,7 @@ public interface StudentDAO {
 	
 	// 신청 학점
 	public int ApplyCredit(String userNumber);
+	
+	// 이수 학점
+	public List<GpaVO> grantedCredit(String userNumber);
 }

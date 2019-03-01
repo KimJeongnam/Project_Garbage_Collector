@@ -210,5 +210,9 @@ public class StudentDAOImpl implements StudentDAO{
 	public int ApplyCredit(String userNumber) {
 		return sqlSession.selectOne("com.spring.project.student.dao.StudentDAO.ApplyCredit", userNumber);
 	}
-
+	// 이수 학점
+	@Override
+	public List<GpaVO> grantedCredit(String userNumber) {
+		return sqlSession.selectList("com.spring.project.student.dao.StudentDAO.grantedCredit", userNumber);
+	}
 }

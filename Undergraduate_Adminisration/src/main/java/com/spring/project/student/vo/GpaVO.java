@@ -16,7 +16,46 @@ public class GpaVO {
 	private int grade;
 	private int grantedSemester;
 	private int lectureScore;
+	private int jscore ; 					//백분위점수
+	private int rownum; 					//글번호
+	private int grantedCredit;				//이수학점
+	private int grantedCnt;					//이수학점 갯수
+	private int totalJscore;				//평균학점 알파벳표시
 	
+	
+	
+	
+	
+	public int getGrantedCredit() {
+		return grantedCredit;
+	}
+	public void setGrantedCredit(int grantedCredit) {
+		this.grantedCredit = grantedCredit;
+	}
+	public int getGrantedCnt() {
+		return grantedCnt;
+	}
+	public void setGrantedCnt(int grantedCnt) {
+		this.grantedCnt = grantedCnt;
+	}
+	public int getTotalJscore() {
+		return totalJscore;
+	}
+	public void setTotalJscore(int totalJscore) {
+		this.totalJscore = totalJscore;
+	}
+	public int getRownum() {
+		return rownum;
+	}
+	public void setRownum(int rownum) {
+		this.rownum = rownum;
+	}
+	public int getJscore() {
+		return jscore;
+	}
+	public void setJscore(int jscore) {
+		this.jscore = jscore;
+	}
 	public int getYear() {
 		return year;
 	}
