@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -21,11 +22,14 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.crontab.dao.ScheduleDAO;
+import com.crontab.vo.LectrueSelectPeriod;
 import com.spring.project.Board.Board;
 import com.spring.project.Board.BoardInterface;
 import com.spring.project.admin.dao.AdminDAO;
 import com.spring.project.admin.vo.AdProVO;
 import com.spring.project.admin.vo.AdStdVO;
+import com.spring.project.admin.vo.ChartVO;
 import com.spring.project.admin.vo.ScholarpkVO;
 import com.spring.project.admin.vo.auditVO;
 import com.spring.project.admin.vo.lecMVO;
@@ -42,6 +46,8 @@ public class AdminServiceImpl extends Board implements AdminService {
 	AdminDAO dao;
 	@Autowired
 	ShareDAO shareDao;
+	@Autowired
+	ScheduleDAO schduleDao;
 
 	/* 장학 단 */
 	// 장학 글 목록
@@ -1001,7 +1007,6 @@ public class AdminServiceImpl extends Board implements AdminService {
 	}
 	
 	// -------------------------------------------------------교직업무관리END-------------------------------------------------
-	
 
 	@Override
 	public void judge2(Map<String, Object> map, Logger logger, Model model) {
@@ -1132,43 +1137,24 @@ public class AdminServiceImpl extends Board implements AdminService {
 
 	@Override
 	public Map<String, Object> insertPayroll(Map<String, Object> map) {
-		/*payrollVO vo = new payrollVO();
-		vo.setImputedYear((String)map.get("imputedYear") + (String)map.get("imputedMonth"));
-		vo.setPaymentClassfication((String)map.get("paymentClassfication"));
-		vo.setBeginningPeriod((Date)map.get("beginningPeriod"));
-		vo.setEndPeriod((Date)map.get("endPeriod"));
-		vo.setPaymentDate((Date)map.get("paymentDate"));
-		vo.setPaymentYear((String)map.get("paymentYear") + (String)map.get("paymentMonth"));
-		vo.setRegisterName((String)map.get("registerName"));*/
-
-		/*System.out.println("imputedYear : " + map.get("imputedYear") + map.get("imputedMonth"));
-		System.out.println("paymentClassfication :" + map.get("paymentClassfication"));
-		System.out.println("beginningPeriod :" + (map.get("beginningPeriod")));
-		System.out.println("endPeriod :" + (map.get("paymentDate")));
-		System.out.println("paymentYear :" + map.get("paymentYear") + map.get("paymentMonth"));
-		System.out.println("registerName :" + map.get("registerName"));*/
-
 		int cnt = dao.insertPayroll(map);
 		
 		Map<String, Object> responseData = new HashMap<String,Object>();
 		if (cnt == 1) {
-			responseData.put("message", "등록이 완료되었습니다.");
+			List<payrollVO> empNumber = dao.getEmpNumber();
+			System.out.println("empNumber : " + empNumber);
+			int cnt1 = dao.insertPayrollwith0(empNumber);
+			if(cnt1 > 0) {
+				int cnt2 = dao.insertPayrollwith1(map);
+				if(cnt2 > 0) {
+					responseData.put("message", "등록이 완료되었습니다.");
+				}
+			}
 		}
 		return responseData;
 	}
 	@Override
 	public Map<String, Object> ConfirmationWorkRecord(List<Map<String, Object>> data, Logger logger) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		/*String[] overtime = (String[])map.get("overtime");
-		String[] empNumber = (String[])map.get("empNumber");
-		System.out.println("overtime : " + overtime);
-		System.out.println("empNumber : " + empNumber);
-		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-		for(int i=0; i<overtime.length; i++) {
-			map.put("overtime", overtime[i]);
-			map.put("empNumber", empNumber[i]);
-			list.add(map);
-		}*/
 		Map<String, Object> responseData = new HashMap<String,Object>();
 			
 		int cnt1 = dao.ConfirmationWorkRecord(data);
@@ -1201,6 +1187,8 @@ public class AdminServiceImpl extends Board implements AdminService {
 	public void ConfirmOvertime(Map<String, Object> map, Model model) {
 		List<payrollVO> dtos = dao.ConfirmOvertime(map);
 		model.addAttribute("dtosF", dtos);
+		String payrollStatus = (String)map.get("payrollStatus");
+		model.addAttribute("payrollStatus", payrollStatus);
 	}
 
 	@Override
@@ -1217,14 +1205,13 @@ public class AdminServiceImpl extends Board implements AdminService {
 
 	@Override
 	public Map<String, Object> CopyPayroll(Map<String, Object> map) {
-		List<payrollVO> empNumber = dao.getEmpNumber();
-		int cnt1 = dao.CopyAllEmployeesDetail(empNumber);
 		
-		// mapper 없음
-		int cnt2 = dao.CopyPayroll(map);
-		int cnt= cnt1 + cnt2;
+		int payrollCnt = dao.getCopyPayrollFrom(map); 
+		map.put("payrollCnt", payrollCnt);
+		System.out.println("map :"+map);
+		dao.CopyPayroll(map);
 		Map<String, Object> responseData = new HashMap<String,Object>();
-		if(cnt != 0) {
+		if(payrollCnt != 0) {
 			responseData.put("message","저장이 완료되었습니다");
 		} else {
 			responseData.put("message","CopyPayroll() Error");
@@ -1232,9 +1219,42 @@ public class AdminServiceImpl extends Board implements AdminService {
 		return responseData;
 	}
 
+	@Override
+	public Map<String, Object> ConfirmPayroll(Map<String, Object> map) {
+		System.out.println("map :"+map);
+		int cnt = dao.ConfirmPayroll(map);
+		System.out.println("cnt :"+cnt);
+		Map<String, Object> responseData = new HashMap<String,Object>();
+		if(cnt != 0) {
+			responseData.put("message","저장이 완료되었습니다");
+		} else {
+			responseData.put("message","ConfirmPayroll() Error");
+		}
+		return responseData;
+	}
+
+	@Override
+	public Map<String, Object> DeletePayroll(Map<String, Object> map) {
+		System.out.println("map :"+map);
+		int cnt1 = dao.DeletePayroll(map);
+		int cnt2 = dao.DeleteRegisterDetail(map);
+		int cnt = cnt1 + cnt2;
+		System.out.println("cnt1 :"+cnt);
+		System.out.println("cnt2 :"+cnt);
+		System.out.println("cnt :"+cnt);
+		Map<String, Object> responseData = new HashMap<String,Object>();
+		if(cnt != 0) {
+			responseData.put("message","삭제되었습니다");
+		} else {
+			responseData.put("message","DeletePayroll() Error");
+		}
+		return responseData;
+	}
+
 	
 	
 	//---------------학사관리 START-------------------
+	//학사관리 진입
 	@Override
 	public void lecM(HttpServletRequest req, Model model) {
 		
@@ -1243,7 +1263,7 @@ public class AdminServiceImpl extends Board implements AdminService {
 		model.addAttribute("vo", vo);
 		
 	}
-	
+	//학사관리 일정 삭제
 	@Override
 	public Map<String, Object> delete_sc(lecMVO vo) {
 		
@@ -1251,14 +1271,174 @@ public class AdminServiceImpl extends Board implements AdminService {
 		dao.delete_sc(vo);
 		return resultmap;
 	}
-	//---------------학사관리 END-------------------
+	
+	//학사관리 일정 추가
+	@Override
+	public void lecScInsert(HttpServletRequest req, RedirectAttributes red) {
+		
+		String startSelectLecture = req.getParameter("ssl");
+		String endSelectLecture = req.getParameter("esl");
+		String openingDay = req.getParameter("sd");
+		String gradeOpeningDay = req.getParameter("sid");
+		String endingDay = req.getParameter("ed");
+		String year = req.getParameter("yearNum");
+		String semester = req.getParameter("options");
+		
+		lecMVO vo = new lecMVO();
+		
+		vo.setEndingDay(endingDay);
+		vo.setEndSelectLecture(endSelectLecture);
+		vo.setGradeOpeningDay(gradeOpeningDay);
+		vo.setOpeningDay(openingDay);
+		vo.setStartSelectLecture(startSelectLecture);
+		vo.setYear(year);
+		vo.setSemester(semester);
+		
+		int lecScInsert = 0;
+		try {
+			lecScInsert = dao.lecScInsert(vo);
+		}catch(DataAccessException e) {
+			System.out.println(e.getMessage());
+			System.out.println("asdfsafdasfasdfdfasfsfasdfdsafasdfsad fasdf sadf ads");
+			if(e.getMessage().contains("unique constraint"));
+			lecScInsert = 500;
+		}
+		
+		
+		System.out.println("학사일정 수정 lecScInsert : " + startSelectLecture);
+		System.out.println("학사일정 수정 lecScInsert : " + endSelectLecture);
+		System.out.println("학사일정 수정 lecScInsert : " + openingDay);
+		System.out.println("학사일정 수정 lecScInsert : " + gradeOpeningDay);
+		System.out.println("학사일정 수정 lecScInsert : " + endingDay);
+		System.out.println("학사일정 수정 lecScInsert : " + lecScInsert);
+		
+		
+		if (lecScInsert == 1) {
+			red.addFlashAttribute("message", year +"년도" +semester+"학기 학사일정을 추가하였습니다.");
+			red.addFlashAttribute("alertIcon","success");
+		}
+		if (lecScInsert == 0) {
+			red.addFlashAttribute("message", "학사일정을 추가하는 중 오류가 발생하였습니다.");
+			red.addFlashAttribute("alertIcon","error");
+		}
+		if(lecScInsert == 500) {
+			red.addFlashAttribute("message", "이미 추가 되어있는 년도와 학기 입니다.!");
+			red.addFlashAttribute("alertIcon","error");
+		}
+	}
+	
+	//학사관리 일정 수정
+	@Override
+	public void lecScUpdate(HttpServletRequest req, RedirectAttributes red) {
+		String startSelectLecture = req.getParameter("ssl");
+		String endSelectLecture = req.getParameter("esl");
+		String openingDay = req.getParameter("sd");
+		String gradeOpeningDay = req.getParameter("sid");
+		String endingDay = req.getParameter("ed");
+		String year = req.getParameter("yearNum");
+		String semester = req.getParameter("options");
+		
+		lecMVO vo = new lecMVO();
+		
+		vo.setEndingDay(endingDay);
+		vo.setEndSelectLecture(endSelectLecture);
+		vo.setGradeOpeningDay(gradeOpeningDay);
+		vo.setOpeningDay(openingDay);
+		vo.setStartSelectLecture(startSelectLecture);
+		vo.setYear(year);
+		vo.setSemester(semester);
+		
+		int lecScUpdate = dao.lecScUpdate(vo);
+		System.out.println("학사일정 수정 lecScUpdate : " + startSelectLecture);
+		System.out.println("학사일정 수정 lecScUpdate : " + endSelectLecture);
+		System.out.println("학사일정 수정 lecScUpdate : " + openingDay);
+		System.out.println("학사일정 수정 lecScUpdate : " + gradeOpeningDay);
+		System.out.println("학사일정 수정 lecScUpdate : " + endingDay);
+		System.out.println("학사일정 수정 lecScUpdate : " + lecScUpdate);
+		
+		
+		int up = lecScUpdate;
+		
+		if (up == 1) {
+			red.addFlashAttribute("message", year +"년도" +semester+"학기 학사일정을 수정하였습니다.");
+			red.addFlashAttribute("alertIcon","success");
+		}
+		if (up != 1) {
+			red.addFlashAttribute("message", "학사일정을 수정하는 중 오류가 발생하였습니다.");
+			red.addFlashAttribute("alertIcon","error");
+		}
+		
+	}
+	//학사관리 일정 즉시 실행
+	@Override
+	public void excuteScUpdate(HttpServletRequest req, RedirectAttributes red) {
+		LectrueSelectPeriod lectrueSelectPeriod = new LectrueSelectPeriod();
+
+		lectrueSelectPeriod.setSemester((Integer)req.getSession().getAttribute("semester"));
+		
+		String options = req.getParameter("optionsRadios");
+		String message = "";
+		
+		int status = 0;
+		switch(options) {
+		case "1":
+			status = 1;
+			message = "개강";
+			break;
+		case "2":
+			message = "종강";
+			status = 3;
+			break;
+		case "3":
+			message = "학점 입력 기간";
+			status = 2;
+			break;
+		case "4":
+			message = "수강신청 기간";
+			status = 0;
+			break;
+		case "5":
+			message = "수강신청 종료";
+			status = 3;
+			break;
+		}
+		lectrueSelectPeriod.setStatus(status);
+		schduleDao.updateLectureStatus(lectrueSelectPeriod);
+		
+		if(lectrueSelectPeriod.getResult() != 1) {
+			red.addFlashAttribute("message", message+" 실행 중 오류가 발생하였습니다.!");
+			red.addFlashAttribute("alertIcon","error");
+		}else {
+			red.addFlashAttribute("message", message+" 실행 완료.");
+			red.addFlashAttribute("alertIcon","success");
+		}
+	}
 
 	
+	//---------------학사관리 END-------------------
+
+
+	
+	//---------------성적통계업무  START-------------------
 	
 	
+	@Override
+	public void scoreManagement(HttpServletRequest req, Model model) {
+		
+		List<ChartVO> fa = dao.facultyAvg();
+		List<ChartVO> ma = dao.majorAvg();
+		List<ChartVO> genders = dao.genderAvg();
+		List<ChartVO> gr = dao.gradeAvg();
+		
+		model.addAttribute("fa", fa);
+		model.addAttribute("ma", ma);
+		model.addAttribute("genders", genders);
+		model.addAttribute("gr", gr);
+		
+	}
 	
 	
-	
+	//---------------성적통계업무  END-------------------
 	
 	
 	

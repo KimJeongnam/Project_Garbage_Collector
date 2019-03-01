@@ -3,6 +3,7 @@ package com.spring.project.restful.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.spring.project.restful.vo.Location;
 import com.spring.project.restful.vo.Message;
 import com.spring.project.restful.vo.RestUser;
 
@@ -16,5 +17,6 @@ public interface RestfulDAO {
 	
 	//---------------------------Android-START---------------------------------
 	public RestUser getUser(Map<String, Object> map);
+	public Location getLocation(Location location);
 	//---------------------------Android-END---------------------------------
 }
