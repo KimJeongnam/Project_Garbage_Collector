@@ -969,13 +969,9 @@
 		imputedYear=#{imputedYear}
 	</select>
 
-	<!-- <insert id="CopyAllEmployeesDetail" parameterType="com.spring.project.admin.vo.payrollVO"> 
-		<foreach item="empNumber" collection="array" open="BEGIN" separator=";" close=";END;"> 
-		insertPaydetails(#{empNumber}); </foreach> </insert> -->
-
 	<select id="getEmpNumber"
 		resultType="com.spring.project.admin.vo.payrollVO">
-		select userNumber from users where authority ='ROLE_PROFESSOR'
+		select empNumber from employee
 	</select>
 
 	<select id="getCopyPayrollFrom" parameterType="java.util.Map"
@@ -1010,10 +1006,14 @@
 		paymentClassfication = #{paymentClassfication})
 	</delete>
 	
+	<select id="getPaymentListPk" resultType="int">
+	SELECT PAYLISTNUM FROM paymentlist WHERE TO_CHAR(IMPUTEDYEAR, 'YYYY/MM') = #{date}
+	</select>
+	
 	<insert id="insertPayrollwith0" parameterType="java.util.List">
-		<foreach item="empNumber" collection="list" separator=";"
+		<foreach item="map" collection="list" separator=";"
 			open="BEGIN" close=";END;">
-			insertPayrollwith0(#{empNumber})
+			insertPayrollwith0(#{map.paymentListNum}, #{map.empNumber})
 		</foreach>
 	</insert>
 	

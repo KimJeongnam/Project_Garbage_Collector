@@ -150,7 +150,6 @@ public class StudentServiceImpl implements StudentService {
 	public Map<String, Object> applyLecture(Map<String, Object> map, Logger logger) {
 		String userNumber = (String) map.get("userNumber");
 		String lecCode = (String) map.get("lecCode");
-
 		map.put("userNumber", userNumber);
 		map.put("lecCode", lecCode);
 		
@@ -174,7 +173,12 @@ public class StudentServiceImpl implements StudentService {
 			System.out.println("cnt3 : " + cnt2); 
 			
 			if(cnt2 == 1){
-				dao.applyLecture(map);
+				int lecSum = dao.getLectureScoreSum(map);
+				if(lecSum > 18) {
+					responseData.put("message","수강신청실패-18학점 이상 강의를 신청할수 없습니다.");
+				} else {
+					dao.applyLecture(map);
+				}
 				} 
 			if(cnt2 != 1){
 				responseData.put("message","수강신청실패-강의 신청인원이 마감되었습니다."); }
