@@ -188,7 +188,9 @@ public interface AdminDAO {
 	
 	public int DeleteRegisterDetail(Map<String, Object> map);
 	
-	public int insertPayrollwith0(List<payrollVO> empNumber);
+	public int getPaymentListPk(String date);
+	
+	public int insertPayrollwith0(List<Map<String, Object>> datas);
 	
 	public int insertPayrollwith1(Map<String, Object> map);
 	

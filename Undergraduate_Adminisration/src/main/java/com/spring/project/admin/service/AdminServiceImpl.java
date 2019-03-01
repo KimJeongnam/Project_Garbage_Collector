@@ -1138,18 +1138,24 @@ public class AdminServiceImpl extends Board implements AdminService {
 	@Override
 	public Map<String, Object> insertPayroll(Map<String, Object> map) {
 		int cnt = dao.insertPayroll(map);
+		String date = (String)map.get("imputedYear");
+		
+		int paymentListNum = dao.getPaymentListPk(date);
 		
 		Map<String, Object> responseData = new HashMap<String,Object>();
+		List<Map<String, Object>> requestlist = new ArrayList<Map<String, Object>>();
+		
 		if (cnt == 1) {
-			List<payrollVO> empNumber = dao.getEmpNumber();
-			System.out.println("empNumber : " + empNumber);
-			int cnt1 = dao.insertPayrollwith0(empNumber);
-			if(cnt1 > 0) {
-				int cnt2 = dao.insertPayrollwith1(map);
-				if(cnt2 > 0) {
-					responseData.put("message", "등록이 완료되었습니다.");
-				}
+			List<payrollVO> empNumbers = dao.getEmpNumber();
+			
+			for(payrollVO vo : empNumbers) {
+				Map<String, Object> data = new HashMap<String, Object>();
+				data.put("paymentListNum", paymentListNum);
+				data.put("empNumber", vo.getEmpNumber());
+				requestlist.add(data);
 			}
+			dao.insertPayrollwith0(requestlist);
+			responseData.put("message", "등록이 완료되었습니다.");
 		}
 		return responseData;
 	}
