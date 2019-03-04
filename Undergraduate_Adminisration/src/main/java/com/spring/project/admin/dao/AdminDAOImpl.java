@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.spring.project.admin.vo.AdProVO;
 import com.spring.project.admin.vo.AdStdVO;
 import com.spring.project.admin.vo.ChartVO;
+import com.spring.project.admin.vo.IndexVO;
 import com.spring.project.admin.vo.ScholarpkVO;
 import com.spring.project.admin.vo.auditVO;
 import com.spring.project.admin.vo.lecMVO;
@@ -494,11 +495,65 @@ public class AdminDAOImpl implements AdminDAO{
 	public List<ChartVO> gradeAvg() {
 		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.gradeAvg");
 	}
-	
-	
+
 	
 	//---------------학사성적통계 END-----------------------
 	
+	//인덱스
+	
+	@Override
+	public List<IndexVO> s_t() {
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.s_t");
+	}
+
+	@Override
+	public List<IndexVO> m_t() {
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.m_t");
+	}
+
+	@Override
+	public List<IndexVO> g_t() {
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.g_t");
+	}
+
+	@Override
+	public List<IndexVO> p_t() {
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.p_t");
+	}
+
+	@Override
+	public List<IndexVO> l_t() {
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.l_t");
+	}
+
+	@Override
+	public List<IndexVO> u_t() {
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.u_t");
+	}
+
+	@Override
+	public List<IndexVO> nameAvgTop() {
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.nameAvgTop");
+	}
+
+	@Override
+	public List<IndexVO> monthPayTotal() {
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.monthPayTotal");
+	}
+
+	@Override
+	public List<IndexVO> monthPayTop() {
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.monthPayTop");
+	}
+	@Override
+	public List<IndexVO> subPay() {
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.subPay");
+	}
+	
+	@Override
+	public List<IndexVO> facStdNameAvg() {
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.facStdNameAvg");
+	}
 	
 	
 }

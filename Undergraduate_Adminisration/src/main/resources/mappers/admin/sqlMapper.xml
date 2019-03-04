@@ -982,7 +982,7 @@
  		SELECT*FROM majorAvg
  	</select>
 	
-	<!-- 성적업무통계 남녀 -->
+	<!-- 성적업무통계 강의별 -->
 	<select id="genderAvg" parameterType="String" resultType="com.spring.project.admin.vo.ChartVO">
  		SELECT*FROM genderAvg
  	</select>
@@ -994,5 +994,98 @@
 	
 	
 	<!-- ==========================================성적업무통계 END============================================== -->
+	
+	
+	
+	
+	<!-- ==========================================인덱스 START============================================== -->
+	
+	<select id="s_t" parameterType="String" resultType="com.spring.project.admin.vo.IndexVO">
+ 	<![CDATA[
+ 		SELECT COUNT(*) AS total FROM STUDENT s
+		JOIN studentstate ss
+		ON s.stdnumber = ss.stdnumber
+		JOIN users u
+		ON u.usernumber = s.stdnumber
+		WHERE u.delstatus <> 1
+		AND ss.graduation_state <> 1
+		]]>
+ 	</select>
+ 	
+	
+	<select id="m_t" parameterType="String" resultType="com.spring.project.admin.vo.IndexVO">
+ 	<![CDATA[
+ 		SELECT COUNT(*) AS total FROM USERS u
+		JOIN student s
+		ON u.usernumber = s.stdnumber
+		JOIN studentstate ss
+		ON s.stdnumber = ss.stdnumber
+		WHERE authority = 'ROLE_STUDENT' AND gender='남자'
+		AND u.delstatus <> 1
+		AND ss.graduation_state <> 1
+	]]>
+ 	</select>
+ 	
+	
+	<select id="g_t" parameterType="String" resultType="com.spring.project.admin.vo.IndexVO">
+		<![CDATA[
+ 		SELECT COUNT(*) AS total FROM USERS u
+		JOIN student s
+		ON u.usernumber = s.stdnumber
+		JOIN studentstate ss
+		ON s.stdnumber = ss.stdnumber
+		WHERE authority = 'ROLE_STUDENT' AND gender='여자'
+		AND u.delstatus <> 1
+		AND ss.graduation_state <> 1
+ 		]]>
+ 	</select>
+ 	
+	
+	<select id="p_t" parameterType="String" resultType="com.spring.project.admin.vo.IndexVO">
+ 		<![CDATA[
+ 		SELECT COUNT(*) AS total FROM USERS WHERE authority IN ('ROLE_PROFESSOR') AND delstatus <> 1
+ 		]]>
+ 	</select>
+ 	
+	
+	<select id="l_t" parameterType="String" resultType="com.spring.project.admin.vo.IndexVO">
+ 		<![CDATA[
+ 		SELECT COUNT(*) AS total FROM LECTURE WHERE delstatus <> 1 AND lecstatus in (1,2)
+ 		]]>
+ 	</select>
+ 	
+	
+	<select id="u_t" parameterType="String" resultType="com.spring.project.admin.vo.IndexVO">
+ 		<![CDATA[SELECT COUNT(*) AS total FROM USERS WHERE authority IN ('ROLE_PROFESSOR','ROLE_ADMIN') AND delstatus <> 1]]>
+ 	</select>
+ 	
+ 	
+	<!-- 성적 이름별 탑4 -->
+	<select id="nameAvgTop" parameterType="String" resultType="com.spring.project.admin.vo.IndexVO">
+ 		<![CDATA[SELECT*FROM std_name_Avg WHERE ROWNUM <=4 order by avgscore desc]]>	
+ 	</select>
+ 	
+ 	
+	<!-- 월별총 -->
+	<select id="monthPayTotal" parameterType="String" resultType="com.spring.project.admin.vo.IndexVO">
+ 		SELECT imputedYear, totalAmount FROM accountTotal order by imputedYear 
+ 	</select>
+ 	
+ 	
+	<!-- 월별 탑4 -->
+	<select id="monthPayTop" parameterType="String" resultType="com.spring.project.admin.vo.IndexVO">
+ 		<![CDATA[SELECT userName,personnelTotalPay FROM personTotal WHERE imputedyear=TO_CHAR(sysdate,'yyyy/mm') AND ROWNUM <=4 order by personnelTotalPay desc]]>
+ 	</select>
+ 	<!-- 추근수당 -->
+	<select id="subPay" parameterType="String" resultType="com.spring.project.admin.vo.IndexVO">
+ 		<![CDATA[SELECT imputedYear, SUM(basicpay)AS basicp, SUM(extrapay)AS extrap, SUM(foodexpenses) as foodp, SUM(vehiclecost)AS vcost FROM personTotal group by imputedYear order by imputedYear]]>
+ 	</select>
+ 	
+ 	<!-- 이름별 -->
+	<select id="facStdNameAvg" parameterType="String" resultType="com.spring.project.admin.vo.IndexVO">
+		SELECT*FROM std_fac_name_Avg
+ 	</select>
+ 	
+	<!-- ==========================================인덱스 END================================================ -->
 
 </mapper>

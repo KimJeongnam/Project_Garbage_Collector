@@ -35,8 +35,9 @@ public class AdminController {
 	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
 
 	@RequestMapping("/admin/index")
-	public String index() {
+	public String index(HttpServletRequest req, Model model) {
 		logger.info("index()");
+		service.index(req, model);
 		return "admin/index";
 	}
 

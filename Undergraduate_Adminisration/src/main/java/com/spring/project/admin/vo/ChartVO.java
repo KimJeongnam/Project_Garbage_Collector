@@ -8,8 +8,16 @@ public class ChartVO {
 	private String gender;
 	private String faculty;
 	private String majorName;
+	private String lecturename;
 	
 	
+	
+	public String getLecturename() {
+		return lecturename;
+	}
+	public void setLecturename(String lecturename) {
+		this.lecturename = lecturename;
+	}
 	public String getGrade() {
 		return grade;
 	}

@@ -14,7 +14,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.FlashMap;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.spring.project.professor.dao.ProfesserDAO;
 import com.spring.project.professor.vo.ClassStudentVO;
@@ -260,6 +262,11 @@ public class ProfessorServiceImpl implements ProfessorService {
 	public void score(HttpServletRequest req, Model model) {
 		String userNumber = (String) req.getSession().getAttribute("userNumber");
 		
+		String lecName = null;
+		if(req.getParameter("lecName")!=null)
+			lecName = req.getParameter("lecName");
+		
+		
 		List<MyClassVO> s_myClass = dao.s_myClass(userNumber);
 		
 		System.out.println("교수 강의 목록  s_myClass : " + s_myClass);
@@ -270,6 +277,7 @@ public class ProfessorServiceImpl implements ProfessorService {
 		
 		model.addAttribute("v_myClass",v_myClass);
 		model.addAttribute("s_myClass",s_myClass);
+		model.addAttribute("lecName", lecName);
 	}
 	//학점관리 첫번째 강의부분
 	@Override
@@ -314,6 +322,7 @@ public class ProfessorServiceImpl implements ProfessorService {
 		String infoCode = req.getParameter("infoCode");
 		String grade = req.getParameter("grade");
 		String userName = req.getParameter("userName");
+		String lecName = req.getParameter("lecName");
 		
 		LecScore vo = new LecScore();
 		
@@ -337,6 +346,8 @@ public class ProfessorServiceImpl implements ProfessorService {
 			red.addFlashAttribute("message", "학점을 입력하는 과정에서 오류가 발생하였습니다.");
 			red.addFlashAttribute("alertIcon","error");
 		}
+		red.addAttribute("lecName", lecName);
+		
 	}
 	//학점수정
 	@Override
@@ -345,7 +356,7 @@ public class ProfessorServiceImpl implements ProfessorService {
 		String credit = req.getParameter("credit2");
 		String infoCode = req.getParameter("infoCode");
 		String userName = req.getParameter("userName2");
-		
+		String lecName = req.getParameter("lecName");
 		LecScore vo = new LecScore();
 		
 		vo.setIncode(infoCode);
@@ -366,18 +377,28 @@ public class ProfessorServiceImpl implements ProfessorService {
 			red.addFlashAttribute("message", "학점을 수정하는 과정에서 오류가 발생하였습니다.");
 			red.addFlashAttribute("alertIcon","error");
 		}
+		red.addAttribute("lecName", lecName);
 	}
 	//강의계획서 진입
 	@Override
 	public void plan(HttpServletRequest req, Model model) {
 		
 		String userNumber = (String) req.getSession().getAttribute("userNumber");
+		String lecName = null;
+		
+		if(req.getParameter("lecName")!= null)
+			lecName  = (String) req.getParameter("lecName");
+		
+		
 		
 		List<PlanVO> vo1 = dao.plan(userNumber);
 		List<PlanVO> vo2 = dao.plan2(userNumber);
 		
 		System.out.println("교수 강의 목록  vo1 : " + vo1);
 		System.out.println("교수 강의 목록  vo2 : " + vo2);
+		
+		if(lecName!=null)
+			model.addAttribute("lecName", lecName);
 		
 		model.addAttribute("vo1",vo1);
 		model.addAttribute("vo2",vo2);
@@ -448,6 +469,7 @@ public class ProfessorServiceImpl implements ProfessorService {
 			red.addFlashAttribute("alertIcon","error");
 		}
 		
+		red.addAttribute("lecName", lecName);
 	}
 	//강의계획서 수정
 	@Override
@@ -481,6 +503,8 @@ public class ProfessorServiceImpl implements ProfessorService {
 			red.addFlashAttribute("message", "강의계획서를 수정하는 중 오류가 발생하였습니다.");
 			red.addFlashAttribute("alertIcon","error");
 		}
+		
+		red.addAttribute("lecName", lecName);
 		
 	}
 	

@@ -42,7 +42,7 @@
 	
    	<!-- 내 강의 목록 교수 강의 목록 -->
 	<select id="myClass" parameterType="java.util.Map" resultType="com.spring.project.professor.vo.MyClassVO">
- 		SELECT lecturename FROM lecture WHERE lecstatus in (1,2) AND empnumber= #{userNumber}
+ 	<![CDATA[SELECT lecturename FROM lecture WHERE lecstatus in (1,2) AND empnumber= #{userNumber} AND delstatus <> 1]]>
  	</select>
  	
    	<!-- 내 강의별 수강학생목록 -->

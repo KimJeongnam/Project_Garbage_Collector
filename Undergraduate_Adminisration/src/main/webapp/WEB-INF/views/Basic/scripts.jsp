@@ -4,15 +4,15 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!-- button id : compose -->
 <!-- 메세지보내기 -->
-<div class="compose col-md-3 col-xs-12">
-	<div class="compose-header">
+<div class="compose col-md-3 col-xs-12" style="z-index: 999999 !important;">
+	<div class="compose-header" style="z-index: 999999 !important;">
 		새로운 메세지
 		<button type="button" class="close compose-close">
 			<span>×</span>
 		</button>
 	</div>
 
-	<div class="compose-body">
+	<div class="compose-body" style="z-index: 999999 !important;">
 		<div id="alerts" style="font-size: 15px;">
 		<sec:authorize access="hasRole('ROLE_ADMIN')">
 		<label>공지
@@ -32,7 +32,7 @@
 		<div id="editor" class="editor-wrapper" style="height: 125px;"></div>
 	</div>
 
-	<div class="compose-footer">
+	<div class="compose-footer" style="z-index: 999999 !important;">
 		<button id="message-send" class="btn btn-sm btn-success" type="button" 
 			onclick="sendMessage();">메세지
 			보내기</button>
@@ -191,3 +191,4 @@
     <!-- ECharts -->
     <script src="${staticPath }/vendors/echarts/dist/echarts.min.js"></script>
     <script src="${staticPath }/vendors/echarts/map/js/world.js"></script>
+
