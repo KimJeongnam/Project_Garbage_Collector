@@ -365,6 +365,7 @@
 							      and sc.infoCode=g.infoCode(+) 
 							      and sc.status = 1
 							      and s.stdNumber = #{userNumber}
+                                  and g.semester is not null
 							 order by l.lecCode asc) r
 	</select>
 
