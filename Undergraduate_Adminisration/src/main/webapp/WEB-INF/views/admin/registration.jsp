@@ -154,12 +154,12 @@
 		var scholarContent = $('#editor-one')[0].innerHTML
 		$('#scholarContent').val = scholarContent;
 		
-		function checkEditer(){
+		/* function checkEditer(){
 			var scholarContent = $('#editor-one')[0].innerHTML
 			$('#scholarContent').val(scholarContent);
 			if($('#scholarContent').val().length > 0) return true;
 			else return false;
-		}
+		} */
 	</script>
 	
 	<script type="text/javascript">
@@ -206,6 +206,11 @@
 			alert("장학금 내용을 입력해주세요");
 			return false;
 		 }
+		var scholarContent = $('#editor-one')[0].innerHTML
+		$('#scholarContent').val(scholarContent);
+		if($('#scholarContent').val().length > 0) return true;
+		else return false;
+		
 		} 
 		
 	</script>

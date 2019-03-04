@@ -28,9 +28,10 @@ public class UtilFile extends AbstractView{
 	@Override
 	protected void renderMergedOutputModel(Map<String, Object> model, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-setContentType("application/download; charset=utf-8");
+		setContentType("application/download; charset=utf-8");
         
         File file = (File) model.get("downloadFile");
+        System.out.println("dsafsadfsad" + file);
         
         response.setContentType(getContentType());
         response.setContentLength((int) file.length()); 

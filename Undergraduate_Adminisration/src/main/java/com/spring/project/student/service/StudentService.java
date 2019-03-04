@@ -35,6 +35,9 @@ public interface StudentService {
 	//과제 내용
 	public void reportcode(Map<String, Object> map, Logger logger, Model model);
 	
+	//과제 제출완료
+	public void assignment(MultipartHttpServletRequest req,RedirectAttributes red);
+	
 	//장학금 신청 
 	public void bulletin(Map<String, Object> map, Logger logger, Model model);
 	

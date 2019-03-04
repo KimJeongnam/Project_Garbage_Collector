@@ -42,7 +42,7 @@
 	
    	<!-- 내 강의 목록 교수 강의 목록 -->
 	<select id="myClass" parameterType="java.util.Map" resultType="com.spring.project.professor.vo.MyClassVO">
- 		SELECT lecturename FROM lecture WHERE lecstatus in (1,2) AND empnumber= #{userNumber}
+ 	<![CDATA[SELECT lecturename FROM lecture WHERE lecstatus in (1,2) AND empnumber= #{userNumber} AND delstatus <> 1]]>
  	</select>
  	
    	<!-- 내 강의별 수강학생목록 -->
@@ -114,5 +114,57 @@
  	<select id="P_Lecture" parameterType="String" resultType="com.spring.project.professor.vo.LectureP_VO">
 		select lectureName,leccode from lecture where empnumber = #{userNumber}
  	</select>
+ 	
+ 	<!-- 총수강인원 -->
+ 	<select id="personnel" resultType="int">
+ 	select count(*) from studentClassInfo where leccode = #{select}
+ 	</select>
+ 	
+ 	<!-- 과제 여부 -->
+ 	<select id="p_report" resultType="int">
+ 	select count(*)  from report_tbl where leccode = #{select}
+ 	</select>
+ 	
+ 	<!-- 과제 제출 인원 -->
+ 	<select id="codeCnt" resultType="int">
+ 	select count(*) from (
+	select rs.reportcode, rs.stdnumber from report_submit_tbl rs,report_tbl r 
+	where r.reportcode = rs.reportcode and rs.reportcode= #{reportcode}
+	group by rs.reportcode, rs.stdnumber)
+ 	</select>
+ 	
+ 	<!-- 과제 추가 -->
+ 	<insert id="re_contentform" parameterType="com.spring.project.professor.vo.Report_tblVO">
+ 	INSERT INTO report_tbl 
+	VALUES (REPORT_TBL_SEQ.nextval,#{lecCode},to_char(sysdate,'yyyy'),#{reportInfo},#{reportName},#{endDate})
+	</insert>
+	
+	<!-- 과제 수정 -->
+ 	<update id="p_reportupdate" parameterType="com.spring.project.professor.vo.Report_tblVO">
+ 	UPDATE report_tbl SET reportname = #{reportName},enddate = #{endDate},reportinfo = #{reportInfo} WHERE reportcode = #{reportcode}
+	</update>
+	
+	<!-- 과제 삭제 -->
+ 	<delete id="p_reportdelete" parameterType="com.spring.project.professor.vo.Report_tblVO">
+ 	 delete report_tbl where reportcode=#{reportcode}
+	</delete>
+	
+	<!-- 과제 첫번째 -->
+ 	<select id="re_submit" parameterType="String" resultType="com.spring.project.professor.vo.Report_tblVO">
+ 	SELECT * from report_tbl where leccode=#{select} and rownum=1
+ 	</select>
+ 	
+	
+	<!-- 과제 리스트 -->
+ 	<select id="task_lookup" parameterType="String" resultType="com.spring.project.professor.vo.Report_tblVO">
+ 	select * from report_tbl where leccode = #{select}
+ 	</select>
+ 	
+ 	<!-- 과제 제출 리스트 -->
+ 	<select id="submissionlist" parameterType="int" resultType="com.spring.project.professor.vo.Submission_ListVO">
+ 	select * from SubmissionList where reportcode = #{reportcode}
+ 	</select>
+ 	
+ 	
  	
 </mapper>

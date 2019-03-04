@@ -6,6 +6,7 @@ import java.util.Map;
 import com.spring.project.restful.vo.Location;
 import com.spring.project.restful.vo.Message;
 import com.spring.project.restful.vo.RestUser;
+import com.spring.project.student.vo.LectureVO;
 
 public interface RestfulDAO {
 	public List<Message> getMessages(Map<String, Object> map);
@@ -18,5 +19,7 @@ public interface RestfulDAO {
 	//---------------------------Android-START---------------------------------
 	public RestUser getUser(Map<String, Object> map);
 	public Location getLocation(Location location);
+	public List<Object> getStdLectureTime_test(LectureVO vo);
+	public List<Object> getStdLectureTime(LectureVO vo);
 	//---------------------------Android-END---------------------------------
 }

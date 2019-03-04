@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.spring.project.admin.vo.AdProVO;
 import com.spring.project.admin.vo.AdStdVO;
 import com.spring.project.admin.vo.ChartVO;
+import com.spring.project.admin.vo.IndexVO;
 import com.spring.project.admin.vo.ScholarpkVO;
 import com.spring.project.admin.vo.auditVO;
 import com.spring.project.admin.vo.lecMVO;
@@ -274,6 +275,12 @@ public class AdminDAOImpl implements AdminDAO{
 		}
 
 	//-------------------------------------------------------------교직 업무 관리 START----------------------------------------------
+	// 학사 상태 조회
+	@Override
+	public int getBachelorStatus() {
+		return sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.getBachelorStatus");
+	}	
+	
 	// 학과 리스트 갯수 구하기
 	@Override
 	public int majorListCount(Map<String, Object> map) {
@@ -450,8 +457,13 @@ public class AdminDAOImpl implements AdminDAO{
 	}
 
 	@Override
-	public int insertPayrollwith0(List<payrollVO> empNumber) {
-		return sqlSession.insert("com.spring.project.admin.dao.AdminDAO.insertPayrollwith0", empNumber);
+	public int getPaymentListPk(String date) {
+		return sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.getPaymentListPk", date);
+	}
+
+	@Override
+	public int insertPayrollwith0(List<Map<String, Object>> datas) {
+		return sqlSession.insert("com.spring.project.admin.dao.AdminDAO.insertPayrollwith0", datas);
 	}
 
 	@Override
@@ -526,11 +538,65 @@ public class AdminDAOImpl implements AdminDAO{
 	public List<ChartVO> gradeAvg() {
 		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.gradeAvg");
 	}
-	
-	
+
 	
 	//---------------학사성적통계 END-----------------------
 	
+	//인덱스
+	
+	@Override
+	public List<IndexVO> s_t() {
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.s_t");
+	}
+
+	@Override
+	public List<IndexVO> m_t() {
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.m_t");
+	}
+
+	@Override
+	public List<IndexVO> g_t() {
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.g_t");
+	}
+
+	@Override
+	public List<IndexVO> p_t() {
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.p_t");
+	}
+
+	@Override
+	public List<IndexVO> l_t() {
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.l_t");
+	}
+
+	@Override
+	public List<IndexVO> u_t() {
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.u_t");
+	}
+
+	@Override
+	public List<IndexVO> nameAvgTop() {
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.nameAvgTop");
+	}
+
+	@Override
+	public List<IndexVO> monthPayTotal() {
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.monthPayTotal");
+	}
+
+	@Override
+	public List<IndexVO> monthPayTop() {
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.monthPayTop");
+	}
+	@Override
+	public List<IndexVO> subPay() {
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.subPay");
+	}
+	
+	@Override
+	public List<IndexVO> facStdNameAvg() {
+		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.facStdNameAvg");
+	}
 	
 	
 }

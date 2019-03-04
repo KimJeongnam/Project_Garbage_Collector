@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.spring.project.admin.vo.AdProVO;
 import com.spring.project.admin.vo.AdStdVO;
 import com.spring.project.admin.vo.ChartVO;
+import com.spring.project.admin.vo.IndexVO;
 import com.spring.project.admin.vo.ScholarpkVO;
 import com.spring.project.admin.vo.auditVO;
 import com.spring.project.admin.vo.lecMVO;
@@ -104,6 +105,8 @@ public interface AdminDAO {
 	
 	
 	//---------------교직 업무 관리 START-------------------
+	// 현재 학사 상태 조회
+	public int getBachelorStatus();
 	// 학과 갯수 조회
 	public int majorListCount(Map<String, Object> map);
 	// 학과 조회
@@ -188,7 +191,9 @@ public interface AdminDAO {
 	
 	public int DeleteRegisterDetail(Map<String, Object> map);
 	
-	public int insertPayrollwith0(List<payrollVO> empNumber);
+	public int getPaymentListPk(String date);
+	
+	public int insertPayrollwith0(List<Map<String, Object>> datas);
 	
 	public int insertPayrollwith1(Map<String, Object> map);
 	
@@ -219,8 +224,23 @@ public interface AdminDAO {
 	public List<ChartVO> genderAvg();
 	//학사일정관리 학년별
 	public List<ChartVO> gradeAvg();
-	
-	
+
 	//---------------학사성적통계업무 END-----------------------
+	
+	//인덱스
+	public List<IndexVO> s_t();
+	public List<IndexVO> m_t();
+	public List<IndexVO> g_t();
+	public List<IndexVO> p_t();
+	public List<IndexVO> l_t();
+	public List<IndexVO> u_t();
+
+	public List<IndexVO> nameAvgTop();
+	public List<IndexVO> monthPayTotal();
+	public List<IndexVO> monthPayTop();
+	public List<IndexVO> subPay();
+	public List<IndexVO> facStdNameAvg();
+	
+	
 	
 }

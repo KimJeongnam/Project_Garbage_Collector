@@ -40,7 +40,7 @@
                                     <ul class="nav child_menu" style="display: none;">
                                         <li><a href="${authPath }/lec_score_Management/lecManagement">학사일정업무</a></li>
                                         <li><a href="${authPath }/lec_score_Management/scoreManagement">성적통계조회</a></li>
-                                        <li><a href="${authPath}/majorLectureManagement">교직업무</a></li>
+                                        <li><a href="${authPath}/major_lecture_Manager">교직업무</a></li>
                                     </ul>
                                 </li>
                                 <li><a><i class="fa fa-desktop"></i> 장학관리 <span class="fa fa-chevron-down"></span></a>
@@ -51,7 +51,7 @@
                                 <li><a><i class="fa fa-users"></i> 인사관리<span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu" style="">
                                         <li><a href="${authPath }/empStdManagement">교직원/학생 관리</a></li>
-                                        <li><a href="${authPath }/schoolLeaveList">학적 관리</a></li>
+                                        <%-- <li><a href="${authPath }/schoolLeaveList">학적 관리</a></li> --%>
                                     </ul>
                                 </li>
                                 <li><a><i class="fa fa-bar-chart-o"></i> 회계관리<span class="fa fa-chevron-down"></span></a>

@@ -30,6 +30,7 @@ import com.spring.project.admin.dao.AdminDAO;
 import com.spring.project.admin.vo.AdProVO;
 import com.spring.project.admin.vo.AdStdVO;
 import com.spring.project.admin.vo.ChartVO;
+import com.spring.project.admin.vo.IndexVO;
 import com.spring.project.admin.vo.ScholarpkVO;
 import com.spring.project.admin.vo.auditVO;
 import com.spring.project.admin.vo.lecMVO;
@@ -809,6 +810,29 @@ public class AdminServiceImpl extends Board implements AdminService {
 	}
 
 	// -----------------------------------------------------------------교직업무관리START-------------------------------------------------
+	
+
+	@Override
+	public String majorLectureManagementRedirector(HttpServletRequest request, RedirectAttributes redirectAttributes) {
+		int status = 0;
+		
+		String referer = request.getHeader("referer");
+		
+		status = dao.getBachelorStatus();
+		
+		if(status != 3) {
+			if(referer!=null) {
+				redirectAttributes.addFlashAttribute("message", "종강 상태시 접근 가능합니다.");
+				return "redirect:"+referer;
+			}else {
+				redirectAttributes.addFlashAttribute("message", "종강 상태시 접근 가능합니다.");
+				return "redirect:/admin/index";
+			}
+		}else {
+			return "redirect:/admin/majorLectureManagement";
+		}
+	}
+	
 	@Override
 	public void getMajors(Map<String, Object> map, Model model) {
 		setList(map, model, new BoardInterface() {
@@ -825,6 +849,7 @@ public class AdminServiceImpl extends Board implements AdminService {
 
 		});
 	}
+
 
 	// 학과 삭제
 	@Override
@@ -1138,18 +1163,24 @@ public class AdminServiceImpl extends Board implements AdminService {
 	@Override
 	public Map<String, Object> insertPayroll(Map<String, Object> map) {
 		int cnt = dao.insertPayroll(map);
+		String date = (String)map.get("imputedYear");
+		
+		int paymentListNum = dao.getPaymentListPk(date);
 		
 		Map<String, Object> responseData = new HashMap<String,Object>();
+		List<Map<String, Object>> requestlist = new ArrayList<Map<String, Object>>();
+		
 		if (cnt == 1) {
-			List<payrollVO> empNumber = dao.getEmpNumber();
-			System.out.println("empNumber : " + empNumber);
-			int cnt1 = dao.insertPayrollwith0(empNumber);
-			if(cnt1 > 0) {
-				int cnt2 = dao.insertPayrollwith1(map);
-				if(cnt2 > 0) {
-					responseData.put("message", "등록이 완료되었습니다.");
-				}
+			List<payrollVO> empNumbers = dao.getEmpNumber();
+			
+			for(payrollVO vo : empNumbers) {
+				Map<String, Object> data = new HashMap<String, Object>();
+				data.put("paymentListNum", paymentListNum);
+				data.put("empNumber", vo.getEmpNumber());
+				requestlist.add(data);
 			}
+			dao.insertPayrollwith0(requestlist);
+			responseData.put("message", "등록이 완료되었습니다.");
 		}
 		return responseData;
 	}
@@ -1436,7 +1467,7 @@ public class AdminServiceImpl extends Board implements AdminService {
 		model.addAttribute("gr", gr);
 		
 	}
-	
+
 	
 	//---------------성적통계업무  END-------------------
 	
@@ -1444,7 +1475,38 @@ public class AdminServiceImpl extends Board implements AdminService {
 	
 	
 	
-	
+	@Override
+	public void index(HttpServletRequest req, Model model) {
+		
+		List<IndexVO> s_t = dao.s_t();
+		List<IndexVO> u_t = dao.u_t();
+		List<IndexVO> p_t = dao.p_t();
+		List<IndexVO> g_t = dao.g_t();
+		List<IndexVO> m_t = dao.m_t();
+		List<IndexVO> l_t = dao.l_t();
+		List<IndexVO> nameAvgTop = dao.nameAvgTop();
+		List<IndexVO> monthPayTotal= dao.monthPayTotal();
+		List<IndexVO> monthPayTop = dao.monthPayTop();
+		List<IndexVO> subPay = dao.subPay();
+		List<IndexVO> facStdNameAvg = dao.facStdNameAvg();
+		
+		
+		
+		
+		
+		model.addAttribute("s_t", s_t);
+		model.addAttribute("u_t", u_t);
+		model.addAttribute("p_t", p_t);
+		model.addAttribute("g_t", g_t);
+		model.addAttribute("m_t", m_t);
+		model.addAttribute("l_t", l_t);
+		model.addAttribute("nameAvgTop", nameAvgTop);
+		model.addAttribute("monthPayTotal", monthPayTotal);
+		model.addAttribute("monthPayTop", monthPayTop);
+		model.addAttribute("subPay", subPay);
+		model.addAttribute("facStdNameAvg", facStdNameAvg);
+		
+	}
 	
 	
 	

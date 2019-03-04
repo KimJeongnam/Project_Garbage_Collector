@@ -89,6 +89,15 @@ public class StudentController {
 		
 		return "student/personalProfile/report2";
 	}
+	
+	//과제 상세내용
+	@RequestMapping("/student/assignment")
+	public String assignment(MultipartHttpServletRequest req ,RedirectAttributes red) {
+		logger.info("assignment");
+		service.assignment(req, red);
+		
+		return "redirect:/student/personalProfile";
+	}
 
 	//장학금 신청목록
 	/*@RequestMapping("/student/bulletin")*/
@@ -156,8 +165,11 @@ public class StudentController {
 	
 	//수강신청
 	@RequestMapping(value="/student/lectureList", method=RequestMethod.POST)
-	public String lectureList(@RequestBody Map<String, Object> map, Model model) {
+	public String lectureList(@RequestBody Map<String, Object> map, Model model, HttpServletRequest request) {
 		logger.info("lectureList");
+		int grantedSemester = (Integer)request.getSession().getAttribute("semester");
+		map.put("grantedSemester", grantedSemester);
+		
 		service.lectureList(map, logger, model);
 		return "student/lecture&timetable/lectureList";
 	}

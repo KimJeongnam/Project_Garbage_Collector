@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +15,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.FlashMap;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.spring.project.professor.dao.ProfesserDAO;
 import com.spring.project.professor.vo.ClassStudentVO;
@@ -23,8 +26,10 @@ import com.spring.project.professor.vo.LectureP_VO;
 import com.spring.project.professor.vo.MyClassVO;
 import com.spring.project.professor.vo.MyPageVO;
 import com.spring.project.professor.vo.PlanVO;
+import com.spring.project.professor.vo.Report_tblVO;
 import com.spring.project.professor.vo.SearchVO;
 import com.spring.project.professor.vo.StudentVO;
+import com.spring.project.professor.vo.Submission_ListVO;
 import com.spring.project.share.Config;
 import com.spring.project.share.vo.ShareUserInfo;
 
@@ -260,6 +265,11 @@ public class ProfessorServiceImpl implements ProfessorService {
 	public void score(HttpServletRequest req, Model model) {
 		String userNumber = (String) req.getSession().getAttribute("userNumber");
 		
+		String lecName = null;
+		if(req.getParameter("lecName")!=null)
+			lecName = req.getParameter("lecName");
+		
+		
 		List<MyClassVO> s_myClass = dao.s_myClass(userNumber);
 		
 		System.out.println("교수 강의 목록  s_myClass : " + s_myClass);
@@ -270,6 +280,7 @@ public class ProfessorServiceImpl implements ProfessorService {
 		
 		model.addAttribute("v_myClass",v_myClass);
 		model.addAttribute("s_myClass",s_myClass);
+		model.addAttribute("lecName", lecName);
 	}
 	//학점관리 첫번째 강의부분
 	@Override
@@ -314,6 +325,7 @@ public class ProfessorServiceImpl implements ProfessorService {
 		String infoCode = req.getParameter("infoCode");
 		String grade = req.getParameter("grade");
 		String userName = req.getParameter("userName");
+		String lecName = req.getParameter("lecName");
 		
 		LecScore vo = new LecScore();
 		
@@ -337,6 +349,8 @@ public class ProfessorServiceImpl implements ProfessorService {
 			red.addFlashAttribute("message", "학점을 입력하는 과정에서 오류가 발생하였습니다.");
 			red.addFlashAttribute("alertIcon","error");
 		}
+		red.addAttribute("lecName", lecName);
+		
 	}
 	//학점수정
 	@Override
@@ -345,7 +359,7 @@ public class ProfessorServiceImpl implements ProfessorService {
 		String credit = req.getParameter("credit2");
 		String infoCode = req.getParameter("infoCode");
 		String userName = req.getParameter("userName2");
-		
+		String lecName = req.getParameter("lecName");
 		LecScore vo = new LecScore();
 		
 		vo.setIncode(infoCode);
@@ -366,18 +380,28 @@ public class ProfessorServiceImpl implements ProfessorService {
 			red.addFlashAttribute("message", "학점을 수정하는 과정에서 오류가 발생하였습니다.");
 			red.addFlashAttribute("alertIcon","error");
 		}
+		red.addAttribute("lecName", lecName);
 	}
 	//강의계획서 진입
 	@Override
 	public void plan(HttpServletRequest req, Model model) {
 		
 		String userNumber = (String) req.getSession().getAttribute("userNumber");
+		String lecName = null;
+		
+		if(req.getParameter("lecName")!= null)
+			lecName  = (String) req.getParameter("lecName");
+		
+		
 		
 		List<PlanVO> vo1 = dao.plan(userNumber);
 		List<PlanVO> vo2 = dao.plan2(userNumber);
 		
 		System.out.println("교수 강의 목록  vo1 : " + vo1);
 		System.out.println("교수 강의 목록  vo2 : " + vo2);
+		
+		if(lecName!=null)
+			model.addAttribute("lecName", lecName);
 		
 		model.addAttribute("vo1",vo1);
 		model.addAttribute("vo2",vo2);
@@ -448,6 +472,7 @@ public class ProfessorServiceImpl implements ProfessorService {
 			red.addFlashAttribute("alertIcon","error");
 		}
 		
+		red.addAttribute("lecName", lecName);
 	}
 	//강의계획서 수정
 	@Override
@@ -482,6 +507,8 @@ public class ProfessorServiceImpl implements ProfessorService {
 			red.addFlashAttribute("alertIcon","error");
 		}
 		
+		red.addAttribute("lecName", lecName);
+		
 	}
 	
 	//ㄷㅐ그니 단~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -490,11 +517,168 @@ public class ProfessorServiceImpl implements ProfessorService {
 	public void report(HttpServletRequest req, Model model) {
 		String userNumber = (String) req.getSession().getAttribute("userNumber");
 		
+		
+		//내 강의 목록
 		List<LectureP_VO> vo = dao.P_Lecture(userNumber);
 		
 		System.out.println("나머지 강의 강의계획서  vo : " + vo);
 		
+		//강의 인원
 		model.addAttribute("vo",vo);
 	}
+	//과제 관리
+	@Override
+	public void personnel(Map<String, Object> map, HttpServletRequest req, Model model) {
+	/*	String abc = req.getParameter("aaaaa");
+		System.out.println("aaaaa"+abc);*/
+		System.out.println("select" + map.get("select"));
+		
+		//총수강 인원
+		int personCnt = dao.personnel(map);
+		
+		//과제 있는지 여부
+		int reportCnt = dao.p_report(map);
+		
+		if(reportCnt != 0) {
+			Report_tblVO vo = dao.re_submit(map);
+			
+			model.addAttribute("vo",vo);
+			
+			//과제 제출를 위한 과제 코드
+			int reportcode = vo.getReportcode();
+			
+			//과제 제출 완료한 인원 수 
+			int codeCnt = dao.codeCnt(reportcode);
+			
+			
+			model.addAttribute("submitCnt",codeCnt);
+			//과제 미제출
+			int notCnt = personCnt - codeCnt;
+			
+			model.addAttribute("notCnt",notCnt);
+			
+			//제출 학생 불러오기
+			List<Submission_ListVO> dtos = dao.submissionlist(reportcode);
+			
+			
+			model.addAttribute("dtos",dtos);
+			
+		}
+		
+		model.addAttribute("cnt",personCnt);
+	
+		System.out.println("personCnt" + personCnt);
+	}
+	
+	//과제 상세 페이지
+	@Override
+	public void re_contentform(Map<String, Object> map, HttpServletRequest req, Model model) {
+		System.out.println("select23123213" + map.get("select"));
+		
+		System.out.println("서브젝트:" +  map.get("subject"));
+		List<Report_tblVO> task = dao.task_lookup(map);
+		
+		model.addAttribute("task", task);
+	
+	}
+	
+	//과제 상세 페이지
+		@Override
+		public void report_contentform(Map<String, Object> map, HttpServletRequest req, Model model) {
+			
+			int personCnt = dao.personnel(map);
+			
+			model.addAttribute("cnt",personCnt);
+			
+			//과제 있는지 여부
+			int reportCnt = dao.p_report(map);
+			
+			model.addAttribute("reportCnt",reportCnt);
+			if(reportCnt != 0) {
+				int reportcode = Integer.parseInt((String) map.get("reportcode"));
+				System.out.println("reportcode:::::"+reportcode);
+				
+				int codeCnt = dao.codeCnt(reportcode);
+				System.out.println("codeCnt ::::" + codeCnt);
+				
+				model.addAttribute("submitCnt",codeCnt);
+				int notCnt = personCnt - codeCnt;
+				
+				model.addAttribute("notCnt",notCnt);
+				
+				//제출 학생 불러오기
+				List<Submission_ListVO> dtos = dao.submissionlist(reportcode);
+				
+				model.addAttribute("dtos",dtos);
+			}
+		}
+	//과제 추가
+	@Override
+	public void re_insert(HttpServletRequest req, RedirectAttributes red) { 
+		String leccode = req.getParameter("leccode");
+		String reportname = req.getParameter("reportname");
+		String content = req.getParameter("content");
+		String enddate = req.getParameter("enddate");
+		
+		System.out.println(leccode);
+		System.out.println(reportname);
+		System.out.println(content);
+		System.out.println(enddate);
+		
+		Report_tblVO vo = new Report_tblVO();
+
+		vo.setEndDate(enddate);
+		vo.setLecCode(leccode);
+		vo.setReportInfo(content);
+		vo.setReportName(reportname);
+		
+		int insertCnt = dao.re_contentform(vo);
+		
+		if(insertCnt != 0) {
+			red.addFlashAttribute("message", "과제를 추가 하였습니다.");
+			red.addFlashAttribute("alertIcon","success");
+		}
+		
+	}
+	
+	//과제 수정
+		@Override
+		public void reportupdate(HttpServletRequest req, RedirectAttributes red) { 
+			int reportcode = Integer.parseInt(req.getParameter("reportcode"));
+			String reportname = req.getParameter("reportname");
+			String content = req.getParameter("content");
+			String enddate = req.getParameter("enddate");
+			
+			
+			Report_tblVO vo = new Report_tblVO();
+
+			vo.setEndDate(enddate);
+			vo.setReportcode(reportcode);
+			vo.setReportInfo(content);
+			vo.setReportName(reportname);
+			
+			int updateCnt = dao.p_reportupdate(vo);
+			System.out.println("updateCnt::::"+updateCnt);
+			
+			if(updateCnt != 0) {
+				red.addFlashAttribute("message", "수정을 완료 했습니다.");
+				red.addFlashAttribute("alertIcon","success");
+			}
+			
+		}
+		@Override
+		public void reportdelete(HttpServletRequest req, RedirectAttributes red) {
+			int reportcode = Integer.parseInt(req.getParameter("reportcode"));
+			
+			System.out.println("1111"+reportcode);
+			
+			int deleteCnt = dao.p_reportdelete(reportcode);
+			
+			if(deleteCnt != 0) {
+				red.addFlashAttribute("message", "삭제를 성공 했습니다");
+				red.addFlashAttribute("alertIcon","success");
+			}
+			
+		}
 
 }

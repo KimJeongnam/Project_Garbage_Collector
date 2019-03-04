@@ -136,5 +136,12 @@ public class RestfulController {
 		logger.info(area+" "+locality+" "+thoroughfare);*/
 		return service.getLocation(location);
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/rest/api/v1.0/getLectureTime")
+	public ResponseData getLectureTime(@RequestParam String stdNumber, @RequestParam int day) {
+		logger.info("getLectureTime()");
+		return service.getLectureTime(stdNumber, day);
+	}
 }
 //****************************************************** 김 정 남 ******************************************************

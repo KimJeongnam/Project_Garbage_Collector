@@ -47,37 +47,51 @@
 	
 	<!-- ================================================ANDROID=START=============================================== -->
 	
+	<sql id="selectLecTime">
+		select * from lecturetime_view
+	</sql>
+	
+	<sql id="selectStdLec">
+		SELECT * FROM stdlecture
+	</sql>
+	
 	<resultMap type="com.spring.project.student.vo.LectureVO"
 		id="lectureMap">
 		<id property="lecCode" column="leccode" />
-		<collection property="lectureTimes" column="leccode"
+		<result property="day" column="day"/>
+		<collection property="lectureTimes" column="{leccode=leccode,day=day}"
 			select="getLectureTime"></collection>
 	</resultMap>
 
 	<select id="getLectureTime"
 		resultType="com.spring.project.admin.vo.LectureTime">
-		SELECT lt.lecturetimecode
-		, tt.timetblcode
-		, tt.beginninglecturetime
-		, tt.endlecturetime
-		,
-		tt.classTime
-		, tt.lectureday
-		FROM lecturetime lt JOIN timetable tt
-		ON lt.timetblcode = tt.timetblcode
+		<include refid="selectLecTime"/>
 		<where>
-			lt.lecCode = #{leccode}
+			lecCode = #{leccode}
 			<if test="day != null">
-			AND day 
+			AND TRUNC(timetblcode/10, 0) = #{day}
 			</if>
 		</where>
-		
-		ORDER BY tt.timetblcode
+		ORDER BY timetblcode
 	</select>
 	
-	<sql id="selectUser">
-		select user_id, user_name, reg_date from member
-	</sql>
+	<select id="getStdLectureTime_test" parameterType="com.spring.project.student.vo.LectureVO" resultMap="lectureMap">
+		SELECT #{day} as day, r.*
+		FROM(
+		<include refid="selectStdLec"/>
+		<where>
+			userNumber = #{userNumber}
+		</where>
+		) r
+	</select>
+	
+	<select id="getStdLectureTime" parameterType="com.spring.project.student.vo.LectureVO" resultType="com.spring.project.restful.vo.StdLecTime">
+	select * from stdlecturetime
+    where usernumber = #{userNumber}
+    AND TRUNC(timetblcode/10, 0) = #{day}
+	</select>
+	
+	
 	
 	<select id="getUser" resultType="com.spring.project.restful.vo.RestUser">
 	SELECT u.userNumber, u.userPassword, u.userName, u.userImage, u.gender, u.userCellNum

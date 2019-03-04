@@ -80,6 +80,8 @@ public interface AdminService {
 	public void deletePro(HttpServletRequest req,  RedirectAttributes red);
 	
 	//-----------------------------------교직 업무 관리 START----------------------------------
+	// 학사 상태 에따른 redirect 처리
+	public String majorLectureManagementRedirector(HttpServletRequest request, RedirectAttributes redirectAttributes);
 	// 학과 리스트
 	public void getMajors(Map<String, Object> map, Model model);
 	// 학과 삭제
@@ -173,6 +175,10 @@ public interface AdminService {
 	
 	//성적통계 진입
 	public void scoreManagement(HttpServletRequest req, Model model);
-	
 	//---------------성적통계 END-------------------
+	
+	
+	//인덱스가즈아
+	public void index(HttpServletRequest req, Model model);
+	
 }
