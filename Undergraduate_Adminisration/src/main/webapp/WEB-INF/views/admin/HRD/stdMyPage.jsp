@@ -116,9 +116,9 @@
 																				<td>
 																					<c:set var="SsnArr" value="${fn:split(vo.getUserSsn(),'-')}"/>
 																					<input class="input" type="text" name="jumin1" maxlength="6" style="width : 73px"
-																							onkeyup ="stdMyPageJumin1();" value="${SsnArr[0] }" > -
+																							onkeyup ="stdMyPageJumin1();" value="${SsnArr[0] }" numberOnly="true"> -
 																					 <input class="input" type="password" name="jumin2" maxlength="7"
-																							style="width:80px;" onkeyup="stdMyPageJumin2();" value="${SsnArr[1] }" readonly>
+																							style="width:80px;" onkeyup="stdMyPageJumin2();" value="${SsnArr[1] }" numberOnly="true" readonly>
 																				</td>
 																			<th class="control-label">
 																				영어성명
@@ -234,13 +234,13 @@
 																				<td>
 																					<c:set var="phArr" value="${fn:split(vo.getUserCellNum(),'-')}"/>
 																					<input class="input" type="text" name="hp1" maxlength="3"
-																				 	style= "width : 69px" onkeyup="StdMyPagePh1();" value="${phArr[0] }">
+																				 	style= "width : 69px" onkeyup="StdMyPagePh1();" value="${phArr[0] }" numberOnly="true">
 																				 	-
 																				 	<input class="input" type="text" name="hp2" maxlength="4"
-																				 	style= "width : 89px" onkeyup="StdMyPagePh2();" value="${phArr[1] }">
+																				 	style= "width : 89px" onkeyup="StdMyPagePh2();" value="${phArr[1] }" numberOnly="true">
 																				 	-
 																				 	<input class="input" type="text" name="hp3" maxlength="4"
-																				 	style= "width : 89px" onkeyup="StdMyPagePh3();" value="${phArr[2] }">
+																				 	style= "width : 89px" onkeyup="StdMyPagePh3();" value="${phArr[2] }" numberOnly="true">
 																				</td>	
 																			
 																		</tr>
