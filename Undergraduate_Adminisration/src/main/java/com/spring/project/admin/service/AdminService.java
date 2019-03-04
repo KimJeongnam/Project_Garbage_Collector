@@ -175,6 +175,10 @@ public interface AdminService {
 	
 	//성적통계 진입
 	public void scoreManagement(HttpServletRequest req, Model model);
-	
 	//---------------성적통계 END-------------------
+	
+	
+	//인덱스가즈아
+	public void index(HttpServletRequest req, Model model);
+	
 }

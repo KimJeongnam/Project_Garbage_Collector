@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.spring.project.admin.vo.AdProVO;
 import com.spring.project.admin.vo.AdStdVO;
 import com.spring.project.admin.vo.ChartVO;
+import com.spring.project.admin.vo.IndexVO;
 import com.spring.project.admin.vo.ScholarpkVO;
 import com.spring.project.admin.vo.auditVO;
 import com.spring.project.admin.vo.lecMVO;
@@ -223,8 +224,23 @@ public interface AdminDAO {
 	public List<ChartVO> genderAvg();
 	//학사일정관리 학년별
 	public List<ChartVO> gradeAvg();
-	
-	
+
 	//---------------학사성적통계업무 END-----------------------
+	
+	//인덱스
+	public List<IndexVO> s_t();
+	public List<IndexVO> m_t();
+	public List<IndexVO> g_t();
+	public List<IndexVO> p_t();
+	public List<IndexVO> l_t();
+	public List<IndexVO> u_t();
+
+	public List<IndexVO> nameAvgTop();
+	public List<IndexVO> monthPayTotal();
+	public List<IndexVO> monthPayTop();
+	public List<IndexVO> subPay();
+	public List<IndexVO> facStdNameAvg();
+	
+	
 	
 }
