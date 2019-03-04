@@ -30,7 +30,7 @@
 		                            <th class=""  style="width: 15%; text-align: center;">년도</th>
 		                            <th class=""  style="width: 15%; text-align: center;">학기</th>
 		                            <th class=""  style="width: 25%; text-align: center;">장학금 명</th>
-		                            <th class=""  style="width: 25%; text-align: center;">지급 금액(원)</th>
+		                            <th class=""  style="width: 25%; text-align: center;">지급 금액</th>
 		                            <!-- <th class="column-title">조회</th> -->
 		                          </tr>
 		                        </thead>
@@ -46,7 +46,7 @@
 			                            <td class=" ">${dto.year}</td>
 			                            <td class=" ">${dto.semester}</td>
 			                            <td class=" "><a href = "contentForm?scholarpk=${dto.scholarpk}">${dto.scholarname}</a></td>
-			                            <td class=" ">${dto.amount}</td>
+			                            <td class=" ">${dto.amount}원</td>
 			                          </tr>
 			                         </c:forEach>
 			                      </c:if>
@@ -113,7 +113,7 @@
 								</div>
 								
 								<div style="float: right;">
-									  <input type = "button" class="btn btn-info" value="글쓰기1" onclick="window.location='registration'">
+									  <input type = "button" class="btn btn-info" value="글쓰기" onclick="window.location='registration'">
 				                      <input type = "button" class="btn btn-info" value="글 삭제" name="aaaa" onclick="delete_scholar();">
 									</div>
 							</div>

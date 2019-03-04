@@ -703,6 +703,13 @@ public class StudentServiceImpl implements StudentService {
 		// 신청 학점
 		int applyCredit = dao.ApplyCredit(userNumber);
 		model.addAttribute("applyCredit", applyCredit);
+		
+		
+		//이수학점조회
+		 List<GpaVO> granted = dao.grantedCredit(userNumber);
+		 model.addAttribute("granted", granted);
+		 
+		
 	}
 
 

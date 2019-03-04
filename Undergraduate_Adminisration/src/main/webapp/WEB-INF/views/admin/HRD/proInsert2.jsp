@@ -87,9 +87,9 @@
 													<th class="control-label">주민등록번호</th>
 													<td>
 														<input class="input" type="text" name="jumin1" maxlength="6" style="width : 73px"
-															onkeyup ="nextJumin1();">
+															onkeyup ="nextJumin1();" numberOnly="true">
 															- <input class="input" type="password" name="jumin2" maxlength="7"
-															style="width:80px;" onkeyup="nextJumin2();">
+															style="width:80px;" onkeyup="nextJumin2();" numberOnly="true">
 													</td>
 													<th class="control-label">성별</th>
 													<td>
@@ -105,13 +105,13 @@
 													<th class="control-label">휴대폰 연락처</th>
 													<td>
 														<input class="input" type="text" name="hp1" maxlength="3"
-														 	style= "width : 40px" onkeyup="nextHP1();">
+														 	style= "width : 40px" onkeyup="nextHP1();" numberOnly="true">
 														 	-
 														 	<input class="input" type="text" name="hp2" maxlength="4"
-														 	style= "width : 50px" onkeyup="nextHP2();">
+														 	style= "width : 50px" onkeyup="nextHP2();" numberOnly="true">
 														 	-
 														 	<input class="input" type="text" name="hp3" maxlength="4"
-														 	style= "width : 50px" onkeyup="nextHP3();">
+														 	style= "width : 50px" onkeyup="nextHP3();" numberOnly="true">
 													</td>
 													
 													<th class="control-label">이메일</th>
