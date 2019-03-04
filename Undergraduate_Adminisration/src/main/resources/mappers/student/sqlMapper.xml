@@ -222,27 +222,36 @@
 		from report_tbl r ,
 		lecture l
 		where l.lecCode = r.lecCode and REPORTCODE = #{reportcode}
-	</select>
-
-	<!-- 과제 제출 -->
-	<select id="reportsub" parameterType="String"
-		resultType="com.spring.project.student.vo.Report_subVO">
-		select * from users where userNumber = #{userNumber}
-	</select>
+ 	</select>
+ 	
+ 	<!--  과제 제출  -->
+ 	<select id="reportsub" parameterType="String" resultType="com.spring.project.student.vo.Report_subVO">
+ 		select * from users where userNumber = #{userNumber}
+ 	</select>
+ 	
+ 	<!-- 과제 제출 완료  --> 
+ 	<insert id="s_fileUpload" parameterType="com.spring.project.student.vo.Report_subVO">
+ 		insert into report_submit_tbl 
+		(REPORTSUBMITCODE
+		,REPORTCODE
+		,STDNUMBER
+		,TITLE
+		,FILENAME
+		,YEAR)
+		values(REPORT_SUBMIT_SEQ.nextval,#{reportcode},#{userNumber},#{userName},#{fileName},sysdate)
+ 	</insert>
 
 	<!-- 장학글 갯수 -->
 
 	<select id="getArticleCnt" resultType="int">
 
 		SELECT COUNT(*) as cnt FROM SCHOLARSHIP where delstatus != 1
-		<where>
 			<if test="year != 0">
 				and to_char(year,'yyyy') like #{year}
 				<if test="smester != 0">
 					and semester like #{smester}
 				</if>
 			</if>
-		</where>
 
 	</select>
 
@@ -253,8 +262,7 @@
 
 		SELECT *
 		FROM (select SCHOLARPK,SCHOLARNAME,to_char(YEAR,'YYYY') as
-		YEAR,SEMESTER,TO_CHAR(AMOUNT,'$999,999,999,999,999') as AMOUNT,ROWNUM
-		rNum
+		YEAR,SEMESTER,TO_CHAR(AMOUNT,'999,999,999,999,999') as AMOUNT,ROWNUM rNum
 		from (
 		select * FROM SCHOLARSHIP
 		where delstatus = 0
@@ -291,21 +299,17 @@
 
 	<select id="managementList" parameterType="java.util.Map"
 		resultType="com.spring.project.student.vo.DetailsVO">
-
-		select stdnumber,to_char(s_year,'yyyy') as
-		s_year,semester,scholarname,TO_CHAR(AMOUNT,'$999,999,999,999,999') as
-		AMOUNT,year,statcode
-		from (
-		select * FROM Receiveddetails
-		where stdnumber = #{userNumber} and statcode=1
-		order by s_year desc
-		)
-
+		select stdnumber,to_char(s_year,'yyyy') as s_year,semester,scholarname,TO_CHAR(AMOUNT,'999,999,999,999,999') as AMOUNT,year,statcode
+        from (
+        select * FROM Receiveddetails
+        where stdnumber =  #{userNumber} and statcode=1
+        order by s_year desc
+        )
 	</select>
 
 	<!-- 장학글 상세 -->
 	<select id="getArticle"
-		resultType="com.spring.project.admin.vo.auditVO">
+		resultType="com.spring.project.admin.vo.ScholarpkVO">
 
 		SELECT * FROM SCHOLARSHIP where scholarpk = #{scholarpk}
 

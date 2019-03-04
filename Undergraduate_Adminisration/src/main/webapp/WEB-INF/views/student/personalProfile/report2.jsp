@@ -67,7 +67,7 @@
 									<h4 class="modal-title" id="myModalLabel">과제 업로드</h4>
 								</div>
 								<div class="modal-body">
-									<form action="#" class="form-horizontal form-label-left" novalidate onsubmit="aaa();">
+									<form action="../student/assignment" method="post" enctype="multipart/form-data" class="form-horizontal form-label-left">
 
 										<p>
 											파일을 잘못 보낼시 교수에게 요청
@@ -84,6 +84,7 @@
 													data-validate-length-range="6" data-validate-words="2"
 													name="name" placeholder="both name(s) e.g Jon Doe"
 													required="required" type="text" value="${vo.getUserName()}"> --%>
+													<input type = "hidden" name="reportcode" value="${dtos.getReportcode()}">
 													${dtos.getReportcode()}
 											</div>
 										</div>
@@ -94,6 +95,7 @@
 											<div class="col-md-6 col-sm-6 col-xs-12">
 												<!-- <input type="email" id="email" name="email"
 													required="required" class="form-control col-md-7 col-xs-12"> -->
+													<input type = "hidden" name="title" value="${dtos.getReportName()}">
 													${dtos.getReportName()} 
 											</div>
 										</div>
@@ -116,6 +118,7 @@
 												<!-- <input type="number" id="number" name="number"
 													required="required" data-validate-minmax="10,100"
 													class="form-control col-md-7 col-xs-12"> -->
+													<input type = "hidden" name=userName value="${vo.getUserName()}">
 													${vo.getUserName()}
 											</div>
 										</div>
@@ -160,12 +163,12 @@
 	</script>
 	
 	<script type="text/javascript">
-	function aaa() {
+	/* function aaa() {
 		if(${dtos.getProgress()} < 0){
 			alert("마감되었습니다")
 			self.close();
 		}
-	}
+	} */
 	
 	</script>
 

@@ -274,6 +274,12 @@ public class AdminDAOImpl implements AdminDAO{
 		}
 
 	//-------------------------------------------------------------교직 업무 관리 START----------------------------------------------
+	// 학사 상태 조회
+	@Override
+	public int getBachelorStatus() {
+		return sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.getBachelorStatus");
+	}	
+	
 	// 학과 리스트 갯수 구하기
 	@Override
 	public int majorListCount(Map<String, Object> map) {

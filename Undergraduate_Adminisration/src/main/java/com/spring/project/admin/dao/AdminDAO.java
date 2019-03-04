@@ -104,6 +104,8 @@ public interface AdminDAO {
 	
 	
 	//---------------교직 업무 관리 START-------------------
+	// 현재 학사 상태 조회
+	public int getBachelorStatus();
 	// 학과 갯수 조회
 	public int majorListCount(Map<String, Object> map);
 	// 학과 조회

@@ -42,7 +42,7 @@
 												<td class=" ">${dto.s_year}</td>
 												<td class=" ">${dto.semester}</td>
 												<td class=" ">${dto.scholarname}</td>
-												<td class=" ">${dto.amount}</td>
+												<td class=" ">${dto.amount}원</td>
 												<td class=" ">${dto.year}</td>
 											</tr>
 										</c:forEach>

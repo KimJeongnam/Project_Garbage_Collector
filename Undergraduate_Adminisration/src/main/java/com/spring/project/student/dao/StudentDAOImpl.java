@@ -145,6 +145,12 @@ public class StudentDAOImpl implements StudentDAO{
 		return sqlSession.selectOne("com.spring.project.student.dao.StudentDAO.reportsub",map);
 		
 	}
+	//과제 제출 완료
+	@Override
+	public int s_fileUpload(Report_subVO vo) {
+		int insertCnt = sqlSession.insert("com.spring.project.student.dao.StudentDAO.s_fileUpload",vo);
+		return insertCnt;
+	}
 	
 	//장학금 글 갯수
 	@Override

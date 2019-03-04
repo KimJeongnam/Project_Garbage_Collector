@@ -32,7 +32,7 @@
 										<h2>장학금 신청 글</h2>
 											<label> 년도 <select class="form-control input-sm"
 												id="bulletinList-year"
-												onchange="studentBulletinlist('${userNumber}');">
+												onchange="studentBulletinlist('${userNumber}',1);">
 													<option value="0" selected="selected">선택</option>
 													<option value="1998">1998</option>
 													<option value="1999">1999</option>

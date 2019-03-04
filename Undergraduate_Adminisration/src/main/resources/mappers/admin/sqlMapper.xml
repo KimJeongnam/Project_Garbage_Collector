@@ -486,25 +486,27 @@
 		resultType="int">
 		SELECT COUNT(*)
 		FROM (
-		SELECT ROWNUM rnum, majorNum, faculty, majorName,
-		maxnum
-		FROM major
-		<where>
-				<![CDATA[ delStatus <> 1 ]]>
-			<choose>
-				<when test="keyword != null">
-					AND majorName like '%'|| #{keyword} ||'%'
-				</when>
-				<when test="keyword != null and college!=null">
-					AND majorName like '%'|| #{keyword} ||'%' AND
-					faculty = #{college}
-				</when>
-				<when test="keyword==null and college!=null">
-					AND faculty = #{college}
-				</when>
-			</choose>
-		</where>
-		ORDER BY majorNum DESC
+		SELECT ROWNUM rnum, r.*
+            FROM(
+            SELECT majorNum, faculty, majorName, maxnum
+            FROM major
+           <where>
+					<![CDATA[ delStatus <> 1 ]]>
+					<choose>
+						<when test="keyword != null">
+							AND majorName like '%'|| #{keyword} ||'%'
+						</when>
+						<when test="keyword != null and college!=null">
+							AND majorName like '%'|| #{keyword} ||'%' AND
+							faculty = #{college}
+						</when>
+						<when test="keyword==null and college!=null">
+							AND faculty = #{college}
+						</when>
+					</choose>
+				</where>
+				ORDER BY majorNum DESC
+            ) r
 		)
 	</select>
 
@@ -512,27 +514,29 @@
 		resultType="com.spring.project.share.vo.Major">
 		SELECT *
 		FROM (
-		SELECT ROWNUM rnum, majorNum, faculty, majorName, maxnum
-		FROM major
-		<where>
-				<![CDATA[ delStatus <> 1 ]]>
-			<choose>
-				<when test="keyword != null">
-					AND majorName like '%'|| #{keyword} ||'%'
-				</when>
-				<when test="keyword != null and college!=null">
-					AND majorName like '%'|| #{keyword} ||'%' AND
-					faculty = #{college}
-				</when>
-				<when test="keyword==null and college!=null">
-					AND faculty = #{college}
-				</when>
-			</choose>
-
-		</where>
-		ORDER BY majorNum DESC
-		)
-		    <![CDATA[
+		SELECT ROWNUM rnum, r.*
+            FROM(
+            SELECT majorNum, faculty, majorName, maxnum
+            FROM major
+            <where>
+					<![CDATA[ delStatus <> 1 ]]>
+					<choose>
+						<when test="keyword != null">
+							AND majorName like '%'|| #{keyword} ||'%'
+						</when>
+						<when test="keyword != null and college!=null">
+							AND majorName like '%'|| #{keyword} ||'%' AND
+							faculty = #{college}
+						</when>
+						<when test="keyword==null and college!=null">
+							AND faculty = #{college}
+						</when>
+					</choose>
+				</where>
+				ORDER BY majorNum DESC
+            ) r
+           )
+        <![CDATA[
 		    WHERE rnum >= #{start} AND rnum <= #{end}
 		    ]]>
 	</select>
@@ -822,6 +826,12 @@
 	<!-- ==========================================교직 업무 관리 END========================================= -->
 
 	<!-- ==========================================회계관리 START========================================= -->
+	
+	<!-- 학사 상태 조회 -->
+	<select id="getBachelorStatus" resultType="int">
+	select * FROM bachelor_status
+	</select>
+	
 	<!-- 급여계산/대장 -->
 	<select id="payrollList"
 		resultType="com.spring.project.admin.vo.payrollVO">
