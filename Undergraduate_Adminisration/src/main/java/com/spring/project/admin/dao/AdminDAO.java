@@ -32,7 +32,7 @@ public interface AdminDAO {
 	//교수등록 처리
 	public int insertPUsers(AdProVO vo);
 	public int insertEmployees(AdProVO vo);
-	public int insertProcedure(AdProVO vo);
+	public void insertProcedure(AdProVO vo);
 	
 	//학생정보 업데이트
 	public int updateUsers(AdStdVO vo);

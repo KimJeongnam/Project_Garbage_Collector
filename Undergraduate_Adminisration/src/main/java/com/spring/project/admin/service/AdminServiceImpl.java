@@ -416,9 +416,9 @@ public class AdminServiceImpl extends Board implements AdminService {
 			
 			int userInsert = dao.insertPUsers(vo); 
 			int empInsert = dao.insertEmployees(vo); 
-			int insertProcedure = dao.insertProcedure(vo);
+			dao.insertProcedure(vo);
 			
-			int proInsertResult = userInsert+ empInsert+insertProcedure;
+			int proInsertResult = userInsert+ empInsert;
 			
 			 if (proInsertResult != 0) 
 

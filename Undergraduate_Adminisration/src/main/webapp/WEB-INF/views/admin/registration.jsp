@@ -129,7 +129,7 @@
                   <!-- <textarea name="descr" id="descr" style="display:none;"></textarea> -->
                   
                 </div>
-							<input type="hidden" id="scholarContent" name="scholarContent" value="">
+							<input type="text" hidden="hidden" id="scholarContent" name="scholarContent" value="">
 							
 							<div style="text-align: center">
 							<input class="btn btn-primary" type="submit" value="작성">
