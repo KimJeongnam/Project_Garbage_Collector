@@ -5,18 +5,18 @@
 <c:set var="staticPath" value="/project/resources" />
 
 <div class="modal-body">
-	<small>
-		추가근무수당 : 주 40시간 초과 근무 했을 시 부여<br> (시간외수당) = (통상 시급) * 1.5 (초과 근무
-		시간)<br> (통상시급) = (기본급) / 160(주 40시간 * 4주)
-	</small>
-	<br>
-	<br>
+	<small> 추가근무수당 : 주 40시간 초과 근무 했을 시 부여<br> (시간외수당) = (통상
+		시급) * 1.5 (초과 근무 시간)<br> (통상시급) = (기본급) / 160(주 40시간 * 4주)
+	</small> <br> <br>
 	<table id="datatable"
 		class="table table-striped jambo_table bulk_action">
 		<thead>
 			<tr class="headings">
-				<th><input type="checkbox" id="allCheck1" class="flat"></th>
-					<!-- onclick="allCheck1_event();" --> 
+				<th><c:if test="${payrollStatus == 1}">
+					</c:if> <c:if test="${payrollStatus != 1}">
+						<input type="checkbox" id="allCheck1" onclick="allCheck1_event();"
+							style="width: 18px; height: 18px;">
+					</c:if></th>
 				<th>교직원번호</th>
 				<th>교직원명</th>
 				<th>부서/전공</th>
@@ -27,7 +27,11 @@
 		<tbody>
 			<c:forEach var="dto" items="${dtosF}" varStatus="status">
 				<tr>
-					<td><input type="checkbox" class="checkbox1 flat" ></td>
+					<td><c:if test="${payrollStatus == 1}">
+						</c:if> <c:if test="${payrollStatus != 1}">
+							<input type="checkbox" class="checkbox1"
+								style="width: 18px; height: 18px;">
+						</c:if></td>
 					<td>${dto.empNumber}</td>
 					<td>${dto.userName}</td>
 					<td>${dto.majorName}</td>
@@ -53,9 +57,6 @@
 			<button class="btn btn-primary" onclick="fixSetting();">확정</button>
 		</div>
 	</c:if>
-	<c:if test="${payrollStatus == 1}">
-		<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-	</c:if>
 </div>
 <!-- Footer -->
 <div class="modal-footer">
@@ -64,6 +65,9 @@
 			onclick="saveOverTime();">저장</button>
 		<button type="reset" class="btn btn-warning"
 			onclick="resetOverTime();">취소</button>
+		<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+	</c:if>
+	<c:if test="${payrollStatus == 1}">
 		<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
 	</c:if>
 </div>
