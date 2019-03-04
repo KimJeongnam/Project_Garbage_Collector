@@ -66,7 +66,7 @@ public class ShareController {
 				url = "redirect:" + "/professor/index";
 				break;
 			case "student":
-				url = "redirect:" + "/student/index";
+				url = "redirect:" + "/student/personalProfile";
 				break;
 			}
 		} else {
