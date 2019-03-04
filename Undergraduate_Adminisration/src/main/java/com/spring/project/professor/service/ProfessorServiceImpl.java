@@ -582,13 +582,13 @@ public class ProfessorServiceImpl implements ProfessorService {
 				
 				model.addAttribute("notCnt",notCnt);
 				
+				//제출 학생 불러오기
+				List<Submission_ListVO> dtos = dao.submissionlist(reportcode);
 				
+				model.addAttribute("dtos",dtos);
 			}
-			
-			
-		
 		}
-	
+	//과제 추가
 	@Override
 	public void re_insert(HttpServletRequest req, RedirectAttributes red) { 
 		String leccode = req.getParameter("leccode");
@@ -616,5 +616,45 @@ public class ProfessorServiceImpl implements ProfessorService {
 		}
 		
 	}
+	
+	//과제 수정
+		@Override
+		public void reportupdate(HttpServletRequest req, RedirectAttributes red) { 
+			int reportcode = Integer.parseInt(req.getParameter("reportcode"));
+			String reportname = req.getParameter("reportname");
+			String content = req.getParameter("content");
+			String enddate = req.getParameter("enddate");
+			
+			
+			Report_tblVO vo = new Report_tblVO();
+
+			vo.setEndDate(enddate);
+			vo.setReportcode(reportcode);
+			vo.setReportInfo(content);
+			vo.setReportName(reportname);
+			
+			int updateCnt = dao.p_reportupdate(vo);
+			System.out.println("updateCnt::::"+updateCnt);
+			
+			if(updateCnt != 0) {
+				red.addFlashAttribute("message", "수정을 완료 했습니다.");
+				red.addFlashAttribute("alertIcon","success");
+			}
+			
+		}
+		@Override
+		public void reportdelete(HttpServletRequest req, RedirectAttributes red) {
+			int reportcode = Integer.parseInt(req.getParameter("reportcode"));
+			
+			System.out.println("1111"+reportcode);
+			
+			int deleteCnt = dao.p_reportdelete(reportcode);
+			
+			if(deleteCnt != 0) {
+				red.addFlashAttribute("message", "삭제를 성공 했습니다");
+				red.addFlashAttribute("alertIcon","success");
+			}
+			
+		}
 
 }

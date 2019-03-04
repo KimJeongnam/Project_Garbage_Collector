@@ -50,55 +50,26 @@
 
                                 <!-- end of user messages -->
                                 <ul class="messages">
-
+									<c:forEach var="dto" items="${dtos}">
                                     <li>
                                         <img src="/project/resources/images/img.jpg" class="avatar" alt="Avatar">
                                         <div class="message_date">
-                                            <h3 class="date text-info">24</h3>
-                                            <p class="month">1월</p>
+                                            <h3 class="date text-info">${dto.day}일</h3>
+                                            <p class="month">${dto.month}월</p>
                                         </div>
                                         <div class="message_wrapper">
-                                            <h4 class="heading">김설현</h4>
-                                            <blockquote class="message">운동역학의 이해 제출합니다.</blockquote>
+                                            <h4 class="heading">${dto.userName}</h4>
+                                            <blockquote class="message">${dto.reportName} 이해 제출합니다.</blockquote>
                                             <br />
                                             <p class="url">
                                                 <span class="fs1 text-info" aria-hidden="true" data-icon="?"></span>
-                                                <a href="window.location='${staticPath }file/이름.docx'"><i class="fa fa-paperclip"></i> 2019380527 김설현 운동역학의 이해.doc </a>
+                                               <input type="hidden" id="IDX" value="${staticPath }${dto.fileName}">
+                                                <a href="file?file=${dto.fileName}" name=file>${dto.stdNumber}&nbsp;${dto.userName}&nbsp;${dto.fileName2}<i class="fa fa-paperclip"></i></a>
+                                                <!-- 2019380527 김설현 운동역학의 이해.doc -->
                                             </p>
                                         </div>
                                     </li>
-                                    <li>
-                                        <img src="/project/resources/images/1.jpg" class="avatar" alt="Avatar">
-                                        <div class="message_date">
-                                            <h3 class="date text-info">24</h3>
-                                            <p class="month">1월</p>
-                                        </div>
-                                        <div class="message_wrapper">
-                                            <h4 class="heading">김설현</h4>
-                                            <blockquote class="message">운동역학의 이해 제출합니다.</blockquote>
-                                            <br />
-                                            <p class="url">
-                                                <span class="fs1 text-info" aria-hidden="true" data-icon="?"></span>
-                                                <a href="#"><i class="fa fa-paperclip"></i> 2019380527 김설현 운동역학의 이해.doc </a>
-                                            </p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <img src="/project/resources/images/1.jpg" class="avatar" alt="Avatar">
-                                        <div class="message_date">
-                                            <h3 class="date text-info">24</h3>
-                                            <p class="month">1월</p>
-                                        </div>
-                                        <div class="message_wrapper">
-                                            <h4 class="heading">김설현</h4>
-                                            <blockquote class="message">운동역학의 이해 제출합니다.</blockquote>
-                                            <br />
-                                            <p class="url">
-                                                <span class="fs1 text-info" aria-hidden="true" data-icon="?"></span>
-                                                <a href="#"><i class="fa fa-paperclip"></i> 2019380527 김설현 운동역학의 이해.doc </a>
-                                            </p>
-                                        </div>
-                                    </li>
+                                    </c:forEach>
                                 </ul>
                                 <!-- end of user messages -->
 
@@ -117,16 +88,15 @@
 	</script>
 	
 	<script type="text/javascript">
-	/* function aaa() {
+	
+	</script>
+	
+	<%-- /* function aaa() {
 		if(${dtos.getProgress()} < 0){
 			alert("마감되었습니다")
 			self.close();
 		}
-	} */
-	
-	
-	
-	</script>
+	} */ --%>
 
 
 </body>

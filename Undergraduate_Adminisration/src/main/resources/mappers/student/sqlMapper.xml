@@ -233,7 +233,7 @@
 
 		SELECT *
 		FROM (select SCHOLARPK,SCHOLARNAME,to_char(YEAR,'YYYY') as
-		YEAR,SEMESTER,TO_CHAR(AMOUNT,'$999,999,999,999,999') as AMOUNT,ROWNUM rNum
+		YEAR,SEMESTER,TO_CHAR(AMOUNT,'999,999,999,999,999') as AMOUNT,ROWNUM rNum
 		from (
 		select * FROM SCHOLARSHIP
 		where delstatus = 0
@@ -269,7 +269,7 @@
 	<select id="managementList" parameterType="java.util.Map"
 		resultType="com.spring.project.student.vo.DetailsVO">
 
-		select stdnumber,to_char(s_year,'yyyy') as s_year,semester,scholarname,TO_CHAR(AMOUNT,'$999,999,999,999,999') as AMOUNT,year,statcode
+		select stdnumber,to_char(s_year,'yyyy') as s_year,semester,scholarname,TO_CHAR(AMOUNT,'999,999,999,999,999') as AMOUNT,year,statcode
         from (
         select * FROM Receiveddetails
         where stdnumber =  #{userNumber} and statcode=1

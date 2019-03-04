@@ -253,6 +253,18 @@ public class ProfesserDAOImpl implements ProfesserDAO{
 	public int re_contentform(Report_tblVO vo) {
 		return sql.insert("com.spring.project.professor.dao.ProfesserDAO.re_contentform",vo);
 	}
+	
+	//과제 수정
+	@Override
+	public int p_reportupdate(Report_tblVO vo) {
+		return sql.update("com.spring.project.professor.dao.ProfesserDAO.p_reportupdate",vo);
+	}
+	
+	//과제 삭제
+	@Override
+	public int p_reportdelete(int reportcode) {
+		return sql.delete("com.spring.project.professor.dao.ProfesserDAO.p_reportdelete",reportcode);
+	}
 	//과제 리스트
 	@Override
 	public List<Report_tblVO> task_lookup(Map<String, Object> map) {

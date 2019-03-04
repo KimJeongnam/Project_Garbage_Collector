@@ -46,8 +46,41 @@
 	
 	
 	<!-- ================================================ANDROID=START=============================================== -->
+	
+	<resultMap type="com.spring.project.student.vo.LectureVO"
+		id="lectureMap">
+		<id property="lecCode" column="leccode" />
+		<collection property="lectureTimes" column="leccode"
+			select="getLectureTime"></collection>
+	</resultMap>
+
+	<select id="getLectureTime"
+		resultType="com.spring.project.admin.vo.LectureTime">
+		SELECT lt.lecturetimecode
+		, tt.timetblcode
+		, tt.beginninglecturetime
+		, tt.endlecturetime
+		,
+		tt.classTime
+		, tt.lectureday
+		FROM lecturetime lt JOIN timetable tt
+		ON lt.timetblcode = tt.timetblcode
+		<where>
+			lt.lecCode = #{leccode}
+			<if test="day != null">
+			AND day 
+			</if>
+		</where>
+		
+		ORDER BY tt.timetblcode
+	</select>
+	
+	<sql id="selectUser">
+		select user_id, user_name, reg_date from member
+	</sql>
+	
 	<select id="getUser" resultType="com.spring.project.restful.vo.RestUser">
-	SELECT u.userNumber, u.userPassword, u.userName, u.gender, u.userCellNum
+	SELECT u.userNumber, u.userPassword, u.userName, u.userImage, u.gender, u.userCellNum
      , std.grade, std.adDate, std.graDate, m.faculty, m.majorName, u.delStatus
      FROM users u JOIN student std
      ON u.userNumber = std.stdNumber
@@ -55,5 +88,17 @@
      ON std.majorNum = m.majorNum
      WHERE u.userNumber = #{userNumber}
 	</select>
+	
+	<select id="getLocation" resultType="com.spring.project.restful.vo.Location">
+	SELECT area, locality, thoroughfare, x, y
+    FROM
+    (SELECT ROWNUM rnum, area, locality, thoroughfare, x, y 
+        FROM locations 
+        where area like '%'||#{area}||'%'
+        AND locality like '%'||#{locality}||'%'
+        AND thoroughfare like '%'||#{thoroughfare}||'%')
+    WHERE rnum = 1
+	</select>
 	<!-- ================================================ANDROID=END=============================================== -->
+	
 </mapper>

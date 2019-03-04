@@ -62,7 +62,8 @@
                                             <p class="url">
                                                 <span class="fs1 text-info" aria-hidden="true" data-icon="?"></span>
                                                <input type="hidden" id="IDX" value="${staticPath }${dto.fileName}">
-                                                <a href="#this<%-- window.location=${staticPath }${dto.fileName} --%>" name=file>${staticPath }${dto.fileName}<i class="fa fa-paperclip"></i> 2019380527 김설현 운동역학의 이해.doc </a>
+                                                <a href="file?file=${dto.fileName}" name=file>${dto.stdNumber}&nbsp;${dto.userName}&nbsp;${dto.fileName2}<i class="fa fa-paperclip"></i></a>
+                                                <!-- 2019380527 김설현 운동역학의 이해.doc -->
                                             </p>
                                         </div>
                                     </li>
@@ -85,18 +86,6 @@
 	</script>
 	
 	<script type="text/javascript">
-	$("a[name='file']").on("click", function(e){ //파일 이름
-        e.preventDefault();
-        fn_downloadFile($(this));
-    });
-	
-	function fn_downloadFile(obj){
-        var idx = obj.parent().find("#IDX").val();
-        var comSubmit = new ComSubmit();
-        comSubmit.setUrl("<c:url value='/common/downloadFile.do' />");
-        comSubmit.addParam("IDX", idx);
-        comSubmit.submit();
-    }
 
 	
 	</script>

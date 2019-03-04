@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +13,21 @@
 	margin-bottom: 0px;
 	margin-right: 0px;
 }
+
+<style>
+.selcls { 
+    padding: 9px; 
+    border: solid 1px #517B97; 
+    outline: 0; 
+    background: -webkit-gradient(linear, left top, left 25, from(#FFFFFF), color-stop(4%, #CAD9E3), to(#FFFFFF)); 
+    background: -moz-linear-gradient(top, #FFFFFF, #CAD9E3 1px, #FFFFFF 25px); 
+    box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px; 
+    -moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px; 
+    -webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px; 
+
+    } 
+   
+</style>    
 </style>
 </head>
 <body class="nav-md">
@@ -160,20 +176,50 @@
 														</button>
 														<h4 class="modal-title" id="myModalLabel2">과제내용 수정</h4>
 													</div>
+													<form action="reportupdate" method="post">
 													<div class="modal-body">
+													<div class="col-sm-2" style="margin-bottom: 20px;">
+													
+														<select class="form-control inputstl" id="gender1" name="reportcode">
+															<c:forEach var="task" items="${task}" varStatus="status">
+																<option value="${task.reportcode}">${status.count}번째 과제</option>
+															</c:forEach>
+														</select> 
+														
+														</div>
+														<!-- //글제목 입력 폼 -->
+														<div class="form-group has-success" style="margin-bottom: 20px"> 
+														<div class="col-sm-12">
+														<label  class="control-label" style="float: left">과제 제목 : </label>
+														</div> 
+														<input type="text" class="form-control" name ="reportname" id="subject"> 
+														<div class="col-sm-12">
+														<label  class="control-label" style="float: left;margin-top: 20px;">마감 일 : </label>
+														</div> 
+														<input type="date" class="form-control" name ="enddate" id="subject"> 
+														</div> 
+														
+														
+														<!-- //글내용 입력 폼  -->
+														<div class="form-group has-warning"> 
+														<label class="control-label" for="content" style="float: left">   &nbsp; &nbsp;과제 내용 : </label> 
+														<textarea class="form-control" rows="10" name="content" id="content"></textarea> 
+														</div> 
+													
 
-														<textarea id="message" required="required"
+														<!-- <textarea id="message" required="required"
 															class="form-control" name="message"
 															data-parsley-trigger="keyup" data-parsley-minlength="20"
 															data-parsley-maxlength="300"
 															data-parsley-minlength-message="20자 이상 작성하여야 합니다."
-															data-parsley-validation-threshold="10"></textarea>
+															data-parsley-validation-threshold="30"></textarea> -->
 
 													</div>
 													<div class="modal-footer">
 														<button type="button" class="btn btn-default"
 															data-dismiss="modal">취소</button>
-														<button type="button" class="btn btn-primary">저장</button>
+														<button type="submit" class="btn btn-primary">저장</button>
+														<button type="button" onclick="deletePro();" class="btn btn-danger">삭제</button>
 													</div>
 													</form>
 												</div>
@@ -203,6 +249,11 @@
 	function reportlist() {
 		$('#disabled').val($('#mystatus').val());
 		$('.leccode').val($('#mystatus').val());
+	}
+	
+	function deletePro() {
+		var deletecode = $('#gender1').val();
+		 location.href="reportdelete?reportcode="+deletecode;
 	}
 	
 	

@@ -44,5 +44,7 @@ public interface ProfessorService {
 	public void re_contentform(Map<String, Object> map, HttpServletRequest req, Model model); 
 	public void report_contentform(Map<String, Object> map, HttpServletRequest req, Model model);
 	public void re_insert(HttpServletRequest req, RedirectAttributes red);
+	public void reportupdate(HttpServletRequest req, RedirectAttributes red);
+	public void reportdelete(HttpServletRequest req, RedirectAttributes red);
 	
 }

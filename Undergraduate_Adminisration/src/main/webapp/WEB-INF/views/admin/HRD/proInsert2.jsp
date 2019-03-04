@@ -62,9 +62,13 @@
 												</tr>
 												<tr>
 													<th class="control-label">교번</th>
-													<td><input type="text" class="input" maxlength="8" numberOnly = "numberOnly" 
-														required="required" id="userNumber" name="userNumber"
-														placeholder="교번을 입력하시오"></td>
+													<td>
+														<input type="text" class="input"  numberOnly = "numberOnly" 
+																required="required" id="userNumber" name="userNumber" minlength="8"
+																placeholder="교번을 입력하시오" onkeyup="nextProNum();">
+														<input type="button" value="중복확인" name="numberChk" id="numberChk" >
+														<div id="displayTxt" ></div>
+													</td>
 													<th class="control-label">사진</th>
 													<td><input type="file" id="userImage" type="text"
 														name="userImage" onchange="nextImage();"></td>
@@ -91,10 +95,9 @@
 													<td>
 														<p>
 															남 <input type="radio" class="flat" name="gender" onclick="nextSex();"
-																id="genderM" value="남자" required /> &nbsp;
-															여 <input
-															type="radio" class="flat" name="gender" id="genderF" onclick="nextSex();"
-															value="여자" />
+																	id="genderM" value="남자" required /> &nbsp;
+															여 <input type="radio" class="flat" name="gender" id="genderF" onclick="nextSex();"
+																	value="여자" />
 														</p>
 													</td>
 												</tr>
@@ -113,9 +116,9 @@
 													
 													<th class="control-label">이메일</th>
 													<td>
-														<input class="input" type="text" name="email1" maxlength="10" style="width : 65px">
-														@ <input class="input" type="text" name="email2" maxlength="20" style="width : 83px">
-														<select class ="input" name="email3" style="height:23px;" onchange="selectEmailChk();">
+														<input class="input" type="text" name="email1" maxlength="10" style="width : 65px"> @
+														<input class="input" type="text" name="email2" maxlength="20" style="width : 83px">
+														<select class ="input" name="email3" style="height:23px;" onchange="selectEmailChkPro();">
 															<option value="0">직접입력</option>
 															<option value="naver.com">네이버</option>
 															<option value="gmail.com">구글</option>
@@ -144,7 +147,7 @@
 													<th class="control-label">은행명</th>
 													<td><input type="text" class="input"
 														required="required" id="bankName" name="bankName"
-														placeholder="은행명을 입력하시오"></td>
+														placeholder="은행명을 입력하시오" ></td>
 													<th class="control-label">예금주</th>
 													<td><input type="text" class="input"
 														required="required" id="accountHolder"
@@ -180,15 +183,23 @@
 										<form action="proInsertPro" method="post" onsubmit="return empInputChk();"
 											name="empInput" enctype="multipart/form-data"
 											class="form-horizontal form-label-left">
+											<input type="hidden" name="majorNum" value="000">
+											
+											
 											<table class="table">
 												<tr>
-													<th class="control-label">교번</th>
-													<td><input type="text" class="input" maxlength="8" numberOnly = "numberOnly" 
-														required="required" id="userNumber" name="userNumber"
-														placeholder="교번을 입력하시오"></td>
+													<th class="control-label">직원번호</th>
+													<td>
+														<input type="text" class="input" minlength="8" numberOnly = "numberOnly" 
+																required="required" id="empNumber" name="userNumber"
+																placeholder="직원번호를 입력하시오" onkeyup="nextEmpNum();">
+														<input type="button" value="중복확인" name="numberChk" id="EmpnumberChk" >
+														<div id="empDisplayTxt" ></div>
+													</td>
+													
 													<th class="control-label">사진</th>
-													<td><input type="file" id="userImage" type="text"
-														name="userImage"></td>
+													<td><input type="file" id="empImage" type="text"
+														name="userImage" onchange="nextEmpImage();"></td>
 												</tr>
 												<tr>
 													<th class="control-label">한글이름</th>
@@ -236,7 +247,7 @@
 													<td>
 														<input class="input" type="text" name="email1" maxlength="10" style="width : 65px">
 														@ <input class="input" type="text" name="email2" maxlength="20" style="width : 83px">
-														<select class ="input" name="email3" style="height:23px;" onchange="selectEmailCHK();">
+														<select class ="input" name="email3" style="height:23px;" onchange="selectEmailChkEmp();">
 															<option value="0">직접입력</option>
 															<option value="naver.com">네이버</option>
 															<option value="gmail.com">구글</option>
@@ -387,6 +398,101 @@
 		//한글이름 
 		$(document).on("keyup", "input:text[korOnly]", function() {
 			$(this).val( $(this).val().replace(/[a-z0-9]|[ \[\]{}()<>?|`~!@#$%^&*-_+=,.;:\"\\]/g,"") );
+		});
+		
+		
+		//교수 중복확인
+		$(function() {
+		    //idck 버튼을 클릭했을 때 
+			var numberChk = 0;
+		    $("#numberChk").click(function() {
+		        
+		        //userNum을  param.
+		        var userNum = $('#userNumber').val();
+		        if(userNum.length <8){
+					alert("해당번호는 8자리가  충족하지 않습니다.");
+					$('#userNumber').val("");
+		        }else{
+		        
+		        $.ajax({
+		            async: true,
+		            type : 'POST',
+		            data : userNum,
+		            url : "/project/admin/ajax/confirmNum",
+		            dataType : "json",
+		            contentType: "application/json; charset=UTF-8",
+		            success : function(data) {
+		                if (data.cnt > 0) {
+		                    $("#displayTxt").html( "<span style='color : red'>" + $("#userNumber").val() +" 은(는) 이미 사용중 입니다. </span>");
+		                    $("#userNumber").val("");
+		                    $("#userNumber").focus();
+		                    //아이디가 존제할 경우 빨깡으로 , 아니면 검정으로 처리하는 디자인
+		                
+		                } else {
+		                	 $("#displayTxt").html( "<span style='color : black;'><b> " + $("#userNumber").val() +" 은(는) 사용가능합니다. </b></span>");
+		                	 $("#userImage").focus();
+		                    
+		                    //아이디가 존제할 경우 빨깡으로 , 아니면 검정으로 처리하는 디자인
+		                    //아이디가 중복하지 않으면  numberChk = 1 
+		                    numberChk = 1;
+		                    
+		                }
+		            },
+		            error : function(error) {
+		                
+		                alert("error : " + error);
+		            }
+		        
+		        });
+		        }
+		    });
+		});
+		
+		//emp 중복확인
+		$(function() {
+		    //idck 버튼을 클릭했을 때 
+			var numberChk = 0;
+		    $("#EmpnumberChk").click(function() {
+		        
+		        //userNum을  param.
+		        var userNum = $('#empNumber').val();
+		        if(userNum.length <8){
+					alert("해당번호는 8자리가  충족하지 않습니다.");
+					$('#empNumber').val("");
+		        }else{
+		        
+		        $.ajax({
+		            async: true,
+		            type : 'POST',
+		            data : userNum,
+		            url : "/project/admin/ajax/confirmNum",
+		            dataType : "json",
+		            contentType: "application/json; charset=UTF-8",
+		            success : function(data) {
+		                if (data.cnt > 0) {
+		                    $("#empDisplayTxt").html( "<span style='color : red'>" + $("#empNumber").val() +" 은(는) 이미 사용중 입니다. </span>");
+		                    $("#empNumber").val("");
+		                    $("#empNumber").focus();
+		                    //아이디가 존제할 경우 빨깡으로 , 아니면 검정으로 처리하는 디자인
+		                
+		                } else {
+		                	 $("#empDisplayTxt").html( "<span style='color : black;'><b> " + $("#empNumber").val() +" 은(는) 사용가능합니다. </b></span>");
+		                	 $("#empImage").focus();
+		                    
+		                    //아이디가 존제할 경우 빨깡으로 , 아니면 검정으로 처리하는 디자인
+		                    //아이디가 중복하지 않으면  numberChk = 1 
+		                    numberChk = 1;
+		                    
+		                }
+		            },
+		            error : function(error) {
+		                
+		                alert("error : " + error);
+		            }
+		        
+		        });
+		        }
+		    });
 		});
 	</script>
 </body>

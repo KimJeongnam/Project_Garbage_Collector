@@ -74,6 +74,8 @@ public interface ProfesserDAO {
 	public int personnel(Map<String, Object> map);
 	public int p_report(Map<String, Object> map);
 	public int re_contentform(Report_tblVO vo);
+	public int p_reportupdate(Report_tblVO vo);
+	public int p_reportdelete(int reportcode);
 	public int codeCnt(int reportcode);
 	public Report_tblVO re_submit(Map<String, Object> map);
 	public List<Report_tblVO> task_lookup(Map<String, Object> map);

@@ -67,8 +67,8 @@
             direction: 'ltr',
             format: moment.localeData().longDateFormat('L'),
             separator: ' - ',
-            applyLabel: 'Apply',
-            cancelLabel: 'Cancel',
+            applyLabel: '확인',
+            cancelLabel: '취소',
             weekLabel: 'W',
             customRangeLabel: 'Custom Range',
             daysOfWeek: moment.weekdaysMin(),
@@ -598,9 +598,9 @@
                     second = this.timePickerSeconds ? parseInt(this.container.find('.left .secondselect').val(), 10) : 0;
                     if (!this.timePicker24Hour) {
                         var ampm = this.container.find('.left .ampmselect').val();
-                        if (ampm === 'PM' && hour < 12)
+                        if (ampm === '오후' && hour < 12)
                             hour += 12;
-                        if (ampm === 'AM' && hour === 12)
+                        if (ampm === '오전' && hour === 12)
                             hour = 0;
                     }
                 } else {
@@ -609,9 +609,9 @@
                     second = this.timePickerSeconds ? parseInt(this.container.find('.right .secondselect').val(), 10) : 0;
                     if (!this.timePicker24Hour) {
                         var ampm = this.container.find('.right .ampmselect').val();
-                        if (ampm === 'PM' && hour < 12)
+                        if (ampm === '오후' && hour < 12)
                             hour += 12;
-                        if (ampm === 'AM' && hour === 12)
+                        if (ampm === '오전' && hour === 12)
                             hour = 0;
                     }
                 }
@@ -891,9 +891,9 @@
 
                     if (!this.timePicker24Hour) {
                         var ampm = timeSelector.find('.ampmselect option:selected').val();
-                        if (ampm === 'PM' && selected.hour() < 12)
+                        if (ampm === '오후' && selected.hour() < 12)
                             selected.hour(selected.hour() + 12);
-                        if (ampm === 'AM' && selected.hour() === 12)
+                        if (ampm === '오전' && selected.hour() === 12)
                             selected.hour(0);
                     }
 
@@ -1012,9 +1012,9 @@
                     pm_html = ' disabled="disabled" class="disabled"';
 
                 if (selected.hour() >= 12) {
-                    html += '<option value="AM"' + am_html + '>AM</option><option value="PM" selected="selected"' + pm_html + '>PM</option>';
+                    html += '<option value="오전"' + am_html + '>오전</option><option value="오후" selected="selected"' + pm_html + '>오후</option>';
                 } else {
-                    html += '<option value="AM" selected="selected"' + am_html + '>AM</option><option value="PM"' + pm_html + '>PM</option>';
+                    html += '<option value="오전" selected="selected"' + am_html + '>오전</option><option value="오후"' + pm_html + '>오후</option>';
                 }
 
                 html += '</select>';
@@ -1323,9 +1323,9 @@
                     var hour = parseInt(this.container.find('.left .hourselect').val(), 10);
                     if (!this.timePicker24Hour) {
                         var ampm = this.container.find('.left .ampmselect').val();
-                        if (ampm === 'PM' && hour < 12)
+                        if (ampm === '오후' && hour < 12)
                             hour += 12;
-                        if (ampm === 'AM' && hour === 12)
+                        if (ampm === '오전' && hour === 12)
                             hour = 0;
                     }
                     var minute = parseInt(this.container.find('.left .minuteselect').val(), 10);
@@ -1343,9 +1343,9 @@
                     var hour = parseInt(this.container.find('.right .hourselect').val(), 10);
                     if (!this.timePicker24Hour) {
                         var ampm = this.container.find('.right .ampmselect').val();
-                        if (ampm === 'PM' && hour < 12)
+                        if (ampm === '오후' && hour < 12)
                             hour += 12;
-                        if (ampm === 'AM' && hour === 12)
+                        if (ampm === '오전' && hour === 12)
                             hour = 0;
                     }
                     var minute = parseInt(this.container.find('.right .minuteselect').val(), 10);
@@ -1467,9 +1467,9 @@
 
             if (!this.timePicker24Hour) {
                 var ampm = cal.find('.ampmselect').val();
-                if (ampm === 'PM' && hour < 12)
+                if (ampm === '오후' && hour < 12)
                     hour += 12;
-                if (ampm === 'AM' && hour === 12)
+                if (ampm === '오전' && hour === 12)
                     hour = 0;
             }
 

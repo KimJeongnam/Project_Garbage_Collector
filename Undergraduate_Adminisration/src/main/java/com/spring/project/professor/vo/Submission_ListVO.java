@@ -2,13 +2,29 @@ package com.spring.project.professor.vo;
 
 public class Submission_ListVO {
 	private int reportcode;//과제 번호
+	private String stdNumber;//학번
 	private String reportName;//과제 제목
 	private String fileName;//파일
+	private String fileName2;//파일 명
 	private String userName;//유저 이름
 	private String userImage;//유저 사진
 	private String month;//월
 	private String day;//일
 	
+	
+	
+	public String getStdNumber() {
+		return stdNumber;
+	}
+	public void setStdNumber(String stdNumber) {
+		this.stdNumber = stdNumber;
+	}
+	public String getFileName2() {
+		return fileName2;
+	}
+	public void setFileName2(String fileName2) {
+		this.fileName2 = fileName2;
+	}
 	public int getReportcode() {
 		return reportcode;
 	}

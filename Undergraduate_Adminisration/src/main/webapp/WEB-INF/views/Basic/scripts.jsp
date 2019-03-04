@@ -151,7 +151,8 @@
     <script src="${staticPath}/vendors/google-code-prettify/src/prettify.js"></script>
     
     <!-- bootstrap-daterangepicker 추가-->
-    <script src="${staticPath}/vendors/moment/min/moment.min.js"></script>
+ <%--<script src="${staticPath}/vendors/moment/min/moment.min.js"></script> --%>
+    <script src="${staticPath}/vendors/moment/min/locales.js"></script>
     <script src="${staticPath}/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
     
     <!-- PNotify -->
@@ -186,3 +187,7 @@
     <!-- morris.js -->
     <script src="${staticPath }/vendors/raphael/raphael.min.js"></script>
     <script src="${staticPath }/vendors/morris.js/morris.min.js"></script>
+    
+    <!-- ECharts -->
+    <script src="${staticPath }/vendors/echarts/dist/echarts.min.js"></script>
+    <script src="${staticPath }/vendors/echarts/map/js/world.js"></script>

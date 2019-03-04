@@ -8,16 +8,20 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.spring.project.admin.vo.lecMVO;
 import com.spring.project.share.vo.Major;
 import com.spring.project.student.vo.LectureVO;
 
 @Service
 public interface AdminService {
 
+	
+	//중복확인
+	public int confirmNum(Map<Object, Object> map, String userNumber);
+	
 	//학생등록
 	public void stdInputPro(MultipartHttpServletRequest req,  RedirectAttributes red);
 	
@@ -138,8 +142,37 @@ public interface AdminService {
 	
 	public Map<String, Object> CopyPayroll(Map<String, Object> map);
 	
+	public Map<String, Object> ConfirmPayroll(Map<String, Object> map);
+	
+	public Map<String, Object> DeletePayroll(Map<String, Object> map);
+	
 	//---------------회계 END-------------------
 	
 	//메시지 전송부
 	public List<String> getUserCellNumList(Map<String, Object> map);
+	
+	
+	
+	//---------------학사관리 START-------------------
+	
+	//학사일정관리 진입
+	public void lecM(HttpServletRequest req,  Model model);
+	//학사일정 삭제
+	public Map<String, Object> delete_sc(lecMVO vo);
+	//학사일정 수정
+	public void lecScUpdate(HttpServletRequest req, RedirectAttributes red);
+	//학사일정 추가
+	public void lecScInsert(HttpServletRequest req, RedirectAttributes red);
+	//일정 즉시 실행
+	public void excuteScUpdate(HttpServletRequest req, RedirectAttributes red);
+
+	
+	//---------------학사관리 END-------------------
+	
+	//---------------성적통계 START-------------------
+	
+	//성적통계 진입
+	public void scoreManagement(HttpServletRequest req, Model model);
+	
+	//---------------성적통계 END-------------------
 }
