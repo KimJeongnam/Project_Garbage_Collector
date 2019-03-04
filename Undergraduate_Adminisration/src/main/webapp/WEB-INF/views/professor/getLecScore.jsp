@@ -105,6 +105,7 @@
                                 <input type="hidden" name="grade" value=" ${vo.grade}">
                                 <input type="hidden" name="semester2" value=" ${vo.semester2}">
                                 <input type="hidden" name="userName" value=" ${vo.userName}">
+                                <input type="hidden" name="lecName" value=" ${vo.lectureName}">
                             </div>
                         </div>
                         <div class="form-group">
@@ -161,15 +162,16 @@
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                             						<!-- disabled="disabled" 는 파라미터로 못받아옴 readonly="readonly" 는 파라미터로 받아옴 -->
-                                <input type="text" readonly="readonly" name="userName2" class="form-control col-md-7 col-xs-12" value=" ${vo.userName}">
-								<input type="hidden" name="infoCode" value=" ${vo.incode}">
+                                <input type="text" readonly="readonly" name="userName2" class="form-control col-md-7 col-xs-12" value="${vo.userName}">
+								<input type="hidden" name="infoCode" value="${vo.incode}">
+								 <input type="hidden" name="lecName" value="${vo.lectureName}">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">강의명 <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" disabled="disabled" name="lectureName" class="form-control col-md-7 col-xs-12" value=" ${vo.lectureName}">
+                                <input type="text" disabled="disabled" name="lectureName" class="form-control col-md-7 col-xs-12" value="${vo.lectureName}">
 
                             </div>
                         </div>

@@ -239,10 +239,10 @@
                                     </c:set>
                                     
                                     
-                                    <h4><span>
+                                    <h4 style="margin-bottom: 10px;"><span>
                                             <c:out value="${sysYear}" /></span><small>년도</small><span>${semester}</span><small>학기</small></h4>
-                                    바로 실행할 명령을 선택하시오.<br>
-                                    <fieldset class="form-group">
+                                    바로 실행할 명령을 선택하십시요.<br>
+                                    <fieldset class="form-group" style="margin-top: 15px;">
                                         <div class="form-check">
                                             <label class="form-check-label">
                                                 <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="1" required="required">
@@ -275,7 +275,7 @@
                                         </div>
                                     </fieldset>
                                     <div class="form-check">
-                                        <label class="form-check-label">
+                                        <label class="form-check-label" style="margin-top: 102px;">
                                             <input type="checkbox" id="chkchk" class="form-check-input" required="required">
                                             즉시 실행하시겠습니까?
                                         </label>

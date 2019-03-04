@@ -23,9 +23,9 @@
     </c:forEach>
     <c:forEach var="vo" items="${search_student}">
         <!-- 학생정보 모달  -->
-        <div class="modal fade bs-example-modal-sm${vo.stdNumber}" tabindex="-1" role="dialog" aria-hidden="true" style="z-index: 99998 !important;">
+        <div class="modal fade bs-example-modal-sm${vo.stdNumber} student-modal" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-sm">
-                <div class="modal-content" style="width: 400px; height: auto; z-index: 99999 !important;">
+                <div class="modal-content" style="width: 400px; height: auto;">
 
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
@@ -62,7 +62,7 @@
                                         <div class="col-xs-12 col-sm-6 emphasis">
 
                                             <!-- id만 compose 입력하면 메세지창 뜨으으음 갸꿀!!!!-->
-                                            <button onclick="toggleMessageModal('${vo.stdNumber}', '${userNumber}');" type="button" class="btn btn-success btn-xs"><i class="fa fa-comments-o">&nbsp;메세지&nbsp;
+                                            <button id="mess" onclick="toggleMessageModal('${vo.stdNumber}', '${userNumber}');" type="button" class="btn btn-success btn-xs"><i class="fa fa-comments-o">&nbsp;메세지&nbsp;
                                                 </i> </button>
                                             <button type="button" onclick="window.location.href='/project/professor/score'" class="btn btn-primary btn-xs">
                                                 <i class="fa fa-user"> </i>학점입력
@@ -101,6 +101,11 @@
             });
         
     }
+    
+    $('#mess').click(function() {
+    	if($('.student-modal').length>0)
+    		$('.student-modal').modal('hide');
+	});
     </script>
 </body>
 

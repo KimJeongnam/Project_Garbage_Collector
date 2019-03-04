@@ -440,23 +440,22 @@ function autoComplete() {
 	var AutoImputedMonth = $('#imputedMonth').val();
 	var AutoPaymentClassfication = $('#paymentClassfication').val();
 	var date = new Date(AutoImputedYear+"-"+AutoImputedMonth+"-01");
-	
+	var lastDay = ( new Date( AutoImputedYear, AutoImputedMonth, 0) ).getDate();
+
 	var year = date.getFullYear();
 	var month = date.getMonth();
 	var nextmonth = date.getMonth() + 2;
 	var day = date.getDay();
 	
-	if(date.getMonth() < 10) {
+	if(nextmonth < 10) {
 		nextmonth = "0" + nextmonth;
 	}
-	
 	if(day < 10) {
 		day="0" +day;
 	}
 	
-	
 	$("#beginningPeriod").val(AutoImputedYear+"-"+AutoImputedMonth+"-"+"01");
-	$("#endPeriod").val();
+	$("#endPeriod").val(AutoImputedYear+"-"+AutoImputedMonth+"-"+lastDay);
 	$("#paymentDate").val(date.getFullYear()+"-"+nextmonth + "-10");
 	$("#paymentYear").val(AutoImputedYear);
 	$("#paymentMonth").val(nextmonth);
