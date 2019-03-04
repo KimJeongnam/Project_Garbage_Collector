@@ -62,8 +62,8 @@ public class AdminDAOImpl implements AdminDAO{
 	}
 	
 	@Override
-	public int insertProcedure(AdProVO vo) {
-		return sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.insertProcedure", vo);
+	public void insertProcedure(AdProVO vo) {
+		sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.insertProcedure", vo);
 	}
 	//학생리스트 by admin
 	@Override
