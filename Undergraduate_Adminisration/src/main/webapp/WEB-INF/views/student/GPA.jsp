@@ -58,12 +58,6 @@
 								<td>${dto.jscore}</td>
 								<td>${dto.credit}</td>
 
-								<%-- <c:set var="totalgetlectureScore"
-									value="${totalgetlectureScore + dto.lectureScore}" />
-								<c:set var="totalgetmultiply"
-									value="${(totalgetmultiply + dto.jscore)}" />
-								<fmt:formatNumber var="averageScore"
-									value="${totalgetmultiply/totalgetlectureScore}" pattern="#.##" /> --%>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -85,7 +79,8 @@
 							<td>${granted.grantedCredit}</td>
 							<td>${granted.totalJscore}</td>
 							<td>
-								<c:if test="${granted.totalJscore / granted.grantedCnt >=95}">A+</c:if>
+								<c:if test="${granted.totalJscore / granted.grantedCnt <100 &&
+											granted.totalJscore / granted.grantedCnt >=95}">A+</c:if>
 								<c:if test="${granted.totalJscore / granted.grantedCnt <95 &&
 											granted.totalJscore / granted.grantedCnt >=90}">A</c:if>
 								<c:if test="${granted.totalJscore / granted.grantedCnt <90 &&

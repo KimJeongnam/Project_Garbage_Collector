@@ -263,6 +263,13 @@ public class AdminController {
 		return "redirect:/admin/proMyPage";
 	}
 
+	//직원정보수정
+	@RequestMapping("/admin/empDetailUpdate") 
+	public String empDetailUpdate(HttpServletRequest req,  RedirectAttributes model) {
+		service.proDetailUpdate(req, model);
+		return "redirect:/admin/empMyPage";
+	}
+	
 	//학생+교수정보삭제
 	@RequestMapping("/admin/stdDeletePro") 
 	public String stdDeletePro(HttpServletRequest req, RedirectAttributes red) {

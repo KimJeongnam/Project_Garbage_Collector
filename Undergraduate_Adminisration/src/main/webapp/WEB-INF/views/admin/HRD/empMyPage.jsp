@@ -95,7 +95,7 @@
 												<div id="myTabContent" class="tab-content">
 													<div role="tabpanel" class="tab-pane fade active in"
 														id="tab_content1" aria-labelledby="home-tab">
-														<form action="proDetailUpdate" method="POST" name="empMypage" 
+														<form action="empDetailUpdate" method="POST" name="empMypage" 
 															onsubmit="return empMyChk();" class="form-horizontal form-label-left" >
 															<span class="section">개인정보</span>
 															<div class="row">
@@ -124,9 +124,9 @@
 																				<td>
 																					<c:set var="SsnArr" value="${fn:split(vo.getUserSsn(),'-')}"/>
 																					<input class="input" type="text" name="jumin1" maxlength="6" style="width : 73px"
-																							onkeyup ="empMyPageJumin1();" value="${SsnArr[0] }" > -
+																							onkeyup ="empMyPageJumin1();" value="${SsnArr[0] }"  numberOnly="true"> -
 																					 <input class="input" type="password" name="jumin2" maxlength="7"
-																							style="width:80px;" onkeyup="empMyPageJumin2();" value="${SsnArr[1] }" readonly>
+																							style="width:80px;" onkeyup="empMyPageJumin2();" value="${SsnArr[1] }" numberOnly="true" readonly>
 																				</td>
 																			<th class="control-label">
 																				영어성명
@@ -149,13 +149,13 @@
 																			<th class="control-label">휴대폰 연락처</th>
 																			<td>
 																				<c:set var="phArr" value="${fn:split(vo.getUserCellNum(),'-')}"/>
-																				<input class="input" type="text" name="hp1" maxlength="3"
+																				<input class="input" type="text" name="hp1" maxlength="3" numberOnly="true"
 																			 	style= "width : 40px" onkeyup="empMyPagePh1();" value="${phArr[0] }">
 																			 	-
-																			 	<input class="input" type="text" name="hp2" maxlength="4"
+																			 	<input class="input" type="text" name="hp2" maxlength="4" numberOnly="true"
 																			 	style= "width : 50px" onkeyup="empMyPagePh2();" value="${phArr[1] }">
 																			 	-
-																			 	<input class="input" type="text" name="hp3" maxlength="4"
+																			 	<input class="input" type="text" name="hp3" maxlength="4" numberOnly="true"
 																			 	style= "width : 50px" onkeyup="empMyPagePh3();" value="${phArr[2] }">
 																			</td>							
 																			
@@ -189,7 +189,7 @@
 																			</td>
 																			<th class="control-label">연차</th>
 																			<td><input type="text" class="input" value="${vo.annualLevel}"
-																				name="annualLevel" required="required" placeholder="연차를 입력하시오">
+																				name="annualLevel" required="required" placeholder="연차를 입력하시오" numberOnly="true">
 																			</td>
 																		</tr>
 																		<tr>
