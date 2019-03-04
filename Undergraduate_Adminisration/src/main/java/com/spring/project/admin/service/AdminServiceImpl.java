@@ -809,6 +809,29 @@ public class AdminServiceImpl extends Board implements AdminService {
 	}
 
 	// -----------------------------------------------------------------교직업무관리START-------------------------------------------------
+	
+
+	@Override
+	public String majorLectureManagementRedirector(HttpServletRequest request, RedirectAttributes redirectAttributes) {
+		int status = 0;
+		
+		String referer = request.getHeader("referer");
+		
+		status = dao.getBachelorStatus();
+		
+		if(status != 3) {
+			if(referer!=null) {
+				redirectAttributes.addFlashAttribute("message", "종강 상태시 접근 가능합니다.");
+				return "redirect:"+referer;
+			}else {
+				redirectAttributes.addFlashAttribute("message", "종강 상태시 접근 가능합니다.");
+				return "redirect:/admin/index";
+			}
+		}else {
+			return "redirect:/admin/majorLectureManagement";
+		}
+	}
+	
 	@Override
 	public void getMajors(Map<String, Object> map, Model model) {
 		setList(map, model, new BoardInterface() {
@@ -825,6 +848,7 @@ public class AdminServiceImpl extends Board implements AdminService {
 
 		});
 	}
+
 
 	// 학과 삭제
 	@Override

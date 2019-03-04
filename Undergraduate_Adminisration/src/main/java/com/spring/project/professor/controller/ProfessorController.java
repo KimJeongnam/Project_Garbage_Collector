@@ -207,7 +207,7 @@ public class ProfessorController {
 
 	// 과제 다운로드
 	@RequestMapping(value = "/download/images/1.jpg")
-	public String reDocumentDown(HttpServletRequest req,  Model model, RedirectAttributes redirectAttributes) {
+	public String reDocumentDown(HttpServletRequest req, RedirectAttributes redirectAttributes) {
 
 //	      pk 값으로 해당 도메인 객체의 파일 전체 경로 값을 받은 후
 

@@ -40,7 +40,7 @@
                                     <ul class="nav child_menu" style="display: none;">
                                         <li><a href="${authPath }/lec_score_Management/lecManagement">학사일정업무</a></li>
                                         <li><a href="${authPath }/lec_score_Management/scoreManagement">성적통계조회</a></li>
-                                        <li><a href="${authPath}/majorLectureManagement">교직업무</a></li>
+                                        <li><a href="${authPath}/major_lecture_Manager">교직업무</a></li>
                                     </ul>
                                 </li>
                                 <li><a><i class="fa fa-desktop"></i> 장학관리 <span class="fa fa-chevron-down"></span></a>

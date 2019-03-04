@@ -166,7 +166,8 @@ public class RestfulServiceImpl implements RestfulService {
 		
 		List<Object> data = dao.getStdLectureTime(vo);
 		
-		logger.info("Days : "+day+", "+eday.getDays1Value());
+		logger.info("GET DAY : "+day);
+		logger.info("Days : "+eday.getDays1Value());
 		
 		String message = "";
 		
