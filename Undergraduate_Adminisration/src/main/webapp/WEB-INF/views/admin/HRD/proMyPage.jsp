@@ -132,9 +132,9 @@
 																				<td>
 																					<c:set var="SsnArr" value="${fn:split(vo.getUserSsn(),'-')}"/>
 																					<input class="input" type="text" name="jumin1" maxlength="6" style="width : 73px"
-																							onkeyup ="proMyPageJumin1();" value="${SsnArr[0] }" > -
+																							onkeyup ="proMyPageJumin1();" value="${SsnArr[0] }" numberOnly="true" > -
 																					 <input class="input" type="password" name="jumin2" maxlength="7"
-																							style="width:80px;" onkeyup="proMyPageJumin2();" value="${SsnArr[1] }" readonly>
+																							style="width:80px;" onkeyup="proMyPageJumin2();" value="${SsnArr[1] }" numberOnly="true" readonly>
 																				</td>
 																			<th class="control-label">
 																				영어성명
@@ -198,13 +198,13 @@
 																				<td>
 																					<c:set var="phArr" value="${fn:split(vo.getUserCellNum(),'-')}"/>
 																					<input class="input" type="text" name="hp1" maxlength="3"
-																				 	style= "width : 40px" onkeyup="proMyPagePh1();" value="${phArr[0] }">
+																				 	style= "width : 40px" onkeyup="proMyPagePh1();" value="${phArr[0] }" numberOnly="true">
 																				 	-
 																				 	<input class="input" type="text" name="hp2" maxlength="4"
-																				 	style= "width : 50px" onkeyup="proMyPagePh2();" value="${phArr[1] }">
+																				 	style= "width : 50px" onkeyup="proMyPagePh2();" value="${phArr[1] }" numberOnly="true">
 																				 	-
 																				 	<input class="input" type="text" name="hp3" maxlength="4"
-																				 	style= "width : 50px" onkeyup="proMyPagePh3();" value="${phArr[2] }">
+																				 	style= "width : 50px" onkeyup="proMyPagePh3();" value="${phArr[2] }" numberOnly="true">
 																				</td>
 																			
 																			<th class="control-label">입사일</th>
@@ -220,7 +220,7 @@
 																			</td>
 																			<th class="control-label">연차</th>
 																			<td><input type="text" class="input" value="${vo.annualLevel}"
-																				name="annualLevel" required="required" placeholder="연차를 입력하시오">
+																				name="annualLevel" required="required" placeholder="연차를 입력하시오" numberOnly="true">
 																			</td>
 																		</tr>
 																		<tr>

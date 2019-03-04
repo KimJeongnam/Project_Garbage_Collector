@@ -94,8 +94,6 @@ function reportcontent(userNumber,reportcode){
 	obj.userNumber = userNumber;
 	obj.reportcode = reportcode;
 	
-	alert($(this).attr("coode"));
-	
 	var jsonData = JSON.stringify(obj);
 	
 	$.ajax({

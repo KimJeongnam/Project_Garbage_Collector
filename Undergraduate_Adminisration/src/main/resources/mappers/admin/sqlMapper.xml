@@ -71,23 +71,17 @@
 		END;
 	</insert>
 	<!-- 학생리스트 -->
-	<select id="getStdList" parameterType="java.util.Map"
-		resultType="com.spring.project.admin.vo.AdStdVO">
-		select u.userNumber, u.userName, m.majorName, m.majorNum,
-		u.authority,
-		u.userCellNum , s.grade , st.graduation_state, f.faculty
-		from student s,
-		studentState st , users u, major m, faculty f
-		where
-		u.userNumber(+)=
-		s.stdNumber
-		and s.stdNumber = st.stdNumber(+)
-		and
-		s.majorNum(+) = m.majorNum
-		and f.faculty = m.faculty(+)
-		and u.authority
-		= 'ROLE_STUDENT'
-		and u.delstatus != 1
+	<select id="getStdList" parameterType="java.util.Map" resultType="com.spring.project.admin.vo.AdStdVO">
+		select u.userNumber, u.userName, m.majorName, m.majorNum, u.authority,
+				u.userCellNum , s.grade , st.graduation_state, f.faculty
+		from student s, studentState st , users u, major m, faculty f
+		where u.userNumber(+)= s.stdNumber
+			and s.stdNumber = st.stdNumber(+)
+			and s.majorNum(+) = m.majorNum
+			and f.faculty = m.faculty(+)
+			and u.authority = 'ROLE_STUDENT'
+			and u.delstatus != 1
+			and st.graduation_state !=2
 	</select>
 
 	<!-- 교수리스트 -->
@@ -204,7 +198,6 @@
 				WHERE empNumber= #{userNumber}
 			</otherwise>
 		</choose>
->>>>>>> branch 'master' of https://github.com/KimJeongnam/Project_Garbage_Collector.git
 	</update>
 
 	<!--교수 프로필 이미지 변경 -->
@@ -328,7 +321,7 @@
 
 		SELECT *
 		FROM (select SCHOLARPK,SCHOLARNAME,to_char(YEAR,'YYYY') as
-		YEAR,SEMESTER,TO_CHAR(AMOUNT,'$999,999,999,999,999') as AMOUNT,ROWNUM
+		YEAR,SEMESTER,TO_CHAR(AMOUNT,'999,999,999,999,999') as AMOUNT,ROWNUM
 		rNum
 		from (
 		select * FROM SCHOLARSHIP
