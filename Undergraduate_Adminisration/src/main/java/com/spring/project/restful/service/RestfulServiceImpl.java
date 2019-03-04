@@ -13,14 +13,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.spring.project.restful.controller.RestfulController;
+import com.spring.project.Days;
 import com.spring.project.restful.dao.RestfulDAO;
 import com.spring.project.restful.vo.Location;
 import com.spring.project.restful.vo.Message;
 import com.spring.project.restful.vo.ResponseData;
 import com.spring.project.restful.vo.RestUser;
+import com.spring.project.restful.vo.StdLecTime;
 import com.spring.project.share.dao.ShareDAO;
 import com.spring.project.share.vo.Major;
+import com.spring.project.student.vo.LectureVO;
 
 @Service
 public class RestfulServiceImpl implements RestfulService {
@@ -150,5 +152,47 @@ public class RestfulServiceImpl implements RestfulService {
 		}
 		return responseData;
 	}
+
+	@Override
+	public ResponseData getLectureTime(String stdNumber, int day) {
+		ResponseData responseData = new ResponseData();
+		LectureVO vo = new LectureVO();
+		vo.setUserNumber(stdNumber);
+		vo.setDay(day);
+		
+		Days edays = Days.MON;
+		
+		Days eday= edays.valueOf(day);
+		
+		List<Object> data = dao.getStdLectureTime(vo);
+		
+		logger.info("GET DAY : "+day);
+		logger.info("Days : "+eday.getDays1Value());
+		
+		String message = "";
+		
+		responseData.setStatus(0);
+		responseData.setMessage("fail");
+		if(data != null) {
+			responseData.setStatus(1);
+			responseData.setMessage("success");
+			
+			message += "'"+eday.getDays1Value()+"'요일 시간표\n";
+			
+			if(data.size()==0) message += "시간표가 비어 있습니다.";
+			
+			message += "\t\t\t\t\t강의명\t\t\t|  강의실\n";
+			for(Object obj: data) {
+				StdLecTime dto = (StdLecTime)obj;
+				
+				message += dto.getClassTime()+"교시 : "+dto.getLectureName()+"\t, "+dto.getClassRoom()+"\n";
+			}
+			
+			responseData.setData(message);
+		}
+	
+		return responseData;
+	}
+	
 	//---------------------------Android-END---------------------------------
 }

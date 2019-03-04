@@ -13,6 +13,7 @@ import com.spring.project.restful.vo.Location;
 import com.spring.project.restful.vo.Message;
 import com.spring.project.restful.vo.RestUser;
 import com.spring.project.share.dao.ShareDAO;
+import com.spring.project.student.vo.LectureVO;
 
 @Repository
 public class RestfulDAOImpl implements RestfulDAO{
@@ -66,12 +67,21 @@ public class RestfulDAOImpl implements RestfulDAO{
 
 	@Override
 	public Location getLocation(Location location) {
-		/*logger.info(ShareDAO.getQuery(sqlSession, "getLocation", location));
-		logger.info(location.getArea()+location.getLocality()+location.getThoroughfare());*/
 		return sqlSession.selectOne("com.spring.project.restful.dao"
 				+ ".RestfulDAO.getLocation", location);
 	}
-	
+
+	@Override
+	public List<Object> getStdLectureTime_test(LectureVO vo) {
+		return sqlSession.selectList("com.spring.project.restful.dao"
+				+ ".RestfulDAO.getStdLectureTime_test", vo);
+	}
+
+	@Override
+	public List<Object> getStdLectureTime(LectureVO vo) {
+		return sqlSession.selectList("com.spring.project.restful.dao"
+				+ ".RestfulDAO.getStdLectureTime", vo);
+	}
 	
 	//---------------------------Android-END---------------------------------
 }

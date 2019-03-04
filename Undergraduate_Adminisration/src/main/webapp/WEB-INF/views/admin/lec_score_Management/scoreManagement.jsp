@@ -38,7 +38,7 @@
         <div class="col-md-6 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>남녀 성비 학점 평균<small>후..</small></h2>
+                    <h2>강의별 학점 평균<small>후..</small></h2>
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
@@ -394,7 +394,7 @@
 				  y: 'bottom',
 				  data: [
 					<c:forEach var="vo" items="${genders}">
-						'${vo.gender}',
+						'${vo.lecturename}',
 		  			</c:forEach>
 					  
 					  ]
@@ -426,7 +426,7 @@
 				},
 				calculable: true,
 				series: [{
-				  name: '성별 학점',
+				  name: '강의별 평균 학점',
 				  type: 'pie',
 				  radius: '55%',
 				  center: ['50%', '48%'],
@@ -435,7 +435,7 @@
 					  <c:forEach var="vo" items="${genders}" varStatus="status">
 					 {
 					value:${vo.avgScore},
-					name: '${vo.gender}'
+					name: '${vo.lecturename}'
 				 	 }, 
 				 	</c:forEach>
 				  ]

@@ -184,24 +184,32 @@ function addMajor(){
 		swal({
 			text:"단과대를 선택해 주세요.",
 			icon:"warning",
-			button:"확인",
+			button:false,
 		});
 		return;
 	}else if(majorName.length<1){
 		swal({
 			text:"학과명을 입력해 주세요.",
 			icon:"warning",
-			button:"확인",
+			button:false,
 		});
 		return;
 	}else if(maxNum.length<1){
 		swal({
 			text:"최대 학생수를 입력하세요.",
 			icon:"warning",
-			button:"확인",
+			button:false,
 		});
 		return;
-	}	
+	}else if(maxNum < 0){
+		swal({
+			text:"최대 인원수는 음수가 될수 없습니다.",
+			icon:"warning",
+			button:false,
+		});
+		$('#count').focus();
+		return;
+	}
 	
 	var obj = new Object();
 	obj.faculty = faculty;
@@ -288,26 +296,28 @@ function modifyMajor(){
 			  }
 		},
 	}).then((value)=>{
-		$.ajax({
-			url : '/project/admin/major_lecture_Manager/modifyMajor',
-			type : 'POST',
-			data : JsonData,
-			contentType : 'application/json;charset=utf-8',
-			success : function(data){
-				if(data.status == 0){
-					swal({
-						text:"ERROR! 학과 수정 오류.",
-						icon:'error',
-						button:"확인",
-					});
-				}else{
-					$('#majorAdd-Modal').modal('hide');
-					getMajors(pageNum);
-					swal("Success", "학과 수정 완료", "success");
-				}
-			},
-			error : function(){	}
-		});
+		if(value){
+			$.ajax({
+				url : '/project/admin/major_lecture_Manager/modifyMajor',
+				type : 'POST',
+				data : JsonData,
+				contentType : 'application/json;charset=utf-8',
+				success : function(data){
+					if(data.status == 0){
+						swal({
+							text:"ERROR! 학과 수정 오류.",
+							icon:'error',
+							button:"확인",
+						});
+					}else{
+						$('#majorAdd-Modal').modal('hide');
+						getMajors(pageNum);
+						swal("Success", "학과 수정 완료", "success");
+					}
+				},
+				error : function(){	}
+			});
+		}
 	});
 }
 
@@ -416,9 +426,9 @@ function dayParser(map){
 	ids.forEach(function(key){
 		var obj = map.get(key);
 		
-		if(day != Math.floor((key/10))){
+		if(day != Math.floor(((key-1)/10))){
 			if(str.length>0) str += "], ";
-			day = Math.floor((key/10));
+			day = Math.floor(((key-1)/10));
 			str += obj.lectureDay;
 			str += "["+obj.classTime;
 		}else
@@ -996,3 +1006,13 @@ function deleteLectureAjax(leccode){
 		}
 	});
 }
+
+
+var countValidation  = function(){
+	if($('#count').val()<0){
+		swal("Warning", "최대 인원수엔 음수가 들어갈 수 없습니다.!", "warning").then((value)=>{
+			$('#count').focus();
+		});
+		$('#count').val(0);
+	}
+};

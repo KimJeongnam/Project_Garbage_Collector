@@ -146,11 +146,23 @@
 									</div>
 								</div>
 
+
 								<div id="editor-one" class="editor-wrapper"></div>
 
-								<!-- <textarea name="descr" id="descr" style="display:none;"></textarea> -->
+								<textarea name="descr" id="descr" style="display:none;"></textarea>
 
-							</div>
+
+                  <!-- <textarea name="descr" id="descr" style="display:none;"></textarea> -->
+                  
+                </div>
+							<!-- <input type="text" hidden="hidden" id="scholarContent" name="scholarContent" value="">
+							
+							<div style="text-align: center">
+							<input class="btn btn-primary" type="submit" value="작성">
+							<input class="btn btn-primary" type="reset" value="취소">
+							<input class="btn btn-primary" type="button" value="목록"
+							onclick="history.back();">
+							</div> -->
 							<input type="hidden" id="scholarContent" name="scholarContent"
 								value="">
 

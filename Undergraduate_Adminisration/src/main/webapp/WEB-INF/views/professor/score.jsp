@@ -35,13 +35,23 @@
 
                                 <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
                                     <c:forEach var="vo" items="${s_myClass}" varStatus="status">
-                                        <li role="presentation" class="active">
-                                            <a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">${vo.lectureName}</a>
-                                        </li>
+                                    	<c:choose>
+                                    		<c:when test="${lecName == null}">
+		                                    	<li role="presentation" class="active">
+		                                            <a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" >${vo.lectureName}</a>
+		                                        </li>
+                                    		</c:when>
+                                    		<c:otherwise>
+                                    			<li role="presentation">
+		                                            <a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" >${vo.lectureName}</a>
+		                                        </li>
+                                    		</c:otherwise>
+                                    	</c:choose>
+                                        
                                     </c:forEach>
                                     <c:forEach var="vo1" items="${v_myClass}" varStatus="status">
-                                        <li role="presentation">
-                                            <a href="#lec${status.index}" onclick="class_click('${vo1.lectureName}')" role="tab" data-toggle="tab" aria-expanded="false">${vo1.lectureName}</a>
+                                        <li role="presentation" id="tag_${vo1.lectureName}">
+                                            <a id="other_tab${vo1.lectureName}" href="#lec${status.index}" onclick="class_click('${vo1.lectureName}')" role="tab" data-toggle="tab" >${vo1.lectureName}</a>
                                         </li>
                                     </c:forEach>
 
@@ -62,8 +72,14 @@
         <script>
             (function() {
                 var obj = new Object();
+                
                 var firstLec = $('#home-tab').text(); //home-tab의 강의명 값
                 obj.firstLec = firstLec;
+                <c:if test="${lecName != null}">
+                obj.firstLec = '${lecName}';
+                $('#other_tab${lecName}').attr('aria-expanded','true');
+                $('#tag_${lecName}').attr('class', 'active');
+            	</c:if>
                 var jsonData = JSON.stringify(obj);
 
                 $.ajax({
@@ -86,7 +102,7 @@
             })();
 
             function class_click(lecName) {
-                var obj = new Object();
+            	var obj = new Object();
                 obj.lecName = lecName;
                 var jsonData = JSON.stringify(obj);
 

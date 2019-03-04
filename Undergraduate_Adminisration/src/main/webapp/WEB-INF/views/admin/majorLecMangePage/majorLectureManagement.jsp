@@ -197,7 +197,7 @@
 								<div class="col-md-3 col-sm-3 col-xs-8">
 									<input type="number" id="count"
 										class="date-picker form-control col-md-7 col-xs-12"
-										required="required" type="text" min="0">
+										required="required" type="text" min="0" onchange="countValidation();">
 								</div>
 							</div>
 							<div class="ln_solid"></div>

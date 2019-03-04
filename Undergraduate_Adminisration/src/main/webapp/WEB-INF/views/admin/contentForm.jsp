@@ -8,8 +8,8 @@
 <title>Insert title here</title>
 </head>
 <body class="nav-md">
-	<%@ include file="../Basic/navbar.jsp"%>
-
+	<%@ include file="../Basic/navbar.jsp" %>
+	
 	<!-- page content -->
 	<div class="right_col" role="main">
 		<div class="">

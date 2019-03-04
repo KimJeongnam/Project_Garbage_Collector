@@ -30,6 +30,7 @@ import com.spring.project.admin.dao.AdminDAO;
 import com.spring.project.admin.vo.AdProVO;
 import com.spring.project.admin.vo.AdStdVO;
 import com.spring.project.admin.vo.ChartVO;
+import com.spring.project.admin.vo.IndexVO;
 import com.spring.project.admin.vo.ScholarpkVO;
 import com.spring.project.admin.vo.auditVO;
 import com.spring.project.admin.vo.lecMVO;
@@ -415,9 +416,9 @@ public class AdminServiceImpl extends Board implements AdminService {
 			
 			int userInsert = dao.insertPUsers(vo); 
 			int empInsert = dao.insertEmployees(vo); 
-			int insertProcedure = dao.insertProcedure(vo);
+			dao.insertProcedure(vo);
 			
-			int proInsertResult = userInsert+ empInsert+insertProcedure;
+			int proInsertResult = userInsert+ empInsert;
 			
 			 if (proInsertResult != 0) 
 
@@ -809,6 +810,29 @@ public class AdminServiceImpl extends Board implements AdminService {
 	}
 
 	// -----------------------------------------------------------------교직업무관리START-------------------------------------------------
+	
+
+	@Override
+	public String majorLectureManagementRedirector(HttpServletRequest request, RedirectAttributes redirectAttributes) {
+		int status = 0;
+		
+		String referer = request.getHeader("referer");
+		
+		status = dao.getBachelorStatus();
+		
+		if(status != 3) {
+			if(referer!=null) {
+				redirectAttributes.addFlashAttribute("message", "종강 상태시 접근 가능합니다.");
+				return "redirect:"+referer;
+			}else {
+				redirectAttributes.addFlashAttribute("message", "종강 상태시 접근 가능합니다.");
+				return "redirect:/admin/index";
+			}
+		}else {
+			return "redirect:/admin/majorLectureManagement";
+		}
+	}
+	
 	@Override
 	public void getMajors(Map<String, Object> map, Model model) {
 		setList(map, model, new BoardInterface() {
@@ -825,6 +849,7 @@ public class AdminServiceImpl extends Board implements AdminService {
 
 		});
 	}
+
 
 	// 학과 삭제
 	@Override
@@ -1442,7 +1467,7 @@ public class AdminServiceImpl extends Board implements AdminService {
 		model.addAttribute("gr", gr);
 		
 	}
-	
+
 	
 	//---------------성적통계업무  END-------------------
 	
@@ -1450,7 +1475,38 @@ public class AdminServiceImpl extends Board implements AdminService {
 	
 	
 	
-	
+	@Override
+	public void index(HttpServletRequest req, Model model) {
+		
+		List<IndexVO> s_t = dao.s_t();
+		List<IndexVO> u_t = dao.u_t();
+		List<IndexVO> p_t = dao.p_t();
+		List<IndexVO> g_t = dao.g_t();
+		List<IndexVO> m_t = dao.m_t();
+		List<IndexVO> l_t = dao.l_t();
+		List<IndexVO> nameAvgTop = dao.nameAvgTop();
+		List<IndexVO> monthPayTotal= dao.monthPayTotal();
+		List<IndexVO> monthPayTop = dao.monthPayTop();
+		List<IndexVO> subPay = dao.subPay();
+		List<IndexVO> facStdNameAvg = dao.facStdNameAvg();
+		
+		
+		
+		
+		
+		model.addAttribute("s_t", s_t);
+		model.addAttribute("u_t", u_t);
+		model.addAttribute("p_t", p_t);
+		model.addAttribute("g_t", g_t);
+		model.addAttribute("m_t", m_t);
+		model.addAttribute("l_t", l_t);
+		model.addAttribute("nameAvgTop", nameAvgTop);
+		model.addAttribute("monthPayTotal", monthPayTotal);
+		model.addAttribute("monthPayTop", monthPayTop);
+		model.addAttribute("subPay", subPay);
+		model.addAttribute("facStdNameAvg", facStdNameAvg);
+		
+	}
 	
 	
 	
