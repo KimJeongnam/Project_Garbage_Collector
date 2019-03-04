@@ -28,6 +28,7 @@
 		<where>
 			e.empNumber = l.empNumber and l.lecCode = lt.lecCode and
 			lt.timetblCode = t.timetblCode and m.majorNum=l.majorNum
+			and l.delStatus = 0 and l.grantedSemester = #{grantedSemester}
 			<if test="keyword != null">
 				AND LOWER(l.lectureName) like '%'||LOWER(#{keyword})||'%'
 			</if>
@@ -71,6 +72,7 @@
 		<where>
 			e.empNumber = l.empNumber and l.lecCode = lt.lecCode and
 			lt.timetblCode = t.timetblCode and m.majorNum=l.majorNum
+			and l.delStatus = 0 and l.grantedSemester = #{grantedSemester}
 			<if test="keyword != null">
 				AND LOWER(l.lectureName) like '%'||LOWER(#{keyword})||'%'
 			</if>
@@ -137,7 +139,13 @@
 		]]>
 	</select>
 
-
+	<!-- 듣고자 하는 강의 학점 합  -->
+	<select id="getLectureScoreSum"
+		parameterType="java.util.Map" resultType="int">
+		SELECT (select sum(lecturescore) from studentClassInfo s, lecture l where s. lecCode=l.lecCode group by userNumber
+		having userNumber=#{userNumber})+(SELECT lecturescore from lecture where leccode = #{lecCode}) as lecturescoreSum from dual
+	</select>
+	
 	<!-- 강의 신청 -->
 	<insert id="applyLecture" parameterType="java.util.Map">
 		insert into
@@ -319,7 +327,7 @@
 	<!-- 강의 목록 조회(전공) -->
 	<select id="getMajor"
 		resultType="com.spring.project.student.vo.LectureVO">
-		select majorName from major group by majorName order by
+		select majorName from major where delStatus = 0 group by majorName order by
 		majorName
 	</select>
 

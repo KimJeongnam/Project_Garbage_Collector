@@ -81,7 +81,13 @@ public class StudentDAOImpl implements StudentDAO{
 	public int checkStudentInLecture2(Map<String, Object> map2) {
 		return sqlSession.selectOne("com.spring.project.student.dao.StudentDAO.checkStudentInLecture2", map2);
 	}
-		
+	
+	// 듣고자 하는 강의 학점 합 
+	@Override
+	public int getLectureScoreSum(Map<String, Object> map) {
+		return sqlSession.selectOne("com.spring.project.student.dao.StudentDAO.getLectureScoreSum", map);
+	}
+	
 	// 강의 신청
 	@Override
 	public int applyLecture(Map<String, Object> map) {
@@ -216,5 +222,7 @@ public class StudentDAOImpl implements StudentDAO{
 	public int ApplyCredit(String userNumber) {
 		return sqlSession.selectOne("com.spring.project.student.dao.StudentDAO.ApplyCredit", userNumber);
 	}
+
+	
 
 }

@@ -450,8 +450,13 @@ public class AdminDAOImpl implements AdminDAO{
 	}
 
 	@Override
-	public int insertPayrollwith0(List<payrollVO> empNumber) {
-		return sqlSession.insert("com.spring.project.admin.dao.AdminDAO.insertPayrollwith0", empNumber);
+	public int getPaymentListPk(String date) {
+		return sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.getPaymentListPk", date);
+	}
+
+	@Override
+	public int insertPayrollwith0(List<Map<String, Object>> datas) {
+		return sqlSession.insert("com.spring.project.admin.dao.AdminDAO.insertPayrollwith0", datas);
 	}
 
 	@Override

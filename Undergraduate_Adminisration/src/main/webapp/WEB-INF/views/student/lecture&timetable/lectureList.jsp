@@ -38,7 +38,7 @@
 					<td id="getLecCode">${dto.lecCode}</td>
 					<td><c:if test="${dto.lectureClassfication == 1}">
 													전공
-												</c:if> <c:if test="${dto.lectureClassfication == 0}">
+												</c:if> <c:if test="${dto.lectureClassfication == 2}">
 													교양
 												</c:if></td>
 					<td>${dto.lectureName}</td>
@@ -55,8 +55,16 @@
 	<div class="row">
 		<div class="col-sm-5">
 			<div class="dataTables_info" id="datatable_info" role="status"
-				aria-live="polite">Showing ${number} to ${number+pageCount} of
-				${cnt} entries</div>
+			aria-live="polite">Showing 
+			<c:choose>
+				<c:when test="${number < pageSize }">
+					1
+				</c:when>
+				<c:otherwise>
+					${number-pageSize+1}
+				</c:otherwise>
+			</c:choose>
+			to ${number} of ${cnt} entries</div>
 		</div>
 
 		<div class="col-sm-7">
