@@ -12,9 +12,12 @@ import com.spring.project.professor.vo.LecScore;
 import com.spring.project.professor.vo.LectureP_VO;
 import com.spring.project.professor.vo.MyClassVO;
 import com.spring.project.professor.vo.MyPageVO;
+import com.spring.project.professor.vo.PersonnelVO;
 import com.spring.project.professor.vo.PlanVO;
+import com.spring.project.professor.vo.Report_tblVO;
 import com.spring.project.professor.vo.SearchVO;
 import com.spring.project.professor.vo.StudentVO;
+import com.spring.project.professor.vo.Submission_ListVO;
 
 @Repository
 public class ProfesserDAOImpl implements ProfesserDAO{
@@ -222,6 +225,56 @@ public class ProfesserDAOImpl implements ProfesserDAO{
 	@Override
 	public List<LectureP_VO> P_Lecture(String userNumber) {
 		return sql.selectList("com.spring.project.professor.dao.ProfesserDAO.P_Lecture",userNumber);
+	}
+	//총 수강 인원
+	@Override
+	public int personnel(Map<String, Object> map) {
+		return sql.selectOne("com.spring.project.professor.dao.ProfesserDAO.personnel",map);
+	}
+	//과제 있는지 여부
+	@Override
+	public int p_report(Map<String, Object> map) {
+		return sql.selectOne("com.spring.project.professor.dao.ProfesserDAO.p_report",map);
+	}
+	//과제 첫번째
+	@Override
+	public Report_tblVO re_submit(Map<String, Object> map) {
+		return sql.selectOne("com.spring.project.professor.dao.ProfesserDAO.re_submit",map);
+	}
+	
+	//과제 제출 갯수
+	@Override
+	public int codeCnt(int reportcode) {
+		return sql.selectOne("com.spring.project.professor.dao.ProfesserDAO.codeCnt",reportcode);
+	}
+	
+	//과제 추가
+	@Override
+	public int re_contentform(Report_tblVO vo) {
+		return sql.insert("com.spring.project.professor.dao.ProfesserDAO.re_contentform",vo);
+	}
+	
+	//과제 수정
+	@Override
+	public int p_reportupdate(Report_tblVO vo) {
+		return sql.update("com.spring.project.professor.dao.ProfesserDAO.p_reportupdate",vo);
+	}
+	
+	//과제 삭제
+	@Override
+	public int p_reportdelete(int reportcode) {
+		return sql.delete("com.spring.project.professor.dao.ProfesserDAO.p_reportdelete",reportcode);
+	}
+	//과제 리스트
+	@Override
+	public List<Report_tblVO> task_lookup(Map<String, Object> map) {
+		return sql.selectList("com.spring.project.professor.dao.ProfesserDAO.task_lookup",map);
+	}
+	
+	//과제 제출 리스트
+	@Override
+	public List<Submission_ListVO> submissionlist(int reportcode) {
+		return sql.selectList("com.spring.project.professor.dao.ProfesserDAO.submissionlist",reportcode);
 	}
 
 }

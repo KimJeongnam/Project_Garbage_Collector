@@ -55,7 +55,7 @@ public class ShareController {
 				redirectAttributes.addFlashAttribute("message", message);
 
 			if(alertIcon.length()>0)
-				redirectAttributes.addFlashAttribute("alertIcon", (String) request.getAttribute("alertIcon"));
+				redirectAttributes.addFlashAttribute("alertIcon", alertIcon);
 
 
 			switch ((String) request.getSession().getAttribute("authority")) {
@@ -74,7 +74,7 @@ public class ShareController {
 				model.addAttribute("message", message);
 
 			if(alertIcon.length()>0)
-				model.addAttribute("alertIcon", (String) request.getAttribute("alertIcon"));
+				model.addAttribute("alertIcon", alertIcon);
 		}
 
 		return url;

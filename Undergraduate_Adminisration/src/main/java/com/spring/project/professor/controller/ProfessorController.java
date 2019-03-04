@@ -202,43 +202,93 @@ public class ProfessorController {
 		service.report(req, model);
 		return "professor/report";
 	}
-	
-	
 
-	// 과제 다운로드
-	@RequestMapping(value = "/download/images/1.jpg")
-	public String reDocumentDown(HttpServletRequest req, RedirectAttributes redirectAttributes) {
+	// 총 수강인원
+	@RequestMapping(value = "/professor/personnel", method = RequestMethod.POST)
+	public String personnel(@RequestBody Map<String, Object> map, HttpServletRequest req, Model model) {
+		logger.info("report()");
+		service.personnel(map, req, model);
+		return "professor/Personnel";
+	}
+
+	// 과제 조회
+	@RequestMapping(value = "/professor/re_contentform", method = RequestMethod.POST)
+	public String re_contentform(@RequestBody Map<String, Object> map, HttpServletRequest req, Model model) {
+		logger.info("re_contentform()");
+		service.re_contentform(map, req, model);
+		return "professor/re_contentform";
+	}
+
+	// 과제 조회2
+	@RequestMapping(value = "/professor/report_contentform", method = RequestMethod.POST)
+	public String report_contentform(@RequestBody Map<String, Object> map, HttpServletRequest req, Model model) {
+		logger.info("re_contentform()");
+		service.report_contentform(map, req, model);
+		return "professor/Personnel2";
+	}
+
+	// 과제 추가
+	@RequestMapping("/professor/re_insert")
+	public String re_insert(HttpServletRequest req, RedirectAttributes red) {
+		logger.info("re_insert()");
+		service.re_insert(req, red);
+		return "redirect:/professor/report";
+	}
+	// 과제 수정
+	@RequestMapping("/professor/reportupdate")
+	public String reportupdate(HttpServletRequest req, RedirectAttributes red) {
+		logger.info("reportupdate()");
+		service.reportupdate(req, red);
+		return "redirect:/professor/report";
+	}
+	// 과제 삭제
+	@RequestMapping("/professor/reportdelete")
+	public String reportdelete(HttpServletRequest req, RedirectAttributes red) {
+		logger.info("reportdelete()");
+		service.reportdelete(req, red);
+		return "redirect:/professor/report";
+	}
+
+//과제 다운로드
+	@RequestMapping(value = "/professor/file")
+	public String reDocumentDown(HttpServletRequest req, Model model, RedirectAttributes redirectAttributes) {
 
 //	      pk 값으로 해당 도메인 객체의 파일 전체 경로 값을 받은 후
+		String file = req.getParameter("file");
+		System.out.println("file :::" + file);
 
-		File downloadFile = new File(Config.REAL_PATH+"/sasadfs.jpg");
-		
-		req.setAttribute("downloadFile", downloadFile);
-		
+		File downloadFile = new File(Config.FILES2 + file);
+		System.out.println("downloadFile:::"+downloadFile);
+
 		String referer = req.getHeader("Referer");
-		
+
+//	      생성된 객체 파일과 view들을 인자로 넣어 새 ModelAndView 객체를 생성하며 파일을 다운로드
+//	      (자동 rendering 해줌)
+
 		FlashMap fm = RequestContextUtils.getOutputFlashMap(req);
-		
-		if(downloadFile.isFile())
+
+		if (downloadFile.isFile()) {
+			fm.put("downloadFile", downloadFile);
 			return "redirect:/file/true";
+		}
 		else {
 			fm.put("message", "해당 파일이 없습니다.");
 			fm.put("alertIcon", "error");
-			if(referer != null) {
+			if (referer != null) {
 				logger.info(referer);
-				return "redirect:"+referer;
-			}else {
+				return "redirect:" + referer;
+			} else {
 				return "redirect:/";
 			}
 		}
-			
-//	      생성된 객체 파일과 view들을 인자로 넣어 새 ModelAndView 객체를 생성하며 파일을 다운로드
-//	      (자동 rendering 해줌)
 	}
-	
-	@RequestMapping(value="/file/true")
+	//파일이 있을때 타는 컨트롤러
+	@RequestMapping(value = "/file/true")
 	public ModelAndView filedown(HttpServletRequest req) {
-		File downloadFile = (File)req.getAttribute("downloadFile");
+		Map<String, ?> flashMap = RequestContextUtils.getInputFlashMap(req);
+		
+		File downloadFile = (File)flashMap.get("downloadFile");
+		
 		return new ModelAndView("downloadView", "downloadFile", downloadFile);
 	}
 
