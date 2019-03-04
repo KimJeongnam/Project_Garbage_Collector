@@ -35,19 +35,9 @@
 
                                 <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
                                     <c:forEach var="vo" items="${s_myClass}" varStatus="status">
-                                    	<c:choose>
-                                    		<c:when test="${lecName == null}">
-		                                    	<li role="presentation" class="active">
-		                                            <a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" >${vo.lectureName}</a>
+		                                    	<li id="homt" role="presentation">
+		                                            <a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab">${vo.lectureName}</a>
 		                                        </li>
-                                    		</c:when>
-                                    		<c:otherwise>
-                                    			<li role="presentation">
-		                                            <a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" >${vo.lectureName}</a>
-		                                        </li>
-                                    		</c:otherwise>
-                                    	</c:choose>
-                                        
                                     </c:forEach>
                                     <c:forEach var="vo1" items="${v_myClass}" varStatus="status">
                                         <li role="presentation" id="tag_${vo1.lectureName}">
@@ -77,9 +67,22 @@
                 obj.firstLec = firstLec;
                 <c:if test="${lecName != null}">
                 obj.firstLec = '${lecName}';
-                $('#other_tab${lecName}').attr('aria-expanded','true');
-                $('#tag_${lecName}').attr('class', 'active');
+                var firstClass = '${firstClass.lectureName}';
+                if(firstLec == firstClass){
+                	 $('#home-tab').attr('aria-expanded','true');
+                     $('#homt').attr('class', 'active');
+                }else{
+                	 $('#other_tab${lecName}').attr('aria-expanded','true');
+                     $('#tag_${lecName}').attr('class', 'active');
+                }
             	</c:if>
+            	
+                <c:if test="${lecName == null}">
+                $('#home-tab').attr('aria-expanded','true');
+                $('#homt').attr('class', 'active');
+            	</c:if>
+            	
+             	
                 var jsonData = JSON.stringify(obj);
 
                 $.ajax({

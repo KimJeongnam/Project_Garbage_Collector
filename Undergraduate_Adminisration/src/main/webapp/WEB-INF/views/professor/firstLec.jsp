@@ -100,19 +100,19 @@
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">이름 <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" disabled="disabled" class="form-control col-md-7 col-xs-12" name="userName" value=" ${vo.userName}">
-                                <input type="hidden" name="infoCode" value=" ${vo.incode}">
-                                <input type="hidden" name="grade" value=" ${vo.grade}">
-                                <input type="hidden" name="semester2" value=" ${vo.semester2}">
-                                <input type="hidden" name="userName" value=" ${vo.userName}">
-                                <input type="hidden" name="lecName" value=" ${vo.lectureName}">
+                                <input type="text" disabled="disabled" class="form-control col-md-7 col-xs-12" name="userName" value="${vo.userName}">
+                                <input type="hidden" name="infoCode" value="${vo.incode}">
+                                <input type="hidden" name="grade" value="${vo.grade}">
+                                <input type="hidden" name="semester2" value="${vo.semester2}">
+                                <input type="hidden" name="userName" value="${vo.userName}">
+                                <input type="hidden" name="lecName" value="${vo.lectureName}">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">강의명 <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" disabled="disabled" class="form-control col-md-7 col-xs-12" name="lectureName" value=" ${vo.lectureName}">
+                                <input type="text" disabled="disabled" class="form-control col-md-7 col-xs-12" name="lectureName" value="${vo.lectureName}">
 
                             </div>
                         </div>
