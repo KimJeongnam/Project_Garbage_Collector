@@ -116,7 +116,6 @@
 													<th>학번</th>
 													<th>학과(학과코드)</th>
 													<th>학년</th>
-													<th>학적상태</th>
 													<th>연락처</th>
 												</tr>
 											</thead>
@@ -127,16 +126,6 @@
 													<td>${dto.userNumber}</td>
 													<td>${dto.majorName}(${dto.majorNum})</td>
 													<td>${dto.grade}</td>
-													<td><c:if test = "${dto.graduation_state ==0}">
-															재학중
-														</c:if>
-														<c:if test = "${dto.graduation_state ==1}">
-															휴학중
-														</c:if>
-														<c:if test = "${dto.graduation_state ==2}">
-															졸업
-														</c:if>
-													</td>
 													<td>${dto.userCellNum}</td>
 												</tr>
 											</c:forEach>
