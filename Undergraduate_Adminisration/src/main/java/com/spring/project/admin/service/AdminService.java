@@ -80,6 +80,8 @@ public interface AdminService {
 	public void deletePro(HttpServletRequest req,  RedirectAttributes red);
 	
 	//-----------------------------------교직 업무 관리 START----------------------------------
+	// 학사 상태 에따른 redirect 처리
+	public String majorLectureManagementRedirector(HttpServletRequest request, RedirectAttributes redirectAttributes);
 	// 학과 리스트
 	public void getMajors(Map<String, Object> map, Model model);
 	// 학과 삭제
@@ -141,6 +143,10 @@ public interface AdminService {
 	public void LookupWorkRecord(Map<String, Object> map, Model model);
 	
 	public Map<String, Object> CopyPayroll(Map<String, Object> map);
+	
+	public Map<String, Object> ConfirmPayroll(Map<String, Object> map);
+	
+	public Map<String, Object> DeletePayroll(Map<String, Object> map);
 	
 	//---------------회계 END-------------------
 	

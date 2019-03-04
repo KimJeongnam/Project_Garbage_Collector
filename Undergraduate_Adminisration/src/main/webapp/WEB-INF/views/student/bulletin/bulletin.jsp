@@ -52,7 +52,7 @@
 												<td class=" ">${dto.semester}</td>
 												<td class=" "><a
 													href="contentForm?scholarpk=${dto.scholarpk}">${dto.scholarname}</a></td>
-												<td class=" ">${dto.amount}</td>
+												<td class=" ">${dto.amount}원</td>
 											</tr>
 										</c:forEach>
 									</c:if>

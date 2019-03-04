@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.spring.project.admin.service.AdminService;
 import com.spring.project.share.service.ShareService;
@@ -31,11 +32,32 @@ public class ShareController {
 	private static final Logger logger = LoggerFactory.getLogger(ShareController.class);
 
 	@RequestMapping(value = { "/loginForm", "/" })
-	public String login(HttpServletRequest request) {
+	public String login(HttpServletRequest request, Model model, RedirectAttributes redirectAttributes) {
 		logger.info("login()");
 		String url = "share/login";
 
+		Map<String, ?> flashMap = RequestContextUtils.getInputFlashMap(request);
+
+		String message = "";
+		String alertIcon = "";
+
+		if (flashMap != null) {
+			if (flashMap.containsKey("message"))
+				message = (String) flashMap.get("message");
+
+			if (flashMap.containsKey("alertIcon"))
+				alertIcon = (String) flashMap.get("alertIcon");
+		}
+		
 		if (request.getSession().getAttribute("userNumber") != null) {
+			
+			if(message.length()>0)
+				redirectAttributes.addFlashAttribute("message", message);
+
+			if(alertIcon.length()>0)
+				redirectAttributes.addFlashAttribute("alertIcon", alertIcon);
+
+
 			switch ((String) request.getSession().getAttribute("authority")) {
 			case "admin":
 				url = "redirect:" + "/admin/index";
@@ -47,6 +69,12 @@ public class ShareController {
 				url = "redirect:" + "/student/index";
 				break;
 			}
+		} else {
+			if(message.length()>0)
+				model.addAttribute("message", message);
+
+			if(alertIcon.length()>0)
+				model.addAttribute("alertIcon", alertIcon);
 		}
 
 		return url;
@@ -127,6 +155,5 @@ public class ShareController {
 		shareService.getProfessorLectureTime(empNumber, semester, model);
 		return "admin/majorLecMangePage/lectureTimeSelector";
 	}
-	
-	
+
 }

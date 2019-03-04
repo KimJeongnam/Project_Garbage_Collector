@@ -33,6 +33,8 @@ public class LectureVO {
 	private String majorName;
 	private int rank;
 	
+	private int day; // 0,1,2,3,4 : 월,화,수,목,금
+	
 	private int result;
 	
 	public List<LectureTime> getLectureTimes() {
@@ -186,6 +188,12 @@ public class LectureVO {
 	}
 	public void setClassRoom(String classRoom) {
 		this.classRoom = classRoom;
+	}
+	public int getDay() {
+		return day;
+	}
+	public void setDay(int day) {
+		this.day = day;
 	}
 	public int getTimetblCode() {
 		return timetblCode;

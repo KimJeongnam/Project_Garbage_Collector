@@ -46,6 +46,53 @@
 	
 	
 	<!-- ================================================ANDROID=START=============================================== -->
+	
+	<sql id="selectLecTime">
+		select * from lecturetime_view
+	</sql>
+	
+	<sql id="selectStdLec">
+		SELECT * FROM stdlecture
+	</sql>
+	
+	<resultMap type="com.spring.project.student.vo.LectureVO"
+		id="lectureMap">
+		<id property="lecCode" column="leccode" />
+		<result property="day" column="day"/>
+		<collection property="lectureTimes" column="{leccode=leccode,day=day}"
+			select="getLectureTime"></collection>
+	</resultMap>
+
+	<select id="getLectureTime"
+		resultType="com.spring.project.admin.vo.LectureTime">
+		<include refid="selectLecTime"/>
+		<where>
+			lecCode = #{leccode}
+			<if test="day != null">
+			AND TRUNC(timetblcode/10, 0) = #{day}
+			</if>
+		</where>
+		ORDER BY timetblcode
+	</select>
+	
+	<select id="getStdLectureTime_test" parameterType="com.spring.project.student.vo.LectureVO" resultMap="lectureMap">
+		SELECT #{day} as day, r.*
+		FROM(
+		<include refid="selectStdLec"/>
+		<where>
+			userNumber = #{userNumber}
+		</where>
+		) r
+	</select>
+	
+	<select id="getStdLectureTime" parameterType="com.spring.project.student.vo.LectureVO" resultType="com.spring.project.restful.vo.StdLecTime">
+	select * from stdlecturetime
+    where usernumber = #{userNumber}
+    AND TRUNC(timetblcode/10, 0) = #{day}
+	</select>
+	
+	
+	
 	<select id="getUser" resultType="com.spring.project.restful.vo.RestUser">
 	SELECT u.userNumber, u.userPassword, u.userName, u.userImage, u.gender, u.userCellNum
      , std.grade, std.adDate, std.graDate, m.faculty, m.majorName, u.delStatus
@@ -55,5 +102,17 @@
      ON std.majorNum = m.majorNum
      WHERE u.userNumber = #{userNumber}
 	</select>
+	
+	<select id="getLocation" resultType="com.spring.project.restful.vo.Location">
+	SELECT area, locality, thoroughfare, x, y
+    FROM
+    (SELECT ROWNUM rnum, area, locality, thoroughfare, x, y 
+        FROM locations 
+        where area like '%'||#{area}||'%'
+        AND locality like '%'||#{locality}||'%'
+        AND thoroughfare like '%'||#{thoroughfare}||'%')
+    WHERE rnum = 1
+	</select>
 	<!-- ================================================ANDROID=END=============================================== -->
+	
 </mapper>

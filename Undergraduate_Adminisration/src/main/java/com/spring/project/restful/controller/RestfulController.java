@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.project.admin.service.AdminService;
 import com.spring.project.restful.service.RestfulService;
+import com.spring.project.restful.vo.Location;
 import com.spring.project.restful.vo.Message;
 import com.spring.project.restful.vo.ResponseData;
 import com.spring.project.share.vo.Major;
@@ -119,6 +120,28 @@ public class RestfulController {
 		map.put("data", data.getData());
 		
 		return new ResponseEntity<>(map, HttpStatus.OK);
+	}
+	
+	// 남도  시,군,구  동  지역의 x, y 값 가져오는 rest api
+	@ResponseBody
+	@RequestMapping(value="/rest/api/v1.0/getLocation")
+	public ResponseData getLocation(@RequestParam String area
+			, @RequestParam String locality
+			, @RequestParam String thoroughfare) {
+		Location location = new Location();
+		location.setArea(area);
+		location.setLocality(locality);
+		location.setThoroughfare(thoroughfare);
+		/*logger.info("getLocation()");
+		logger.info(area+" "+locality+" "+thoroughfare);*/
+		return service.getLocation(location);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/rest/api/v1.0/getLectureTime")
+	public ResponseData getLectureTime(@RequestParam String stdNumber, @RequestParam int day) {
+		logger.info("getLectureTime()");
+		return service.getLectureTime(stdNumber, day);
 	}
 }
 //****************************************************** 김 정 남 ******************************************************

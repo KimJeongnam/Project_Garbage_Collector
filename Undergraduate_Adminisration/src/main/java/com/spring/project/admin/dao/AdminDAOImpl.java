@@ -275,6 +275,12 @@ public class AdminDAOImpl implements AdminDAO{
 		}
 
 	//-------------------------------------------------------------교직 업무 관리 START----------------------------------------------
+	// 학사 상태 조회
+	@Override
+	public int getBachelorStatus() {
+		return sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.getBachelorStatus");
+	}	
+	
 	// 학과 리스트 갯수 구하기
 	@Override
 	public int majorListCount(Map<String, Object> map) {
@@ -416,11 +422,6 @@ public class AdminDAOImpl implements AdminDAO{
 	}
 
 	@Override
-	public int CopyPayroll(Map<String, Object> map) {
-		return sqlSession.insert("com.spring.project.admin.dao.AdminDAO.CopyPayroll", map);
-	}
-
-	@Override
 	public List<payrollVO> getEmpNumber() {
 		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.getEmpNumber");
 	}
@@ -430,8 +431,50 @@ public class AdminDAOImpl implements AdminDAO{
 		return sqlSession.insert("com.spring.project.admin.dao.AdminDAO.CopyAllEmployeesDetail", empNumber);
 	}
 
+	@Override
+	public int getCopyPayrollFrom(Map<String, Object> map) {
+		return sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.getCopyPayrollFrom", map);
+	}
+	
+	@Override
+	public void CopyPayroll(Map<String, Object> map) {
+		sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.CopyPayroll", map);
+	}
+	
+	@Override
+	public int ConfirmPayroll(Map<String, Object> map) {
+		return sqlSession.update("com.spring.project.admin.dao.AdminDAO.ConfirmPayroll", map);
+	}
 
+	@Override
+	public int DeletePayroll(Map<String, Object> map) {
+		return sqlSession.delete("com.spring.project.admin.dao.AdminDAO.DeletePayroll", map);
+	}
+
+	@Override
+	public int DeleteRegisterDetail(Map<String, Object> map) {
+		return sqlSession.delete("com.spring.project.admin.dao.AdminDAO.DeleteRegisterDetail", map);
+	}
+
+	@Override
+	public int getPaymentListPk(String date) {
+		return sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.getPaymentListPk", date);
+	}
+
+	@Override
+	public int insertPayrollwith0(List<Map<String, Object>> datas) {
+		return sqlSession.insert("com.spring.project.admin.dao.AdminDAO.insertPayrollwith0", datas);
+	}
+
+	@Override
+	public int insertPayrollwith1(Map<String, Object> map) {
+		return sqlSession.update("com.spring.project.admin.dao.AdminDAO.insertPayrollwith1", map);
+	}
+
+	
 	//------------------------------------------------------회계 관리 END----------------------------------------------------------
+
+	
 
 	
 	

@@ -10,7 +10,7 @@
 			class="table table-striped jambo_table bulk_action">
 			<thead>
 				<tr class="headings">
-					<th><input type="checkbox" id="allCheck2"></th>
+					<th><input type="checkbox" id="allCheck2" onclick="allCheck2_event();"></th>
 					<th>교직원번호</th>
 					<th>교직원명</th>
 					<th>부서/전공</th>
@@ -61,5 +61,4 @@
 </body>
 <!--  Custome Theme Scripts -->
 <script src="${staticPath}/build/js/custom2.js"></script>
-<script src="${staticPath }/js/account/accountManage.js"></script>
 </html>

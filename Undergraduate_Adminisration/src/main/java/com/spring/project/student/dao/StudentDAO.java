@@ -43,6 +43,9 @@ public interface StudentDAO {
 	// 강의 체크
 	public int checkStudentInLecture2(Map<String, Object> map2);
 	
+	// 듣고자 하는 강의 학점 합 
+	public int getLectureScoreSum(Map<String, Object> map);
+	
 	// 강의 신청
 	public int applyLecture(Map<String, Object> map);
 	
@@ -66,6 +69,9 @@ public interface StudentDAO {
 	
 	//과제 제출
 	public Report_subVO reportsub(Map<String, Object> map);
+	
+	//과제 제출 완료
+	public int s_fileUpload(Report_subVO vo);
 	
 	//장학금 갯수 
 	public int getArticleCnt(Map<String,Object> map);

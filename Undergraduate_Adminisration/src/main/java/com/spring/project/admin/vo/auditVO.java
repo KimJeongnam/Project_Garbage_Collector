@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class auditVO {
 	
-	private String schinfopk; //장학 신청 완료 콛
+	private String schinfopk; //장학 신청 완료 코드
 	private String userName; //유저 이름
 	private int grade; // 학년
 	private int semester; //학기

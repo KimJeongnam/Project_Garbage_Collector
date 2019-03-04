@@ -105,6 +105,8 @@ public interface AdminDAO {
 	
 	
 	//---------------교직 업무 관리 START-------------------
+	// 현재 학사 상태 조회
+	public int getBachelorStatus();
 	// 학과 갯수 조회
 	public int majorListCount(Map<String, Object> map);
 	// 학과 조회
@@ -175,11 +177,26 @@ public interface AdminDAO {
 	
 	public List<payrollVO> ConfirmOvertime(Map<String, Object> map);
 	
-	public int CopyPayroll(Map<String, Object> map);
+	public int getCopyPayrollFrom(Map<String, Object> map);
+	
+	public void CopyPayroll(Map<String, Object> map);
 	
 	public List<payrollVO> getEmpNumber();
 	
 	public int CopyAllEmployeesDetail(List<payrollVO> empNumber);
+	
+	public int ConfirmPayroll(Map<String, Object> map);
+	
+	public int DeletePayroll(Map<String, Object> map);
+	
+	public int DeleteRegisterDetail(Map<String, Object> map);
+	
+	public int getPaymentListPk(String date);
+	
+	public int insertPayrollwith0(List<Map<String, Object>> datas);
+	
+	public int insertPayrollwith1(Map<String, Object> map);
+	
 	//---------------회계 관리 END -------------------
 	
 	

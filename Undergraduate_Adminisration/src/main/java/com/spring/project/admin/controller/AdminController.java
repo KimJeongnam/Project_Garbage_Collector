@@ -126,11 +126,7 @@ public class AdminController {
 	/* 장학단---------------------------------끝 */
 
 	// -------------------------
-	@RequestMapping("/admin/majorLectureManagement")
-	public String majorLectureManagement(Model model) {
-
-		return "admin/majorLecMangePage/majorLectureManagement";
-	}
+	
 
 	@RequestMapping("/admin/facultyManage")
 	public String facultyManage() {
@@ -289,6 +285,17 @@ public class AdminController {
 	/*
 	 * 진행중 : ... 완료 : *
 	 */
+	
+	@RequestMapping("/admin/major_lecture_Manager")
+	public String major_lecture_Manager(HttpServletRequest request, RedirectAttributes redirectAttributes) {
+		String returnUrl = service.majorLectureManagementRedirector(request, redirectAttributes);
+		return returnUrl;
+	}
+	
+	@RequestMapping("/admin/majorLectureManagement")
+	public String majorLectureManagement(HttpServletRequest request, Model model, RedirectAttributes redirectAttributes) {
+		return "admin/majorLecMangePage/majorLectureManagement";
+	}
 
 	// 학과 조회(게시판 형식) *
 	@RequestMapping(value = "/admin/major_lecture_Manager/getMajors", method = RequestMethod.POST)
@@ -352,7 +359,7 @@ public class AdminController {
 		return "admin/majorLecMangePage/professorSelector";
 	}
 
-	// 교수 리스트 페이지 ...
+	// 교수 리스트 페이지 *
 	@RequestMapping(value = "/admin/major_lecture_Manager/getProfessorList", method = RequestMethod.POST)
 	public String getProfessorList(@RequestBody Map<String, Object> map, Model model) {
 		logger.info("getProfessorList()");
@@ -360,7 +367,7 @@ public class AdminController {
 		return "admin/majorLecMangePage/professorList";
 	}
 
-	// 강의 추가
+	// 강의 추가 *
 	@ResponseBody
 	@RequestMapping(value = "/admin/major_lecture_Manager/insertLecture", method = RequestMethod.POST)
 	public Map<String, Object> insertLecture(@RequestBody LectureVO lecture) {
@@ -369,7 +376,7 @@ public class AdminController {
 		return service.addLecture(lecture);
 	}
 
-	// 강의 수정
+	// 강의 수정 *
 	@ResponseBody
 	@RequestMapping(value = "/admin/major_lecture_Manager/modifyLecture", method = RequestMethod.POST)
 	public Map<String, Object> modifyLecture(@RequestBody LectureVO lecture) {
@@ -381,7 +388,7 @@ public class AdminController {
 		return service.modifyLecture(lecture);
 	}
 
-	// 강의 삭제
+	// 강의 삭제 *
 	@ResponseBody
 	@RequestMapping(value = "/admin/major_lecture_Manager/deleteLecture", method = RequestMethod.POST)
 	public Map<String, Object> deleteLecture(@RequestBody Map<String, Object> map) {
@@ -470,6 +477,29 @@ public class AdminController {
 	public Map<String, Object> CopyPayroll(@RequestBody Map<String, Object> map) {
 		logger.info("CopyPayroll");
 		return service.CopyPayroll(map);
+	}
+	
+	//
+	@ResponseBody
+	@RequestMapping(value="/admin/ConfirmPayroll", method= RequestMethod.POST)
+	public Map<String, Object> ConfirmPayroll(@RequestBody Map<String, Object> map) {
+		logger.info("ConfirmPayroll");
+		return service.ConfirmPayroll(map);
+	}
+	
+	//
+	@ResponseBody
+	@RequestMapping(value="/admin/DeletePayroll", method= RequestMethod.POST)
+	public Map<String, Object> DeletePayroll(@RequestBody Map<String, Object> map) {
+		logger.info("DeletePayroll");
+		return service.DeletePayroll(map);
+	}
+	
+	// 
+	@RequestMapping(value = "/admin/LookupConfirmedWorkRecord", method = RequestMethod.POST)
+	public String LookupConfirmedWorkRecord(@RequestBody Map<String, Object> map, Model model) {
+		service.ConfirmOvertime(map, model);
+		return "admin/accountingManagement/LookupConfirmedWorkRecord";
 	}
 	
 

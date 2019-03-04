@@ -810,6 +810,29 @@ public class AdminServiceImpl extends Board implements AdminService {
 	}
 
 	// -----------------------------------------------------------------교직업무관리START-------------------------------------------------
+	
+
+	@Override
+	public String majorLectureManagementRedirector(HttpServletRequest request, RedirectAttributes redirectAttributes) {
+		int status = 0;
+		
+		String referer = request.getHeader("referer");
+		
+		status = dao.getBachelorStatus();
+		
+		if(status != 3) {
+			if(referer!=null) {
+				redirectAttributes.addFlashAttribute("message", "종강 상태시 접근 가능합니다.");
+				return "redirect:"+referer;
+			}else {
+				redirectAttributes.addFlashAttribute("message", "종강 상태시 접근 가능합니다.");
+				return "redirect:/admin/index";
+			}
+		}else {
+			return "redirect:/admin/majorLectureManagement";
+		}
+	}
+	
 	@Override
 	public void getMajors(Map<String, Object> map, Model model) {
 		setList(map, model, new BoardInterface() {
@@ -826,6 +849,7 @@ public class AdminServiceImpl extends Board implements AdminService {
 
 		});
 	}
+
 
 	// 학과 삭제
 	@Override
@@ -1008,7 +1032,6 @@ public class AdminServiceImpl extends Board implements AdminService {
 	}
 	
 	// -------------------------------------------------------교직업무관리END-------------------------------------------------
-	
 
 	@Override
 	public void judge2(Map<String, Object> map, Logger logger, Model model) {
@@ -1139,43 +1162,30 @@ public class AdminServiceImpl extends Board implements AdminService {
 
 	@Override
 	public Map<String, Object> insertPayroll(Map<String, Object> map) {
-		/*payrollVO vo = new payrollVO();
-		vo.setImputedYear((String)map.get("imputedYear") + (String)map.get("imputedMonth"));
-		vo.setPaymentClassfication((String)map.get("paymentClassfication"));
-		vo.setBeginningPeriod((Date)map.get("beginningPeriod"));
-		vo.setEndPeriod((Date)map.get("endPeriod"));
-		vo.setPaymentDate((Date)map.get("paymentDate"));
-		vo.setPaymentYear((String)map.get("paymentYear") + (String)map.get("paymentMonth"));
-		vo.setRegisterName((String)map.get("registerName"));*/
-
-		/*System.out.println("imputedYear : " + map.get("imputedYear") + map.get("imputedMonth"));
-		System.out.println("paymentClassfication :" + map.get("paymentClassfication"));
-		System.out.println("beginningPeriod :" + (map.get("beginningPeriod")));
-		System.out.println("endPeriod :" + (map.get("paymentDate")));
-		System.out.println("paymentYear :" + map.get("paymentYear") + map.get("paymentMonth"));
-		System.out.println("registerName :" + map.get("registerName"));*/
-
 		int cnt = dao.insertPayroll(map);
+		String date = (String)map.get("imputedYear");
+		
+		int paymentListNum = dao.getPaymentListPk(date);
 		
 		Map<String, Object> responseData = new HashMap<String,Object>();
+		List<Map<String, Object>> requestlist = new ArrayList<Map<String, Object>>();
+		
 		if (cnt == 1) {
+			List<payrollVO> empNumbers = dao.getEmpNumber();
+			
+			for(payrollVO vo : empNumbers) {
+				Map<String, Object> data = new HashMap<String, Object>();
+				data.put("paymentListNum", paymentListNum);
+				data.put("empNumber", vo.getEmpNumber());
+				requestlist.add(data);
+			}
+			dao.insertPayrollwith0(requestlist);
 			responseData.put("message", "등록이 완료되었습니다.");
 		}
 		return responseData;
 	}
 	@Override
 	public Map<String, Object> ConfirmationWorkRecord(List<Map<String, Object>> data, Logger logger) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		/*String[] overtime = (String[])map.get("overtime");
-		String[] empNumber = (String[])map.get("empNumber");
-		System.out.println("overtime : " + overtime);
-		System.out.println("empNumber : " + empNumber);
-		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-		for(int i=0; i<overtime.length; i++) {
-			map.put("overtime", overtime[i]);
-			map.put("empNumber", empNumber[i]);
-			list.add(map);
-		}*/
 		Map<String, Object> responseData = new HashMap<String,Object>();
 			
 		int cnt1 = dao.ConfirmationWorkRecord(data);
@@ -1208,6 +1218,8 @@ public class AdminServiceImpl extends Board implements AdminService {
 	public void ConfirmOvertime(Map<String, Object> map, Model model) {
 		List<payrollVO> dtos = dao.ConfirmOvertime(map);
 		model.addAttribute("dtosF", dtos);
+		String payrollStatus = (String)map.get("payrollStatus");
+		model.addAttribute("payrollStatus", payrollStatus);
 	}
 
 	@Override
@@ -1224,17 +1236,48 @@ public class AdminServiceImpl extends Board implements AdminService {
 
 	@Override
 	public Map<String, Object> CopyPayroll(Map<String, Object> map) {
-		List<payrollVO> empNumber = dao.getEmpNumber();
-		int cnt1 = dao.CopyAllEmployeesDetail(empNumber);
 		
-		// mapper 없음
-		int cnt2 = dao.CopyPayroll(map);
-		int cnt= cnt1 + cnt2;
+		int payrollCnt = dao.getCopyPayrollFrom(map); 
+		map.put("payrollCnt", payrollCnt);
+		System.out.println("map :"+map);
+		dao.CopyPayroll(map);
+		Map<String, Object> responseData = new HashMap<String,Object>();
+		if(payrollCnt != 0) {
+			responseData.put("message","저장이 완료되었습니다");
+		} else {
+			responseData.put("message","CopyPayroll() Error");
+		}
+		return responseData;
+	}
+
+	@Override
+	public Map<String, Object> ConfirmPayroll(Map<String, Object> map) {
+		System.out.println("map :"+map);
+		int cnt = dao.ConfirmPayroll(map);
+		System.out.println("cnt :"+cnt);
 		Map<String, Object> responseData = new HashMap<String,Object>();
 		if(cnt != 0) {
 			responseData.put("message","저장이 완료되었습니다");
 		} else {
-			responseData.put("message","CopyPayroll() Error");
+			responseData.put("message","ConfirmPayroll() Error");
+		}
+		return responseData;
+	}
+
+	@Override
+	public Map<String, Object> DeletePayroll(Map<String, Object> map) {
+		System.out.println("map :"+map);
+		int cnt1 = dao.DeletePayroll(map);
+		int cnt2 = dao.DeleteRegisterDetail(map);
+		int cnt = cnt1 + cnt2;
+		System.out.println("cnt1 :"+cnt);
+		System.out.println("cnt2 :"+cnt);
+		System.out.println("cnt :"+cnt);
+		Map<String, Object> responseData = new HashMap<String,Object>();
+		if(cnt != 0) {
+			responseData.put("message","삭제되었습니다");
+		} else {
+			responseData.put("message","DeletePayroll() Error");
 		}
 		return responseData;
 	}

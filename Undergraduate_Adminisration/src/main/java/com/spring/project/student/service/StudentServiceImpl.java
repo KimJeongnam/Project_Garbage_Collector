@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.project.admin.vo.ScholarpkVO;
@@ -34,6 +35,10 @@ import com.spring.project.student.vo.Report_subVO;
 import com.spring.project.student.vo.S_informationVO;
 import com.spring.project.student.vo.middle_classVO;
 import com.spring.project.student.vo.report_tblVO;
+
+import java.io.File;
+import java.util.Enumeration;
+
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -150,7 +155,6 @@ public class StudentServiceImpl implements StudentService {
 	public Map<String, Object> applyLecture(Map<String, Object> map, Logger logger) {
 		String userNumber = (String) map.get("userNumber");
 		String lecCode = (String) map.get("lecCode");
-
 		map.put("userNumber", userNumber);
 		map.put("lecCode", lecCode);
 		
@@ -174,7 +178,12 @@ public class StudentServiceImpl implements StudentService {
 			System.out.println("cnt3 : " + cnt2); 
 			
 			if(cnt2 == 1){
-				dao.applyLecture(map);
+				int lecSum = dao.getLectureScoreSum(map);
+				if(lecSum > 18) {
+					responseData.put("message","수강신청실패-18학점 이상 강의를 신청할수 없습니다.");
+				} else {
+					dao.applyLecture(map);
+				}
 				} 
 			if(cnt2 != 1){
 				responseData.put("message","수강신청실패-강의 신청인원이 마감되었습니다."); }
@@ -219,6 +228,8 @@ public class StudentServiceImpl implements StudentService {
 				fis.close();
 				fos.close();
 			}
+			
+			
 			String image = file.getOriginalFilename();
 			String userNumber = (String) req.getSession().getAttribute("userNumber");
 
@@ -316,7 +327,7 @@ public class StudentServiceImpl implements StudentService {
 		
 	}
 	
-	//과제 관리
+	//과제 관리2
 	@Override
 	public void reportcode(Map<String, Object> map, Logger logger, Model model) {
 		System.out.println("reportcode"+ map.get("reportcode"));
@@ -331,6 +342,75 @@ public class StudentServiceImpl implements StudentService {
 		model.addAttribute("vo", vo);
 		
 	}
+	//과제 제출 완료
+	@Override
+	public void assignment(MultipartHttpServletRequest req, RedirectAttributes red) {
+		MultipartFile file = req.getFile("website");
+
+		String saveDir = req.getSession().getServletContext().getRealPath("/resources/file");
+		String realDir = Config.FILES; // 저장
+																																				// 경로
+		// 각자의 이미지 저장경로 수정하셈
+		try {
+			if (!file.getOriginalFilename().equals("")) {
+				file.transferTo(new File(saveDir + file.getOriginalFilename()));
+
+				FileInputStream fis = new FileInputStream(saveDir + file.getOriginalFilename());
+				FileOutputStream fos = new FileOutputStream(realDir + file.getOriginalFilename());
+
+				int data = 0;
+
+				while ((data = fis.read()) != -1) {
+					fos.write(data);
+				}
+				fis.close();
+				fos.close();
+			}
+			String Hwp = file.getOriginalFilename();
+			String userNumber = (String) req.getSession().getAttribute("userNumber");
+			int reportcode = Integer.parseInt(req.getParameter("reportcode"));
+			String title = req.getParameter("title");
+			String userName = req.getParameter("userName");
+
+			Report_subVO vo = new Report_subVO();
+
+			vo.setUserNumber(userNumber);
+			vo.setReportcode(reportcode);
+			vo.setTitle(title);
+			vo.setUserName(userName);
+			
+			System.out.println("userNumber"+userNumber);
+			System.out.println("reportcode"+reportcode);
+			System.out.println("title"+title);
+			System.out.println("userName"+userName);
+			
+
+			String hwps = "";
+
+			hwps = "/file/" + Hwp;
+			System.out.println("img" + hwps);
+
+			vo.setFileName(hwps);
+
+			int fileUpload = dao.s_fileUpload(vo);
+
+			System.out.println("파일제출 fileUpload : " + fileUpload);
+			
+			/*ShareUserInfo user = (ShareUserInfo) req.getSession().getAttribute("user"); */
+
+			if (fileUpload == 1) {
+				red.addFlashAttribute("message", "제출이 완료 되었습니다.");
+			}
+			if (fileUpload != 1)
+				red.addFlashAttribute("message", "제출이 실패 했습니다. 다시한번 확인 바랍니다");
+
+		} catch (IOException e) {
+			e.printStackTrace();
+
+		}
+	}
+
+
 	
 	
 	//장학금  글 목록
@@ -349,6 +429,12 @@ public class StudentServiceImpl implements StudentService {
 		int pageCount = 0; // 페이지 갯수
 		int startPage = 0; // 시작 페이지
 		int endPage = 0; // 마지막 페이지
+		
+		if(map.get("year") != "0") {
+			map.put("year", map.get("year"));
+			map.put("smester", map.get("smester"));
+			}
+		System.out.println("year " +  map.get("year") + map.get("smester"));
 
 		if (!map.containsKey("pageSize")) {
 			pageSize = 10;
@@ -374,10 +460,6 @@ public class StudentServiceImpl implements StudentService {
 		map.put("start", start);
 		map.put("end", end);
 		
-		if(map.get("year") != "0") {
-		map.put("year", map.get("year"));
-		map.put("smester", map.get("smester"));
-		}
 		
 		if (end > cnt)
 			end = cnt;
@@ -429,6 +511,7 @@ public class StudentServiceImpl implements StudentService {
 		
 		
 	}
+	
 	//장학금  수혜 내역 목록
 	@Override
 	public void management(Map<String, Object> map, Logger logger, Model model) {
@@ -621,6 +704,6 @@ public class StudentServiceImpl implements StudentService {
 		int applyCredit = dao.ApplyCredit(userNumber);
 		model.addAttribute("applyCredit", applyCredit);
 	}
-	
+
 
 }
