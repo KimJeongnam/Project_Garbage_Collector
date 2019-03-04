@@ -193,7 +193,7 @@
 			alert("장학금 금액을 잘못 입력 하셨습니다");
 		 return;
 		 }
-		} 
+		}
 		
 	  function checkEditer() {
 		var scholarname = document.inputform.scholarname.value;
