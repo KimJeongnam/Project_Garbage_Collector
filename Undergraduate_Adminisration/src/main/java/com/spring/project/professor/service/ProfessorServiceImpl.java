@@ -4,9 +4,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.sql.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -15,9 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.servlet.FlashMap;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.spring.project.professor.dao.ProfesserDAO;
 import com.spring.project.professor.vo.ClassStudentVO;
@@ -57,6 +55,7 @@ public class ProfessorServiceImpl implements ProfessorService {
 
 		String saveDir = req.getSession().getServletContext().getRealPath("/resources/images");
 		String realDir = Config.REAL_PATH; // 저장
+		String fileName = UUID.randomUUID().toString()+"-"+file.getOriginalFilename();
 																																				// 경로
 		// 각자의 이미지 저장경로 수정하셈
 		try {
@@ -64,7 +63,7 @@ public class ProfessorServiceImpl implements ProfessorService {
 				file.transferTo(new File(saveDir + file.getOriginalFilename()));
 
 				FileInputStream fis = new FileInputStream(saveDir + file.getOriginalFilename());
-				FileOutputStream fos = new FileOutputStream(realDir + file.getOriginalFilename());
+				FileOutputStream fos = new FileOutputStream(realDir + fileName);
 
 				int data = 0;
 
@@ -74,16 +73,13 @@ public class ProfessorServiceImpl implements ProfessorService {
 				fis.close();
 				fos.close();
 			}
-			String image = file.getOriginalFilename();
 			String userNumber = (String) req.getSession().getAttribute("userNumber");
 
 			MyPageVO vo = new MyPageVO();
 
 			vo.setUserNumber(userNumber);
 
-			String img = "";
-
-			img = "/images/" + image;
+			String img = "/images/" + fileName;
 
 			vo.setUserImage(img);
 

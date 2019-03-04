@@ -57,7 +57,7 @@ public class ShareServiceImpl implements ShareService{
 			request.getSession().setAttribute("authority", "professor");
 			redirectUrl = "/professor/index";
 		}else if(authorities.stream().filter(o->o.getAuthority().equals("ROLE_STUDENT")).findAny().isPresent()) {
-			redirectUrl = "/student/index";
+			redirectUrl = "/student/personalProfile";
 			request.getSession().setAttribute("authority", "student");
 			user = dao.getStudentInfo(userNumber);
 		}
