@@ -250,12 +250,6 @@
                                         <li><a href="GPA">성적조회</a></li>
                                     </ul>
                                 </li>
-                                <li><a><i class="fa fa-users"></i> 학적<span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu" style="">
-                                        <li><a href="${authPath }/tempSchoolLeave">휴학신청</a></li>
-                                        <li><a href="${authPath }/backToSchool">복학신청</a></li>
-                                    </ul>
-                                </li>
                                 <li><a><i class="fa fa-desktop"></i> 장학관리 <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu" style="">
                                         <li><a href="${authPath }/bulletin">장학금 신청 & 수혜내역</a></li>

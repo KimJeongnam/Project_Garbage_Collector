@@ -363,15 +363,15 @@
 						          and u.userNumber = s.stdNumber
 							      and sc.lecCode = l.lecCode(+)
 							      and sc.infoCode=g.infoCode(+) 
-							      and sc.status = 1
-							      and s.stdNumber = #{userNumber}
-                                  and g.semester is not null
+							      and sc.status = 3
+							      and g.semester is not null
+							      and s.stdNumber = #{userNumber}     
 							 order by l.lecCode asc) r
 	</select>
 
 	<!-- 신청 학점 -->
 	<select id="ApplyCredit" parameterType="String" resultType="int">
-		select sum(lectureScore) as ApplyCredit from mylectureview where
+		select sum(lectureScore) as ApplyCredit from lectureviewtest where
 		userNumber = #{userNumber}
 	</select>
 	
@@ -383,7 +383,7 @@
 		  and u.userNumber = s.stdNumber
 		  and sc.lecCode = l.lecCode(+)
 		  and sc.infoCode=g.infoCode(+) 
-		  and sc.status = 1
+		  and sc.status = 3
 		  and s.stdNumber = #{userNumber}
 		  and credit != 'F' AND credit is not null
 	</select>

@@ -36,7 +36,7 @@
 
 		<section class="panel">
 
-			<div class="x_title">
+			<div class="x_title">`
 				<h2>운동역학</h2>
 				<div class="clearfix"></div>
 			</div>
