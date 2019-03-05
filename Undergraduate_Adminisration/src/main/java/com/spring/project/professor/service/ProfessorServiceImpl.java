@@ -258,13 +258,16 @@ public class ProfessorServiceImpl implements ProfessorService {
 	
 	//학점입력 페이지
 	@Override
-	public void score(HttpServletRequest req, Model model) {
+	public String score(HttpServletRequest req, Model model, RedirectAttributes red) {
 		String userNumber = (String) req.getSession().getAttribute("userNumber");
+		String referer = req.getHeader("referer");
+		
+		
 		
 		String lecName = null;
-		if(req.getParameter("lecName")!=null)
+		if(req.getParameter("lecName")!=null) {
 			lecName = req.getParameter("lecName");
-		
+		}
 		
 		List<MyClassVO> s_myClass = dao.s_myClass(userNumber);
 		
@@ -273,13 +276,30 @@ public class ProfessorServiceImpl implements ProfessorService {
 		List<MyClassVO> v_myClass = dao.v_myClass(userNumber);
 		
 		System.out.println("교수 강의 목록  v_myClass : " + v_myClass);
+		System.out.println("s_MyCalss size : "+s_myClass.size());
 		
-		MyClassVO vo = s_myClass.get(0);
 		
-		model.addAttribute("firstClass",vo);
-		model.addAttribute("v_myClass",v_myClass);
-		model.addAttribute("s_myClass",s_myClass);
-		model.addAttribute("lecName", lecName);
+
+		
+		if(s_myClass.size() != 0) {
+			MyClassVO vo = s_myClass.get(0);
+			model.addAttribute("firstClass",vo);
+			model.addAttribute("v_myClass",v_myClass);
+			model.addAttribute("s_myClass",s_myClass);
+			model.addAttribute("lecName", lecName);
+			return "/professor/score";
+		}else {
+			if(referer!=null) {
+				red.addFlashAttribute("message", "진행중인 강의가 없습니다.");
+				return "redirect:"+referer;
+			}else {
+				red.addFlashAttribute("message", "진행중인 강의가 없습니다.");
+				return "redirect:/admin/index";
+			}
+		}
+		
+
+		
 	}
 	//학점관리 첫번째 강의부분
 	@Override
