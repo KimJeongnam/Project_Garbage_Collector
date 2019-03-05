@@ -109,10 +109,10 @@ public class ProfessorController {
 	//////////////////////////////////////// 학점관리
 	// 학점관리 진입
 	@RequestMapping("/professor/score")
-	public String score(HttpServletRequest req, Model model) {
+	public String score(HttpServletRequest req, Model model, RedirectAttributes red) {
 		logger.info("score()");
-		service.score(req, model);
-		return "professor/score";
+		String returnUrl = service.score(req, model, red);
+		return returnUrl;
 	}
 
 	// 학점관리 첫번째 탭

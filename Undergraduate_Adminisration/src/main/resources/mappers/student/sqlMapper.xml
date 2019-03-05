@@ -109,8 +109,8 @@
 	<!-- 시간표 조회 -->
 	<select id="schoolTimeTable" parameterType="String"
 		resultType="com.spring.project.student.vo.LectureVO">
-		select * from timetableview where userNumber =
-		#{userNumber}
+		SELECT dense_rank()over(order by lecCode) as rank , r.*
+		from (select * from timetableview where userNumber =#{userNumber}) r
 	</select>
 
 	<!-- 시간표 Hover -->
@@ -150,10 +150,10 @@
 	<!-- 듣고자 하는 강의 학점 합 -->
 	<select id="getLectureScoreSum" parameterType="java.util.Map"
 		resultType="int">
-		SELECT (select sum(lecturescore) from studentClassInfo s,
+		SELECT NVL((select sum(lecturescore) from studentClassInfo s,
 		lecture l where s. lecCode=l.lecCode group by userNumber
 		having
-		userNumber=#{userNumber})+(SELECT lecturescore from lecture where
+		userNumber=#{userNumber}), 0)+(SELECT lecturescore from lecture where
 		leccode = #{lecCode}) as lecturescoreSum from dual
 	</select>
 
@@ -386,5 +386,15 @@
 		  and sc.status = 3
 		  and s.stdNumber = #{userNumber}
 		  and credit != 'F' AND credit is not null
+	</select>
+	
+	<!-- 신청 기간 체크 -->
+	<select id="getBachelorStatus" resultType="int">
+		select * from bachelor_status
+	</select>
+	
+	<!-- 총 신청학점 -->
+	<select id="getTotalLecPoint" parameterType="String" resultType="int">
+		select sum(lecturescore) from lecture l, studentClassInfo s where l.lecCode=s.lecCode and userNumber = #{userNumber}
 	</select>
 </mapper>

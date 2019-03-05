@@ -576,6 +576,11 @@
                 event.preventDefault();
             }
         });
+        $('input[type="number"]').keydown(function() {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+            }
+        });
 
 
 

@@ -156,10 +156,18 @@ public class StudentController {
 		return "student/backToSchool";
 	}
 	
+	// 수강신청 페이지 진입(종강 개강 시기에 따라)
+	@RequestMapping("/student/lectureList_Manager")
+	public String lectureList_Manager(HttpServletRequest req, RedirectAttributes red) {
+		String returnUrl = service.lectureList_Manager(req, red);
+		return returnUrl;
+	}
+	
 	// 수강신청 페이지
 	@RequestMapping(value="/student/lectureList", method=RequestMethod.GET)
-	public String lectureList(Model model) {
+	public String lectureList(HttpServletRequest req, Model model) {
 		service.lectureListMajor(model);
+		service.bigschoolTimeTable(req, model);
 		return "student/lecture&timetable/lectureListPage";
 	}
 	
@@ -169,7 +177,6 @@ public class StudentController {
 		logger.info("lectureList");
 		int grantedSemester = (Integer)request.getSession().getAttribute("semester");
 		map.put("grantedSemester", grantedSemester);
-		
 		service.lectureList(map, logger, model);
 		return "student/lecture&timetable/lectureList";
 	}

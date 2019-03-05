@@ -15,11 +15,11 @@
         <div class="col-md-6 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>학과별 학점 평균<small>???</small></h2>
+                    <h2>학과별 그래프<small>선택 비교 가능</small></h2>
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
-                    <div id="major_chart" style="width:100%; height:280px;"></div>
+                    <div id="major_chart" style="width:100%; height:347px;"></div>
                 </div>
             </div>
         </div>
@@ -27,7 +27,7 @@
         <div class="col-md-6 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>단과대별 학점 평균<small>하..</small></h2>
+                    <h2>단과대별 학점 평균<small>선택 비교 가능</small></h2>
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
@@ -38,22 +38,22 @@
         <div class="col-md-6 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>강의별 학점 평균<small>후..</small></h2>
+                    <h2>강의별 학점 평균<small>선택 비교 가능</small></h2>
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
-                     <div id="mg_chart" style="width:100%; height:300px;"></div>
+                     <div id="mg_chart" style="width:100%; height:350px;"></div>
                 </div>
             </div>
         </div>
         <div class="col-md-6 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>학년별 학점 평균<small>스바</small></h2>
+                    <h2>학년별 학점 평균<small></small></h2>
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
-                     <div id="lvl_chart" style="height:350px;"></div>
+                     <div id="lvl_chart" style="height:349px;"></div>
                 </div>
             </div>
         </div>
@@ -109,7 +109,31 @@
 					  color: 'rgba(200,200,200,0.3)'
 				  }
 			  }
-		  },
+		  },toolbox: {
+  			  show: true,
+  			  feature: {
+  				magicType: {
+  				  show: true,
+  				  type: ['pie', 'funnel'],
+  				  option: {
+  					funnel: {
+  					  x: '25%',
+  					  width: '50%',
+  					  funnelAlign: 'center',
+  					  max: 1548
+  					}
+  				  }
+  				},
+  				restore: {
+  				  show: true,
+  				  title: "새로고침"
+  				},
+  				saveAsImage: {
+  				  show: true,
+  				  title: "이미지로 저장"
+  				}
+  			  }
+  			},
 
 		  dataZoom: {
 			  dataBackgroundColor: '#eee',
@@ -327,11 +351,11 @@
   				},
   				restore: {
   				  show: true,
-  				  title: "Restore"
+  				  title: "새로고침"
   				},
   				saveAsImage: {
   				  show: true,
-  				  title: "Save Image"
+  				  title: "이미지로 저장"
   				}
   			  }
   			},
@@ -481,7 +505,6 @@
 			  echartBar.setOption({
 				title: {
 					text: '학년별 분류',
-					subtext: '1 - 4 학년 만 수렴'
 				},
 				tooltip: {
 				  trigger: 'axis'
@@ -548,7 +571,7 @@
 
 			  echartBar.setOption({
 				title: {
-				  text: '학과별 분류',
+				  text: '',
 				
 				},
 				tooltip: {

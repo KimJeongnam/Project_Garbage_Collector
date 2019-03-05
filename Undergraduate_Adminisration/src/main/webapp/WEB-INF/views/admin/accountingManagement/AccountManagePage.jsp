@@ -33,8 +33,7 @@
 						</div>
 						<div class="x_content">
 							<p class="text-muted font-13 m-b-30">교직원의 급여를 확인, 수정하는 페이지</p>
-							<table id="PayrollListTable"
-								class="table table-striped jambo_table bulk_action">
+							<table  id="datatable-keytable" class="table table-striped table-bordered">
 								<thead>
 									<tr class="headings">
 										<th>신고귀속</th>
@@ -139,22 +138,6 @@
 					<button type="button" class="close" data-dismiss="modal">×</button>
 					<!-- header title -->
 					<h4 class="modal-title">금액직접입력</h4>
-					<div class="row form-inline"
-						style="margin: 0px; vertical-align: middle">
-						<div style="float: right">
-							<select class="form-control input-sm" id="kindsofpay"
-								style="width: 150px; height: 30px; margin-bottom: 3px">
-								<option value="기본급" selected="selected">기본급</option>
-								<option value="추가근무수당">추가근무수당</option>
-								<option value="식대">식대</option>
-								<option value="차량유지비">차량유지비</option>
-							</select> <input type="text" id="payamount"
-								style="text-align: right; height: 30px; margin-right: 4px"
-								onkeyup="AutoComma(this);">
-							<button class="btn btn-primary" onclick="fixSetting2();">확정</button>
-						</div>
-					</div>
-					<br> <br>
 				</div>
 				<!-- body -->
 				<div id="EnterAmountManuallyList"></div>
@@ -180,16 +163,11 @@
 				</div>
 				<!-- Footer -->
 				<div class="modal-footer">
-					Footer
 					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
 				</div>
 			</div>
 		</div>
 	</div>
-
-
-
-
 	<div class="modal fade" id="Specification-workRecord">
 		<div class="modal-dialog">
 			<div class="modal-content">

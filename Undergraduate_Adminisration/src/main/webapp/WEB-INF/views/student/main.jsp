@@ -220,7 +220,7 @@
             <!-- footer content -->
             <footer>
                 <div class="pull-right">
-                    자바대학교 - 종합정보서비스 <a href="#">by Garbage Collrector</a>
+                    자바대학교 - 종합정보서비스 <a href="#">by sub_MIT</a>
                 </div>
                 <div class="clearfix"></div>
             </footer>

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,19 +8,20 @@
 <title>Insert title here</title>
 </head>
 <body class="nav-md">
-	<%@ include file="../Basic/navbar.jsp"%>
+   <%@ include file="../Basic/navbar.jsp"%>
 
-	<!-- page content -->
-	<div class="right_col" role="main">
-		<div class="">
-			<div class="page-title">
-				<div class="title_left">
-					<h3>전체 성적정보</h3>
-				</div>
-			</div>
-		</div>
-		<div class="clearfix"></div>
+   <!-- page content -->
+   <div class="right_col" role="main">
+      <div class="">
+         <div class="page-title">
+            <div class="title_left">
+               <h3>전체 성적정보</h3>
+            </div>
+         </div>
+      </div>
+      <div class="clearfix"></div>
 
+<<<<<<< HEAD
 		<div class="row">
 			<!-- Smart Wizard -->
 			<div class="x_content">
@@ -99,8 +100,8 @@
 								<c:if test="${granted.totalJscore / granted.grantedCnt <70 &&
 											granted.totalJscore / granted.grantedCnt >=65}">D+</c:if>
 								<c:if test="${granted.totalJscore / granted.grantedCnt <65 &&
-											granted.totalJscore / granted.grantedCnt >=60}">D</c:if>			
-
+											granted.totalJscore / granted.grantedCnt >=60}">D</c:if>
+								<c:if test="${granted.totalJscore / granted.grantedCnt <60}">F</c:if>			
 							</td>
 							</c:if>
 							</c:forEach>
@@ -115,12 +116,12 @@
 	</div>
 	<!-- /page content -->
 
-	<%@ include file="../Basic/footer.jsp"%>
+   <%@ include file="../Basic/footer.jsp"%>
 
-	<script type="text/javascript">
-		$(function() {
+   <script type="text/javascript">
+      $(function() {
 
-		});
-	</script>
+      });
+   </script>
 </body>
 </html>
