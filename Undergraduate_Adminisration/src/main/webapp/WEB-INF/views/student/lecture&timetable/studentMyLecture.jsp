@@ -5,9 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <%@ include file="../../Basic/settings.jsp"%>
-<title>Insert title here</title>
+<title>내 강의 목록</title>
 </head>
 <body class="nav-md">
+	<div style="float: right; margin-bottom: 10px;">신청학점 : ${totalLecPoint}</div>
 	<table id="datatable" class="table table-striped table-bordered">
 		<thead>
 			<tr>

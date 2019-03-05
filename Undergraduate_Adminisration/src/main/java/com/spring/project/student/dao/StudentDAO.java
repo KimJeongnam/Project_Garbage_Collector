@@ -116,4 +116,9 @@ public interface StudentDAO {
 	
 	// 이수 학점
 	public List<GpaVO> grantedCredit(String userNumber);
+	
+	public int getBachelorStatus();
+	
+	public int getTotalLecPoint(String userNumber);
+	
 }

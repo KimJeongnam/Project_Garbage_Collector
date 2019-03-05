@@ -9,7 +9,6 @@
 </head>
 <body class="nav-md">
 	<%@ include file="../Basic/navbar.jsp" %>
-	
 			<!-- page content -->
             <div class="right_col" role="main">
                 <div id="professerSchedule"></div>

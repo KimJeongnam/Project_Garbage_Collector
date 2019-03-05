@@ -245,15 +245,9 @@
 
                                 <li class=""><a><i class="fa fa-graduation-cap"></i>학사관리<span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu" style="display: none;">
-                                        <li><a href="${authPath }/lectureList">수강신청 / 시간표</a>
+                                        <li><a href="${authPath }/lectureList_Manager">수강신청 / 시간표</a>
                                         </li>
                                         <li><a href="GPA">성적조회</a></li>
-                                    </ul>
-                                </li>
-                                <li><a><i class="fa fa-users"></i> 학적<span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu" style="">
-                                        <li><a href="${authPath }/tempSchoolLeave">휴학신청</a></li>
-                                        <li><a href="${authPath }/backToSchool">복학신청</a></li>
                                     </ul>
                                 </li>
                                 <li><a><i class="fa fa-desktop"></i> 장학관리 <span class="fa fa-chevron-down"></span></a>

@@ -8,7 +8,7 @@
 <!-- CSS reset -->
 <link rel="stylesheet" href="/project/resources/css/schedule/style.css">
 <!-- Resource style -->
-
+<title>시간표</title>
 <div class="cd-schedule loading">
 	<!-- page content -->
 	<div class="timeline">
