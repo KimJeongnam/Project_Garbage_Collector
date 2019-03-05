@@ -30,5 +30,7 @@ public interface RestfulService {
 	public ResponseData getLocation(Location location); 
 	// 학생의 요일별 시간표 검색
 	public ResponseData getLectureTime(String stdNumber, int day);
+	// 학생의 과제 조회
+	public ResponseData getStdReports(String stdNumber);
 	//---------------------------Android-END---------------------------------
 }

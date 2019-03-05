@@ -60,9 +60,9 @@ public class ProfessorServiceImpl implements ProfessorService {
 		// 각자의 이미지 저장경로 수정하셈
 		try {
 			if (!file.getOriginalFilename().equals("")) {
-				file.transferTo(new File(saveDir + file.getOriginalFilename()));
+				/*file.transferTo(new File(saveDir + file.getOriginalFilename()));
 
-				FileInputStream fis = new FileInputStream(saveDir + file.getOriginalFilename());
+				FileInputStream fis = new FileInputStream(saveDir +file.getOriginalFilename());
 				FileOutputStream fos = new FileOutputStream(realDir + fileName);
 
 				int data = 0;
@@ -71,7 +71,8 @@ public class ProfessorServiceImpl implements ProfessorService {
 					fos.write(data);
 				}
 				fis.close();
-				fos.close();
+				fos.close();*/
+				file.transferTo(new File(realDir + fileName));
 			}
 			String userNumber = (String) req.getSession().getAttribute("userNumber");
 
@@ -101,7 +102,6 @@ public class ProfessorServiceImpl implements ProfessorService {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-
 		}
 
 	}
