@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <%@ include file="../../Basic/settings.jsp"%>
-<title>Insert title here</title>
+<title>자바대학교 학사관리시스템</title>
 <script src="${staticPath}/js/setRegister/setRegister.js"></script>
 </head>
 <body class="nav-md">
