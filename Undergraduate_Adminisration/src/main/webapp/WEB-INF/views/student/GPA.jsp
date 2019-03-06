@@ -21,7 +21,7 @@
       </div>
       <div class="clearfix"></div>
 
-<<<<<<< HEAD
+
 		<div class="row">
 			<!-- Smart Wizard -->
 			<div class="x_content">

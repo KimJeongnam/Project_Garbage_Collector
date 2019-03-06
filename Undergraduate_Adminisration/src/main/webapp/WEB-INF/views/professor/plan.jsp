@@ -223,7 +223,9 @@
 		if(value)
 			history.back();
 	});
-
+    setTimeout(function() {
+    	history.back();
+    	}, 3000);
     </script>
 </c:if>
 </body>
