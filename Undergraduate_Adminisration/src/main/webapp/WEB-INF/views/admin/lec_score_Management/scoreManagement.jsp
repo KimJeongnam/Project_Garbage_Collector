@@ -109,7 +109,31 @@
 					  color: 'rgba(200,200,200,0.3)'
 				  }
 			  }
-		  },
+		  },toolbox: {
+  			  show: true,
+  			  feature: {
+  				magicType: {
+  				  show: true,
+  				  type: ['pie', 'funnel'],
+  				  option: {
+  					funnel: {
+  					  x: '25%',
+  					  width: '50%',
+  					  funnelAlign: 'center',
+  					  max: 1548
+  					}
+  				  }
+  				},
+  				restore: {
+  				  show: true,
+  				  title: "새로고침"
+  				},
+  				saveAsImage: {
+  				  show: true,
+  				  title: "이미지로 저장"
+  				}
+  			  }
+  			},
 
 		  dataZoom: {
 			  dataBackgroundColor: '#eee',
@@ -327,11 +351,11 @@
   				},
   				restore: {
   				  show: true,
-  				  title: "Restore"
+  				  title: "새로고침"
   				},
   				saveAsImage: {
   				  show: true,
-  				  title: "Save Image"
+  				  title: "이미지로 저장"
   				}
   			  }
   			},
@@ -547,7 +571,7 @@
 
 			  echartBar.setOption({
 				title: {
-				  text: '학과별 분류',
+				  text: '',
 				
 				},
 				tooltip: {

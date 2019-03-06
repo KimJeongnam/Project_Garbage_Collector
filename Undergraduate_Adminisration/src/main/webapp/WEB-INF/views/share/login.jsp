@@ -22,7 +22,7 @@
                             <input type="password" class="form-control" placeholder="패스워드를 입력하세요" name="pw" required />
                         </div>
                         <div>
-                            <input type="submit" class="btn btn-primary" value="로그인">
+                            <input style="margin-left: 140px;" type="submit" class="btn btn-primary" value="로그인">
                         </div>
 
                         <div class="clearfix"></div>

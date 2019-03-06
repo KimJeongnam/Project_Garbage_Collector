@@ -38,15 +38,15 @@
 							<div class="clearfix"></div>
 						</div>
 						<div class="x_content">
-							<table id="datatable" class="table table-striped table-bordered">
+							<table id="datatable" class="table table-striped table-bordered" style="text-align : center;">
 								<thead>
 									<tr>
-										<th>이름</th>
-										<th>교직원번호</th>
-										<th>학과(학과코드)</th>
-										<th>직책</th>
-										<th>연차</th>
-										<th>연락처</th>
+										<th class="text-center">이름</th>
+										<th class="text-center">교직원번호</th>
+										<th class="text-center">학과(학과코드)</th>
+										<th class="text-center">직책</th>
+										<th class="text-center">연차</th>
+										<th class="text-center">연락처</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -108,15 +108,15 @@
 							<div class="row">
 								<div class="col-sm-12">
 									<div class="card-box table-responsive">
-										<table id="datatable-keytable"
+										<table id="datatable-keytable" style="text-align : center;"
 											class="table table-striped table-bordered">
 											<thead>
 												<tr>
-													<th>이름</th>
-													<th>학번</th>
-													<th>학과(학과코드)</th>
-													<th>학년</th>
-													<th>연락처</th>
+													<th class="text-center">이름</th>
+													<th class="text-center">학번</th>
+													<th class="text-center">학과(학과코드)</th>
+													<th class="text-center">학년</th>
+													<th class="text-center">연락처</th>
 												</tr>
 											</thead>
 											<tbody>
