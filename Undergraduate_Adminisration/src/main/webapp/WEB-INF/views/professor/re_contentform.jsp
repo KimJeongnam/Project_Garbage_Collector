@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <%@ include file="../Basic/settings.jsp"%>
-<title>Insert title here</title>
+<title>자바대학교 학사관리시스템</title>
 
 <style>
 .toggle-off {
@@ -20,14 +20,7 @@
 	<div class="col-md-3 col-sm-3 col-xs-12">
 
 
-		<!-- 	<div class="x_title">
-			<h2>강의명</h2>
-			<div class="clearfix"></div>	
-		</div> -->
 
-		<section class="panel">
-			<div class="x_title">
-				<h2 style="margin-top: 16px;" class="report_list">과제리스트</h2>
 				<div class="clearfix"></div>
 			</div>
 			<div class="panel-body">

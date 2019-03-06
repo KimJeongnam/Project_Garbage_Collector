@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <%@ include file="../../Basic/settings.jsp"%>
-<title>Insert title here</title>
+<title>자바대학교 학사관리시스템</title>
 <script src="${staticPath}/js/setRegister/setRegister.js"></script>
 </head>
 <body class="nav-md">
@@ -29,7 +29,7 @@
 				<div class="row">
 					<div class="col-md-offset-1 col-md-10">
 					<form action="stdInsertPro" method="post" onsubmit="return stdInputChk();"
-						enctype="multipart/form-data" name="stdInput"
+						enctype="multipart/form-data" name="stdInput" id="stdInput"
 						class="form-horizontal form-label-left">
 						<input type="hidden" name="hiddenNum" value="0">
 						<table class="table">
@@ -138,14 +138,13 @@
 
 									<button type="button" name="zipSearch"
 										onclick="openZipSearch();">검색</button>
-									<br> 주소 :<input id="studentAddress1" name="userAddr1"
-									class="form-control col-md-7 col-xs-12"
-									data-validate-length-range="6" data-validate-words="2"
-									placeholder=""  type="text"><br>
-									상세 :<input id="studentAddress2" name="userAddr2"
-									class="form-control col-md-7 col-xs-12"
-									data-validate-length-range="6" data-validate-words="2"
-									placeholder="" type="text"><br>
+									<br>
+									주소 :<input id="studentAddress1" name="userAddr1"
+												style="margin-top: 5px; margin-bottom: 5px; width : 350px;"
+												placeholder="" type="text"><br>
+									 상세 :<input id="studentAddress2" name="userAddr2"
+									 			style="margin-top: 5px; margin-bottom: 5px; width : 350px;"
+												placeholder="" type="text"><br>
 								</td>
 							</tr>
 							<tr>
@@ -320,7 +319,41 @@
 		    });
 		});
 		
-	
+		//입학일 졸업일 비교후 에러 알럿
+	 	$(function(){
+
+			$("#graDate").change(function(){
+
+		        var startDate = $('#adDate').val();
+
+		        var endDate = $('#graDate').val();
+				
+		        //-을 구분자로 연,월,일로 잘라내어 배열로 반환
+
+		        var startArray = startDate.split('-');
+
+		        var endArray = endDate.split('-');   
+
+		        //배열에 담겨있는 연,월,일을 사용해서 Date 객체 생성
+
+		        var start_date = new Date(startArray[0], startArray[1], startArray[2]);
+
+		        var end_date = new Date(endArray[0], endArray[1], endArray[2]);
+
+	              //날짜를 숫자형태의 날짜 정보로 변환하여 비교한다.
+
+		        if(start_date.getTime() > end_date.getTime()) {
+
+		            alert("졸업예정일이 입학일 보다 낮게 설정되었습니다.");
+		            $('#graDate').val('');
+		            return false;
+
+		        }
+
+		     });
+
+		}); 
+
 	</script>
 
 </body>

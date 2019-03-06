@@ -136,7 +136,6 @@ public class StudentServiceImpl implements StudentService {
 			model.addAttribute("pageCount", pageCount); // 페이지 갯수
 			model.addAttribute("pageSize", pageSize); // 현재페이지
 		}
-
 	}
 
 	// 시간표 조회
@@ -662,6 +661,9 @@ public class StudentServiceImpl implements StudentService {
 		System.out.println("userNumber : " + userNumber);
 		List<LectureVO> dtos = dao.studentMyLecture(userNumber);
 		model.addAttribute("dtosM", dtos);
+		
+		int totalLecPoint = dao.getTotalLecPoint(userNumber);
+		model.addAttribute("totalLecPoint", totalLecPoint);
 	}
 	
 	// 강의 취소
@@ -686,6 +688,8 @@ public class StudentServiceImpl implements StudentService {
 		List<LectureVO> dtos = dao.getMajor();
 		model.addAttribute("dtosM", dtos);
 		
+		int status = dao.getBachelorStatus();
+		model.addAttribute("status", status);
 	}
 	
 	// 내 학점 조회
@@ -708,6 +712,38 @@ public class StudentServiceImpl implements StudentService {
 		 
 		
 	}
-
-
+	
+	// 시간표만 조회
+	@Override
+	public void bigschoolTimeTable(HttpServletRequest req, Model model) {
+		String userNumber = (String) req.getSession().getAttribute("userNumber");
+		
+		List<LectureVO> dtos = dao.schoolTimeTable(userNumber);
+		System.out.println("dtos : " + dtos);
+		
+		model.addAttribute("dtosT", dtos);
+		
+	}
+	
+	// 수강신청 페이지 진입(종강 개강 시기에 따라)
+	@Override
+	public String lectureList_Manager(HttpServletRequest req, RedirectAttributes red) {
+		int status = 0;
+		
+		String referer = req.getHeader("referer");
+		
+		status = dao.getBachelorStatus();
+		
+		if(status == 3) {
+			if(referer!=null) {
+				red.addFlashAttribute("message", "종강 상태시 접근 불가능합니다.");
+				return "redirect:"+referer;
+			}else {
+				red.addFlashAttribute("message", "종강 상태시 접근 불가능합니다.");
+				return "redirect:/student/index";
+			}
+		}else {
+			return "redirect:/student/lectureList";
+		}	
+	}
 }

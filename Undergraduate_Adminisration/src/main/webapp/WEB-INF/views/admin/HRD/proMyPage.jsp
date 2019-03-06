@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <%@ include file="../../Basic/settings.jsp"%>
 <script src="${staticPath}/js/setRegister/setRegister.js"></script>
-<title>Insert title here</title>
+<title>자바대학교 학사관리시스템</title>
 </head>
 <body class="nav-md">
 	<%@ include file="../../Basic/navbar.jsp"%>
@@ -132,9 +132,9 @@
 																				<td>
 																					<c:set var="SsnArr" value="${fn:split(vo.getUserSsn(),'-')}"/>
 																					<input class="input" type="text" name="jumin1" maxlength="6" style="width : 73px"
-																							onkeyup ="proMyPageJumin1();" value="${SsnArr[0] }" numberOnly="true" > -
+																							onkeyup ="proMyPageJumin1();" value="${SsnArr[0] }" numberOnly="true" disabled> -
 																					 <input class="input" type="password" name="jumin2" maxlength="7"
-																							style="width:80px;" onkeyup="proMyPageJumin2();" value="${SsnArr[1] }" numberOnly="true" readonly>
+																							style="width:80px;" onkeyup="proMyPageJumin2();" value="${SsnArr[1] }" numberOnly="true" disabled>
 																				</td>
 																			<th class="control-label">
 																				영어성명
@@ -237,18 +237,18 @@
 																			<th class="control-label">주소</th>
 																			<td colspan="3"><input type="text" name="userZipCode"
 																				class="input" required="required"
-																				value="${vo.userZipCode }" placeholder="입학일을 입력하시오">
+																				value="${vo.userZipCode }" placeholder="우편번호를 입력하시오">
 
-																				<button type="button" name="zipSearch"
-																					onclick="openZipSearch();">검색</button>
-																				<br> 주소 :<input id="studentAddress1"
-																				name="userAddr1" class="form-control col-md-7 col-xs-12"
-																				value="${vo.userAddr1 }" data-validate-length-range="6"
-																				data-validate-words="2" placeholder="" type="text"><br>
-																				상세 :<input id="studentAddress2" name="userAddr2"
-																				class="form-control col-md-7 col-xs-12"
-																				value="${vo.userAddr2 }" data-validate-length-range="6"
-																				data-validate-words="2" placeholder="" type="text"><br>
+																				<button type="button" name="zipSearch" onclick="openZipSearch();">검색</button><br>
+																				주소 : <br>
+																				<input id="studentAddress1" name="userAddr1" type="text" 
+																					style="margin-top: 5px; margin-bottom: 5px; width : 350px;"
+																					value="${vo.userAddr1 }" placeholder="주소를 입력하시오" type="text"><br>
+																				
+																				상세 : <br>
+																				<input id="studentAddress2" name="userAddr2" 
+																					style="margin-top: 5px; margin-bottom: 5px; width : 350px;"
+																					type="text" value="${vo.userAddr2 }" placeholder="상세주소를 입력하시오" type="text">
 																			</td>
 																		</tr>
 																	</table>
@@ -283,6 +283,7 @@
 					                                        </thead>
 					                                        <tbody>
 					                                        <c:forEach var="lec" items="${lecList}">
+					                                        <c:if test="${!empty lecList}"> 
 					                                            <tr>
 					                                            	<c:if test="${lec.lectureClassfication ==1}">
 					                                                <td class="text-center">전공</td>
@@ -298,7 +299,13 @@
 					                                                <td class="text-center">${lec.classRoom}</td>
 					                                                <td class="text-center">${lec.appliedStd} / ${lec.maximumCapacity }</td>
 					                                            </tr>
+					                                        </c:if>
 					                                        </c:forEach>
+					                                        <c:if test="${empty lecList}">
+					                                        	<tr>
+																	<th colspan="8" style="text-align :center;">진행중인 강의가 없습니다.</th>
+																</tr>
+					                                        </c:if>
 					                                        </tbody>
 					                                    </table>
 													</div>

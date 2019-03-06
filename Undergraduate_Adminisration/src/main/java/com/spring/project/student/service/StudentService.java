@@ -68,4 +68,10 @@ public interface StudentService {
 	
 	// 내 학점 조회
 	public void GPA(HttpServletRequest req, Model model);
+	
+	// 시간표만 조회
+	public void bigschoolTimeTable(HttpServletRequest req, Model model);
+	
+	// 수강신청 페이지 진입(종강 개강 시기에 따라)
+	public String lectureList_Manager(HttpServletRequest req, RedirectAttributes red);
 }

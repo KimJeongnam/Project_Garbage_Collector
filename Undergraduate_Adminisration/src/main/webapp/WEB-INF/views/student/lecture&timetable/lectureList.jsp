@@ -14,7 +14,7 @@
 <!-- Resource style -->
 
 <%@ include file="../../Basic/settings.jsp"%>
-<title>Insert title here</title>
+<title>강의목록</title>
 </head>
 <body class="nav-md">
 	<table id="datatable" class="table table-striped table-bordered">
@@ -55,7 +55,7 @@
 	<div class="row">
 		<div class="col-sm-5">
 			<div class="dataTables_info" id="datatable_info" role="status"
-			aria-live="polite">Showing 
+			aria-live="polite"> 총	${cnt} 개 목록 중
 			<c:choose>
 				<c:when test="${number < pageSize }">
 					1
@@ -64,7 +64,7 @@
 					${number-pageSize+1}
 				</c:otherwise>
 			</c:choose>
-			to ${number} of ${cnt} entries</div>
+			번 부터 ${number}번 까지 </div>
 		</div>
 
 		<div class="col-sm-7">

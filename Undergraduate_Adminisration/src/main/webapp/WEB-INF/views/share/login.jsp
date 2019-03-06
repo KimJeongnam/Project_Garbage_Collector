@@ -22,8 +22,7 @@
                             <input type="password" class="form-control" placeholder="패스워드를 입력하세요" name="pw" required />
                         </div>
                         <div>
-                            <input type="submit" class="btn btn-primary" value="로그인">
-                            <a class="reset_pass" href="#">비밀번호를 잊으셨습니까?</a>
+                            <input style="margin-left: 140px;" type="submit" class="btn btn-primary" value="로그인">
                         </div>
 
                         <div class="clearfix"></div>
@@ -34,7 +33,7 @@
 
                             <div>
                                 <h2><i class="fa fa-paw"></i> 자바대학교 학사종합정보서비스</h2>
-                                <p>©2019 All Rights Reserved. Garbage Collector is a Bootstrap 3 template. Privacy and Terms</p>
+                                <p>©2019 All Rights Reserved. sub_MIT We're Awesome Guys! It's finally over.</p>
                             </div>
                         </div>
                     </form>

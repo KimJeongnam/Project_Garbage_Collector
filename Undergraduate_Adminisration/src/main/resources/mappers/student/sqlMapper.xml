@@ -109,8 +109,8 @@
 	<!-- 시간표 조회 -->
 	<select id="schoolTimeTable" parameterType="String"
 		resultType="com.spring.project.student.vo.LectureVO">
-		select * from timetableview where userNumber =
-		#{userNumber}
+		SELECT dense_rank()over(order by lecCode) as rank , r.*
+		from (select * from timetableview where userNumber =#{userNumber}) r
 	</select>
 
 	<!-- 시간표 Hover -->
@@ -150,18 +150,36 @@
 	<!-- 듣고자 하는 강의 학점 합 -->
 	<select id="getLectureScoreSum" parameterType="java.util.Map"
 		resultType="int">
-		SELECT (select sum(lecturescore) from studentClassInfo s,
+		SELECT NVL((select sum(lecturescore) from studentClassInfo s,
 		lecture l where s. lecCode=l.lecCode group by userNumber
 		having
-		userNumber=#{userNumber})+(SELECT lecturescore from lecture where
+		userNumber=#{userNumber}), 0)+(SELECT lecturescore from lecture where
 		leccode = #{lecCode}) as lecturescoreSum from dual
 	</select>
 
 	<!-- 강의 신청 -->
 	<insert id="applyLecture" parameterType="java.util.Map">
 		insert into
-		studentClassInfo(infoCode, lecCode, userNumber, status)
-		values(STUDENTCLASSINFO_SEQ.nextval,#{lecCode},#{userNumber},1)
+		studentClassInfo(infoCode, lecCode, userNumber, status, year, semester)
+		values(STUDENTCLASSINFO_SEQ.nextval,#{lecCode},#{userNumber},1, (SELECT year FROM
+    (SELECT ROWNUM rnum, year, semester FROM
+        (SELECT year, semester 
+            FROM LECTURESELECTPERIOD
+            WHERE 
+            TO_CHAR(ENDINGDAY, 'YYYY-MM-DD') >= TO_CHAR(localtimestamp, 'YYYY-MM-DD')
+            ORDER BY semester
+        )
+    )
+    WHERE rnum = 1), (SELECT semester FROM
+    (SELECT ROWNUM rnum, year, semester FROM
+        (SELECT year, semester 
+            FROM LECTURESELECTPERIOD
+            WHERE 
+            TO_CHAR(ENDINGDAY, 'YYYY-MM-DD') >= TO_CHAR(localtimestamp, 'YYYY-MM-DD')
+            ORDER BY semester
+        )
+    )
+    WHERE rnum = 1))
 	</insert>
 
 	<!-- 프로필 이미지 변경 -->
@@ -363,15 +381,15 @@
 						          and u.userNumber = s.stdNumber
 							      and sc.lecCode = l.lecCode(+)
 							      and sc.infoCode=g.infoCode(+) 
-							      and sc.status = 1
-							      and s.stdNumber = #{userNumber}
-                                  and g.semester is not null
+							      and sc.status = 3
+							      and g.semester is not null
+							      and s.stdNumber = #{userNumber}     
 							 order by l.lecCode asc) r
 	</select>
 
 	<!-- 신청 학점 -->
 	<select id="ApplyCredit" parameterType="String" resultType="int">
-		select sum(lectureScore) as ApplyCredit from mylectureview where
+		select sum(lectureScore) as ApplyCredit from lectureviewtest where
 		userNumber = #{userNumber}
 	</select>
 	
@@ -383,8 +401,18 @@
 		  and u.userNumber = s.stdNumber
 		  and sc.lecCode = l.lecCode(+)
 		  and sc.infoCode=g.infoCode(+) 
-		  and sc.status = 1
+		  and sc.status = 3
 		  and s.stdNumber = #{userNumber}
 		  and credit != 'F' AND credit is not null
+	</select>
+	
+	<!-- 신청 기간 체크 -->
+	<select id="getBachelorStatus" resultType="int">
+		select * from bachelor_status
+	</select>
+	
+	<!-- 총 신청학점 -->
+	<select id="getTotalLecPoint" parameterType="String" resultType="int">
+		select sum(lecturescore) from lecture l, studentClassInfo s where l.lecCode=s.lecCode and userNumber = #{userNumber}
 	</select>
 </mapper>

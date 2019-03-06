@@ -973,8 +973,8 @@ public class AdminServiceImpl extends Board implements AdminService {
 		model.addAttribute("lectures", lectures);
 		model.addAttribute("days", days);
 		model.addAttribute("mode", "view");
-		model.addAttribute("semester", ((LectureVO)lectures.get(1)).getGrantedSemester());
-		model.addAttribute("empNumber", ((LectureVO)lectures.get(1)).getEmpNumber());
+		model.addAttribute("semester", ((LectureVO)lectures.get(0)).getGrantedSemester());
+		model.addAttribute("empNumber", ((LectureVO)lectures.get(0)).getEmpNumber());
 	}
 	@Override
 	public Map<String, Object> getLectureSeqNextval() {
@@ -1469,7 +1469,7 @@ public class AdminServiceImpl extends Board implements AdminService {
 			break;
 		case "5":
 			message = "수강신청 종료";
-			status = 3;
+			status = 4;
 			break;
 		}
 		lectrueSelectPeriod.setStatus(status);

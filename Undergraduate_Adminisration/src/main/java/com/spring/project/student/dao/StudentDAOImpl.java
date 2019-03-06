@@ -228,6 +228,16 @@ public class StudentDAOImpl implements StudentDAO{
 		return sqlSession.selectList("com.spring.project.student.dao.StudentDAO.grantedCredit", userNumber);
 	}
 
+	@Override
+	public int getBachelorStatus() {
+		return sqlSession.selectOne("com.spring.project.student.dao.StudentDAO.getBachelorStatus");
+	}
+
+	@Override
+	public int getTotalLecPoint(String userNumber) {
+		return sqlSession.selectOne("com.spring.project.student.dao.StudentDAO.getTotalLecPoint", userNumber);
+	}
+
 	
 
 }

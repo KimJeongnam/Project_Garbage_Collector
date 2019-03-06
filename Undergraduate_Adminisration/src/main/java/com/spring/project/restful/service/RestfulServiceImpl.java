@@ -20,6 +20,7 @@ import com.spring.project.restful.vo.Message;
 import com.spring.project.restful.vo.ResponseData;
 import com.spring.project.restful.vo.RestUser;
 import com.spring.project.restful.vo.StdLecTime;
+import com.spring.project.restful.vo.StdReport;
 import com.spring.project.share.dao.ShareDAO;
 import com.spring.project.share.vo.Major;
 import com.spring.project.student.vo.LectureVO;
@@ -193,6 +194,43 @@ public class RestfulServiceImpl implements RestfulService {
 	
 		return responseData;
 	}
+
+	@Override
+	public ResponseData getStdReports(String stdNumber) {
+		ResponseData responseData = new ResponseData();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("stdNumber", stdNumber);
+		List<StdReport> dtos = dao.getReports(map);
+		
+		String message = "";
+		
+		responseData.setStatus(0);
+		responseData.setMessage("fail");
+
+		if(dtos != null) {
+			responseData.setStatus(1);
+			responseData.setMessage("success");
+			message += "------과제 목록------\n";
+			if(dtos.size()==0) message += "해야할 과제가 없습니다.\n";
+			for(StdReport dto : dtos) {
+				message += dto.getLectureName() + "\t\t | 과제명 : " + dto.getReportName()+" 마감";
+				if(dto.getDay()>0) {
+					message += " D-Day "+dto.getDay()+"\n";
+				}else if(dto.getHour()>0) {
+					message += " "+dto.getHour()+"시간 전\n";
+				}else if(dto.getMin()>0) {
+					message += " "+dto.getMin()+"분 전\n";
+				}else if(dto.getSec()>0) {
+					message += " "+dto.getSec()+"초 전\n";
+				}
+			}
+		}
+		
+		responseData.setData(message);
+		return responseData;
+	}
+	
+	
 	
 	//---------------------------Android-END---------------------------------
 }

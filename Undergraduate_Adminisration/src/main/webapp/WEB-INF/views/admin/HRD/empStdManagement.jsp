@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <%@ include file="../../Basic/settings.jsp"%>
-<title>Insert title here</title>
+<title>자바대학교 학사관리시스템</title>
 </head>
 <body class="nav-md">
 	<%@ include file="../../Basic/navbar.jsp"%>
@@ -38,15 +38,15 @@
 							<div class="clearfix"></div>
 						</div>
 						<div class="x_content">
-							<table id="datatable" class="table table-striped table-bordered">
+							<table id="datatable" class="table table-striped table-bordered" style="text-align : center;">
 								<thead>
 									<tr>
-										<th>이름</th>
-										<th>교직원번호</th>
-										<th>학과(학과코드)</th>
-										<th>직책</th>
-										<th>연차</th>
-										<th>연락처</th>
+										<th class="text-center">이름</th>
+										<th class="text-center">교직원번호</th>
+										<th class="text-center">학과(학과코드)</th>
+										<th class="text-center">직책</th>
+										<th class="text-center">연차</th>
+										<th class="text-center">연락처</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -108,16 +108,15 @@
 							<div class="row">
 								<div class="col-sm-12">
 									<div class="card-box table-responsive">
-										<table id="datatable-keytable"
+										<table id="datatable-keytable" style="text-align : center;"
 											class="table table-striped table-bordered">
 											<thead>
 												<tr>
-													<th>이름</th>
-													<th>학번</th>
-													<th>학과(학과코드)</th>
-													<th>학년</th>
-													<th>학적상태</th>
-													<th>연락처</th>
+													<th class="text-center">이름</th>
+													<th class="text-center">학번</th>
+													<th class="text-center">학과(학과코드)</th>
+													<th class="text-center">학년</th>
+													<th class="text-center">연락처</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -127,16 +126,6 @@
 													<td>${dto.userNumber}</td>
 													<td>${dto.majorName}(${dto.majorNum})</td>
 													<td>${dto.grade}</td>
-													<td><c:if test = "${dto.graduation_state ==0}">
-															재학중
-														</c:if>
-														<c:if test = "${dto.graduation_state ==1}">
-															휴학중
-														</c:if>
-														<c:if test = "${dto.graduation_state ==2}">
-															졸업
-														</c:if>
-													</td>
 													<td>${dto.userCellNum}</td>
 												</tr>
 											</c:forEach>

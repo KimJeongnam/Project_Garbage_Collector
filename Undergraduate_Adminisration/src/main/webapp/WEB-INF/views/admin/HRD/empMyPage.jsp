@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <%@ include file="../../Basic/settings.jsp"%>
 <script src="${staticPath}/js/setRegister/setRegister.js"></script>
-<title>Insert title here</title>
+<title>자바대학교 학사관리시스템</title>
 </head>
 <body class="nav-md">
 	<%@ include file="../../Basic/navbar.jsp"%>
@@ -124,9 +124,9 @@
 																				<td>
 																					<c:set var="SsnArr" value="${fn:split(vo.getUserSsn(),'-')}"/>
 																					<input class="input" type="text" name="jumin1" maxlength="6" style="width : 73px"
-																							onkeyup ="empMyPageJumin1();" value="${SsnArr[0] }"  numberOnly="true"> -
+																							onkeyup ="empMyPageJumin1();" value="${SsnArr[0] }"  numberOnly="true" disabled> -
 																					 <input class="input" type="password" name="jumin2" maxlength="7"
-																							style="width:80px;" onkeyup="empMyPageJumin2();" value="${SsnArr[1] }" numberOnly="true" readonly>
+																							style="width:80px;" onkeyup="empMyPageJumin2();" value="${SsnArr[1] }" numberOnly="true" disabled>
 																				</td>
 																			<th class="control-label">
 																				영어성명
@@ -204,20 +204,20 @@
 																		</tr>
 																		<tr>
 																			<th class="control-label">주소</th>
-																			<td colspan="3"><input type="text" name="userZipCode"
-																				class="input" required="required"
-																				value="${vo.userZipCode }" placeholder="입학일을 입력하시오">
+																			<td colspan="3">
+																				<input type="text" name="userZipCode" class="input" required="required"
+																					value="${vo.userZipCode }" placeholder="우편번호를 입력하시오">
 
-																				<button type="button" name="zipSearch"
-																					onclick="openZipSearch();">검색</button>
-																				<br> 주소 :<input id="studentAddress1"
-																				name="userAddr1" class="form-control col-md-7 col-xs-12"
-																				value="${vo.userAddr1 }" data-validate-length-range="6"
-																				data-validate-words="2" placeholder="" type="text"><br>
-																				상세 :<input id="studentAddress2" name="userAddr2"
-																				class="form-control col-md-7 col-xs-12"
-																				value="${vo.userAddr2 }" data-validate-length-range="6"
-																				data-validate-words="2" placeholder="" type="text"><br>
+																				<button type="button" name="zipSearch" onclick="openZipSearch();">검색</button><br>
+																				주소 : <br>
+																				<input id="studentAddress1" name="userAddr1" type="text" 
+																					style="margin-top: 5px; margin-bottom: 5px; width : 350px;"
+																					value="${vo.userAddr1 }" placeholder="주소를 입력하시오" type="text"><br>
+																				
+																				상세 : <br>
+																				<input id="studentAddress2" name="userAddr2" 
+																					style="margin-top: 5px; margin-bottom: 5px; width : 350px;"
+																					type="text" value="${vo.userAddr2 }" placeholder="상세주소를 입력하시오" type="text">
 																			</td>
 																		</tr>
 																	</table>

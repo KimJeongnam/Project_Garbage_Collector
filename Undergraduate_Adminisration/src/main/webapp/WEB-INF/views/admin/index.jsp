@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 	<%@ include file="../Basic/settings.jsp" %>
-<title>Insert title here</title>
+<title>자바대학교 학사관리시스템</title>
 </head>
 <body class="nav-md">
 	<%@ include file="../Basic/navbar.jsp" %>
@@ -569,14 +569,14 @@
 					  type: 'value',
 					  scale: true,
 					  axisLabel: {
-						formatter: '{value} 학년'
+						formatter: '{value} 점'
 					  }
 					}],
 					yAxis: [{
 					  type: 'value',
 					  scale: true,
 					  axisLabel: {
-						formatter: '{value} 점'
+						formatter: '{value} 학년'
 					  }
 					}],
 					series: [
@@ -590,30 +590,31 @@
 						trigger: 'item',
 						formatter: function(params) {
 						  if (params.value.length > 1) {
-							return params.seriesName + ' :<br/>' + params.value[0] + '학년 ' + params.value[1] + '점 ';
+							return params.seriesName + ' :<br/>' + params.value[0] + '점 ' + params.value[1] + ' 학년 ';
 						  } else {
-							return params.seriesName + ' :<br/>' + params.name + ' : ' + params.value + '점 ';
+							return params.seriesName + ' :<br/>' + params.name + ' : ' + params.value + ' 학년 ';
 						  }
 						}
 					  },
 					  data: [
-							[${vo.grade}, ${vo.avgScore}],
+							[ ${vo.avgScore},${vo.grade}],
 					  ],
-					  markPoint: {
-						data: [{
-						  type: 'max',
-						  name: '평균'
-						}]
-					  },
-					  markLine: {
+				/* 여기 하면 줄 이랑 핀 생김	  markLine: {
 						data: [{
 						  type: 'average',
 						  name: '평균점수'
 						}]
-					  }
+					  },
+					  markPoint: {
+						data: [{
+						  type: 'max',
+						  name: '평균점수'
+						}]
+					  } */
 					},
 					 </c:forEach>					
 					]
+					
 				  });
 
 				} 

@@ -38,7 +38,7 @@ public class Scheduler {
 		if (dao.checkEndSelectLecture(lectrueSelectPeriod) == 1) {
 			logger.info("00 * * * * * cronScheduler()");
 			logger.info("수강 신청 종료!!!");
-			lectrueSelectPeriod.setStatus(3);
+			lectrueSelectPeriod.setStatus(4);
 			dao.updateLectureStatus(lectrueSelectPeriod);
 			if (lectrueSelectPeriod.getResult() == 0)
 				logger.info("수강 신청 종료 오류!!!! 확인 요망");

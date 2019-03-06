@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <%@ include file="../../Basic/settings.jsp"%>
-<title>Insert title here</title>
+<title>자바대학교 학사관리시스템</title>
 <script src="${staticPath}/js/setRegister/setRegister.js"></script>
 </head>
 <body class="nav-md" >
@@ -133,15 +133,14 @@
 														class="input" required="required" placeholder="우편번호를 입력하세요.">
 
 														<button type="button" name="zipSearch"
-															onclick="openZipSearch();">검색</button> <br> 주소 :<input
-														id="studentAddress1" name="userAddr1"
-														class="form-control col-md-7 col-xs-12"
-														data-validate-length-range="6" data-validate-words="2"
-														placeholder="" type="text"><br> 상세 :<input
-														id="studentAddress2" name="userAddr2"
-														class="form-control col-md-7 col-xs-12"
-														data-validate-length-range="6" data-validate-words="2"
-														placeholder="" type="text"><br></td>
+															onclick="openZipSearch();">검색</button> <br> 
+														주소 :<input id="studentAddress1" name="userAddr1"
+																	style="margin-top: 5px; margin-bottom: 5px; width : 350px;"
+																	placeholder="" type="text"><br>
+														 상세 :<input id="studentAddress2" name="userAddr2"
+														 			style="margin-top: 5px; margin-bottom: 5px; width : 350px;"
+																	placeholder="" type="text"><br>
+													</td>
 												</tr>
 												<tr>
 													<th class="control-label">은행명</th>
@@ -262,15 +261,14 @@
 														class="input" required="required" placeholder="우편번호를 입력하세요.">
 
 														<button type="button" name="zipSearch"
-															onclick="openZipSearch();">검색</button> <br> 주소 :<input
-														id="studentAddress1" name="userAddr1"
-														class="form-control col-md-7 col-xs-12"
-														data-validate-length-range="6" data-validate-words="2"
-														placeholder="" type="text"><br> 상세 :<input
-														id="studentAddress2" name="userAddr2"
-														class="form-control col-md-7 col-xs-12"
-														data-validate-length-range="6" data-validate-words="2"
-														placeholder="" type="text"><br></td>
+															onclick="openZipSearch();">검색</button> <br> 
+														주소 :<input id="studentAddress1" name="userAddr1"
+																	style="margin-top: 5px; margin-bottom: 5px; width : 350px;"
+																	placeholder="" type="text"><br>
+														 상세 :<input id="studentAddress2" name="userAddr2"
+														 			style="margin-top: 5px; margin-bottom: 5px; width : 350px;"
+																	placeholder="" type="text"><br>
+													</td>
 												</tr>
 												<tr>
 													<th class="control-label">은행명</th>

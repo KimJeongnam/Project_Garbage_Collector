@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.spring.project.restful.vo.Location;
 import com.spring.project.restful.vo.Message;
 import com.spring.project.restful.vo.RestUser;
+import com.spring.project.restful.vo.StdReport;
 import com.spring.project.share.dao.ShareDAO;
 import com.spring.project.student.vo.LectureVO;
 
@@ -82,6 +83,13 @@ public class RestfulDAOImpl implements RestfulDAO{
 		return sqlSession.selectList("com.spring.project.restful.dao"
 				+ ".RestfulDAO.getStdLectureTime", vo);
 	}
+
+	@Override
+	public List<StdReport> getReports(Map<String, Object> map) {
+		return sqlSession.selectList("com.spring.project.restful.dao"
+				+ ".RestfulDAO.getReports", map);
+	}
+	
 	
 	//---------------------------Android-END---------------------------------
 }

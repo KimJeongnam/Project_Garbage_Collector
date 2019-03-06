@@ -92,15 +92,27 @@ function showMessages(messages){
 		}
 		
 		// showMessageInModal('+msg.messageCode+')
-		htmlSource += '\
+		if(msg.notifyStatus == 0){
+			htmlSource += '\
+					<li>\
+						<a onclick="showMessageInModal('+msg.messageCode+');">\
+							<span class="image"><img src="/project/resources/'+msg.senduserimage+'" alt="Profile Image"></span>\
+							<b><span>'+msg.sendUser+'</span></b><span class="time">'+timeAgo+'</span>\
+							<span class="message">'+msg.message+'</span>\
+						</a>\
+					</li>\
+					';
+		}else{
+			htmlSource += '\
 				<li>\
 					<a onclick="showMessageInModal('+msg.messageCode+');">\
 						<span class="image"><img src="/project/resources/'+msg.senduserimage+'" alt="Profile Image"></span>\
-						<span>'+msg.sendUser+'</span><span class="time">'+timeAgo+'</span>\
+						<b><span class="fa fa-bullhorn"></span>[공지]&nbsp;<span>'+msg.sendUser+'</span></b><span class="time">'+timeAgo+'</span>\
 						<span class="message">'+msg.message+'</span>\
 					</a>\
 				</li>\
 				';
+		}
 	}
 	$('#messages').html(htmlSource);
 }

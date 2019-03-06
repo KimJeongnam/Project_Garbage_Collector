@@ -24,6 +24,7 @@ import com.spring.project.admin.dao.AdminDAO;
 import com.spring.project.restful.dao.RestfulDAO;
 import com.spring.project.restful.vo.Message;
 import com.spring.project.share.dao.ShareDAO;
+import com.spring.project.share.vo.BachelorStatus;
 import com.spring.project.share.vo.ShareUserInfo;
 import com.spring.project.student.vo.LectureVO;
 
@@ -47,6 +48,11 @@ public class ShareServiceImpl implements ShareService{
 		ShareUserInfo user = null;
 		String userNumber = (String)request.getSession().getAttribute("userNumber");
 		
+		int b_status = dao.getBachelorStatus();
+		
+		BachelorStatus bachelorStatus = BachelorStatus.valueOf(b_status);
+		
+		request.getSession().setAttribute("bachelorStatus", bachelorStatus.getStrValue());
 		
 		if(authorities.stream().filter(o->o.getAuthority().equals("ROLE_ADMIN")).findAny().isPresent()) {
 			user = dao.getEmployeeInfo(userNumber);
@@ -57,7 +63,7 @@ public class ShareServiceImpl implements ShareService{
 			request.getSession().setAttribute("authority", "professor");
 			redirectUrl = "/professor/index";
 		}else if(authorities.stream().filter(o->o.getAuthority().equals("ROLE_STUDENT")).findAny().isPresent()) {
-			redirectUrl = "/student/index";
+			redirectUrl = "/student/personalProfile";
 			request.getSession().setAttribute("authority", "student");
 			user = dao.getStudentInfo(userNumber);
 		}
