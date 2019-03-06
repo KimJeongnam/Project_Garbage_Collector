@@ -86,4 +86,8 @@
 	SELECT userpassword as password FROM users where usernumber = #{id}
 	</select>
 	
+	<select id="getBachelorStatus" resultType="int">
+	select * FROM bachelor_status
+	</select>
+	
 </mapper>

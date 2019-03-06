@@ -70,6 +70,12 @@ public class ShareDAOImpl implements ShareDAO{
 		}
 		return message;
 	}
+
+	@Override
+	public int getBachelorStatus() {
+		return sqlSession.selectOne("com.spring.project.share.dao.ShareDAO.getBachelorStatus");
+	}
+	
 	
 	
 }

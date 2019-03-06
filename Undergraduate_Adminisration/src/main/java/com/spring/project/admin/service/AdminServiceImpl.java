@@ -1430,7 +1430,7 @@ public class AdminServiceImpl extends Board implements AdminService {
 			break;
 		case "5":
 			message = "수강신청 종료";
-			status = 3;
+			status = 4;
 			break;
 		}
 		lectrueSelectPeriod.setStatus(status);
