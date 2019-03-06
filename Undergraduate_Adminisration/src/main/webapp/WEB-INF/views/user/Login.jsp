@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>자바대학교 학사관리시스템</title>
 </head>
 <body>
 <meta charset="utf-8">
