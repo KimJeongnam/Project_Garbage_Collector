@@ -274,6 +274,9 @@ public class ProfessorServiceImpl implements ProfessorService {
 		
 		System.out.println("교수 강의 목록  v_myClass : " + v_myClass);
 		
+		MyClassVO vo = s_myClass.get(0);
+		
+		model.addAttribute("firstClass",vo);
 		model.addAttribute("v_myClass",v_myClass);
 		model.addAttribute("s_myClass",s_myClass);
 		model.addAttribute("lecName", lecName);
