@@ -157,7 +157,12 @@
 	
 	<!-- 과제 리스트 -->
  	<select id="task_lookup" parameterType="String" resultType="com.spring.project.professor.vo.Report_tblVO">
- 	select * from report_tbl where leccode = #{select}
+ 	select REPORTCODE
+,LECCODE
+,YEAR
+,REPORTINFO
+,REPORTNAME
+,to_char(ENDDATE,'yyyy-mm-dd') as ENDDATE from report_tbl where leccode = #{select}
  	</select>
  	
  	<!-- 과제 제출 리스트 -->

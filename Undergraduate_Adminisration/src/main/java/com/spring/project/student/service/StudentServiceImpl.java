@@ -281,10 +281,6 @@ public class StudentServiceImpl implements StudentService {
 		
 		model.addAttribute("dtos", dtos);
 		
-		//과제 리스트
-		/*List<report_tblVO> dtos2 = dao.s_report(userNumber);
-		
-		model.addAttribute("dtos2", dtos2);*/
 		
 	}
 	
@@ -296,12 +292,14 @@ public class StudentServiceImpl implements StudentService {
 		String userNumber = (String) req.getSession().getAttribute("userNumber");
 		String userName = req.getParameter("name");
 		String userCellNum = req.getParameter("telephone");
+		String zip = req.getParameter("zip");
 		String userAddr1 = req.getParameter("addr1");
 		String userAddr2 = req.getParameter("addr2");
 
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("userNumber", userNumber);
 		map.put("userName", userName);
+		map.put("zip", zip);
 		map.put("userCellNum", userCellNum);
 		map.put("userAddr1", userAddr1);
 		map.put("userAddr2", userAddr2);
@@ -320,11 +318,11 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	public void reportlist(Map<String, Object> map, Logger logger, Model model) {
 		//과제 전체 리스트
+		if(map.get("select") != null) {
 		List<report_tblVO> dtos2 = dao.s_report(map);
 		
-		
 		model.addAttribute("dtos2", dtos2);
-		
+		}
 	}
 	
 	//과제 관리2
@@ -474,7 +472,7 @@ public class StudentServiceImpl implements StudentService {
 		logger.info("cnt : " + cnt);
 		
 		if (cnt > 0) {
-			// 수강신청 목록 조회
+			// 장학신청 목록 조회
 			List<ScholarpkVO> dtos = dao.getArticleList(map);
 
 			model.addAttribute("dtos", dtos);
@@ -649,7 +647,6 @@ public class StudentServiceImpl implements StudentService {
 			red.addFlashAttribute("message","이미 신청 완료 되었습니다");
 		}
 	}
-		
 	
 
 	//@Override

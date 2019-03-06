@@ -47,6 +47,14 @@
 											</tr>
 										</c:forEach>
 									</c:if>
+									
+									<c:if test="${cnt == 0}">
+										<c:forEach var="dto" items="${dtos}">
+											<tr class="even pointer">
+												<td class=" " colspan="5">장학금 수혜 내역이 없습니다.</td>
+											</tr>
+										</c:forEach>
+									</c:if>
 		                        </tbody>
 		                      </table>
 		                    </div>

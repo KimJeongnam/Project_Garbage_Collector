@@ -236,6 +236,12 @@ public class AdminDAOImpl implements AdminDAO{
 			System.out.println("==================deleteCnt" + updateCnt);
 			return updateCnt;
 		}
+		//장학금 글 수정
+		@Override
+		public int rigisterupdate(Map<String, Object> map) {
+			int updateCnt = sqlSession.update("com.spring.project.admin.dao.AdminDAO.insertjangjag",map);
+			return updateCnt;
+		}
 		
 		//장학금 심사
 		@Override
@@ -597,6 +603,6 @@ public class AdminDAOImpl implements AdminDAO{
 	public List<IndexVO> facStdNameAvg() {
 		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.facStdNameAvg");
 	}
-	
+
 	
 }

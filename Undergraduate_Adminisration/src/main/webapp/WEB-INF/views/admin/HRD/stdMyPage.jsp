@@ -250,7 +250,7 @@
 																			</th>
 																			<td >
 																				<input type="text" name="userZipCode" class="input" required="required" 
-																					value="${vo.userZipCode }" placeholder="입학일을 입력하시오">
+																					value="${vo.userZipCode}" placeholder="입학일을 입력하시오">
 																					
 																				<button type="button" name="ZipCode" onclick="openZipSearch();">검색</button><br>
 																				주소 :<input id="userAddr1" name="userAddr1"class="form-control col-md-7 col-xs-12"

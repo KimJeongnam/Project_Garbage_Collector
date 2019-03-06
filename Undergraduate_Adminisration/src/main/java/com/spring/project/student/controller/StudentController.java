@@ -124,6 +124,7 @@ public class StudentController {
 		
 		return "redirect:/student/bulletin";
 	} 
+	
 	//장학금 수혜현황
 	@RequestMapping(value="/student/studentmanagementlist", method=RequestMethod.POST)
 	public String management(@RequestBody Map<String, Object> map, Model model) {

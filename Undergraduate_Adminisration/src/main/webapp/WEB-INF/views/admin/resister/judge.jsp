@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,10 +29,7 @@
 						<div class="x_panel">
 							<div class="row">
 								<div class="x_content">
-									<div style="float: right;">
-										<button class="btn btn-success" onclick="toggleOn()">합격</button>
-										<button class="btn btn-danger" onclick="toggleOff()">불 합격</button>
-									</div>
+									
 									<div class="">
 										<table class="table table-striped jambo_table bulk_action"
 											style="text-align: center">
@@ -43,54 +41,62 @@
 													<th style="text-align: center">학기</th>
 													<th style="text-align: center">장학금 명</th>
 													<th style="text-align: center">지급 일자</th>
-													<th style="text-align: center">장학금 금액(원)</th>
+													<th style="text-align: center">장학금 금액</th>
 													<th style="text-align: center">합/불여부</th>
 												</tr>
 											</thead>
 
+											
 											<tbody>
+											<c:if test="${cnt > 0 }">
 												<c:forEach var="dto" items="${audit}" varStatus="num">
 													<tr class="even pointer">
 														<td><input type="checkbox"
 															class="flat table_records2" name="table_records2"
-															value="${dto.schinfopk}"></td>
+															value="${dto.schinfopk}">
+															
+															</td>
 
 														<td class=" ">${dto.userName}</td>
 														<td class=" ">${dto.grade}</td>
 														<td class=" ">${dto.semester}</td>
 														<td class=" ">${dto.scholarName}</td>
 														<td class=" ">${dto.year}</td>
-														<td class=" ">${dto.amount}</td>
+														<td class=" ">${dto.amount}원</td>
 														
 														<c:if test="${dto.scholarstatus == '합'}">
 															<td><input class="toggle-event" type="checkbox"
 																data-toggle="toggle" data-off="불" data-on="합"
-																" checked="checked"></td>
-														</tr>
+																checked="checked"></td>
 														</c:if>
 
 														<c:if test="${dto.scholarstatus == '불'}">
 															<td><input class="toggle-event" type="checkbox"
 																data-toggle="toggle" data-off="불" data-on="합"></td>
-															</tr>
 														</c:if>
 														
 														<c:if test="${dto.scholarstatus == '심사'}">
 															<td>심사 중</td>
-															</tr>
 														</c:if>
-
+													</tr>
 												</c:forEach>
-
+											</c:if>
+											
+											<c:if test="${cnt == 0 }">
+												<tr class="even pointer">
+													<td colspan="8">심사할 글이 없습니다</td>
+												</tr>
+											
+											</c:if>
+											
 											</tbody>
 										</table>
+									<div style="float: right;">
+										<button class="btn btn-success" onclick="toggleOn()">합격</button>
+										<button class="btn btn-danger" onclick="toggleOff()">불 합격</button>
+									</div>
 
 										<div class="row">
-											<div class="col-sm-5">
-												<div class="dataTables_info" id="datatable_info"
-													role="status" aria-live="polite">Showing ${number} to
-													${number+pageCount} of ${cnt} entries</div>
-											</div>
 
 											<div class="col-sm-6">
 												<div class="text-letf">
@@ -156,6 +162,9 @@
 		</div>
 	</div>
 	<!-- /page content -->
+	
+	
+	
 
 
 	<script

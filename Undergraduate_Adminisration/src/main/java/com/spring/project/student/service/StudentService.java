@@ -47,8 +47,9 @@ public interface StudentService {
 	//장학금 글 신청 상세
 	public void contentForm(HttpServletRequest req,  Model model); 
 	
-	//장학금 글 신청 상세
+	//장학금 글 신청 
 	public void apply(HttpServletRequest req,  RedirectAttributes red);
+	
 	
 	// 강의 신청
 	public Map<String, Object> applyLecture(Map<String, Object> map, Logger logger);

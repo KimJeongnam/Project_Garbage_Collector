@@ -517,13 +517,14 @@ public class ProfessorServiceImpl implements ProfessorService {
 	public void report(HttpServletRequest req, Model model) {
 		String userNumber = (String) req.getSession().getAttribute("userNumber");
 		
-		
+		List<MyClassVO> s_myClass = dao.s_myClass(userNumber);
 		//내 강의 목록
 		List<LectureP_VO> vo = dao.P_Lecture(userNumber);
 		
 		System.out.println("나머지 강의 강의계획서  vo : " + vo);
 		
 		//강의 인원
+		model.addAttribute("s_myClass",s_myClass);
 		model.addAttribute("vo",vo);
 	}
 	//과제 관리
@@ -538,9 +539,11 @@ public class ProfessorServiceImpl implements ProfessorService {
 		
 		//과제 있는지 여부
 		int reportCnt = dao.p_report(map);
+		model.addAttribute("reportCnt",reportCnt);
 		
 		if(reportCnt != 0) {
 			Report_tblVO vo = dao.re_submit(map);
+			
 			
 			model.addAttribute("vo",vo);
 			
@@ -608,7 +611,7 @@ public class ProfessorServiceImpl implements ProfessorService {
 				
 				//제출 학생 불러오기
 				List<Submission_ListVO> dtos = dao.submissionlist(reportcode);
-				
+				System.out.println("dtos::::"+dtos);
 				model.addAttribute("dtos",dtos);
 			}
 		}
@@ -678,7 +681,5 @@ public class ProfessorServiceImpl implements ProfessorService {
 				red.addFlashAttribute("message", "삭제를 성공 했습니다");
 				red.addFlashAttribute("alertIcon","success");
 			}
-			
 		}
-
 }

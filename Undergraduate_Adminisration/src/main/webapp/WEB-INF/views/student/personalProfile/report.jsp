@@ -27,6 +27,7 @@
 				</tr>
 			</thead>
 			<tbody>
+			<c:if test="${dtos2 != null}">
 			<c:forEach items="${dtos2}" var="dto" varStatus="status">
 				<tr class="zxc" style="cursor:pointer"> <!-- onclick="aaa();"   -->
 					<td>${dto.reportcode}</td>
@@ -43,6 +44,11 @@
 					
 				</tr>
 			</c:forEach>
+			</c:if>
+			
+			<c:if test="${dtos2 == null}">
+			<td colspan="5" style="text-align: center;">과제가 없습니다.</td>
+			</c:if>
 			</tbody>
 		</table>
 
