@@ -239,8 +239,7 @@ public class AdminDAOImpl implements AdminDAO{
 		//장학금 글 수정
 		@Override
 		public int rigisterupdate(Map<String, Object> map) {
-			int updateCnt = sqlSession.update("com.spring.project.admin.dao.AdminDAO.insertjangjag",map);
-			return updateCnt;
+			return sqlSession.update("com.spring.project.admin.dao.AdminDAO.rigisterupdate",map);
 		}
 		
 		//장학금 심사

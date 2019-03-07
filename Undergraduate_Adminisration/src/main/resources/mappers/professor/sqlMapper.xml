@@ -171,7 +171,9 @@
  	
  	<!-- 과제 제출 리스트 -->
  	<select id="submissionlist" parameterType="int" resultType="com.spring.project.professor.vo.Submission_ListVO">
- 	select * from SubmissionList where reportcode = #{reportcode}
+ 	select * from(select dense_rank()over(PARTITION BY userName order by year desc) as rank, r.* from 
+        (select * from SubmissionList where reportcode=#{reportcode} order by year desc) r)
+        where rank=1
  	</select>
  	
  	

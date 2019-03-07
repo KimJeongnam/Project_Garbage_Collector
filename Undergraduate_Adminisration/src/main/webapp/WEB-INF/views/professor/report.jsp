@@ -7,6 +7,7 @@
 	<%@ include file="../Basic/settings.jsp" %>
 <title>자바대학교 학사관리시스템</title>
 </head>
+<%-- <c:if test="${!empty myClass}"> --%>
 <body class="nav-md">
 
 	<%@ include file="../Basic/navbar.jsp" %>
@@ -69,7 +70,6 @@
 		document.getElementById("Personnel1").style.display="none"
 		
 	});
- 	 
  	
  	 function hideshow(reportcode) {
  		
@@ -84,12 +84,13 @@
 	    y.style.display = "block";
 	  }
 	  
-	  report_Personnel2(reportcode,$("#mystatus").val());
+	  report_Personnel2(reportcode,$("#mystatus").val(),'${userNumber}');
 	  
 	}
  	</script>
+<%-- </c:if>
 
-<%-- <c:if test="${empty s_myClass}">
+<c:if test="${empty myClass}"> 
  <%@ include file="../Basic/footer.jsp" %>
     <script type="text/javascript">
         swal({
@@ -101,40 +102,8 @@
     	});
 
     </script>
-</c:if> --%>
+</c:if>  --%>
 <!-- /page content -->
-
-
-
-
-            
-	
- 	
- 	 
-	
-	<!-- /* function p_reportlist(){
-		
-		var form = document.createElement("form");
-		form.setAttribute("charset", "UTF-8");
-		form.setAttribute("method", "POST");
-		form.setAttribute("action", "../professor/personnel");
-		
-		var cnt = 0;
-		
-		var field = document.createElement("input");
-		field.setAttribute("hidden", "true");
-		field.setAttribute("type", "text");
-		field.setAttribute("name", "aaaaa");
-		field.setAttribute("value", $('#mystatus').val());
-		form.appendChild(field);
-	
-		document.body.appendChild(form);
-		
-		form.submit();
-	} */ -->
-	
-	
-	
 	
 </body>
 </html>

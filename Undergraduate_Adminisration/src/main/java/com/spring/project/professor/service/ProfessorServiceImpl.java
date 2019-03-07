@@ -290,10 +290,10 @@ public class ProfessorServiceImpl implements ProfessorService {
 			return "/professor/score";
 		}else {
 			if(referer!=null) {
-				red.addFlashAttribute("message", "진행중인 강의가 없습니다.");
+				red.addFlashAttribute("message", "학점입력기간이 아닙니다. 이전 페이지로 돌아갑니다.");
 				return "redirect:"+referer;
 			}else {
-				red.addFlashAttribute("message", "진행중인 강의가 없습니다.");
+				red.addFlashAttribute("message", "학점입력기간이 아닙니다. 이전 페이지로 돌아갑니다.");
 				return "redirect:/admin/index";
 			}
 		}
@@ -536,14 +536,14 @@ public class ProfessorServiceImpl implements ProfessorService {
 	public void report(HttpServletRequest req, Model model) {
 		String userNumber = (String) req.getSession().getAttribute("userNumber");
 		
-		List<MyClassVO> s_myClass = dao.s_myClass(userNumber);
+		List<MyClassVO> myClass = dao.myClass(userNumber);
 		//내 강의 목록
 		List<LectureP_VO> vo = dao.P_Lecture(userNumber);
 		
 		System.out.println("나머지 강의 강의계획서  vo : " + vo);
 		
 		//강의 인원
-		model.addAttribute("s_myClass",s_myClass);
+		model.addAttribute("myClass",myClass);
 		model.addAttribute("vo",vo);
 	}
 	//과제 관리
@@ -555,6 +555,7 @@ public class ProfessorServiceImpl implements ProfessorService {
 		
 		//총수강 인원
 		int personCnt = dao.personnel(map);
+		int codeCnt= 0;
 		
 		//과제 있는지 여부
 		int reportCnt = dao.p_report(map);
@@ -570,14 +571,12 @@ public class ProfessorServiceImpl implements ProfessorService {
 			int reportcode = vo.getReportcode();
 			
 			//과제 제출 완료한 인원 수 
-			int codeCnt = dao.codeCnt(reportcode);
+			codeCnt = dao.codeCnt(reportcode);
 			
 			
 			model.addAttribute("submitCnt",codeCnt);
 			//과제 미제출
-			int notCnt = personCnt - codeCnt;
 			
-			model.addAttribute("notCnt",notCnt);
 			
 			//제출 학생 불러오기
 			List<Submission_ListVO> dtos = dao.submissionlist(reportcode);
@@ -586,8 +585,14 @@ public class ProfessorServiceImpl implements ProfessorService {
 			model.addAttribute("dtos",dtos);
 			
 		}
+		int notCnt = personCnt - codeCnt;
 		
+		model.addAttribute("submitCnt",codeCnt);
 		model.addAttribute("cnt",personCnt);
+		model.addAttribute("notCnt",notCnt);
+		System.out.println("cnt::::"+personCnt);
+		System.out.println("submitCnt::::"+codeCnt);
+		System.out.println("notCnt::::"+notCnt);
 	
 		System.out.println("personCnt" + personCnt);
 	}
@@ -596,11 +601,14 @@ public class ProfessorServiceImpl implements ProfessorService {
 	@Override
 	public void re_contentform(Map<String, Object> map, HttpServletRequest req, Model model) {
 		System.out.println("select23123213" + map.get("select"));
+		String subject = (String) map.get("subject");
 		
 		System.out.println("서브젝트:" +  map.get("subject"));
+		
 		List<Report_tblVO> task = dao.task_lookup(map);
 		
 		model.addAttribute("task", task);
+		model.addAttribute("subject", subject);
 	
 	}
 	
@@ -618,6 +626,7 @@ public class ProfessorServiceImpl implements ProfessorService {
 			model.addAttribute("reportCnt",reportCnt);
 			if(reportCnt != 0) {
 				int reportcode = Integer.parseInt((String) map.get("reportcode"));
+				String userNumber = (String) map.get("userNumber");
 				System.out.println("reportcode:::::"+reportcode);
 				
 				int codeCnt = dao.codeCnt(reportcode);

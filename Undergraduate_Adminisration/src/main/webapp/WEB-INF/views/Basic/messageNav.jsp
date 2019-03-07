@@ -8,13 +8,7 @@
     <!-- #부분 스크립트 처리 -->
     <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
     		<div id="messages">
-				<!-- <li>
-					<a>
-						<span class="image"><img src="" alt="Profile Image"></span>
-						<span>#보낸이#</span><span class="time">#몇분전#</span>
-						<span class="message">쪽지</span>
-					</a>
-				</li> -->
+				
 			</div>
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
 			<li onclick="window.location='\

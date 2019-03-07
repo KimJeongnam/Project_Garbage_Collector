@@ -123,6 +123,25 @@
     , ROUND((r.enddate-sysdate)*24*60*60) as sec from stdreportlist r
     WHERE userNumber = #{stdNumber}
 	</select>
+	
+	<select id="getTotalScore" resultType="com.spring.project.restful.vo.StdScore">
+	select sci.year, gpa.semester, gpa.grade, to_char(avg(c.score), 9.99) as avgscore
+    , count(l.leccode) lecturecount
+    , sum(l.lectureScore) passscore
+    from studentclassinfo sci 
+    JOIN student std 
+    ON sci.userNumber = std.stdNumber 
+    JOIN lecture l
+    ON sci.leccode = l.leccode
+    JOIN gpa
+    ON sci.infocode = gpa.infocode
+    JOIN credit c
+    ON gpa.credit = c.credit
+    where sci.status=3
+    AND std.stdNumber = #{stdNumber}
+    group by sci.year, sci.semester, gpa.grade, gpa.semester
+    order by sci.year, gpa.grade
+	</select>
 	<!-- ================================================ANDROID=END=============================================== -->
 	
 </mapper>
