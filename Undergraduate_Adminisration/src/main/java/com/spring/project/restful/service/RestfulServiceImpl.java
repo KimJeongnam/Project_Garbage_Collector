@@ -21,6 +21,7 @@ import com.spring.project.restful.vo.ResponseData;
 import com.spring.project.restful.vo.RestUser;
 import com.spring.project.restful.vo.StdLecTime;
 import com.spring.project.restful.vo.StdReport;
+import com.spring.project.share.MessageLists;
 import com.spring.project.share.dao.ShareDAO;
 import com.spring.project.share.vo.Major;
 import com.spring.project.student.vo.LectureVO;
@@ -40,9 +41,9 @@ public class RestfulServiceImpl implements RestfulService {
 		Map<String, List<Message>> result = new HashMap<String, List<Message>>();
 		map.put("readStatus",  0);
 		
-		List<Message> sessionMessages = null;
-		if(request.getSession().getAttribute("Messages") != null)
-			sessionMessages = (List<Message>) request.getSession().getAttribute("Messages");
+		String userNumber = (String)request.getSession().getAttribute("userNumber");
+		List<Message> sessionMessages = MessageLists.map.get(userNumber);
+		
 		
 		Map<Integer, Message> nets = new HashMap<Integer, Message>();
 		
@@ -81,7 +82,8 @@ public class RestfulServiceImpl implements RestfulService {
 		}
 
 		//logger.info("response list Size() : " + newMessages.size());
-		request.getSession().setAttribute("Messages", list);
+		/*request.getSession().setAttribute("message_list", list);*/
+		MessageLists.map.put(userNumber, list);
 		result.put("newMessages", newMessages);
 
 		return result;
@@ -227,6 +229,24 @@ public class RestfulServiceImpl implements RestfulService {
 		}
 		
 		responseData.setData(message);
+		return responseData;
+	}
+
+	@Override
+	public ResponseData getStdTotalScore(String stdNumber) {
+		ResponseData responseData = new ResponseData();
+		
+		List<Object> data = dao.getTotalScore(stdNumber);
+		
+		responseData.setStatus(0);
+		responseData.setMessage("error");
+		
+		if(data!=null) {
+			responseData.setStatus(1);
+			responseData.setMessage("");
+			responseData.setData(data);
+		}
+			
 		return responseData;
 	}
 	

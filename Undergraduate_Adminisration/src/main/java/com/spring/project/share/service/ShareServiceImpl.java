@@ -23,6 +23,7 @@ import com.crontab.vo.LectrueSelectPeriod;
 import com.spring.project.admin.dao.AdminDAO;
 import com.spring.project.restful.dao.RestfulDAO;
 import com.spring.project.restful.vo.Message;
+import com.spring.project.share.MessageLists;
 import com.spring.project.share.dao.ShareDAO;
 import com.spring.project.share.vo.BachelorStatus;
 import com.spring.project.share.vo.ShareUserInfo;
@@ -74,6 +75,8 @@ public class ShareServiceImpl implements ShareService{
 			request.getSession().setAttribute("year", lectrueSelectPeriod.getYear());
 			request.getSession().setAttribute("semester", lectrueSelectPeriod.getSemester());
 		}
+		
+		MessageLists.map.put(user.getUserName(), new ArrayList<Message>());
 		
 		//logger.info(user.toString());
 		//logger.info(""+user.getMajorNum());

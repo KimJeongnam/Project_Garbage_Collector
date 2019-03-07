@@ -13,6 +13,7 @@ import com.spring.project.restful.vo.Location;
 import com.spring.project.restful.vo.Message;
 import com.spring.project.restful.vo.RestUser;
 import com.spring.project.restful.vo.StdReport;
+import com.spring.project.restful.vo.StdScore;
 import com.spring.project.share.dao.ShareDAO;
 import com.spring.project.student.vo.LectureVO;
 
@@ -89,6 +90,13 @@ public class RestfulDAOImpl implements RestfulDAO{
 		return sqlSession.selectList("com.spring.project.restful.dao"
 				+ ".RestfulDAO.getReports", map);
 	}
+
+	@Override
+	public List<Object> getTotalScore(String stdNumber) {
+		return sqlSession.selectList("com.spring.project.restful.dao"
+				+ ".RestfulDAO.getTotalScore", stdNumber);
+	}
+	
 	
 	
 	//---------------------------Android-END---------------------------------
