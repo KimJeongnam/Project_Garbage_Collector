@@ -40,3 +40,4 @@
 	</c:choose>
 </c:if>
 	ansycTaskMessage('${userNumber}');
+	ansycTaskBachelorStatus();

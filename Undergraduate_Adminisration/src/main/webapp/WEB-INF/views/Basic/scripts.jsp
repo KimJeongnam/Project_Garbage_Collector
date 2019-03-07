@@ -191,4 +191,7 @@
     <!-- ECharts -->
     <script src="${staticPath }/vendors/echarts/dist/echarts.min.js"></script>
     <script src="${staticPath }/vendors/echarts/map/js/world.js"></script>
+    
+    <!-- bachelorStatus.js -->
+    <script src="${staticPath }/js/bachelorstatus.js"></script>
 

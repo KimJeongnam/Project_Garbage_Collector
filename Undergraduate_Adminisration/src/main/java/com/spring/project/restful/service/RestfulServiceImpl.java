@@ -19,7 +19,6 @@ import com.spring.project.restful.vo.Location;
 import com.spring.project.restful.vo.Message;
 import com.spring.project.restful.vo.ResponseData;
 import com.spring.project.restful.vo.RestUser;
-import com.spring.project.restful.vo.StdLecTime;
 import com.spring.project.restful.vo.StdReport;
 import com.spring.project.share.MessageLists;
 import com.spring.project.share.dao.ShareDAO;
@@ -175,13 +174,18 @@ public class RestfulServiceImpl implements RestfulService {
 		
 		String message = "";
 		
+		Map<String, Object> map = new HashMap<String, Object> ();
+		
 		responseData.setStatus(0);
 		responseData.setMessage("fail");
 		if(data != null) {
 			responseData.setStatus(1);
 			responseData.setMessage("success");
 			
-			message += "'"+eday.getDays1Value()+"'요일 시간표\n";
+			map.put("dayofweek", eday.getDays1Value());
+			map.put("lectures", data);
+			
+			/*message += "'"+eday.getDays1Value()+"'요일 시간표\n";
 			
 			if(data.size()==0) message += "시간표가 비어 있습니다.";
 			
@@ -190,9 +194,9 @@ public class RestfulServiceImpl implements RestfulService {
 				StdLecTime dto = (StdLecTime)obj;
 				
 				message += dto.getClassTime()+"교시 : "+dto.getLectureName()+"\t, "+dto.getClassRoom()+"\n";
-			}
+			}*/
 			
-			responseData.setData(message);
+			responseData.setData(map);
 		}
 	
 		return responseData;
