@@ -20,16 +20,12 @@
 						<table class="table table-striped jambo_table bulk_action">
 							<thead>
 								<tr class="headings">
-									<!-- <th class=""  style="width: 5%; text-align: center;">
-                                        <input type="checkbox" id="check-all" class="flat">
-                                    </th> -->
 									<th class="" style="width: 10%; text-align: center;">선택</th>
 									<th class="" style="width: 15%; text-align: center;">글 번호</th>
 									<th class="" style="width: 15%; text-align: center;">년도</th>
 									<th class="" style="width: 10%; text-align: center;">학기</th>
 									<th class="" style="width: 25%; text-align: center;">장학금 명</th>
 									<th class="" style="width: 25%; text-align: center;">지급 금액</th>
-									<!-- <th class="column-title">조회</th> -->
 								</tr>
 							</thead>
 							<tbody>
@@ -44,7 +40,7 @@
 											<td class=" ">${dto.semester}</td>
 											<td class=" " style="cursor: pointer"><a
 												data-toggle="modal" data-target="#layerpop${dto.scholarpk}">${dto.scholarname}</a></td>
-											<td class=" "><fmt:formatNumber value="${dto.amount}"/>원</td>
+											<td class=" ">${dto.amount}원</td>
 										</tr>
 									</c:forEach>
 								</c:if>
@@ -168,17 +164,28 @@
 								</div>
 
 							</div>
-							<!-- container end -->
-
-							<!-- 구분 폼 -->
+							
+							
+								
+								
+								
+								
+								
+							<!-- 수정 금액 입력  -->
 							<div class="form-group">
-								<label for="price">지급 금액</label> <br> <input type="text"
-									class="form-control" name="amount1" id="amount1" 
-									onchange="dateFormat3();" placeholder="금액을 입력하세요" value="<fmt:formatNumber value="${dto.amount}"
-										pattern="#,###" />">
-									<input type="hidden" name="amount" id="amount${status.index}" value="${dto.amount}">
-										
+								<label for="price">지급 금액</label> <br> 
+								<input type="text" class="form-control" name="amount1" id="amount1" placeholder="금액을 입력하세요" value="${dto.amount}">
+										<!-- 받아가는건 히든으로 받아감  -->
+									<%-- <input type="hidden" name="amount" id="amount${status.index}" value="${dto.amount}"> --%>
+										<!-- 밑에꺼 수정 오류 사라지면 지우셈!!!! -->
+									<input type="text" name="amount" id="amount${status.index}" value="${dto.amount}">
 							</div>
+
+
+
+
+
+
 
 							<!-- 금액 입력 폼 -->
 							<div class="form-group">
@@ -283,16 +290,22 @@
 
 
 
-<script
-	src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<script	src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 <!-- Latest compiled and minified JavaScript -->
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/bootstrap-select.min.js"></script>
+<script	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/bootstrap-select.min.js"></script>
 
 <!-- (Optional) Latest compiled and minified JavaScript translation files -->
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/i18n/defaults-*.min.js"></script>
-
+<script	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/i18n/defaults-*.min.js"></script>
 
 <!-- Custom Theme Scripts -->
 <script src="${staticPath}/build/js/custom2.js"></script>
+
+
+<!-- 콤마제거 정규식  -->
+<script type="text/javascript">
+$(function() {
+	var mob = $('input[name=amount]').val();
+	var result = mob.replace(/,/gi, '');
+	$('input[name=amount]').val(result);
+});
+</script>
