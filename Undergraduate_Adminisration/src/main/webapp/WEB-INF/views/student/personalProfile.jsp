@@ -88,15 +88,15 @@
 											<div class="" role="tabpanel"
 												data-example-id="togglable-tabs">
 												<ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
-													<li role="presentation" class="active"><a
+													<li role="presentation" id="presentation1" class="active"><a
 														href="#tab_content1" id="home-tab" role="tab"
 														data-toggle="tab" aria-expanded="true">학생정보</a></li>
-													<li role="presentation" class=""><a
+													<li role="presentation" id="presentation2"><a
 														href="#tab_content2" role="tab" id="profile-tab"
-														data-toggle="tab" aria-expanded="false">수강중 강의</a></li>
-													<li role="presentation" class=""><a
+														data-toggle="tab">수강중 강의</a></li>
+													<li role="presentation" id="presentation3"><a
 														href="#tab_content3" role="tab" id="profile-tab2"
-														data-toggle="tab" aria-expanded="false">과제관리</a></li>
+														data-toggle="tab">과제관리</a></li>
 												</ul>
 												<!-- 학생정보 상세페이지 -->
 
@@ -247,20 +247,27 @@
 																						<option value="${dto.lectureName}">${dto.lectureName}</option>
 																					</c:forEach>
 																				</select>
-																				</ul>
 																			</div>
 																			<div class="clearfix"></div>
 																		</div>
 																		<div class="x_content">
 																			<div class="col-md-9 col-sm-9 col-xs-12">
 																				<div>
-																					<h4>과제리스트</h4>
-
+																					<h4>제출목록</h4>
+											
+											
+																							<!-- 과제ajax -->
 																					<div id="reprotList" class=""></div>
-																					<!-- end of user messages -->
+																					
+																					
+																					
 																				</div>
 																			</div>
+																			
+																						<!-- 과제2 ajax -->
 																			<div id="reportcontent" class=""></div>
+																			
+																			
 																		</div>
 																	</div>
 																</div>
@@ -333,6 +340,25 @@
 	$(function() {
 		reportlist('${userNumber}');
 		});
+	
+	 (function() {
+		$('#mystatus').click(function() {
+			 $("#reportcontent").empty();
+		});
+		
+		<c:if test="${lecName != null}">
+		 $('#profile-tab2').attr('aria-expanded','true');
+		 $('#home-tab').attr('aria-expanded','false');
+		 $('#presentation1').attr('class','fl');
+		 $('#presentation3').attr('class', 'active');
+		 
+		 jQuery('#tab_content3').show(); 
+		 $('#tab_content3').attr('class', 'tab-pane fade active in');
+		 $('#tab_content1').attr('class', 'tab-pane fade');
+      	</c:if>
+		
+		
+	})();
 
 	</script>
 </body>

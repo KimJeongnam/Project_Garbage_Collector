@@ -30,10 +30,10 @@ public interface StudentService {
 	public void s_infoupdate(HttpServletRequest req,RedirectAttributes red);
 	
 	//과제관리
-	public void reportlist(Map<String, Object> map, Logger logger, Model model);
+	public void reportlist(Map<String, Object> map, Logger logger, Model model,HttpServletRequest req);
 	
 	//과제 내용
-	public void reportcode(Map<String, Object> map, Logger logger, Model model);
+	public void reportcode(Map<String, Object> map, Logger logger, Model model,HttpServletRequest req);
 	
 	//과제 제출완료
 	public void assignment(MultipartHttpServletRequest req,RedirectAttributes red);
@@ -74,4 +74,5 @@ public interface StudentService {
 	
 	// 수강신청 페이지 진입(종강 개강 시기에 따라)
 	public String lectureList_Manager(HttpServletRequest req, RedirectAttributes red);
+
 }
