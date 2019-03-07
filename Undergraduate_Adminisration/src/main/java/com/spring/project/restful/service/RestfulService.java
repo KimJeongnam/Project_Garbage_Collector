@@ -32,5 +32,6 @@ public interface RestfulService {
 	public ResponseData getLectureTime(String stdNumber, int day);
 	// 학생의 과제 조회
 	public ResponseData getStdReports(String stdNumber);
+	public ResponseData getStdTotalScore(String stdNumber);
 	//---------------------------Android-END---------------------------------
 }
