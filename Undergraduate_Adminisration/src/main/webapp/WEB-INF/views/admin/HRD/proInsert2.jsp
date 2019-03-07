@@ -48,7 +48,7 @@
 												<tr>
 													<th class="control-label">단과대</th>
 													<td><select name="faculty" id="faculty"
-														style="height: 22px;" onchange="nextFaculty();">
+														style="height: 22px; width: 172px;" onchange="nextFaculty();">
 															<option value="">분류없음</option>
 															<c:forEach var="fa" items="${outFandM}">
 																<option value="${fa.faculty}">${fa.faculty}</option>
@@ -56,7 +56,7 @@
 													</select></td>
 													<th class="control-label">학과번호</th>
 													<td><select name="majorNum" id="majorNum"
-														style="width: 130px; height: 22px;" onchange="nextMajor();">
+														style="width: 130px; height: 22px; width: 172px;" onchange="nextMajor();">
 															<option value="분류없음">분류없음</option>
 													</select></td>
 												</tr>
@@ -86,10 +86,10 @@
 												<tr>
 													<th class="control-label">주민등록번호</th>
 													<td>
-														<input class="input" type="text" name="jumin1" maxlength="6" style="width : 73px"
+														<input class="input" type="text" name="jumin1" maxlength="6" style="width : 80px"
 															onkeyup ="nextJumin1();" numberOnly="true">
 															- <input class="input" type="password" name="jumin2" maxlength="7"
-															style="width:80px;" onkeyup="nextJumin2();" numberOnly="true">
+															style="width:81px;" onkeyup="nextJumin2();" numberOnly="true">
 													</td>
 													<th class="control-label">성별</th>
 													<td>
@@ -108,10 +108,10 @@
 														 	style= "width : 40px" onkeyup="nextHP1();" numberOnly="true">
 														 	-
 														 	<input class="input" type="text" name="hp2" maxlength="4"
-														 	style= "width : 50px" onkeyup="nextHP2();" numberOnly="true">
+														 	style= "width : 54px" onkeyup="nextHP2();" numberOnly="true">
 														 	-
 														 	<input class="input" type="text" name="hp3" maxlength="4"
-														 	style= "width : 50px" onkeyup="nextHP3();" numberOnly="true">
+														 	style= "width : 54px" onkeyup="nextHP3();" numberOnly="true">
 													</td>
 													
 													<th class="control-label">이메일</th>
@@ -158,7 +158,7 @@
 														required="required" id="accountNumber"
 														name="accountNumber" placeholder="계좌번호를 입력하시오"></td>
 													<th class="control-label">입사일</th>
-													<td><input type="date" class="input" style="width : 165px"
+													<td><input type="date" class="input" style="width : 172px"
 														required="required" id="empHiredDate" name="empHiredDate"></td>
 												</tr>
 											</table>
@@ -213,10 +213,10 @@
 												<tr>
 													<th class="control-label">주민등록번호</th>
 													<td>
-														<input class="input" type="text" name="jumin1" maxlength="6" style="width : 73px"
+														<input class="input" type="text" name="jumin1" maxlength="6" style="width : 80px"
 															onkeyup ="nextJumin1Emp();">
 															- <input class="input" type="password" name="jumin2" maxlength="7"
-															style="width:80px;" onkeyup="nextJumin2Emp();">
+															style="width:81px;" onkeyup="nextJumin2Emp();">
 													</td>
 													<th class="control-label">성별</th>
 													<td>
@@ -236,10 +236,10 @@
 														 	style= "width : 40px" onkeyup="nextHP1Emp();">
 														 	-
 														 	<input class="input" type="text" name="hp2" maxlength="4"
-														 	style= "width : 50px" onkeyup="nextHP2Emp();">
+														 	style= "width : 54px" onkeyup="nextHP2Emp();">
 														 	-
 														 	<input class="input" type="text" name="hp3" maxlength="4"
-														 	style= "width : 50px" onkeyup="nextHP3Emp();">
+														 	style= "width : 54px" onkeyup="nextHP3Emp();">
 													</td>
 													
 													<th class="control-label">이메일</th>
@@ -286,7 +286,7 @@
 														required="required" id="accountNumber"
 														name="accountNumber" placeholder="계좌번호를 입력하시오"></td>
 													<th class="control-label">입사일</th>
-													<td><input type="date" class="input" style="width : 165px"
+													<td><input type="date" class="input" style="width : 172px"
 														required="required" id="empHiredDate" name="empHiredDate"></td>
 												</tr>
 											</table>

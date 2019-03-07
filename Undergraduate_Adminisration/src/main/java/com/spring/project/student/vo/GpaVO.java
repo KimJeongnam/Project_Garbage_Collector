@@ -21,11 +21,17 @@ public class GpaVO {
 	private int grantedCredit;				//이수학점
 	private int grantedCnt;					//이수학점 갯수
 	private int totalJscore;				//평균학점 알파벳표시
+	private float avgScore;					//총 평균학점
 	
 	
 	
 	
-	
+	public float getAvgScore() {
+		return avgScore;
+	}
+	public void setAvgScore(float avgScore) {
+		this.avgScore = avgScore;
+	}
 	public int getGrantedCredit() {
 		return grantedCredit;
 	}

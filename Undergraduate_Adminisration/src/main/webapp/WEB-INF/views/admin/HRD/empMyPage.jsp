@@ -126,7 +126,7 @@
 																					<input class="input" type="text" name="jumin1" maxlength="6" style="width : 73px"
 																							onkeyup ="empMyPageJumin1();" value="${SsnArr[0] }"  numberOnly="true" disabled> -
 																					 <input class="input" type="password" name="jumin2" maxlength="7"
-																							style="width:80px;" onkeyup="empMyPageJumin2();" value="${SsnArr[1] }" numberOnly="true" disabled>
+																							style="width:84px;" onkeyup="empMyPageJumin2();" value="${SsnArr[1] }" numberOnly="true" disabled>
 																				</td>
 																			<th class="control-label">
 																				영어성명
@@ -153,10 +153,10 @@
 																			 	style= "width : 40px" onkeyup="empMyPagePh1();" value="${phArr[0] }">
 																			 	-
 																			 	<input class="input" type="text" name="hp2" maxlength="4" numberOnly="true"
-																			 	style= "width : 50px" onkeyup="empMyPagePh2();" value="${phArr[1] }">
+																			 	style= "width : 54px" onkeyup="empMyPagePh2();" value="${phArr[1] }">
 																			 	-
 																			 	<input class="input" type="text" name="hp3" maxlength="4" numberOnly="true"
-																			 	style= "width : 50px" onkeyup="empMyPagePh3();" value="${phArr[2] }">
+																			 	style= "width : 54px" onkeyup="empMyPagePh3();" value="${phArr[2] }">
 																			</td>							
 																			
 																		</tr>
@@ -178,7 +178,7 @@
 																				</td>
 																				<th class="control-label">입사일</th>
 																				<td><input type="date" class="input" value="${vo.empHiredDate}" name="empHiredDate"
-																					style="width: 166px;" required="required" placeholder="입사일을 입력하시오">
+																					style="width: 172px;" required="required" placeholder="입사일을 입력하시오">
 																				</td>
 																		</tr>
 																		<tr>

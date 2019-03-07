@@ -115,10 +115,10 @@
 																			<th class="control-label">주민등록번호</th>
 																				<td>
 																					<c:set var="SsnArr" value="${fn:split(vo.getUserSsn(),'-')}"/>
-																					<input class="input" type="text" name="jumin1" maxlength="6" style="width : 73px"
+																					<input class="input" type="text" name="jumin1" maxlength="6" style="width : 74px"
 																							onkeyup ="stdMyPageJumin1();" value="${SsnArr[0] }" numberOnly="true" disabled> -
 																					 <input class="input" type="password" name="jumin2" maxlength="7"
-																							style="width:80px;" onkeyup="stdMyPageJumin2();" value="${SsnArr[1] }" numberOnly="true" disabled>
+																							style="width:85px;" onkeyup="stdMyPageJumin2();" value="${SsnArr[1] }" numberOnly="true" disabled>
 																				</td>
 																			<th class="control-label">
 																				영어성명
@@ -233,8 +233,7 @@
 																			</th>
 																			<td colspan="3">
 																				<input type="text" name="userZipCode" class="input" required="required" 
-
-																					value="${vo.userZipCode }" placeholder="우편번호를 입력하시오">
+																					value="${vo.userZipCode }" placeholder="우편번호를 입력하시오" style="width : 201px">
 
 																				<button type="button" name="ZipCode" onclick="openZipSearch();">검색</button><br>
 																				주소 : <br>

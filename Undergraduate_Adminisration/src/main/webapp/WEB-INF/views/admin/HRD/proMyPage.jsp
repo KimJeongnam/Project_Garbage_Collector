@@ -134,7 +134,7 @@
 																					<input class="input" type="text" name="jumin1" maxlength="6" style="width : 73px"
 																							onkeyup ="proMyPageJumin1();" value="${SsnArr[0] }" numberOnly="true" disabled> -
 																					 <input class="input" type="password" name="jumin2" maxlength="7"
-																							style="width:80px;" onkeyup="proMyPageJumin2();" value="${SsnArr[1] }" numberOnly="true" disabled>
+																							style="width:84px;" onkeyup="proMyPageJumin2();" value="${SsnArr[1] }" numberOnly="true" disabled>
 																				</td>
 																			<th class="control-label">
 																				영어성명
@@ -158,7 +158,7 @@
 																				단과대학
 																			</th>
 																			<td>
-																				<select name="faculty" id ="faculty" style="height : 22px; width : 165px;" >
+																				<select name="faculty" id ="faculty" style="height : 22px; width : 172px;" >
 																		       			<option value="${vo.faculty}" selected>${vo.faculty}</option> 
 																		       		<c:forEach var="fa" items="${outFandM}" >
 																						<option value="${fa.faculty}" >${fa.faculty}</option> 
@@ -171,9 +171,9 @@
 																			<th class="control-label">이메일</th>
 																				<td>
 																					<c:set var="emailArr" value="${fn:split(vo.getUserEmail(),'@')}"/>
-																					<input class="input" type="text" name="email1" maxlength="10" style="width : 65px"
+																					<input class="input" type="text" name="email1" maxlength="10" style="width : 66px"
 																							value="${emailArr[0] }"> @
-																					<input class="input" type="text" name="email2" maxlength="20" style="width : 83px"
+																					<input class="input" type="text" name="email2" maxlength="20" style="width : 84px"
 																							value="${emailArr[1] }">
 																					<select class ="input" name="email3" style="height:23px;" onchange="proMyPageEmailChk();">
 																						<option value="0">직접입력</option>
@@ -188,7 +188,7 @@
 																			</th>
 																			<td>
 																				<select name="majorNum" id ="majorNum" selected ="${vo.majorNum}"
-																						style="width : 165px; height : 22px;" >
+																						style="width : 172px; height : 22px;" >
 																					<option value="${vo.majorNum}">${vo.majorNum} : ${vo.majorName}</option>	
 																		  		</select>
 																			</td>
@@ -201,15 +201,15 @@
 																				 	style= "width : 40px" onkeyup="proMyPagePh1();" value="${phArr[0] }" numberOnly="true">
 																				 	-
 																				 	<input class="input" type="text" name="hp2" maxlength="4"
-																				 	style= "width : 50px" onkeyup="proMyPagePh2();" value="${phArr[1] }" numberOnly="true">
+																				 	style= "width : 54px" onkeyup="proMyPagePh2();" value="${phArr[1] }" numberOnly="true">
 																				 	-
 																				 	<input class="input" type="text" name="hp3" maxlength="4"
-																				 	style= "width : 50px" onkeyup="proMyPagePh3();" value="${phArr[2] }" numberOnly="true">
+																				 	style= "width : 54px" onkeyup="proMyPagePh3();" value="${phArr[2] }" numberOnly="true">
 																				</td>
 																			
 																			<th class="control-label">입사일</th>
 																			<td><input type="date" class="input" value="${vo.empHiredDate}" name="empHiredDate"
-																				style="width: 166px;" required="required" placeholder="입사일을 입력하시오">
+																				style="width: 172px;" required="required" placeholder="입사일을 입력하시오">
 																			</td>
 																		</tr>
 																		<tr>

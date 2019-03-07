@@ -55,7 +55,6 @@ public class AWSUtil {
 		if(snsClient == null) {
 			init();
 		}
-		
 		//init()메소드에서 할당된 아이디로 토픽(주제) 생성
 		String topicArn = "";
 		
@@ -69,7 +68,6 @@ public class AWSUtil {
 				//해당 토픽(topicArn)에 subscribe 추가(번호추가)
 				subscribeToTopic(snsClient, topicArn, "sms", userCellNum);
 			}
-			
 			//Topic의 추가된 번호로 SMS 전송
 			sendSMSMessageToTopic(snsClient, topicArn, msg, smsAttributes);
 		}catch(Exception e) {
@@ -79,12 +77,7 @@ public class AWSUtil {
 			if(StringUtils.hasText(topicArn)) {
 				snsClient.deleteTopic(topicArn);
 			}
-			
 		}
-				
-		
-		
-
 	}
 
 	//토픽 생성
