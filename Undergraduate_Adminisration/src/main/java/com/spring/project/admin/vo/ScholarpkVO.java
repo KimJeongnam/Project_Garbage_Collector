@@ -7,8 +7,15 @@ public class ScholarpkVO {
 	private String  semester;			//학기
 	private String  scholarcontent;	 	//내용
 	private String  amount;				//지급금액
+	private String  delstatus;			//상태
 	
 	
+	public String getDelstatus() {
+		return delstatus;
+	}
+	public void setDelstatus(String delstatus) {
+		this.delstatus = delstatus;
+	}
 	public int getScholarpk() {
 		return scholarpk;
 	}

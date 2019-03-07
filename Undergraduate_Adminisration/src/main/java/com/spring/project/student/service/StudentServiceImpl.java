@@ -327,17 +327,20 @@ public class StudentServiceImpl implements StudentService {
 		if(map.get("select") != null) {
 		List<report_tblVO> dtos2 = dao.s_report(map);
 		String lecName = null;
+		
 		if(req.getParameter("lecName")!=null) {
 			lecName = req.getParameter("lecName");
 		}
+		System.out.println("reportcode:::"+map.get("reportcode"));
+		
 		model.addAttribute("lecName", lecName);
 		
 		model.addAttribute("dtos2", dtos2);
 		
-		report_tblVO dtos = dao.reportcontent(map);
+		/*report_tblVO dtos = dao.reportcontent(map);
 		
 		model.addAttribute("dtos", dtos);
-
+*/
 		}
 	}
 	

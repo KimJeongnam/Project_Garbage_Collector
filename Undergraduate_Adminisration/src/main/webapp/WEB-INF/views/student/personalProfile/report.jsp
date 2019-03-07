@@ -20,8 +20,8 @@
 					<th>진행 상태</th>
 				</tr>
 			</thead>
-			<tbody>
-			<c:if test="${dtos2 != null}">
+			<tbody> <%-- <c:if test="${!empty s_myClass}"> --%>
+			<c:if test="${!empty dtos2}">
 			<c:forEach items="${dtos2}" var="dto" varStatus="status">
 				<tr class="zxc" style="cursor:pointer">
 					<td>${dto.reportcode}</td>
@@ -40,7 +40,7 @@
 			</c:forEach>
 			</c:if>
 			
-			<c:if test="${dtos == null}">
+			<c:if test="${empty dtos2}">
 			<td colspan="5" style="text-align: center;">과제가 없습니다.</td>
 			</c:if>
 			</tbody>

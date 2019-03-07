@@ -206,7 +206,7 @@
 																</tr>
 															</thead>
 															<tbody>
-																<c:if test="${dtos != null}">
+																<c:if test="${!empty dtos}">
 																	<c:forEach var="dto" items="${dtos}">
 																		<tr>
 																			<td>${dto.lecCode}</td>
@@ -217,12 +217,10 @@
 																		</tr>
 																	</c:forEach>
 																</c:if>
+																<c:if test="${empty dtos}">
 																<tr>
-																	<td colspan="5" style="text-align: center;">수강신청한
-																		강의가 없습니다!</td>
+																	<td colspan="5" style="text-align: center;">수강중인 강의가 없습니다!</td>
 																</tr>
-																<c:if test="${dtos != null}">
-
 																</c:if>
 															</tbody>
 														</table>

@@ -55,7 +55,6 @@
 
 							</tbody>
 						</table>
-
 						<!-- 페이지 컨트롤 -->
 						<div class="row">
 							<div class="col-sm-6">

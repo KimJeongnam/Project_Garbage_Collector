@@ -13,36 +13,22 @@
 	<div class="col-md-3 col-sm-3 col-xs-12">
 		<section class="panel">
 			<div class="x_title">
-				<h2>운동역학</h2>
+				<h4 style="margin-top: 37px;">과제내용</h4>
 				<div class="clearfix"></div>
 			</div>
 			<div class="panel-body">
 				<h3 class="green">
-					<i class="fa fa-university"></i> 과제 내용
+					<i class="fa fa-university"></i> ${dtos.getLectureName()}
 				</h3>
 				<p>
 					<br> <br> ${dtos.getReportInfo()}
 				</p>
 				<br />
 				<div class="project_detail">
-					<p class="title">강의 명</p>
-					<p>${dtos.getLectureName()}</p>
 					<p class="title">과제 명</p>
 					<p>${dtos.getReportName()}</p>
 				</div>
 				<br />
-				<h5>주의 사항</h5>
-				<ul class="list-unstyled project_files">
-					<li><a href=""><i class="fa fa-file-word-o"></i> 제출 파일 :한글</a></li>
-					<li><a href="">&nbsp;&nbsp;&nbsp;<i
-							class="fa fa-mail-forward"></i> 폰트 크기 : 11
-					</a></li>
-					<li><a href=""><i class=""></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							글씨체 : 굴림</a></li>
-					<li><a href=""><i class=""></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							개요 준수</a></li>
-
-				</ul>
 				<br />
 				<!-- Large modal -->
 				<div class="text-center mtop20">
