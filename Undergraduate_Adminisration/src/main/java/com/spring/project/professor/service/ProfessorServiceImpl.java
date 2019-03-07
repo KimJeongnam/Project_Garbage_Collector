@@ -290,10 +290,10 @@ public class ProfessorServiceImpl implements ProfessorService {
 			return "/professor/score";
 		}else {
 			if(referer!=null) {
-				red.addFlashAttribute("message", "진행중인 강의가 없습니다.");
+				red.addFlashAttribute("message", "학점입력기간이 아닙니다. 이전 페이지로 돌아갑니다.");
 				return "redirect:"+referer;
 			}else {
-				red.addFlashAttribute("message", "진행중인 강의가 없습니다.");
+				red.addFlashAttribute("message", "학점입력기간이 아닙니다. 이전 페이지로 돌아갑니다.");
 				return "redirect:/admin/index";
 			}
 		}
