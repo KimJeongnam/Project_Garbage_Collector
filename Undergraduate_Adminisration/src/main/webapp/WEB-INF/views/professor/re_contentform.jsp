@@ -9,20 +9,19 @@
 <title>자바대학교 학사관리시스템</title>
 
 <style>
-.toggle-off {
-	margin-bottom: 0px;
-	margin-right: 0px;
-}
 </style>
 </head>
 <body class="nav-md">
 	<!-- page content -->
 	<div class="col-md-3 col-sm-3 col-xs-12">
-
+			<div class="x_title">
+				<h2 style="margin-top: 17PX;">${subject}</h2>
+				<div class="clearfix"></div>
+			</div>
 
 
 				<div class="clearfix"></div>
-			</div>
+			
 			<div class="panel-body">
 				<div class="x_content">
 					<ul class="list-unstyled timeline">
@@ -148,7 +147,7 @@
 											</button>
 											<h4 class="modal-title" id="myModalLabel2">과제내용 수정</h4>
 										</div>
-										<form action="reportupdate" method="post">
+										<form action="reportupdate" method="post" onsubmit="return reportupdate();">
 											<div class="modal-body">
 
 												<!-- //글제목 입력 폼 -->
@@ -162,10 +161,10 @@
 														id="subject" value="${task.reportName}">
 													<div class="col-sm-12">
 														<label class="control-label"
-															style="float: left; margin-top: 20px;">마감 일 : </label>
+															style="float: left; margin-top: 20px;">마감 일 :</label>
 													</div>
-													<input type="text" class="form-control" name="enddate"
-														id="subject" value="${task.endDate}">
+													<input type="date" class="form-control" name="enddate"
+														id="subject" value="${task.endDate}" onchange="dateFormat();">
 												</div>
 
 
@@ -176,13 +175,14 @@
 													<textarea class="form-control" rows="10" name="content"
 														id="content" style="resize: none;">${task.reportInfo}</textarea>
 												</div>
+												
 
 											</div>
 											<div class="modal-footer">
 												<button type="button" class="btn btn-default"
 													data-dismiss="modal">취소</button>
 												<button type="submit" class="btn btn-primary">저장</button>
-												<button type="button" onclick="deletePro();"
+												<button type="button" onclick="deletePro(${task.reportcode});"
 													class="btn btn-danger">삭제</button>
 											</div>
 										</form>
@@ -196,6 +196,7 @@
 					</div>
 				</div>
 			</div>
+		</div>
 		</section>
 	</div>
 
@@ -216,9 +217,36 @@
 		$('.leccode').val($('#mystatus').val());
 	}
 	
-	function deletePro() {
-		var deletecode = $('#gender1').val();
+	function deletePro(deletecode) {
 		 location.href="reportdelete?reportcode="+deletecode;
+	}
+	
+	function dateFormat() {
+		var date_pattern = /^(19|20)\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])$/;
+		var obj = document.inputform.year.value;
+		if (!date_pattern.test(obj)) {
+			alert("날짜 형식이 잘못되었습니다");
+			document.inputform.year.value = null;
+			return;
+		}
+		//숫자 형식  
+	}
+	
+	function reportupdate() {
+		var scholarname = document.inputform.scholarname.value;
+		var content = $('#editor-one')[0].innerHTML
+		 if(!scholarname){
+			alert("장학금 명을 입력해주세요");
+			return false;
+		 }
+		if(content==0){
+			alert("장학금 내용을 입력해주세요");
+			return false;
+		 }
+		var scholarContent = $('#editor-one')[0].innerHTML
+		$('#scholarContent').val(scholarContent);
+		if($('#scholarContent').val().length > 0) return true;
+		else return false;
 	}
 	
 	

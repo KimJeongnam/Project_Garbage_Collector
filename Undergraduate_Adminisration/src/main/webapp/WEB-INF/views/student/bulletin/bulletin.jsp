@@ -8,10 +8,6 @@
 <title>자바대학교 학사관리시스템</title>
 
 <style>
-.toggle-off {
-	margin-bottom: 0px;
-	margin-right: 0px;
-}
 </style>
 </head>
 <body class="nav-md">
@@ -50,7 +46,7 @@
 												<td class=" ">${dto.scholarpk}</td>
 												<td class=" ">${dto.year}</td>
 												<td class=" ">${dto.semester}</td>
-												<td class=" "><a data-toggle="modal" data-target="#layerpop${dto.scholarpk}">${dto.scholarname}</a></td></td>
+												<td class=" "><a data-toggle="modal" data-target="#layerpop${dto.scholarpk}" style="cursor:pointer">${dto.scholarname}</a></td></td>
 												<td class=" ">${dto.amount}원</td>
 											</tr>
 										</c:forEach>

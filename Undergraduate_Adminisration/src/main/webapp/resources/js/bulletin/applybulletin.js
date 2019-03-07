@@ -73,6 +73,7 @@ function reportlist(userNumber){
 	var obj = new Object();
 	obj.userNumber = userNumber;
 	
+	
 	if($("#mystatus").val() != null){
 		obj.select = $("#mystatus").val();
 	}

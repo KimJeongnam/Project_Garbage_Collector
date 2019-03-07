@@ -58,27 +58,20 @@
 	<!-- 수강신청 목록 조회 -->
 	<select id="lectureList" parameterType="java.util.Map"
 		resultType="com.spring.project.student.vo.LectureVO">
-
 		select * from
 		(SELECT rownum rNum, accountHolder, lecCode, majorName,
 		lectureName, lectureClassfication, maximumcapacity, grade
-		,
-		grantedSemester, lectureScore, classRoom, classTime
+		, grantedSemester, lectureScore, classRoom, classTime
 		from
-		(SELECT
-		u.userName as accountHolder, l.lecCode,m.majorName,l.lectureName,
-		l.lectureClassfication, (l.maximumcapacity-(select count(*) from
-		studentClassInfo where lecCode=l.lecCode)) as maximumcapacity,l.grade,
-		l.grantedSemester, l.lectureScore, l.classRoom,
-		LISTAGG(to_char(t.lectureDay)||t.classTime, ',')within group(order by
-		t.classTime) as classTime
+		(SELECT u.userName as accountHolder, l.lecCode,m.majorName,l.lectureName, l.lectureClassfication, 
+		(l.maximumcapacity-(select count(*) from studentClassInfo where lecCode=l.lecCode)) as maximumcapacity,l.grade,
+		l.grantedSemester, l.lectureScore, l.classRoom, LISTAGG(to_char(t.lectureDay)||t.classTime, ',')within group(order by
+		decode(lectureday,'월',1,'화',2,'수',3,'목',4,'금',5), t.classTime) as classTime
 		FROM employee e , lecture l, lectureTime lt,
 		timetable t, major m, users u
 		<where>
-			e.empNumber = l.empNumber and l.lecCode = lt.lecCode and
-			lt.timetblCode = t.timetblCode and m.majorNum=l.majorNum
-			and u.userNumber = e.empNumber and
-			l.delStatus = 0 and l.grantedSemester = #{grantedSemester}
+			e.empNumber = l.empNumber and l.lecCode = lt.lecCode and lt.timetblCode = t.timetblCode and m.majorNum=l.majorNum
+			and u.userNumber = e.empNumber and l.delStatus = 0 and l.grantedSemester = #{grantedSemester}
 			<if test="keyword != null">
 				AND LOWER(l.lectureName) like '%'||LOWER(#{keyword})||'%'
 			</if>
@@ -93,12 +86,8 @@
 				AND l.grade like '%'||#{grade}||'%'
 			</if>
 		</where>
-		GROUP BY u.userName, l.lecCode,m.majorName,l.lectureName,
-		l.lectureClassfication, maximumcapacity,l.grade,
-		l.grantedSemester,
-		l.lectureScore, l.classRoom
-		)
-		)
+		GROUP BY u.userName, l.lecCode,m.majorName,l.lectureName, l.lectureClassfication, maximumcapacity,l.grade,
+		l.grantedSemester, l.lectureScore, l.classRoom))
 		<where>
 			<![CDATA[
 			rNum >= #{start} and rNum <= #{end}
@@ -286,7 +275,7 @@
 		where delstatus = 0
 		order by
 		SCHOLARPK desc
-		)
+		) 
 
 		<where>
 			<if test="year != 0">
@@ -301,6 +290,18 @@
 				                 
 				                
 		<![CDATA[ where rNum >= #{start} and rNum <= #{end}]]>
+		
+		<!-- select s.SCHOLARPK
+		,SCHOLARNAME
+		,YEAR
+		,SEMESTER
+		,SCHOLARCONTENT
+		,TO_CHAR(AMOUNT,'999,999,999,999,999') as AMOUNT
+		,DELSTATUS
+		,stdnumber
+		from SCHOLARSHIPINFO sc , SCHOLARSHIP s
+		        where sc.SCHOLARPK = s.SCHOLARPK and stdnumber=#{userNumber} -->
+		
 
 	</select>
 
@@ -347,7 +348,7 @@
 	<insert id="scholarshipinsert" parameterType="java.util.Map">
 		insert into
 		SCHOLARSHIPINFO(SCHINFOPK,SCHOLARPK,STDNUMBER,STATCODE)
-		values(SCHOLARSHIPINFO_SEQ.nextval,#{scholarpk},#{userNumber},0)
+		values(SCHOLARSHIPINFO_SEQ.nextval,#{scholarpk},#{userNumber},2)
 	</insert>
 
 	<!-- 내 수강신청 목록 조회 -->

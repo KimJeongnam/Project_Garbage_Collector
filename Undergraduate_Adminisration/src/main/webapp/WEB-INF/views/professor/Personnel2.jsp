@@ -8,10 +8,6 @@
 <title>자바대학교 학사관리시스템</title>
 
 <style>
-.toggle-off {
-	margin-bottom: 0px;
-	margin-right: 0px;
-}
 </style>
 </head>
 <body class="nav-md">
@@ -19,20 +15,17 @@
 	<div class="col-md-9 col-sm-9 col-xs-12">
 
 		<ul class="stats-overview">
-			<li><span class="name"> 총 수강인원 </span> <span
-				class="value text-success"> ${cnt} </span></li>
-			<li><span class="name"> 과제 제출 인원 </span> <c:if
-					test="${reportcode != 0}">
-					<span class="value text-success"> ${submitCnt} </span>
-				</c:if> <c:if test="${reportcode == 0}">
-					<span class="value text-success"> 0 </span>
-				</c:if></li>
-			<li class="hidden-phone"><span class="name">과제 미제출 인원</span> <c:if
-					test="${reportcode != 0}">
-					<span class="value text-success"> ${notCnt} </span>
-				</c:if> <c:if test="${reportcode == 0}">
+			<li><span class="name"> 총 수강인원  </span> 
 					<span class="value text-success"> ${cnt} </span>
-				</c:if></li>
+				</li>
+			<li><span class="name"> 과제 제출 인원 </span> <c:if
+					test="${submitCnt != 0}">
+					<span class="value text-success"> ${submitCnt} </span>
+				</c:if>
+				</li>
+			<li class="hidden-phone"><span class="name">과제 미제출 인원</span>
+			<span
+				class="value text-success"> ${notCnt}0 </span> </li>
 		</ul>
 		<div>
 

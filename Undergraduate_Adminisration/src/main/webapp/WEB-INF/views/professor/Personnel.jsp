@@ -8,10 +8,6 @@
 <title>자바대학교 학사관리시스템</title>
 
 <style>
-.toggle-off {
-	margin-bottom: 0px;
-	margin-right: 0px;
-}
 </style>
 </head>
 <body class="nav-md">
@@ -19,19 +15,19 @@
 	<div class="col-md-9 col-sm-9 col-xs-12">
 
 		<ul class="stats-overview">
-			<li><span class="name"> 총 수강인원 </span> <span
-				class="value text-success"> ${cnt} </span></li>
-			<li><span class="name"> 과제 제출 인원 </span> <c:if
-					test="${vo.reportcode != null}">
-					<span class="value text-success"> ${submitCnt} </span>
-				</c:if> <c:if test="${vo.reportcode == null}">
-					<span class="value text-success"> 0 </span>
-				</c:if></li>
-			<li class="hidden-phone"><span class="name">과제 미제출 인원</span> <span
-				class="value text-success"> ${notCnt} </span> <c:if
-					test="${vo.reportcode == null}">
+			<li><span class="name"> 총 수강인원  </span> 
 					<span class="value text-success"> ${cnt} </span>
-				</c:if></li>
+				</li>
+				
+			<li><span class="name"> 과제 제출 인원 </span> 
+				<span class="value text-success"> ${submitCnt} </span></li>
+				
+				 
+				
+				
+			<li class="hidden-phone"><span class="name">과제 미제출 인원</span>
+			<span
+				class="value text-success"> ${notCnt} </span> </li>
 		</ul>
 		<div>
 
@@ -39,12 +35,12 @@
 			<c:if test="${submitCnt == 0}">
 				<div class="alert alert-secondary" role="alert">
 					<h2 style="text-align: center;">제출 과제가 없습니다.</h2>
-					
+
 				</div>
 			</c:if>
-			
-			<c:if test="${reportCnt == 0}">
-					<h2 style="text-align: center;">과제가 없습니다.</h2>
+
+			<c:if test="${reportsubmitCnt == 0}">
+				<h2 style="text-align: center;">과제가 없습니다.</h2>
 			</c:if>
 
 			<!-- end of user messages -->
@@ -74,6 +70,58 @@
 			</ul>
 			<!-- end of user messages -->
 
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="text-letf">
+						<ul class="pagination">
+							<c:if test="${submitCnt > 0 }">
+								<c:if test="${startPage > pageBlock }">
+									<a href="/admin/resister/adminjudgeLis">[◀◀]</a>
+									<a
+										href="/admin/resister/adminjudgeLis?pageNum=${startPage - pageBlock }">[◀&nbsp;prev]</a>
+
+									<li class="paginate_button previous disabled"
+										style="cursor: pointer;" id="datatable_previous"><a
+										onclick="adminjudgeList('${userNumber}', 1);"
+										aria-controls="datatable" data-dt-idx="0" tabindex="0">Frist</a></li>
+									<li class="paginate_button previous disabled"
+										style="cursor: pointer;"
+										onclick="adminjudgeList('${userNumber}', ${startPage - pageBlock});"
+										id="datatable_previous"><a aria-controls="datatable"
+										data-dt-idx="0" tabindex="0">Previous</a></li>
+								</c:if>
+								<c:forEach var="page" begin="${startPage }" end="${endPage }">
+									<c:choose>
+										<c:when test="${pageNum == page }">
+											<li class="paginate_button active"><a href="#"
+												aria-controls="datatable" tabindex="0">${page }</a></li>
+										</c:when>
+										<c:otherwise>
+											<li class="paginate_button" style="cursor: pointer;"
+												onclick="adminjudgeList('${userNumber}', ${page });"><a
+												aria-controls="datatable" tabindex="0">${page }</a></li>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+
+								<c:if test="${pageCount > endPage }">
+									<li class="paginate_button next" id="datatable_next"
+										style="cursor: pointer;"
+										onclick="adminjudgeList('${userNumber}', ${startPage + pageBlock });">
+										<a aria-controls="datatable" tabindex="0">Next</a>
+									</li>
+									<li class="paginate_button next" id="datatable_next"
+										style="cursor: pointer;"
+										onclick="adminjudgeList('${userNumber}', ${pageCount });">
+										<a aria-controls="datatable" tabindex="0">Last</a>
+									</li>
+								</c:if>
+							</c:if>
+						</ul>
+					</div>
+				</div>
+			</div>
+
 
 		</div>
 
@@ -90,13 +138,22 @@
 	<script type="text/javascript">
 	$(".report_list").text($("#mystatus option:selected").text());
 	
+	
+		} 
+	
+	
+	
 	</script>
-	<%-- /* function aaa() {
-		if(${dtos.getProgress()} < 0){
-			alert("마감되었습니다")
-			self.close();
-		}
-	} */ --%>
+	
+	
+	
+		<%-- function aaa() {
+			if(${dtos.getProgress()} < 0){
+				alert("마감되었습니다")
+				self.close();
+			}
+		}  --%>
+	
 
 
 </body>

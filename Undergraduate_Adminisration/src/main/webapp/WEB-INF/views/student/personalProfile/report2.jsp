@@ -29,18 +29,6 @@
 					<p>${dtos.getReportName()}</p>
 				</div>
 				<br />
-				<h5>주의 사항</h5>
-				<ul class="list-unstyled project_files">
-					<li><a href=""><i class="fa fa-file-word-o"></i> 제출 파일 :한글</a></li>
-					<li><a href="">&nbsp;&nbsp;&nbsp;<i
-							class="fa fa-mail-forward"></i> 폰트 크기 : 11
-					</a></li>
-					<li><a href=""><i class=""></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							글씨체 : 굴림</a></li>
-					<li><a href=""><i class=""></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							개요 준수</a></li>
-
-				</ul>
 				<br />
 				<!-- Large modal -->
 				<div class="text-center mtop20">

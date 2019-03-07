@@ -70,7 +70,7 @@ public class AdminController {
 		System.out.println("장학 수정 완료");
 		service.rigisterupdate(req,red);
 		
-		return "redirect:/student/bulletin";
+		return "redirect:/admin/registrationList";
 	} 
 
 	// 장학 목록 페이지
