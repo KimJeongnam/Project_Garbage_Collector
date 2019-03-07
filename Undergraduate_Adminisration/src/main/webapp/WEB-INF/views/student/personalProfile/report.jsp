@@ -46,7 +46,7 @@
 			</c:forEach>
 			</c:if>
 			
-			<c:if test="${dtos2 == null}">
+			<c:if test="${dtos == null}">
 			<td colspan="5" style="text-align: center;">과제가 없습니다.</td>
 			</c:if>
 			</tbody>

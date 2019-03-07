@@ -340,7 +340,7 @@
 
 		SELECT *
 		FROM (select SCHOLARPK,SCHOLARNAME,to_char(YEAR,'YYYY') as
-		YEAR,SEMESTER, TRIM(TO_CHAR(AMOUNT,'999,999,999')) as
+		YEAR,SEMESTER,
 		AMOUNT,SCHOLARCONTENT,ROWNUM
 		rNum
 		from (
@@ -402,7 +402,7 @@
 
 		UPDATE SCHOLARSHIP
 		set SCHOLARNAME = #{scholarname}
-		,YEAR = #{year}
+		,YEAR = to_date(#{year},'yyyy-mm-dd')
 		,SEMESTER = #{semester}
 		,SCHOLARCONTENT =#{scholarContent}
 		,AMOUNT=#{amount}

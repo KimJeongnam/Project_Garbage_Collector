@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="staticPath" value="/project/resources" />
 <style>
 .toggle-off {
@@ -43,7 +44,7 @@
 											<td class=" ">${dto.semester}</td>
 											<td class=" " style="cursor: pointer"><a
 												data-toggle="modal" data-target="#layerpop${dto.scholarpk}">${dto.scholarname}</a></td>
-											<td class=" ">${dto.amount}원</td>
+											<td class=" "><fmt:formatNumber value="${dto.amount}"/>원</td>
 										</tr>
 									</c:forEach>
 								</c:if>
@@ -140,7 +141,7 @@
 				<!-- body -->
 				<div class="modal-body">
 					<form action="rigisterupdate" name="inputform" method="post"
-						onsubmit="return checkEditer();">
+						onsubmit="return checkEditer('${status.index}');">
 						<!--  -->
 
 						<div class="x_panel">
@@ -151,8 +152,8 @@
 									<div class="form-group">
 										<label for="name">년
 											도&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-										<input type="text" class="form-control" name="year" id="year"
-											onchange="dateFormat();" placeholder="Enter name" value="${dto.year}">
+										<input type="text" class="form-control" name="year" id="year${status.index}"
+											placeholder="Enter name" value="${dto.year}">
 									</div>
 								</div>
 
@@ -162,7 +163,7 @@
 									<div class="form-group">
 										<label for="date">학기&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
 										<input type="text" class="form-control" name="semester"
-											id="semester" onchange="dateFormat2();"
+											id="semester${status.index}"
 											placeholder="년도를 입력하세요" value="${dto.semester}">
 									</div>
 								</div>
@@ -173,15 +174,18 @@
 							<!-- 구분 폼 -->
 							<div class="form-group">
 								<label for="price">지급 금액</label> <br> <input type="text"
-									class="form-control" name="amount" id="amount" 
-									onchange="dateFormat3();" placeholder="금액을 입력하세요" value="${dto.amount}">
+									class="form-control" name="amount1" id="amount1" 
+									onchange="dateFormat3();" placeholder="금액을 입력하세요" value="<fmt:formatNumber value="${dto.amount}"
+										pattern="#,###" />">
+									<input type="hidden" name="amount" id="amount${status.index}" value="${dto.amount}">
+										
 							</div>
 
 							<!-- 금액 입력 폼 -->
 							<div class="form-group">
 								<label for="subject" style="margin-left: 41px;">&emsp;&emsp;&emsp;장학금
 									명</label><br> <input type="text" class="form-control"
-									name="scholarname" id="scholarname" style="margin-left: 83px;"
+									name="scholarname" id="scholarname${status.index}" style="margin-left: 83px;"
 									placeholder="장학금명을 입력하세요" value="${dto.scholarname}">
 							</div>
 
@@ -189,7 +193,7 @@
 							<div class="x_content">
 								<div id="alerts"></div>
 								<div class="btn-toolbar editor" data-role="editor-toolbar"
-									data-target="#editor-one">
+									data-target="#editor-one1${status.index}">
 									<div class="btn-group">
 										<a class="btn dropdown-toggle" data-toggle="dropdown"
 											title="Font"><i class="fa fa-font"></i><b class="caret"></b></a>
@@ -246,32 +250,10 @@
 											class="fa fa-align-justify"></i></a>
 									</div>
 
-									<div class="btn-group">
-										<a class="btn dropdown-toggle" data-toggle="dropdown"
-											title="Hyperlink"><i class="fa fa-link"></i></a>
-										<div class="dropdown-menu input-append">
-											<input class="span2" placeholder="URL" type="text"
-												data-edit="createLink" />
-											<button class="btn" type="button">Add</button>
-										</div>
-										<a class="btn" data-edit="unlink" title="Remove Hyperlink"><i
-											class="fa fa-cut"></i></a>
-									</div>
-
-									<div class="btn-group">
-										<a class="btn" title="Insert picture (or just drag & drop)"
-											id="pictureBtn"><i class="fa fa-picture-o"></i></a>
-									</div>
-
-									<div class="btn-group">
-										<a class="btn" data-edit="undo" title="Undo (Ctrl/Cmd+Z)"><i
-											class="fa fa-undo"></i></a> <a class="btn" data-edit="redo"
-											title="Redo (Ctrl/Cmd+Y)"><i class="fa fa-repeat"></i></a>
-									</div>
 								</div>
 
 
-								<div id="editor-one1${status.index }" class="editor-wrapper"></div>
+								<div id="editor-one1${status.index}" class="editor-wrapper">${dto.scholarcontent}</div>
 
 								<textarea name="descr" id="descr" style="display: none;" value="asdasdadasdasdsadasdsa">123131312313123213</textarea>
 
@@ -282,7 +264,7 @@
 							<input type="hidden" id="scholarpk" name="scholarpk"
 								value="${dto.scholarpk}">
 								
-							<input type="text" hidden="hidden" id="scholarContent" name="scholarContent">
+							<input type="text" hidden="hidden" id="scholarContent${status.index}" name="scholarContent">
 <div class="modal-footer">
 				<input class="btn btn-primary" type="submit" value="수정">
 				<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
@@ -298,111 +280,7 @@
 	</div>
 </c:forEach>
 
-<script type="text/javascript">
-/* 	function modalview(scholarpk,scholarcontent) {
-		
-		$("#d").text(scholarpk);
-		$("#s").text(scholarcontent);
-	} */
-	
-	function delete_scholar(){
-		var list = [];
-		var list_size = 0;
-		
-		var form = document.createElement("form");
-		form.setAttribute("charset", "UTF-8");
-		form.setAttribute("method", "POST");
-		form.setAttribute("action", "../admin/deletePro");
-		
-		var cnt = 0;
-		
-		for(var i=0; i<$('.table_records').size(); i++){
-			if($('.table_records')[i].checked){
-				//list[list_size++] = $('.table_records')[i].value;
-				var field = document.createElement("input");
-				field.setAttribute("type", "hidden");
-				field.setAttribute("name", "scholarpks");
-				field.setAttribute("value", $('.table_records')[i].value);
-				form.appendChild(field);
-			}
-		}
-		
-		document.body.appendChild(form);
-		
-		form.submit();
-	}
-	
-	function checkEditer(idx) {
-		var scholarname = document.inputform.scholarname.value;
-		var content = $('#editor-one1'+idx)[0].innerHTML;
-		var year = document.inputform.year.value;
-		var semester = document.inputform.semester.value;
 
-		if (!year) {
-			alert("년도를 입력해 주세요");
-			return false;
-		}
-		
-		if (!semester) {
-			alert("학기를 입력해 주세요");
-			return false;
-		}
-		
-		if (!scholarname) {
-			alert("장학금 명을 입력해주세요");
-			return false;
-		}
-		if (content == 0) {
-			alert("장학금 내용을 입력해주세요");
-			return false;
-		}
-		
-		var scholarContent = $('#editor-one1')[0].innerHTML;
-		$('#scholarContent'+idx).val(scholarContent);
-		if ($('#scholarContent'+idx).val().length > 0)
-			return true;
-		else
-			return false;
-	}
-	
-	
-	function checkEditer() {
-		var scholarname = document.inputform.scholarname.value;
-		var content = $('#editor-one1')[0].innerHTML;
-		var year = document.inputform.year.value;
-		var semester = document.inputform.semester.value;
-
-		if (!year) {
-			alert("년도를 입력해 주세요");
-			return false;
-		}
-		
-		if (!semester) {
-			alert("학기를 입력해 주세요");
-			return false;
-		}
-		
-		if (!scholarname) {
-			alert("장학금 명을 입력해주세요");
-			return false;
-		}
-		if (content == 0) {
-			alert("장학금 내용을 입력해주세요");
-			return false;
-		}
-		
-		var scholarContent = $('#editor-one1')[0].innerHTML;
-		$('#scholarContent').val(scholarContent);
-		if ($('#scholarContent').val().length > 0)
-			return true;
-		else
-			return false;
-			
-	
-
-	}
-	
-	</script>
 
 
 

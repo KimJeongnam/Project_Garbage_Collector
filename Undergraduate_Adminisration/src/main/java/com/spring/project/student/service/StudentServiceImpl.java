@@ -321,6 +321,11 @@ public class StudentServiceImpl implements StudentService {
 		List<report_tblVO> dtos2 = dao.s_report(map);
 		
 		model.addAttribute("dtos2", dtos2);
+		
+		report_tblVO dtos = dao.reportcontent(map);
+		
+		model.addAttribute("dtos", dtos);
+
 		}
 	}
 	
