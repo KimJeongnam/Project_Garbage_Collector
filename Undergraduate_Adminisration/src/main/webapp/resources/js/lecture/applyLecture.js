@@ -147,7 +147,11 @@ function cancelLecture(userNumber, lecCode){
 			studentTimetable(userNumber);
 		},
 		error:function(){
-			alert("Error! cancelLecture();");
+			swal({
+				text:"학점입력이 되어있는 강의는 수강취소가 불가능 합니다.",
+				icon: "error",
+				button:"확인",
+			});
 		}
 	});
 }

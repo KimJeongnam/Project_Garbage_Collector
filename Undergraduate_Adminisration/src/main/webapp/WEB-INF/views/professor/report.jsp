@@ -7,7 +7,6 @@
 	<%@ include file="../Basic/settings.jsp" %>
 <title>자바대학교 학사관리시스템</title>
 </head>
-<c:if test="${!empty s_myClass}">
 <body class="nav-md">
 
 	<%@ include file="../Basic/navbar.jsp" %>
@@ -89,9 +88,8 @@
 	  
 	}
  	</script>
-</c:if>
 
-<c:if test="${empty s_myClass}">
+<%-- <c:if test="${empty s_myClass}">
  <%@ include file="../Basic/footer.jsp" %>
     <script type="text/javascript">
         swal({
@@ -103,7 +101,7 @@
     	});
 
     </script>
-</c:if>
+</c:if> --%>
 <!-- /page content -->
 
 
