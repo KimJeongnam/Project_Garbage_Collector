@@ -13,20 +13,18 @@
 	<div class="col-md-3 col-sm-3 col-xs-12">
 		<section class="panel">
 			<div class="x_title">
-				<h2>운동역학</h2>
+				<h4 style="margin-top: 37px;">과제내용</h4>
 				<div class="clearfix"></div>
 			</div>
 			<div class="panel-body">
 				<h3 class="green">
-					<i class="fa fa-university"></i> 과제 내용
+					<i class="fa fa-university"></i> ${dtos.getLectureName()}
 				</h3>
 				<p>
 					<br> <br> ${dtos.getReportInfo()}
 				</p>
 				<br />
 				<div class="project_detail">
-					<p class="title">강의 명</p>
-					<p>${dtos.getLectureName()}</p>
 					<p class="title">과제 명</p>
 					<p>${dtos.getReportName()}</p>
 				</div>
