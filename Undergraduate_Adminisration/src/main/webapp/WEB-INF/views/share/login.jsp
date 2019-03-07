@@ -45,7 +45,7 @@
     <%@ include file="../Basic/scripts.jsp" %>
     <script type="text/javascript">
 		$(function (){
-			<%@ include file="../Basic/docReadyScripts.jsp" %>
+			<%@ include file="../Basic/swalalert.jsp" %>
 		});
 	</script>
 </body>
