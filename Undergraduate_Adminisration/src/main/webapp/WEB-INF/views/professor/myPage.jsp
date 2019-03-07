@@ -45,11 +45,11 @@
                                         </li>
 
                                         <li>
-                                            <i class="fa fa-briefcase user-profile-icon"></i> 일본어학과 전임 교수
+                                            <i class="fa fa-briefcase user-profile-icon"></i> ${vo.majorName}
                                         </li>
 
                                         <li>
-                                            <i class="fa fa-university user-profile-icon">Kwansei Gakuin 대학</i>
+                                            <i class="fa fa-university user-profile-icon">자바대학교</i>
                                         </li>
                                         <li>
                                             <i class="fa fa-phone user-profile-icon"> ${vo.getUserCellNum()}</i>
@@ -187,8 +187,10 @@
                                                     <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
                                                      <form class="form-horizontal form-label-left" novalidate action="introUpdate" method="post">
                                                        <span class="section">교수소개</span>
-                                                        <textarea id="introduction" required="required" class="form-control" name="introduction" data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="3500" 
-                                                        data-parsley-minlength-message="20자 이상 작성하셔야 합니다!!" data-parsley-validation-threshold="10" style="height: 300px;">${vo.getIntroduction()}</textarea>
+                                                        <textarea id="introduction" required="required" class="form-control" name="introduction" 
+		                                                        data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="3500" 
+		                                                        data-parsley-minlength-message="20자 이상 작성하셔야 합니다!!" data-parsley-validation-threshold="10" 
+		                                                        style="height: 300px; resize : none;" >${vo.getIntroduction()}</textarea>
                                                        <br>
                                                        <div class="form-group">
                                                             <div class="col-md-6 col-md-offset-3">
