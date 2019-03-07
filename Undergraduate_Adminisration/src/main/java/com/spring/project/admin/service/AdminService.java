@@ -76,6 +76,9 @@ public interface AdminService {
 	//장학 글 상세
 	public void contentform(HttpServletRequest req,  Model model);
 	
+	//장학금 글 수정
+	public void rigisterupdate(HttpServletRequest req,  RedirectAttributes red);
+	
 	//장학 글 삭제
 	public void deletePro(HttpServletRequest req,  RedirectAttributes red);
 	

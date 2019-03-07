@@ -74,18 +74,18 @@ public class StudentController {
 	
 	//과제 관리
 	@RequestMapping(value="/student/reportlist", method=RequestMethod.POST) 
-	public String reportlist(@RequestBody Map<String, Object> map, Model model) {
+	public String reportlist(@RequestBody Map<String, Object> map, Model model,HttpServletRequest req) {
 		logger.info("bulletin");
-		service.reportlist(map, logger, model);
+		service.reportlist(map, logger, model,req);
 		
 		return "student/personalProfile/report";
 	}
 	
 	//과제 상세내용
 	@RequestMapping(value="/student/reportContent", method=RequestMethod.POST) 
-	public String reportContent(@RequestBody Map<String, Object> map, Model model) {
+	public String reportContent(@RequestBody Map<String, Object> map, Model model,HttpServletRequest req) {
 		logger.info("reportContent");
-		service.reportcode(map, logger, model);
+		service.reportcode(map, logger, model,req);
 		
 		return "student/personalProfile/report2";
 	}
@@ -124,6 +124,7 @@ public class StudentController {
 		
 		return "redirect:/student/bulletin";
 	} 
+	
 	//장학금 수혜현황
 	@RequestMapping(value="/student/studentmanagementlist", method=RequestMethod.POST)
 	public String management(@RequestBody Map<String, Object> map, Model model) {

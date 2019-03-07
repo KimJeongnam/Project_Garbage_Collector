@@ -7,6 +7,7 @@ public class S_informationVO {
 	private String userSsn;//주민
 	private String gender;//성별
 	private String userCellNum;//핸드폰번호
+	private String userZipCode;//코드
 	private String userAddr1;//주소1
 	private String userAddr2;//주소2
 	private String faculty;//단과맥
@@ -19,6 +20,12 @@ public class S_informationVO {
 	
 	
 	
+	public String getUserZipCode() {
+		return userZipCode;
+	}
+	public void setUserZipCode(String userZipCode) {
+		this.userZipCode = userZipCode;
+	}
 	public String getMajorName() {
 		return majorName;
 	}

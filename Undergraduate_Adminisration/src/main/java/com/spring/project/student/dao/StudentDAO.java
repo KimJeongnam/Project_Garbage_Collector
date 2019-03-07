@@ -99,6 +99,7 @@ public interface StudentDAO {
 	
 	
 	
+	
 	// 나의  강의
 	public List<LectureVO> studentMyLecture(String userNumber);
 	

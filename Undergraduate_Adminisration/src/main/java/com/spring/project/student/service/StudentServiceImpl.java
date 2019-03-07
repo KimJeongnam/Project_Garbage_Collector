@@ -267,6 +267,12 @@ public class StudentServiceImpl implements StudentService {
 	// 마이페이지
 	@Override
 	public void personalProfile(HttpServletRequest req, Model model) {
+		String lecName = null;
+		if(req.getParameter("lecName")!=null) {
+			lecName = req.getParameter("lecName");
+		}
+		
+		
 		//학생 개인정보
 		String userNumber = (String) req.getSession().getAttribute("userNumber");
 		System.out.println("userNumber:::" + userNumber);
@@ -279,11 +285,8 @@ public class StudentServiceImpl implements StudentService {
 		List<middle_classVO> dtos = dao.s_Lecture(userNumber);
 		
 		model.addAttribute("dtos", dtos);
+		model.addAttribute("lecName", lecName);
 		
-		//과제 리스트
-		/*List<report_tblVO> dtos2 = dao.s_report(userNumber);
-		
-		model.addAttribute("dtos2", dtos2);*/
 		
 	}
 	
@@ -295,12 +298,14 @@ public class StudentServiceImpl implements StudentService {
 		String userNumber = (String) req.getSession().getAttribute("userNumber");
 		String userName = req.getParameter("name");
 		String userCellNum = req.getParameter("telephone");
+		String zip = req.getParameter("zip");
 		String userAddr1 = req.getParameter("addr1");
 		String userAddr2 = req.getParameter("addr2");
 
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("userNumber", userNumber);
 		map.put("userName", userName);
+		map.put("zip", zip);
 		map.put("userCellNum", userCellNum);
 		map.put("userAddr1", userAddr1);
 		map.put("userAddr2", userAddr2);
@@ -317,18 +322,23 @@ public class StudentServiceImpl implements StudentService {
 	}
 	//과제 관리
 	@Override
-	public void reportlist(Map<String, Object> map, Logger logger, Model model) {
+	public void reportlist(Map<String, Object> map, Logger logger, Model model,HttpServletRequest req) {
 		//과제 전체 리스트
+		if(map.get("select") != null) {
 		List<report_tblVO> dtos2 = dao.s_report(map);
-		
+		String lecName = null;
+		if(req.getParameter("lecName")!=null) {
+			lecName = req.getParameter("lecName");
+		}
+		model.addAttribute("lecName", lecName);
 		
 		model.addAttribute("dtos2", dtos2);
-		
+		}
 	}
 	
 	//과제 관리2
 	@Override
-	public void reportcode(Map<String, Object> map, Logger logger, Model model) {
+	public void reportcode(Map<String, Object> map, Logger logger, Model model,HttpServletRequest req) {
 		System.out.println("reportcode"+ map.get("reportcode"));
 		//과제 전체 리스트
 		report_tblVO dtos = dao.reportcontent(map);
@@ -338,6 +348,11 @@ public class StudentServiceImpl implements StudentService {
 		//과제 제출 하기
 		Report_subVO vo = dao.reportsub(map);
 		
+		String lecName = null;
+		if(req.getParameter("lecName")!=null) {
+			lecName = req.getParameter("lecName");
+		}
+		model.addAttribute("lecName", lecName);
 		model.addAttribute("vo", vo);
 		
 	}
@@ -370,6 +385,7 @@ public class StudentServiceImpl implements StudentService {
 			int reportcode = Integer.parseInt(req.getParameter("reportcode"));
 			String title = req.getParameter("title");
 			String userName = req.getParameter("userName");
+			String lecName = req.getParameter("lecName");
 
 			Report_subVO vo = new Report_subVO();
 
@@ -394,7 +410,7 @@ public class StudentServiceImpl implements StudentService {
 			int fileUpload = dao.s_fileUpload(vo);
 
 			System.out.println("파일제출 fileUpload : " + fileUpload);
-			
+			red.addAttribute("lecName", lecName);
 			/*ShareUserInfo user = (ShareUserInfo) req.getSession().getAttribute("user"); */
 
 			if (fileUpload == 1) {
@@ -473,7 +489,7 @@ public class StudentServiceImpl implements StudentService {
 		logger.info("cnt : " + cnt);
 		
 		if (cnt > 0) {
-			// 수강신청 목록 조회
+			// 장학신청 목록 조회
 			List<ScholarpkVO> dtos = dao.getArticleList(map);
 
 			model.addAttribute("dtos", dtos);
@@ -648,7 +664,6 @@ public class StudentServiceImpl implements StudentService {
 			red.addFlashAttribute("message","이미 신청 완료 되었습니다");
 		}
 	}
-		
 	
 
 	//@Override

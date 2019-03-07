@@ -85,6 +85,9 @@ public interface AdminDAO {
 	//장학 글 상세 
 	public ScholarpkVO content_getArticle(int scholarpk); 
 	
+	//장학금 수정 
+	public int rigisterupdate(Map<String, Object> map);
+	
 	//장학글 삭제
 	public int jang_delete(String[] checkbox);
 	

@@ -18,64 +18,67 @@
 	<!-- page content -->
 	<div class="col-md-9 col-sm-9 col-xs-12">
 
-                            <ul class="stats-overview">
-                                <li>
-                                    <span class="name"> 총 수강인원 </span>
-                                    <span class="value text-success"> ${cnt} </span>
-                                </li>
-                                <li>
-                                    <span class="name"> 과제 제출 인원 </span>
-                                   <c:if test="${vo.reportcode != null}"> 
-                                    <span class="value text-success"> ${submitCnt}  </span>
-                                   </c:if>
-                                   
-                                   <c:if test="${vo.reportcode == null}"> 
-                                    <span class="value text-success"> 0  </span>
-                                   </c:if>
-                                </li>
-                                <li class="hidden-phone">
-                                    <span class="name">과제 미제출 인원</span>
-                                    <span class="value text-success">  ${notCnt} </span>
-                                    
-                                    <c:if test="${vo.reportcode == null}"> 
-                                    <span class="value text-success"> ${cnt}  </span>
-                                   </c:if>
-                                </li>
-                            </ul>
-                            <div>
+		<ul class="stats-overview">
+			<li><span class="name"> 총 수강인원 </span> <span
+				class="value text-success"> ${cnt} </span></li>
+			<li><span class="name"> 과제 제출 인원 </span> <c:if
+					test="${vo.reportcode != null}">
+					<span class="value text-success"> ${submitCnt} </span>
+				</c:if> <c:if test="${vo.reportcode == null}">
+					<span class="value text-success"> 0 </span>
+				</c:if></li>
+			<li class="hidden-phone"><span class="name">과제 미제출 인원</span> <span
+				class="value text-success"> ${notCnt} </span> <c:if
+					test="${vo.reportcode == null}">
+					<span class="value text-success"> ${cnt} </span>
+				</c:if></li>
+		</ul>
+		<div>
 
-                                <h4>제출리스트</h4>
+			<h4>제출리스트</h4>
+			<c:if test="${submitCnt == 0}">
+				<div class="alert alert-secondary" role="alert">
+					<h2 style="text-align: center;">제출 과제가 없습니다.</h2>
+					
+				</div>
+			</c:if>
+			
+			<c:if test="${reportCnt == 0}">
+					<h2 style="text-align: center;">과제가 없습니다.</h2>
+			</c:if>
 
-                                <!-- end of user messages -->
-                                <ul class="messages">
-									<c:forEach var="dto" items="${dtos}">
-                                    <li>
-                                        <img src="/project/resources/images/img.jpg" class="avatar" alt="Avatar">
-                                        <div class="message_date">
-                                            <h3 class="date text-info">${dto.day}일</h3>
-                                            <p class="month">${dto.month}월</p>
-                                        </div>
-                                        <div class="message_wrapper">
-                                            <h4 class="heading">${dto.userName}</h4>
-                                            <blockquote class="message">${dto.reportName} 이해 제출합니다.</blockquote>
-                                            <br />
-                                            <p class="url">
-                                                <span class="fs1 text-info" aria-hidden="true" data-icon="?"></span>
-                                               <input type="hidden" id="IDX" value="${staticPath }${dto.fileName}">
-                                                <a href="file?file=${dto.fileName}" name=file>${dto.stdNumber}&nbsp;${dto.userName}&nbsp;${dto.fileName2}<i class="fa fa-paperclip"></i></a>
-                                                <!-- 2019380527 김설현 운동역학의 이해.doc -->
-                                            </p>
-                                        </div>
-                                    </li>
-                                    </c:forEach>
-                                </ul>
-                                <!-- end of user messages -->
+			<!-- end of user messages -->
+			<ul class="messages">
+				<c:forEach var="dto" items="${dtos}">
+					<li><img src="/project/resources/images/img.jpg"
+						class="avatar" alt="Avatar">
+						<div class="message_date">
+							<h3 class="date text-info">${dto.day}일</h3>
+							<p class="month">${dto.month}월</p>
+						</div>
+						<div class="message_wrapper">
+							<h4 class="heading">${dto.userName}</h4>
+							<blockquote class="message">${dto.reportName}이해
+								제출합니다.</blockquote>
+							<br />
+							<p class="url">
+								<span class="fs1 text-info" aria-hidden="true" data-icon="?"></span>
+								<input type="hidden" id="IDX"
+									value="${staticPath }${dto.fileName}"> <a
+									href="file?file=${dto.fileName}" name=file>${dto.stdNumber}&nbsp;${dto.userName}&nbsp;${dto.fileName2}<i
+									class="fa fa-paperclip"></i></a>
+								<!-- 2019380527 김설현 운동역학의 이해.doc -->
+							</p>
+						</div></li>
+				</c:forEach>
+			</ul>
+			<!-- end of user messages -->
 
 
-                            </div>
+		</div>
 
 
-                        </div>
+	</div>
 
 	<!-- /page content -->
 
@@ -84,9 +87,8 @@
 	<script type="text/javascript">
 	<%@ include file="../Basic/datePickerJS.jsp"%>
 	</script>
-	
 	<script type="text/javascript">
-
+	$(".report_list").text($("#mystatus option:selected").text());
 	
 	</script>
 	<%-- /* function aaa() {

@@ -64,6 +64,14 @@ public class AdminController {
 
 		return "redirect:/admin/registrationList";
 	}
+	//장학금수정 완료
+	@RequestMapping("/admin/rigisterupdate")
+	public String rigisterupdate(HttpServletRequest req, RedirectAttributes red) {
+		System.out.println("장학 수정 완료");
+		service.rigisterupdate(req,red);
+		
+		return "redirect:/student/bulletin";
+	} 
 
 	// 장학 목록 페이지
 	@RequestMapping(value = "/admin/registrationList", method = RequestMethod.GET)
@@ -103,7 +111,7 @@ public class AdminController {
 		System.out.println("장학 상세");
 		service.contentform(req, model);
 
-		return "admin/contentForm";
+		return "redirect:/admin/registrationList";
 	}
 
 	// 장학 삭제 페이지

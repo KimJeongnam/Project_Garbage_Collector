@@ -24,193 +24,158 @@
 							<div class="x_title">
 								<h2>프로필</h2>
 								<ul class="nav navbar-right panel_toolbox">
-									<li><a class="collapse-link">
-									<i class="fa fa-chevron-up"></i></a>
-									</li>
+									<li><a class="collapse-link"> <i
+											class="fa fa-chevron-up"></i></a></li>
 									<li class="dropdown"><a href="#" class="dropdown-toggle"
 										data-toggle="dropdown" role="button" aria-expanded="false">
-										<i class="fa fa-wrench"></i></a>
+											<i class="fa fa-wrench"></i>
+									</a>
 										<ul class="dropdown-menu" role="menu">
 											<li><a href="#">Settings 1</a></li>
 											<li><a href="#">Settings 2</a></li>
-										</ul>
-									</li>
+										</ul></li>
 									<li><a class="close-link"><i class="fa fa-close"></i></a></li>
 								</ul>
 								<div class="clearfix"></div>
 							</div>
 							<div class="x_content">
 								<div class="col-md-3 col-sm-3 col-xs-12 profile_left">
-                                    <div class="profile_img">
-                                        <div id="crop-avatar">
-                                            <!-- Current avatar -->
-                                            <img style="width: 180px; height: 218px;" id="pimage" name="pimage" class="img-responsive avatar-view" src="${staticPath }${vo.getUserImage()}" alt="Avatar" title="Change the avatar">
-                                        </div>
-                                    </div>
-                                    <h3></h3>
+									<div class="profile_img">
+										<div id="crop-avatar">
+											<!-- Current avatar -->
+											<img style="width: 180px; height: 218px;" id="pimage"
+												name="pimage" class="img-responsive avatar-view"
+												src="${staticPath }${vo.getUserImage()}" alt="Avatar"
+												title="Change the avatar">
+										</div>
+									</div>
+									<h3></h3>
 
-                                    <ul class="list-unstyled user_data">
-                                        <li><i class="fa fa-map-marker user-profile-icon"></i> ${vo.getUserAddr1()}${vo.getUserAddr2()}
-                                        </li>
+									<ul class="list-unstyled user_data">
+										<li><i class="fa fa-map-marker user-profile-icon"></i>
+											${vo.getUserAddr1()}${vo.getUserAddr2()}</li>
 
-                                        <li>
-                                            <i class="fa fa-briefcase user-profile-icon"></i> 자바대학교
-                                        </li>
+										<li><i class="fa fa-briefcase user-profile-icon"></i>
+											자바대학교</li>
 
-                                        <li>
-                                            <i class="fa fa-university user-profile-icon">${vo.getMajorName()}</i>
-                                        </li>
-                                        <li>
-                                            <i class="fa fa-phone user-profile-icon"> ${vo.getUserCellNum()}</i>
-                                        </li>
+										<li><i class="fa fa-university user-profile-icon">${vo.getMajorName()}</i>
+										</li>
+										<li><i class="fa fa-phone user-profile-icon">
+												${vo.getUserCellNum()}</i></li>
 
-                                    </ul>
-                                   
+									</ul>
 
-                                    <!-- 이미지 변경 모달  -->
-                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-sm">프로필 사진 바꾸기</button>
-                                    <!-- 이미지 변경 모달끝  -->
-                                    <br />
 
-                                </div>
-                                
-                                
+									<!-- 이미지 변경 모달  -->
+									<button type="button" class="btn btn-success"
+										data-toggle="modal" data-target=".bs-example-modal-sm">프로필
+										사진 바꾸기</button>
+									<!-- 이미지 변경 모달끝  -->
+									<br />
+
+								</div>
+
+
 								<div class="col-md-9 col-sm-9 col-xs-12">
 									<div class="x_panel">
 										<div class="x_title">
-											<h2><i class="fa fa-bars"></i> 개인정보</h2>
+											<h2>
+												<i class="fa fa-bars"></i> 개인정보
+											</h2>
 											<div class="clearfix"></div>
 										</div>
 										<div class="x_content">
 											<div class="" role="tabpanel"
 												data-example-id="togglable-tabs">
 												<ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
-													<li role="presentation" class="active">
-													<a href="#tab_content1" id="home-tab" role="tab"
-														data-toggle="tab" aria-expanded="true">학생정보</a>
-													</li>
-													<li role="presentation" class="">
-													<a href="#tab_content2" role="tab" id="profile-tab"
-														data-toggle="tab" aria-expanded="false">수강중 강의</a>
-													</li>
-													<li role="presentation" class="">
-													<a href="#tab_content3" role="tab" id="profile-tab2"
-														data-toggle="tab" aria-expanded="false">과제관리</a>
-													</li>
+													<li role="presentation" id="presentation1" class="active"><a
+														href="#tab_content1" id="home-tab" role="tab"
+														data-toggle="tab" aria-expanded="true">학생정보</a></li>
+													<li role="presentation" id="presentation2"><a
+														href="#tab_content2" role="tab" id="profile-tab"
+														data-toggle="tab">수강중 강의</a></li>
+													<li role="presentation" id="presentation3"><a
+														href="#tab_content3" role="tab" id="profile-tab2"
+														data-toggle="tab">과제관리</a></li>
 												</ul>
 												<!-- 학생정보 상세페이지 -->
-												
+
 												<div id="myTabContent" class="tab-content">
 													<div role="tabpanel" class="tab-pane fade active in"
 														id="tab_content1" aria-labelledby="home-tab">
-														<form action="s_infoupdate" class="form-horizontal form-label-left" novalidate>
+														<form action="s_infoupdate"
+															class="form-horizontal form-label-left" novalidate>
 															<span class="section">학생정보</span>
 															<div class="row">
 																<div class="col-md-offset-1 col-md-10">
 																	<table class="table">
 																		<tr>
-																			<th class="control-label">
-																				학번
-																			</th>
-																			<td>
-																				${vo.getUserNumber()}
-																			</td>
-																			<th class="control-label">
-																				성명
-																			</th>
-																			<td>
-																				<input type="text" class="input" required="required" 
-																					name = "name" placeholder="성명을 입력하시오" value="${vo.getUserName()}">
+																			<th class="control-label">학번</th>
+																			<td>${vo.getUserNumber()}</td>
+																			<th class="control-label">성명</th>
+																			<td><input type="text" class="input"
+																				required="required" name="name"
+																				placeholder="성명을 입력하시오" value="${vo.getUserName()}">
 																			</td>
 																		</tr>
 																		<tr>
-																			<th class="control-label">
-																				주민등록번호
-																			</th>
-																			<td>
-																				${vo.getUserSsn()}
-																			</td>
-																			
-																			<th class="control-label">
-																				성별
-																			</th>
-																			<td>
-																				${vo.getGender()}
-																			</td>
+																			<th class="control-label">주민등록번호</th>
+																			<td>${vo.getUserSsn()}</td>
+
+																			<th class="control-label">성별</th>
+																			<td>${vo.getGender()}</td>
 																		</tr>
 																		<tr>
-																			<th class="control-label">
-																				단과대학
-																			</th>
-																			<td>
-																				 ${vo.getFaculty()}
-																			</td>
-																			<th class="control-label">
-																				학과(전공)
-																			</th>
-																			<td>
-																				${vo.getMajorName()}
-																			</td>
+																			<th class="control-label">단과대학</th>
+																			<td>${vo.getFaculty()}</td>
+																			<th class="control-label">학과(전공)</th>
+																			<td>${vo.getMajorName()}</td>
 																		</tr>
 																		<tr>
-																			<th class="control-label">
-																				학적상태
-																			</th>
-																			<c:if test = "${vo.getGraduation_state() == 0}">
-																			<td>
-																				재학
-																			</td>
+																			<th class="control-label">학적상태</th>
+																			<c:if test="${vo.getGraduation_state() == 0}">
+																				<td>재학</td>
 																			</c:if>
-																			
-																			<c:if test = "${vo.getGraduation_state() == 1}">
-																			<td>
-																				휴학
-																			</td>
+
+																			<c:if test="${vo.getGraduation_state() == 1}">
+																				<td>휴학</td>
 																			</c:if>
-																			
-																			<c:if test = "${vo.getGraduation_state() == 2}">
-																			<td>
-																				졸업
-																			</td>
+
+																			<c:if test="${vo.getGraduation_state() == 2}">
+																				<td>졸업</td>
 																			</c:if>
-																			<th class="control-label">
-																				학년
-																			</th>
-																			<td>
-																					${vo.getGrade()}
-																			</td>
+																			<th class="control-label">학년</th>
+																			<td>${vo.getGrade()}</td>
 																		</tr>
 																		<tr>
-																			<th class="control-label">
-																				현재학기
-																			</th>
-																			<td>
-																				${vo.getSemester()}
-																			</td>
-																			<th class="control-label">
-																				연락처
-																			</th>
-																			<td>
-																				<input type="text" class="input" required="required" 
-																					name = "telephone"placeholder="연락처를 입력하시오" value="${vo.getUserCellNum()}">
-																			</td>
+																			<th class="control-label">현재학기</th>
+																			<td>${vo.getSemester()}</td>
+																			<th class="control-label">연락처</th>
+																			<td><input type="text" class="input"
+																				required="required" name="telephone"
+																				placeholder="연락처를 입력하시오"
+																				value="${vo.getUserCellNum()}"></td>
 																		</tr>
 																		<tr>
-																			<th class="control-label">
-																				주소
-																			</th>
-																			<td colspan="3">
-																				<input type="text" name="zip" class="input" required="required" 
-																					placeholder="ex)43085">
-																					
-																	<button type="button" name="zipSearch" onclick="openZipSearch();">검색</button><br>
-																	주소 :<input id="studentAddress1" name="addr1"class="form-control col-md-7 col-xs-12"
-																		data-validate-length-range="6" data-validate-words="2"
-																		placeholder="" name="studentAddress1" type="text" value="${vo.getUserAddr1()}"><br>
-																	상세 :<input id="studentAddress2" name="addr2" class="form-control col-md-7 col-xs-12"
-																		data-validate-length-range="6" data-validate-words="2"
-																		placeholder="" name="studentAddress2" type="text" value="${vo.getUserAddr2()}"><br>
-																			</td>
+																			<th class="control-label">주소</th>
+																			<td colspan="3"><input type="text" name="zip"
+																				class="input" required="required"
+																				placeholder="ex)43085" value="${vo.userZipCode}">
+
+																				<button type="button" name="zipSearch"
+																					onclick="openZipSearch();">검색</button>
+																				<br> 주소 :<input id="studentAddress1"
+																				name="addr1" class="form-control col-md-7 col-xs-12"
+																				data-validate-length-range="6"
+																				data-validate-words="2" placeholder=""
+																				name="studentAddress1" type="text"
+																				value="${vo.getUserAddr1()}"><br> 상세 :<input
+																				id="studentAddress2" name="addr2"
+																				class="form-control col-md-7 col-xs-12"
+																				data-validate-length-range="6"
+																				data-validate-words="2" placeholder=""
+																				name="studentAddress2" type="text"
+																				value="${vo.getUserAddr2()}"><br></td>
 																		</tr>
 																	</table>
 																</div>
@@ -225,6 +190,7 @@
 														</form>
 													</div>
 													<!-- 수강중 강의 상세페이지 -->
+
 													<div role="tabpanel" class="tab-pane fade"
 														id="tab_content2" aria-labelledby="profile-tab">
 														<span class="section">수강중 강의</span>
@@ -240,58 +206,71 @@
 																</tr>
 															</thead>
 															<tbody>
-															<c:forEach var="dto" items="${dtos}">
+																<c:if test="${!empty dtos}">
+																	<c:forEach var="dto" items="${dtos}">
+																		<tr>
+																			<td>${dto.lecCode}</td>
+																			<td>${dto.lectureName}</td>
+																			<td>${dto.username}</td>
+																			<td class="hidden-phone">${dto.userCellNum}</td>
+																			<td>${dto.classTime}</td>
+																		</tr>
+																	</c:forEach>
+																</c:if>
+																<c:if test="${empty dtos}">
 																<tr>
-																	<td>${dto.lecCode}</td>
-																	<td>${dto.lectureName}</td>
-																	<td>${dto.username}</td>
-																	<td class="hidden-phone">${dto.userCellNum}</td>
-																	<td>${dto.classTime}</td>
+																	<td colspan="5" style="text-align: center;">수강중인 강의가 없습니다!</td>
 																</tr>
-																</c:forEach>
-																
+																</c:if>
 															</tbody>
 														</table>
 														<!-- end user projects -->
 													</div>
+
 													<!-- 과제관리 상세페이지 -->
 													<div role="tabpanel" class="tab-pane fade"
 														id="tab_content3" aria-labelledby="profile-tab">
 														<!-- page content -->
-															<div class="">
-																<div class="clearfix"></div>
-																<div class="row">
-																	<div class="col-md-12">
-																		<div class="x_panel">
-																			<div class="x_title">
-																				<h2>과제 관리</h2>
-																				<div class="btn-group" style="float: right">
-																					<select class="form-control input-sm"
-																						id="mystatus"
-																						onchange="reportlist('${userNumber}');">
-																							<c:forEach var="dto" items="${dtos}">
-																								<option value="${dto.lectureName}">${dto.lectureName}</option>
-																							</c:forEach>
-																					</select>
-																					</ul>
-																				</div>
-																				<div class="clearfix"></div>
+														<div class="">
+															<div class="clearfix"></div>
+															<div class="row">
+																<div class="col-md-12">
+																	<div class="x_panel">
+																		<div class="x_title">
+																			<h2>과제 관리</h2>
+																			<div class="btn-group" style="float: right">
+																				<select class="form-control input-sm" id="mystatus"
+																					onchange="reportlist('${userNumber}');">
+																					<c:forEach var="dto" items="${dtos}">
+																						<option value="${dto.lectureName}">${dto.lectureName}</option>
+																					</c:forEach>
+																				</select>
 																			</div>
-																			<div class="x_content">
-																				<div class="col-md-9 col-sm-9 col-xs-12">
-																					<div>
-																						<h4>과제리스트</h4>
-																						
-																						<div id="reprotList" class=""></div>
-																						<!-- end of user messages -->
-																					</div>
+																			<div class="clearfix"></div>
+																		</div>
+																		<div class="x_content">
+																			<div class="col-md-9 col-sm-9 col-xs-12">
+																				<div>
+																					<h4>제출목록</h4>
+											
+											
+																							<!-- 과제ajax -->
+																					<div id="reprotList" class=""></div>
+																					
+																					
+																					
 																				</div>
-																				<div id="reportcontent" class=""></div>
 																			</div>
+																			
+																						<!-- 과제2 ajax -->
+																			<div id="reportcontent" class=""></div>
+																			
+																			
 																		</div>
 																	</div>
 																</div>
 															</div>
+														</div>
 														<!-- /page content -->
 													</div>
 													<!-- END/과제관리 상세페이지 -->
@@ -308,29 +287,33 @@
 		</div>
 	</div>
 	<!-- 이미지 업로드 모달  -->
-    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
+	<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog"
+		aria-hidden="true">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
 
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
-                    </button>
-                    <h4 class="modal-title" id="myModalLabel2">프로필 사진 바꾸기</h4>
-                </div>
-                <div class="modal-body">
-                    <form action="../student/imageUpload" method="post" enctype="multipart/form-data">  
-                    	<input class="btn btn-info" type="file" name="image" style="position:relative;right:11px;" required="required">
-                    	<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
-                   		<button type="submit" class="btn btn-primary">변경</button>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- 이미지 업로드 모달 끝 -->
-	
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel2">프로필 사진 바꾸기</h4>
+				</div>
+				<div class="modal-body">
+					<form action="../student/imageUpload" method="post"
+						enctype="multipart/form-data">
+						<input class="btn btn-info" type="file" name="image"
+							style="position: relative; right: 11px;" required="required">
+						<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+						<button type="submit" class="btn btn-primary">변경</button>
+					</form>
+				</div>
+				<div class="modal-footer"></div>
+			</div>
+		</div>
+	</div>
+	<!-- 이미지 업로드 모달 끝 -->
+
 	<!-- 다음 주소 API 추가  -->
 	<script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
 	<!-- /page content -->
@@ -355,6 +338,25 @@
 	$(function() {
 		reportlist('${userNumber}');
 		});
+	
+	 (function() {
+		$('#mystatus').click(function() {
+			 $("#reportcontent").empty();
+		});
+		
+		<c:if test="${lecName != null}">
+		 $('#profile-tab2').attr('aria-expanded','true');
+		 $('#home-tab').attr('aria-expanded','false');
+		 $('#presentation1').attr('class','fl');
+		 $('#presentation3').attr('class', 'active');
+		 
+		 jQuery('#tab_content3').show(); 
+		 $('#tab_content3').attr('class', 'tab-pane fade active in');
+		 $('#tab_content1').attr('class', 'tab-pane fade');
+      	</c:if>
+		
+		
+	})();
 
 	</script>
 </body>

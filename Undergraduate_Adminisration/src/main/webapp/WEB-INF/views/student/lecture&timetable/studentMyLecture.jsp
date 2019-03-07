@@ -29,7 +29,7 @@
 					<td id="getLecCode">${dto.lecCode}</td>
 					<td><c:if test="${dto.lectureClassfication == 1}">
 													전공
-												</c:if> <c:if test="${dto.lectureClassfication == 0}">
+												</c:if> <c:if test="${dto.lectureClassfication == 2}">
 													교양
 												</c:if></td>
 					<td>${dto.lectureName}</td>

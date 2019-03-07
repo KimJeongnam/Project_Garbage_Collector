@@ -9,19 +9,14 @@
 </head>
 <body class="nav-md">
 	<%@ include file="../Basic/navbar.jsp"%>
-
-
-
 	<!-- page content -->
 	<div class="right_col" role="main">
 		<div class="">
 			<div class="page-title">
 				<div class="title_left">
 					<h2>장학금 등록하기</h2>
-					<form action="rigisterPro" name="inputform"
-						onsubmit="return checkEditer();">
-						<!--  -->
-
+					<form action="rigisterPro" name="inputform" onsubmit="submitUncomma();">
+						<input type="hidden" name="amount" id="hiddenAmount">
 						<div class="x_panel">
 							<!-- 장학금명 폼 -->
 							<div class="row">
@@ -30,17 +25,15 @@
 									<div class="form-group">
 										<label for="name">년 도</label> <input type="text"
 											class="form-control" name="year" id="year"
-											onchange="dateFormat();" placeholder="Enter name">
+											onchange="dateFormat();" placeholder="예.)2019-03-07 형식으로 입력하세요." required>
 									</div>
 								</div>
-
-
 								<!-- 년도 학기 입력 폼  -->
 								<div class="col-md-6">
 									<div class="form-group">
 										<label for="date">학기</label> <input type="text"
 											class="form-control" name="semester" id="semester"
-											onchange="dateFormat2();" placeholder="Enter date">
+											onchange="dateFormat2();" placeholder="학기를 입력하세요." required>
 									</div>
 								</div>
 
@@ -50,15 +43,16 @@
 							<!-- 구분 폼 -->
 							<div class="form-group">
 								<label for="price">지급 금액</label> <input type="text"
-									class="form-control" name="amount" id="amount"
-									onchange="dateFormat3();" placeholder="Enter price">
+									class="form-control" name="amount2" id="amount"
+									onchange="dateFormat3();" onkeyup="AutoComma(this);" 
+									placeholder="100,000 ~ 10,000,000 사이의 금액을 입력하세요." required>
 							</div>
 
 							<!-- 금액 입력 폼 -->
 							<div class="form-group">
 								<label for="subject">장학금 명</label> <input type="text"
 									class="form-control" name="scholarname" id="scholarname"
-									placeholder="Enter title">
+									placeholder="장학금 명을 입력하세요." required>
 							</div>
 
 							<!-- 글내용 입력 폼  -->
@@ -223,48 +217,35 @@
 			}
 		}
 
-		function dateFormat3() {
-			var obj = document.inputform.amount.value;
-
-			if (!(obj >= 100000 && obj < 10000000)) {
-				alert("장학금 금액을 잘못 입력 하셨습니다");
-				document.inputform.amount.value = null;
-				return;
-			}
+		function submitUncomma() {
+			var amount = uncomma(document.inputform.amount2.value);
+			$('#hiddenAmount').val(amount);
+		}
+		
+		// 값 입력시 콤마찍기
+		function AutoComma(obj) {
+			obj.value = comma(uncomma(obj.value));
+		}
+		
+		// 콤마찍기
+		function comma(str) {
+			str = String(str);
+			return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
 		}
 
-		function checkEditer() {
-			var scholarname = document.inputform.scholarname.value;
-			var content = $('#editor-one')[0].innerHTML;
-			var year = document.inputform.year.value;
-			var semester = document.inputform.semester.value;
-
-			if (!year) {
-				alert("년도를 입력해 주세요");
-				return false;
+		// 콤마풀기
+		function uncomma(str) {
+			str = String(str);
+			return str.replace(/[^\d]+/g, '');
+		}
+		
+		function dateFormat3() {
+			var obj = uncomma(document.inputform.amount2.value);
+			if (!(obj >= 100000 && obj < 10000000)) {
+			alert("제한 금액의 범위를 벗어났습니다.");
+			document.inputform.amount.value = null;
+			return
 			}
-			
-			if (!semester) {
-				alert("학기를 입력해 주세요");
-				return false;
-			}
-			
-			if (!scholarname) {
-				alert("장학금 명을 입력해주세요");
-				return false;
-			}
-			if (content == 0) {
-				alert("장학금 내용을 입력해주세요");
-				return false;
-			}
-			
-			var scholarContent = $('#editor-one')[0].innerHTML
-			$('#scholarContent').val(scholarContent);
-			if ($('#scholarContent').val().length > 0)
-				return true;
-			else
-				return false;
-
 		}
 	</script>
 </body>

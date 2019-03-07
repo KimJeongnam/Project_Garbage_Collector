@@ -1,3 +1,5 @@
+
+
 function studentBulletinlist(userNumber,page){
 	var obj = new Object();
 	obj.userNumber = userNumber;
@@ -56,6 +58,16 @@ function studentmanagementlist(userNumber,page){
 	});
 }
 
+
+
+
+
+
+
+
+
+
+
 //과제 관리
 function reportlist(userNumber){
 	var obj = new Object();
@@ -64,6 +76,7 @@ function reportlist(userNumber){
 	if($("#mystatus").val() != null){
 		obj.select = $("#mystatus").val();
 	}
+	
 	
 	/*if($("#mystatus option:selected").val() != null){
 		obj.select = $("#mystatus option:selected").val();
@@ -88,6 +101,8 @@ function reportlist(userNumber){
 	});
 }
 
+
+
 //과제 관리 p_reportlist
 function reportcontent(userNumber,reportcode){
 	var obj = new Object();
@@ -111,6 +126,16 @@ function reportcontent(userNumber,reportcode){
 		}
 	});
 }
+
+
+
+
+
+
+
+
+
+
 
 //과제 관리 
 function p_reportlist(userNumber){

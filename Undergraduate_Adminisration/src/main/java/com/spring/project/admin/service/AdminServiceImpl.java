@@ -808,6 +808,44 @@ public class AdminServiceImpl extends Board implements AdminService {
 		System.out.println("22222");
 
 	}
+	//장학금 수정
+	@Override
+	public void rigisterupdate(HttpServletRequest req, RedirectAttributes red) {
+		
+		//학생 개인 정보
+		String year = req.getParameter("year");
+		String semester = req.getParameter("semester");
+		String amount = req.getParameter("amount");
+		String scholarname = req.getParameter("scholarname");
+		String scholarContent = req.getParameter("scholarContent");
+		int scholarpk = Integer.parseInt(req.getParameter("scholarpk"));
+		
+		System.out.println("year" + year);
+		System.out.println("semester" + semester);
+		System.out.println("amount" + amount);
+		System.out.println("scholarname" + scholarname);
+		System.out.println("scholarContent" + scholarContent);
+		System.out.println("scholarpk" + scholarpk);
+		
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("year", year);
+		map.put("semester", semester);
+		map.put("amount", amount);
+		map.put("scholarname", scholarname);
+		map.put("scholarContent", scholarContent);
+		map.put("scholarpk", scholarpk);
+
+		
+		int update = dao.rigisterupdate(map);
+		System.out.println("장학금 update : " + update);
+
+		if (update != 0)
+			red.addFlashAttribute("message", "장학금 글 정보를 변경하였습니다.");
+		if (update == 0)
+			red.addFlashAttribute("message", "학금 글 정보를 변경하는 도중에 오류가 발생하였습니다.");
+		
+		
+	}
 
 	// -----------------------------------------------------------------교직업무관리START-------------------------------------------------
 	
@@ -1096,6 +1134,7 @@ public class AdminServiceImpl extends Board implements AdminService {
 			
 			//심사리스트 반환
 			model.addAttribute("audit", audit);
+			
 		}
 
 		// 시작페이지
@@ -1111,7 +1150,7 @@ public class AdminServiceImpl extends Board implements AdminService {
 		endPage = startPage + pageBlock - 1;
 		if (endPage > pageCount)
 			endPage = pageCount;
-
+		System.out.println("cnt :::" + cnt) ;
 		model.addAttribute("cnt", cnt); // 글갯수
 		model.addAttribute("number", number); // 출력용 글번호
 		model.addAttribute("pageNum", pageNum); // 페이지번호

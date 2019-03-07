@@ -50,30 +50,22 @@
 												<td class=" ">${dto.scholarpk}</td>
 												<td class=" ">${dto.year}</td>
 												<td class=" ">${dto.semester}</td>
-												<td class=" "><a
-													href="contentForm?scholarpk=${dto.scholarpk}">${dto.scholarname}</a></td>
+												<td class=" "><a data-toggle="modal" data-target="#layerpop${dto.scholarpk}">${dto.scholarname}</a></td></td>
 												<td class=" ">${dto.amount}원</td>
 											</tr>
 										</c:forEach>
+									</c:if>
+									
+									<c:if test="${cnt == 0}">
+											<tr class="even pointer">
+												<td class=" " colspan="5">장학금 글이 없습니다.</td>
+											</tr>
 									</c:if>
 
 								</tbody>
 							</table>
 							
 							 <div class="">
-								<div class="col-sm-5">
-									<div class="dataTables_info" id="datatable_info" role="status"
-										aria-live="polite">Showing 
-										<c:choose>
-											<c:when test="${number < pageSize }">
-												1
-											</c:when>
-											<c:otherwise>
-												${number-pageSize+1}
-											</c:otherwise>
-										</c:choose>
-										to ${number} of ${cnt} entries</div>
-								</div>
 							
 								<div class="col-sm-7">
 									<div class="text-right">
@@ -131,6 +123,32 @@
 			</div>
 
 	<!-- /page content -->
+	<c:forEach items="${dtos}" var ="dto">
+
+<div class="modal fade" id="layerpop${dto.scholarpk}" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- header -->
+      <div class="modal-header">
+        <!-- 닫기(x) 버튼 -->
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <!-- header title -->
+        <h4 class="modal-title">글제목 : ${dto.scholarname}</h4>
+        
+      </div>
+      <!-- body -->
+      <div class="modal-body">
+         ${dto.scholarcontent}
+      </div>
+      <!-- Footer -->
+      <div class="modal-footer">
+      	<input type = "button" class="btn btn-primary" value="신청" onclick="window.location='apply?scholarpk=${dto.scholarpk}'" >
+        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+      </div>
+    </div>
+  </div>
+</div>
+</c:forEach>
 
 	<script
 		src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>

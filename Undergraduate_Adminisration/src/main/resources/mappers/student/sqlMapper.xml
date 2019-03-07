@@ -199,7 +199,7 @@
 		parameterType="com.spring.project.student.vo.S_informationVO">
 		UPDATE users SET userName=#{userName},
 		userCellNum=#{userCellNum}, userAddr1=#{userAddr1},
-		userAddr2=#{userAddr2} where userNumber=#{userNumber}
+		userAddr2=#{userAddr2},userZipCode=#{zip} where userNumber=#{userNumber}
 	</update>
 
 	<!-- 수강중 강의 -->
@@ -280,7 +280,7 @@
 
 		SELECT *
 		FROM (select SCHOLARPK,SCHOLARNAME,to_char(YEAR,'YYYY') as
-		YEAR,SEMESTER,TO_CHAR(AMOUNT,'999,999,999,999,999') as AMOUNT,ROWNUM rNum
+		YEAR,SEMESTER,TO_CHAR(AMOUNT,'999,999,999,999,999') as AMOUNT,SCHOLARCONTENT,ROWNUM rNum
 		from (
 		select * FROM SCHOLARSHIP
 		where delstatus = 0

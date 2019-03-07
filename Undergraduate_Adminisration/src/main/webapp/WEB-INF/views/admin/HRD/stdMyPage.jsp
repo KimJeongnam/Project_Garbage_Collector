@@ -233,8 +233,9 @@
 																			</th>
 																			<td colspan="3">
 																				<input type="text" name="userZipCode" class="input" required="required" 
+
 																					value="${vo.userZipCode }" placeholder="우편번호를 입력하시오">
-																					
+
 																				<button type="button" name="ZipCode" onclick="openZipSearch();">검색</button><br>
 																				주소 : <br>
 																				<input id="studentAddress1" name="userAddr1" type="text" 
