@@ -5,14 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <%@ include file="../../Basic/settings.jsp"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <title>자바대학교 학사관리시스템</title>
-
-<style>
-.toggle-off {
-	margin-bottom: 0px;
-	margin-right: 0px;
-}
-</style>
 </head>
 <body class="nav-md">
 	<!-- page content -->
@@ -73,7 +67,6 @@
 											파일을 잘못 보낼시 교수에게 요청
 											과제 제출 전 파일  <code>필수 Check</code>
 										</p>
-										<span class="section">과제 제출</span>
 
 										<div class="item form-group">
 											<label class="control-label col-md-3 col-sm-3 col-xs-12"
@@ -134,7 +127,7 @@
 										<div class="ln_solid"></div>
 										<div class="form-group">
 											<div class="col-md-6 col-md-offset-3">
-												<!-- <button type="reset" class="btn btn-primary">취소</button> -->
+												<input type="hidden" name="lecName" value="${dtos.getLectureName()}">
 												<button id="send" type="submit" class="btn btn-success">보내기</button>
 											</div>
 										</div>
@@ -156,19 +149,9 @@
 
 	<!-- /page content -->
 
-	<script
-		src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-	<script type="text/javascript">
-	<%@ include file="../../Basic/datePickerJS.jsp"%>
-	</script>
 	
 	<script type="text/javascript">
-	/* function aaa() {
-		if(${dtos.getProgress()} < 0){
-			alert("마감되었습니다")
-			self.close();
-		}
-	} */
+	
 	
 	</script>
 
