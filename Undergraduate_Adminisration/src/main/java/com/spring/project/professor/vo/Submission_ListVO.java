@@ -10,9 +10,16 @@ public class Submission_ListVO {
 	private String userImage;//유저 사진
 	private String month;//월
 	private String day;//일
+	private String year;//일
 	
 	
 	
+	public String getYear() {
+		return year;
+	}
+	public void setYear(String year) {
+		this.year = year;
+	}
 	public String getStdNumber() {
 		return stdNumber;
 	}

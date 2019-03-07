@@ -152,5 +152,12 @@ public class RestfulController {
 		return service.getStdReports(stdNumber);
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="/rest/api/v1.0/getTotalScore", method=RequestMethod.POST)
+	public ResponseData getTotalScore(@RequestParam String stdNumber) {
+		logger.info("getTotalScore()");
+		return service.getStdTotalScore(stdNumber);
+	}
+	
 }
 //****************************************************** 김 정 남 ******************************************************

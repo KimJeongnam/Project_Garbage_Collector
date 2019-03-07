@@ -7,6 +7,7 @@ import com.spring.project.restful.vo.Location;
 import com.spring.project.restful.vo.Message;
 import com.spring.project.restful.vo.RestUser;
 import com.spring.project.restful.vo.StdReport;
+import com.spring.project.restful.vo.StdScore;
 import com.spring.project.student.vo.LectureVO;
 
 public interface RestfulDAO {
@@ -23,5 +24,6 @@ public interface RestfulDAO {
 	public List<Object> getStdLectureTime_test(LectureVO vo);
 	public List<Object> getStdLectureTime(LectureVO vo);
 	public List<StdReport> getReports(Map<String, Object> map);
+	public List<Object> getTotalScore(String stdNumber);
 	//---------------------------Android-END---------------------------------
 }

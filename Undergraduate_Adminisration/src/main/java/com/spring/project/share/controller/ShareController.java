@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.spring.project.admin.service.AdminService;
+import com.spring.project.share.MessageLists;
 import com.spring.project.share.service.ShareService;
 
 @Controller
@@ -102,6 +103,7 @@ public class ShareController {
 	@RequestMapping("/logoutDo")
 	public String logoutDo(HttpServletRequest request, RedirectAttributes redirectAttributes) {
 		logger.info("logoutDo()");
+		MessageLists.map.remove((String)request.getSession().getAttribute("userNumber"));
 		request.getSession().invalidate();
 		redirectAttributes.addFlashAttribute("message", "로그아웃!");
 		redirectAttributes.addFlashAttribute("alertIcon", "success");

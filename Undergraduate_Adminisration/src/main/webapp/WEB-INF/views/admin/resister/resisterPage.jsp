@@ -94,7 +94,71 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/bootstrap-select.min.js"></script>
 
 <!-- (Optional) Latest compiled and minified JavaScript translation files -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/i18n/defaults-*.min.js"></script>
-
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/i18n/defaults-*.min.js"></script> -->
+<script type="text/javascript">
+	 
+	function delete_scholar(){
+		var list = [];
+		var list_size = 0;
+		
+		var form = document.createElement("form");
+		form.setAttribute("charset", "UTF-8");
+		form.setAttribute("method", "POST");
+		form.setAttribute("action", "../admin/deletePro");
+		
+		var cnt = 0;
+		
+		for(var i=0; i<$('.table_records').size(); i++){
+			if($('.table_records')[i].checked){
+				//list[list_size++] = $('.table_records')[i].value;
+				var field = document.createElement("input");
+				field.setAttribute("type", "hidden");
+				field.setAttribute("name", "scholarpks");
+				field.setAttribute("value", $('.table_records')[i].value);
+				form.appendChild(field);
+			}
+		}
+		
+		document.body.appendChild(form);
+		
+		form.submit();
+	}
+	
+	function checkEditer(idx) {
+		var scholarname = $('#scholarname'+idx).val();
+		var content = $('#editor-one1'+idx)[0].innerHTML;
+		var year = $('#year'+idx).val();
+		var semester = $('#semester'+idx).val();
+		
+		if (!year) {
+			alert("년도를 입력해 주세요");
+			return false;
+		}
+		
+		if (!semester) {
+			alert("학기를 입력해 주세요");
+			return false;
+		}
+		
+		if (!scholarname) {
+			alert("장학금 명을 입력해주세요");
+			return false;
+		}
+		if (content == 0) {
+			alert("장학금 내용을 입력해주세요");
+			return false;
+		}
+		var scholarContent = $('#editor-one1'+idx)[0].innerHTML;
+		$('#scholarContent'+idx).val(scholarContent);
+		
+		if ($('#scholarContent'+idx).val().length > 0)
+			return true;
+		else
+			return false;
+	}
+	
+	
+	
+	</script>
 </body>
 </html>
