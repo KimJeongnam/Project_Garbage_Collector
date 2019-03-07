@@ -83,6 +83,7 @@ public class RestfulServiceImpl implements RestfulService {
 
 		//logger.info("response list Size() : " + newMessages.size());
 		/*request.getSession().setAttribute("message_list", list);*/
+		MessageLists.map.remove(userNumber);
 		MessageLists.map.put(userNumber, list);
 		result.put("newMessages", newMessages);
 

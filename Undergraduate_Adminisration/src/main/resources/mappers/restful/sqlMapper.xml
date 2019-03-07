@@ -140,6 +140,7 @@
     where sci.status=3
     AND std.stdNumber = #{stdNumber}
     group by sci.year, sci.semester, gpa.grade, gpa.semester
+    order by sci.year, gpa.grade
 	</select>
 	<!-- ================================================ANDROID=END=============================================== -->
 	
