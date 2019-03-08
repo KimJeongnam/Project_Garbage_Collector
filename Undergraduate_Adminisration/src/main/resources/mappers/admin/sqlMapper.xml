@@ -888,7 +888,7 @@
 		p.paylistNum) totalAmount,
 		status
 		from paymentlist p
-		order by imputedYear desc
+		order by imputedYear
 	</select>
 
 	<select id="getFacultyList"

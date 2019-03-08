@@ -88,7 +88,7 @@ function studentMyLecture(userNumber){
 			}
 		},
 		error:function(){
-			alert("Error! studentMyLecture();");
+			/*alert("Error! studentMyLecture();");*/
 		}
 	});
 }

@@ -1369,18 +1369,10 @@ public class AdminServiceImpl extends Board implements AdminService {
 			lecScInsert = dao.lecScInsert(vo);
 		}catch(DataAccessException e) {
 			System.out.println(e.getMessage());
-			System.out.println("asdfsafdasfasdfdfasfsfasdfdsafasdfsad fasdf sadf ads");
 			if(e.getMessage().contains("unique constraint"));
 			lecScInsert = 500;
 		}
 		
-		
-		System.out.println("학사일정 수정 lecScInsert : " + startSelectLecture);
-		System.out.println("학사일정 수정 lecScInsert : " + endSelectLecture);
-		System.out.println("학사일정 수정 lecScInsert : " + openingDay);
-		System.out.println("학사일정 수정 lecScInsert : " + gradeOpeningDay);
-		System.out.println("학사일정 수정 lecScInsert : " + endingDay);
-		System.out.println("학사일정 수정 lecScInsert : " + lecScInsert);
 		
 		
 		if (lecScInsert == 1) {
@@ -1395,6 +1387,15 @@ public class AdminServiceImpl extends Board implements AdminService {
 			red.addFlashAttribute("message", "이미 추가 되어있는 년도와 학기 입니다.!");
 			red.addFlashAttribute("alertIcon","error");
 		}
+		
+		
+		
+		System.out.println("학사일정 수정 lecScInsert : " + startSelectLecture);
+		System.out.println("학사일정 수정 lecScInsert : " + endSelectLecture);
+		System.out.println("학사일정 수정 lecScInsert : " + openingDay);
+		System.out.println("학사일정 수정 lecScInsert : " + gradeOpeningDay);
+		System.out.println("학사일정 수정 lecScInsert : " + endingDay);
+		System.out.println("학사일정 수정 lecScInsert : " + lecScInsert);
 	}
 	
 	//학사관리 일정 수정

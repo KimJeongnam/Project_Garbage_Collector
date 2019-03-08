@@ -21,16 +21,16 @@
 							<thead>
 								<tr class="headings">
 									<th class="" style="width: 10%; text-align: center;">선택</th>
-									<th class="" style="width: 15%; text-align: center;">글 번호</th>
-									<th class="" style="width: 15%; text-align: center;">년도</th>
-									<th class="" style="width: 10%; text-align: center;">학기</th>
+									<th class="" style="width: 13%; text-align: center;">글 번호</th>
+									<th class="" style="width: 13%; text-align: center;">년도</th>
+									<th class="" style="width: 8%; text-align: center;">학기</th>
 									<th class="" style="width: 25%; text-align: center;">장학금 명</th>
-									<th class="" style="width: 25%; text-align: center;">지급 금액</th>
+									<th class="" style="width: 28%; text-align: center;">지급 금액</th>
 								</tr>
 							</thead>
 							<tbody>
 								<c:if test="${cnt > 0}">
-									<c:forEach var="dto" items="${dtos}">
+									<c:forEach var="dto" items="${dtos}" varStatus="status">
 
 										<tr class="even pointer" style="text-align: center;">
 											<td><input type="checkbox" class="flat table_records"
@@ -40,7 +40,7 @@
 											<td class=" ">${dto.semester}</td>
 											<td class=" " style="cursor: pointer"><a
 												data-toggle="modal" data-target="#layerpop${dto.scholarpk}">${dto.scholarname}</a></td>
-											<td class=" ">${dto.amount}원</td>
+											<td class=" "><p id="comma_amount${status.index}" >${dto.amount}</p>원</td>
 										</tr>
 									</c:forEach>
 								</c:if>
@@ -140,26 +140,25 @@
 						<!--  -->
 
 						<div class="x_panel">
-							<!-- 장학금명 폼 -->
+							<!-- 년월일 입력  -->
 							<div class="row">
 								<div class="col-md-6">
 									<!--  container 안에서 grid system 사용 -->
 									<div class="form-group">
-										<label for="name">년
-											도&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-										<input type="text" class="form-control" name="year" id="year${status.index}"
-											placeholder="Enter name" value="${dto.year}">
+										<label for="name">수정 등록일자&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+										<input type="date" class="form-control" name="year" id="year${status.index}"
+											placeholder="등록일자를 입력하시오" value="${dto.year}">
 									</div>
 								</div>
 
 
-								<!-- 년도 학기 입력 폼  -->
+								<!--  학기 입력 폼  -->
 								<div class="col-md-6">
 									<div class="form-group">
 										<label for="date">학기&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
 										<input type="text" class="form-control" name="semester"
 											id="semester${status.index}"
-											placeholder="년도를 입력하세요" value="${dto.semester}">
+											placeholder="학기를 입력하십시요" value="${dto.semester}" maxlength="1" max="2" min="1">
 									</div>
 								</div>
 
@@ -174,11 +173,11 @@
 							<!-- 수정 금액 입력  -->
 							<div class="form-group">
 								<label for="price">지급 금액</label> <br> 
-								<input type="text" class="form-control" name="amount1" id="amount1" placeholder="금액을 입력하세요" value="${dto.amount}">
+								<input type="text" id="comma_amount2" class="form-control" placeholder="금액을 입력하세요" value="${dto.amount}">
 										<!-- 받아가는건 히든으로 받아감  -->
 									<%-- <input type="hidden" name="amount" id="amount${status.index}" value="${dto.amount}"> --%>
 										<!-- 밑에꺼 수정 오류 사라지면 지우셈!!!! -->
-									<input type="text" name="amount" id="amount${status.index}" value="${dto.amount}">
+									<input type="text" name="amount" id="a_mount" value="${dto.amount}">
 							</div>
 
 
@@ -307,5 +306,58 @@ $(function() {
 	var mob = $('input[name=amount]').val();
 	var result = mob.replace(/,/gi, '');
 	$('input[name=amount]').val(result);
+
 });
+
+//콤마찍기
+$("[id^='comma_amount']").each(function(){
+	if(!isNaN(Number($(this).text())) && $(this).text()) $(this).text(Number($(this).text()).toLocaleString().split('.')[0]);
+	});
+	
+	
+//수정폼 콤마 찍기
+$("[id^='comma_amount2']").each(function(){
+	if(!isNaN(Number($(this).val())) && $(this).val()) $(this).val(Number($(this).val()).toLocaleString().split('.')[0]);
+	});
+
+
+
+	
+$(document).ready(function(){
+    //키를 누르거나 떼었을때 이벤트 발생
+    $("input").bind('keyup keydown',function(){
+        inputNumberFormat(this);
+    });
+ 
+    //입력한 문자열 전달
+    function inputNumberFormat(obj) {
+        obj.value = comma(uncomma(obj.value));
+    }
+       
+    //콤마찍기
+    function comma(str) {
+        str = String(str);
+        return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+    }
+ 
+    //콤마풀기
+    function uncomma(str) {
+        str = String(str);
+        return str.replace(/[^\d]+/g, '');
+    }
+ 
+    //숫자만 리턴(저장할때)
+    function cf_getNumberOnly (str) {
+        var len      = str.length;
+        var sReturn  = "";
+ 
+        for (var i=0; i<len; i++){
+            if ( (str.charAt(i) >= "0") && (str.charAt(i) <= "9") ){
+                sReturn += str.charAt(i);
+            }
+        }
+        return sReturn;
+    }
+});
+
 </script>
