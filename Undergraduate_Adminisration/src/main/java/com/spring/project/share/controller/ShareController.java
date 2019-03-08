@@ -157,5 +157,11 @@ public class ShareController {
 		shareService.getProfessorLectureTime(empNumber, semester, model);
 		return "admin/majorLecMangePage/lectureTimeSelector";
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/share/ajax/getBachelorStatus", method=RequestMethod.GET)
+	public Map<String, Object> getBachelorStatus(){
+		return shareService.getBachelorStatus();
+	}
 
 }

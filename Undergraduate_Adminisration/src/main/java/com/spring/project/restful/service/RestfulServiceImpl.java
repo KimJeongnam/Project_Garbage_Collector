@@ -19,7 +19,6 @@ import com.spring.project.restful.vo.Location;
 import com.spring.project.restful.vo.Message;
 import com.spring.project.restful.vo.ResponseData;
 import com.spring.project.restful.vo.RestUser;
-import com.spring.project.restful.vo.StdLecTime;
 import com.spring.project.restful.vo.StdReport;
 import com.spring.project.share.MessageLists;
 import com.spring.project.share.dao.ShareDAO;
@@ -43,18 +42,12 @@ public class RestfulServiceImpl implements RestfulService {
 		
 		String userNumber = (String)request.getSession().getAttribute("userNumber");
 		List<Message> sessionMessages = MessageLists.map.get(userNumber);
-		
-		
 		Map<Integer, Message> nets = new HashMap<Integer, Message>();
-		
 		List<Message> newMessages = new ArrayList<Message>();
-
-		// logger.info("request userNumber : "+userNumber);
 		List<Message> list = dao.getMessages(map);
-		// logger.info("response list size : "+list.size());
 
-		if (sessionMessages != null) {
-			// logger.info("sessionMessage count : "+sessionMessages.size());
+		if(sessionMessages == null) return null;
+		if (sessionMessages.size()!=0) {
 			/*
 			 * DB에서 가져온 메세지와 Session에서 가져온 메세지를 비교 후 이미 세션에 있던 메세지라면 DB에서 가져온 메세지 삭제..
 			 */
@@ -76,15 +69,13 @@ public class RestfulServiceImpl implements RestfulService {
 			 * 위과정을 거치고 남아있는 새로운 메세지가 있을시 처리
 			 */
 			Collections.sort(newMessages);
+			result.put("newMessages", newMessages);
 			result.put("notReadMessages", list);
 		} else {
 			result.put("notReadMessages", list);
 		}
 
-		//logger.info("response list Size() : " + newMessages.size());
-		/*request.getSession().setAttribute("message_list", list);*/
 		MessageLists.map.put(userNumber, list);
-		result.put("newMessages", newMessages);
 
 		return result;
 	}
@@ -174,13 +165,18 @@ public class RestfulServiceImpl implements RestfulService {
 		
 		String message = "";
 		
+		Map<String, Object> map = new HashMap<String, Object> ();
+		
 		responseData.setStatus(0);
 		responseData.setMessage("fail");
 		if(data != null) {
 			responseData.setStatus(1);
 			responseData.setMessage("success");
 			
-			message += "'"+eday.getDays1Value()+"'요일 시간표\n";
+			map.put("dayofweek", eday.getDays1Value());
+			map.put("lectures", data);
+			
+			/*message += "'"+eday.getDays1Value()+"'요일 시간표\n";
 			
 			if(data.size()==0) message += "시간표가 비어 있습니다.";
 			
@@ -189,9 +185,9 @@ public class RestfulServiceImpl implements RestfulService {
 				StdLecTime dto = (StdLecTime)obj;
 				
 				message += dto.getClassTime()+"교시 : "+dto.getLectureName()+"\t, "+dto.getClassRoom()+"\n";
-			}
+			}*/
 			
-			responseData.setData(message);
+			responseData.setData(map);
 		}
 	
 		return responseData;

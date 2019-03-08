@@ -32,7 +32,7 @@
                     <!-- sidebar menu -->
                     <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                         <div class="menu_section active">
-                        		<h3 style="margin-bottom: 10px;">${year}년도 ${semester}학기 [${bachelorStatus }]</h3>
+                        		<h3 style="margin-bottom: 10px;">${year}년도 ${semester}학기 <span id="bachelorstatus-area"></span></h3>
                             <h3>교번 : '${userNumber }'</h3>
                             <ul class="nav side-menu" style="">
 
@@ -135,7 +135,7 @@
                     <!-- sidebar menu -->
                     <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                         <div class="menu_section active">
-                        		<h3 style="margin-bottom: 10px;">${year}년도 ${semester}학기 [${bachelorStatus }]</h3>
+                        		<h3 style="margin-bottom: 10px;">${year}년도 ${semester}학기 <span id="bachelorstatus-area"></span></h3>
                             <h3>교번 : '${userNumber }'</h3>
                             <ul class="nav side-menu" style="">
 
@@ -231,7 +231,7 @@
                     <!-- sidebar menu -->
                     <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                         <div class="menu_section active">
-                        	<h3 style="margin-bottom: 10px;">${year}년도 ${semester}학기 [${bachelorStatus }]</h3>
+                        	<h3 style="margin-bottom: 10px;">${year}년도 ${semester}학기 <span id="bachelorstatus-area"></span></h3>
                             <h3>학번 : '${userNumber }'</h3>
                             <ul class="nav side-menu" style="">
 

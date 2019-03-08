@@ -40,6 +40,7 @@
 													<th style="text-align: center">학년</th>
 													<th style="text-align: center">학기</th>
 													<th style="text-align: center">장학금 명</th>
+													<th style="text-align: center">신청 일자</th>
 													<th style="text-align: center">지급 일자</th>
 													<th style="text-align: center">장학금 금액</th>
 													<th style="text-align: center">합/불여부</th>
@@ -59,6 +60,7 @@
 														<td class=" ">${dto.grade}</td>
 														<td class=" ">${dto.semester}</td>
 														<td class=" ">${dto.scholarName}</td>
+														<td class=" ">${dto.year}</td>
 														<td class=" ">${dto.year}</td>
 														<td class=" ">${dto.amount}원</td>
 														

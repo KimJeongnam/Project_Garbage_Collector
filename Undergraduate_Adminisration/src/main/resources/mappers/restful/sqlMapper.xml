@@ -88,7 +88,7 @@
 	<select id="getStdLectureTime" parameterType="com.spring.project.student.vo.LectureVO" resultType="com.spring.project.restful.vo.StdLecTime">
 	select * from stdlecturetime
     where usernumber = #{userNumber}
-    AND TRUNC(timetblcode/10, 0) = #{day}
+    AND TRUNC((timetblcode-1)/10, 0) = #{day}
 	</select>
 	
 	
@@ -122,6 +122,7 @@
     , ROUND((r.enddate-sysdate)*24*60) as min
     , ROUND((r.enddate-sysdate)*24*60*60) as sec from stdreportlist r
     WHERE userNumber = #{stdNumber}
+    order by r.enddate
 	</select>
 	
 	<select id="getTotalScore" resultType="com.spring.project.restful.vo.StdScore">
@@ -140,6 +141,7 @@
     where sci.status=3
     AND std.stdNumber = #{stdNumber}
     group by sci.year, sci.semester, gpa.grade, gpa.semester
+    order by sci.year, gpa.grade
 	</select>
 	<!-- ================================================ANDROID=END=============================================== -->
 	
