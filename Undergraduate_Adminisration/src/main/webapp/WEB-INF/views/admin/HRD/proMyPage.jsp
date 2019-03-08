@@ -131,10 +131,10 @@
 																			<th class="control-label">주민등록번호</th>
 																				<td>
 																					<c:set var="SsnArr" value="${fn:split(vo.getUserSsn(),'-')}"/>
-																					<input class="input" type="text" name="jumin1" maxlength="6" style="width : 73px"
-																							onkeyup ="proMyPageJumin1();" value="${SsnArr[0] }" numberOnly="true" disabled> -
+																					<input class="input" type="text" name="jumin1" maxlength="6" style="width : 70px"
+																							onkeyup ="proMyPageJumin1();" value="${SsnArr[0] }" numberOnly="true" readOnly="ture"> -
 																					 <input class="input" type="password" name="jumin2" maxlength="7"
-																							style="width:84px;" onkeyup="proMyPageJumin2();" value="${SsnArr[1] }" numberOnly="true" disabled>
+																							style="width:78px;" onkeyup="proMyPageJumin2();" value="${SsnArr[1] }" numberOnly="true" readOnly="ture">
 																				</td>
 																			<th class="control-label">
 																				영어성명
@@ -158,7 +158,7 @@
 																				단과대학
 																			</th>
 																			<td>
-																				<select name="faculty" id ="faculty" style="height : 22px; width : 172px;" >
+																				<select name="faculty" id ="faculty" style="height : 22px; width : 160px;" >
 																		       			<option value="${vo.faculty}" selected>${vo.faculty}</option> 
 																		       		<c:forEach var="fa" items="${outFandM}" >
 																						<option value="${fa.faculty}" >${fa.faculty}</option> 
@@ -171,9 +171,9 @@
 																			<th class="control-label">이메일</th>
 																				<td>
 																					<c:set var="emailArr" value="${fn:split(vo.getUserEmail(),'@')}"/>
-																					<input class="input" type="text" name="email1" maxlength="10" style="width : 66px"
+																					<input class="input" type="text" name="email1" maxlength="10" style="width : 60px"
 																							value="${emailArr[0] }"> @
-																					<input class="input" type="text" name="email2" maxlength="20" style="width : 84px"
+																					<input class="input" type="text" name="email2" maxlength="20" style="width : 80px"
 																							value="${emailArr[1] }">
 																					<select class ="input" name="email3" style="height:23px;" onchange="proMyPageEmailChk();">
 																						<option value="0">직접입력</option>
@@ -188,7 +188,7 @@
 																			</th>
 																			<td>
 																				<select name="majorNum" id ="majorNum" selected ="${vo.majorNum}"
-																						style="width : 172px; height : 22px;" >
+																						style="width : 160px; height : 22px;" >
 																					<option value="${vo.majorNum}">${vo.majorNum} : ${vo.majorName}</option>	
 																		  		</select>
 																			</td>
@@ -198,18 +198,18 @@
 																				<td>
 																					<c:set var="phArr" value="${fn:split(vo.getUserCellNum(),'-')}"/>
 																					<input class="input" type="text" name="hp1" maxlength="3"
-																				 	style= "width : 40px" onkeyup="proMyPagePh1();" value="${phArr[0] }" numberOnly="true">
+																				 	style= "width : 37px" onkeyup="proMyPagePh1();" value="${phArr[0] }" numberOnly="true">
 																				 	-
 																				 	<input class="input" type="text" name="hp2" maxlength="4"
-																				 	style= "width : 54px" onkeyup="proMyPagePh2();" value="${phArr[1] }" numberOnly="true">
+																				 	style= "width : 50px" onkeyup="proMyPagePh2();" value="${phArr[1] }" numberOnly="true">
 																				 	-
 																				 	<input class="input" type="text" name="hp3" maxlength="4"
-																				 	style= "width : 54px" onkeyup="proMyPagePh3();" value="${phArr[2] }" numberOnly="true">
+																				 	style= "width : 50px" onkeyup="proMyPagePh3();" value="${phArr[2] }" numberOnly="true">
 																				</td>
 																			
 																			<th class="control-label">입사일</th>
 																			<td><input type="date" class="input" value="${vo.empHiredDate}" name="empHiredDate"
-																				style="width: 172px;" required="required" placeholder="입사일을 입력하시오">
+																				style="width: 160px;" required="required" placeholder="입사일을 입력하시오">
 																			</td>
 																		</tr>
 																		<tr>
@@ -313,8 +313,10 @@
                                                     <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
                                                      <form class="form-horizontal form-label-left" novalidate action="introUpdate" method="post">
                                                        <span class="section">교수소개</span>
-                                                        <textarea id="introduction" required="required" class="form-control" name="introduction" data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="3500" 
-                                                        data-parsley-minlength-message="20자 이상 작성하셔야 합니다!!" data-parsley-validation-threshold="10" style="height: 300px;">${vo.introduction }</textarea>
+                                                        <textarea id="introduction" required="required" class="form-control" name="introduction" data-parsley-trigger="keyup" 
+                                                        			data-parsley-minlength="20" data-parsley-maxlength="3500" data-parsley-minlength-message="20자 이상 작성하셔야 합니다!!" 
+                                                        			data-parsley-validation-threshold="10" style="height: 300px; resize : none;">${vo.introduction }
+                                                        </textarea>
                                                        <br>
                                                        </form>
                                                     </div>

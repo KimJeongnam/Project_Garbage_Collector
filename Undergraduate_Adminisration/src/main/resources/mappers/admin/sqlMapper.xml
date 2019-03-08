@@ -41,14 +41,25 @@
 	</insert>
 
 	<!-- 교수등록 -->
-	<insert id="insertPUsers"
-		parameterType="com.spring.project.admin.vo.AdProVO">
-		insert into users(userNumber, userPassword, userEngName,
-		userName, userImage, userSsn,userCellNum,
-		userEmail, delStatus, authority, gender, userZipCode, userAddr1, userAddr2 )
-		values(#{userNumber},#{userSsn2},#{userEngName},#{userName},#{userImage},
-		#{userSsn},#{userCellNum},#{userEmail},0,'ROLE_PROFESSOR', #{gender},
-		#{userZipCode}, #{userAddr1}, #{userAddr2})
+	<insert id="insertPUsers" parameterType="com.spring.project.admin.vo.AdProVO">
+		<choose>
+			<when test="authority == null">
+				insert into users(userNumber, userPassword, userEngName,
+									userName, userImage, userSsn,userCellNum,
+									userEmail, delStatus, authority, gender, userZipCode, userAddr1, userAddr2 )
+				values(#{userNumber},#{userSsn2},#{userEngName},#{userName},#{userImage},
+						#{userSsn},#{userCellNum},#{userEmail},0,'ROLE_PROFESSOR', #{gender},
+						#{userZipCode}, #{userAddr1}, #{userAddr2})
+			</when>
+			<otherwise>
+				insert into users(userNumber, userPassword, userEngName,
+									userName, userImage, userSsn,userCellNum,
+									userEmail, delStatus, authority, gender, userZipCode, userAddr1, userAddr2 )
+				values(#{userNumber},#{userSsn2},#{userEngName},#{userName},#{userImage},
+						#{userSsn},#{userCellNum},#{userEmail},0,#{authority}, #{gender},
+						#{userZipCode}, #{userAddr1}, #{userAddr2})
+			</otherwise>
+		</choose>
 	</insert>
 
 	<!-- 교수등록 -->
@@ -56,14 +67,13 @@
 		parameterType="com.spring.project.admin.vo.AdProVO">
 		<choose>
 			<when test="majorNum != 0">
-				insert into employee(empNumber,
-				majorNum,empHiredDate,annualLevel,bankName, accountNumber,
-				accountHolder)
+				insert into employee(empNumber, majorNum,empHiredDate,annualLevel,bankName, accountNumber,
+									accountHolder)
 				values(#{userNumber},#{majorNum},#{empHiredDate},1,#{bankName},#{accountNumber},#{accountHolder})
 			</when>
 			<otherwise>
 				insert into employee(empNumber,empHiredDate,annualLevel,bankName,
-				accountNumber, accountHolder)
+									accountNumber, accountHolder)
 				values(#{userNumber},#{empHiredDate},1,#{bankName},#{accountNumber},#{accountHolder})
 			</otherwise>
 		</choose>
@@ -98,13 +108,13 @@
 	<select id="getProList" parameterType="java.util.Map"
 		resultType="com.spring.project.admin.vo.AdProVO">
 		select u.userNumber, u.userName, m.majorName ,m.majorNum ,
-		u.usercellnum, u.authority, e.annualLevel, e.empHiredDate, f.faculty
+				u.usercellnum, u.authority, e.annualLevel, e.empHiredDate, f.faculty
 		from employee e , users u, major m, faculty f
-		where u.userNumber=
-		e.empnumber(+)
+		where u.userNumber= e.empnumber(+)
 		and e.majorNum = m.majorNum(+)
 		and f.faculty(+) = m.faculty
-		and u.authority = 'ROLE_PROFESSOR'
+		and u.authority in ('ROLE_PROFESSOR' , 'ROLE_ADMIN')
+        and u.userName not in ('ADMIN')
 		and u.delstatus != 1
 
 	</select>
@@ -137,18 +147,17 @@
 	<select id="proDetail"
 		resultType="com.spring.project.admin.vo.AdProVO">
 		select u.userNumber, u.userZipCode, u.userAddr1,
-		u.userAddr2, u.userName, u.userImage,
-		u.userEngName, u.userSsn, u.gender, m.majorName, m.majorNum, e.INTRODUCTION,
-		u.userEmail, u.userCellNum, e.annualLevel, to_date(e.empHiredDate,
-		'yy/mm/dd') empHiredDate,
-		f.faculty, e.bankName, e.accountNumber, e.accountHolder
-		from employee e, users u,
-		major m, faculty f
+				u.userAddr2, u.userName, u.userImage,
+				u.userEngName, u.userSsn, u.gender, m.majorName, m.majorNum, e.INTRODUCTION,
+				u.userEmail, u.userCellNum, e.annualLevel, to_date(e.empHiredDate,
+				'yy/mm/dd') empHiredDate,
+				f.faculty, e.bankName, e.accountNumber, e.accountHolder
+		from employee e, users u, major m, faculty f
 		where u.userNumber= e.empNumber(+)
 		and e.majorNum = m.majorNum(+)
 		and f.faculty(+) = m.faculty
-		and u.authority = 'ROLE_PROFESSOR'
-		and u.userNumber = #{userNumber}
+		and u.authority not in( 'ROLE_STUDENT') 
+		and u.userNumber =#{userNumber}
 		and u.delstatus != 1
 	</select>
 
@@ -360,7 +369,7 @@
 
 		</where>
 		) 
-				               <![CDATA[where rNum >= #{start} and rNum <= #{end}]]>
+		<![CDATA[where rNum >= #{start} and rNum <= #{end}]]>
 
 	</select>
 

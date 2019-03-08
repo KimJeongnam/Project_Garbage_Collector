@@ -402,6 +402,7 @@
         	  from gpa g, studentClassInfo s, lecture l 
         	 where g.infoCode=s.infoCode 
            	   and s.lecCode=l.lecCode 
+           	   and s.status =3
                and s.userNumber=#{userNumber})
 	</select>
 	
