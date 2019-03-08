@@ -77,9 +77,6 @@ public class AdminServiceImpl extends Board implements AdminService {
 			pageNum = (Integer) map.get("pageNum");
 		// 수강신청 목록 갯수 구하기
 		cnt = dao.Jang_getArticleCnt(map);
-		System.out.println("cnt" + cnt);
-		System.out.println("pageNum" + pageNum);
-
 		pageCount = cnt / pageSize + (cnt % pageSize > 0 ? 1 : 0);
 
 		start = (pageNum - 1) * pageSize + 1;
@@ -87,8 +84,6 @@ public class AdminServiceImpl extends Board implements AdminService {
 
 		map.put("start", start);
 		map.put("end", end);
-		System.out.println(map.get("year"));
-		System.out.println(map.get("smester"));
 
 		if (map.get("year") != "0") {
 			map.put("year", map.get("year"));
@@ -152,13 +147,9 @@ public class AdminServiceImpl extends Board implements AdminService {
 		vo.setScholarcontent(scholarContent);
 
 		int insertjangjag = dao.insertjangjag(vo);
-		System.out.println(insertjangjag);
 
 		// 6단계 request나 session 에 처리 결과를 저장 (jsp에 전달하기 위함)
 		model.addAttribute("insertjangjag", insertjangjag);
-		/*
-		 * model.addAttribute("num", num); model.addAttribute("pageNum", pageNum);
-		 */
 
 	}
 
@@ -177,12 +168,7 @@ public class AdminServiceImpl extends Board implements AdminService {
 	@Override
 	public void deletePro(HttpServletRequest req, RedirectAttributes red) {
 		String[] checkbox = req.getParameterValues("scholarpks");
-
-		System.out.println("checkbox" + checkbox);
-
 		int updateCnt = dao.jang_delete(checkbox);
-		System.out.println("22222");
-
 		if (updateCnt != 0) {
 			red.addFlashAttribute("message", "삭제에 성공 했습니다!");
 		} else {
@@ -693,7 +679,6 @@ public class AdminServiceImpl extends Board implements AdminService {
 			}else {
 				red.addFlashAttribute("message", "프로필 이미지를 변경하는 도중에 오류가 발생하였습니다.");
 			}
-			System.out.println("프로필 이미지 변경 imageUpload : " + stdImageUpload);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -750,7 +735,6 @@ public class AdminServiceImpl extends Board implements AdminService {
 			}else { 
 				red.addFlashAttribute("message", "프로필 이미지를 변경하는 도중에 오류가 발생하였습니다.");
 			}
-			System.out.println("프로필 이미지 변경 imageUpload : " + proImageUpload);
 		}catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -798,15 +782,12 @@ public class AdminServiceImpl extends Board implements AdminService {
 	public void auditPro(HttpServletRequest req, Model model) {
 		String[] checkbox = req.getParameterValues("chk");
 		String[] checkbox2 = req.getParameterValues("chk2");
-
 		if (checkbox != null) {
-			int updateCnt = dao.auditupdate(checkbox);
+			dao.auditupdate(checkbox);
 		}
 		if (checkbox2 != null) {
-			int updateCnt = dao.auditupdate2(checkbox2);
-			System.out.println("5555555");
+			dao.auditupdate2(checkbox2);
 		}
-		System.out.println("22222");
 
 	}
 	//장학금 수정
@@ -821,13 +802,6 @@ public class AdminServiceImpl extends Board implements AdminService {
 		String scholarContent = req.getParameter("scholarContent");
 		int scholarpk = Integer.parseInt(req.getParameter("scholarpk"));
 		
-		System.out.println("year" + year);
-		System.out.println("semester" + semester);
-		System.out.println("amount" + amount);
-		System.out.println("scholarname" + scholarname);
-		System.out.println("scholarContent" + scholarContent);
-		System.out.println("scholarpk" + scholarpk);
-		
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("year", year);
 		map.put("semester", semester);
@@ -835,10 +809,8 @@ public class AdminServiceImpl extends Board implements AdminService {
 		map.put("scholarname", scholarname);
 		map.put("scholarContent", scholarContent);
 		map.put("scholarpk", scholarpk);
-
 		
 		int update = dao.rigisterupdate(map);
-		System.out.println("장학금 update : " + update);
 
 		if (update != 0)
 			red.addFlashAttribute("message", "장학금 글 정보를 변경하였습니다.");
@@ -896,7 +868,6 @@ public class AdminServiceImpl extends Board implements AdminService {
 		Map<String, Object> resopnseData = new HashMap<String, Object>();
 		dao.deleteMajor(lecture);
 		
-		System.out.println("result : "+lecture.getResult());
 		if (lecture.getResult() > 0)
 			resopnseData.put("status", "success");
 		else
@@ -1046,7 +1017,6 @@ public class AdminServiceImpl extends Board implements AdminService {
 		lecture.setTtc(lecture.getTimetblCodes().stream().mapToInt(i -> i).toArray());
 		dao.modifyLecture(lecture);
 		
-		System.out.println("result : "+lecture.getResult());
 		if (lecture.getResult() != 0) {
 			responseData.put("message", "강의 수정 완료.");
 			responseData.put("status", "success");
@@ -1097,9 +1067,6 @@ public class AdminServiceImpl extends Board implements AdminService {
 			pageNum = (Integer) map.get("pageNum");
 		// 수강신청 목록 갯수 구하기
 		cnt = dao.audit_getArticleCnt(map);
-		System.out.println("pageNum"+pageNum);
-
-
 		pageCount = cnt / pageSize + (cnt % pageSize > 0 ? 1 : 0);
 
 		start = (pageNum - 1) * pageSize + 1;
@@ -1107,9 +1074,6 @@ public class AdminServiceImpl extends Board implements AdminService {
 
 		map.put("start", start);
 		map.put("end", end);
-		System.out.println(map.get("year"));
-		System.out.println(map.get("smester"));
-		
 		if(map.get("year") != "0") {
 		map.put("year", map.get("year"));
 		map.put("smester", map.get("smester"));
@@ -1151,7 +1115,6 @@ public class AdminServiceImpl extends Board implements AdminService {
 		endPage = startPage + pageBlock - 1;
 		if (endPage > pageCount)
 			endPage = pageCount;
-		System.out.println("cnt :::" + cnt) ;
 		model.addAttribute("cnt", cnt); // 글갯수
 		model.addAttribute("number", number); // 출력용 글번호
 		model.addAttribute("pageNum", pageNum); // 페이지번호
@@ -1279,7 +1242,6 @@ public class AdminServiceImpl extends Board implements AdminService {
 		
 		int payrollCnt = dao.getCopyPayrollFrom(map); 
 		map.put("payrollCnt", payrollCnt);
-		System.out.println("map :"+map);
 		dao.CopyPayroll(map);
 		Map<String, Object> responseData = new HashMap<String,Object>();
 		if(payrollCnt != 0) {
@@ -1292,9 +1254,7 @@ public class AdminServiceImpl extends Board implements AdminService {
 
 	@Override
 	public Map<String, Object> ConfirmPayroll(Map<String, Object> map) {
-		System.out.println("map :"+map);
 		int cnt = dao.ConfirmPayroll(map);
-		System.out.println("cnt :"+cnt);
 		Map<String, Object> responseData = new HashMap<String,Object>();
 		if(cnt != 0) {
 			responseData.put("message","저장이 완료되었습니다");
@@ -1306,13 +1266,9 @@ public class AdminServiceImpl extends Board implements AdminService {
 
 	@Override
 	public Map<String, Object> DeletePayroll(Map<String, Object> map) {
-		System.out.println("map :"+map);
 		int cnt1 = dao.DeletePayroll(map);
 		int cnt2 = dao.DeleteRegisterDetail(map);
 		int cnt = cnt1 + cnt2;
-		System.out.println("cnt1 :"+cnt);
-		System.out.println("cnt2 :"+cnt);
-		System.out.println("cnt :"+cnt);
 		Map<String, Object> responseData = new HashMap<String,Object>();
 		if(cnt != 0) {
 			responseData.put("message","삭제되었습니다");
@@ -1369,20 +1325,9 @@ public class AdminServiceImpl extends Board implements AdminService {
 		try {
 			lecScInsert = dao.lecScInsert(vo);
 		}catch(DataAccessException e) {
-			System.out.println(e.getMessage());
-			System.out.println("asdfsafdasfasdfdfasfsfasdfdsafasdfsad fasdf sadf ads");
 			if(e.getMessage().contains("unique constraint"));
 			lecScInsert = 500;
 		}
-		
-		
-		System.out.println("학사일정 수정 lecScInsert : " + startSelectLecture);
-		System.out.println("학사일정 수정 lecScInsert : " + endSelectLecture);
-		System.out.println("학사일정 수정 lecScInsert : " + openingDay);
-		System.out.println("학사일정 수정 lecScInsert : " + gradeOpeningDay);
-		System.out.println("학사일정 수정 lecScInsert : " + endingDay);
-		System.out.println("학사일정 수정 lecScInsert : " + lecScInsert);
-		
 		
 		if (lecScInsert == 1) {
 			red.addFlashAttribute("message", year +"년도" +semester+"학기 학사일정을 추가하였습니다.");
@@ -1396,6 +1341,15 @@ public class AdminServiceImpl extends Board implements AdminService {
 			red.addFlashAttribute("message", "이미 추가 되어있는 년도와 학기 입니다.!");
 			red.addFlashAttribute("alertIcon","error");
 		}
+		
+		
+		
+		System.out.println("학사일정 수정 lecScInsert : " + startSelectLecture);
+		System.out.println("학사일정 수정 lecScInsert : " + endSelectLecture);
+		System.out.println("학사일정 수정 lecScInsert : " + openingDay);
+		System.out.println("학사일정 수정 lecScInsert : " + gradeOpeningDay);
+		System.out.println("학사일정 수정 lecScInsert : " + endingDay);
+		System.out.println("학사일정 수정 lecScInsert : " + lecScInsert);
 	}
 	
 	//학사관리 일정 수정
@@ -1420,14 +1374,6 @@ public class AdminServiceImpl extends Board implements AdminService {
 		vo.setSemester(semester);
 		
 		int lecScUpdate = dao.lecScUpdate(vo);
-		System.out.println("학사일정 수정 lecScUpdate : " + startSelectLecture);
-		System.out.println("학사일정 수정 lecScUpdate : " + endSelectLecture);
-		System.out.println("학사일정 수정 lecScUpdate : " + openingDay);
-		System.out.println("학사일정 수정 lecScUpdate : " + gradeOpeningDay);
-		System.out.println("학사일정 수정 lecScUpdate : " + endingDay);
-		System.out.println("학사일정 수정 lecScUpdate : " + lecScUpdate);
-		
-		
 		int up = lecScUpdate;
 		
 		if (up == 1) {

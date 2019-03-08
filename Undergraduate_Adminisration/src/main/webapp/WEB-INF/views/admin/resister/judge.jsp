@@ -40,6 +40,7 @@
 													<th style="text-align: center">학년</th>
 													<th style="text-align: center">학기</th>
 													<th style="text-align: center">장학금 명</th>
+													<th style="text-align: center">신청 일자</th>
 													<th style="text-align: center">지급 일자</th>
 													<th style="text-align: center">장학금 금액</th>
 													<th style="text-align: center">합/불여부</th>
@@ -53,14 +54,13 @@
 													<tr class="even pointer">
 														<td><input type="checkbox"
 															class="flat table_records2" name="table_records2"
-															value="${dto.schinfopk}">
-															
+															value="${dto.schinfopk}" style="width: 20px;height: 20px;">
 															</td>
-
 														<td class=" ">${dto.userName}</td>
 														<td class=" ">${dto.grade}</td>
 														<td class=" ">${dto.semester}</td>
 														<td class=" ">${dto.scholarName}</td>
+														<td class=" ">${dto.year}</td>
 														<td class=" ">${dto.year}</td>
 														<td class=" ">${dto.amount}원</td>
 														
@@ -174,35 +174,6 @@
 
 	<script type="text/javascript">
 		<%@ include file="../../Basic/datePickerJS.jsp"%>
-		
-		
-		/*  function toggleOn(){
-			var list = [];
-			var list_size = 0;
-			
-			var form = document.createElement("form");
-			form.setAttribute("charset", "UTF-8");
-			form.setAttribute("method", "POST");
-			form.setAttribute("action", "../admin/auditPro");
-			
-			var cnt = 0;
-			
-			for(var i=0; i<$('.table_records2').size(); i++){
-				if($('.table_records2')[i].checked){
-					//list[list_size++] = $('.table_records')[i].value;
-					var field = document.createElement("input");
-					field.setAttribute("type", "hidden");
-					field.setAttribute("name", "chk");
-					field.setAttribute("value", $('.table_records2')[i].value);
-					form.appendChild(field);
-				}
-			}
-			
-			document.body.appendChild(form);
-			
-			form.submit();
-		}  */
-		 
 		 function toggleOn(){
 				var list = [];
 				var list_size = 0;

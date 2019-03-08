@@ -5,9 +5,11 @@ public class StdLecTime {
 	private String lectureName;
 	private String classRoom;
 	private String empName;
+	private String empImage;
 	private String userNumber;
 	private int timeTblcode;
 	private int classTime;
+	
 	public int getLecCode() {
 		return lecCode;
 	}
@@ -31,6 +33,12 @@ public class StdLecTime {
 	}
 	public void setEmpName(String empName) {
 		this.empName = empName;
+	}
+	public String getEmpImage() {
+		return empImage;
+	}
+	public void setEmpImage(String empImage) {
+		this.empImage = empImage;
 	}
 	public String getUserNumber() {
 		return userNumber;

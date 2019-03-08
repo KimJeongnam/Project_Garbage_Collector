@@ -82,7 +82,7 @@
 						<div class="x_content">
 							<div class="row form-inline">
 								<div class="col-md-6">
-									<div class="col-md-4 col-sm-4 col-xs-6 form-inline"
+									<div class="col-md-3 col-sm-4 col-xs-6 form-inline"
 										style="padding-right: 0px;">
 										<label> Show <select class="form-control input-sm"
 											id="lecture-pagesize" onchange="getLectureList();">
@@ -94,21 +94,31 @@
 										</select>
 										</label>
 									</div>
-									<div class="col-md-4 col-sm-4 col-xs-6 form-inline"
+									<div class="col-md-3 col-sm-4 col-xs-6 form-inline"
 										style="padding-right: 0px;">
-										<label>구분: <select class="form-control input-sm"
+										<label><select class="form-control input-sm"
+											id="lecture-semester" onchange="getLectureList();">
+												<option selected="selected" value="all">학기</option>
+												<option value="1">1학기</option>
+												<option value="2">2학기</option>
+										</select>
+										</label>
+									</div>
+									<div class="col-md-3 col-sm-4 col-xs-6 form-inline"
+										style="padding-right: 0px;">
+										<label><select class="form-control input-sm"
 											id="divisionSelector" onchange="getLectureList();">
-												<option selected="selected" value="all">전체</option>
+												<option selected="selected" value="all">구분</option>
 												<option value="1">전공</option>
 												<option value="2">교양</option>
 										</select>
 										</label>
 									</div>
-									<div class="col-md-4 col-sm-4 col-xs-6 form-inline"
+									<div class="col-md-3 col-sm-4 col-xs-6 form-inline"
 										style="padding-right: 0px;">
-										<label>단과대: <select class="form-control input-sm"
+										<label><select class="form-control input-sm"
 											id="lec-facultySelector" onchange="selectLecFaculty();">
-												<option selected="selected" value="0">전체</option>
+												<option selected="selected" value="0">단과대</option>
 										</select>
 										</label>
 									</div>
@@ -116,9 +126,9 @@
 								<div class="col-md-6">
 									<div class="col-md-4 col-sm-6 col-xs-6 form-inline"
 										style="padding-right: 0px;">
-										<label>학과: <select class="form-control input-sm"
+										<label><select class="form-control input-sm"
 											id="lec-majorSelector" onchange="getLectureList();">
-												<option selected="selected" value="0">단과대 선택</option>
+												<option selected="selected" value="0">학과(단과대 선택)</option>
 										</select>
 										</label>
 									</div>

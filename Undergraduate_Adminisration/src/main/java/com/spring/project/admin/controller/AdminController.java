@@ -50,7 +50,6 @@ public class AdminController {
 	// 장학 목록
 	@RequestMapping(value = "/admin/resister/adminjudgeList", method = RequestMethod.POST)
 	public String judgeList(@RequestBody Map<String, Object> map, Model model) {
-		System.out.println("장학 목록");
 		service.judge2(map, logger, model);
 
 		return "admin/resister/judge";
@@ -59,7 +58,6 @@ public class AdminController {
 	// 장학 신청 심사 완료
 	@RequestMapping("/admin/auditPro")
 	public String auditPro(HttpServletRequest req, Model model) {
-		System.out.println("장학 심사 완료");
 		service.auditPro(req, model);
 
 		return "redirect:/admin/registrationList";
@@ -67,7 +65,6 @@ public class AdminController {
 	//장학금수정 완료
 	@RequestMapping("/admin/rigisterupdate")
 	public String rigisterupdate(HttpServletRequest req, RedirectAttributes red) {
-		System.out.println("장학 수정 완료");
 		service.rigisterupdate(req,red);
 		
 		return "redirect:/admin/registrationList";
@@ -82,7 +79,6 @@ public class AdminController {
 	// 장학 목록
 	@RequestMapping(value = "/admin/resister/adminregistrationList2", method = RequestMethod.POST)
 	public String registrationList(@RequestBody Map<String, Object> map, Model model) {
-		System.out.println("장학 목록");
 		service.registrationList(map, model);
 
 		return "admin/resister/registrationList";
@@ -91,15 +87,12 @@ public class AdminController {
 	// 장학 등록
 	@RequestMapping("/admin/registration")
 	public String registration() {
-		System.out.println("장학 등록");
-
 		return "admin/registration";
 	}
 
 	// 장학 등록 완료
 	@RequestMapping("/admin/rigisterPro")
 	public String rigisterPro(HttpServletRequest req, Model model) {
-		System.out.println("장학 등록");
 		service.rigisterPro(req, model);
 
 		return "admin/rigisterPro";
@@ -108,7 +101,6 @@ public class AdminController {
 	// 장학 상세 페이지
 	@RequestMapping("/admin/contentForm")
 	public String contentform(HttpServletRequest req, Model model) {
-		System.out.println("장학 상세");
 		service.contentform(req, model);
 
 		return "redirect:/admin/registrationList";
@@ -117,7 +109,6 @@ public class AdminController {
 	// 장학 삭제 페이지
 	@RequestMapping("/admin/deletePro")
 	public String deletePro(HttpServletRequest req, RedirectAttributes red) {
-		System.out.println("장학 삭제");
 		service.deletePro(req, red);
 
 		return "redirect:/admin/registrationList";
@@ -126,8 +117,6 @@ public class AdminController {
 	// 장학 예산
 	@RequestMapping("/admin/budget")
 	public String budget() {
-		System.out.println("장학 예산");
-
 		return "admin/budget";
 	}
 

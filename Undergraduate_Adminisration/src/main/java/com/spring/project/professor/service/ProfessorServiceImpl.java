@@ -60,18 +60,6 @@ public class ProfessorServiceImpl implements ProfessorService {
 		// 각자의 이미지 저장경로 수정하셈
 		try {
 			if (!file.getOriginalFilename().equals("")) {
-				/*file.transferTo(new File(saveDir + file.getOriginalFilename()));
-
-				FileInputStream fis = new FileInputStream(saveDir +file.getOriginalFilename());
-				FileOutputStream fos = new FileOutputStream(realDir + fileName);
-
-				int data = 0;
-
-				while ((data = fis.read()) != -1) {
-					fos.write(data);
-				}
-				fis.close();
-				fos.close();*/
 				file.transferTo(new File(realDir + fileName));
 			}
 			String userNumber = (String) req.getSession().getAttribute("userNumber");
@@ -86,8 +74,6 @@ public class ProfessorServiceImpl implements ProfessorService {
 
 			int imageUpload = dao.imageUpload(vo);
 
-			System.out.println("프로필 이미지 변경 imageUpload : " + imageUpload);
-			
 			ShareUserInfo user = (ShareUserInfo) req.getSession().getAttribute("user"); 
 
 			if (imageUpload == 1) {
@@ -118,8 +104,6 @@ public class ProfessorServiceImpl implements ProfessorService {
 		vo.setIntroduction(introduction);
 
 		int introUpdate = dao.introUpdate(vo);
-
-		System.out.println("교수 소개 변경 introUpdate : " + introUpdate);
 
 		if (introUpdate == 1) {
 			red.addFlashAttribute("message", "교수 소개를 변경하였습니다.");
@@ -165,11 +149,7 @@ public class ProfessorServiceImpl implements ProfessorService {
 		vo.setUserAddr2(userAddr2);
 
 		int update = dao.update(vo);
-		System.out.println("개인정보 변경1 update : " + update);
-
 		int update2 = dao.update2(vo);
-		System.out.println("개인정보 변경2 update : " + update2);
-
 		int up = update2 + update;
 
 		if (up == 2) {
@@ -189,26 +169,17 @@ public class ProfessorServiceImpl implements ProfessorService {
 	//내 강의 학생 목록
 	@Override
 	public void list(HttpServletRequest req, Model model) {
-		
 		String userNumber = (String) req.getSession().getAttribute("userNumber");
-		
 		List<MyClassVO> myClass = dao.myClass(userNumber);
-		
-		System.out.println("교수 강의 목록  myClass : " + myClass);
-		
 		List<StudentVO> list = dao.list(userNumber);
-		
-		System.out.println("내 강의 모든 학생 list : " + list);
 		
 		model.addAttribute("list",list);
 		model.addAttribute("myClass",myClass);
-		
 	}
 	
 	//강의별 수강학생 목록
 	@Override
 	public void getStudent(Map<String, Object> map, HttpServletRequest req, Model model) {
-		
 		String userNumber = (String) req.getSession().getAttribute("userNumber");
 		String lecName = (String) map.get("lecName");
 		
@@ -216,16 +187,11 @@ public class ProfessorServiceImpl implements ProfessorService {
 		map.put("lecName", lecName);
 		
 		List<ClassStudentVO> vo = dao.getStudent(map);
-		
-		System.out.println("내 강의 모든 학생 vo : " + vo);
-		
 		model.addAttribute("vo",vo);
-		
 	}
 	//학생검색
 	@Override
 	public void search_student(Map<String, Object> map, HttpServletRequest req, Model model) {
-		
 		String userNumber = (String) req.getSession().getAttribute("userNumber");
 		String userName = (String) map.get("search");
 		
@@ -233,9 +199,6 @@ public class ProfessorServiceImpl implements ProfessorService {
 		map.put("userName", userName);
 		
 		List<SearchVO> search_student = dao.search_student(map);
-		
-		System.out.println("내 강의 학생검색 search_student : " + search_student);
-		
 		model.addAttribute("search_student",search_student);
 	}
 	//학생검색 후 클릭 시
@@ -248,38 +211,21 @@ public class ProfessorServiceImpl implements ProfessorService {
 		map.put("stdName", stdName);
 		
 		List<SearchVO> search_student_click = dao.search_student_click(map);
-		
-		System.out.println("내 강의 학생검색 듣는 강의 search_student_click : " + search_student_click);
-		
 		model.addAttribute("search_student_click",search_student_click);
 	}
-
-	
 	
 	//학점입력 페이지
 	@Override
 	public String score(HttpServletRequest req, Model model, RedirectAttributes red) {
 		String userNumber = (String) req.getSession().getAttribute("userNumber");
 		String referer = req.getHeader("referer");
-		
-		
-		
 		String lecName = null;
 		if(req.getParameter("lecName")!=null) {
 			lecName = req.getParameter("lecName");
 		}
 		
 		List<MyClassVO> s_myClass = dao.s_myClass(userNumber);
-		
-		System.out.println("교수 강의 목록  s_myClass : " + s_myClass);
-		
 		List<MyClassVO> v_myClass = dao.v_myClass(userNumber);
-		
-		System.out.println("교수 강의 목록  v_myClass : " + v_myClass);
-		System.out.println("s_MyCalss size : "+s_myClass.size());
-		
-		
-
 		
 		if(s_myClass.size() != 0) {
 			MyClassVO vo = s_myClass.get(0);
@@ -304,19 +250,13 @@ public class ProfessorServiceImpl implements ProfessorService {
 	//학점관리 첫번째 강의부분
 	@Override
 	public void firstLec(Map<String, Object> map, HttpServletRequest req, Model model) {
-		
 		String userNumber = (String) req.getSession().getAttribute("userNumber");
 		String firstLec = (String) map.get("firstLec");
 		
 		map.put("userNumber", userNumber);
 		map.put("firstLec", firstLec);
-		
 		List<LecScore> vo = dao.firstLec(map);
-		
-		System.out.println("첫번째 강의 학생 학점정보  vo : " + vo);
-		
 		model.addAttribute("vo",vo);
-		
 	}
 	//학점관리 나머지 부분
 	@Override
@@ -328,11 +268,7 @@ public class ProfessorServiceImpl implements ProfessorService {
 		map.put("lecName", lecName);
 		
 		List<LecScore> vo = dao.getLecScore(map);
-		
-		System.out.println("온클릭 강의 학생 학점정보  vo : " + vo);
-		
 		model.addAttribute("vo",vo);
-		
 	}
 	//학점 입력
 	@Override
@@ -355,11 +291,7 @@ public class ProfessorServiceImpl implements ProfessorService {
 		vo.setSemester2(semester);
 
 		int insertScore = dao.insertScore(vo);
-		System.out.println("학점입력 insertScore : " + insertScore);
-
-
 		int up = insertScore;
-
 		if (up == 1) {
 			red.addFlashAttribute("message", userName+" 학생의 학점 "+credit+" 을 입력하였습니다.");
 			red.addFlashAttribute("alertIcon","success");
@@ -369,7 +301,6 @@ public class ProfessorServiceImpl implements ProfessorService {
 			red.addFlashAttribute("alertIcon","error");
 		}
 		red.addAttribute("lecName", lecName);
-		
 	}
 	//학점수정
 	@Override
@@ -386,11 +317,7 @@ public class ProfessorServiceImpl implements ProfessorService {
 		vo.setCredit(credit);
 		
 		int updateScore = dao.updateScore(vo);
-		System.out.println("학점입력 updateScore : " + updateScore);
-
-
 		int up = updateScore;
-
 		if (up == 1) {
 			red.addFlashAttribute("message", userName+" 학생의 학점을 "+credit+" 로 수정하였습니다.");
 			red.addFlashAttribute("alertIcon","success");
@@ -404,21 +331,14 @@ public class ProfessorServiceImpl implements ProfessorService {
 	//강의계획서 진입
 	@Override
 	public void plan(HttpServletRequest req, Model model) {
-		
 		String userNumber = (String) req.getSession().getAttribute("userNumber");
 		String lecName = null;
 		
 		if(req.getParameter("lecName")!= null)
 			lecName  = (String) req.getParameter("lecName");
 		
-		
-		
 		List<PlanVO> vo1 = dao.plan(userNumber);
 		List<PlanVO> vo2 = dao.plan2(userNumber);
-		
-		System.out.println("교수 강의 목록  vo1 : " + vo1);
-		System.out.println("교수 강의 목록  vo2 : " + vo2);
-		
 		if(lecName!=null)
 			model.addAttribute("lecName", lecName);
 		
@@ -428,7 +348,6 @@ public class ProfessorServiceImpl implements ProfessorService {
 	//강의계획서 첫번째 
 	@Override
 	public void firstPlan(Map<String, Object> map, HttpServletRequest req, Model model) {
-		
 		String userNumber = (String) req.getSession().getAttribute("userNumber");
 		String firstLec = (String) map.get("firstLec");
 		
@@ -436,9 +355,6 @@ public class ProfessorServiceImpl implements ProfessorService {
 		map.put("firstLec", firstLec);
 		
 		List<PlanVO> vo = dao.firstPlan(map);
-		
-		System.out.println("첫번째 강의 강의계획서  vo : " + vo);
-		
 		model.addAttribute("vo",vo);
 		
 	}
@@ -452,9 +368,6 @@ public class ProfessorServiceImpl implements ProfessorService {
 		map.put("lecName", lecName);
 
 		List<PlanVO> vo = dao.getPlan(map);
-		
-		System.out.println("나머지 강의 강의계획서  vo : " + vo);
-		
 		model.addAttribute("vo",vo);
 	}
 	
@@ -477,9 +390,6 @@ public class ProfessorServiceImpl implements ProfessorService {
 		vo.setWeek(week);
 		
 		int insertPlan = dao.insertPlan(vo);
-		System.out.println("강의계획서 입력 insertPlan : " + insertPlan);
-
-
 		int up = insertPlan;
 
 		if (up == 1) {
@@ -512,11 +422,7 @@ public class ProfessorServiceImpl implements ProfessorService {
 		vo.setWeek(week);
 		
 		int updatePlan = dao.updatePlan(vo);
-		System.out.println("강의계획서 수정 updatePlan : " + updatePlan);
-		
-		
 		int up = updatePlan;
-		
 		if (up == 1) {
 			red.addFlashAttribute("message", lecName +"의" +week+" 주차 강의계획을 수정하였습니다.");
 			red.addFlashAttribute("alertIcon","success");
@@ -535,12 +441,9 @@ public class ProfessorServiceImpl implements ProfessorService {
 	@Override
 	public void report(HttpServletRequest req, Model model) {
 		String userNumber = (String) req.getSession().getAttribute("userNumber");
-		
 		List<MyClassVO> myClass = dao.myClass(userNumber);
 		//내 강의 목록
 		List<LectureP_VO> vo = dao.P_Lecture(userNumber);
-		
-		System.out.println("나머지 강의 강의계획서  vo : " + vo);
 		
 		//강의 인원
 		model.addAttribute("myClass",myClass);
@@ -549,10 +452,6 @@ public class ProfessorServiceImpl implements ProfessorService {
 	//과제 관리
 	@Override
 	public void personnel(Map<String, Object> map, HttpServletRequest req, Model model) {
-	/*	String abc = req.getParameter("aaaaa");
-		System.out.println("aaaaa"+abc);*/
-		System.out.println("select" + map.get("select"));
-		
 		//총수강 인원
 		int personCnt = dao.personnel(map);
 		int codeCnt= 0;
@@ -560,11 +459,8 @@ public class ProfessorServiceImpl implements ProfessorService {
 		//과제 있는지 여부
 		int reportCnt = dao.p_report(map);
 		model.addAttribute("reportCnt",reportCnt);
-		
 		if(reportCnt != 0) {
 			Report_tblVO vo = dao.re_submit(map);
-			
-			
 			model.addAttribute("vo",vo);
 			
 			//과제 제출를 위한 과제 코드
@@ -572,66 +468,40 @@ public class ProfessorServiceImpl implements ProfessorService {
 			
 			//과제 제출 완료한 인원 수 
 			codeCnt = dao.codeCnt(reportcode);
-			
-			
 			model.addAttribute("submitCnt",codeCnt);
 			//과제 미제출
-			
-			
 			//제출 학생 불러오기
 			List<Submission_ListVO> dtos = dao.submissionlist(reportcode);
-			
-			
 			model.addAttribute("dtos",dtos);
-			
 		}
 		int notCnt = personCnt - codeCnt;
-		
 		model.addAttribute("submitCnt",codeCnt);
 		model.addAttribute("cnt",personCnt);
 		model.addAttribute("notCnt",notCnt);
-		System.out.println("cnt::::"+personCnt);
-		System.out.println("submitCnt::::"+codeCnt);
-		System.out.println("notCnt::::"+notCnt);
-	
-		System.out.println("personCnt" + personCnt);
 	}
 	
 	//과제 상세 페이지
 	@Override
 	public void re_contentform(Map<String, Object> map, HttpServletRequest req, Model model) {
-		System.out.println("select23123213" + map.get("select"));
 		String subject = (String) map.get("subject");
-		
-		System.out.println("서브젝트:" +  map.get("subject"));
-		
 		List<Report_tblVO> task = dao.task_lookup(map);
 		
 		model.addAttribute("task", task);
 		model.addAttribute("subject", subject);
-	
 	}
 	
 	//과제 상세 페이지
 		@Override
 		public void report_contentform(Map<String, Object> map, HttpServletRequest req, Model model) {
-			
 			int personCnt = dao.personnel(map);
-			
 			model.addAttribute("cnt",personCnt);
 			
 			//과제 있는지 여부
 			int reportCnt = dao.p_report(map);
-			
 			model.addAttribute("reportCnt",reportCnt);
 			if(reportCnt != 0) {
 				int reportcode = Integer.parseInt((String) map.get("reportcode"));
-				String userNumber = (String) map.get("userNumber");
-				System.out.println("reportcode:::::"+reportcode);
-				
 				int codeCnt = dao.codeCnt(reportcode);
-				System.out.println("codeCnt ::::" + codeCnt);
-				
 				model.addAttribute("submitCnt",codeCnt);
 				int notCnt = personCnt - codeCnt;
 				
@@ -650,11 +520,6 @@ public class ProfessorServiceImpl implements ProfessorService {
 		String reportname = req.getParameter("reportname");
 		String content = req.getParameter("content");
 		String enddate = req.getParameter("enddate");
-		
-		System.out.println(leccode);
-		System.out.println(reportname);
-		System.out.println(content);
-		System.out.println(enddate);
 		
 		Report_tblVO vo = new Report_tblVO();
 
@@ -689,8 +554,6 @@ public class ProfessorServiceImpl implements ProfessorService {
 			vo.setReportName(reportname);
 			
 			int updateCnt = dao.p_reportupdate(vo);
-			System.out.println("updateCnt::::"+updateCnt);
-			
 			if(updateCnt != 0) {
 				red.addFlashAttribute("message", "수정을 완료 했습니다.");
 				red.addFlashAttribute("alertIcon","success");
@@ -701,10 +564,7 @@ public class ProfessorServiceImpl implements ProfessorService {
 		public void reportdelete(HttpServletRequest req, RedirectAttributes red) {
 			int reportcode = Integer.parseInt(req.getParameter("reportcode"));
 			
-			System.out.println("1111"+reportcode);
-			
 			int deleteCnt = dao.p_reportdelete(reportcode);
-			
 			if(deleteCnt != 0) {
 				red.addFlashAttribute("message", "삭제를 성공 했습니다");
 				red.addFlashAttribute("alertIcon","success");

@@ -218,6 +218,19 @@ public class ShareServiceImpl implements ShareService{
 	public String loginFailEvent(String id, String pw) {
 		return dao.loginFailEvent(id, pw);
 	}
+
+	@Override
+	public Map<String, Object> getBachelorStatus() {
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		int b_status = dao.getBachelorStatus();
+		
+		BachelorStatus bachelorStatus = BachelorStatus.valueOf(b_status);
+		
+		map.put("bachelorStatus", bachelorStatus.getStrValue());
+		
+		return map;
+	}
 	
 	
 	
