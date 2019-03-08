@@ -193,7 +193,6 @@
 						field.setAttribute("name", "chk");
 						field.setAttribute("value", $('.table_records2')[i].value);
 						form.appendChild(field);
-						alert($('.table_records2')[i].value);
 					}
 				}
 				
