@@ -34,66 +34,42 @@ public class ProfesserDAOImpl implements ProfesserDAO{
 	//프로필 이미지 변경
 	@Override
 	public int imageUpload(MyPageVO vo) {
-		
-		System.out.println(vo);
-		
 		int imageUpload=0;
 		
 		ProfesserDAO dao = sql.getMapper(ProfesserDAO.class);
 		
 		imageUpload=dao.imageUpload(vo);
-		
-		System.out.println(imageUpload==1?"프로필 이미지 변경 성공!":"프로필 이미지 변경 실패!");
-		
 		return imageUpload;
 	}
 	//교수 소개 변경
 	@Override
 	public int introUpdate(MyPageVO vo) {
-		
-		System.out.println(vo);
-		
 		int introUpdate=0;
 		
 		ProfesserDAO dao = sql.getMapper(ProfesserDAO.class);
 		
 		introUpdate=dao.introUpdate(vo);
-		
-		System.out.println(introUpdate==1?"교수 소개  변경 성공!":"교수 소개 변경 실패!");
-		
 		return introUpdate;
 	}
 	
 	//개인정보 업데이트1
 	@Override
 	public int update(MyPageVO vo) {
-		
-		System.out.println(vo);
-		
 		int update=0;
 		
 		ProfesserDAO dao = sql.getMapper(ProfesserDAO.class);
 		
 		update=dao.update(vo);
-		
-		System.out.println(update==1?"개인정보 변경 성공!":"개인정보 변경 실패!");
-		
 		return update;
 	}
 	//개인정보 업데이트2
 	@Override
 	public int update2(MyPageVO vo) {
-		
-		System.out.println(vo);
-		
 		int update2=0;
 		
 		ProfesserDAO dao = sql.getMapper(ProfesserDAO.class);
 		
 		update2=dao.update2(vo);
-		
-		System.out.println(update2==1?"개인정보 변경 성공!":"개인정보 변경 실패!");
-		
 		return update2;
 	}
 	//내 강의 학생 목록
@@ -144,30 +120,19 @@ public class ProfesserDAOImpl implements ProfesserDAO{
 	//학점입력
 	@Override
 	public int insertScore(LecScore vo) {
-		System.out.println(vo);
-		
 		int insertScore=0;
 		
 		ProfesserDAO dao = sql.getMapper(ProfesserDAO.class);
 		
 		insertScore=dao.insertScore(vo);
-		
-		System.out.println(insertScore==1?"학점 입력 성공!":"학점 입력 실패!");
-		
 		return insertScore;
 	}
 	//학점수정
 	@Override
 	public int updateScore(LecScore vo) {
-		System.out.println(vo);
-		
 		int updateScore=0;
-		
 		ProfesserDAO dao = sql.getMapper(ProfesserDAO.class);
-		
 		updateScore=dao.updateScore(vo);
-		
-		System.out.println(updateScore==1?"학점 수정 성공!":"학점 수정 실패!");
 		
 		return updateScore;
 	}
@@ -193,30 +158,22 @@ public class ProfesserDAOImpl implements ProfesserDAO{
 	//강의계획서 입력
 	@Override
 	public int insertPlan(PlanVO vo) {
-		System.out.println(vo);
-		
 		int insertPlan=0;
 		
 		ProfesserDAO dao = sql.getMapper(ProfesserDAO.class);
 		
 		insertPlan=dao.insertPlan(vo);
 		
-		System.out.println(insertPlan==1?"강의계획서 입력 성공!":"강의계획서 입력 실패!");
-		
 		return insertPlan;
 	}
 	//강의계획서 수정
 	@Override
 	public int updatePlan(PlanVO vo) {
-		System.out.println(vo);
-		
 		int updatePlan=0;
 		
 		ProfesserDAO dao = sql.getMapper(ProfesserDAO.class);
 		
 		updatePlan=dao.updatePlan(vo);
-		
-		System.out.println(updatePlan==1?"강의계획서 수정 성공!":"강의계획서 수정 실패!");
 		
 		return updatePlan;
 	}

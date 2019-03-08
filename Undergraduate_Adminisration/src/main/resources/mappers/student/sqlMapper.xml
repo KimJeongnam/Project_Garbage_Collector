@@ -414,6 +414,7 @@
 	
 	<!-- 총 신청학점 -->
 	<select id="getTotalLecPoint" parameterType="String" resultType="int">
-		select sum(lecturescore) from lecture l, studentClassInfo s where l.lecCode=s.lecCode and userNumber = #{userNumber}
+		select nvl(sum(lecturescore),0) from lecture l, studentClassInfo s 
+		where l.lecCode=s.lecCode and userNumber = #{userNumber}
 	</select>
 </mapper>
