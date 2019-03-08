@@ -662,47 +662,9 @@
 	<select id="getLectureCount" resultType="int">
 		SELECT COUNT(*)
 		FROM(
-		SELECT ROWNUM rnum
-		, l.lecCode , l.majorNum,
-		m.majorName, l.lectureName, u.userNumber,
-		u.userImage
-		, u.userName,
-		l.lectureClassfication, l.grade, l.grantedSemester,
-		l.maximumCapacity,
-		l.lecStatus, l.lectureScore
-		FROM lecture l JOIN major m
-		ON l.majorNum =
-		m.majorNum
-		JOIN employee emp
-		ON l.empNumber = emp.empNumber
-		JOIN users u
-		ON emp.empNumber = u.userNumber
-		<where>
-	            	<![CDATA[ 
-	            	l.delStatus <> 1 
-	            	]]>
-			<if test="division != null">
-				AND l.lectureClassfication = #{division}
-			</if>
-			<if test="faculty != null">
-				AND m.faculty = #{faculty}
-			</if>
-			<if test="major != null">
-				AND l.majorNum = #{major}
-			</if>
-			<if test="keyword != null">
-				AND m.majorName like '%'||#{keyword}||'%'
-			</if>
-		</where>
-		)
-	</select>
-
-	<select id="getLectureList"
-		resultType="com.spring.project.student.vo.LectureVO">
-		SELECT *
-		FROM(
-		SELECT ROWNUM rnum
-		, l.lecCode , l.majorNum, m.majorName,
+        SELECT ROWNUM rnum, r.* FROM(
+		SELECT 
+		l.lecCode , l.majorNum, m.majorName,
 		l.lectureName, u.userNumber,
 		u.userImage
 		, u.userName,
@@ -732,10 +694,57 @@
 			<if test="keyword != null">
 				AND m.majorName like '%'||#{keyword}||'%'
 			</if>
+			<if test="semester != null">
+				AND l.grantedsemester = #{semester}
+			</if>
 		</where>
+		order by l.leccode desc) r
 		)
-	    <![CDATA[ WHERE rnum >= #{start} AND rnum <= #{end} 
-	    ORDER BY userName, majorNum, lectureClassfication DESC ]]>
+	</select>
+
+	<select id="getLectureList"
+		resultType="com.spring.project.student.vo.LectureVO">
+		SELECT *
+		FROM(
+        SELECT ROWNUM rnum, r.* FROM(
+		SELECT 
+		l.lecCode , l.majorNum, m.majorName,
+		l.lectureName, u.userNumber,
+		u.userImage
+		, u.userName,
+		l.lectureClassfication, l.grade, l.grantedSemester,
+		l.maximumCapacity,
+		l.lecStatus, l.lectureScore
+		FROM lecture l JOIN major m
+		ON l.majorNum =
+		m.majorNum
+		JOIN employee emp
+		ON l.empNumber = emp.empNumber
+		JOIN users u
+		ON emp.empNumber = u.userNumber
+		<where>
+	            	<![CDATA[ 
+	            	l.delStatus <> 1 
+	            	]]>
+			<if test="division != null">
+				AND l.lectureClassfication = #{division}
+			</if>
+			<if test="faculty != null">
+				AND m.faculty = #{faculty}
+			</if>
+			<if test="major != null">
+				AND l.majorNum = #{major}
+			</if>
+			<if test="keyword != null">
+				AND m.majorName like '%'||#{keyword}||'%'
+			</if>
+			<if test="semester != null">
+				AND l.grantedsemester = #{semester}
+			</if>
+		</where>
+		order by l.leccode desc) r
+		)
+	    <![CDATA[ WHERE rnum >= #{start} AND rnum <= #{end}]]>
 	</select>
 
 	<select id="getProfessorCount" parameterType="java.util.Map"
