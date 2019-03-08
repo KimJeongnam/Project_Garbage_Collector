@@ -552,7 +552,16 @@ function  getLectureList(){
 	
 	if(arguments.length==1){
 		obj.pageNum = arguments[0];
+	}else{
+		obj.pageNum = $('#lecturePageNum').val();
 	}
+	
+	if(typeof $('#lecture-semester') != 'undefined'){
+		var semester = $('#lecture-semester').val();
+		if(semester!='all')
+			obj.semester = semester;
+	}
+		
 	
 	if(typeof $('#lecture-pagesize') != 'undefined')
 		obj.pageSize = $('#lecture-pagesize').val();
@@ -796,6 +805,14 @@ function insertLecture(){
 		return;
 		$('#maximumcapacity').focus();
 	}
+	if($('#lectureClassfication').val() == '선택'){
+		swal({
+			text:"구분을 입력해 주세요.",
+			icon:"warning",
+			button:"확인",
+		});
+		return;
+	}
 	
 	
 	obj.grade = $('#grade').val();
@@ -901,6 +918,14 @@ function modifyLecture(){
 		});
 		return;
 		$('#maximumcapacity').focus();
+	}
+	if($('#lectureClassfication').val() == '선택'){
+		swal({
+			text:"구분을 입력해 주세요.",
+			icon:"warning",
+			button:"확인",
+		});
+		return;
 	}
 	
 	obj.grade = $('#grade').val();
