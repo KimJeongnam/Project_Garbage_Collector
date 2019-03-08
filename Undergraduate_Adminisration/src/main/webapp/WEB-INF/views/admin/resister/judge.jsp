@@ -54,10 +54,8 @@
 													<tr class="even pointer">
 														<td><input type="checkbox"
 															class="flat table_records2" name="table_records2"
-															value="${dto.schinfopk}">
-															
+															value="${dto.schinfopk}" style="width: 20px;height: 20px;">
 															</td>
-
 														<td class=" ">${dto.userName}</td>
 														<td class=" ">${dto.grade}</td>
 														<td class=" ">${dto.semester}</td>
@@ -176,35 +174,6 @@
 
 	<script type="text/javascript">
 		<%@ include file="../../Basic/datePickerJS.jsp"%>
-		
-		
-		/*  function toggleOn(){
-			var list = [];
-			var list_size = 0;
-			
-			var form = document.createElement("form");
-			form.setAttribute("charset", "UTF-8");
-			form.setAttribute("method", "POST");
-			form.setAttribute("action", "../admin/auditPro");
-			
-			var cnt = 0;
-			
-			for(var i=0; i<$('.table_records2').size(); i++){
-				if($('.table_records2')[i].checked){
-					//list[list_size++] = $('.table_records')[i].value;
-					var field = document.createElement("input");
-					field.setAttribute("type", "hidden");
-					field.setAttribute("name", "chk");
-					field.setAttribute("value", $('.table_records2')[i].value);
-					form.appendChild(field);
-				}
-			}
-			
-			document.body.appendChild(form);
-			
-			form.submit();
-		}  */
-		 
 		 function toggleOn(){
 				var list = [];
 				var list_size = 0;

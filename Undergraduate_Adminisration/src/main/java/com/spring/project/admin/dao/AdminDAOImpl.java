@@ -127,15 +127,9 @@ public class AdminDAOImpl implements AdminDAO{
 	//교수 이미지변경
 	@Override
 	public int proImgUpdate(AdProVO vo) {
-		System.out.println(vo);
-		
 		int proImgUpdate=0;
-		
 		AdminDAO dao = sqlSession.getMapper(AdminDAO.class);
-		
 		proImgUpdate=dao.proImgUpdate(vo);
-		
-		System.out.println(proImgUpdate==1?"프로필 이미지 변경 성공!":"프로필 이미지 변경 실패!");
 		
 		return proImgUpdate;
 	}
@@ -143,15 +137,9 @@ public class AdminDAOImpl implements AdminDAO{
 	//학생 이미지변경
 	@Override
 	public int stdImgUpdate(AdStdVO vo) {
-		System.out.println(vo);
-		
 		int stdImgUpdate=0;
-		
 		AdminDAO dao = sqlSession.getMapper(AdminDAO.class);
-		
 		stdImgUpdate=dao.stdImgUpdate(vo);
-		
-		System.out.println(stdImgUpdate==1?"프로필 이미지 변경 성공!":"프로필 이미지 변경 실패!");
 		
 		return stdImgUpdate;
 	}
@@ -197,44 +185,34 @@ public class AdminDAOImpl implements AdminDAO{
 		//장학 글 갯수
 		@Override
 		public int Jang_getArticleCnt(Map<String,Object> map) {
-			int selectCnt = sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.Jang_getArticleCnt",map);
-			return selectCnt;
+			return sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.Jang_getArticleCnt",map);
 		}
 		
 		//장학 글 목록
 		@Override
 		public List<ScholarpkVO> jang_getArticleList(Map<String, Object> map) {
-			List<ScholarpkVO> dtos = sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.jang_getArticleList",map);
-			
-			return dtos;
+			return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.jang_getArticleList",map);
 		}
 		//장학 심사 갯수
 		@Override
 		public int audit_getArticleCnt(Map<String, Object> map) {
-			int selectCnt = sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.audit_getArticleCnt",map);
-			return selectCnt;
+			return sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.audit_getArticleCnt",map);
 		}
 		
 		@Override
 		//장학금 글 추가
 		public int insertjangjag(ScholarpkVO vo) {
-			// TODO Auto-generated method stub
-			int insertCnt = sqlSession.insert("com.spring.project.admin.dao.AdminDAO.insertjangjag",vo);
-			return insertCnt;
+			return sqlSession.insert("com.spring.project.admin.dao.AdminDAO.insertjangjag",vo);
 		}
 		@Override
 		//장학금 글 상세
 		public ScholarpkVO content_getArticle(int scholarpk) {
-			ScholarpkVO dtos = sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.content_getArticle",scholarpk);
-			return dtos;
+			return sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.content_getArticle",scholarpk);
 		}
 		//장학금 글 삭제
 		@Override
 		public int jang_delete(String[] checkbox) {
-				
-			int updateCnt = sqlSession.update("com.spring.project.admin.dao.AdminDAO.jang_delete",checkbox);
-			System.out.println("==================deleteCnt" + updateCnt);
-			return updateCnt;
+			return sqlSession.update("com.spring.project.admin.dao.AdminDAO.jang_delete",checkbox);
 		}
 		//장학금 글 수정
 		@Override
@@ -245,38 +223,29 @@ public class AdminDAOImpl implements AdminDAO{
 		//장학금 심사
 		@Override
 		public List<auditVO> auditCnt() {
-			System.out.println("111111111111");
-			List<auditVO> dtos = sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.auditCnt");
-			
-			return dtos;
+			return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.auditCnt");
 		}
 		
 		@Override
 		public List<auditVO> auditCnt2(int auditct) {
-			System.out.println("111111111111");
-			List<auditVO> dtos = sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.auditCnt2",auditct);
-			
-			return dtos;
+			return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.auditCnt2",auditct);
 		}
 		//장학금 심사 합격 완료
 		@Override
 		public int auditupdate(String[] checkbox) {
-			int auditupdateCnt = sqlSession.update("com.spring.project.admin.dao.AdminDAO.auditupdate",checkbox);
-			return 0;
+			return sqlSession.update("com.spring.project.admin.dao.AdminDAO.auditupdate",checkbox);
 		}
 		
 		//장학금 심사 불합격 완료
 		@Override
 		public int auditupdate2(String[] checkbox) {
-			int auditupdateCnt = sqlSession.update("com.spring.project.admin.dao.AdminDAO.auditupdate2",checkbox);
-			return 0;
+			return sqlSession.update("com.spring.project.admin.dao.AdminDAO.auditupdate2",checkbox);
 		}
 		
 		//장학금 심사 심사 완료
 		@Override
 		public int auditupdate3(String[] checkbox) {
-			int auditupdateCnt = sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.auditupdate3",checkbox);
-			return auditupdateCnt;
+			return sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.auditupdate3",checkbox);
 		}
 
 	//-------------------------------------------------------------교직 업무 관리 START----------------------------------------------
@@ -334,19 +303,16 @@ public class AdminDAOImpl implements AdminDAO{
 	}
 	@Override
 	public List<Object> getLectureList(Map<String, Object> map) {
-		//System.out.println(ShareDAO.getQuery(sqlSession, "getLectureList", map));
 		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.getLectureList", map);
 	}
 	
 
 	@Override
 	public int getProfessorCount(Map<String, Object> map) {
-		System.out.println(ShareDAO.getQuery(sqlSession, "getProfessorCount", map));
 		return sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.getProfessorCount",map);
 	}
 	@Override
 	public List<Object> getProfessorList(Map<String, Object> map) {
-		System.out.println(ShareDAO.getQuery(sqlSession, "getProfessorCount", map));
 		return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.getProfessorList",map);
 	}
 
