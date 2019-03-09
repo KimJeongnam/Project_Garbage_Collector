@@ -251,79 +251,52 @@
 	<!-- 장학글 갯수 -->
 
 	<select id="getArticleCnt" resultType="int">
-
 		SELECT COUNT(*) as cnt FROM SCHOLARSHIP where delstatus != 1
-			<if test="year != 0">
-				and to_char(year,'yyyy') like #{year}
-				<if test="smester != 0">
-					and semester like #{smester}
-				</if>
-			</if>
-
 	</select>
 
 	<!-- 장학글 목록 -->
 
 	<select id="getArticleList" parameterType="java.util.Map"
 		resultType="com.spring.project.admin.vo.ScholarpkVO">
-
 		SELECT *
-		FROM (select SCHOLARPK,SCHOLARNAME,to_char(YEAR,'YYYY') as
-		YEAR,SEMESTER,TO_CHAR(AMOUNT,'999,999,999,999,999') as AMOUNT,SCHOLARCONTENT,ROWNUM rNum
+		FROM (select SCHOLARPK, SCHOLARNAME
+		,TO_CHAR(AMOUNT,'999,999,999,999,999') as AMOUNT,SCHOLARCONTENT, ROWNUM rNum
 		from (
 		select * FROM SCHOLARSHIP
 		where delstatus = 0
 		order by
 		SCHOLARPK desc
-		) 
-
-		<where>
-			<if test="year != 0">
-				to_char(year,'yyyy') = #{year}
-				<if test="smester != 0">
-					and semester like #{smester}
-				</if>
-			</if>
-
-		</where>
 		)
-				                 
-				                
+		)
 		<![CDATA[ where rNum >= #{start} and rNum <= #{end}]]>
-		
-		<!-- select s.SCHOLARPK
-		,SCHOLARNAME
-		,YEAR
-		,SEMESTER
-		,SCHOLARCONTENT
-		,TO_CHAR(AMOUNT,'999,999,999,999,999') as AMOUNT
-		,DELSTATUS
-		,stdnumber
-		from SCHOLARSHIPINFO sc , SCHOLARSHIP s
-		        where sc.SCHOLARPK = s.SCHOLARPK and stdnumber=#{userNumber} -->
-		
-
 	</select>
 
 	<!-- 장학금 수혜 내역 갯수 -->
 
 	<select id="management_cnt" resultType="int">
-
 		SELECT count(*) as cnt
-		FROM Receiveddetails where stdnumber = #{userNumber} and statcode=1
-
+		FROM Receiveddetails where stdnumber = #{userNumber} and statcode!=0
 	</select>
 
 	<!-- 장학금 수혜 내역 목록 -->
 
 	<select id="managementList" parameterType="java.util.Map"
 		resultType="com.spring.project.student.vo.DetailsVO">
-		select stdnumber,to_char(s_year,'yyyy') as s_year,semester,scholarname,TO_CHAR(AMOUNT,'999,999,999,999,999') as AMOUNT,year,statcode
-        from (
-        select * FROM Receiveddetails
-        where stdnumber =  #{userNumber} and statcode=1
-        order by s_year desc
-        )
+    SELECT * 
+    FROM(
+    SELECT ROWNUM rnum, r.*
+        FROM
+        (select stdnumber, scholarname
+            , TO_CHAR(AMOUNT,'999,999,999,999,999') as AMOUNT, applyday, paymentday, statcode
+            from (
+            select * FROM Receiveddetails
+            where stdnumber =  #{userNumber} and statcode!=0
+            order by applyday
+            )
+    )r )
+    <![CDATA[
+    WHERE rnum >= #{start} AND rnum <= #{end}
+    ]]>
 	</select>
 
 	<!-- 장학글 상세 -->
@@ -347,8 +320,8 @@
 	<!-- 장학금 신청 -->
 	<insert id="scholarshipinsert" parameterType="java.util.Map">
 		insert into
-		SCHOLARSHIPINFO(SCHINFOPK,SCHOLARPK,STDNUMBER,STATCODE)
-		values(SCHOLARSHIPINFO_SEQ.nextval,#{scholarpk},#{userNumber},2)
+		SCHOLARSHIPINFO(SCHINFOPK,SCHOLARPK,STDNUMBER,STATCODE, PAYMENTDAY, APPLYDAY)
+		values(SCHOLARSHIPINFO_SEQ.nextval,#{scholarpk},#{userNumber},2, '-', TO_CHAR(systimestamp, 'YYYY-MM-DD'))
 	</insert>
 
 	<!-- 내 수강신청 목록 조회 -->

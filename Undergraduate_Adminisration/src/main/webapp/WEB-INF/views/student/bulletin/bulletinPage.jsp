@@ -29,52 +29,13 @@
 								<div class="x_content">
 									<div class="row form-inline">
 										<div class="col-sm-6">
-										<h2>장학금 신청 글</h2>
-											<label> 년도 <select class="form-control input-sm"
-												id="bulletinList-year"
-												onchange="studentBulletinlist('${userNumber}',1);">
-													<option value="0" selected="selected">선택</option>
-													<option value="1998">1998</option>
-													<option value="1999">1999</option>
-													<option value="2000">2000</option>
-													<option value="2001">2001</option>
-													<option value="2002">2002</option>
-													<option value="2003">2003</option>
-													<option value="2004">2004</option>
-													<option value="2005">2005</option>
-													<option value="2006">2006</option>
-													<option value="2007">2007</option>
-													<option value="2008">2008</option>
-													<option value="2009">2009</option>
-													<option value="2010">2010</option>
-													<option value="2011">2011</option>
-													<option value="2012">2012</option>
-													<option value="2013">2013</option>
-													<option value="2014">2014</option>
-													<option value="2015">2015</option>
-													<option value="2016">2016</option>
-													<option value="2017">2017</option>
-													<option value="2018">2018</option>
-													<option value="2019">2019</option>
-											</select>
-											</label>
-											
-											<label> 학기 <select class="form-control input-sm"
-												id="bulletinList-semester"
-												onchange="studentBulletinlist('${userNumber}');">
-													<option value="0" selected="selected">선택</option>
-													<option value="1">1 학기</option>
-													<option value="2">2 학기</option>
-											</select>
-											</label>
-											<br>
-											<br>
+											<h2>장학금 신청 글</h2>
 											
 											<div id="bulletinList" class=""></div>
 										</div>
-										<br>
-										<br>
+										
 										<div class="col-md-6 col-sm-6 col-xs-6">
+										<h2>장학금 수혜 내역</h2>
 										<div id="managementlist" class=""></div>
 										</div>
 									</div>

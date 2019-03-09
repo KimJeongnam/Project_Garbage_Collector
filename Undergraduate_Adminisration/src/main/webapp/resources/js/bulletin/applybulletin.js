@@ -5,12 +5,6 @@ function studentBulletinlist(userNumber,page){
 	obj.userNumber = userNumber;
 	obj.pageNum = page;
 	
-	if($('#bulletinList-year')!=null)
-		obj.year = $('#bulletinList-year')[0].value;
-	if($('#bulletinList-semester')!=null)
-		obj.smester = $('#bulletinList-semester')[0].value;
-	
-	
 	var jsonData = JSON.stringify(obj);
 	
 	$.ajax({

@@ -18,42 +18,22 @@
 					<form action="rigisterPro" name="inputform" onsubmit="submitUncomma();">
 						<input type="hidden" name="amount" id="hiddenAmount">
 						<div class="x_panel">
-							<!-- 장학금명 폼 -->
 							<div class="row">
-								<div class="col-md-6">
-									<!--  container 안에서 grid system 사용 -->
-									<div class="form-group">
-										<label for="name">년 도</label> <input type="text"
-											class="form-control" name="year" id="year"
-											onchange="dateFormat();" placeholder="예.)2019-03-07 형식으로 입력하세요." required>
-									</div>
+								<div class="form-group col-md-6">
+									<label for="subject">장학금 명</label> <input type="text"
+										class="form-control" name="scholarname" id="scholarname"
+										placeholder="장학금 명을 입력하세요." required>
 								</div>
-								<!-- 년도 학기 입력 폼  -->
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="date">학기</label> <input type="text"
-											class="form-control" name="semester" id="semester"
-											onchange="dateFormat2();" placeholder="학기를 입력하세요." required>
-									</div>
+								
+								<div class="form-group col-md-6">
+									<label for="price">지급 금액</label> <input type="text"
+										class="form-control" name="amount2" id="amount"
+										onchange="dateFormat3();" onkeyup="AutoComma(this);" 
+										placeholder="100,000 ~ 10,000,000 사이의 금액을 입력하세요." required>
 								</div>
-
 							</div>
-							<!-- container end -->
-
+							
 							<!-- 구분 폼 -->
-							<div class="form-group">
-								<label for="price">지급 금액</label> <input type="text"
-									class="form-control" name="amount2" id="amount"
-									onchange="dateFormat3();" onkeyup="AutoComma(this);" 
-									placeholder="100,000 ~ 10,000,000 사이의 금액을 입력하세요." required>
-							</div>
-
-							<!-- 금액 입력 폼 -->
-							<div class="form-group">
-								<label for="subject">장학금 명</label> <input type="text"
-									class="form-control" name="scholarname" id="scholarname"
-									placeholder="장학금 명을 입력하세요." required>
-							</div>
 
 							<!-- 글내용 입력 폼  -->
 							<div class="x_content">
@@ -144,21 +124,9 @@
 								<div id="editor-one" class="editor-wrapper"></div>
 
 								<textarea name="descr" id="descr" style="display:none;"></textarea>
-
-
-                  <!-- <textarea name="descr" id="descr" style="display:none;"></textarea> -->
                   
                 </div>
-							<!-- <input type="text" hidden="hidden" id="scholarContent" name="scholarContent" value="">
-							
-							<div style="text-align: center">
-							<input class="btn btn-primary" type="submit" value="작성">
-							<input class="btn btn-primary" type="reset" value="취소">
-							<input class="btn btn-primary" type="button" value="목록"
-							onclick="history.back();">
-							</div> -->
-							<input type="hidden" id="scholarContent" name="scholarContent"
-								value="">
+							<input type="text" hidden="hidden" id="scholarContent" name="scholarContent">
 
 							<div style="text-align: center">
 								<input class="btn btn-primary" type="submit" value="작성">
@@ -180,15 +148,7 @@
 	<%@ include file="../Basic/footer.jsp"%>
 
 	<script type="text/javascript">
-		var scholarContent = $('#editor-one')[0].innerHTML
-		$('#scholarContent').val = scholarContent;
-
-		/* function checkEditer(){
-			var scholarContent = $('#editor-one')[0].innerHTML
-			$('#scholarContent').val(scholarContent);
-			if($('#scholarContent').val().length > 0) return true;
-			else return false;
-		} */
+		
 	</script>
 
 	<script type="text/javascript">
@@ -218,6 +178,7 @@
 		}
 
 		function submitUncomma() {
+			$('#scholarContent').val($('#editor-one')[0].innerHTML);
 			var amount = uncomma(document.inputform.amount2.value);
 			$('#hiddenAmount').val(amount);
 		}

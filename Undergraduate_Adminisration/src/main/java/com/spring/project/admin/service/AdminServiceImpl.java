@@ -52,96 +52,32 @@ public class AdminServiceImpl extends Board implements AdminService {
 
 	/* 장학 단 */
 	// 장학 글 목록
+	//dao.Jang_getArticleCnt(map);
+	//dao.jang_getArticleList(map);
 	@Override
 	public void registrationList(Map<String, Object> map, Model model) {
-		int pageSize = 0; // 한 페이지당 출력할 글 갯수
-		int pageBlock = 5; // 한블럭당 페이지 갯수
-
-		int cnt = 0; // 총 글 갯수
-		int start = 0; // 현재 페이지 시작 글번호
-		int end = 0; // 현재 페이지 마지막 글 번호
-		int number = 0; // 출력용 글번호
-		int pageNum = 0; // 페이지 번호
-		int pageCount = 0; // 페이지 갯수
-		int startPage = 0; // 시작 페이지
-		int endPage = 0; // 마지막 페이지
-
-		if (!map.containsKey("pageSize")) {
-			pageSize = 10;
-		} else
-			pageSize = Integer.parseInt((String) map.get("pageSize"));
-
-		if (!map.containsKey("pageNum"))
-			pageNum = 1;
-		else
-			pageNum = (Integer) map.get("pageNum");
-		// 수강신청 목록 갯수 구하기
-		cnt = dao.Jang_getArticleCnt(map);
-		pageCount = cnt / pageSize + (cnt % pageSize > 0 ? 1 : 0);
-
-		start = (pageNum - 1) * pageSize + 1;
-		end = start + pageSize - 1;
-
-		map.put("start", start);
-		map.put("end", end);
-
-		if (map.get("year") != "0") {
-			map.put("year", map.get("year"));
-			map.put("smester", map.get("smester"));
-		}
-
-		if (end > cnt)
-			end = cnt;
-
-		number = cnt - (pageNum - 1) * pageSize;
-
-		if (cnt > 0) {
-			// 수강신청 목록 조회
-			List<ScholarpkVO> dtos = dao.jang_getArticleList(map);
-
-			model.addAttribute("dtos", dtos);
-		}
-
-		// 시작페이지
-		// 1 = (1 / 3) * 3 + 1;
-		startPage = (pageNum / pageBlock) * pageBlock + 1;
-		if (pageNum % pageBlock == 0)
-			startPage -= pageBlock;
-
-		endPage = startPage + pageBlock - 1;
-
-		// 마지막 페이지
-		// 3 = 1 + 3 - 1;
-		endPage = startPage + pageBlock - 1;
-		if (endPage > pageCount)
-			endPage = pageCount;
-
-		model.addAttribute("cnt", cnt); // 글갯수
-		model.addAttribute("number", number); // 출력용 글번호
-		model.addAttribute("pageNum", pageNum); // 페이지번호
-
-		if (cnt > 0) {
-			model.addAttribute("startPage", startPage); // 시작 페이지
-			model.addAttribute("endPage", endPage); // 마지막 페이지
-			model.addAttribute("pageBlock", pageBlock); // 출력할 페이지 갯수
-			model.addAttribute("pageCount", pageCount); // 페이지 갯수
-			model.addAttribute("pageSize", pageSize); // 현재페이지
-		}
-	
+		setList(map, model, new BoardInterface() {
+			
+			@Override
+			public int getListCount(Map<String, Object> map) {
+				return dao.Jang_getArticleCnt(map);
+			}
+			
+			@Override
+			public List<Object> getList(Map<String, Object> map) {
+				return dao.jang_getArticleList(map);
+			}
+		});
 	}
 
 	// 글처리 완료
 	@Override
 	public void rigisterPro(HttpServletRequest req, Model model) {
-		String semester = req.getParameter("semester");
-		String year = req.getParameter("year");
 		String amount = req.getParameter("amount");
 		String scholarname = req.getParameter("scholarname");
 		String scholarContent = req.getParameter("scholarContent");
 
 		ScholarpkVO vo = new ScholarpkVO();
-		vo.setSemester(semester);
-		vo.setYear(year);
 		vo.setAmount(amount);
 		vo.setScholarname(scholarname);
 		vo.setScholarcontent(scholarContent);
@@ -150,7 +86,6 @@ public class AdminServiceImpl extends Board implements AdminService {
 
 		// 6단계 request나 session 에 처리 결과를 저장 (jsp에 전달하기 위함)
 		model.addAttribute("insertjangjag", insertjangjag);
-
 	}
 
 	@Override
@@ -178,13 +113,12 @@ public class AdminServiceImpl extends Board implements AdminService {
 
 	}
 
-	//즁복확인
+	// 즁복확인
 	@Override
 	public int confirmNum(Map<Object, Object> map, String userNumber) {
 		return dao.userNumChk(userNumber);
 	}
-	
-	
+
 	// 학생등록 처리
 	@Override
 	public void stdInputPro(MultipartHttpServletRequest req, RedirectAttributes red) {
@@ -238,37 +172,36 @@ public class AdminServiceImpl extends Board implements AdminService {
 			vo.setUserImage(img);
 			vo.setUserName(req.getParameter("userName"));
 			vo.setUserEngName(req.getParameter("userEngName"));
-			
-			String userSsn ="";
+
+			String userSsn = "";
 			String userSsn1 = req.getParameter("jumin1");
 			String userSsn2 = req.getParameter("jumin2");
-			if(!userSsn1.equals("") && !userSsn2.equals("")) {
+			if (!userSsn1.equals("") && !userSsn2.equals("")) {
 				userSsn = userSsn1 + "-" + userSsn2;
 			}
 			vo.setUserSsn(userSsn);
 			vo.setUserSsn2(userSsn2);
-			
+
 			vo.setGender(req.getParameter("gender"));
-			
-			String userCellNum="";
+
+			String userCellNum = "";
 			String userCellNum1 = req.getParameter("hp1");
 			String userCellNum2 = req.getParameter("hp2");
 			String userCellNum3 = req.getParameter("hp3");
-			if(!userCellNum1.equals("") && !userCellNum2.equals("") && !userCellNum3.equals("")) {
-				userCellNum = userCellNum1+"-"+userCellNum2+"-"+userCellNum3;
+			if (!userCellNum1.equals("") && !userCellNum2.equals("") && !userCellNum3.equals("")) {
+				userCellNum = userCellNum1 + "-" + userCellNum2 + "-" + userCellNum3;
 			}
 			vo.setUserCellNum(userCellNum);
-			
-			
-			String userEmail ="";
+
+			String userEmail = "";
 			String userEmail1 = req.getParameter("email1");
 			String userEmail2 = req.getParameter("email2");
-			if(!userEmail1.equals("") && !userEmail2.equals("")) {
-				userEmail = userEmail1 + "@"+userEmail2;
-				
+			if (!userEmail1.equals("") && !userEmail2.equals("")) {
+				userEmail = userEmail1 + "@" + userEmail2;
+
 			}
 			vo.setUserEmail(userEmail);
-			
+
 			vo.setUserZipCode(req.getParameter("userZipCode"));
 			vo.setUserAddr1(req.getParameter("userAddr1"));
 			vo.setUserAddr2(req.getParameter("userAddr2"));
@@ -355,35 +288,35 @@ public class AdminServiceImpl extends Board implements AdminService {
 			vo.setUserImage(img);
 			vo.setUserName(req.getParameter("userName"));
 			vo.setUserEngName(req.getParameter("userEngName"));
-			
-			String userSsn ="";
+
+			String userSsn = "";
 			String userSsn1 = req.getParameter("jumin1");
 			String userSsn2 = req.getParameter("jumin2");
-			if(!userSsn1.equals("") && !userSsn2.equals("")) {
+			if (!userSsn1.equals("") && !userSsn2.equals("")) {
 				userSsn = userSsn1 + "-" + userSsn2;
 			}
-			vo.setUserSsn(userSsn);			
+			vo.setUserSsn(userSsn);
 			vo.setUserSsn2(userSsn2);
-			
+
 			vo.setGender(req.getParameter("gender"));
-			
-			String userCellNum="";
+
+			String userCellNum = "";
 			String userCellNum1 = req.getParameter("hp1");
 			String userCellNum2 = req.getParameter("hp2");
 			String userCellNum3 = req.getParameter("hp3");
-			if(!userCellNum1.equals("") && !userCellNum2.equals("") && !userCellNum3.equals("")) {
-				userCellNum = userCellNum1+"-"+userCellNum2+"-"+userCellNum3;
+			if (!userCellNum1.equals("") && !userCellNum2.equals("") && !userCellNum3.equals("")) {
+				userCellNum = userCellNum1 + "-" + userCellNum2 + "-" + userCellNum3;
 			}
 			vo.setUserCellNum(userCellNum);
-			
-			String userEmail ="";
+
+			String userEmail = "";
 			String userEmail1 = req.getParameter("email1");
 			String userEmail2 = req.getParameter("email2");
-			if(!userEmail1.equals("") && !userEmail2.equals("")) {
-				userEmail = userEmail1 + "@"+userEmail2;
+			if (!userEmail1.equals("") && !userEmail2.equals("")) {
+				userEmail = userEmail1 + "@" + userEmail2;
 			}
-			vo.setUserEmail(userEmail);			
-			
+			vo.setUserEmail(userEmail);
+
 			vo.setUserZipCode(req.getParameter("userZipCode"));
 			vo.setUserAddr1(req.getParameter("userAddr1"));
 			vo.setUserAddr2(req.getParameter("userAddr2"));
@@ -399,14 +332,14 @@ public class AdminServiceImpl extends Board implements AdminService {
 			vo.setBankName(req.getParameter("bankName"));
 			vo.setAccountHolder(req.getParameter("accountHolder"));
 			vo.setAccountNumber(req.getParameter("accountNumber"));
-			
-			int userInsert = dao.insertPUsers(vo); 
-			int empInsert = dao.insertEmployees(vo); 
+
+			int userInsert = dao.insertPUsers(vo);
+			int empInsert = dao.insertEmployees(vo);
 			dao.insertProcedure(vo);
-			
-			int proInsertResult = userInsert+ empInsert;
-			
-			 if (proInsertResult != 0) 
+
+			int proInsertResult = userInsert + empInsert;
+
+			if (proInsertResult != 0)
 
 				red.addFlashAttribute("message", "교수등록완료.");
 			else
@@ -453,14 +386,14 @@ public class AdminServiceImpl extends Board implements AdminService {
 		String userNumber = req.getParameter("userNumber");
 
 		Map<String, Object> map1 = new HashMap<String, Object>();
-			map1.put("userNumber", userNumber);
-		
+		map1.put("userNumber", userNumber);
+
 		List<AdProVO> voList = dao.FandMList(map1);
 		List<AdStdVO> lecList = dao.stdLectureList(map1);
-		
+
 		req.setAttribute("outFandM", voList);
 		req.setAttribute("lecList", lecList);
-		
+
 		AdStdVO vo = dao.stdDetail(userNumber);
 		req.setAttribute("vo", vo);
 	}
@@ -468,17 +401,16 @@ public class AdminServiceImpl extends Board implements AdminService {
 	// 교수 상세
 	@Override
 	public void showProDetail(HttpServletRequest req, Model model) {
-		String userNumber =req.getParameter("userNumber");
+		String userNumber = req.getParameter("userNumber");
 
 		Map<String, Object> map = new HashMap<String, Object>();
-			map.put("userNumber", userNumber);
-			
+		map.put("userNumber", userNumber);
+
 		List<AdProVO> voList = dao.FandMList(map);
 		List<AdProVO> lecList = dao.proLectureList(map);
-		
+
 		req.setAttribute("outFandM", voList);
 		req.setAttribute("lecList", lecList);
-		
 
 		AdProVO vo = dao.proDetail(userNumber);
 		req.setAttribute("vo", vo);
@@ -494,35 +426,35 @@ public class AdminServiceImpl extends Board implements AdminService {
 		vo.setUserNumber(req.getParameter("userNumber"));
 		vo.setUserName(req.getParameter("userName"));
 		vo.setUserEngName(req.getParameter("userEngName"));
-		
-		String userSsn ="";
+
+		String userSsn = "";
 		String userSsn1 = req.getParameter("jumin1");
 		String userSsn2 = req.getParameter("jumin2");
-		if(!userSsn1.equals("") && !userSsn2.equals("")) {
+		if (!userSsn1.equals("") && !userSsn2.equals("")) {
 			userSsn = userSsn1 + "-" + userSsn2;
 		}
 		vo.setUserSsn(userSsn);
 		vo.setUserSsn2(userSsn2);
-		
+
 		vo.setGender(req.getParameter("gender"));
-		
-		String userCellNum="";
+
+		String userCellNum = "";
 		String userCellNum1 = req.getParameter("hp1");
 		String userCellNum2 = req.getParameter("hp2");
 		String userCellNum3 = req.getParameter("hp3");
-		if(!userCellNum1.equals("") && !userCellNum2.equals("") && !userCellNum3.equals("")) {
-			userCellNum = userCellNum1+"-"+userCellNum2+"-"+userCellNum3;
+		if (!userCellNum1.equals("") && !userCellNum2.equals("") && !userCellNum3.equals("")) {
+			userCellNum = userCellNum1 + "-" + userCellNum2 + "-" + userCellNum3;
 		}
-		vo.setUserCellNum(userCellNum);		
-		
-		String userEmail ="";
+		vo.setUserCellNum(userCellNum);
+
+		String userEmail = "";
 		String userEmail1 = req.getParameter("email1");
 		String userEmail2 = req.getParameter("email2");
-		if(!userEmail1.equals("") && !userEmail2.equals("")) {
-			userEmail = userEmail1 + "@"+userEmail2;
+		if (!userEmail1.equals("") && !userEmail2.equals("")) {
+			userEmail = userEmail1 + "@" + userEmail2;
 		}
-		vo.setUserEmail(userEmail);				
-		
+		vo.setUserEmail(userEmail);
+
 		vo.setUserZipCode(req.getParameter("userZipCode"));
 		vo.setUserAddr1(req.getParameter("userAddr1"));
 		vo.setUserAddr2(req.getParameter("userAddr2"));
@@ -549,10 +481,10 @@ public class AdminServiceImpl extends Board implements AdminService {
 
 		model.addAttribute("userNumber", req.getParameter("userNumber"));
 
-		if(stdUpResult == 3) {
+		if (stdUpResult == 3) {
 			model.addFlashAttribute("message", "수정 완료");
-		}else{
-			model.addFlashAttribute("message", "Error!! 수정 실패! stdUpResult:"+stdUpResult);
+		} else {
+			model.addFlashAttribute("message", "Error!! 수정 실패! stdUpResult:" + stdUpResult);
 		}
 	}
 
@@ -566,44 +498,43 @@ public class AdminServiceImpl extends Board implements AdminService {
 		vo.setUserNumber(req.getParameter("userNumber"));
 		vo.setUserName(req.getParameter("userName"));
 		vo.setUserEngName(req.getParameter("userEngName"));
-		
-		String userSsn ="";
+
+		String userSsn = "";
 		String userSsn1 = req.getParameter("jumin1");
 		String userSsn2 = req.getParameter("jumin2");
-		if(!userSsn1.equals("") && !userSsn2.equals("")) {
+		if (!userSsn1.equals("") && !userSsn2.equals("")) {
 			userSsn = userSsn1 + "-" + userSsn2;
 		}
 		vo.setUserSsn(userSsn);
 		vo.setUserSsn2(userSsn2);
-		
+
 		vo.setGender(req.getParameter("gender"));
-		
-		String userCellNum="";
+
+		String userCellNum = "";
 		String userCellNum1 = req.getParameter("hp1");
 		String userCellNum2 = req.getParameter("hp2");
 		String userCellNum3 = req.getParameter("hp3");
-		if(!userCellNum1.equals("") && !userCellNum2.equals("") && !userCellNum3.equals("")) {
-			userCellNum = userCellNum1+"-"+userCellNum2+"-"+userCellNum3;
+		if (!userCellNum1.equals("") && !userCellNum2.equals("") && !userCellNum3.equals("")) {
+			userCellNum = userCellNum1 + "-" + userCellNum2 + "-" + userCellNum3;
 		}
 		vo.setUserCellNum(userCellNum);
-		
-		String userEmail ="";
+
+		String userEmail = "";
 		String userEmail1 = req.getParameter("email1");
 		String userEmail2 = req.getParameter("email2");
-		if(!userEmail1.equals("") && !userEmail2.equals("")) {
-			userEmail = userEmail1 + "@"+userEmail2;
+		if (!userEmail1.equals("") && !userEmail2.equals("")) {
+			userEmail = userEmail1 + "@" + userEmail2;
 		}
-		vo.setUserEmail(userEmail);	
-		
-		
+		vo.setUserEmail(userEmail);
+
 		vo.setUserZipCode(req.getParameter("userZipCode"));
 		vo.setUserAddr1(req.getParameter("userAddr1"));
 		vo.setUserAddr2(req.getParameter("userAddr2"));
 		vo.setGender(req.getParameter("gender"));
-		/*vo.setDelStatus(Integer.parseInt(req.getParameter("delStatus")));*/
+		/* vo.setDelStatus(Integer.parseInt(req.getParameter("delStatus"))); */
 
-		//major
-		if(req.getParameter("majorNum")!=null) {
+		// major
+		if (req.getParameter("majorNum") != null) {
 			vo.setMajorNum(Integer.parseInt(req.getParameter("majorNum")));
 		}
 		// employees
@@ -614,17 +545,17 @@ public class AdminServiceImpl extends Board implements AdminService {
 		vo.setEmpHiredDate(Date.valueOf(req.getParameter("empHiredDate")));
 		vo.setAccountNumber(req.getParameter("accountNumber"));
 
-		int userUp = dao.updatePUsers(vo); 
-		int empUp = dao.updateEmployees(vo); 
+		int userUp = dao.updatePUsers(vo);
+		int empUp = dao.updateEmployees(vo);
 
-		int proUpResult = userUp+ empUp ;
+		int proUpResult = userUp + empUp;
 
 		model.addAttribute("userNumber", req.getParameter("userNumber"));
 
-		if(proUpResult == 2) {
+		if (proUpResult == 2) {
 			model.addFlashAttribute("message", "수정 완료");
-		}else{
-			model.addFlashAttribute("message", "Error!! 수정 실패! proUpResult:"+proUpResult);
+		} else {
+			model.addFlashAttribute("message", "Error!! 수정 실패! proUpResult:" + proUpResult);
 		}
 	}
 
@@ -661,10 +592,10 @@ public class AdminServiceImpl extends Board implements AdminService {
 			String update_image = file.getOriginalFilename();
 			String img = "";
 
-			if(update_image.equals("")) {
-				img = "/images/"+ori_image;
-			}else {
-				img = "/images/"+update_image;
+			if (update_image.equals("")) {
+				img = "/images/" + ori_image;
+			} else {
+				img = "/images/" + update_image;
 			}
 
 			stdVO.setUserImage(img);
@@ -672,10 +603,10 @@ public class AdminServiceImpl extends Board implements AdminService {
 			int stdImageUpload = dao.stdImgUpdate(stdVO);
 
 			red.addAttribute("userNumber", userNumber);
-			
+
 			if (stdImageUpload == 1) {
 				red.addFlashAttribute("message", "프로필 이미지를 변경하였습니다.");
-			}else {
+			} else {
 				red.addFlashAttribute("message", "프로필 이미지를 변경하는 도중에 오류가 발생하였습니다.");
 			}
 		} catch (IOException e) {
@@ -683,7 +614,7 @@ public class AdminServiceImpl extends Board implements AdminService {
 		}
 	}
 
-	//교수 이미지 수정
+	// 교수 이미지 수정
 	@Override
 	public void proImgUpdate(MultipartHttpServletRequest req, RedirectAttributes red) {
 		MultipartFile file = req.getFile("userImage");
@@ -695,7 +626,7 @@ public class AdminServiceImpl extends Board implements AdminService {
 		try {
 			file.transferTo(new File(saveDir + file.getOriginalFilename()));
 
-			if(file.getOriginalFilename() != "")  {
+			if (file.getOriginalFilename() != "") {
 				FileInputStream fis = new FileInputStream(saveDir + file.getOriginalFilename());
 				FileOutputStream fos = new FileOutputStream(realDir + file.getOriginalFilename());
 
@@ -711,34 +642,35 @@ public class AdminServiceImpl extends Board implements AdminService {
 
 			AdProVO proVO = new AdProVO();
 			proVO.setUserNumber(userNumber);
-			
+
 			String ori_image = req.getParameter("userImage");
 			String update_image = file.getOriginalFilename();
 			String img = "";
 
-			if(update_image.equals("")) {
-				img = "/images/"+ori_image;
-			}else {
-				img ="/images/"+ update_image;
+			if (update_image.equals("")) {
+				img = "/images/" + ori_image;
+			} else {
+				img = "/images/" + update_image;
 			}
-			
+
 			proVO.setUserImage(img);
 
 			int proImageUpload = dao.proImgUpdate(proVO);
-			
-			//리다이렉트로 유저넘을 넘겨줌
+
+			// 리다이렉트로 유저넘을 넘겨줌
 			red.addAttribute("userNumber", userNumber);
-			
-			if (proImageUpload == 1) { proVO.setUserImage(img);
+
+			if (proImageUpload == 1) {
+				proVO.setUserImage(img);
 				red.addFlashAttribute("message", "프로필 이미지를 변경하였습니다.");
-			}else { 
+			} else {
 				red.addFlashAttribute("message", "프로필 이미지를 변경하는 도중에 오류가 발생하였습니다.");
 			}
-		}catch (IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	// 학생 + 교수삭제
 	@Override
 	public void stdDeletePro(HttpServletRequest req, RedirectAttributes red) {
@@ -761,19 +693,8 @@ public class AdminServiceImpl extends Board implements AdminService {
 
 	// 전화번호부 가져오기
 	@Override
-	public List<String> getUserCellNumList(Map<String, Object> map){
+	public List<String> getUserCellNumList(Map<String, Object> map) {
 		return dao.getUserCellNumList(map);
-	}
-
-	// 장학 심사
-	@Override
-	public void judge(HttpServletRequest req, Model model) {
-
-		// 심사 리스트에 담기
-		List<auditVO> audit = dao.auditCnt();
-
-		// 심사리스트 반환
-		model.addAttribute("audit", audit);
 	}
 
 	// 장학 심사 완료
@@ -787,62 +708,74 @@ public class AdminServiceImpl extends Board implements AdminService {
 		if (checkbox2 != null) {
 			dao.auditupdate2(checkbox2);
 		}
-
 	}
-	//장학금 수정
+
+	// 장학금 수정
 	@Override
 	public void rigisterupdate(HttpServletRequest req, RedirectAttributes red) {
-		
-		//학생 개인 정보
-		String year = req.getParameter("year");
-		String semester = req.getParameter("semester");
+
+		// 학생 개인 정보
 		String amount = req.getParameter("amount");
 		String scholarname = req.getParameter("scholarname");
 		String scholarContent = req.getParameter("scholarContent");
 		int scholarpk = Integer.parseInt(req.getParameter("scholarpk"));
-		
-		Map<String,Object> map = new HashMap<String,Object>();
-		map.put("year", year);
-		map.put("semester", semester);
+
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("amount", amount);
 		map.put("scholarname", scholarname);
 		map.put("scholarContent", scholarContent);
 		map.put("scholarpk", scholarpk);
-		
+
 		int update = dao.rigisterupdate(map);
 
 		if (update != 0)
 			red.addFlashAttribute("message", "장학금 글 정보를 변경하였습니다.");
 		if (update == 0)
 			red.addFlashAttribute("message", "학금 글 정보를 변경하는 도중에 오류가 발생하였습니다.");
-		
-		
+
+	}
+
+	// dao.audit_getArticleCnt(map);
+	// dao.auditCnt(map);
+	@Override
+	public void judge2(Map<String, Object> map, Logger logger, Model model) {
+		setList(map, model, new BoardInterface() {
+
+			@Override
+			public int getListCount(Map<String, Object> map) {
+				return dao.audit_getArticleCnt(map);
+			}
+
+			@Override
+			public List<Object> getList(Map<String, Object> map) {
+				return dao.auditCnt(map);
+			}
+		});
 	}
 
 	// -----------------------------------------------------------------교직업무관리START-------------------------------------------------
-	
 
 	@Override
 	public String majorLectureManagementRedirector(HttpServletRequest request, RedirectAttributes redirectAttributes) {
 		int status = 0;
-		
+
 		String referer = request.getHeader("referer");
-		
+
 		status = dao.getBachelorStatus();
-		
-		if(status != 3) {
-			if(referer!=null) {
+
+		if (status != 3) {
+			if (referer != null) {
 				redirectAttributes.addFlashAttribute("message", "종강 상태시 접근 가능합니다.");
-				return "redirect:"+referer;
-			}else {
+				return "redirect:" + referer;
+			} else {
 				redirectAttributes.addFlashAttribute("message", "종강 상태시 접근 가능합니다.");
 				return "redirect:/admin/index";
 			}
-		}else {
+		} else {
 			return "redirect:/admin/majorLectureManagement";
 		}
 	}
-	
+
 	@Override
 	public void getMajors(Map<String, Object> map, Model model) {
 		setList(map, model, new BoardInterface() {
@@ -860,13 +793,12 @@ public class AdminServiceImpl extends Board implements AdminService {
 		});
 	}
 
-
 	// 학과 삭제
 	@Override
 	public Map<String, Object> deleteMajor(LectureVO lecture) {
 		Map<String, Object> resopnseData = new HashMap<String, Object>();
 		dao.deleteMajor(lecture);
-		
+
 		if (lecture.getResult() > 0)
 			resopnseData.put("status", "success");
 		else
@@ -885,7 +817,7 @@ public class AdminServiceImpl extends Board implements AdminService {
 	}
 
 	// 학과 수정
-	@Transactional(rollbackFor=Exception.class)
+	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public Map<String, Object> modifyMajor(Major major) {
 		Map<String, Object> resultmap = new HashMap<String, Object>();
@@ -905,17 +837,17 @@ public class AdminServiceImpl extends Board implements AdminService {
 		List<Object> list = dao.emptyLecTime(map);
 		List<Object> lectures = dao.getLecturesTimes(map);
 		Map<String, Integer> colorMap = new HashMap<String, Integer>();
-		
+
 		int idx = 1;
-		for(Object obj: lectures) {
-			LectureVO data = ((LectureVO)obj);
-			if(!colorMap.containsKey(data.getLectureName())) {
-				if(idx==6)
-					idx+=1;
+		for (Object obj : lectures) {
+			LectureVO data = ((LectureVO) obj);
+			if (!colorMap.containsKey(data.getLectureName())) {
+				if (idx == 6)
+					idx += 1;
 				colorMap.put(data.getLectureName(), idx++);
 			}
 		}
-		
+
 		days.add("월");
 		days.add("화");
 		days.add("수");
@@ -944,9 +876,10 @@ public class AdminServiceImpl extends Board implements AdminService {
 		model.addAttribute("lectures", lectures);
 		model.addAttribute("days", days);
 		model.addAttribute("mode", "view");
-		model.addAttribute("semester", ((LectureVO)lectures.get(0)).getGrantedSemester());
-		model.addAttribute("empNumber", ((LectureVO)lectures.get(0)).getEmpNumber());
+		model.addAttribute("semester", ((LectureVO) lectures.get(0)).getGrantedSemester());
+		model.addAttribute("empNumber", ((LectureVO) lectures.get(0)).getEmpNumber());
 	}
+
 	@Override
 	public Map<String, Object> getLectureSeqNextval() {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -1015,119 +948,31 @@ public class AdminServiceImpl extends Board implements AdminService {
 		Map<String, Object> responseData = new HashMap<String, Object>();
 		lecture.setTtc(lecture.getTimetblCodes().stream().mapToInt(i -> i).toArray());
 		dao.modifyLecture(lecture);
-		
+
 		if (lecture.getResult() != 0) {
 			responseData.put("message", "강의 수정 완료.");
 			responseData.put("status", "success");
-		}else {
+		} else {
 			responseData.put("message", "Error!! 강의 수정 실패! 'lectureTime TABLE INSERT FAILE!'");
 			responseData.put("status", "error");
 		}
 		return responseData;
 	}
-	
+
 	@Override
 	public Map<String, Object> deleteLecture(Map<String, Object> map) {
 		Map<String, Object> responseData = new HashMap<String, Object>();
-		if(dao.deleteLecture(map)==1) {
+		if (dao.deleteLecture(map) == 1) {
 			responseData.put("message", "강의 삭제 완료.");
 			responseData.put("status", "success");
-		}else {
+		} else {
 			responseData.put("message", "Error!! 강의 삭제 실패!");
 			responseData.put("status", "error");
 		}
 		return responseData;
 	}
-	
+
 	// -------------------------------------------------------교직업무관리END-------------------------------------------------
-
-	@Override
-	public void judge2(Map<String, Object> map, Logger logger, Model model) {
-		int pageSize = 0; // 한 페이지당 출력할 글 갯수
-		int pageBlock = 5; // 한블럭당 페이지 갯수
-
-		int cnt = 0; // 총 글 갯수
-		int start = 0; // 현재 페이지 시작 글번호
-		int end = 0; // 현재 페이지 마지막 글 번호
-		int number = 0; // 출력용 글번호
-		int pageNum = 0; // 페이지 번호
-		int pageCount = 0; // 페이지 갯수
-		int startPage = 0; // 시작 페이지
-		int endPage = 0; // 마지막 페이지
-
-		if (!map.containsKey("pageSize")) {
-			pageSize = 10;
-		} else
-			pageSize = Integer.parseInt((String) map.get("pageSize"));
-
-		if (!map.containsKey("pageNum"))
-			pageNum = 1;
-		else
-			pageNum = (Integer) map.get("pageNum");
-		// 수강신청 목록 갯수 구하기
-		cnt = dao.audit_getArticleCnt(map);
-		pageCount = cnt / pageSize + (cnt % pageSize > 0 ? 1 : 0);
-
-		start = (pageNum - 1) * pageSize + 1;
-		end = start + pageSize - 1;
-
-		map.put("start", start);
-		map.put("end", end);
-		if(map.get("year") != "0") {
-		map.put("year", map.get("year"));
-		map.put("smester", map.get("smester"));
-		}
-		
-		if (end > cnt)
-			end = cnt;
-
-		number = cnt - (pageNum - 1) * pageSize;
-
-		
-		if (cnt > 0) {
-			// 수강신청 목록 조회
-			int auditct = Integer.parseInt((String)map.get("audit"));
-			
-			List<auditVO> audit;
-			//심사 리스트
-			if(auditct == 3) {
-			audit = dao.auditCnt();
-			}else{
-			audit = dao.auditCnt2(auditct);
-			}
-			
-			//심사리스트 반환
-			model.addAttribute("audit", audit);
-			
-		}
-
-		// 시작페이지
-		// 1 = (1 / 3) * 3 + 1;
-		startPage = (pageNum / pageBlock) * pageBlock + 1;
-		if (pageNum % pageBlock == 0)
-			startPage -= pageBlock;
-		
-		endPage = startPage + pageBlock - 1;
-
-		// 마지막 페이지
-		// 3 = 1 + 3 - 1;
-		endPage = startPage + pageBlock - 1;
-		if (endPage > pageCount)
-			endPage = pageCount;
-		model.addAttribute("cnt", cnt); // 글갯수
-		model.addAttribute("number", number); // 출력용 글번호
-		model.addAttribute("pageNum", pageNum); // 페이지번호
-
-		if (cnt > 0) {
-			model.addAttribute("startPage", startPage); // 시작 페이지
-			model.addAttribute("endPage", endPage); // 마지막 페이지
-			model.addAttribute("pageBlock", pageBlock); // 출력할 페이지 갯수
-			model.addAttribute("pageCount", pageCount); // 페이지 갯수
-			model.addAttribute("pageSize", pageSize); // 현재페이지
-		}
-		
-		
-	}
 
 	// 교직원 급여관리
 	@Override
@@ -1147,8 +992,7 @@ public class AdminServiceImpl extends Board implements AdminService {
 		List<payrollVO> dtosT = dao.getFinalPayrollList();
 		model.addAttribute("dtosT", dtosT);
 	}
-	
-	
+
 	// 급여대장 조회
 	@Override
 	public void lookupWorkRecord(Map<String, Object> map, Model model) {
@@ -1165,17 +1009,17 @@ public class AdminServiceImpl extends Board implements AdminService {
 	@Override
 	public Map<String, Object> insertPayroll(Map<String, Object> map) {
 		int cnt = dao.insertPayroll(map);
-		String date = (String)map.get("imputedYear");
-		
+		String date = (String) map.get("imputedYear");
+
 		int paymentListNum = dao.getPaymentListPk(date);
-		
-		Map<String, Object> responseData = new HashMap<String,Object>();
+
+		Map<String, Object> responseData = new HashMap<String, Object>();
 		List<Map<String, Object>> requestlist = new ArrayList<Map<String, Object>>();
-		
+
 		if (cnt == 1) {
 			List<payrollVO> empNumbers = dao.getEmpNumber();
-			
-			for(payrollVO vo : empNumbers) {
+
+			for (payrollVO vo : empNumbers) {
 				Map<String, Object> data = new HashMap<String, Object>();
 				data.put("paymentListNum", paymentListNum);
 				data.put("empNumber", vo.getEmpNumber());
@@ -1186,32 +1030,34 @@ public class AdminServiceImpl extends Board implements AdminService {
 		}
 		return responseData;
 	}
+
 	@Override
 	public Map<String, Object> ConfirmationWorkRecord(List<Map<String, Object>> data, Logger logger) {
-		Map<String, Object> responseData = new HashMap<String,Object>();
-			
+		Map<String, Object> responseData = new HashMap<String, Object>();
+
 		int cnt1 = dao.ConfirmationWorkRecord(data);
 		int cnt2 = dao.updateOverPay(data);
-		int cnt = cnt1+ cnt2; 
-			
-			if(cnt != 0) {
-				responseData.put("message","저장이 완료되었습니다");
-			} else {
-				responseData.put("message","저장실패");
-			}
+		int cnt = cnt1 + cnt2;
+
+		if (cnt != 0) {
+			responseData.put("message", "저장이 완료되었습니다");
+		} else {
+			responseData.put("message", "저장실패");
+		}
 		return responseData;
 	}
+
 	@Override
 	public Map<String, Object> SaveEnterAmountManually(List<Map<String, Object>> data, Logger logger) {
-		
+
 		int cnt = dao.SaveEnterAmountManually(data);
-		//int cnt2 = dao.updateOverPay(list);
-		//int cnt1 = cnt1+ cnt2; 
-		Map<String, Object> responseData = new HashMap<String,Object>();
-		if(cnt != 0) {
-			responseData.put("message","저장이 완료되었습니다");
+		// int cnt2 = dao.updateOverPay(list);
+		// int cnt1 = cnt1+ cnt2;
+		Map<String, Object> responseData = new HashMap<String, Object>();
+		if (cnt != 0) {
+			responseData.put("message", "저장이 완료되었습니다");
 		} else {
-			responseData.put("message","SaveEnterAmountManually() Error");
+			responseData.put("message", "SaveEnterAmountManually() Error");
 		}
 		return responseData;
 	}
@@ -1220,7 +1066,7 @@ public class AdminServiceImpl extends Board implements AdminService {
 	public void ConfirmOvertime(Map<String, Object> map, Model model) {
 		List<payrollVO> dtos = dao.ConfirmOvertime(map);
 		model.addAttribute("dtosF", dtos);
-		String payrollStatus = (String)map.get("payrollStatus");
+		String payrollStatus = (String) map.get("payrollStatus");
 		model.addAttribute("payrollStatus", payrollStatus);
 	}
 
@@ -1238,15 +1084,15 @@ public class AdminServiceImpl extends Board implements AdminService {
 
 	@Override
 	public Map<String, Object> CopyPayroll(Map<String, Object> map) {
-		
-		int payrollCnt = dao.getCopyPayrollFrom(map); 
+
+		int payrollCnt = dao.getCopyPayrollFrom(map);
 		map.put("payrollCnt", payrollCnt);
 		dao.CopyPayroll(map);
-		Map<String, Object> responseData = new HashMap<String,Object>();
-		if(payrollCnt != 0) {
-			responseData.put("message","저장이 완료되었습니다");
+		Map<String, Object> responseData = new HashMap<String, Object>();
+		if (payrollCnt != 0) {
+			responseData.put("message", "저장이 완료되었습니다");
 		} else {
-			responseData.put("message","CopyPayroll() Error");
+			responseData.put("message", "CopyPayroll() Error");
 		}
 		return responseData;
 	}
@@ -1254,11 +1100,11 @@ public class AdminServiceImpl extends Board implements AdminService {
 	@Override
 	public Map<String, Object> ConfirmPayroll(Map<String, Object> map) {
 		int cnt = dao.ConfirmPayroll(map);
-		Map<String, Object> responseData = new HashMap<String,Object>();
-		if(cnt != 0) {
-			responseData.put("message","저장이 완료되었습니다");
+		Map<String, Object> responseData = new HashMap<String, Object>();
+		if (cnt != 0) {
+			responseData.put("message", "저장이 완료되었습니다");
 		} else {
-			responseData.put("message","ConfirmPayroll() Error");
+			responseData.put("message", "ConfirmPayroll() Error");
 		}
 		return responseData;
 	}
@@ -1268,40 +1114,39 @@ public class AdminServiceImpl extends Board implements AdminService {
 		int cnt1 = dao.DeletePayroll(map);
 		int cnt2 = dao.DeleteRegisterDetail(map);
 		int cnt = cnt1 + cnt2;
-		Map<String, Object> responseData = new HashMap<String,Object>();
-		if(cnt != 0) {
-			responseData.put("message","삭제되었습니다");
+		Map<String, Object> responseData = new HashMap<String, Object>();
+		if (cnt != 0) {
+			responseData.put("message", "삭제되었습니다");
 		} else {
-			responseData.put("message","DeletePayroll() Error");
+			responseData.put("message", "DeletePayroll() Error");
 		}
 		return responseData;
 	}
 
-	
-	
-	//---------------학사관리 START-------------------
-	//학사관리 진입
+	// ---------------학사관리 START-------------------
+	// 학사관리 진입
 	@Override
 	public void lecM(HttpServletRequest req, Model model) {
-		
+
 		List<lecMVO> vo = dao.lecM();
-	
+
 		model.addAttribute("vo", vo);
-		
+
 	}
-	//학사관리 일정 삭제
+
+	// 학사관리 일정 삭제
 	@Override
 	public Map<String, Object> delete_sc(lecMVO vo) {
-		
+
 		Map<String, Object> resultmap = new HashMap<String, Object>();
 		dao.delete_sc(vo);
 		return resultmap;
 	}
-	
-	//학사관리 일정 추가
+
+	// 학사관리 일정 추가
 	@Override
 	public void lecScInsert(HttpServletRequest req, RedirectAttributes red) {
-		
+
 		String startSelectLecture = req.getParameter("ssl");
 		String endSelectLecture = req.getParameter("esl");
 		String openingDay = req.getParameter("sd");
@@ -1309,9 +1154,9 @@ public class AdminServiceImpl extends Board implements AdminService {
 		String endingDay = req.getParameter("ed");
 		String year = req.getParameter("yearNum");
 		String semester = req.getParameter("options");
-		
+
 		lecMVO vo = new lecMVO();
-		
+
 		vo.setEndingDay(endingDay);
 		vo.setEndSelectLecture(endSelectLecture);
 		vo.setGradeOpeningDay(gradeOpeningDay);
@@ -1319,30 +1164,29 @@ public class AdminServiceImpl extends Board implements AdminService {
 		vo.setStartSelectLecture(startSelectLecture);
 		vo.setYear(year);
 		vo.setSemester(semester);
-		
+
 		int lecScInsert = 0;
 		try {
 			lecScInsert = dao.lecScInsert(vo);
-		}catch(DataAccessException e) {
-			if(e.getMessage().contains("unique constraint"));
+		} catch (DataAccessException e) {
+			if (e.getMessage().contains("unique constraint"))
+				;
 			lecScInsert = 500;
 		}
-		
+
 		if (lecScInsert == 1) {
-			red.addFlashAttribute("message", year +"년도" +semester+"학기 학사일정을 추가하였습니다.");
-			red.addFlashAttribute("alertIcon","success");
+			red.addFlashAttribute("message", year + "년도" + semester + "학기 학사일정을 추가하였습니다.");
+			red.addFlashAttribute("alertIcon", "success");
 		}
 		if (lecScInsert == 0) {
 			red.addFlashAttribute("message", "학사일정을 추가하는 중 오류가 발생하였습니다.");
-			red.addFlashAttribute("alertIcon","error");
+			red.addFlashAttribute("alertIcon", "error");
 		}
-		if(lecScInsert == 500) {
+		if (lecScInsert == 500) {
 			red.addFlashAttribute("message", "이미 추가 되어있는 년도와 학기 입니다.!");
-			red.addFlashAttribute("alertIcon","error");
+			red.addFlashAttribute("alertIcon", "error");
 		}
-		
-		
-		
+
 		System.out.println("학사일정 수정 lecScInsert : " + startSelectLecture);
 		System.out.println("학사일정 수정 lecScInsert : " + endSelectLecture);
 		System.out.println("학사일정 수정 lecScInsert : " + openingDay);
@@ -1350,8 +1194,8 @@ public class AdminServiceImpl extends Board implements AdminService {
 		System.out.println("학사일정 수정 lecScInsert : " + endingDay);
 		System.out.println("학사일정 수정 lecScInsert : " + lecScInsert);
 	}
-	
-	//학사관리 일정 수정
+
+	// 학사관리 일정 수정
 	@Override
 	public void lecScUpdate(HttpServletRequest req, RedirectAttributes red) {
 		String startSelectLecture = req.getParameter("ssl");
@@ -1361,9 +1205,9 @@ public class AdminServiceImpl extends Board implements AdminService {
 		String endingDay = req.getParameter("ed");
 		String year = req.getParameter("yearNum");
 		String semester = req.getParameter("options");
-		
+
 		lecMVO vo = new lecMVO();
-		
+
 		vo.setEndingDay(endingDay);
 		vo.setEndSelectLecture(endSelectLecture);
 		vo.setGradeOpeningDay(gradeOpeningDay);
@@ -1371,32 +1215,33 @@ public class AdminServiceImpl extends Board implements AdminService {
 		vo.setStartSelectLecture(startSelectLecture);
 		vo.setYear(year);
 		vo.setSemester(semester);
-		
+
 		int lecScUpdate = dao.lecScUpdate(vo);
 		int up = lecScUpdate;
-		
+
 		if (up == 1) {
-			red.addFlashAttribute("message", year +"년도" +semester+"학기 학사일정을 수정하였습니다.");
-			red.addFlashAttribute("alertIcon","success");
+			red.addFlashAttribute("message", year + "년도" + semester + "학기 학사일정을 수정하였습니다.");
+			red.addFlashAttribute("alertIcon", "success");
 		}
 		if (up != 1) {
 			red.addFlashAttribute("message", "학사일정을 수정하는 중 오류가 발생하였습니다.");
-			red.addFlashAttribute("alertIcon","error");
+			red.addFlashAttribute("alertIcon", "error");
 		}
-		
+
 	}
-	//학사관리 일정 즉시 실행
+
+	// 학사관리 일정 즉시 실행
 	@Override
 	public void excuteScUpdate(HttpServletRequest req, RedirectAttributes red) {
 		LectrueSelectPeriod lectrueSelectPeriod = new LectrueSelectPeriod();
 
-		lectrueSelectPeriod.setSemester((Integer)req.getSession().getAttribute("semester"));
-		
+		lectrueSelectPeriod.setSemester((Integer) req.getSession().getAttribute("semester"));
+
 		String options = req.getParameter("optionsRadios");
 		String message = "";
-		
+
 		int status = 0;
-		switch(options) {
+		switch (options) {
 		case "1":
 			status = 1;
 			message = "개강";
@@ -1420,49 +1265,40 @@ public class AdminServiceImpl extends Board implements AdminService {
 		}
 		lectrueSelectPeriod.setStatus(status);
 		schduleDao.updateLectureStatus(lectrueSelectPeriod);
-		
-		if(lectrueSelectPeriod.getResult() != 1) {
-			red.addFlashAttribute("message", message+" 실행 중 오류가 발생하였습니다.!");
-			red.addFlashAttribute("alertIcon","error");
-		}else {
-			red.addFlashAttribute("message", message+" 실행 완료.");
-			red.addFlashAttribute("alertIcon","success");
+
+		if (lectrueSelectPeriod.getResult() != 1) {
+			red.addFlashAttribute("message", message + " 실행 중 오류가 발생하였습니다.!");
+			red.addFlashAttribute("alertIcon", "error");
+		} else {
+			red.addFlashAttribute("message", message + " 실행 완료.");
+			red.addFlashAttribute("alertIcon", "success");
 		}
 	}
 
-	
-	//---------------학사관리 END-------------------
+	// ---------------학사관리 END-------------------
 
+	// ---------------성적통계업무 START-------------------
 
-	
-	//---------------성적통계업무  START-------------------
-	
-	
 	@Override
 	public void scoreManagement(HttpServletRequest req, Model model) {
-		
+
 		List<ChartVO> fa = dao.facultyAvg();
 		List<ChartVO> ma = dao.majorAvg();
 		List<ChartVO> genders = dao.genderAvg();
 		List<ChartVO> gr = dao.gradeAvg();
-		
+
 		model.addAttribute("fa", fa);
 		model.addAttribute("ma", ma);
 		model.addAttribute("genders", genders);
 		model.addAttribute("gr", gr);
-		
+
 	}
 
-	
-	//---------------성적통계업무  END-------------------
-	
-	
-	
-	
-	
+	// ---------------성적통계업무 END-------------------
+
 	@Override
 	public void index(HttpServletRequest req, Model model) {
-		
+
 		List<IndexVO> s_t = dao.s_t();
 		List<IndexVO> u_t = dao.u_t();
 		List<IndexVO> p_t = dao.p_t();
@@ -1470,15 +1306,11 @@ public class AdminServiceImpl extends Board implements AdminService {
 		List<IndexVO> m_t = dao.m_t();
 		List<IndexVO> l_t = dao.l_t();
 		List<IndexVO> nameAvgTop = dao.nameAvgTop();
-		List<IndexVO> monthPayTotal= dao.monthPayTotal();
+		List<IndexVO> monthPayTotal = dao.monthPayTotal();
 		List<IndexVO> monthPayTop = dao.monthPayTop();
 		List<IndexVO> subPay = dao.subPay();
 		List<IndexVO> facStdNameAvg = dao.facStdNameAvg();
-		
-		
-		
-		
-		
+
 		model.addAttribute("s_t", s_t);
 		model.addAttribute("u_t", u_t);
 		model.addAttribute("p_t", p_t);
@@ -1490,10 +1322,7 @@ public class AdminServiceImpl extends Board implements AdminService {
 		model.addAttribute("monthPayTop", monthPayTop);
 		model.addAttribute("subPay", subPay);
 		model.addAttribute("facStdNameAvg", facStdNameAvg);
-		
+
 	}
-	
-	
-	
-	
+
 }

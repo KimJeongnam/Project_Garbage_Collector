@@ -324,24 +324,16 @@
 	<select id="Jang_getArticleCnt" resultType="int">
 
 		SELECT COUNT(*) as cnt FROM SCHOLARSHIP where delstatus != 1
-		<if test="year != 0">
-			and to_char(year,'yyyy') like #{year}
-			<if test="smester != 0">
-				and semester like #{smester}
-			</if>
-		</if>
-
+	
 	</select>
 
 	<!-- 장학글 목록 -->
 
 	<select id="jang_getArticleList" parameterType="java.util.Map"
 		resultType="com.spring.project.admin.vo.ScholarpkVO">
-
 		SELECT *
-		FROM (select SCHOLARPK,SCHOLARNAME,to_char(YEAR,'YYYY') as
-		YEAR,SEMESTER,
-		AMOUNT,SCHOLARCONTENT,ROWNUM
+		FROM (select SCHOLARPK,SCHOLARNAME,
+		TO_CHAR(AMOUNT, '999,999,999,999,999') as amount,SCHOLARCONTENT,ROWNUM
 		rNum
 		from (
 		select * FROM SCHOLARSHIP
@@ -350,18 +342,9 @@
 		order by
 		SCHOLARPK desc
 		)
-		<where>
-			<if test="year != 0">
-				and to_char(year,'yyyy') = #{year}
-				<if test="smester != 0">
-					and semester like #{smester}
-				</if>
-			</if>
-
-		</where>
+		
 		) 
-				               <![CDATA[where rNum >= #{start} and rNum <= #{end}]]>
-
+		<![CDATA[where rNum >= #{start} and rNum <= #{end}]]>
 	</select>
 
 	<!-- 장학심사 글 갯수 -->
@@ -370,11 +353,11 @@
 
 		select count(*) from
 		Evaluation
-		<![CDATA[where TO_DATE(sysdate) - TO_DATE(year) <= 1095]]>
-
-		<if test="audit != 3">
-			and statcode = #{audit}
-		</if>
+		<where>
+			<if test="audit != null">
+				and statcode = #{audit}
+			</if>
+		</where>
 
 	</select>
 
@@ -382,11 +365,9 @@
 
 	<insert id="insertjangjag"
 		parameterType="com.spring.project.admin.vo.ScholarpkVO">
-
 		INSERT INTO
-		SCHOLARSHIP(SCHOLARPK,SCHOLARNAME,YEAR,SEMESTER,AMOUNT,SCHOLARCONTENT,DELSTATUS)
-		values(SCHOLARSHIP_SEQ.nextval,#{scholarname},#{year},#{semester},#{amount},#{scholarcontent},0)
-
+		SCHOLARSHIP(SCHOLARPK,SCHOLARNAME,AMOUNT,SCHOLARCONTENT,DELSTATUS)
+		values(SCHOLARSHIP_SEQ.nextval,#{scholarname},#{amount},#{scholarcontent},0)
 	</insert>
 
 	<!-- 장학글 상세 -->
@@ -402,11 +383,8 @@
 
 		UPDATE SCHOLARSHIP
 		set SCHOLARNAME = #{scholarname}
-		,YEAR = to_date(#{year},'yyyy-mm-dd')
-		,SEMESTER = #{semester}
 		,SCHOLARCONTENT =#{scholarContent}
 		,AMOUNT=#{amount}
-
 		where scholarpk=#{scholarpk}
 
 	</update>
@@ -428,46 +406,57 @@
 	<!-- 장학금 글 심사 -->
 	<select id="auditCnt"
 		resultType="com.spring.project.admin.vo.auditVO">
-
-		<![CDATA[select * from Evaluation where TO_DATE(sysdate) - TO_DATE(year) <= 1095]]>
-
+		SELECT * FROM
+	    (SELECT ROWNUM rnum, r.*
+	    FROM (SELECT * FROM 
+	        evaluation
+	        <where>
+	        		<if test="audit != null">
+					and statcode = #{audit}
+					</if>	
+	        </where>
+	    ) r)
+	    <![CDATA[
+	    WHERE rnum >= #{start} AND rnum <= #{end}
+		]]>
 	</select>
-
-	<!-- 장학금 글 심사 -->
-	<select id="auditCnt2"
-		resultType="com.spring.project.admin.vo.auditVO">
-
-		<![CDATA[select * from Evaluation where statCode = #{auditct} and TO_DATE(sysdate) - TO_DATE(year) <= 1095]]>
-
-	</select>
-
 
 
 
 	<!-- 장학금 심사 합격완료 -->
 	<update id="auditupdate">
-
+		BEGIN
 		UPDATE scholarshipInfo
-		SET statCode = 1
+		SET statCode = 1, paymentDay = TO_CHAR(SYSTIMESTAMP, 'YYYY-MM-DD')
 		WHERE schInfoPk in
 		<foreach item="schInfoPk" collection="array" open="("
 			separator="," close=")">
 			#{schInfoPk}
+		</foreach>;
+		
+		<foreach item="schInfoPk" collection="array" open=""
+			separator=";" close=";">
+			scholarship_stdnotify_notify(#{schInfoPk}, 1)
 		</foreach>
-
+		END;
 	</update>
 
 	<!-- 장학금 심사 불완료 -->
 	<update id="auditupdate2">
-
+		BEGIN
 		UPDATE scholarshipInfo
-		SET statCode = 0
+		SET statCode = 0, paymentDay = '-'
 		WHERE schInfoPk in
 		<foreach item="schInfoPk" collection="array" open="("
 			separator="," close=")">
 			#{schInfoPk}
+		</foreach>;
+		
+		<foreach item="schInfoPk" collection="array" open=""
+			separator=";" close=";">
+			scholarship_stdnotify_notify(#{schInfoPk}, 0)
 		</foreach>
-
+		END;
 	</update>
 
 	<!-- 장학금 심사 완료 -->

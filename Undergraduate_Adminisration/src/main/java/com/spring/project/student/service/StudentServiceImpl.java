@@ -5,8 +5,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
-
-
 import java.util.List;
 import java.util.Map;
 
@@ -18,13 +16,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.spring.project.Board.Board;
+import com.spring.project.Board.BoardInterface;
 import com.spring.project.admin.vo.ScholarpkVO;
-import com.spring.project.admin.vo.auditVO;
-import com.spring.project.professor.vo.MyPageVO;
-import com.spring.project.restful.vo.Message;
 import com.spring.project.share.Config;
 import com.spring.project.share.vo.ShareUserInfo;
 import com.spring.project.student.dao.StudentDAO;
@@ -33,15 +29,13 @@ import com.spring.project.student.vo.GpaVO;
 import com.spring.project.student.vo.LectureVO;
 import com.spring.project.student.vo.Report_subVO;
 import com.spring.project.student.vo.S_informationVO;
+import com.spring.project.student.vo.ScholarStatus;
 import com.spring.project.student.vo.middle_classVO;
 import com.spring.project.student.vo.report_tblVO;
 
-import java.io.File;
-import java.util.Enumeration;
-
 
 @Service
-public class StudentServiceImpl implements StudentService {
+public class StudentServiceImpl extends Board implements StudentService {
 
 	@Autowired
 	StudentDAO dao;
@@ -439,8 +433,6 @@ public class StudentServiceImpl implements StudentService {
 	//장학금  글 목록
 	@Override
 	public void bulletin(Map<String, Object> map, Logger logger, Model model) {
-		
-		
 		int pageSize = 0; // 한 페이지당 출력할 글 갯수
 		int pageBlock = 5; // 한블럭당 페이지 갯수
 
@@ -453,11 +445,6 @@ public class StudentServiceImpl implements StudentService {
 		int startPage = 0; // 시작 페이지
 		int endPage = 0; // 마지막 페이지
 		
-		if(map.get("year") != "0") {
-			map.put("year", map.get("year"));
-			map.put("smester", map.get("smester"));
-			}
-		System.out.println("year " +  map.get("year") + map.get("smester"));
 
 		if (!map.containsKey("pageSize")) {
 			pageSize = 10;
@@ -478,11 +465,8 @@ public class StudentServiceImpl implements StudentService {
 		start = (pageNum - 1) * pageSize + 1;
 		end = start + pageSize - 1;
 
-		logger.info("start : " + start);
-		logger.info("end : " + end);
 		map.put("start", start);
 		map.put("end", end);
-		
 		
 		if (end > cnt)
 			end = cnt;
@@ -528,108 +512,33 @@ public class StudentServiceImpl implements StudentService {
 			model.addAttribute("pageCount", pageCount); // 페이지 갯수
 			model.addAttribute("pageSize", pageSize); // 현재페이지
 		}
-		
-
-		
-		
-		
 	}
 	
 	//장학금  수혜 내역 목록
+	// dao.management_cnt(map)
+	// dao.managementList(map)
 	@Override
 	public void management(Map<String, Object> map, Logger logger, Model model) {
-		
-		
-		int pageSize = 0; // 한 페이지당 출력할 글 갯수
-		int pageBlock = 5; // 한블럭당 페이지 갯수
-
-		int cnt = 0; // 총 글 갯수
-		int start = 0; // 현재 페이지 시작 글번호
-		int end = 0; // 현재 페이지 마지막 글 번호
-		int number = 0; // 출력용 글번호
-		int pageNum = 0; // 페이지 번호
-		int pageCount = 0; // 페이지 갯수
-		int startPage = 0; // 시작 페이지
-		int endPage = 0; // 마지막 페이지
-
-		if (!map.containsKey("pageSize")) {
-			pageSize = 10;
-		} else
-			pageSize = Integer.parseInt((String) map.get("pageSize"));
-
-		if (!map.containsKey("pageNum"))
-			pageNum = 1;
-		else
-			pageNum = (Integer) map.get("pageNum");
-		// 수강신청 목록 갯수 구하기
-		cnt = dao.management_cnt(map);
-
-		logger.info("Message total : " + cnt);
-
-		pageCount = cnt / pageSize + (cnt % pageSize > 0 ? 1 : 0);
-
-		start = (pageNum - 1) * pageSize + 1;
-		end = start + pageSize - 1;
-
-		logger.info("start : " + start);
-		logger.info("end : " + end);
-		map.put("start", start);
-		map.put("end", end);
-		
-		/*if(map.get("year") != "0") {
-		map.put("year", map.get("year"));
-		map.put("smester", map.get("smester"));
-		}*/
-		
-		if (end > cnt)
-			end = cnt;
-
-		number = cnt - (pageNum - 1) * pageSize;
-
-		logger.info("userNumber : " + map.get("userNumber"));
-		logger.info("start : " + map.get("start"));
-		logger.info("end : " + map.get("end"));
-		logger.info("year : " + map.get("year"));
-		logger.info("smester : " + map.get("smester"));
-		logger.info("cnt : " + cnt);
-		
-		if (cnt > 0) {
-			// 수강신청 목록 조회
-			List<DetailsVO> dtos = dao.managementList(map);
-
-			model.addAttribute("dtos", dtos);
-		}
-
-		// 시작페이지
-		// 1 = (1 / 3) * 3 + 1;
-		startPage = (pageNum / pageBlock) * pageBlock + 1;
-		if (pageNum % pageBlock == 0)
-			startPage -= pageBlock;
-		
-		endPage = startPage + pageBlock - 1;
-
-		// 마지막 페이지
-		// 3 = 1 + 3 - 1;
-		endPage = startPage + pageBlock - 1;
-		if (endPage > pageCount)
-			endPage = pageCount;
-
-		model.addAttribute("cnt", cnt); // 글갯수
-		model.addAttribute("number", number); // 출력용 글번호
-		model.addAttribute("pageNum", pageNum); // 페이지번호
-
-		if (cnt > 0) {
-			model.addAttribute("startPage", startPage); // 시작 페이지
-			model.addAttribute("endPage", endPage); // 마지막 페이지
-			model.addAttribute("pageBlock", pageBlock); // 출력할 페이지 갯수
-			model.addAttribute("pageCount", pageCount); // 페이지 갯수
-			model.addAttribute("pageSize", pageSize); // 현재페이지
-		}
-		
-
-		
-		
-		
+		setList(map, model, new BoardInterface() {
+			
+			@Override
+			public int getListCount(Map<String, Object> map) {
+				return dao.management_cnt(map);
+			}
+			
+			@Override
+			public List<Object> getList(Map<String, Object> map) {
+				List<Object> list = dao.managementList(map);
+				ScholarStatus scholarStatus = ScholarStatus.FALSE;
+				for(Object obj : list) {
+					if(obj instanceof DetailsVO)
+						((DetailsVO)obj).setStrStat(
+								scholarStatus.findByType(((DetailsVO)obj)
+										.getStatcode()).getStrValue());
+				}
+				return list;
+			}
+		});
 	}
 	//장학금 상세
 	@Override

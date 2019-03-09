@@ -14,11 +14,6 @@
 	<!-- page content -->
 	<div class="" role="main">
 		<div class="">
-			<div class="">
-				<div class="title_left">
-
-				</div>
-			</div>
 
 			<div class="clearfix"></div>
 			<div class="x_panel">
@@ -29,8 +24,6 @@
 								<thead>
 									<tr class="headings">
 										<th class="" style="width: 15%; text-align: center;">글 번호</th>
-										<th class="" style="width: 15%; text-align: center;">년도</th>
-										<th class="" style="width: 15%; text-align: center;">학기</th>
 										<th class="" style="width: 25%; text-align: center;">장학금
 											명</th>
 										<th class="" style="width: 25%; text-align: center;">지급
@@ -44,8 +37,6 @@
 
 											<tr class="even pointer">
 												<td class=" ">${dto.scholarpk}</td>
-												<td class=" ">${dto.year}</td>
-												<td class=" ">${dto.semester}</td>
 												<td class=" "><a data-toggle="modal" data-target="#layerpop${dto.scholarpk}" style="cursor:pointer">${dto.scholarname}</a></td></td>
 												<td class=" ">${dto.amount}원</td>
 											</tr>

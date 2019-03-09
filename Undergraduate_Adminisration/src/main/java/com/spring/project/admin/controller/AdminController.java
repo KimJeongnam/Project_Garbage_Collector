@@ -94,7 +94,6 @@ public class AdminController {
 	@RequestMapping("/admin/rigisterPro")
 	public String rigisterPro(HttpServletRequest req, Model model) {
 		service.rigisterPro(req, model);
-
 		return "admin/rigisterPro";
 	}
 

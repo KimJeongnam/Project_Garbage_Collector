@@ -83,7 +83,7 @@ public interface StudentDAO {
 	public int management_cnt(Map<String,Object> map);
 	
 	//장학금  수혜 내역 목록
-	public List<DetailsVO> managementList(Map<String,Object> map);
+	public List<Object> managementList(Map<String,Object> map);
 	
 	//장학 글 상세  
 	public ScholarpkVO getArticle(int scholarpk);

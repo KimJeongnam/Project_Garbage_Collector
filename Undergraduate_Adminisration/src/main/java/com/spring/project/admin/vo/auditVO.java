@@ -2,22 +2,32 @@ package com.spring.project.admin.vo;
 
 import java.sql.Date;
 
+// sibal 소문자
 public class auditVO {
 	
-	private String schinfopk; //장학 신청 완료 코드
+	private String schinfopk; //장학 정보 코드
 	private String userName; //유저 이름
 	private int grade; // 학년
-	private int semester; //학기
 	private String scholarName; //장학금명
-	private Date year; //년도
+	private String applyDay; // 신청일
+	private String paymentDay; // 지급일
 	private String amount; // 신청금액
 	private String scholarstatus; //합 / 불
 	private int statCode; // 신청코드
 	
 	
-	
-	
-	
+	public String getApplyDay() {
+		return applyDay;
+	}
+	public void setApplyDay(String applyDay) {
+		this.applyDay = applyDay;
+	}
+	public String getPaymentDay() {
+		return paymentDay;
+	}
+	public void setPaymentDay(String paymentDay) {
+		this.paymentDay = paymentDay;
+	}
 	public String getAmount() {
 		return amount;
 	}
@@ -36,12 +46,6 @@ public class auditVO {
 	public void setScholarstatus(String scholarstatus) {
 		this.scholarstatus = scholarstatus;
 	}
-	public Date getYear() {
-		return year;
-	}
-	public void setYear(Date year) {
-		this.year = year;
-	}
 	public String getUserName() {
 		return userName;
 	}
@@ -53,12 +57,6 @@ public class auditVO {
 	}
 	public void setGrade(int grade) {
 		this.grade = grade;
-	}
-	public int getSemester() {
-		return semester;
-	}
-	public void setSemester(int semester) {
-		this.semester = semester;
 	}
 	public String getScholarName() {
 		return scholarName;

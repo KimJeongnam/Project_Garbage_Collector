@@ -100,7 +100,8 @@
 <!-- 스크립트 순서에 따라 안되는 경우있음 잘 찾아보셈 -->
     <!-- jQuery -->
     <script src="${staticPath}/vendors/jquery/dist/jquery.min.js"></script>
-
+	<!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>  -->
+	<!-- <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> --> 
     <!-- Bootstrap -->
     <script src="${staticPath}/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- NProgress -->

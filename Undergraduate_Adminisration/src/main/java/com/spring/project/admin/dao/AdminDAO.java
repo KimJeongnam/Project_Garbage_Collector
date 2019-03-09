@@ -74,7 +74,7 @@ public interface AdminDAO {
 	public int Jang_getArticleCnt(Map<String,Object> map);
 	
 	//장학 글 목록
-	public List<ScholarpkVO> jang_getArticleList(Map<String,Object> map);
+	public List<Object> jang_getArticleList(Map<String,Object> map);
 	
 	//장학 심사 글 갯수 
 	public int audit_getArticleCnt(Map<String,Object> map);
@@ -92,10 +92,7 @@ public interface AdminDAO {
 	public int jang_delete(String[] checkbox);
 	
 	//장학글 심사
-	public List<auditVO> auditCnt();
-	
-	//장학글 심사
-	public List<auditVO> auditCnt2(int auditct);
+	public List<Object> auditCnt(Map<String, Object> map);
 	
 	//장학금 심사 합격
 	public int auditupdate(String[] checkbox);

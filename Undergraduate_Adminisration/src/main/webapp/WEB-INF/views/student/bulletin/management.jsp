@@ -11,12 +11,6 @@
 	<!-- page content -->
 	<div role="main">
 		<div class="col-md-12">
-			<div class="">
-				<div class="title_left">
-					<h2>장학금 수혜 내역</h2>
-
-				</div>
-			</div>
 
 			<div class="clearfix"></div>
 			<div class="x_panel" style="margin-top: 15px;">
@@ -27,34 +21,35 @@
 								<thead>
 									<a href="#">
 										<tr class="headings">
-											<th class="column-title">학년도</th>
-											<th class="column-title">학기</th>
-											<th class="column-title">장학금 명</th>
-											<th class="column-title">장학금 확정 금액</th>
-											<th class="column-title">지급 일자</th>
+											<th class="column-title text-center">장학금 명</th>
+											<th class="column-title text-center">장학금 확정 금액</th>
+											<th class="column-title text-center">신청일</th>
+											<th class="column-title text-center">지급 일자</th>
+											<th class="column-title text-center">상태</th>
 										</tr>
 									</a>
 								</thead>
 
 								<tbody>
-									<c:if test="${cnt > 0}">
+								<c:choose>
+									<c:when test="${dtos.size() > 0}">
 										<c:forEach var="dto" items="${dtos}">
 											<tr class="even pointer">
-												<td class=" ">${dto.s_year}</td>
-												<td class=" ">${dto.semester}</td>
-												<td class=" ">${dto.scholarname}</td>
-												<td class=" ">${dto.amount}원</td>
-												<td class=" ">${dto.year}</td>
+												<td class="text-center">${dto.scholarname}</td>
+												<td class="text-center">${dto.amount}원</td>
+												<td class="text-center">${dto.applyDay}</td>
+												<td class="text-center">${dto.paymentDay}</td>
+												<td class="text-center">${dto.strStat}</td>
 											</tr>
 										</c:forEach>
-									</c:if>
-
-									<c:if test="${cnt == 0}">
+									</c:when>
+									<c:otherwise>
 										<tr class="even pointer">
 											<td class=" " colspan="5" style="text-align: center;">장학금
 												수혜 내역이 없습니다.</td>
 										</tr>
-									</c:if>
+									</c:otherwise>
+								</c:choose>
 								</tbody>
 							</table>
 						</div>

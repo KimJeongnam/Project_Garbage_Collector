@@ -58,10 +58,7 @@ public interface AdminService {
 	//휴복학리스트
 	public void schoolLeaveList(HttpServletRequest req, Model model);
 	
-	//장학심사 
-	public void judge(HttpServletRequest req,  Model model); 
-	
-	//장학심사 
+	// 장학 심사 완료
 	public void auditPro(HttpServletRequest req,  Model model);
 	
 	//장학심사 

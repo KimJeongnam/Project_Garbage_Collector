@@ -3,10 +3,6 @@ function adminregistrationList(userNumber,page){
 	obj.userNumber = userNumber;
 	obj.pageNum = page;
 	
-	if($('#registrationList-year')!=null)
-		obj.year = $('#registrationList-year')[0].value;
-	if($('#registrationList-semester')!=null)
-		obj.smester = $('#registrationList-semester')[0].value;
 	
 	
 	var jsonData = JSON.stringify(obj);
@@ -26,14 +22,16 @@ function adminregistrationList(userNumber,page){
 		}
 	});
 }
-	function adminjudgeList(userNumber,page){
+	function adminjudgeList(){
 		
 		var obj = new Object();
-		obj.userNumber = userNumber;
-		obj.pageNum = page;
+	
+		if(arguments.length > 0)
+		obj.pageNum = arguments[0];
 		
 		if($('#auditList')!=null)
-			obj.audit = $('#auditList')[0].value;
+			if($('#auditList')[0].value != 'all')
+				obj.audit = $('#auditList')[0].value;
 		
 		
 		var jsonData = JSON.stringify(obj);

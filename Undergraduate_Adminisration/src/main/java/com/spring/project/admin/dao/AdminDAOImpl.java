@@ -190,7 +190,7 @@ public class AdminDAOImpl implements AdminDAO{
 		
 		//장학 글 목록
 		@Override
-		public List<ScholarpkVO> jang_getArticleList(Map<String, Object> map) {
+		public List<Object> jang_getArticleList(Map<String, Object> map) {
 			return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.jang_getArticleList",map);
 		}
 		//장학 심사 갯수
@@ -222,14 +222,10 @@ public class AdminDAOImpl implements AdminDAO{
 		
 		//장학금 심사
 		@Override
-		public List<auditVO> auditCnt() {
-			return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.auditCnt");
+		public List<Object> auditCnt(Map<String, Object> map) {
+			return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.auditCnt", map);
 		}
 		
-		@Override
-		public List<auditVO> auditCnt2(int auditct) {
-			return sqlSession.selectList("com.spring.project.admin.dao.AdminDAO.auditCnt2",auditct);
-		}
 		//장학금 심사 합격 완료
 		@Override
 		public int auditupdate(String[] checkbox) {
