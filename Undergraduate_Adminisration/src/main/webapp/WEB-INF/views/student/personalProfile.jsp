@@ -58,7 +58,7 @@
 										<li><i class="fa fa-briefcase user-profile-icon"></i>
 											자바대학교</li>
 
-										<li><i class="fa fa-university user-profile-icon">${vo.getMajorName()}</i>
+										<li><i class="fa fa-university user-profile-icon">${vo.majorName}</i>
 										</li>
 										<li><i class="fa fa-phone user-profile-icon">
 												${vo.getUserCellNum()}</i></li>

@@ -85,23 +85,7 @@
 							<td>${granted.grantedCredit}</td>
 							<td>${granted.totalJscore}</td>
 							<td>
-								<c:if test="${granted.totalJscore / granted.grantedCnt <100 &&
-											granted.totalJscore / granted.grantedCnt >=95}">A+</c:if>
-								<c:if test="${granted.totalJscore / granted.grantedCnt <95 &&
-											granted.totalJscore / granted.grantedCnt >=90}">A</c:if>
-								<c:if test="${granted.totalJscore / granted.grantedCnt <90 &&
-											granted.totalJscore / granted.grantedCnt >=85}">B+</c:if>
-								<c:if test="${granted.totalJscore / granted.grantedCnt <85 &&
-											granted.totalJscore / granted.grantedCnt >80}">B</c:if>
-								<c:if test="${granted.totalJscore / granted.grantedCnt <80 &&
-											granted.totalJscore / granted.grantedCnt >=75}">C+</c:if>
-								<c:if test="${granted.totalJscore / granted.grantedCnt <75 &&
-											granted.totalJscore / granted.grantedCnt >=70}">C</c:if>
-								<c:if test="${granted.totalJscore / granted.grantedCnt <70 &&
-											granted.totalJscore / granted.grantedCnt >=65}">D+</c:if>
-								<c:if test="${granted.totalJscore / granted.grantedCnt <65 &&
-											granted.totalJscore / granted.grantedCnt >=60}">D</c:if>
-								<c:if test="${granted.totalJscore / granted.grantedCnt <60}">F</c:if>			
+								${granted.avgScore}
 							</td>
 							</c:if>
 							</c:forEach>

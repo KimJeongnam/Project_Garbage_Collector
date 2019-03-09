@@ -692,7 +692,7 @@ function nextSemester(){
 
 //교번 인서트
 function nextProNum(){
-	if(document.proInput.userNumber.value.length >=8){
+	if(document.proInput.userNumber.value.length ==8){
 		document.proInput.numberChk.focus();
 	}else{
 		document.proInput.userNumber.focus();

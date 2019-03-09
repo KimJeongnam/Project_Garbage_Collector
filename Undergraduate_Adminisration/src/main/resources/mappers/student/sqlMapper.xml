@@ -180,7 +180,14 @@
 	<!-- 개인정보 -->
 	<select id="personalProfile" parameterType="String"
 		resultType="com.spring.project.student.vo.S_informationVO">
-		SELECT * FROM information WHERE userNumber=#{userNumber}
+		SELECT u.userNumber,u.userImage,u.userName,u.userSsn,u.gender,u.userZipCode,u.userCellNum,u.userAddr1,u.userAddr2,f.faculty,sd.majorNum,m.majorName,sd.grade,ss.graduation_state,ss.semester
+		   FROM users u,faculty f,student sd,studentState ss,major m
+		   where f.faculty = m.faculty
+		   and m.majorNum = sd.majorNum
+		   and ss.stdNumber = sd.stdNumber
+		   and u.userNumber = sd.stdNumber
+		   and u.usernumber = #{userNumber}
+		   and u.delstatus = 0
 	</select>
 
 	<!-- 개인정보 업데이트 -->
@@ -348,17 +355,17 @@
 	<!-- 내 학점 조회 -->
 	<select id="GPA"
 		resultType="com.spring.project.student.vo.GpaVO">
-		select rownum, r.* from(SELECT l.year, g.semester, l.lecCode, l.lectureName, l.grade, 
-												l.lectureClassfication, l.lectureScore, g.credit,g.jscore, u.userName
-							   	FROM student s, studentClassInfo sc, gpa g, lecture l, users u
-								WHERE s.stdNumber = sc.userNumber
-						          and u.userNumber = s.stdNumber
-							      and sc.lecCode = l.lecCode(+)
-							      and sc.infoCode=g.infoCode(+) 
-							      and sc.status = 3
-							      and g.semester is not null
-							      and s.stdNumber = #{userNumber}     
-							 order by l.lecCode asc) r
+	select rownum, r.* from(SELECT sc.year, g.semester, l.lecCode, l.lectureName, g.grade, g.infocode,
+									l.lectureClassfication, l.lectureScore, g.credit,g.jscore, u.userName
+						   	  FROM student s, studentClassInfo sc, gpa g, lecture l, users u
+							 WHERE s.stdNumber = sc.userNumber
+					           and u.userNumber = s.stdNumber
+						       and sc.lecCode = l.lecCode(+)
+						       and sc.infoCode=g.infoCode(+) 
+						       and sc.status = 3
+						       and g.semester is not null
+						       and s.stdNumber = #{userNumber}   
+						  order by l.lecCode asc) r
 	</select>
 
 	<!-- 신청 학점 -->
@@ -369,15 +376,15 @@
 	
 	<!-- 이수 학점 -->
 	<select id="grantedCredit" resultType="com.spring.project.student.vo.GpaVO">
-		SELECT sum(lecturescore) as grantedCredit, count(*) as grantedCnt, sum(g.jscore) as totalJscore
-		  from student s, studentClassInfo sc, gpa g, lecture l, users u
-		WHERE s.stdNumber = sc.userNumber
-		  and u.userNumber = s.stdNumber
-		  and sc.lecCode = l.lecCode(+)
-		  and sc.infoCode=g.infoCode(+) 
-		  and sc.status = 3
-		  and s.stdNumber = #{userNumber}
-		  and credit != 'F' AND credit is not null
+		select sum(lecturescore) as grantedCredit, count(*) as grantedCnt, sum(jscore) as totalJscore, ROUND((sum(multiple)/sum(lectureScore)),2) as avgScore
+		 from (select  g.credit, decode(g.credit, 'A+',4.5,'A',4,'B+',3.5,'B',3,'C+',2.5,'C',2,'D+',1.5,'D',1,'F',0) resultscore, l.lectureScore,
+       					 (decode(g.credit, 'A+',4.5,'A',4,'B+',3.5,'B',3,'C+',2.5,'C',2,'D+',1.5,'D',1,'F',0)*l.lectureScore) multiple, g.jscore
+        	  from gpa g, studentClassInfo s, lecture l 
+        	 where g.infoCode=s.infoCode 
+           	   and s.lecCode=l.lecCode
+           	   and g.credit not like '%F%'
+           	   and s.status =3
+               and s.userNumber=#{userNumber})
 	</select>
 	
 	<!-- 신청 기간 체크 -->

@@ -10,9 +10,13 @@
 
 	<!-- 마이페이지 -->
 	<select id="myPage" parameterType="String" resultType="com.spring.project.professor.vo.MyPageVO">
- 		SELECT * FROM users u JOIN employee e ON u.usernumber = e.empnumber WHERE u.userNumber=#{userNumber}
+ 		SELECT * 
+		FROM users u JOIN employee e 
+					ON u.usernumber = e.empnumber
+					join major m 
+					on e.majornum = m.majornum
+		WHERE u.userNumber=#{userNumber}
  	</select>
- 	 
  	 
  	<!-- 프로필 이미지 변경 -->
 	<update id="imageUpload" parameterType="com.spring.project.professor.vo.MyPageVO">

@@ -32,7 +32,6 @@ import com.spring.project.admin.vo.AdStdVO;
 import com.spring.project.admin.vo.ChartVO;
 import com.spring.project.admin.vo.IndexVO;
 import com.spring.project.admin.vo.ScholarpkVO;
-import com.spring.project.admin.vo.auditVO;
 import com.spring.project.admin.vo.lecMVO;
 import com.spring.project.admin.vo.payrollVO;
 import com.spring.project.share.Config;
@@ -332,18 +331,19 @@ public class AdminServiceImpl extends Board implements AdminService {
 			vo.setBankName(req.getParameter("bankName"));
 			vo.setAccountHolder(req.getParameter("accountHolder"));
 			vo.setAccountNumber(req.getParameter("accountNumber"));
-
-			int userInsert = dao.insertPUsers(vo);
-			int empInsert = dao.insertEmployees(vo);
+			vo.setAuthority(req.getParameter("authority"));
+			
+			int userInsert = dao.insertPUsers(vo); 
+			int empInsert = dao.insertEmployees(vo); 
 			dao.insertProcedure(vo);
 
 			int proInsertResult = userInsert + empInsert;
 
 			if (proInsertResult != 0)
 
-				red.addFlashAttribute("message", "교수등록완료.");
+				red.addFlashAttribute("message", "교직원등록완료.");
 			else
-				red.addFlashAttribute("message", "교수등록에러.");
+				red.addFlashAttribute("message", "교직원등록에러.");
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -468,7 +468,7 @@ public class AdminServiceImpl extends Board implements AdminService {
 
 		// studentState
 		vo.setSemester(Integer.parseInt(req.getParameter("semester")));
-		vo.setGraduation_state(Integer.parseInt(req.getParameter("graduation_state")));
+		//vo.setGraduation_state(Integer.parseInt(req.getParameter("graduation_state")));
 
 		// major
 		vo.setMajorNum(Integer.parseInt(req.getParameter("majorNum")));
