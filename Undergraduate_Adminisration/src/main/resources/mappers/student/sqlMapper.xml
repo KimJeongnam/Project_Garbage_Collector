@@ -180,7 +180,14 @@
 	<!-- 개인정보 -->
 	<select id="personalProfile" parameterType="String"
 		resultType="com.spring.project.student.vo.S_informationVO">
-		SELECT * FROM information WHERE userNumber=#{userNumber}
+		SELECT u.userNumber,u.userImage,u.userName,u.userSsn,u.gender,u.userZipCode,u.userCellNum,u.userAddr1,u.userAddr2,f.faculty,sd.majorNum,m.majorName,sd.grade,ss.graduation_state,ss.semester
+		   FROM users u,faculty f,student sd,studentState ss,major m
+		   where f.faculty = m.faculty
+		   and m.majorNum = sd.majorNum
+		   and ss.stdNumber = sd.stdNumber
+		   and u.userNumber = sd.stdNumber
+		   and u.usernumber = #{userNumber}
+		   and u.delstatus = 0
 	</select>
 
 	<!-- 개인정보 업데이트 -->
@@ -401,7 +408,8 @@
        					 (decode(g.credit, 'A+',4.5,'A',4,'B+',3.5,'B',3,'C+',2.5,'C',2,'D+',1.5,'D',1,'F',0)*l.lectureScore) multiple, g.jscore
         	  from gpa g, studentClassInfo s, lecture l 
         	 where g.infoCode=s.infoCode 
-           	   and s.lecCode=l.lecCode 
+           	   and s.lecCode=l.lecCode
+           	   and g.credit not like '%F%'
            	   and s.status =3
                and s.userNumber=#{userNumber})
 	</select>
