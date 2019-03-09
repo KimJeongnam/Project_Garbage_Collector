@@ -23,9 +23,34 @@ public class MyPageVO {
 	
 	private String introduction;
 	
+	//major
+	private int majorNum;			//학과번호 - pk
+	private String majorName;		//학과명
+	
+	//faculty
+	private String faculty; 
+
 	
 	
 	
+	public int getMajorNum() {
+		return majorNum;
+	}
+	public void setMajorNum(int majorNum) {
+		this.majorNum = majorNum;
+	}
+	public String getMajorName() {
+		return majorName;
+	}
+	public void setMajorName(String majorName) {
+		this.majorName = majorName;
+	}
+	public String getFaculty() {
+		return faculty;
+	}
+	public void setFaculty(String faculty) {
+		this.faculty = faculty;
+	}
 	public String getIntroduction() {
 		return introduction;
 	}

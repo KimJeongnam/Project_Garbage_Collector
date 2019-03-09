@@ -399,6 +399,7 @@ public class AdminServiceImpl extends Board implements AdminService {
 			vo.setBankName(req.getParameter("bankName"));
 			vo.setAccountHolder(req.getParameter("accountHolder"));
 			vo.setAccountNumber(req.getParameter("accountNumber"));
+			vo.setAuthority(req.getParameter("authority"));
 			
 			int userInsert = dao.insertPUsers(vo); 
 			int empInsert = dao.insertEmployees(vo); 
@@ -408,9 +409,9 @@ public class AdminServiceImpl extends Board implements AdminService {
 			
 			 if (proInsertResult != 0) 
 
-				red.addFlashAttribute("message", "교수등록완료.");
+				red.addFlashAttribute("message", "교직원등록완료.");
 			else
-				red.addFlashAttribute("message", "교수등록에러.");
+				red.addFlashAttribute("message", "교직원등록에러.");
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -536,7 +537,7 @@ public class AdminServiceImpl extends Board implements AdminService {
 
 		// studentState
 		vo.setSemester(Integer.parseInt(req.getParameter("semester")));
-		vo.setGraduation_state(Integer.parseInt(req.getParameter("graduation_state")));
+		//vo.setGraduation_state(Integer.parseInt(req.getParameter("graduation_state")));
 
 		// major
 		vo.setMajorNum(Integer.parseInt(req.getParameter("majorNum")));
@@ -1340,6 +1341,15 @@ public class AdminServiceImpl extends Board implements AdminService {
 			red.addFlashAttribute("message", "이미 추가 되어있는 년도와 학기 입니다.!");
 			red.addFlashAttribute("alertIcon","error");
 		}
+		
+		
+		
+		System.out.println("학사일정 수정 lecScInsert : " + startSelectLecture);
+		System.out.println("학사일정 수정 lecScInsert : " + endSelectLecture);
+		System.out.println("학사일정 수정 lecScInsert : " + openingDay);
+		System.out.println("학사일정 수정 lecScInsert : " + gradeOpeningDay);
+		System.out.println("학사일정 수정 lecScInsert : " + endingDay);
+		System.out.println("학사일정 수정 lecScInsert : " + lecScInsert);
 	}
 	
 	//학사관리 일정 수정
