@@ -398,7 +398,9 @@ function InsertPayroll() {
 					icon : "success",
 					button : "확인",
 				});
-				window.location.reload();
+				setTimeout(function() {
+					window.location.reload();
+				}, 3000);
 			}
 		},
 		error : function() {
@@ -426,7 +428,9 @@ function CopyPayroll() {
 					icon : "success",
 					button : "확인",
 				});
-				window.location.reload();
+				setTimeout(function() {
+					window.location.reload();
+				}, 3000);
 			}
 		},
 		error : function() {

@@ -1028,7 +1028,8 @@
 
 	<select id="getEmpNumber"
 		resultType="com.spring.project.admin.vo.payrollVO">
-		select empNumber from employee
+		select e.empNumber from employee e, users u where e.empNumber=u.userNumber and u.delStatus = 0 and 
+		e.empNumber <![CDATA[<>'admin']]>
 	</select>
 
 	<select id="getCopyPayrollFrom" parameterType="java.util.Map"
