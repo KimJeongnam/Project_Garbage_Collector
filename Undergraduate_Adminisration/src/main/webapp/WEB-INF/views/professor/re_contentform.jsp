@@ -76,8 +76,7 @@
 										<h4 class="modal-title" id="myModalLabel">참고자료 업로드</h4>
 									</div>
 									<form action="re_insert" method="post"
-										class="form-horizontal form-label-left" name="reportupload"
-										onsubmit="reportload();">
+										class="form-horizontal form-label-left" name="reportupload">
 
 										<div class="modal-body">
 
@@ -111,7 +110,8 @@
 												<div class="col-md-6 col-sm-6 col-xs-12">
 													<input type="date" id="enddate" name="enddate"
 														data-validate-linked="year" required="required"
-														class="form-control col-md-7 col-xs-12">
+														class="form-control col-md-7 col-xs-12"
+														onchange="reportload();">
 												</div>
 											</div>
 											<div class="item form-group">
@@ -237,9 +237,12 @@
 		var total = sysdate.getDate() - enddate.getDate();
 		
 		if(total > 0 ){
-			alert("지난날을 마감 날짜로 설정할 수 없습니다.");
-			return false;
+			//alert("지난날을 마감 날짜로 설정할 수 없습니다.");
+			return swal("warning","지난날을 마감 날짜로 설정할 수 없습니다.", "warning").then(()=>{
+				$('#enddate').val(sysdate);
+			});
 		}
+		
 	}
 	
 	function deletePro(deletecode) {

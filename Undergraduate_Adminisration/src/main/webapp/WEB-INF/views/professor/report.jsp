@@ -67,7 +67,6 @@
  	 $(function() {
 		p_reportlist('${userNumber}');
 		re_contentform('${userNumber}');
-		document.getElementById("Personnel1").style.display="none"
 		
 	});
  	
