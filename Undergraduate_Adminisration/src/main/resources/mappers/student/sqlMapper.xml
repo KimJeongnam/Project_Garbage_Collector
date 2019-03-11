@@ -140,7 +140,7 @@
 	<select id="getLectureScoreSum" parameterType="java.util.Map"
 		resultType="int">
 		SELECT NVL((select sum(lecturescore) from studentClassInfo s,
-		lecture l where s. lecCode=l.lecCode and s.status=1 group by userNumber
+		lecture l where s. lecCode=l.lecCode and s.status = 1 group by userNumber
 		having
 		userNumber=#{userNumber}), 0)+(SELECT lecturescore from lecture where
 		leccode = #{lecCode}) as lecturescoreSum from dual
