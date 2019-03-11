@@ -140,7 +140,7 @@
 	<select id="getLectureScoreSum" parameterType="java.util.Map"
 		resultType="int">
 		SELECT NVL((select sum(lecturescore) from studentClassInfo s,
-		lecture l where s. lecCode=l.lecCode group by userNumber
+		lecture l where s. lecCode=l.lecCode and s.status=1 group by userNumber
 		having
 		userNumber=#{userNumber}), 0)+(SELECT lecturescore from lecture where
 		leccode = #{lecCode}) as lecturescoreSum from dual
@@ -376,7 +376,7 @@
 
 	<!-- 신청 학점 -->
 	<select id="ApplyCredit" parameterType="String" resultType="int">
-		select sum(lectureScore) as ApplyCredit from lectureviewtest where
+		 select NVL(sum(lectureScore),0) as ApplyCredit from lectureviewtest where
 		userNumber = #{userNumber}
 	</select>
 	
@@ -401,6 +401,6 @@
 	<!-- 총 신청학점 -->
 	<select id="getTotalLecPoint" parameterType="String" resultType="int">
 		select nvl(sum(lecturescore),0) from lecture l, studentClassInfo s 
-		where l.lecCode=s.lecCode and userNumber = #{userNumber}
+		where l.lecCode=s.lecCode and userNumber = #{userNumber} and s.status=1
 	</select>
 </mapper>
