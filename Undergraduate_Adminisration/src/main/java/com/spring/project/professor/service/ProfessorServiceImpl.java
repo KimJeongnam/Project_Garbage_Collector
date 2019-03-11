@@ -441,12 +441,12 @@ public class ProfessorServiceImpl implements ProfessorService {
 	@Override
 	public void report(HttpServletRequest req, Model model) {
 		String userNumber = (String) req.getSession().getAttribute("userNumber");
-		List<MyClassVO> myClass = dao.myClass(userNumber);
+		List<StudentVO> list = dao.list(userNumber);
 		//내 강의 목록
 		List<LectureP_VO> vo = dao.P_Lecture(userNumber);
 		
 		//강의 인원
-		model.addAttribute("myClass",myClass);
+		model.addAttribute("reportlist",list);
 		model.addAttribute("vo",vo);
 	}
 	//과제 관리
@@ -480,7 +480,7 @@ public class ProfessorServiceImpl implements ProfessorService {
 		model.addAttribute("notCnt",notCnt);
 	}
 	
-	//과제 상세 페이지
+	//과제 제출 페이지
 	@Override
 	public void re_contentform(Map<String, Object> map, HttpServletRequest req, Model model) {
 		String subject = (String) map.get("subject");
@@ -490,7 +490,7 @@ public class ProfessorServiceImpl implements ProfessorService {
 		model.addAttribute("subject", subject);
 	}
 	
-	//과제 상세 페이지
+	//과제 제출 페이지
 		@Override
 		public void report_contentform(Map<String, Object> map, HttpServletRequest req, Model model) {
 			int personCnt = dao.personnel(map);
@@ -515,7 +515,7 @@ public class ProfessorServiceImpl implements ProfessorService {
 		}
 	//과제 추가
 	@Override
-	public void re_insert(HttpServletRequest req, RedirectAttributes red) { 
+	public void re_insert(HttpServletRequest req, RedirectAttributes red,Model model) { 
 		String leccode = req.getParameter("leccode");
 		String reportname = req.getParameter("reportname");
 		String content = req.getParameter("content");
@@ -528,11 +528,17 @@ public class ProfessorServiceImpl implements ProfessorService {
 		vo.setReportInfo(content);
 		vo.setReportName(reportname);
 		
+		
 		int insertCnt = dao.re_contentform(vo);
 		
 		if(insertCnt != 0) {
 			red.addFlashAttribute("message", "과제를 추가 하였습니다.");
 			red.addFlashAttribute("alertIcon","success");
+			model.addAttribute("insertCnt", insertCnt);
+			
+		}else {
+			red.addFlashAttribute("message", "과제를 추가 실패하였습니다.");
+			red.addFlashAttribute("alertIcon","error");
 		}
 		
 	}

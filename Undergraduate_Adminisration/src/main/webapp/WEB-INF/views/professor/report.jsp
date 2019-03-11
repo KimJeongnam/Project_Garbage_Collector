@@ -7,7 +7,7 @@
 	<%@ include file="../Basic/settings.jsp" %>
 <title>자바대학교 학사관리시스템</title>
 </head>
-<%-- <c:if test="${!empty myClass}"> --%>
+<c:if test="${!empty reportlist}">
 <body class="nav-md">
 
 	<%@ include file="../Basic/navbar.jsp" %>
@@ -67,7 +67,6 @@
  	 $(function() {
 		p_reportlist('${userNumber}');
 		re_contentform('${userNumber}');
-		document.getElementById("Personnel1").style.display="none"
 		
 	});
  	
@@ -88,9 +87,9 @@
 	  
 	}
  	</script>
-<%-- </c:if>
+</c:if> 
 
-<c:if test="${empty myClass}"> 
+<c:if test="${empty reportlist}"> 
  <%@ include file="../Basic/footer.jsp" %>
     <script type="text/javascript">
         swal({
@@ -102,7 +101,7 @@
     	});
 
     </script>
-</c:if>  --%>
+</c:if> 
 <!-- /page content -->
 	
 </body>

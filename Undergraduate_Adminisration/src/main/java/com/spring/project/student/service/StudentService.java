@@ -33,7 +33,7 @@ public interface StudentService {
 	public void reportlist(Map<String, Object> map, Logger logger, Model model,HttpServletRequest req);
 	
 	//과제 내용
-	public void reportcode(Map<String, Object> map, Logger logger, Model model,HttpServletRequest req);
+	public void reportcode(Map<String, Object> map, Logger logger, Model model,HttpServletRequest req,RedirectAttributes red);
 	
 	//과제 제출완료
 	public void assignment(MultipartHttpServletRequest req,RedirectAttributes red);

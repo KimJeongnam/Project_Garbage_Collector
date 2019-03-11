@@ -63,7 +63,7 @@ function studentmanagementlist(userNumber,page){
 
 
 //과제 관리
-function reportlist(userNumber){
+function reportlist(userNumber,lecname){
 	var obj = new Object();
 	obj.userNumber = userNumber;
 	
@@ -72,11 +72,19 @@ function reportlist(userNumber){
 		obj.select = $("#mystatus").val();
 	}
 	
-	
-	/*if($("#mystatus option:selected").val() != null){
-		obj.select = $("#mystatus option:selected").val();
-		alert($("#mystatus").val());
+	/*if(lecname != ""){
+		$("#mystatus").val(lecname);
+		$("#mystatus").text(lecname);
+		obj.select = lecname
+		alert(lecname);
 	}*/
+
+	/*if(lecname != null){
+		
+		obj.select = $("#mystatus").val();
+		alert("2번");
+	}*/
+	
 	
 	var jsonData = JSON.stringify(obj);
 	
@@ -142,6 +150,8 @@ function p_reportlist(userNumber){
 	if($("#mystatus").val() != null){
 		obj.select = $("#mystatus").val();
 	}
+	
+	
 	
 	var jsonData = JSON.stringify(obj);
 	
@@ -213,3 +223,5 @@ function report_Personnel2(reportcode,leccode){
 		}
 	});
 }
+
+//과제 제출 후 화면 단 유지

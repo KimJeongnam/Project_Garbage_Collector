@@ -140,6 +140,12 @@ public class StudentDAOImpl implements StudentDAO{
 		return sqlSession.selectOne("com.spring.project.student.dao.StudentDAO.reportsub",map);
 		
 	}
+	//과제 제출 확인 
+	public int reportCheck(Map<String, Object> map) {
+		int checkCnt = sqlSession.selectOne("com.spring.project.student.dao.StudentDAO.reportCheck",map);
+		return checkCnt;
+	}
+	
 	//과제 제출 완료
 	@Override
 	public int s_fileUpload(Report_subVO vo) {

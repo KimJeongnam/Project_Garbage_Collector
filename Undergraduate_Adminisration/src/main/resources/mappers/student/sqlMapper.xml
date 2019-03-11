@@ -219,6 +219,7 @@
 		from report_tbl r ,
 		lecture l
 		where l.lecCode = r.lecCode and lectureName = #{select}
+		order by REPORTCODE desc
 	</select>
 
 	<!-- 과제 내용 -->
@@ -241,6 +242,11 @@
  	<!--  과제 제출  -->
  	<select id="reportsub" parameterType="String" resultType="com.spring.project.student.vo.Report_subVO">
  		select * from users where userNumber = #{userNumber}
+ 	</select>
+ 	
+ 	<!--  과제 완료 체크 -->
+ 	<select id="reportCheck" resultType="int">
+ 		select count(*) from report_submit_tbl where reportcode = #{reportcode} and stdnumber = #{userNumber}
  	</select>
  	
  	<!-- 과제 제출 완료  --> 

@@ -30,6 +30,11 @@
 				</div>
 				<br />
 				<br />
+				<c:if test="${reportCheck != 0}">
+				<ul class="list-unstyled project_files">
+					<li><i class="fa fa-file-word-o"></i> 제출 완료</li>
+				</ul>
+				</c:if>
 				<!-- Large modal -->
 				<div class="text-center mtop20">
 					<button type="button" class="btn btn-sm btn-primary"
@@ -47,7 +52,7 @@
 									<h4 class="modal-title" id="myModalLabel">과제 업로드</h4>
 								</div>
 								<div class="modal-body">
-									<form action="../student/assignment" method="post" enctype="multipart/form-data" class="form-horizontal form-label-left">
+									<form action="../student/assignment" method="post" enctype="multipart/form-data" class="form-horizontal form-label-left" onsubmit="abc();">
 
 										<p>
 											파일을 잘못 보낼시 교수에게 요청
@@ -59,10 +64,6 @@
 												for="name">과제 번호 <span class="required">:</span>
 											</label>
 											<div class="col-md-6 col-sm-6 col-xs-12">
-												<%-- <input id="name" class="form-control col-md-7 col-xs-12"
-													data-validate-length-range="6" data-validate-words="2"
-													name="name" placeholder="both name(s) e.g Jon Doe"
-													required="required" type="text" value="${vo.getUserName()}"> --%>
 													<input type = "hidden" name="reportcode" value="${dtos.getReportcode()}">
 													${dtos.getReportcode()}
 											</div>
@@ -72,8 +73,6 @@
 												for="email">과제 명 <span class="required">:</span>
 											</label>
 											<div class="col-md-6 col-sm-6 col-xs-12">
-												<!-- <input type="email" id="email" name="email"
-													required="required" class="form-control col-md-7 col-xs-12"> -->
 													<input type = "hidden" name="title" value="${dtos.getReportName()}">
 													${dtos.getReportName()} 
 											</div>
@@ -83,9 +82,6 @@
 												for="email">학번 <span class="required">:</span>
 											</label>
 											<div class="col-md-6 col-sm-6 col-xs-12">
-												<!-- <input type="email" id="email2" name="confirm_email"
-													data-validate-linked="email" required="required"
-													class="form-control col-md-7 col-xs-12"> -->
 													${vo.getUserNumber()}
 											</div>
 										</div>
@@ -94,9 +90,6 @@
 												for="number">이름 <span class="required">:</span>
 											</label>
 											<div class="col-md-6 col-sm-6 col-xs-12">
-												<!-- <input type="number" id="number" name="number"
-													required="required" data-validate-minmax="10,100"
-													class="form-control col-md-7 col-xs-12"> -->
 													<input type = "hidden" name=userName value="${vo.getUserName()}">
 													${vo.getUserName()}
 											</div>
@@ -113,18 +106,12 @@
 										<div class="ln_solid"></div>
 										<div class="form-group">
 											<div class="col-md-6 col-md-offset-3">
-												<input type="hidden" name="lecName" value="${dtos.getLectureName()}">
+												<input type="hidden" id="lecName" name="lecName" value="${dtos.getLectureName()}">
 												<button id="send" type="submit" class="btn btn-success">보내기</button>
 											</div>
 										</div>
 									</form>
 								</div>
-								<!-- <div class="modal-footer">
-										<button type="button" class="btn btn-default"
-											data-dismiss="modal">취소
-										</button>
-										<button type="button" class="btn btn-primary">저장</button>
-									</div> -->
 							</div>
 						</div>
 					</div>
@@ -137,9 +124,9 @@
 
 	
 	<script type="text/javascript">
-	
-	
 	</script>
+	
+
 
 
 </body>
