@@ -30,9 +30,10 @@ public class StudentController {
 	
 	
 	@RequestMapping("/student/index")
-	public String index() {
+	public String index(HttpServletRequest req ,Model model) {
 		logger.info("index");
-		return "student/index";
+		service.personalProfile(req, model);
+		return "student/personalProfile";
 	}
 	
 	@RequestMapping("/student/report")
