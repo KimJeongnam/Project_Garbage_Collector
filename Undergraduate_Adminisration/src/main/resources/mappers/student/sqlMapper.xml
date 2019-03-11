@@ -243,6 +243,11 @@
  		select * from users where userNumber = #{userNumber}
  	</select>
  	
+ 	<!--  과제 완료 체크 -->
+ 	<select id="reportCheck" resultType="int">
+ 		select count(*) from report_submit_tbl where reportcode = #{reportcode} and stdnumber = #{userNumber}
+ 	</select>
+ 	
  	<!-- 과제 제출 완료  --> 
  	<insert id="s_fileUpload" parameterType="com.spring.project.student.vo.Report_subVO">
  		insert into report_submit_tbl 

@@ -70,6 +70,9 @@ public interface StudentDAO {
 	//과제 제출
 	public Report_subVO reportsub(Map<String, Object> map);
 	
+	//과제 제출 확인 
+	public int reportCheck(Map<String, Object> map);
+	
 	//과제 제출 완료
 	public int s_fileUpload(Report_subVO vo);
 	

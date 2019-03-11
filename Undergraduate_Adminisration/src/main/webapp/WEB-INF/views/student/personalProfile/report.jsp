@@ -56,8 +56,15 @@
 		var tr = $(this);
 		var td = tr.children();
 		
+		if(td.eq(4).text() =="제출 가능"){
 		reportcontent('${userNumber}',td.eq(0).text());
-		
+		}else {
+			swal({
+				text:"마감되었습니다.",
+				icon: "error",
+				button:"확인",
+			});
+		}
 	});
 	
 

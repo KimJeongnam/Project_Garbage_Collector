@@ -242,6 +242,10 @@ public class StudentServiceImpl extends Board implements StudentService {
 			System.out.println("프로필 이미지 변경 imageUpload : " + imageUpload);
 			
 			ShareUserInfo user = (ShareUserInfo) req.getSession().getAttribute("user"); 
+			
+			String lecName = null;
+			lecName = req.getParameter("lecName");
+			red.addAttribute("lecName", lecName);
 
 			if (imageUpload == 1) {
 				red.addFlashAttribute("message", "프로필 이미지를 변경하였습니다.");
@@ -319,8 +323,15 @@ public class StudentServiceImpl extends Board implements StudentService {
 	public void reportlist(Map<String, Object> map, Logger logger, Model model,HttpServletRequest req) {
 		//과제 전체 리스트
 		if(map.get("select") != null) {
+			System.out.println("select ::: "+ map.get("select"));
+			String userNumber = (String) map.get("userNumber");
+			System.out.println("userNumber:::"+userNumber);
 		List<report_tblVO> dtos2 = dao.s_report(map);
 		String lecName = null;
+		
+		List<middle_classVO> dtos = dao.s_Lecture(userNumber);
+		
+		model.addAttribute("dtos", dtos);
 		
 		if(req.getParameter("lecName")!=null) {
 			lecName = req.getParameter("lecName");
@@ -331,21 +342,25 @@ public class StudentServiceImpl extends Board implements StudentService {
 		
 		model.addAttribute("dtos2", dtos2);
 		
-		/*report_tblVO dtos = dao.reportcontent(map);
 		
-		model.addAttribute("dtos", dtos);
-*/
+		
 		}
 	}
 	
 	//과제 관리2
 	@Override
-	public void reportcode(Map<String, Object> map, Logger logger, Model model,HttpServletRequest req) {
+	public void reportcode(Map<String, Object> map, Logger logger, Model model,HttpServletRequest req,RedirectAttributes red) {
 		System.out.println("reportcode"+ map.get("reportcode"));
 		//과제 전체 리스트
 		report_tblVO dtos = dao.reportcontent(map);
 		
 		model.addAttribute("dtos", dtos);
+		if(dtos.getProgress() < 0) {
+			red.addFlashAttribute("message", "과제 제출 기간이 마감 되었습니다.");
+		}
+		//과제 제출 완료 확인
+		int reportCheck = dao.reportCheck(map);
+		System.out.println("reportCheck:::"+reportCheck);
 		
 		//과제 제출 하기
 		Report_subVO vo = dao.reportsub(map);
@@ -354,6 +369,7 @@ public class StudentServiceImpl extends Board implements StudentService {
 		if(req.getParameter("lecName")!=null) {
 			lecName = req.getParameter("lecName");
 		}
+		model.addAttribute("reportCheck", reportCheck);
 		model.addAttribute("lecName", lecName);
 		model.addAttribute("vo", vo);
 		
@@ -413,13 +429,16 @@ public class StudentServiceImpl extends Board implements StudentService {
 
 			System.out.println("파일제출 fileUpload : " + fileUpload);
 			red.addAttribute("lecName", lecName);
+			System.out.println("lecName:::"+lecName);
 			/*ShareUserInfo user = (ShareUserInfo) req.getSession().getAttribute("user"); */
 
 			if (fileUpload == 1) {
 				red.addFlashAttribute("message", "제출이 완료 되었습니다.");
+				System.out.println("파일 업로드 완료 :::");
 			}
-			if (fileUpload != 1)
+			if (fileUpload != 1) 
 				red.addFlashAttribute("message", "제출이 실패 했습니다. 다시한번 확인 바랍니다");
+			System.out.println("파일 업로드 실패 :::");
 
 		} catch (IOException e) {
 			e.printStackTrace();

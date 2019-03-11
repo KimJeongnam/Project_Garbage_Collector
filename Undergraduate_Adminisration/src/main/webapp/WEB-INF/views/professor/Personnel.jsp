@@ -5,6 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <%@ include file="../Basic/settings.jsp"%>
+<style type="text/css">
+</style>
 <title>자바대학교 학사관리시스템</title>
 
 <style>
@@ -15,19 +17,23 @@
 	<div class="col-md-9 col-sm-9 col-xs-12">
 
 		<ul class="stats-overview">
-			<li><span class="name"> 총 수강인원  </span> 
-					<span class="value text-success"> ${cnt} </span>
-				</li>
-				
-			<li><span class="name"> 과제 제출 인원 </span> 
-				<span class="value text-success"> ${submitCnt} </span></li>
-				
-				 
-				
-				
-			<li class="hidden-phone"><span class="name">과제 미제출 인원</span>
-			<span
-				class="value text-success"> ${notCnt} </span> </li>
+			<li><span class="name"
+				style="font-size: 20px; font-weight: bold;"> 총 수강인원 </span> <span
+				class="value text-success"
+				style="font-size: 20px; font-weight: bold;"> ${cnt} </span></li>
+
+			<li><span class="name"
+				style="font-size: 20px; font-weight: bold;"> 과제 제출 인원 </span> <span
+				class="value text-success"
+				style="font-size: 20px; font-weight: bold;"> ${submitCnt} </span></li>
+
+
+
+
+			<li class="hidden-phone" style="font-size: 20px; font-weight: bold;"><span
+				class="name" style="font-size: 20px; font-weight: bold;">과제
+					미제출 인원</span> <span class="value text-success"
+				style="font-size: 20px; font-weight: bold;"> ${notCnt} </span></li>
 		</ul>
 		<div>
 
@@ -46,7 +52,7 @@
 			<!-- end of user messages -->
 			<ul class="messages">
 				<c:forEach var="dto" items="${dtos}">
-					<li><img src="/project/resources/images/img.jpg"
+					<li><img src="/project/resources/${dto.userImage}"
 						class="avatar" alt="Avatar">
 						<div class="message_date">
 							<h3 class="date text-info">${dto.day}일</h3>
@@ -144,16 +150,16 @@
 	
 	
 	</script>
-	
-	
-	
-		<%-- function aaa() {
+
+
+
+	<%-- function aaa() {
 			if(${dtos.getProgress()} < 0){
 				alert("마감되었습니다")
 				self.close();
 			}
 		}  --%>
-	
+
 
 
 </body>

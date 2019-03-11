@@ -229,9 +229,9 @@ public class ProfessorController {
 
 	// 과제 추가
 	@RequestMapping("/professor/re_insert")
-	public String re_insert(HttpServletRequest req, RedirectAttributes red) {
+	public String re_insert(HttpServletRequest req, RedirectAttributes red,Model model) {
 		logger.info("re_insert()");
-		service.re_insert(req, red);
+		service.re_insert(req, red,model);
 		return "redirect:/professor/report";
 	}
 	// 과제 수정

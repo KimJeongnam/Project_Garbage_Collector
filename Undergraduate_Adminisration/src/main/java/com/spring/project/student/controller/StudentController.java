@@ -83,14 +83,14 @@ public class StudentController {
 	
 	//과제 상세내용
 	@RequestMapping(value="/student/reportContent", method=RequestMethod.POST) 
-	public String reportContent(@RequestBody Map<String, Object> map, Model model,HttpServletRequest req) {
+	public String reportContent(@RequestBody Map<String, Object> map, Model model,HttpServletRequest req,RedirectAttributes red) {
 		logger.info("reportContent");
-		service.reportcode(map, logger, model,req);
+		service.reportcode(map, logger, model,req,red);
 		
 		return "student/personalProfile/report2";
 	}
 	
-	//과제 상세내용
+	//과제 추가
 	@RequestMapping("/student/assignment")
 	public String assignment(MultipartHttpServletRequest req ,RedirectAttributes red) {
 		logger.info("assignment");

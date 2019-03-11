@@ -60,10 +60,5 @@ public class Report_subVO {
 	}
 	public void setUserNumber(String userNumber) {
 		this.userNumber = userNumber;
-	}
-	
-	
-	
-	
-
+	}	
 }

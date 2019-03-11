@@ -116,7 +116,7 @@
  	
  	<!--과제관리  -->
  	<select id="P_Lecture" parameterType="String" resultType="com.spring.project.professor.vo.LectureP_VO">
-		select lectureName,leccode from lecture where empnumber = #{userNumber}
+		<![CDATA[select lectureName,leccode from lecture where empnumber = #{userNumber} and delstatus <> 1 and lecstatus in (1,2)]]>
  	</select>
  	
  	<!-- 총수강인원 -->
@@ -161,12 +161,12 @@
 	
 	<!-- 과제 리스트 -->
  	<select id="task_lookup" parameterType="String" resultType="com.spring.project.professor.vo.Report_tblVO">
- 	select REPORTCODE
+select REPORTCODE
 ,LECCODE
 ,YEAR
 ,REPORTINFO
 ,REPORTNAME
-,to_char(ENDDATE,'yyyy-mm-dd') as ENDDATE from report_tbl where leccode = #{select}
+,to_char(ENDDATE,'yyyy-mm-dd') as ENDDATE from report_tbl where leccode = #{select} order by reportcode
  	</select>
  	
  	<!-- 과제 제출 리스트 -->
