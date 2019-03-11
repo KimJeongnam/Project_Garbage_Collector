@@ -41,7 +41,7 @@ public class RestfulServiceImpl implements RestfulService {
 		map.put("readStatus",  0);
 		
 		String userNumber = (String)request.getSession().getAttribute("userNumber");
-		List<Message> sessionMessages = MessageLists.map.get(userNumber);
+		List<Message> sessionMessages = (List<Message>)request.getSession().getAttribute("message_Temp");
 		Map<Integer, Message> nets = new HashMap<Integer, Message>();
 		List<Message> newMessages = new ArrayList<Message>();
 		List<Message> list = dao.getMessages(map);
@@ -75,7 +75,7 @@ public class RestfulServiceImpl implements RestfulService {
 			result.put("notReadMessages", list);
 		}
 
-		MessageLists.map.put(userNumber, list);
+		request.getSession().setAttribute("message_Temp", list);
 
 		return result;
 	}

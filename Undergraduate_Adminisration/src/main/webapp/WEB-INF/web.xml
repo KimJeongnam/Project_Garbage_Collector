@@ -56,9 +56,9 @@
 	</filter-mapping>
 
 	<!-- security 추가 start -->
-	<listener>
+	<!-- <listener>
 		<listener-class>org.springframework.security.web.session.HttpSessionEventPublisher</listener-class>
-	</listener>
+	</listener> -->
 	<filter>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>

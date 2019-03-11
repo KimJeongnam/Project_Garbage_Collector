@@ -76,7 +76,7 @@ public class ShareServiceImpl implements ShareService{
 			request.getSession().setAttribute("semester", lectrueSelectPeriod.getSemester());
 		}
 		
-		MessageLists.map.put(user.getUserName(), new ArrayList<Message>());
+		request.getSession().setAttribute("message_Temp", new ArrayList<Message>());
 		
 		//logger.info(user.toString());
 		//logger.info(""+user.getMajorNum());
