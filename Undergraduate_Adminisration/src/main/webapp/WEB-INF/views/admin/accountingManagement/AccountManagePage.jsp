@@ -36,26 +36,26 @@
 							<table  id="datatable-keytable" class="table table-striped table-bordered">
 								<thead>
 									<tr class="headings">
-										<th>신고귀속</th>
-										<th>구분</th>
-										<th>대장 명칭</th>
-										<th>지급일</th>
-										<th>지급연월</th>
-										<th>사전작업</th>
-										<th>급여대장</th>
-										<th>지급총액</th>
+										<th style="text-align:center;">신고귀속</th>
+										<th style="text-align:center;">구분</th>
+										<th style="text-align:center;">대장 명칭</th>
+										<th style="text-align:center;">지급일</th>
+										<th style="text-align:center;">지급연월</th>
+										<th style="text-align:center;">사전작업</th>
+										<th style="text-align:center;">급여대장</th>
+										<th style="text-align:center;">지급총액</th>
 									</tr>
 								</thead>
 								<tbody>
 									<c:forEach var="dto" items="${dtos}">
 										<tr>
-											<td style="vertical-align: middle" id="confirmYear">${dto.imputedYear}</td>
-											<td style="vertical-align: middle"
+											<td style="vertical-align: middle; text-align:center;" id="confirmYear">${dto.imputedYear}</td>
+											<td style="vertical-align: middle; text-align:center; "
 												id="confirmPaymentClassfication">${dto.paymentClassfication}</td>
-											<td style="vertical-align: middle">${dto.registerName}</td>
-											<td style="vertical-align: middle">${dto.paymentDate}</td>
-											<td style="vertical-align: middle">${dto.paymentYear}</td>
-											<th style="vertical-align: middle"><input hidden="true"
+											<td style="vertical-align: middle; text-align:center;">${dto.registerName}</td>
+											<td style="vertical-align: middle; text-align:center;">${dto.paymentDate}</td>
+											<td style="vertical-align: middle; text-align:center;">${dto.paymentYear}</td>
+											<th style="vertical-align: middle; text-align:center;"><input hidden="true"
 												type="text" name="PayrollStatus" value="${dto.status}">
 												<c:if test="${dto.status == 1}">
 													<a class="btn btn-primary"
@@ -72,7 +72,7 @@
 														class="btn btn-success" data-target="#EnterAmountManually"
 														data-toggle="modal"><i class="fa fa-edit m-right-xs"></i>금액직접입력</a>
 												</c:if></th>
-											<td style="vertical-align: middle"><a
+											<td style="vertical-align: middle; text-align:center;"><a
 												onclick="openAccountModal('조회','${dto.imputedYear}');"
 												class="btn btn-success" data-target="#LookupWorkRecord"
 												data-toggle="modal"><i
@@ -93,10 +93,9 @@
 														class="btn btn-danger"><i
 														class="glyphicon glyphicon-trash"></i>삭제</a>
 												</c:if></td>
-											<td style="vertical-align: middle" id="total"><input
-												type="text" style="text-align: right; width: 100px"
-												value="<fmt:formatNumber value="${dto.totalAmount}" pattern="#,###" />"
-												readonly>원</td>
+											<td style="vertical-align: middle;font-size:large;text-align:center;" id="total">
+											<fmt:formatNumber value="${dto.totalAmount}" pattern="#,###" />
+												원</td>
 										</tr>
 									</c:forEach>
 								</tbody>
