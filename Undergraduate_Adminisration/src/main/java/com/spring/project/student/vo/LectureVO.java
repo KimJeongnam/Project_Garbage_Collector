@@ -32,11 +32,20 @@ public class LectureVO {
 	private String endLectureTime;
 	private String majorName;
 	private int rank;
+	private int infoCode;
 	
 	private int day; // 0,1,2,3,4 : 월,화,수,목,금
 	
 	private int result;
 	
+	
+	
+	public int getInfoCode() {
+		return infoCode;
+	}
+	public void setInfoCode(int infoCode) {
+		this.infoCode = infoCode;
+	}
 	public List<LectureTime> getLectureTimes() {
 		return lectureTimes;
 	}

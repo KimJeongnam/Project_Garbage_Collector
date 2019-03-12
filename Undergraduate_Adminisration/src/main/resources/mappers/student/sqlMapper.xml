@@ -340,13 +340,20 @@
 	<!-- 내 수강신청 목록 조회 -->
 	<select id="studentMyLecture" parameterType="String"
 		resultType="com.spring.project.student.vo.LectureVO">
-		select * from mylectureview where userNumber =
-		#{userNumber}
+		select * from
+		(SELECT u.userName as accountHolder, l.lecCode,l.majorNum,l.lectureName, l.lectureClassfication, l.maximumCapacity,l.grade,
+		l.grantedSemester, l.lectureScore, l.classRoom, sc.userNumber, sc.infocode
+		FROM studentClassInfo sc, lecture l, lectureTime lt, timeTable t, employee e,users u
+		WHERE sc.lecCode = l.lecCode and l.lecCode = lt.lecCode and e.empNumber = l.empNumber
+		and lt.timetblCode = t.timetblCode and sc.status = 1 and u.userNumber = e.empNumber
+		GROUP BY u.userName, l.lecCode,l.majorNum,l.lectureName, l.lectureClassfication, l.maximumCapacity,l.grade,
+		l.grantedSemester, l.lectureScore, l.classRoom, sc.userNumber, sc.infocode)
+		where userNumber = #{userNumber}
 	</select>
 
 	<delete id="cancelLecture" parameterType="java.util.Map">
 		delete from
-		studentClassInfo where lecCode = #{lecCode} and
+		studentClassInfo where infoCode = #{infoCode} and
 		userNumber=#{userNumber}
 	</delete>
 

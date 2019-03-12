@@ -36,7 +36,7 @@
 					<td>${dto.lectureScore}</td>
 					<td>${dto.accountHolder}</td>
 					<td>${dto.classRoom}</td>
-					<th><a onclick="cancelLecture('${userNumber}','${dto.lecCode}');" class="btn btn-danger">
+					<th><a onclick="cancelLecture('${userNumber}','${dto.infoCode}');" class="btn btn-danger">
 						<i class="glyphicon glyphicon-trash"></i>취소</a></th>
 				</tr>
 			</c:forEach>

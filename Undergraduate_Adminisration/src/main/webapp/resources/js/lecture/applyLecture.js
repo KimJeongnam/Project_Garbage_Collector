@@ -125,10 +125,10 @@ function applyLecture(userNumber, lecCode){
 	});
 }
 
-function cancelLecture(userNumber, lecCode){
+function cancelLecture(userNumber, infoCode){
 	var obj = new Object();
 	obj.userNumber = userNumber;
-	obj.lecCode = lecCode;
+	obj.infoCode = infoCode;
 	
 	var jsonData = JSON.stringify(obj);
 	
