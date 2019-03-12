@@ -4,10 +4,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
+import com.spring.project.admin.service.AdminServiceImpl;
 import com.spring.project.admin.vo.AdProVO;
 import com.spring.project.admin.vo.AdStdVO;
 import com.spring.project.admin.vo.ChartVO;
@@ -25,6 +28,8 @@ public class AdminDAOImpl implements AdminDAO{
 	
 	@Autowired
 	private SqlSession sqlSession;
+	
+	private static final Logger logger = LoggerFactory.getLogger(AdminDAOImpl.class);
 	
 	//중복확인
 	@Override
@@ -295,7 +300,9 @@ public class AdminDAOImpl implements AdminDAO{
 	
 	@Override
 	public int getLectureCount(Map<String, Object> map) {
-		return sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.getLectureCount");
+		logger.info("map " + map.toString());
+		logger.info(ShareDAO.getQuery(sqlSession, "getLectureCount", map));
+		return sqlSession.selectOne("com.spring.project.admin.dao.AdminDAO.getLectureCount", map);
 	}
 	@Override
 	public List<Object> getLectureList(Map<String, Object> map) {

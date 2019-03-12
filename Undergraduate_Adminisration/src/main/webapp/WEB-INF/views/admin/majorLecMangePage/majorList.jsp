@@ -58,7 +58,7 @@
 				<c:if test="${cnt > 0 }">
 					<c:if test="${startPage > pageBlock }">				
 						<li class="paginate_button previous"  style="cursor:pointer;"
-							onclick="getMajors();"
+							onclick="getMajors(1);"
 							id="datatable_previous"><a aria-controls="datatable"
 							data-dt-idx="0" tabindex="0">Frist</a></li>
 						<li class="paginate_button previous"  style="cursor:pointer;"

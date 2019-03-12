@@ -13,6 +13,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,7 @@ import com.crontab.dao.ScheduleDAO;
 import com.crontab.vo.LectrueSelectPeriod;
 import com.spring.project.Board.Board;
 import com.spring.project.Board.BoardInterface;
+import com.spring.project.admin.controller.AdminController;
 import com.spring.project.admin.dao.AdminDAO;
 import com.spring.project.admin.vo.AdProVO;
 import com.spring.project.admin.vo.AdStdVO;
@@ -48,6 +50,8 @@ public class AdminServiceImpl extends Board implements AdminService {
 	ShareDAO shareDao;
 	@Autowired
 	ScheduleDAO schduleDao;
+	
+	private static final Logger logger = LoggerFactory.getLogger(AdminServiceImpl.class);
 
 	/* 장학 단 */
 	// 장학 글 목록
@@ -893,7 +897,9 @@ public class AdminServiceImpl extends Board implements AdminService {
 		setList(map, model, new BoardInterface() {
 			@Override
 			public int getListCount(Map<String, Object> map) {
-				return dao.getLectureCount(map);
+				int cnt = dao.getLectureCount(map);
+				logger.info("ListTotalCount : "+cnt);
+				return cnt;
 			}
 
 			@Override

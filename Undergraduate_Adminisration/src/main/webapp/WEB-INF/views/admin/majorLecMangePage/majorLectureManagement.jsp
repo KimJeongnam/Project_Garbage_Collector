@@ -85,7 +85,7 @@
 									<div class="col-md-3 col-sm-4 col-xs-6 form-inline"
 										style="padding-right: 0px;">
 										<label> Show <select class="form-control input-sm"
-											id="lecture-pagesize" onchange="getLectureList();">
+											id="lecture-pagesize" onchange="getLectureList('1');">
 												<option value="5">5</option>
 												<option value="10" selected="selected">10</option>
 												<option value="25">25</option>
@@ -97,7 +97,7 @@
 									<div class="col-md-3 col-sm-4 col-xs-6 form-inline"
 										style="padding-right: 0px;">
 										<label><select class="form-control input-sm"
-											id="lecture-semester" onchange="getLectureList();">
+											id="lecture-semester" onchange="getLectureList('1');">
 												<option selected="selected" value="all">학기</option>
 												<option value="1">1학기</option>
 												<option value="2">2학기</option>
@@ -107,7 +107,7 @@
 									<div class="col-md-3 col-sm-4 col-xs-6 form-inline"
 										style="padding-right: 0px;">
 										<label><select class="form-control input-sm"
-											id="divisionSelector" onchange="getLectureList();">
+											id="divisionSelector" onchange="getLectureList('1');">
 												<option selected="selected" value="all">구분</option>
 												<option value="1">전공</option>
 												<option value="2">교양</option>
@@ -117,7 +117,7 @@
 									<div class="col-md-3 col-sm-4 col-xs-6 form-inline"
 										style="padding-right: 0px;">
 										<label><select class="form-control input-sm"
-											id="lec-facultySelector" onchange="selectLecFaculty();">
+											id="lec-facultySelector" onchange="selectLecFaculty('1');">
 												<option selected="selected" value="0">단과대</option>
 										</select>
 										</label>
@@ -127,7 +127,7 @@
 									<div class="col-md-4 col-sm-6 col-xs-6 form-inline"
 										style="padding-right: 0px;">
 										<label><select class="form-control input-sm"
-											id="lec-majorSelector" onchange="getLectureList();">
+											id="lec-majorSelector" onchange="getLectureList('1');">
 												<option selected="selected" value="0">학과(단과대 선택)</option>
 										</select>
 										</label>
@@ -135,7 +135,7 @@
 									<div class="col-md-8 col-sm-6 col-xs-6" style="text-align: right;">
 										<label> Search: <input type="search"
 											id="lecture-search-keyword" class="form-control input-sm"
-											onkeyup="getLectureList();" placeholder="학과명">
+											onkeyup="getLectureList(1);" placeholder="학과명">
 										</label>
 									</div>
 								</div>

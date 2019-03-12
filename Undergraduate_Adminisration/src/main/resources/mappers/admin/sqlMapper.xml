@@ -658,10 +658,9 @@
 		WHERE sequence_name = 'LECTURE_SEQ'
 	</select>
 
-	<select id="getLectureCount" resultType="int">
+	<select id="getLectureCount" parameterType="java.util.Map" resultType="int">
 		SELECT COUNT(*)
 		FROM(
-        SELECT ROWNUM rnum, r.* FROM(
 		SELECT 
 		l.lecCode , l.majorNum, m.majorName,
 		l.lectureName, u.userNumber,
@@ -678,9 +677,7 @@
 		JOIN users u
 		ON emp.empNumber = u.userNumber
 		<where>
-	            	<![CDATA[ 
-	            	l.delStatus <> 1 
-	            	]]>
+	            l.delStatus != 1 
 			<if test="division != null">
 				AND l.lectureClassfication = #{division}
 			</if>
@@ -697,11 +694,10 @@
 				AND l.grantedsemester = #{semester}
 			</if>
 		</where>
-		order by l.leccode desc) r
 		)
 	</select>
 
-	<select id="getLectureList"
+	<select id="getLectureList" parameterType="java.util.Map"
 		resultType="com.spring.project.student.vo.LectureVO">
 		SELECT *
 		FROM(
@@ -722,9 +718,7 @@
 		JOIN users u
 		ON emp.empNumber = u.userNumber
 		<where>
-	            	<![CDATA[ 
-	            	l.delStatus <> 1 
-	            	]]>
+	            l.delStatus != 1 
 			<if test="division != null">
 				AND l.lectureClassfication = #{division}
 			</if>

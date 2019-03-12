@@ -499,7 +499,7 @@ function selectLecFaculty(){
 	}else{
 		setLecmajorSelector(faculty);
 	}
-	getLectureList();
+	getLectureList('1');
 }
 
 /*
